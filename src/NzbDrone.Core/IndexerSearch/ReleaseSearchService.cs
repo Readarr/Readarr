@@ -136,6 +136,16 @@ namespace NzbDrone.Core.IndexerSearch
 
             _logger.Debug("Total of {0} reports were found for {1} from {2} indexers", reports.Count, criteriaBase, indexers.Count);
 
+            // Update the last search time for all albums if at least 1 indexer was searched.
+            if (indexers.Any())
+            {
+                var lastSearchTime = DateTime.UtcNow;
+                _logger.Debug("Setting last search time to: {0}", lastSearchTime);
+
+                criteriaBase.Books.ForEach(a => a.LastSearchTime = lastSearchTime);
+                _bookService.UpdateLastSearchTime(criteriaBase.Books);
+            }
+
             return _makeDownloadDecision.GetSearchDecision(reports, criteriaBase).ToList();
         }
 
