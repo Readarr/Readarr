@@ -62,7 +62,7 @@ namespace NzbDrone.Core.DecisionEngine.Specifications.RssSync
 
                     // The author will be the same as the one in history since it's the same book.
                     // Instead of fetching the author from the DB reuse the known author.
-                    var preferredWordScore = _preferredWordServiceCalculator.Calculate(subject.Author, mostRecent.SourceTitle);
+                    var preferredWordScore = _preferredWordServiceCalculator.Calculate(subject.Author, mostRecent.SourceTitle, subject.Release?.IndexerId ?? 0);
 
                     var cutoffUnmet = _upgradableSpecification.CutoffNotMet(
                         subject.Author.QualityProfile,

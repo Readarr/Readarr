@@ -40,7 +40,7 @@ namespace NzbDrone.Core.DecisionEngine.Specifications
 
                 if (!_upgradableSpecification.IsUpgradable(subject.Author.QualityProfile,
                                                            new List<QualityModel> { file.Quality },
-                                                           _preferredWordServiceCalculator.Calculate(subject.Author, file.GetSceneOrFileName()),
+                                                           _preferredWordServiceCalculator.Calculate(subject.Author, file.GetSceneOrFileName(), subject.Release?.IndexerId ?? 0),
                                                            subject.ParsedBookInfo.Quality,
                                                            subject.PreferredWordScore))
                 {
