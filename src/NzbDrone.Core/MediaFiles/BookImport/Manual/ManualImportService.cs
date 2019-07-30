@@ -138,11 +138,11 @@ namespace NzbDrone.Core.MediaFiles.BookImport.Manual
             if (downloadId.IsNotNullOrWhiteSpace())
             {
                 var trackedDownload = _trackedDownloadService.Find(downloadId);
-                downloadClientItem = trackedDownload.DownloadItem;
+                downloadClientItem = trackedDownload?.DownloadItem;
 
                 if (author == null)
                 {
-                    author = trackedDownload.RemoteBook?.Author;
+                    author = trackedDownload?.RemoteBook?.Author;
                 }
             }
 
