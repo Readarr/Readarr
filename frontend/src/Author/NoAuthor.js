@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import Button from 'Components/Link/Button';
 import { kinds } from 'Helpers/Props';
+import translate from 'Utilities/String/translate';
 import styles from './NoAuthor.css';
 
 function NoAuthor(props) {
@@ -31,7 +32,7 @@ function NoAuthor(props) {
           to="/settings/mediamanagement"
           kind={kinds.PRIMARY}
         >
-          Add Root Folder
+          {translate('AddRootFolder')}
         </Button>
       </div>
 
@@ -40,7 +41,7 @@ function NoAuthor(props) {
           to="/add/search"
           kind={kinds.PRIMARY}
         >
-          Add New Author
+          {translate('AddNewAuthor')}
         </Button>
       </div>
     </div>

@@ -78,6 +78,7 @@ class AddNewAuthorSearchResult extends Component {
       status,
       overview,
       ratings,
+      folder,
       images,
       isExistingAuthor,
       isSmallScreen
@@ -205,6 +206,7 @@ class AddNewAuthorSearchResult extends Component {
           disambiguation={disambiguation}
           year={year}
           overview={overview}
+          folder={folder}
           images={images}
           onModalClose={this.onAddAuthorModalClose}
         />
@@ -222,6 +224,7 @@ AddNewAuthorSearchResult.propTypes = {
   status: PropTypes.string.isRequired,
   overview: PropTypes.string,
   ratings: PropTypes.object.isRequired,
+  folder: PropTypes.string.isRequired,
   images: PropTypes.arrayOf(PropTypes.object).isRequired,
   isExistingAuthor: PropTypes.bool.isRequired,
   isSmallScreen: PropTypes.bool.isRequired

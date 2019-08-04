@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using NzbDrone.Common.Extensions;
 using NzbDrone.Core.Books;
 using NzbDrone.Core.Books.Calibre;
 using NzbDrone.Core.RootFolders;
@@ -47,7 +48,7 @@ namespace Readarr.Api.V1.RootFolders
                 Id = model.Id,
 
                 Name = model.Name,
-                Path = model.Path,
+                Path = model.Path.GetCleanPath(),
                 DefaultMetadataProfileId = model.DefaultMetadataProfileId,
                 DefaultQualityProfileId = model.DefaultQualityProfileId,
                 DefaultMonitorOption = model.DefaultMonitorOption,

@@ -9,6 +9,7 @@ import ModalContent from 'Components/Modal/ModalContent';
 import ModalFooter from 'Components/Modal/ModalFooter';
 import ModalHeader from 'Components/Modal/ModalHeader';
 import { kinds } from 'Helpers/Props';
+import translate from 'Utilities/String/translate';
 import AddAuthorOptionsForm from '../Common/AddAuthorOptionsForm.js';
 import styles from './AddNewAuthorModalContent.css';
 
@@ -54,7 +55,7 @@ class AddNewAuthorModalContent extends Component {
     return (
       <ModalContent onModalClose={onModalClose}>
         <ModalHeader>
-          Add new Author
+          {translate('AddNewAuthor')}
         </ModalHeader>
 
         <ModalBody>
@@ -133,7 +134,7 @@ class AddNewAuthorModalContent extends Component {
 
 AddNewAuthorModalContent.propTypes = {
   authorName: PropTypes.string.isRequired,
-  disambiguation: PropTypes.string.isRequired,
+  disambiguation: PropTypes.string,
   overview: PropTypes.string,
   images: PropTypes.arrayOf(PropTypes.object).isRequired,
   isAdding: PropTypes.bool.isRequired,

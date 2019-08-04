@@ -10,13 +10,15 @@ import AddNewItem from './AddNewItem';
 function createMapStateToProps() {
   return createSelector(
     (state) => state.search,
+    (state) => state.authors.items.length,
     (state) => state.router.location,
-    (search, location) => {
+    (search, existingAuthorsCount, location) => {
       const { params } = parseUrl(location.search);
 
       return {
+        ...search,
         term: params.term,
-        ...search
+        hasExistingAuthors: existingAuthorsCount > 0
       };
     }
   );

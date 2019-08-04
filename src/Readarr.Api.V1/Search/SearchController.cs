@@ -4,6 +4,7 @@ using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using NzbDrone.Core.MediaCover;
 using NzbDrone.Core.MetadataSource;
+using NzbDrone.Core.Organizer;
 using Readarr.Api.V1.Author;
 using Readarr.Api.V1.Books;
 using Readarr.Http;
@@ -14,11 +15,13 @@ namespace Readarr.Api.V1.Search
     public class SearchController : Controller
     {
         private readonly ISearchForNewEntity _searchProxy;
+        private readonly IBuildFileNames _fileNameBuilder;
         private readonly IMapCoversToLocal _coverMapper;
 
-        public SearchController(ISearchForNewEntity searchProxy, IMapCoversToLocal coverMapper)
+        public SearchController(ISearchForNewEntity searchProxy, IBuildFileNames fileNameBuilder, IMapCoversToLocal coverMapper)
         {
             _searchProxy = searchProxy;
+            _fileNameBuilder = fileNameBuilder;
             _coverMapper = coverMapper;
         }
 
@@ -50,6 +53,8 @@ namespace Readarr.Api.V1.Search
                     {
                         resource.Author.RemotePoster = poster.Url;
                     }
+
+                    resource.Author.Folder = _fileNameBuilder.GetAuthorFolder(author);
                 }
                 else if (result is NzbDrone.Core.Books.Book book)
                 {
@@ -67,6 +72,8 @@ namespace Readarr.Api.V1.Search
                     {
                         resource.Book.RemoteCover = cover.Url;
                     }
+
+                    resource.Book.Author.Folder = _fileNameBuilder.GetAuthorFolder(book.Author);
                 }
                 else
                 {

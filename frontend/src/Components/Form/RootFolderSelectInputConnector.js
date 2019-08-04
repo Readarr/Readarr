@@ -28,8 +28,7 @@ function createMapStateToProps() {
       if (includeNoChange) {
         values.unshift({
           key: 'noChange',
-          value: '',
-          name: translate('NoChange'),
+          value: translate('NoChange'),
           isDisabled: includeNoChangeDisabled,
           isMissing: false
         });
@@ -39,7 +38,6 @@ function createMapStateToProps() {
         values.push({
           key: '',
           value: '',
-          name: '',
           isDisabled: true,
           isHidden: true
         });
@@ -56,8 +54,7 @@ function createMapStateToProps() {
 
       values.push({
         key: ADD_NEW_KEY,
-        value: '',
-        name: 'Add a new path'
+        value: 'Add a new path'
       });
 
       return {

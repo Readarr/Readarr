@@ -13,6 +13,15 @@
   }
 }
 
+.value {
+  display: flex;
+}
+
+.authorFolder {
+  flex: 0 0 auto;
+  color: var(--disabledColor);
+}
+
 .freeSpace {
   margin-left: 15px;
   color: var(--darkGray);

@@ -45,6 +45,7 @@ namespace Readarr.Api.V1.Author
         public NewItemMonitorTypes MonitorNewItems { get; set; }
 
         public string RootFolderPath { get; set; }
+        public string Folder { get; set; }
         public List<string> Genres { get; set; }
         public string CleanName { get; set; }
         public string SortName { get; set; }

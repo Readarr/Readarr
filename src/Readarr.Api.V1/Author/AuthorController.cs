@@ -59,7 +59,8 @@ namespace Readarr.Api.V1.Author
                             AuthorAncestorValidator authorAncestorValidator,
                             SystemFolderValidator systemFolderValidator,
                             QualityProfileExistsValidator qualityProfileExistsValidator,
-                            MetadataProfileExistsValidator metadataProfileExistsValidator)
+                            MetadataProfileExistsValidator metadataProfileExistsValidator,
+                            AuthorFolderAsRootFolderValidator authorFolderAsRootFolderValidator)
             : base(signalRBroadcaster)
         {
             _authorService = authorService;
@@ -89,7 +90,10 @@ namespace Readarr.Api.V1.Author
             SharedValidator.RuleFor(s => s.MetadataProfileId).SetValidator(metadataProfileExistsValidator);
 
             PostValidator.RuleFor(s => s.Path).IsValidPath().When(s => s.RootFolderPath.IsNullOrWhiteSpace());
-            PostValidator.RuleFor(s => s.RootFolderPath).IsValidPath().When(s => s.Path.IsNullOrWhiteSpace());
+            PostValidator.RuleFor(s => s.RootFolderPath)
+                         .IsValidPath()
+                         .SetValidator(authorFolderAsRootFolderValidator)
+                         .When(s => s.Path.IsNullOrWhiteSpace());
             PostValidator.RuleFor(s => s.AuthorName).NotEmpty();
             PostValidator.RuleFor(s => s.ForeignAuthorId).NotEmpty().SetValidator(authorExistsValidator);
 

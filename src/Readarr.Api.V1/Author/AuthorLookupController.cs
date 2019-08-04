@@ -3,6 +3,7 @@ using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using NzbDrone.Core.MediaCover;
 using NzbDrone.Core.MetadataSource;
+using NzbDrone.Core.Organizer;
 using Readarr.Http;
 
 namespace Readarr.Api.V1.Author
@@ -11,11 +12,13 @@ namespace Readarr.Api.V1.Author
     public class AuthorLookupController : Controller
     {
         private readonly ISearchForNewAuthor _searchProxy;
+        private readonly IBuildFileNames _fileNameBuilder;
         private readonly IMapCoversToLocal _coverMapper;
 
-        public AuthorLookupController(ISearchForNewAuthor searchProxy, IMapCoversToLocal coverMapper)
+        public AuthorLookupController(ISearchForNewAuthor searchProxy, IBuildFileNames fileNameBuilder, IMapCoversToLocal coverMapper)
         {
             _searchProxy = searchProxy;
+            _fileNameBuilder = fileNameBuilder;
             _coverMapper = coverMapper;
         }
 
@@ -40,6 +43,8 @@ namespace Readarr.Api.V1.Author
                 {
                     resource.RemotePoster = poster.Url;
                 }
+
+                resource.Folder = _fileNameBuilder.GetAuthorFolder(currentAuthor);
 
                 yield return resource;
             }

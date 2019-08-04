@@ -82,7 +82,8 @@ class AddNewItem extends Component {
   render() {
     const {
       error,
-      items
+      items,
+      hasExistingAuthors
     } = this.props;
 
     const term = this.state.term;
@@ -186,7 +187,8 @@ class AddNewItem extends Component {
           }
 
           {
-            !term &&
+            term ?
+              null :
               <div className={styles.message}>
                 <div className={styles.helpText}>
                   {translate('ItsEasyToAddANewAuthorOrBookJustStartTypingTheNameOfTheItemYouWantToAdd')}
@@ -197,6 +199,24 @@ class AddNewItem extends Component {
                   of a book (e.g. edition:656), work (e.g. work:4912783) or author (e.g. author:128382), the isbn (e.g. isbn:067003469X) or the asin (e.g. asin:B00JCDK5ME)
                 </div>
               </div>
+          }
+
+          {
+            !term && !hasExistingAuthors ?
+              <div className={styles.message}>
+                <div className={styles.noAuthorsText}>
+                  You haven't added any authors yet, do you want to add an existing library location (Root Folder) and update?
+                </div>
+                <div>
+                  <Button
+                    to="/settings/mediamanagement"
+                    kind={kinds.PRIMARY}
+                  >
+                    {translate('AddRootFolder')}
+                  </Button>
+                </div>
+              </div> :
+              null
           }
 
           <div />
@@ -213,6 +233,7 @@ AddNewItem.propTypes = {
   isAdding: PropTypes.bool.isRequired,
   addError: PropTypes.object,
   items: PropTypes.arrayOf(PropTypes.object).isRequired,
+  hasExistingAuthors: PropTypes.bool.isRequired,
   onSearchChange: PropTypes.func.isRequired,
   onClearSearch: PropTypes.func.isRequired
 };
