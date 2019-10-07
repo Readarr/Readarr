@@ -153,6 +153,28 @@ namespace NzbDrone.Core.DecisionEngine
                             decision = new DownloadDecision(remoteBook, new Rejection("Unable to parse release"));
                         }
                     }
+
+                    if (searchCriteria != null)
+                    {
+                        if (parsedBookInfo == null)
+                        {
+                            parsedBookInfo = new ParsedBookInfo
+                            {
+                                Quality = QualityParser.ParseQuality(report.Title, null)
+                            };
+                        }
+
+                        if (parsedBookInfo.AuthorName.IsNullOrWhiteSpace())
+                        {
+                            var remoteBook = new RemoteBook
+                            {
+                                Release = report,
+                                ParsedBookInfo = parsedBookInfo
+                            };
+
+                            decision = new DownloadDecision(remoteBook, new Rejection("Unable to parse release"));
+                        }
+                    }
                 }
                 catch (Exception e)
                 {
