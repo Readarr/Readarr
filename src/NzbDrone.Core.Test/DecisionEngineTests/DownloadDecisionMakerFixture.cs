@@ -159,6 +159,10 @@ namespace NzbDrone.Core.Test.DecisionEngineTests
             _pass1.Verify(c => c.IsSatisfiedBy(It.IsAny<RemoteBook>(), null), Times.Never());
             _pass2.Verify(c => c.IsSatisfiedBy(It.IsAny<RemoteBook>(), null), Times.Never());
             _pass3.Verify(c => c.IsSatisfiedBy(It.IsAny<RemoteBook>(), null), Times.Never());
+<<<<<<< HEAD
+=======
+
+>>>>>>> 7e064796c (Fixed: Include releases that failed to parse in search results)
         }
 
         [Test]
