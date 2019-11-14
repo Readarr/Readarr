@@ -30,7 +30,13 @@ namespace Readarr.Api.V1.Author
             }
 
             var rootFolderPath = context.PropertyValue.ToString();
-            var rootFolder = new DirectoryInfo(rootFolderPath).Name;
+
+            if (rootFolderPath.IsNullOrWhiteSpace())
+            {
+                return true;
+            }
+
+            var rootFolder = new DirectoryInfo(rootFolderPath!).Name;
             var author = authorResource.ToModel();
             var authorFolder = _fileNameBuilder.GetAuthorFolder(author);
 
