@@ -44,6 +44,36 @@ namespace NzbDrone.Common.Test.DiskTests
 
             Mocker.GetMock<IDiskProvider>()
                 .Setup(v => v.GetMount(It.Is<string>(p => p.StartsWith(_sourceMount.RootDirectory))))
+                .Returns(_sourceMount);
+
+            Mocker.GetMock<IDiskProvider>()
+                .Setup(v => v.GetMount(It.Is<string>(p => p.StartsWith(_targetMount.RootDirectory))))
+                .Returns(_targetMount);
+
+            WithEmulatedDiskProvider();
+
+            WithExistingFile(_sourcePath);
+        }
+
+        [Test]
+        public void should_use_verified_transfer_on_mono()
+        {
+            PosixOnly();
+
+            Subject.VerificationMode.Should().Be(DiskTransferVerificationMode.TryTransactional);
+        }
+
+        [Test]
+        public void should_not_use_verified_transfer_on_windows()
+        {
+            WindowsOnly();
+
+            Subject.VerificationMode.Should().Be(DiskTransferVerificationMode.VerifyOnly);
+
+            var result = Subject.TransferFile(_sourcePath, _targetPath, TransferMode.Move);
+
+            Mocker.GetMock<IDiskProvider>()
+                .Setup(v => v.GetMount(It.Is<string>(p => p.StartsWith(_sourceMount.RootDirectory))))
                 .Returns<string>(s => _sourceMount);
 
             Mocker.GetMock<IDiskProvider>()
@@ -53,6 +83,27 @@ namespace NzbDrone.Common.Test.DiskTests
             WithEmulatedDiskProvider();
 
             WithExistingFile(_sourcePath);
+        }
+
+        [TestCase("fuse.mergerfs")]
+        [TestCase("fuse.rclone")]
+        [TestCase("mergerfs")]
+        [TestCase("rclone")]
+        public void should_not_use_verified_transfer_on_specific_filesystems(string fs)
+        {
+            MonoOnly();
+            
+            _targetMount.DriveFormat = fs;
+
+            Subject.VerificationMode.Should().Be(DiskTransferVerificationMode.VerifyOnly);
+
+            var result = Subject.TransferFile(_sourcePath, _targetPath, TransferMode.Move);
+
+            Mocker.GetMock<IDiskProvider>()
+                .Verify(v => v.TryCreateHardLink(_sourcePath, _backupPath), Times.Never());
+
+            Mocker.GetMock<IDiskProvider>()
+                .Verify(v => v.MoveFile(_sourcePath, _targetPath, false), Times.Once());
         }
 
         [Test]
