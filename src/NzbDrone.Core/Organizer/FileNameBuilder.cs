@@ -33,7 +33,7 @@ namespace NzbDrone.Core.Organizer
         private readonly ICached<BookFormat[]> _trackFormatCache;
         private readonly Logger _logger;
 
-        private static readonly Regex TitleRegex = new Regex(@"\{(?<prefix>[- ._\[(]*)(?<token>(?:[a-z0-9]+)(?:(?<separator>[- ._]+)(?:[a-z0-9]+))?)(?::(?<customFormat>[a-z0-9]+))?(?<suffix>[- ._)\]]*)\}",
+        private static readonly Regex TitleRegex = new Regex(@"(?<escaped>\{\{|\}\})|\{(?<prefix>[- ._\[(]*)(?<token>(?:[a-z0-9]+)(?:(?<separator>[- ._]+)(?:[a-z0-9]+))?)(?::(?<customFormat>[a-z0-9]+))?(?<suffix>[- ._)\]]*)\}",
                                                              RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
         public static readonly Regex PartRegex = new Regex(@"\{(?<prefix>[^{]*?)(?<token1>PartNumber|PartCount)(?::(?<customFormat1>[a-z0-9]+))?(?<separator>.*(?=PartNumber|PartCount))?((?<token2>PartNumber|PartCount)(?::(?<customFormat2>[a-z0-9]+))?)?(?<suffix>[^}]*)\}",
@@ -90,13 +90,6 @@ namespace NzbDrone.Core.Organizer
 
             var tokenHandlers = new Dictionary<string, Func<TokenMatch, string>>(FileNameBuilderTokenEqualityComparer.Instance);
 
-            AddAuthorTokens(tokenHandlers, author);
-            AddBookTokens(tokenHandlers, edition);
-            AddBookFileTokens(tokenHandlers, bookFile);
-            AddQualityTokens(tokenHandlers, author, bookFile);
-            AddMediaInfoTokens(tokenHandlers, bookFile);
-            AddCustomFormats(tokenHandlers, author, bookFile, customFormats);
-
             var splitPatterns = pattern.Split(new char[] { '\\', '/' }, StringSplitOptions.RemoveEmptyEntries);
             var components = new List<string>();
 
@@ -104,7 +97,17 @@ namespace NzbDrone.Core.Organizer
             {
                 var splitPattern = s;
 
+                AddAuthorTokens(tokenHandlers, author);
+                AddBookPlaceholderTokens(tokenHandlers);
+                AddBookFileTokens(tokenHandlers, bookFile);
+                AddQualityTokens(tokenHandlers, author, bookFile);
+                AddMediaInfoTokens(tokenHandlers, bookFile);
+                AddCustomFormats(tokenHandlers, author, bookFile, customFormats);
+
                 var component = ReplacePartTokens(splitPattern, tokenHandlers, namingConfig).Trim();
+                component = ReplaceTokens(component, tokenHandlers, namingConfig, true).Trim();
+
+                AddBookTokens(tokenHandlers, edition);
                 component = ReplaceTokens(component, tokenHandlers, namingConfig).Trim();
 
                 component = FileNameCleanupRegex.Replace(component, match => match.Captures[0].Value[0].ToString());
@@ -249,6 +252,30 @@ namespace NzbDrone.Core.Organizer
             }
         }
 
+        private void AddBookPlaceholderTokens(Dictionary<string, Func<TokenMatch, string>> tokenHandlers)
+        {
+            tokenHandlers["{Book Title}"] = m => null;
+            tokenHandlers["{Book CleanTitle}"] = m => null;
+            tokenHandlers["{Book TitleThe}"] = m => null;
+
+            tokenHandlers["{Book TitleNoSub}"] = m => null;
+            tokenHandlers["{Book CleanTitleNoSub}"] = m => null;
+            tokenHandlers["{Book TitleTheNoSub}"] = m => null;
+
+            tokenHandlers["{Book Subtitle}"] = m => null;
+            tokenHandlers["{Book CleanSubtitle}"] = m => null;
+            tokenHandlers["{Book SubtitleThe}"] = m => null;
+
+            tokenHandlers["{Book Series}"] = m => null;
+            tokenHandlers["{Book SeriesPosition}"] = m => null;
+            tokenHandlers["{Book SeriesTitle}"] = m => null;
+
+            tokenHandlers["{Book Disambiguation}"] = m => null;
+            tokenHandlers["{Release Year}"] = m => null;
+            tokenHandlers["{Edition Year}"] = m => null;
+            tokenHandlers["{Release YearFirst}"] = m => null;
+        }
+
         private void AddBookTokens(Dictionary<string, Func<TokenMatch, string>> tokenHandlers, Edition edition)
         {
             tokenHandlers["{Book Title}"] = m => edition.Title;
@@ -372,13 +399,29 @@ namespace NzbDrone.Core.Organizer
             tokenHandlers["{Custom Formats}"] = m => string.Join(" ", customFormats.Where(x => x.IncludeCustomFormatWhenRenaming));
         }
 
-        private string ReplaceTokens(string pattern, Dictionary<string, Func<TokenMatch, string>> tokenHandlers, NamingConfig namingConfig)
+        private string ReplaceTokens(string pattern, Dictionary<string, Func<TokenMatch, string>> tokenHandlers, NamingConfig namingConfig, bool escape = false)
         {
-            return TitleRegex.Replace(pattern, match => ReplaceToken(match, tokenHandlers, namingConfig));
+            return TitleRegex.Replace(pattern, match => ReplaceToken(match, tokenHandlers, namingConfig, escape));
         }
 
-        private string ReplaceToken(Match match, Dictionary<string, Func<TokenMatch, string>> tokenHandlers, NamingConfig namingConfig)
+        private string ReplaceToken(Match match, Dictionary<string, Func<TokenMatch, string>> tokenHandlers, NamingConfig namingConfig, bool escape)
         {
+            if (match.Groups["escaped"].Success)
+            {
+                if (escape)
+                {
+                    return match.Value;
+                }
+                else if (match.Value == "{{")
+                {
+                    return "{";
+                }
+                else if (match.Value == "}}")
+                {
+                    return "}";
+                }
+            }
+
             var tokenMatch = new TokenMatch
             {
                 RegexMatch = match,
@@ -396,7 +439,19 @@ namespace NzbDrone.Core.Organizer
 
             var tokenHandler = tokenHandlers.GetValueOrDefault(tokenMatch.Token, m => string.Empty);
 
-            var replacementText = tokenHandler(tokenMatch).Trim();
+            var replacementText = tokenHandler(tokenMatch);
+
+            if (replacementText == null && escape)
+            {
+                // Preserve original token if handler returned null and escape is true
+                return match.Value;
+            }
+            else if (replacementText == null)
+            {
+                return "";
+            }
+
+            replacementText = replacementText.Trim();
 
             if (tokenMatch.Token.All(t => !char.IsLetter(t) || char.IsLower(t)))
             {
@@ -417,6 +472,11 @@ namespace NzbDrone.Core.Organizer
             if (!replacementText.IsNullOrWhiteSpace())
             {
                 replacementText = tokenMatch.Prefix + replacementText + tokenMatch.Suffix;
+            }
+
+            if (escape)
+            {
+                replacementText = replacementText.Replace("{", "{{").Replace("}", "}}");
             }
 
             return replacementText;
