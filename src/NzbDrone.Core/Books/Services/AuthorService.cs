@@ -26,7 +26,7 @@ namespace NzbDrone.Core.Books
         List<Author> GetAllAuthors();
         Dictionary<int, List<int>> GetAllAuthorTags();
         List<Author> AllForTag(int tagId);
-        Author UpdateAuthor(Author author);
+        Author UpdateAuthor(Author author, bool publishUpdatedEvent = true);
         List<Author> UpdateAuthors(List<Author> authors, bool useExistingRelativeFolder);
         Dictionary<int, string> AllAuthorPaths();
         bool AuthorPathExists(string folder);
@@ -222,7 +222,7 @@ namespace NzbDrone.Core.Books
             _authorRepository.SetFields(author, s => s.AddOptions);
         }
 
-        public Author UpdateAuthor(Author author)
+        public Author UpdateAuthor(Author author, bool publishUpdatedEvent = true)
         {
             _cache.Clear();
 
@@ -232,7 +232,10 @@ namespace NzbDrone.Core.Books
             author.AddOptions = storedAuthor.AddOptions;
 
             var updatedAuthor = _authorRepository.Update(author);
-            _eventAggregator.PublishEvent(new AuthorEditedEvent(updatedAuthor, storedAuthor));
+            if (publishUpdatedEvent)
+            {
+                _eventAggregator.PublishEvent(new AuthorEditedEvent(updatedAuthor, storedAuthor));
+            }
 
             return updatedAuthor;
         }

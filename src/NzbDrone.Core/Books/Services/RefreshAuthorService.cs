@@ -217,7 +217,7 @@ namespace NzbDrone.Core.Books
 
         protected override void SaveEntity(Author local)
         {
-            _authorService.UpdateAuthor(local);
+            _authorService.UpdateAuthor(local, publishUpdatedEvent: false);
         }
 
         protected override void DeleteEntity(Author local, bool deleteFiles)

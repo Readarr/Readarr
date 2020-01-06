@@ -54,7 +54,7 @@ namespace NzbDrone.Core.Test.MusicTests.BookMonitoredServiceTests
             Subject.SetBookMonitoredStatus(_author, null);
 
             Mocker.GetMock<IAuthorService>()
-                  .Verify(v => v.UpdateAuthor(It.IsAny<Author>()), Times.Once());
+                  .Verify(v => v.UpdateAuthor(It.IsAny<Author>(), It.IsAny<bool>()), Times.Once());
 
             Mocker.GetMock<IBookService>()
                   .Verify(v => v.UpdateMany(It.IsAny<List<Book>>()), Times.Never());
@@ -68,7 +68,7 @@ namespace NzbDrone.Core.Test.MusicTests.BookMonitoredServiceTests
             Subject.SetBookMonitoredStatus(_author, new MonitoringOptions { Monitored = true, BooksToMonitor = booksToMonitor });
 
             Mocker.GetMock<IAuthorService>()
-                .Verify(v => v.UpdateAuthor(It.IsAny<Author>()), Times.Once());
+                .Verify(v => v.UpdateAuthor(It.IsAny<Author>(), It.IsAny<bool>()), Times.Once());
 
             VerifyMonitored(e => e.ForeignBookId == _books.First().ForeignBookId);
             VerifyNotMonitored(e => e.ForeignBookId != _books.First().ForeignBookId);
