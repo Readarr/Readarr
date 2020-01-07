@@ -107,7 +107,7 @@ namespace Readarr.Http.ClientSchema
                         Placeholder = fieldAttribute.Placeholder
                     };
 
-                    if (fieldAttribute.Type == FieldType.Select)
+                    if (fieldAttribute.Type == FieldType.Select || fieldAttribute.Type == FieldType.TagSelect)
                     {
                         if (fieldAttribute.SelectOptionsProviderAction.IsNotNullOrWhiteSpace())
                         {
