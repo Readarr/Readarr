@@ -487,6 +487,7 @@
   "RefreshInformation": "Refresh information",
   "RefreshInformationAndScanDisk": "Refresh information and scan disk",
   "RefreshScan": "Refresh & Scan",
+  "ReleaseBranchCheckOfficialBranchMessage": "Branch {0} is not a valid Readarr release branch, you will not receive updates",
   "ReleaseDate": "Release Date",
   "ReleaseGroup": "Release Group",
   "ReleaseProfiles": "Release Profiles",
