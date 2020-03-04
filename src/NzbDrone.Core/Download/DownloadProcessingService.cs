@@ -35,7 +35,6 @@ namespace NzbDrone.Core.Download
         public void Execute(ProcessMonitoredDownloadsCommand message)
         {
             var enableCompletedDownloadHandling = _configService.EnableCompletedDownloadHandling;
-            var removeCompletedDownloads = _configService.RemoveCompletedDownloads;
             var trackedDownloads = _trackedDownloadService.GetTrackedDownloads()
                                                           .Where(t => t.IsTrackable)
                                                           .ToList();
