@@ -132,17 +132,6 @@ export const defaultState = {
       ]
     },
     {
-      key: 'downloadImported',
-      label: 'Download Imported',
-      filters: [
-        {
-          key: 'eventType',
-          value: '8',
-          type: filterTypes.EQUAL
-        }
-      ]
-    },
-    {
       key: 'deleted',
       label: 'Deleted',
       filters: [

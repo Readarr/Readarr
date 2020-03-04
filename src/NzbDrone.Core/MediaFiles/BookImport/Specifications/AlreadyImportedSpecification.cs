@@ -39,8 +39,8 @@ namespace NzbDrone.Core.MediaFiles.BookImport.Specifications
             }
 
             var bookHistory = _historyService.GetByBook(bookRelease.BookId, null);
-            var lastImported = bookHistory.FirstOrDefault(h => h.EventType == HistoryEventType.DownloadImported);
-            var lastGrabbed = bookHistory.FirstOrDefault(h => h.EventType == HistoryEventType.Grabbed);
+            var lastImported = bookHistory.FirstOrDefault(h => h.EventType == EntityHistoryEventType.BookFileImported);
+            var lastGrabbed = bookHistory.FirstOrDefault(h => h.EventType == EntityHistoryEventType.Grabbed);
 
             if (lastImported == null)
             {

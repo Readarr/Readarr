@@ -10,10 +10,12 @@ using NzbDrone.Core.Configuration;
 using NzbDrone.Core.CustomFilters;
 using NzbDrone.Core.Datastore.Converters;
 using NzbDrone.Core.Download;
+using NzbDrone.Core.Download.History;
 using NzbDrone.Core.Download.Pending;
 using NzbDrone.Core.Extras.Metadata;
 using NzbDrone.Core.Extras.Metadata.Files;
 using NzbDrone.Core.Extras.Others;
+using NzbDrone.Core.History;
 using NzbDrone.Core.Http;
 using NzbDrone.Core.ImportLists;
 using NzbDrone.Core.ImportLists.Exclusions;
@@ -93,7 +95,7 @@ namespace NzbDrone.Core.Datastore
                   .Ignore(d => d.Protocol)
                   .Ignore(d => d.Tags);
 
-            Mapper.Entity<History.History>("History").RegisterModel();
+            Mapper.Entity<EntityHistory>("History").RegisterModel();
 
             Mapper.Entity<Author>("Authors")
                 .Ignore(s => s.RootFolderPath)
@@ -195,6 +197,8 @@ namespace NzbDrone.Core.Datastore
             Mapper.Entity<ImportListExclusion>("ImportListExclusions").RegisterModel();
 
             Mapper.Entity<CachedHttpResponse>("HttpResponse").RegisterModel();
+
+            Mapper.Entity<DownloadHistory>("DownloadHistory").RegisterModel();
         }
 
         private static void RegisterMappers()

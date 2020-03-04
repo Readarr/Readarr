@@ -51,7 +51,7 @@ namespace NzbDrone.Core.DecisionEngine.Specifications.RssSync
                 _logger.Debug("Checking current status of book [{0}] in history", book.Id);
                 var mostRecent = _historyService.MostRecentForBook(book.Id);
 
-                if (mostRecent != null && mostRecent.EventType == HistoryEventType.Grabbed)
+                if (mostRecent != null && mostRecent.EventType == EntityHistoryEventType.Grabbed)
                 {
                     var recent = mostRecent.Date.After(DateTime.UtcNow.AddHours(-12));
 

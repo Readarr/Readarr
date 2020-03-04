@@ -102,6 +102,8 @@ namespace NzbDrone.Core.Download
 
             var bookGrabbedEvent = new BookGrabbedEvent(remoteBook);
             bookGrabbedEvent.DownloadClient = downloadClient.Name;
+            bookGrabbedEvent.DownloadClientId = downloadClient.Definition.Id;
+            bookGrabbedEvent.DownloadClientName = downloadClient.Definition.Name;
 
             if (!string.IsNullOrWhiteSpace(downloadClientId))
             {

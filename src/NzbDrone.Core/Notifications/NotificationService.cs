@@ -152,7 +152,7 @@ namespace NzbDrone.Core.Notifications
                 Message = GetBookDownloadMessage(message.Author, message.Book, message.ImportedBooks),
                 Author = message.Author,
                 Book = message.Book,
-                DownloadClient = message.DownloadClient,
+                DownloadClient = message.DownloadClientInfo?.Name,
                 DownloadId = message.DownloadId,
                 BookFiles = message.ImportedBooks,
                 OldFiles = message.OldFiles,
