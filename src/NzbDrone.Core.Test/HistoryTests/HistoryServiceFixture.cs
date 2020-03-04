@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using FizzWare.NBuilder;
 using Moq;
 using NUnit.Framework;
@@ -69,7 +68,7 @@ namespace NzbDrone.Core.Test.HistoryTests
             Subject.Handle(new TrackImportedEvent(localTrack, trackFile, new List<BookFile>(), true, downloadClientItem));
 
             Mocker.GetMock<IHistoryRepository>()
-                .Verify(v => v.Insert(It.Is<History.History>(h => h.SourceTitle == Path.GetFileNameWithoutExtension(localTrack.Path))));
+                .Verify(v => v.Insert(It.Is<EntityHistory>(h => h.SourceTitle == Path.GetFileNameWithoutExtension(localTrack.Path))));
         }
     }
 }

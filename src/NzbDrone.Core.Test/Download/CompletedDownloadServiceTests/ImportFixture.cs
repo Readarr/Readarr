@@ -52,7 +52,7 @@ namespace NzbDrone.Core.Test.Download.CompletedDownloadServiceTests
 
             Mocker.GetMock<IHistoryService>()
                   .Setup(s => s.MostRecentForDownloadId(_trackedDownload.DownloadItem.DownloadId))
-                  .Returns(new History.History());
+                  .Returns(new EntityHistory());
 
             Mocker.GetMock<IParsingService>()
                   .Setup(s => s.GetAuthor("Drone.S01E01.HDTV"))
@@ -83,7 +83,7 @@ namespace NzbDrone.Core.Test.Download.CompletedDownloadServiceTests
             _trackedDownload.DownloadItem.Title = "Droned Pilot"; // Set a badly named download
             Mocker.GetMock<IHistoryService>()
                .Setup(s => s.MostRecentForDownloadId(It.Is<string>(i => i == "1234")))
-               .Returns(new History.History() { SourceTitle = "Droned S01E01" });
+               .Returns(new EntityHistory() { SourceTitle = "Droned S01E01" });
 
             Mocker.GetMock<IParsingService>()
                .Setup(s => s.GetAuthor(It.IsAny<string>()))
@@ -194,6 +194,10 @@ namespace NzbDrone.Core.Test.Download.CompletedDownloadServiceTests
                                new ImportResult(new ImportDecision<LocalBook>(new LocalBook { Path = @"C:\TestPath\Droned.S01E01.mkv".AsOsAgnostic() }), "Test Failure")
                            });
 
+            Mocker.GetMock<IHistoryService>()
+                  .Setup(s => s.FindByDownloadId(It.IsAny<string>()))
+                  .Returns(new List<EntityHistory>());
+
             Subject.Import(_trackedDownload);
 
             AssertImported();
@@ -220,7 +224,7 @@ namespace NzbDrone.Core.Test.Download.CompletedDownloadServiceTests
                                new ImportResult(new ImportDecision<LocalBook>(new LocalBook { Path = @"C:\TestPath\Droned.S01E01.mkv".AsOsAgnostic() }), "Test Failure")
                            });
 
-            var history = Builder<History.History>.CreateListOfSize(2)
+            var history = Builder<EntityHistory>.CreateListOfSize(2)
                                                   .BuildList();
 
             Mocker.GetMock<IHistoryService>()
@@ -252,7 +256,7 @@ namespace NzbDrone.Core.Test.Download.CompletedDownloadServiceTests
                     new ImportResult(new ImportDecision<LocalBook>(new LocalBook { Path = @"C:\TestPath\Droned.S01E01.mkv" }), "Test Failure")
                 });
 
-            var history = Builder<History.History>.CreateListOfSize(2)
+            var history = Builder<EntityHistory>.CreateListOfSize(2)
                                                   .BuildList();
 
             Mocker.GetMock<IHistoryService>()
@@ -260,7 +264,7 @@ namespace NzbDrone.Core.Test.Download.CompletedDownloadServiceTests
                   .Returns(history);
 
             Mocker.GetMock<ITrackedDownloadAlreadyImported>()
-                  .Setup(s => s.IsImported(It.IsAny<TrackedDownload>(), It.IsAny<List<History.History>>()))
+                  .Setup(s => s.IsImported(It.IsAny<TrackedDownload>(), It.IsAny<List<EntityHistory>>()))
                   .Returns(false);
 
             Subject.Import(_trackedDownload);
@@ -314,7 +318,7 @@ namespace NzbDrone.Core.Test.Download.CompletedDownloadServiceTests
                             new LocalBook { Path = @"C:\TestPath\Droned.S01E02.mkv", Book = books[1] }), "Test Failure")
                 });
 
-            var history = Builder<History.History>.CreateListOfSize(2)
+            var history = Builder<EntityHistory>.CreateListOfSize(2)
                                                   .BuildList();
 
             Mocker.GetMock<IHistoryService>()
@@ -322,7 +326,7 @@ namespace NzbDrone.Core.Test.Download.CompletedDownloadServiceTests
                   .Returns(history);
 
             Mocker.GetMock<ITrackedDownloadAlreadyImported>()
-                  .Setup(s => s.IsImported(It.IsAny<TrackedDownload>(), It.IsAny<List<History.History>>()))
+                  .Setup(s => s.IsImported(It.IsAny<TrackedDownload>(), It.IsAny<List<EntityHistory>>()))
                   .Returns(true);
 
             Subject.Import(_trackedDownload);

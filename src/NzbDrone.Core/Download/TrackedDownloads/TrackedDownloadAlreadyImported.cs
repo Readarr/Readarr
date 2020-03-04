@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Linq;
 using NzbDrone.Common.Extensions;
 using NzbDrone.Core.History;
@@ -7,12 +7,12 @@ namespace NzbDrone.Core.Download.TrackedDownloads
 {
     public interface ITrackedDownloadAlreadyImported
     {
-        bool IsImported(TrackedDownload trackedDownload, List<History.History> historyItems);
+        bool IsImported(TrackedDownload trackedDownload, List<EntityHistory> historyItems);
     }
 
     public class TrackedDownloadAlreadyImported : ITrackedDownloadAlreadyImported
     {
-        public bool IsImported(TrackedDownload trackedDownload, List<History.History> historyItems)
+        public bool IsImported(TrackedDownload trackedDownload, List<EntityHistory> historyItems)
         {
             if (historyItems.Empty())
             {
@@ -33,7 +33,7 @@ namespace NzbDrone.Core.Download.TrackedDownloads
                     return false;
                 }
 
-                return new[] { HistoryEventType.DownloadImported, HistoryEventType.BookFileImported }.Contains(lastHistoryItem.EventType);
+                return lastHistoryItem.EventType == EntityHistoryEventType.BookFileImported;
             });
 
             return allBooksImportedInHistory;

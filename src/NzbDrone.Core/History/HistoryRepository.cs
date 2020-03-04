@@ -8,46 +8,46 @@ using NzbDrone.Core.Qualities;
 
 namespace NzbDrone.Core.History
 {
-    public interface IHistoryRepository : IBasicRepository<History>
+    public interface IHistoryRepository : IBasicRepository<EntityHistory>
     {
-        History MostRecentForBook(int bookId);
-        History MostRecentForDownloadId(string downloadId);
-        List<History> FindByDownloadId(string downloadId);
-        List<History> GetByAuthor(int authorId, HistoryEventType? eventType);
-        List<History> GetByBook(int bookId, HistoryEventType? eventType);
-        List<History> FindDownloadHistory(int idAuthorId, QualityModel quality);
+        EntityHistory MostRecentForBook(int bookId);
+        EntityHistory MostRecentForDownloadId(string downloadId);
+        List<EntityHistory> FindByDownloadId(string downloadId);
+        List<EntityHistory> GetByAuthor(int authorId, EntityHistoryEventType? eventType);
+        List<EntityHistory> GetByBook(int bookId, EntityHistoryEventType? eventType);
+        List<EntityHistory> FindDownloadHistory(int idAuthorId, QualityModel quality);
         void DeleteForAuthor(int authorId);
-        List<History> Since(DateTime date, HistoryEventType? eventType);
+        List<EntityHistory> Since(DateTime date, EntityHistoryEventType? eventType);
     }
 
-    public class HistoryRepository : BasicRepository<History>, IHistoryRepository
+    public class HistoryRepository : BasicRepository<EntityHistory>, IHistoryRepository
     {
         public HistoryRepository(IMainDatabase database, IEventAggregator eventAggregator)
             : base(database, eventAggregator)
         {
         }
 
-        public History MostRecentForBook(int bookId)
+        public EntityHistory MostRecentForBook(int bookId)
         {
             return Query(h => h.BookId == bookId)
                 .OrderByDescending(h => h.Date)
                 .FirstOrDefault();
         }
 
-        public History MostRecentForDownloadId(string downloadId)
+        public EntityHistory MostRecentForDownloadId(string downloadId)
         {
             return Query(h => h.DownloadId == downloadId)
                 .OrderByDescending(h => h.Date)
                 .FirstOrDefault();
         }
 
-        public List<History> FindByDownloadId(string downloadId)
+        public List<EntityHistory> FindByDownloadId(string downloadId)
         {
-            return _database.QueryJoined<History, Author, Book>(
+            return _database.QueryJoined<EntityHistory, Author, Book>(
                 Builder()
-                .Join<History, Author>((h, a) => h.AuthorId == a.Id)
-                .Join<History, Book>((h, a) => h.BookId == a.Id)
-                .Where<History>(h => h.DownloadId == downloadId),
+                .Join<EntityHistory, Author>((h, a) => h.AuthorId == a.Id)
+                .Join<EntityHistory, Book>((h, a) => h.BookId == a.Id)
+                .Where<EntityHistory>(h => h.DownloadId == downloadId),
                 (history, author, book) =>
                 {
                     history.Author = author;
@@ -56,30 +56,30 @@ namespace NzbDrone.Core.History
                 }).ToList();
         }
 
-        public List<History> GetByAuthor(int authorId, HistoryEventType? eventType)
+        public List<EntityHistory> GetByAuthor(int authorId, EntityHistoryEventType? eventType)
         {
-            var builder = Builder().Where<History>(h => h.AuthorId == authorId);
+            var builder = Builder().Where<EntityHistory>(h => h.AuthorId == authorId);
 
             if (eventType.HasValue)
             {
-                builder.Where<History>(h => h.EventType == eventType);
+                builder.Where<EntityHistory>(h => h.EventType == eventType);
             }
 
             return Query(builder).OrderByDescending(h => h.Date).ToList();
         }
 
-        public List<History> GetByBook(int bookId, HistoryEventType? eventType)
+        public List<EntityHistory> GetByBook(int bookId, EntityHistoryEventType? eventType)
         {
             var builder = Builder()
-                .Join<History, Book>((h, a) => h.BookId == a.Id)
-                .Where<History>(h => h.BookId == bookId);
+                .Join<EntityHistory, Book>((h, a) => h.BookId == a.Id)
+                .Where<EntityHistory>(h => h.BookId == bookId);
 
             if (eventType.HasValue)
             {
-                builder.Where<History>(h => h.EventType == eventType);
+                builder.Where<EntityHistory>(h => h.EventType == eventType);
             }
 
-            return _database.QueryJoined<History, Book>(
+            return _database.QueryJoined<EntityHistory, Book>(
                 builder,
                 (history, book) =>
                 {
@@ -88,9 +88,9 @@ namespace NzbDrone.Core.History
                 }).OrderByDescending(h => h.Date).ToList();
         }
 
-        public List<History> FindDownloadHistory(int idAuthorId, QualityModel quality)
+        public List<EntityHistory> FindDownloadHistory(int idAuthorId, QualityModel quality)
         {
-            var allowed = new[] { HistoryEventType.Grabbed, HistoryEventType.DownloadFailed, HistoryEventType.BookFileImported };
+            var allowed = new[] { EntityHistoryEventType.Grabbed, EntityHistoryEventType.DownloadFailed, EntityHistoryEventType.BookFileImported };
 
             return Query(h => h.AuthorId == idAuthorId &&
                          h.Quality == quality &&
@@ -103,12 +103,12 @@ namespace NzbDrone.Core.History
         }
 
         protected override SqlBuilder PagedBuilder() => new SqlBuilder()
-            .Join<History, Author>((h, a) => h.AuthorId == a.Id)
+            .Join<EntityHistory, Author>((h, a) => h.AuthorId == a.Id)
             .Join<Author, AuthorMetadata>((l, r) => l.AuthorMetadataId == r.Id)
-            .Join<History, Book>((h, a) => h.BookId == a.Id);
+            .Join<EntityHistory, Book>((h, a) => h.BookId == a.Id);
 
-        protected override IEnumerable<History> PagedQuery(SqlBuilder builder) =>
-            _database.QueryJoined<History, Author, AuthorMetadata, Book>(builder, (history, author, metadata, book) =>
+        protected override IEnumerable<EntityHistory> PagedQuery(SqlBuilder builder) =>
+            _database.QueryJoined<EntityHistory, Author, AuthorMetadata, Book>(builder, (history, author, metadata, book) =>
                     {
                         author.Metadata = metadata;
                         history.Author = author;
@@ -116,13 +116,13 @@ namespace NzbDrone.Core.History
                         return history;
                     });
 
-        public List<History> Since(DateTime date, HistoryEventType? eventType)
+        public List<EntityHistory> Since(DateTime date, EntityHistoryEventType? eventType)
         {
-            var builder = Builder().Where<History>(x => x.Date >= date);
+            var builder = Builder().Where<EntityHistory>(x => x.Date >= date);
 
             if (eventType.HasValue)
             {
-                builder.Where<History>(h => h.EventType == eventType);
+                builder.Where<EntityHistory>(h => h.EventType == eventType);
             }
 
             return Query(builder).OrderBy(h => h.Date).ToList();

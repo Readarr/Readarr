@@ -1,7 +1,8 @@
-﻿using FizzWare.NBuilder;
+using FizzWare.NBuilder;
 using FluentAssertions;
 using NUnit.Framework;
 using NzbDrone.Core.Books;
+using NzbDrone.Core.History;
 using NzbDrone.Core.Housekeeping.Housekeepers;
 using NzbDrone.Core.Qualities;
 using NzbDrone.Core.Test.Framework;
@@ -9,7 +10,7 @@ using NzbDrone.Core.Test.Framework;
 namespace NzbDrone.Core.Test.Housekeeping.Housekeepers
 {
     [TestFixture]
-    public class CleanupOrphanedHistoryItemsFixture : DbTest<CleanupOrphanedHistoryItems, History.History>
+    public class CleanupOrphanedHistoryItemsFixture : DbTest<CleanupOrphanedHistoryItems, EntityHistory>
     {
         private Author _author;
         private Book _book;
@@ -39,7 +40,7 @@ namespace NzbDrone.Core.Test.Housekeeping.Housekeepers
         {
             GivenBook();
 
-            var history = Builder<History.History>.CreateNew()
+            var history = Builder<EntityHistory>.CreateNew()
                                                   .With(h => h.Quality = new QualityModel())
                                                   .With(h => h.BookId = _book.Id)
                                                   .BuildNew();
@@ -54,7 +55,7 @@ namespace NzbDrone.Core.Test.Housekeeping.Housekeepers
         {
             GivenAuthor();
 
-            var history = Builder<History.History>.CreateNew()
+            var history = Builder<EntityHistory>.CreateNew()
                                                   .With(h => h.Quality = new QualityModel())
                                                   .With(h => h.AuthorId = _author.Id)
                                                   .BuildNew();
@@ -70,7 +71,7 @@ namespace NzbDrone.Core.Test.Housekeeping.Housekeepers
             GivenAuthor();
             GivenBook();
 
-            var history = Builder<History.History>.CreateListOfSize(2)
+            var history = Builder<EntityHistory>.CreateListOfSize(2)
                                                   .All()
                                                   .With(h => h.Quality = new QualityModel())
                                                   .With(h => h.BookId = _book.Id)
@@ -91,7 +92,7 @@ namespace NzbDrone.Core.Test.Housekeeping.Housekeepers
             GivenAuthor();
             GivenBook();
 
-            var history = Builder<History.History>.CreateListOfSize(2)
+            var history = Builder<EntityHistory>.CreateListOfSize(2)
                                                   .All()
                                                   .With(h => h.Quality = new QualityModel())
                                                   .With(h => h.AuthorId = _author.Id)

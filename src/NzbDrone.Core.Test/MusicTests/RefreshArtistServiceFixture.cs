@@ -73,8 +73,8 @@ namespace NzbDrone.Core.Test.MusicTests
                 .Returns(new List<BookFile>());
 
             Mocker.GetMock<IHistoryService>()
-                .Setup(x => x.GetByAuthor(It.IsAny<int>(), It.IsAny<HistoryEventType?>()))
-                .Returns(new List<History.History>());
+                .Setup(x => x.GetByAuthor(It.IsAny<int>(), It.IsAny<EntityHistoryEventType?>()))
+                .Returns(new List<EntityHistory>());
 
             Mocker.GetMock<IImportListExclusionService>()
                 .Setup(x => x.FindByForeignId(It.IsAny<List<string>>()))

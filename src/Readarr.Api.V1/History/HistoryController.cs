@@ -29,7 +29,7 @@ namespace Readarr.Api.V1.History
             _failedDownloadService = failedDownloadService;
         }
 
-        protected HistoryResource MapToResource(NzbDrone.Core.History.History model, bool includeAuthor, bool includeBook)
+        protected HistoryResource MapToResource(EntityHistory model, bool includeAuthor, bool includeBook)
         {
             var resource = model.ToResource();
 
@@ -55,7 +55,7 @@ namespace Readarr.Api.V1.History
         public PagingResource<HistoryResource> GetHistory(bool includeAuthor = false, bool includeBook = false)
         {
             var pagingResource = Request.ReadPagingResourceFromRequest<HistoryResource>();
-            var pagingSpec = pagingResource.MapToPagingSpec<HistoryResource, NzbDrone.Core.History.History>("date", SortDirection.Descending);
+            var pagingSpec = pagingResource.MapToPagingSpec<HistoryResource, EntityHistory>("date", SortDirection.Descending);
 
             var eventTypeFilter = pagingResource.Filters.FirstOrDefault(f => f.Key == "eventType");
             var bookIdFilter = pagingResource.Filters.FirstOrDefault(f => f.Key == "bookId");
@@ -63,7 +63,7 @@ namespace Readarr.Api.V1.History
 
             if (eventTypeFilter != null)
             {
-                var filterValue = (HistoryEventType)Convert.ToInt32(eventTypeFilter.Value);
+                var filterValue = (EntityHistoryEventType)Convert.ToInt32(eventTypeFilter.Value);
                 pagingSpec.FilterExpressions.Add(v => v.EventType == filterValue);
             }
 
@@ -83,13 +83,13 @@ namespace Readarr.Api.V1.History
         }
 
         [HttpGet("since")]
-        public List<HistoryResource> GetHistorySince(DateTime date, HistoryEventType? eventType = null, bool includeAuthor = false, bool includeBook = false)
+        public List<HistoryResource> GetHistorySince(DateTime date, EntityHistoryEventType? eventType = null, bool includeAuthor = false, bool includeBook = false)
         {
             return _historyService.Since(date, eventType).Select(h => MapToResource(h, includeAuthor, includeBook)).ToList();
         }
 
         [HttpGet("author")]
-        public List<HistoryResource> GetAuthorHistory(int authorId, int? bookId = null, HistoryEventType? eventType = null, bool includeAuthor = false, bool includeBook = false)
+        public List<HistoryResource> GetAuthorHistory(int authorId, int? bookId = null, EntityHistoryEventType? eventType = null, bool includeAuthor = false, bool includeBook = false)
         {
             if (bookId.HasValue)
             {

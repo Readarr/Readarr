@@ -6,11 +6,11 @@ using NzbDrone.Core.Qualities;
 
 namespace NzbDrone.Core.History
 {
-    public class History : ModelBase
+    public class EntityHistory : ModelBase
     {
         public const string DOWNLOAD_CLIENT = "downloadClient";
 
-        public History()
+        public EntityHistory()
         {
             Data = new Dictionary<string, string>();
         }
@@ -22,17 +22,16 @@ namespace NzbDrone.Core.History
         public DateTime Date { get; set; }
         public Book Book { get; set; }
         public Author Author { get; set; }
-        public HistoryEventType EventType { get; set; }
+        public EntityHistoryEventType EventType { get; set; }
         public Dictionary<string, string> Data { get; set; }
 
         public string DownloadId { get; set; }
     }
 
-    public enum HistoryEventType
+    public enum EntityHistoryEventType
     {
         Unknown = 0,
         Grabbed = 1,
-        AuthorFolderImported = 2,
         BookFileImported = 3,
         DownloadFailed = 4,
         BookFileDeleted = 5,

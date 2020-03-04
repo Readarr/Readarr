@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Linq;
 using FluentAssertions;
 using Moq;
@@ -22,15 +22,15 @@ namespace NzbDrone.Core.Test.Download.TrackedDownloads
         {
             Mocker.GetMock<IHistoryService>()
                 .Setup(s => s.FindByDownloadId(It.Is<string>(sr => sr == "35238")))
-                .Returns(new List<History.History>()
+                .Returns(new List<EntityHistory>()
                 {
-                 new History.History()
-                {
-                     DownloadId = "35238",
-                     SourceTitle = "Audio Author - Audio Book [2018 - FLAC]",
-                     AuthorId = 5,
-                     BookId = 4,
-                }
+                    new EntityHistory()
+                    {
+                         DownloadId = "35238",
+                         SourceTitle = "Audio Author - Audio Book [2018 - FLAC]",
+                         AuthorId = 5,
+                         BookId = 4,
+                    }
                 });
         }
 

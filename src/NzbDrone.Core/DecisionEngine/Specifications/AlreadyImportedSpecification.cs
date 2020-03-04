@@ -53,7 +53,7 @@ namespace NzbDrone.Core.DecisionEngine.Specifications
                 }
 
                 var historyForBook = _historyService.GetByBook(book.Id, null);
-                var lastGrabbed = historyForBook.FirstOrDefault(h => h.EventType == HistoryEventType.Grabbed);
+                var lastGrabbed = historyForBook.FirstOrDefault(h => h.EventType == EntityHistoryEventType.Grabbed);
 
                 if (lastGrabbed == null)
                 {
@@ -61,7 +61,7 @@ namespace NzbDrone.Core.DecisionEngine.Specifications
                 }
 
                 var imported = historyForBook.FirstOrDefault(h =>
-                    h.EventType == HistoryEventType.DownloadImported &&
+                    h.EventType == EntityHistoryEventType.BookFileImported &&
                     h.DownloadId == lastGrabbed.DownloadId);
 
                 if (imported == null)

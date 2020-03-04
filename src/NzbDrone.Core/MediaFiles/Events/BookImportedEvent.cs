@@ -12,7 +12,7 @@ namespace NzbDrone.Core.MediaFiles.Events
         public List<BookFile> ImportedBooks { get; private set; }
         public List<BookFile> OldFiles { get; private set; }
         public bool NewDownload { get; private set; }
-        public string DownloadClient { get; private set; }
+        public DownloadClientItemClientInfo DownloadClientInfo { get; set; }
         public string DownloadId { get; private set; }
 
         public BookImportedEvent(Author author, Book book, List<BookFile> importedBooks, List<BookFile> oldFiles, bool newDownload, DownloadClientItem downloadClientItem)
@@ -25,7 +25,7 @@ namespace NzbDrone.Core.MediaFiles.Events
 
             if (downloadClientItem != null)
             {
-                DownloadClient = downloadClientItem.DownloadClientInfo.Name;
+                DownloadClientInfo = downloadClientItem.DownloadClientInfo;
                 DownloadId = downloadClientItem.DownloadId;
             }
         }

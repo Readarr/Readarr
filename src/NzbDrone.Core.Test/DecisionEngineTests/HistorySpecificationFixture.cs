@@ -76,10 +76,10 @@ namespace NzbDrone.Core.Test.DecisionEngineTests
                   .Returns(true);
         }
 
-        private void GivenMostRecentForBook(int bookId, string downloadId, QualityModel quality, DateTime date, HistoryEventType eventType)
+        private void GivenMostRecentForBook(int bookId, string downloadId, QualityModel quality, DateTime date, EntityHistoryEventType eventType)
         {
             Mocker.GetMock<IHistoryService>().Setup(s => s.MostRecentForBook(bookId))
-                  .Returns(new History.History { DownloadId = downloadId, Quality = quality, Date = date, EventType = eventType });
+                  .Returns(new EntityHistory { DownloadId = downloadId, Quality = quality, Date = date, EventType = eventType });
         }
 
         private void GivenCdhDisabled()
@@ -98,66 +98,66 @@ namespace NzbDrone.Core.Test.DecisionEngineTests
         [Test]
         public void should_return_true_if_latest_history_item_is_null()
         {
-            Mocker.GetMock<IHistoryService>().Setup(s => s.MostRecentForBook(It.IsAny<int>())).Returns((History.History)null);
+            Mocker.GetMock<IHistoryService>().Setup(s => s.MostRecentForBook(It.IsAny<int>())).Returns((EntityHistory)null);
             _upgradeHistory.IsSatisfiedBy(_parseResultMulti, null).Accepted.Should().BeTrue();
         }
 
         [Test]
         public void should_return_true_if_latest_history_item_is_not_grabbed()
         {
-            GivenMostRecentForBook(FIRST_ALBUM_ID, string.Empty, _notupgradableQuality, DateTime.UtcNow, HistoryEventType.DownloadFailed);
+            GivenMostRecentForBook(FIRST_ALBUM_ID, string.Empty, _notupgradableQuality, DateTime.UtcNow, EntityHistoryEventType.DownloadFailed);
             _upgradeHistory.IsSatisfiedBy(_parseResultMulti, null).Accepted.Should().BeTrue();
         }
 
         //        [Test]
         //        public void should_return_true_if_latest_history_has_a_download_id_and_cdh_is_enabled()
         //        {
-        //            GivenMostRecentForEpisode(FIRST_EPISODE_ID, "test", _notupgradableQuality, DateTime.UtcNow, HistoryEventType.Grabbed);
+        //            GivenMostRecentForEpisode(FIRST_EPISODE_ID, "test", _notupgradableQuality, DateTime.UtcNow, EpisodeHistoryEventType.Grabbed);
         //            _upgradeHistory.IsSatisfiedBy(_parseResultMulti, null).Accepted.Should().BeTrue();
         //        }
         [Test]
         public void should_return_true_if_latest_history_item_is_older_than_twelve_hours()
         {
-            GivenMostRecentForBook(FIRST_ALBUM_ID, string.Empty, _notupgradableQuality, DateTime.UtcNow.AddHours(-12).AddMilliseconds(-1), HistoryEventType.Grabbed);
+            GivenMostRecentForBook(FIRST_ALBUM_ID, string.Empty, _notupgradableQuality, DateTime.UtcNow.AddHours(-12).AddMilliseconds(-1), EntityHistoryEventType.Grabbed);
             _upgradeHistory.IsSatisfiedBy(_parseResultMulti, null).Accepted.Should().BeTrue();
         }
 
         [Test]
         public void should_be_upgradable_if_only_book_is_upgradable()
         {
-            GivenMostRecentForBook(FIRST_ALBUM_ID, string.Empty, _upgradableQuality, DateTime.UtcNow, HistoryEventType.Grabbed);
+            GivenMostRecentForBook(FIRST_ALBUM_ID, string.Empty, _upgradableQuality, DateTime.UtcNow, EntityHistoryEventType.Grabbed);
             _upgradeHistory.IsSatisfiedBy(_parseResultSingle, null).Accepted.Should().BeTrue();
         }
 
         [Test]
         public void should_be_upgradable_if_both_books_are_upgradable()
         {
-            GivenMostRecentForBook(FIRST_ALBUM_ID, string.Empty, _upgradableQuality, DateTime.UtcNow, HistoryEventType.Grabbed);
-            GivenMostRecentForBook(SECOND_ALBUM_ID, string.Empty, _upgradableQuality, DateTime.UtcNow, HistoryEventType.Grabbed);
+            GivenMostRecentForBook(FIRST_ALBUM_ID, string.Empty, _upgradableQuality, DateTime.UtcNow, EntityHistoryEventType.Grabbed);
+            GivenMostRecentForBook(SECOND_ALBUM_ID, string.Empty, _upgradableQuality, DateTime.UtcNow, EntityHistoryEventType.Grabbed);
             _upgradeHistory.IsSatisfiedBy(_parseResultMulti, null).Accepted.Should().BeTrue();
         }
 
         [Test]
         public void should_not_be_upgradable_if_both_books_are_not_upgradable()
         {
-            GivenMostRecentForBook(FIRST_ALBUM_ID, string.Empty, _notupgradableQuality, DateTime.UtcNow, HistoryEventType.Grabbed);
-            GivenMostRecentForBook(SECOND_ALBUM_ID, string.Empty, _notupgradableQuality, DateTime.UtcNow, HistoryEventType.Grabbed);
+            GivenMostRecentForBook(FIRST_ALBUM_ID, string.Empty, _notupgradableQuality, DateTime.UtcNow, EntityHistoryEventType.Grabbed);
+            GivenMostRecentForBook(SECOND_ALBUM_ID, string.Empty, _notupgradableQuality, DateTime.UtcNow, EntityHistoryEventType.Grabbed);
             _upgradeHistory.IsSatisfiedBy(_parseResultMulti, null).Accepted.Should().BeFalse();
         }
 
         [Test]
         public void should_be_not_upgradable_if_only_first_books_is_upgradable()
         {
-            GivenMostRecentForBook(FIRST_ALBUM_ID, string.Empty, _upgradableQuality, DateTime.UtcNow, HistoryEventType.Grabbed);
-            GivenMostRecentForBook(FIRST_ALBUM_ID, string.Empty, _notupgradableQuality, DateTime.UtcNow, HistoryEventType.Grabbed);
+            GivenMostRecentForBook(FIRST_ALBUM_ID, string.Empty, _upgradableQuality, DateTime.UtcNow, EntityHistoryEventType.Grabbed);
+            GivenMostRecentForBook(FIRST_ALBUM_ID, string.Empty, _notupgradableQuality, DateTime.UtcNow, EntityHistoryEventType.Grabbed);
             _upgradeHistory.IsSatisfiedBy(_parseResultMulti, null).Accepted.Should().BeFalse();
         }
 
         [Test]
         public void should_be_not_upgradable_if_only_second_books_is_upgradable()
         {
-            GivenMostRecentForBook(FIRST_ALBUM_ID, string.Empty, _notupgradableQuality, DateTime.UtcNow, HistoryEventType.Grabbed);
-            GivenMostRecentForBook(SECOND_ALBUM_ID, string.Empty, _upgradableQuality, DateTime.UtcNow, HistoryEventType.Grabbed);
+            GivenMostRecentForBook(FIRST_ALBUM_ID, string.Empty, _notupgradableQuality, DateTime.UtcNow, EntityHistoryEventType.Grabbed);
+            GivenMostRecentForBook(SECOND_ALBUM_ID, string.Empty, _upgradableQuality, DateTime.UtcNow, EntityHistoryEventType.Grabbed);
             _upgradeHistory.IsSatisfiedBy(_parseResultMulti, null).Accepted.Should().BeFalse();
         }
 
@@ -168,7 +168,7 @@ namespace NzbDrone.Core.Test.DecisionEngineTests
             _parseResultSingle.ParsedBookInfo.Quality = new QualityModel(Quality.MP3, new Revision(version: 1));
             _upgradableQuality = new QualityModel(Quality.MP3, new Revision(version: 1));
 
-            GivenMostRecentForBook(FIRST_ALBUM_ID, string.Empty, _upgradableQuality, DateTime.UtcNow, HistoryEventType.Grabbed);
+            GivenMostRecentForBook(FIRST_ALBUM_ID, string.Empty, _upgradableQuality, DateTime.UtcNow, EntityHistoryEventType.Grabbed);
 
             _upgradeHistory.IsSatisfiedBy(_parseResultSingle, null).Accepted.Should().BeFalse();
         }
@@ -180,7 +180,7 @@ namespace NzbDrone.Core.Test.DecisionEngineTests
             _parseResultSingle.ParsedBookInfo.Quality = new QualityModel(Quality.MP3, new Revision(version: 1));
             _upgradableQuality = new QualityModel(Quality.MP3, new Revision(version: 1));
 
-            GivenMostRecentForBook(FIRST_ALBUM_ID, string.Empty, _upgradableQuality, DateTime.UtcNow, HistoryEventType.Grabbed);
+            GivenMostRecentForBook(FIRST_ALBUM_ID, string.Empty, _upgradableQuality, DateTime.UtcNow, EntityHistoryEventType.Grabbed);
 
             _upgradeHistory.IsSatisfiedBy(_parseResultSingle, null).Accepted.Should().BeFalse();
         }
@@ -188,7 +188,7 @@ namespace NzbDrone.Core.Test.DecisionEngineTests
         [Test]
         public void should_return_false_if_latest_history_item_is_only_one_hour_old()
         {
-            GivenMostRecentForBook(FIRST_ALBUM_ID, string.Empty, _notupgradableQuality, DateTime.UtcNow.AddHours(-1), HistoryEventType.Grabbed);
+            GivenMostRecentForBook(FIRST_ALBUM_ID, string.Empty, _notupgradableQuality, DateTime.UtcNow.AddHours(-1), EntityHistoryEventType.Grabbed);
             _upgradeHistory.IsSatisfiedBy(_parseResultMulti, null).Accepted.Should().BeFalse();
         }
 
@@ -196,7 +196,7 @@ namespace NzbDrone.Core.Test.DecisionEngineTests
         public void should_return_false_if_latest_history_has_a_download_id_and_cdh_is_disabled()
         {
             GivenCdhDisabled();
-            GivenMostRecentForBook(FIRST_ALBUM_ID, "test", _upgradableQuality, DateTime.UtcNow.AddDays(-100), HistoryEventType.Grabbed);
+            GivenMostRecentForBook(FIRST_ALBUM_ID, "test", _upgradableQuality, DateTime.UtcNow.AddDays(-100), EntityHistoryEventType.Grabbed);
             _upgradeHistory.IsSatisfiedBy(_parseResultMulti, null).Accepted.Should().BeTrue();
         }
 
@@ -208,7 +208,7 @@ namespace NzbDrone.Core.Test.DecisionEngineTests
             _parseResultSingle.ParsedBookInfo.Quality = new QualityModel(Quality.MP3, new Revision(version: 1));
             _upgradableQuality = new QualityModel(Quality.MP3, new Revision(version: 1));
 
-            GivenMostRecentForBook(FIRST_ALBUM_ID, "test", _upgradableQuality, DateTime.UtcNow.AddDays(-100), HistoryEventType.Grabbed);
+            GivenMostRecentForBook(FIRST_ALBUM_ID, "test", _upgradableQuality, DateTime.UtcNow.AddDays(-100), EntityHistoryEventType.Grabbed);
 
             _upgradeHistory.IsSatisfiedBy(_parseResultSingle, null).Accepted.Should().BeFalse();
         }
@@ -217,7 +217,7 @@ namespace NzbDrone.Core.Test.DecisionEngineTests
         public void should_return_false_if_only_book_is_not_upgradable_and_cdh_is_disabled()
         {
             GivenCdhDisabled();
-            GivenMostRecentForBook(FIRST_ALBUM_ID, "test", _notupgradableQuality, DateTime.UtcNow.AddDays(-100), HistoryEventType.Grabbed);
+            GivenMostRecentForBook(FIRST_ALBUM_ID, "test", _notupgradableQuality, DateTime.UtcNow.AddDays(-100), EntityHistoryEventType.Grabbed);
             _upgradeHistory.IsSatisfiedBy(_parseResultSingle, null).Accepted.Should().BeFalse();
         }
     }

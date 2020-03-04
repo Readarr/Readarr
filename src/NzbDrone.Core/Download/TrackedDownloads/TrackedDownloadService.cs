@@ -7,6 +7,7 @@ using NzbDrone.Common.Extensions;
 using NzbDrone.Common.Serializer;
 using NzbDrone.Core.Books;
 using NzbDrone.Core.Books.Events;
+using NzbDrone.Core.Download.History;
 using NzbDrone.Core.History;
 using NzbDrone.Core.Messaging.Events;
 using NzbDrone.Core.Parser;
@@ -28,7 +29,7 @@ namespace NzbDrone.Core.Download.TrackedDownloads
         private readonly IParsingService _parsingService;
         private readonly IHistoryService _historyService;
         private readonly IEventAggregator _eventAggregator;
-        private readonly ITrackedDownloadAlreadyImported _trackedDownloadAlreadyImported;
+        private readonly IDownloadHistoryService _downloadHistoryService;
         private readonly Logger _logger;
         private readonly ICached<TrackedDownload> _cache;
 
@@ -36,13 +37,13 @@ namespace NzbDrone.Core.Download.TrackedDownloads
                                       ICacheManager cacheManager,
                                       IHistoryService historyService,
                                       IEventAggregator eventAggregator,
-                                      ITrackedDownloadAlreadyImported trackedDownloadAlreadyImported,
+                                      IDownloadHistoryService downloadHistoryService,
                                       Logger logger)
         {
             _parsingService = parsingService;
             _historyService = historyService;
             _eventAggregator = eventAggregator;
-            _trackedDownloadAlreadyImported = trackedDownloadAlreadyImported;
+            _downloadHistoryService = downloadHistoryService;
             _cache = cacheManager.GetCache<TrackedDownload>(GetType());
             _logger = logger;
         }
@@ -129,31 +130,25 @@ namespace NzbDrone.Core.Download.TrackedDownloads
                     trackedDownload.RemoteBook = _parsingService.Map(parsedBookInfo);
                 }
 
+                var downloadHistory = _downloadHistoryService.GetLatestDownloadHistoryItem(downloadItem.DownloadId);
+
+                if (downloadHistory != null)
+                {
+                    var state = GetStateFromHistory(downloadHistory.EventType);
+                    trackedDownload.State = state;
+
+                    if (downloadHistory.EventType == DownloadHistoryEventType.DownloadImportIncomplete)
+                    {
+                        var messages = Json.Deserialize<List<TrackedDownloadStatusMessage>>(downloadHistory.Data["statusMessages"]).ToArray();
+                        trackedDownload.Warn(messages);
+                    }
+                }
+
                 if (historyItems.Any())
                 {
                     var firstHistoryItem = historyItems.First();
-                    var state = GetStateFromHistory(firstHistoryItem);
+                    var grabbedEvent = historyItems.FirstOrDefault(v => v.EventType == EntityHistoryEventType.Grabbed);
 
-                    // One potential issue here is if the latest is imported, but other episodes are ignored or never imported.
-                    // It's unlikely that will happen, but could happen if additional episodes are added to season after it's already imported.
-                    if (state == TrackedDownloadState.Imported)
-                    {
-                        var allImported = _trackedDownloadAlreadyImported.IsImported(trackedDownload, historyItems);
-
-                        trackedDownload.State = allImported ? TrackedDownloadState.Imported : TrackedDownloadState.Downloading;
-                    }
-                    else
-                    {
-                        trackedDownload.State = state;
-                    }
-
-                    if (firstHistoryItem.EventType == HistoryEventType.BookImportIncomplete)
-                    {
-                        var messages = Json.Deserialize<List<TrackedDownloadStatusMessage>>(firstHistoryItem?.Data["statusMessages"]).ToArray();
-                        trackedDownload.Warn(messages);
-                    }
-
-                    var grabbedEvent = historyItems.FirstOrDefault(v => v.EventType == HistoryEventType.Grabbed);
                     trackedDownload.Indexer = grabbedEvent?.Data["indexer"];
 
                     if (parsedBookInfo == null ||
@@ -162,7 +157,6 @@ namespace NzbDrone.Core.Download.TrackedDownloads
                         trackedDownload.RemoteBook.Books.Empty())
                     {
                         // Try parsing the original source title and if that fails, try parsing it as a special
-                        // TODO: Pass the TVDB ID and TVRage IDs in as well so we have a better chance for finding the item
                         var historyAuthor = firstHistoryItem.Author;
                         var historyBooks = new List<Book> { firstHistoryItem.Book };
 
@@ -172,7 +166,7 @@ namespace NzbDrone.Core.Download.TrackedDownloads
                         {
                             trackedDownload.RemoteBook = _parsingService.Map(parsedBookInfo,
                                 firstHistoryItem.AuthorId,
-                                historyItems.Where(v => v.EventType == HistoryEventType.Grabbed).Select(h => h.BookId)
+                                historyItems.Where(v => v.EventType == EntityHistoryEventType.Grabbed).Select(h => h.BookId)
                                     .Distinct());
                         }
                         else
@@ -186,7 +180,7 @@ namespace NzbDrone.Core.Download.TrackedDownloads
                             {
                                 trackedDownload.RemoteBook = _parsingService.Map(parsedBookInfo,
                                     firstHistoryItem.AuthorId,
-                                    historyItems.Where(v => v.EventType == HistoryEventType.Grabbed).Select(h => h.BookId)
+                                    historyItems.Where(v => v.EventType == EntityHistoryEventType.Grabbed).Select(h => h.BookId)
                                         .Distinct());
                             }
                         }
@@ -244,27 +238,21 @@ namespace NzbDrone.Core.Download.TrackedDownloads
             }
         }
 
-        private static TrackedDownloadState GetStateFromHistory(NzbDrone.Core.History.History history)
+        private static TrackedDownloadState GetStateFromHistory(DownloadHistoryEventType eventType)
         {
-            switch (history.EventType)
+            switch (eventType)
             {
-                case HistoryEventType.BookImportIncomplete:
+                case DownloadHistoryEventType.DownloadImportIncomplete:
                     return TrackedDownloadState.ImportFailed;
-                case HistoryEventType.DownloadImported:
+                case DownloadHistoryEventType.DownloadImported:
                     return TrackedDownloadState.Imported;
-                case HistoryEventType.DownloadFailed:
+                case DownloadHistoryEventType.DownloadFailed:
                     return TrackedDownloadState.DownloadFailed;
-                case HistoryEventType.DownloadIgnored:
+                case DownloadHistoryEventType.DownloadIgnored:
                     return TrackedDownloadState.Ignored;
+                default:
+                    return TrackedDownloadState.Downloading;
             }
-
-            // Since DownloadComplete is a new event type, we can't assume it exists for old downloads
-            if (history.EventType == HistoryEventType.BookFileImported)
-            {
-                return DateTime.UtcNow.Subtract(history.Date).TotalSeconds < 60 ? TrackedDownloadState.Importing : TrackedDownloadState.Imported;
-            }
-
-            return TrackedDownloadState.Downloading;
         }
 
         public void Handle(BookDeletedEvent message)

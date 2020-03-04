@@ -23,8 +23,6 @@ function getIconName(eventType) {
       return icons.RETAG;
     case 'bookImportIncomplete':
       return icons.DOWNLOADED;
-    case 'downloadImported':
-      return icons.DOWNLOADED;
     case 'downloadIgnored':
       return icons.IGNORE;
     default:
@@ -61,8 +59,6 @@ function getTooltip(eventType, data) {
       return 'Book file tags updated';
     case 'bookImportIncomplete':
       return 'Files downloaded but not all could be imported';
-    case 'downloadImported':
-      return 'Download completed and successfully imported';
     case 'downloadIgnored':
       return 'Book Download Ignored';
     default:

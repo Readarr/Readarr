@@ -18,16 +18,17 @@ namespace NzbDrone.Core.History
 {
     public interface IHistoryService
     {
-        PagingSpec<History> Paged(PagingSpec<History> pagingSpec);
-        History MostRecentForBook(int bookId);
-        History MostRecentForDownloadId(string downloadId);
-        History Get(int historyId);
-        List<History> GetByAuthor(int authorId, HistoryEventType? eventType);
-        List<History> GetByBook(int bookId, HistoryEventType? eventType);
-        List<History> Find(string downloadId, HistoryEventType eventType);
-        List<History> FindByDownloadId(string downloadId);
-        List<History> Since(DateTime date, HistoryEventType? eventType);
-        void UpdateMany(IList<History> items);
+        PagingSpec<EntityHistory> Paged(PagingSpec<EntityHistory> pagingSpec);
+        EntityHistory MostRecentForBook(int bookId);
+        EntityHistory MostRecentForDownloadId(string downloadId);
+        EntityHistory Get(int historyId);
+        List<EntityHistory> GetByAuthor(int authorId, EntityHistoryEventType? eventType);
+        List<EntityHistory> GetByBook(int bookId, EntityHistoryEventType? eventType);
+        List<EntityHistory> Find(string downloadId, EntityHistoryEventType eventType);
+        List<EntityHistory> FindByDownloadId(string downloadId);
+        string FindDownloadId(TrackImportedEvent trackedDownload);
+        List<EntityHistory> Since(DateTime date, EntityHistoryEventType? eventType);
+        void UpdateMany(IList<EntityHistory> items);
     }
 
     public class HistoryService : IHistoryService,
@@ -35,7 +36,6 @@ namespace NzbDrone.Core.History
                                   IHandle<BookImportIncompleteEvent>,
                                   IHandle<TrackImportedEvent>,
                                   IHandle<DownloadFailedEvent>,
-                                  IHandle<DownloadCompletedEvent>,
                                   IHandle<BookFileDeletedEvent>,
                                   IHandle<BookFileRenamedEvent>,
                                   IHandle<BookFileRetaggedEvent>,
@@ -51,62 +51,61 @@ namespace NzbDrone.Core.History
             _logger = logger;
         }
 
-        public PagingSpec<History> Paged(PagingSpec<History> pagingSpec)
+        public PagingSpec<EntityHistory> Paged(PagingSpec<EntityHistory> pagingSpec)
         {
             return _historyRepository.GetPaged(pagingSpec);
         }
 
-        public History MostRecentForBook(int bookId)
+        public EntityHistory MostRecentForBook(int bookId)
         {
             return _historyRepository.MostRecentForBook(bookId);
         }
 
-        public History MostRecentForDownloadId(string downloadId)
+        public EntityHistory MostRecentForDownloadId(string downloadId)
         {
             return _historyRepository.MostRecentForDownloadId(downloadId);
         }
 
-        public History Get(int historyId)
+        public EntityHistory Get(int historyId)
         {
             return _historyRepository.Get(historyId);
         }
 
-        public List<History> GetByAuthor(int authorId, HistoryEventType? eventType)
+        public List<EntityHistory> GetByAuthor(int authorId, EntityHistoryEventType? eventType)
         {
             return _historyRepository.GetByAuthor(authorId, eventType);
         }
 
-        public List<History> GetByBook(int bookId, HistoryEventType? eventType)
+        public List<EntityHistory> GetByBook(int bookId, EntityHistoryEventType? eventType)
         {
             return _historyRepository.GetByBook(bookId, eventType);
         }
 
-        public List<History> Find(string downloadId, HistoryEventType eventType)
+        public List<EntityHistory> Find(string downloadId, EntityHistoryEventType eventType)
         {
             return _historyRepository.FindByDownloadId(downloadId).Where(c => c.EventType == eventType).ToList();
         }
 
-        public List<History> FindByDownloadId(string downloadId)
+        public List<EntityHistory> FindByDownloadId(string downloadId)
         {
             return _historyRepository.FindByDownloadId(downloadId);
         }
 
-        private string FindDownloadId(TrackImportedEvent trackedDownload)
+        public string FindDownloadId(TrackImportedEvent trackedDownload)
         {
             _logger.Debug("Trying to find downloadId for {0} from history", trackedDownload.ImportedBook.Path);
 
             var bookIds = new List<int> { trackedDownload.BookInfo.Book.Id };
-
             var allHistory = _historyRepository.FindDownloadHistory(trackedDownload.BookInfo.Author.Id, trackedDownload.ImportedBook.Quality);
 
-            //Find download related items for these episdoes
+            //Find download related items for these episodes
             var booksHistory = allHistory.Where(h => bookIds.Contains(h.BookId)).ToList();
 
             var processedDownloadId = booksHistory
-                .Where(c => c.EventType != HistoryEventType.Grabbed && c.DownloadId != null)
+                .Where(c => c.EventType != EntityHistoryEventType.Grabbed && c.DownloadId != null)
                 .Select(c => c.DownloadId);
 
-            var stillDownloading = booksHistory.Where(c => c.EventType == HistoryEventType.Grabbed && !processedDownloadId.Contains(c.DownloadId)).ToList();
+            var stillDownloading = booksHistory.Where(c => c.EventType == EntityHistoryEventType.Grabbed && !processedDownloadId.Contains(c.DownloadId)).ToList();
 
             string downloadId = null;
 
@@ -138,9 +137,9 @@ namespace NzbDrone.Core.History
         {
             foreach (var book in message.Book.Books)
             {
-                var history = new History
+                var history = new EntityHistory
                 {
-                    EventType = HistoryEventType.Grabbed,
+                    EventType = EntityHistoryEventType.Grabbed,
                     Date = DateTime.UtcNow,
                     Quality = message.Book.ParsedBookInfo.Quality,
                     SourceTitle = message.Book.Release.Title,
@@ -157,6 +156,7 @@ namespace NzbDrone.Core.History
                 history.Data.Add("AgeMinutes", message.Book.Release.AgeMinutes.ToString());
                 history.Data.Add("PublishedDate", message.Book.Release.PublishDate.ToString("s") + "Z");
                 history.Data.Add("DownloadClient", message.DownloadClient);
+                history.Data.Add("DownloadClientName", message.DownloadClientName);
                 history.Data.Add("Size", message.Book.Release.Size.ToString());
                 history.Data.Add("DownloadUrl", message.Book.Release.DownloadUrl);
                 history.Data.Add("Guid", message.Book.Release.Guid);
@@ -188,9 +188,9 @@ namespace NzbDrone.Core.History
 
             foreach (var book in message.TrackedDownload.RemoteBook.Books)
             {
-                var history = new History
+                var history = new EntityHistory
                 {
-                    EventType = HistoryEventType.BookImportIncomplete,
+                    EventType = EntityHistoryEventType.BookImportIncomplete,
                     Date = DateTime.UtcNow,
                     Quality = message.TrackedDownload.RemoteBook.ParsedBookInfo?.Quality ?? new QualityModel(),
                     SourceTitle = message.TrackedDownload.DownloadItem.Title,
@@ -218,9 +218,9 @@ namespace NzbDrone.Core.History
                 downloadId = FindDownloadId(message);
             }
 
-            var history = new History
+            var history = new EntityHistory
             {
-                EventType = HistoryEventType.BookFileImported,
+                EventType = EntityHistoryEventType.BookFileImported,
                 Date = DateTime.UtcNow,
                 Quality = message.BookInfo.Quality,
                 SourceTitle = message.ImportedBook.SceneName ?? Path.GetFileNameWithoutExtension(message.BookInfo.Path),
@@ -233,7 +233,8 @@ namespace NzbDrone.Core.History
             //history.Data.Add("FileId", message.ImportedEpisode.Id.ToString());
             history.Data.Add("DroppedPath", message.BookInfo.Path);
             history.Data.Add("ImportedPath", message.ImportedBook.Path);
-            history.Data.Add("DownloadClient", message.DownloadClient);
+            history.Data.Add("DownloadClient", message.DownloadClientInfo?.Type);
+            history.Data.Add("DownloadClientName", message.DownloadClientInfo?.Name);
 
             _historyRepository.Insert(history);
         }
@@ -242,9 +243,9 @@ namespace NzbDrone.Core.History
         {
             foreach (var bookId in message.BookIds)
             {
-                var history = new History
+                var history = new EntityHistory
                 {
-                    EventType = HistoryEventType.DownloadFailed,
+                    EventType = EntityHistoryEventType.DownloadFailed,
                     Date = DateTime.UtcNow,
                     Quality = message.Quality,
                     SourceTitle = message.SourceTitle,
@@ -254,26 +255,8 @@ namespace NzbDrone.Core.History
                 };
 
                 history.Data.Add("DownloadClient", message.DownloadClient);
+                history.Data.Add("DownloadClientName", message.TrackedDownload?.DownloadItem.DownloadClientInfo.Name);
                 history.Data.Add("Message", message.Message);
-
-                _historyRepository.Insert(history);
-            }
-        }
-
-        public void Handle(DownloadCompletedEvent message)
-        {
-            foreach (var book in message.TrackedDownload.RemoteBook.Books)
-            {
-                var history = new History
-                {
-                    EventType = HistoryEventType.DownloadImported,
-                    Date = DateTime.UtcNow,
-                    Quality = message.TrackedDownload.RemoteBook.ParsedBookInfo?.Quality ?? new QualityModel(),
-                    SourceTitle = message.TrackedDownload.DownloadItem.Title,
-                    AuthorId = book.AuthorId,
-                    BookId = book.Id,
-                    DownloadId = message.TrackedDownload.DownloadItem.DownloadId
-                };
 
                 _historyRepository.Insert(history);
             }
@@ -292,9 +275,9 @@ namespace NzbDrone.Core.History
                 return;
             }
 
-            var history = new History
+            var history = new EntityHistory
             {
-                EventType = HistoryEventType.BookFileDeleted,
+                EventType = EntityHistoryEventType.BookFileDeleted,
                 Date = DateTime.UtcNow,
                 Quality = message.BookFile.Quality,
                 SourceTitle = message.BookFile.Path,
@@ -312,9 +295,9 @@ namespace NzbDrone.Core.History
             var sourcePath = message.OriginalPath;
             var path = message.BookFile.Path;
 
-            var history = new History
+            var history = new EntityHistory
             {
-                EventType = HistoryEventType.BookFileRenamed,
+                EventType = EntityHistoryEventType.BookFileRenamed,
                 Date = DateTime.UtcNow,
                 Quality = message.BookFile.Quality,
                 SourceTitle = message.OriginalPath,
@@ -332,9 +315,9 @@ namespace NzbDrone.Core.History
         {
             var path = message.BookFile.Path;
 
-            var history = new History
+            var history = new EntityHistory
             {
-                EventType = HistoryEventType.BookFileRetagged,
+                EventType = EntityHistoryEventType.BookFileRetagged,
                 Date = DateTime.UtcNow,
                 Quality = message.BookFile.Quality,
                 SourceTitle = path,
@@ -360,12 +343,12 @@ namespace NzbDrone.Core.History
 
         public void Handle(DownloadIgnoredEvent message)
         {
-            var historyToAdd = new List<History>();
+            var historyToAdd = new List<EntityHistory>();
             foreach (var bookId in message.BookIds)
             {
-                var history = new History
+                var history = new EntityHistory
                 {
-                    EventType = HistoryEventType.DownloadIgnored,
+                    EventType = EntityHistoryEventType.DownloadIgnored,
                     Date = DateTime.UtcNow,
                     Quality = message.Quality,
                     SourceTitle = message.SourceTitle,
@@ -383,12 +366,12 @@ namespace NzbDrone.Core.History
             _historyRepository.InsertMany(historyToAdd);
         }
 
-        public List<History> Since(DateTime date, HistoryEventType? eventType)
+        public List<EntityHistory> Since(DateTime date, EntityHistoryEventType? eventType)
         {
             return _historyRepository.Since(date, eventType);
         }
 
-        public void UpdateMany(IList<History> items)
+        public void UpdateMany(IList<EntityHistory> items)
         {
             _historyRepository.UpdateMany(items);
         }
