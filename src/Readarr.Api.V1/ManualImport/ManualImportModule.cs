@@ -75,12 +75,10 @@ namespace Readarr.Api.V1.ManualImport
                     Size = resource.Size,
                     Artist = resource.Artist == null ? null : _artistService.GetArtist(resource.Artist.Id),
                     Album = resource.Album == null ? null : _albumService.GetAlbum(resource.Album.Id),
-                    Release = resource.AlbumReleaseId == 0 ? null : _releaseService.GetRelease(resource.AlbumReleaseId),
                     Quality = resource.Quality,
                     DownloadId = resource.DownloadId,
                     AdditionalFile = resource.AdditionalFile,
-                    ReplaceExistingFiles = resource.ReplaceExistingFiles,
-                    DisableReleaseSwitching = resource.DisableReleaseSwitching
+                    ReplaceExistingFiles = resource.ReplaceExistingFiles
                 });
             }
 

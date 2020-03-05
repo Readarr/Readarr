@@ -59,7 +59,7 @@ namespace NzbDrone.Core.Extras.Metadata
 
         public override int Order => 0;
 
-        public override IEnumerable<ExtraFile> CreateAfterArtistScan(Artist artist, List<TrackFile> trackFiles)
+        public override IEnumerable<ExtraFile> CreateAfterArtistScan(Author artist, List<TrackFile> trackFiles)
         {
             var metadataFiles = _metadataFileService.GetFilesByArtist(artist.Id);
             _cleanMetadataService.Clean(artist);
@@ -100,7 +100,7 @@ namespace NzbDrone.Core.Extras.Metadata
             return files;
         }
 
-        public override IEnumerable<ExtraFile> CreateAfterTrackImport(Artist artist, TrackFile trackFile)
+        public override IEnumerable<ExtraFile> CreateAfterTrackImport(Author artist, TrackFile trackFile)
         {
             var files = new List<MetadataFile>();
 
@@ -114,7 +114,7 @@ namespace NzbDrone.Core.Extras.Metadata
             return files;
         }
 
-        public override IEnumerable<ExtraFile> CreateAfterTrackImport(Artist artist, Album album, string artistFolder, string albumFolder)
+        public override IEnumerable<ExtraFile> CreateAfterTrackImport(Author artist, Book album, string artistFolder, string albumFolder)
         {
             var metadataFiles = _metadataFileService.GetFilesByArtist(artist.Id);
 
@@ -141,7 +141,7 @@ namespace NzbDrone.Core.Extras.Metadata
             return files;
         }
 
-        public override IEnumerable<ExtraFile> MoveFilesAfterRename(Artist artist, List<TrackFile> trackFiles)
+        public override IEnumerable<ExtraFile> MoveFilesAfterRename(Author artist, List<TrackFile> trackFiles)
         {
             var metadataFiles = _metadataFileService.GetFilesByArtist(artist.Id);
             var movedFiles = new List<MetadataFile>();
@@ -210,7 +210,7 @@ namespace NzbDrone.Core.Extras.Metadata
             return movedFiles;
         }
 
-        public override ExtraFile Import(Artist artist, TrackFile trackFile, string path, string extension, bool readOnly)
+        public override ExtraFile Import(Author artist, TrackFile trackFile, string path, string extension, bool readOnly)
         {
             return null;
         }
@@ -220,7 +220,7 @@ namespace NzbDrone.Core.Extras.Metadata
             return artistMetadata.Where(c => c.Consumer == consumer.GetType().Name).ToList();
         }
 
-        private MetadataFile ProcessArtistMetadata(IMetadata consumer, Artist artist, List<MetadataFile> existingMetadataFiles)
+        private MetadataFile ProcessArtistMetadata(IMetadata consumer, Author artist, List<MetadataFile> existingMetadataFiles)
         {
             var artistMetadata = consumer.ArtistMetadata(artist);
 
@@ -265,7 +265,7 @@ namespace NzbDrone.Core.Extras.Metadata
             return metadata;
         }
 
-        private MetadataFile ProcessAlbumMetadata(IMetadata consumer, Artist artist, Album album, string albumPath, List<MetadataFile> existingMetadataFiles)
+        private MetadataFile ProcessAlbumMetadata(IMetadata consumer, Author artist, Book album, string albumPath, List<MetadataFile> existingMetadataFiles)
         {
             var albumMetadata = consumer.AlbumMetadata(artist, album, albumPath);
 
@@ -311,7 +311,7 @@ namespace NzbDrone.Core.Extras.Metadata
             return metadata;
         }
 
-        private MetadataFile ProcessTrackMetadata(IMetadata consumer, Artist artist, TrackFile trackFile, List<MetadataFile> existingMetadataFiles)
+        private MetadataFile ProcessTrackMetadata(IMetadata consumer, Author artist, TrackFile trackFile, List<MetadataFile> existingMetadataFiles)
         {
             var trackMetadata = consumer.TrackMetadata(artist, trackFile);
 
@@ -364,7 +364,7 @@ namespace NzbDrone.Core.Extras.Metadata
             return metadata;
         }
 
-        private List<MetadataFile> ProcessArtistImages(IMetadata consumer, Artist artist, List<MetadataFile> existingMetadataFiles)
+        private List<MetadataFile> ProcessArtistImages(IMetadata consumer, Author artist, List<MetadataFile> existingMetadataFiles)
         {
             var result = new List<MetadataFile>();
 
@@ -399,7 +399,7 @@ namespace NzbDrone.Core.Extras.Metadata
             return result;
         }
 
-        private List<MetadataFile> ProcessAlbumImages(IMetadata consumer, Artist artist, Album album, string albumFolder, List<MetadataFile> existingMetadataFiles)
+        private List<MetadataFile> ProcessAlbumImages(IMetadata consumer, Author artist, Book album, string albumFolder, List<MetadataFile> existingMetadataFiles)
         {
             var result = new List<MetadataFile>();
 
@@ -436,7 +436,7 @@ namespace NzbDrone.Core.Extras.Metadata
             return result;
         }
 
-        private void DownloadImage(Artist artist, ImageFileResult image)
+        private void DownloadImage(Author artist, ImageFileResult image)
         {
             var fullPath = Path.Combine(artist.Path, image.RelativePath);
 
@@ -469,7 +469,7 @@ namespace NzbDrone.Core.Extras.Metadata
             _mediaFileAttributeService.SetFilePermissions(path);
         }
 
-        private MetadataFile GetMetadataFile(Artist artist, List<MetadataFile> existingMetadataFiles, Func<MetadataFile, bool> predicate)
+        private MetadataFile GetMetadataFile(Author artist, List<MetadataFile> existingMetadataFiles, Func<MetadataFile, bool> predicate)
         {
             var matchingMetadataFiles = existingMetadataFiles.Where(predicate).ToList();
 

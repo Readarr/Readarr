@@ -34,13 +34,13 @@ namespace NzbDrone.Core.Test.MediaFiles
             _rejectedDecisions = new List<ImportDecision<LocalTrack>>();
             _approvedDecisions = new List<ImportDecision<LocalTrack>>();
 
-            var artist = Builder<Artist>.CreateNew()
+            var artist = Builder<Author>.CreateNew()
                                         .With(e => e.QualityProfile = new QualityProfile { Items = Qualities.QualityFixture.GetDefaultQualities() })
                                         .With(s => s.Path = @"C:\Test\Music\Alien Ant Farm".AsOsAgnostic())
                                         .Build();
 
-            var album = Builder<Album>.CreateNew()
-                .With(e => e.Artist = artist)
+            var album = Builder<Book>.CreateNew()
+                .With(e => e.Author = artist)
                 .Build();
 
             var release = Builder<AlbumRelease>.CreateNew()

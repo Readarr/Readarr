@@ -34,10 +34,10 @@ namespace NzbDrone.Core.Test.DecisionEngineTests.RssSync
             _firstFile = new TrackFile { Quality = new QualityModel(Quality.FLAC, new Revision(version: 1)), DateAdded = DateTime.Now };
             _secondFile = new TrackFile { Quality = new QualityModel(Quality.FLAC, new Revision(version: 1)), DateAdded = DateTime.Now };
 
-            var singleAlbumList = new List<Album> { new Album { }, new Album { } };
-            var doubleAlbumList = new List<Album> { new Album { }, new Album { }, new Album { } };
+            var singleAlbumList = new List<Book> { new Book { }, new Book { } };
+            var doubleAlbumList = new List<Book> { new Book { }, new Book { }, new Book { } };
 
-            var fakeArtist = Builder<Artist>.CreateNew()
+            var fakeArtist = Builder<Author>.CreateNew()
                          .With(c => c.QualityProfile = new QualityProfile { Cutoff = Quality.FLAC.Id })
                          .Build();
 

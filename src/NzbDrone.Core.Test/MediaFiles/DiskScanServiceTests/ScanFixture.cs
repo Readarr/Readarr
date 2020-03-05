@@ -24,7 +24,7 @@ namespace NzbDrone.Core.Test.MediaFiles.DiskScanServiceTests
     [TestFixture]
     public class ScanFixture : FileSystemTest<DiskScanService>
     {
-        private Artist _artist;
+        private Author _artist;
         private string _rootFolder;
         private string _otherArtistFolder;
 
@@ -35,7 +35,7 @@ namespace NzbDrone.Core.Test.MediaFiles.DiskScanServiceTests
             _otherArtistFolder = @"C:\Test\Music\OtherArtist".AsOsAgnostic();
             var artistFolder = @"C:\Test\Music\Artist".AsOsAgnostic();
 
-            _artist = Builder<Artist>.CreateNew()
+            _artist = Builder<Author>.CreateNew()
                                      .With(s => s.Path = artistFolder)
                                      .Build();
 
@@ -45,7 +45,7 @@ namespace NzbDrone.Core.Test.MediaFiles.DiskScanServiceTests
 
             Mocker.GetMock<IArtistService>()
                 .Setup(s => s.GetArtists(It.IsAny<List<int>>()))
-                .Returns(new List<Artist>());
+                .Returns(new List<Author>());
 
             Mocker.GetMock<IMakeImportDecision>()
                 .Setup(v => v.GetImportDecisions(It.IsAny<List<IFileInfo>>(), It.IsAny<IdentificationOverrides>(), It.IsAny<ImportDecisionMakerInfo>(), It.IsAny<ImportDecisionMakerConfig>()))

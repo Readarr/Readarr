@@ -59,7 +59,7 @@ namespace Readarr.Api.V1.TrackFiles
             };
         }
 
-        public static TrackFileResource ToResource(this TrackFile model, NzbDrone.Core.Music.Artist artist, IUpgradableSpecification upgradableSpecification)
+        public static TrackFileResource ToResource(this TrackFile model, NzbDrone.Core.Music.Author artist, IUpgradableSpecification upgradableSpecification)
         {
             if (model == null)
             {

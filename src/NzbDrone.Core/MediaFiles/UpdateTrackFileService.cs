@@ -14,7 +14,7 @@ namespace NzbDrone.Core.MediaFiles
 {
     public interface IUpdateTrackFileService
     {
-        void ChangeFileDateForFile(TrackFile trackFile, Artist artist, List<Track> tracks);
+        void ChangeFileDateForFile(TrackFile trackFile, Author artist, Book book);
     }
 
     public class UpdateTrackFileService : IUpdateTrackFileService,
@@ -40,12 +40,12 @@ namespace NzbDrone.Core.MediaFiles
             _logger = logger;
         }
 
-        public void ChangeFileDateForFile(TrackFile trackFile, Artist artist, List<Track> tracks)
+        public void ChangeFileDateForFile(TrackFile trackFile, Author artist, Book book)
         {
-            ChangeFileDate(trackFile, artist, tracks);
+            ChangeFileDate(trackFile, book);
         }
 
-        private bool ChangeFileDate(TrackFile trackFile, Artist artist, List<Track> tracks)
+        private bool ChangeFileDate(TrackFile trackFile, Book album)
         {
             var trackFilePath = trackFile.Path;
 
@@ -53,8 +53,6 @@ namespace NzbDrone.Core.MediaFiles
             {
                 case FileDateType.AlbumReleaseDate:
                     {
-                        var album = _albumService.GetAlbum(trackFile.AlbumId);
-
                         if (!album.ReleaseDate.HasValue)
                         {
                             _logger.Debug("Could not create valid date to change file [{0}]", trackFilePath);
@@ -64,7 +62,7 @@ namespace NzbDrone.Core.MediaFiles
                         var relDate = album.ReleaseDate.Value;
 
                         // avoiding false +ve checks and set date skewing by not using UTC (Windows)
-                        DateTime oldDateTime = _diskProvider.FileGetLastWrite(trackFilePath);
+                        var oldDateTime = _diskProvider.FileGetLastWrite(trackFilePath);
 
                         if (OsInfo.IsNotWindows && relDate < EpochTime)
                         {
@@ -101,19 +99,19 @@ namespace NzbDrone.Core.MediaFiles
                 return;
             }
 
-            var tracks = _trackService.TracksWithFiles(message.Artist.Id);
+            var books = _albumService.GetArtistAlbumsWithFiles(message.Artist);
 
             var trackFiles = new List<TrackFile>();
             var updated = new List<TrackFile>();
 
-            foreach (var group in tracks.GroupBy(e => e.TrackFileId))
+            foreach (var group in books.GroupBy(e => e.BookFileId))
             {
                 var tracksInFile = group.Select(e => e).ToList();
-                var trackFile = tracksInFile.First().TrackFile;
+                var trackFile = tracksInFile.First().BookFile;
 
                 trackFiles.Add(trackFile);
 
-                if (ChangeFileDate(trackFile, message.Artist, tracksInFile))
+                if (ChangeFileDate(trackFile, tracksInFile.First()))
                 {
                     updated.Add(trackFile);
                 }

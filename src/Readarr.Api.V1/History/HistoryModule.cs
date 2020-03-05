@@ -35,7 +35,7 @@ namespace Readarr.Api.V1.History
             Post("/failed", x => MarkAsFailed());
         }
 
-        protected HistoryResource MapToResource(NzbDrone.Core.History.History model, bool includeArtist, bool includeAlbum, bool includeTrack)
+        protected HistoryResource MapToResource(NzbDrone.Core.History.History model, bool includeArtist, bool includeAlbum)
         {
             var resource = model.ToResource();
 
@@ -47,11 +47,6 @@ namespace Readarr.Api.V1.History
             if (includeAlbum)
             {
                 resource.Album = model.Album.ToResource();
-            }
-
-            if (includeTrack)
-            {
-                resource.Track = model.Track.ToResource();
             }
 
             if (model.Artist != null)
@@ -67,7 +62,6 @@ namespace Readarr.Api.V1.History
             var pagingSpec = pagingResource.MapToPagingSpec<HistoryResource, NzbDrone.Core.History.History>("date", SortDirection.Descending);
             var includeArtist = Request.GetBooleanQueryParameter("includeArtist");
             var includeAlbum = Request.GetBooleanQueryParameter("includeAlbum");
-            var includeTrack = Request.GetBooleanQueryParameter("includeTrack");
 
             var eventTypeFilter = pagingResource.Filters.FirstOrDefault(f => f.Key == "eventType");
             var albumIdFilter = pagingResource.Filters.FirstOrDefault(f => f.Key == "albumId");
@@ -91,7 +85,7 @@ namespace Readarr.Api.V1.History
                 pagingSpec.FilterExpressions.Add(h => h.DownloadId == downloadId);
             }
 
-            return ApplyToPage(_historyService.Paged, pagingSpec, h => MapToResource(h, includeArtist, includeAlbum, includeTrack));
+            return ApplyToPage(_historyService.Paged, pagingSpec, h => MapToResource(h, includeArtist, includeAlbum));
         }
 
         private List<HistoryResource> GetHistorySince()
@@ -108,14 +102,13 @@ namespace Readarr.Api.V1.History
             HistoryEventType? eventType = null;
             var includeArtist = Request.GetBooleanQueryParameter("includeArtist");
             var includeAlbum = Request.GetBooleanQueryParameter("includeAlbum");
-            var includeTrack = Request.GetBooleanQueryParameter("includeTrack");
 
             if (queryEventType.HasValue)
             {
                 eventType = (HistoryEventType)Convert.ToInt32(queryEventType.Value);
             }
 
-            return _historyService.Since(date, eventType).Select(h => MapToResource(h, includeArtist, includeAlbum, includeTrack)).ToList();
+            return _historyService.Since(date, eventType).Select(h => MapToResource(h, includeArtist, includeAlbum)).ToList();
         }
 
         private List<HistoryResource> GetArtistHistory()
@@ -133,7 +126,6 @@ namespace Readarr.Api.V1.History
             HistoryEventType? eventType = null;
             var includeArtist = Request.GetBooleanQueryParameter("includeArtist");
             var includeAlbum = Request.GetBooleanQueryParameter("includeAlbum");
-            var includeTrack = Request.GetBooleanQueryParameter("includeTrack");
 
             if (queryEventType.HasValue)
             {
@@ -144,10 +136,10 @@ namespace Readarr.Api.V1.History
             {
                 int albumId = Convert.ToInt32(queryAlbumId.Value);
 
-                return _historyService.GetByAlbum(albumId, eventType).Select(h => MapToResource(h, includeArtist, includeAlbum, includeTrack)).ToList();
+                return _historyService.GetByAlbum(albumId, eventType).Select(h => MapToResource(h, includeArtist, includeAlbum)).ToList();
             }
 
-            return _historyService.GetByArtist(artistId, eventType).Select(h => MapToResource(h, includeArtist, includeAlbum, includeTrack)).ToList();
+            return _historyService.GetByArtist(artistId, eventType).Select(h => MapToResource(h, includeArtist, includeAlbum)).ToList();
         }
 
         private object MarkAsFailed()

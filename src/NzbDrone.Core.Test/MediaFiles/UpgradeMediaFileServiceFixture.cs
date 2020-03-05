@@ -24,7 +24,7 @@ namespace NzbDrone.Core.Test.MediaFiles
         public void Setup()
         {
             _localTrack = new LocalTrack();
-            _localTrack.Artist = new Artist
+            _localTrack.Artist = new Author
             {
                 Path = _rootPath
             };

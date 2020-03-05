@@ -263,7 +263,7 @@ namespace NzbDrone.Core.Download.Pending
         {
             var result = new List<PendingRelease>();
 
-            var artistMap = new Dictionary<int, Artist>();
+            var artistMap = new Dictionary<int, Author>();
 
             if (knownRemoteAlbums != null)
             {
@@ -291,7 +291,7 @@ namespace NzbDrone.Core.Download.Pending
                     return null;
                 }
 
-                List<Album> albums;
+                List<Book> albums;
 
                 RemoteAlbum knownRemoteAlbum;
                 if (knownRemoteAlbums != null && knownRemoteAlbums.TryGetValue(release.Release.Title, out knownRemoteAlbum))
@@ -408,12 +408,12 @@ namespace NzbDrone.Core.Download.Pending
             return GetPendingReleases().First(p => p.RemoteAlbum.Albums.Any(e => queueId == GetQueueId(p, e)));
         }
 
-        private int GetQueueId(PendingRelease pendingRelease, Album album)
+        private int GetQueueId(PendingRelease pendingRelease, Book album)
         {
             return HashConverter.GetHashInt31(string.Format("pending-{0}-album{1}", pendingRelease.Id, album.Id));
         }
 
-        private int PrioritizeDownloadProtocol(Artist artist, DownloadProtocol downloadProtocol)
+        private int PrioritizeDownloadProtocol(Author artist, DownloadProtocol downloadProtocol)
         {
             var delayProfile = _delayProfileService.BestForTags(artist.Tags);
 

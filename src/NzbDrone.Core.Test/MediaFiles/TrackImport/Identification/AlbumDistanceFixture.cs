@@ -15,12 +15,12 @@ namespace NzbDrone.Core.Test.MediaFiles.TrackImport.Identification
     [TestFixture]
     public class AlbumDistanceFixture : CoreTest
     {
-        private ArtistMetadata _artist;
+        private AuthorMetadata _artist;
 
         [SetUp]
         public void Setup()
         {
-            _artist = Builder<ArtistMetadata>
+            _artist = Builder<AuthorMetadata>
                 .CreateNew()
                 .With(x => x.Name = "artist")
                 .Build();
@@ -77,10 +77,10 @@ namespace NzbDrone.Core.Test.MediaFiles.TrackImport.Identification
 
         private AlbumRelease GivenAlbumRelease(string title, List<Track> tracks)
         {
-            var album = Builder<Album>
+            var album = Builder<Book>
                 .CreateNew()
                 .With(x => x.Title = title)
-                .With(x => x.ArtistMetadata = _artist)
+                .With(x => x.AuthorMetadata = _artist)
                 .Build();
 
             var media = Builder<Medium>
@@ -143,7 +143,7 @@ namespace NzbDrone.Core.Test.MediaFiles.TrackImport.Identification
             var localTracks = GivenLocalTracks(tracks, release);
             var mapping = GivenMapping(localTracks, tracks);
 
-            release.Album.Value.ArtistMetadata = Builder<ArtistMetadata>
+            release.Album.Value.AuthorMetadata = Builder<AuthorMetadata>
                 .CreateNew()
                 .With(x => x.Name = "different artist")
                 .Build();
@@ -159,10 +159,10 @@ namespace NzbDrone.Core.Test.MediaFiles.TrackImport.Identification
             var localTracks = GivenLocalTracks(tracks, release);
             var mapping = GivenMapping(localTracks, tracks);
 
-            release.Album.Value.ArtistMetadata = Builder<ArtistMetadata>
+            release.Album.Value.AuthorMetadata = Builder<AuthorMetadata>
                 .CreateNew()
                 .With(x => x.Name = "Various Artists")
-                .With(x => x.ForeignArtistId = "89ad4ac3-39f7-470e-963a-56509c546377")
+                .With(x => x.ForeignAuthorId = "89ad4ac3-39f7-470e-963a-56509c546377")
                 .Build();
 
             DistanceCalculator.AlbumReleaseDistance(localTracks, release, mapping).NormalizedDistance().Should().Be(0.0);

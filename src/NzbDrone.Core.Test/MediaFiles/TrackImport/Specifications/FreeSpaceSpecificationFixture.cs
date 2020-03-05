@@ -17,7 +17,7 @@ namespace NzbDrone.Core.Test.MediaFiles.TrackImport.Specifications
     [TestFixture]
     public class FreeSpaceSpecificationFixture : CoreTest<FreeSpaceSpecification>
     {
-        private Artist _artist;
+        private Author _artist;
         private LocalTrack _localTrack;
         private string _rootFolder;
 
@@ -26,7 +26,7 @@ namespace NzbDrone.Core.Test.MediaFiles.TrackImport.Specifications
         {
             _rootFolder = @"C:\Test\Music".AsOsAgnostic();
 
-            _artist = Builder<Artist>.CreateNew()
+            _artist = Builder<Author>.CreateNew()
                                      .With(s => s.Path = Path.Combine(_rootFolder, "Alice in Chains"))
                                      .Build();
 

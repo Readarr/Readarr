@@ -19,7 +19,7 @@ namespace NzbDrone.Core.Test.NotificationTests.Xbmc
         [SetUp]
         public void Setup()
         {
-            var artist = Builder<Artist>.CreateNew()
+            var artist = Builder<Author>.CreateNew()
                                         .Build();
 
             var trackFile = Builder<TrackFile>.CreateNew()

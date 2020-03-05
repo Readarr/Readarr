@@ -41,7 +41,7 @@ const columns = [
   },
   {
     name: 'albumCount',
-    label: 'Albums',
+    label: 'Books',
     isSortable: false,
     isVisible: true
   }

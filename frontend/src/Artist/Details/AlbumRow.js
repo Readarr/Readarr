@@ -6,7 +6,6 @@ import { kinds, sizes } from 'Helpers/Props';
 import TableRow from 'Components/Table/TableRow';
 import Label from 'Components/Label';
 import TableRowCell from 'Components/Table/Cells/TableRowCell';
-import formatTimeSpan from 'Utilities/Date/formatTimeSpan';
 import AlbumSearchCellConnector from 'Album/AlbumSearchCellConnector';
 import AlbumTitleLink from 'Album/AlbumTitleLink';
 import StarRating from 'Components/StarRating';
@@ -70,10 +69,7 @@ class AlbumRow extends Component {
       artistId,
       monitored,
       statistics,
-      duration,
       releaseDate,
-      mediumCount,
-      secondaryTypes,
       title,
       ratings,
       disambiguation,
@@ -129,46 +125,6 @@ class AlbumRow extends Component {
                     title={title}
                     disambiguation={disambiguation}
                   />
-                </TableRowCell>
-              );
-            }
-
-            if (name === 'mediumCount') {
-              return (
-                <TableRowCell key={name}>
-                  {
-                    mediumCount
-                  }
-                </TableRowCell>
-              );
-            }
-
-            if (name === 'secondaryTypes') {
-              return (
-                <TableRowCell key={name}>
-                  {
-                    secondaryTypes
-                  }
-                </TableRowCell>
-              );
-            }
-
-            if (name === 'trackCount') {
-              return (
-                <TableRowCell key={name}>
-                  {
-                    statistics.totalTrackCount
-                  }
-                </TableRowCell>
-              );
-            }
-
-            if (name === 'duration') {
-              return (
-                <TableRowCell key={name}>
-                  {
-                    formatTimeSpan(duration)
-                  }
                 </TableRowCell>
               );
             }
@@ -236,19 +192,14 @@ AlbumRow.propTypes = {
   id: PropTypes.number.isRequired,
   artistId: PropTypes.number.isRequired,
   monitored: PropTypes.bool.isRequired,
-  releaseDate: PropTypes.string.isRequired,
-  mediumCount: PropTypes.number.isRequired,
-  duration: PropTypes.number.isRequired,
+  releaseDate: PropTypes.string,
   title: PropTypes.string.isRequired,
   ratings: PropTypes.object.isRequired,
   disambiguation: PropTypes.string,
-  secondaryTypes: PropTypes.arrayOf(PropTypes.string).isRequired,
   foreignAlbumId: PropTypes.string.isRequired,
   isSaving: PropTypes.bool,
-  unverifiedSceneNumbering: PropTypes.bool,
   artistMonitored: PropTypes.bool.isRequired,
   statistics: PropTypes.object.isRequired,
-  mediaInfo: PropTypes.object,
   columns: PropTypes.arrayOf(PropTypes.object).isRequired,
   onMonitorAlbumPress: PropTypes.func.isRequired
 };

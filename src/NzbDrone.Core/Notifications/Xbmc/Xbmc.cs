@@ -36,7 +36,7 @@ namespace NzbDrone.Core.Notifications.Xbmc
             UpdateAndClean(message.Artist, message.OldFiles.Any());
         }
 
-        public override void OnRename(Artist artist)
+        public override void OnRename(Author artist)
         {
             UpdateAndClean(artist);
         }
@@ -78,7 +78,7 @@ namespace NzbDrone.Core.Notifications.Xbmc
             }
         }
 
-        private void UpdateAndClean(Artist artist, bool clean = true)
+        private void UpdateAndClean(Author artist, bool clean = true)
         {
             try
             {

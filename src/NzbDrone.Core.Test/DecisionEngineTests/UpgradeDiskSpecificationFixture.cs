@@ -31,10 +31,10 @@ namespace NzbDrone.Core.Test.DecisionEngineTests
             _firstFile = new TrackFile { Quality = new QualityModel(Quality.FLAC, new Revision(version: 2)), DateAdded = DateTime.Now };
             _secondFile = new TrackFile { Quality = new QualityModel(Quality.FLAC, new Revision(version: 2)), DateAdded = DateTime.Now };
 
-            var singleAlbumList = new List<Album> { new Album { } };
-            var doubleAlbumList = new List<Album> { new Album { }, new Album { }, new Album { } };
+            var singleAlbumList = new List<Book> { new Book { } };
+            var doubleAlbumList = new List<Book> { new Book { }, new Book { }, new Book { } };
 
-            var fakeArtist = Builder<Artist>.CreateNew()
+            var fakeArtist = Builder<Author>.CreateNew()
                          .With(c => c.QualityProfile = new QualityProfile
                          {
                              UpgradeAllowed = true,
@@ -109,7 +109,7 @@ namespace NzbDrone.Core.Test.DecisionEngineTests
         [Test]
         public void should_return_true_if_single_album_doesnt_exist_on_disk()
         {
-            _parseResultSingle.Albums = new List<Album>();
+            _parseResultSingle.Albums = new List<Book>();
 
             Subject.IsSatisfiedBy(_parseResultSingle, null).Accepted.Should().BeTrue();
         }

@@ -14,14 +14,14 @@ namespace NzbDrone.Core.Test.NotificationTests
     [TestFixture]
     public class SynologyIndexerFixture : CoreTest<SynologyIndexer>
     {
-        private Artist _artist;
+        private Author _artist;
         private AlbumDownloadMessage _upgrade;
         private string _rootPath = @"C:\Test\".AsOsAgnostic();
 
         [SetUp]
         public void SetUp()
         {
-            _artist = new Artist()
+            _artist = new Author()
             {
                 Path = _rootPath,
             };

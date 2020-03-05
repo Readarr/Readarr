@@ -372,7 +372,11 @@ namespace NzbDrone.Core.Datastore
         {
             var sql = propertiesToUpdate == _properties ? _updateSql : GetUpdateSql(propertiesToUpdate);
 
-            // SqlBuilderExtensions.LogQuery(sql, models);
+            foreach (var model in models)
+            {
+                SqlBuilderExtensions.LogQuery(sql, model);
+            }
+
             connection.Execute(sql, models, transaction: transaction);
         }
 

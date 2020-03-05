@@ -15,7 +15,7 @@ namespace NzbDrone.Core.Test.Datastore
         [Test]
         public void one_to_one()
         {
-            var album = Builder<Album>.CreateNew()
+            var album = Builder<Book>.CreateNew()
                 .With(c => c.Id = 0)
                 .With(x => x.ReleaseDate = DateTime.UtcNow)
                 .With(x => x.LastInfoSync = DateTime.UtcNow)
@@ -35,9 +35,9 @@ namespace NzbDrone.Core.Test.Datastore
             loadedAlbum.Should().BeEquivalentTo(album,
                                              options => options
                                              .IncludingAllRuntimeProperties()
-                                             .Excluding(c => c.Artist)
-                                             .Excluding(c => c.ArtistId)
-                                             .Excluding(c => c.ArtistMetadata)
+                                             .Excluding(c => c.Author)
+                                             .Excluding(c => c.AuthorId)
+                                             .Excluding(c => c.AuthorMetadata)
                                              .Excluding(c => c.AlbumReleases));
         }
 

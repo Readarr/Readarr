@@ -220,7 +220,7 @@ namespace NzbDrone.Core.MediaFiles
             _mediaFileTableCleanupService.Clean(folder, mediaFileList);
         }
 
-        private void CompletedScanning(Artist artist)
+        private void CompletedScanning(Author artist)
         {
             _logger.Info("Completed scanning disk for {0}", artist.Name);
             _eventAggregator.PublishEvent(new ArtistScannedEvent(artist));

@@ -17,20 +17,20 @@ namespace NzbDrone.Core.Test.MediaFiles.TrackImport.Specifications
     [TestFixture]
     public class UpgradeSpecificationFixture : CoreTest<UpgradeSpecification>
     {
-        private Artist _artist;
-        private Album _album;
+        private Author _artist;
+        private Book _album;
         private LocalTrack _localTrack;
 
         [SetUp]
         public void Setup()
         {
-            _artist = Builder<Artist>.CreateNew()
+            _artist = Builder<Author>.CreateNew()
                                      .With(e => e.QualityProfile = new QualityProfile
                                      {
                                          Items = Qualities.QualityFixture.GetDefaultQualities(),
                                      }).Build();
 
-            _album = Builder<Album>.CreateNew().Build();
+            _album = Builder<Book>.CreateNew().Build();
 
             _localTrack = new LocalTrack
             {

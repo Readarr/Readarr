@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+
 import React, { Component } from 'react';
 import { icons, kinds } from 'Helpers/Props';
 import IconButton from 'Components/Link/IconButton';
@@ -67,7 +68,7 @@ class BlacklistRow extends Component {
               return null;
             }
 
-            if (name === 'artist.sortName') {
+            if (name === 'authors.sortName') {
               return (
                 <TableRowCell key={name}>
                   <ArtistNameLink

@@ -15,7 +15,7 @@ namespace NzbDrone.Core.Test.MediaFiles
     {
         private readonly string _DELETED_PATH = @"c:\ANY FILE STARTING WITH THIS PATH IS CONSIDERED DELETED!".AsOsAgnostic();
         private List<Track> _tracks;
-        private Artist _artist;
+        private Author _artist;
 
         [SetUp]
         public void SetUp()
@@ -24,7 +24,7 @@ namespace NzbDrone.Core.Test.MediaFiles
                   .Build()
                   .ToList();
 
-            _artist = Builder<Artist>.CreateNew()
+            _artist = Builder<Author>.CreateNew()
                                      .With(s => s.Path = @"C:\Test\Music\Artist".AsOsAgnostic())
                                      .Build();
 

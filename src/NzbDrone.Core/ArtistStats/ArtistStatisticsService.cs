@@ -86,14 +86,14 @@ namespace NzbDrone.Core.ArtistStats
         public void Handle(AlbumAddedEvent message)
         {
             _cache.Remove("AllArtists");
-            _cache.Remove(message.Album.ArtistId.ToString());
+            _cache.Remove(message.Album.AuthorId.ToString());
         }
 
         [EventHandleOrder(EventHandleOrder.First)]
         public void Handle(AlbumDeletedEvent message)
         {
             _cache.Remove("AllArtists");
-            _cache.Remove(message.Album.ArtistId.ToString());
+            _cache.Remove(message.Album.AuthorId.ToString());
         }
 
         [EventHandleOrder(EventHandleOrder.First)]
@@ -107,7 +107,7 @@ namespace NzbDrone.Core.ArtistStats
         public void Handle(AlbumEditedEvent message)
         {
             _cache.Remove("AllArtists");
-            _cache.Remove(message.Album.ArtistId.ToString());
+            _cache.Remove(message.Album.AuthorId.ToString());
         }
 
         [EventHandleOrder(EventHandleOrder.First)]

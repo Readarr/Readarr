@@ -17,7 +17,7 @@ namespace NzbDrone.Core.Test.DecisionEngineTests
     public class RepackSpecificationFixture : CoreTest<RepackSpecification>
     {
         private ParsedAlbumInfo _parsedAlbumInfo;
-        private List<Album> _albums;
+        private List<Book> _albums;
         private List<TrackFile> _trackFiles;
 
         [SetUp]
@@ -31,7 +31,7 @@ namespace NzbDrone.Core.Test.DecisionEngineTests
                                                            .With(p => p.ReleaseGroup = "Readarr")
                                                            .Build();
 
-            _albums = Builder<Album>.CreateListOfSize(1)
+            _albums = Builder<Book>.CreateListOfSize(1)
                                         .All()
                                         .BuildList();
 

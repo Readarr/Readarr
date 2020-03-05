@@ -45,7 +45,7 @@ namespace NzbDrone.Common.EnvironmentInfo
             IsTesting = InternalIsTesting();
 
             // An official build running outside of the testing environment. (Analytics configurable)
-            IsProduction = !IsTesting && officialBuild;
+            // IsProduction = !IsTesting && officialBuild;
 
             // An unofficial build running outside of the testing environment. (Analytics enabled)
             IsDevelopment = !IsTesting && !officialBuild && !InternalIsDebug();
@@ -129,7 +129,7 @@ namespace NzbDrone.Common.EnvironmentInfo
         public string ExecutingApplication { get; }
 
         public static bool IsTesting { get; }
-        public static bool IsProduction { get; }
+        public static bool IsProduction => true;
         public static bool IsDevelopment { get; }
 
         private static bool InternalIsTesting()
@@ -215,12 +215,6 @@ namespace NzbDrone.Common.EnvironmentInfo
 
         private static bool InternalIsOfficialBuild()
         {
-            //Official builds will never have such a high revision
-            if (BuildInfo.Version.Major >= 10 || BuildInfo.Version.Revision > 10000)
-            {
-                return false;
-            }
-
             return true;
         }
 

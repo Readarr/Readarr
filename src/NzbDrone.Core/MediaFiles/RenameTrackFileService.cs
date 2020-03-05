@@ -24,31 +24,25 @@ namespace NzbDrone.Core.MediaFiles
     public class RenameTrackFileService : IRenameTrackFileService, IExecute<RenameFilesCommand>, IExecute<RenameArtistCommand>
     {
         private readonly IArtistService _artistService;
-        private readonly IAlbumService _albumService;
         private readonly IMediaFileService _mediaFileService;
         private readonly IMoveTrackFiles _trackFileMover;
         private readonly IEventAggregator _eventAggregator;
-        private readonly ITrackService _trackService;
         private readonly IBuildFileNames _filenameBuilder;
         private readonly IDiskProvider _diskProvider;
         private readonly Logger _logger;
 
         public RenameTrackFileService(IArtistService artistService,
-                                        IAlbumService albumService,
                                         IMediaFileService mediaFileService,
                                         IMoveTrackFiles trackFileMover,
                                         IEventAggregator eventAggregator,
-                                        ITrackService trackService,
                                         IBuildFileNames filenameBuilder,
                                         IDiskProvider diskProvider,
                                         Logger logger)
         {
             _artistService = artistService;
-            _albumService = albumService;
             _mediaFileService = mediaFileService;
             _trackFileMover = trackFileMover;
             _eventAggregator = eventAggregator;
-            _trackService = trackService;
             _filenameBuilder = filenameBuilder;
             _diskProvider = diskProvider;
             _logger = logger;
@@ -57,51 +51,52 @@ namespace NzbDrone.Core.MediaFiles
         public List<RenameTrackFilePreview> GetRenamePreviews(int artistId)
         {
             var artist = _artistService.GetArtist(artistId);
-            var tracks = _trackService.GetTracksByArtist(artistId);
             var files = _mediaFileService.GetFilesByArtist(artistId);
 
-            return GetPreviews(artist, tracks, files)
+            _logger.Trace($"got {files.Count} files");
+
+            return GetPreviews(artist, files)
                 .OrderByDescending(e => e.AlbumId)
-                .ThenByDescending(e => e.TrackNumbers.First())
                 .ToList();
         }
 
         public List<RenameTrackFilePreview> GetRenamePreviews(int artistId, int albumId)
         {
             var artist = _artistService.GetArtist(artistId);
-            var tracks = _trackService.GetTracksByAlbum(albumId);
             var files = _mediaFileService.GetFilesByAlbum(albumId);
 
-            return GetPreviews(artist, tracks, files)
+            return GetPreviews(artist, files)
                 .OrderByDescending(e => e.TrackNumbers.First()).ToList();
         }
 
-        private IEnumerable<RenameTrackFilePreview> GetPreviews(Artist artist, List<Track> tracks, List<TrackFile> files)
+        private IEnumerable<RenameTrackFilePreview> GetPreviews(Author artist, List<TrackFile> files)
         {
             foreach (var f in files)
             {
                 var file = f;
-                var tracksInFile = tracks.Where(e => e.TrackFileId == file.Id).ToList();
+                var book = file.Album.Value;
                 var trackFilePath = file.Path;
 
-                if (!tracksInFile.Any())
+                if (book == null)
                 {
-                    _logger.Warn("File ({0}) is not linked to any tracks", trackFilePath);
+                    _logger.Warn("File ({0}) is not linked to a book", trackFilePath);
                     continue;
                 }
 
-                var album = _albumService.GetAlbum(tracksInFile.First().AlbumId);
+                var newName = _filenameBuilder.BuildTrackFileName(artist, book, file);
 
-                var newName = _filenameBuilder.BuildTrackFileName(tracksInFile, artist, album, file);
-                var newPath = _filenameBuilder.BuildTrackFilePath(artist, album, newName, Path.GetExtension(trackFilePath));
+                _logger.Trace($"got name {newName}");
+
+                var newPath = _filenameBuilder.BuildTrackFilePath(artist, book, newName, Path.GetExtension(trackFilePath));
+
+                _logger.Trace($"got path {newPath}");
 
                 if (!trackFilePath.PathEquals(newPath, StringComparison.Ordinal))
                 {
                     yield return new RenameTrackFilePreview
                     {
                         ArtistId = artist.Id,
-                        AlbumId = album.Id,
-                        TrackNumbers = tracksInFile.Select(e => e.AbsoluteTrackNumber).ToList(),
+                        AlbumId = book.Id,
                         TrackFileId = file.Id,
                         ExistingPath = file.Path,
                         NewPath = newPath
@@ -110,7 +105,7 @@ namespace NzbDrone.Core.MediaFiles
             }
         }
 
-        private void RenameFiles(List<TrackFile> trackFiles, Artist artist)
+        private void RenameFiles(List<TrackFile> trackFiles, Author artist)
         {
             var renamed = new List<TrackFile>();
 

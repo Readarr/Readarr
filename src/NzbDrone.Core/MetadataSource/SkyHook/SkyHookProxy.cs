@@ -6,31 +6,26 @@ using NLog;
 using NzbDrone.Common.Cache;
 using NzbDrone.Common.Extensions;
 using NzbDrone.Common.Http;
-using NzbDrone.Common.Serializer;
 using NzbDrone.Core.Exceptions;
 using NzbDrone.Core.MediaCover;
 using NzbDrone.Core.MetadataSource.SkyHook.Resource;
 using NzbDrone.Core.Music;
+using NzbDrone.Core.Parser;
 using NzbDrone.Core.Profiles.Metadata;
 
 namespace NzbDrone.Core.MetadataSource.SkyHook
 {
-    public class SkyHookProxy : IProvideArtistInfo, ISearchForNewArtist, IProvideAlbumInfo, ISearchForNewAlbum, ISearchForNewEntity
+    public class SkyHookProxy : IProvideAuthorInfo, ISearchForNewAuthor, IProvideBookInfo, ISearchForNewBook, ISearchForNewEntity
     {
         private readonly IHttpClient _httpClient;
         private readonly Logger _logger;
-        private readonly IArtistService _artistService;
-        private readonly IAlbumService _albumService;
+        private readonly IAlbumService _bookService;
         private readonly IMetadataRequestBuilder _requestBuilder;
         private readonly IMetadataProfileService _metadataProfileService;
         private readonly ICached<HashSet<string>> _cache;
 
-        private static readonly List<string> NonAudioMedia = new List<string> { "DVD", "DVD-Video", "Blu-ray", "HD-DVD", "VCD", "SVCD", "UMD", "VHS" };
-        private static readonly List<string> SkippedTracks = new List<string> { "[data track]" };
-
         public SkyHookProxy(IHttpClient httpClient,
                             IMetadataRequestBuilder requestBuilder,
-                            IArtistService artistService,
                             IAlbumService albumService,
                             Logger logger,
                             IMetadataProfileService metadataProfileService,
@@ -39,8 +34,7 @@ namespace NzbDrone.Core.MetadataSource.SkyHook
             _httpClient = httpClient;
             _metadataProfileService = metadataProfileService;
             _requestBuilder = requestBuilder;
-            _artistService = artistService;
-            _albumService = albumService;
+            _bookService = albumService;
             _cache = cacheManager.GetCache<HashSet<string>>(GetType());
             _logger = logger;
         }
@@ -65,28 +59,29 @@ namespace NzbDrone.Core.MetadataSource.SkyHook
             return new HashSet<string>(httpResponse.Resource.Items);
         }
 
-        public Artist GetArtistInfo(string foreignArtistId, int metadataProfileId)
+        public Author GetAuthorInfo(string foreignAuthorId, int metadataProfileId)
         {
-            _logger.Debug("Getting Artist with ReadarrAPI.MetadataID of {0}", foreignArtistId);
+            _logger.Debug("Getting Author details ReadarrAPI.MetadataID of {0}", foreignAuthorId);
 
             var httpRequest = _requestBuilder.GetRequestBuilder().Create()
-                                             .SetSegment("route", "artist/" + foreignArtistId)
-                                             .Build();
+                .SetSegment("route", $"author/show/{foreignAuthorId}.xml")
+                .AddQueryParam("exclude_books", "true")
+                .Build();
 
             httpRequest.AllowAutoRedirect = true;
             httpRequest.SuppressHttpError = true;
 
-            var httpResponse = _httpClient.Get<ArtistResource>(httpRequest);
+            var httpResponse = _httpClient.Get(httpRequest);
 
             if (httpResponse.HasHttpError)
             {
                 if (httpResponse.StatusCode == HttpStatusCode.NotFound)
                 {
-                    throw new ArtistNotFoundException(foreignArtistId);
+                    throw new ArtistNotFoundException(foreignAuthorId);
                 }
                 else if (httpResponse.StatusCode == HttpStatusCode.BadRequest)
                 {
-                    throw new BadRequestException(foreignArtistId);
+                    throw new BadRequestException(foreignAuthorId);
                 }
                 else
                 {
@@ -94,15 +89,57 @@ namespace NzbDrone.Core.MetadataSource.SkyHook
                 }
             }
 
-            var artist = new Artist();
-            artist.Metadata = MapArtistMetadata(httpResponse.Resource);
-            artist.CleanName = Parser.Parser.CleanArtistName(artist.Metadata.Value.Name);
-            artist.SortName = Parser.Parser.NormalizeTitle(artist.Metadata.Value.Name);
+            var resource = httpResponse.Deserialize<AuthorResource>();
+            var author = new Author();
+            author.Metadata = MapAuthor(resource);
+            author.CleanName = Parser.Parser.CleanArtistName(author.Metadata.Value.Name);
+            author.SortName = Parser.Parser.NormalizeTitle(author.Metadata.Value.Name);
 
-            artist.Albums = FilterAlbums(httpResponse.Resource.Albums, metadataProfileId)
-                .Select(x => MapAlbum(x, null)).ToList();
+            author.Books = GetAuthorBooks(foreignAuthorId, metadataProfileId);
 
-            return artist;
+            return author;
+        }
+
+        private List<Book> GetAuthorBooks(string foreignAuthorId, int metadataProfileId)
+        {
+            _logger.Debug("Getting Author Books with ReadarrAPI.MetadataID of {0}", foreignAuthorId);
+
+            var httpRequest = _requestBuilder.GetRequestBuilder().Create()
+                .SetSegment("route", $"author/list/{foreignAuthorId}.xml")
+                .AddQueryParam("per_page", 100000)
+                .Build();
+
+            httpRequest.AllowAutoRedirect = true;
+            httpRequest.SuppressHttpError = true;
+
+            var httpResponse = _httpClient.Get(httpRequest);
+
+            if (httpResponse.HasHttpError)
+            {
+                if (httpResponse.StatusCode == HttpStatusCode.NotFound)
+                {
+                    throw new ArtistNotFoundException(foreignAuthorId);
+                }
+                else if (httpResponse.StatusCode == HttpStatusCode.BadRequest)
+                {
+                    throw new BadRequestException(foreignAuthorId);
+                }
+                else
+                {
+                    throw new HttpException(httpRequest, httpResponse);
+                }
+            }
+
+            var resource = httpResponse.Deserialize<AuthorBookListResource>();
+
+            var books = resource.List.Where(x => x.Authors.First().Id.ToString() == foreignAuthorId)
+                .Select(MapBook)
+                .Where(x => x.Ratings.Votes >= 100)
+                .ToList();
+
+            books.ForEach(x => x.CleanTitle = x.Title.CleanArtistName());
+
+            return books;
         }
 
         public HashSet<string> GetChangedAlbums(DateTime startTime)
@@ -130,41 +167,28 @@ namespace NzbDrone.Core.MetadataSource.SkyHook
             return new HashSet<string>(httpResponse.Resource.Items);
         }
 
-        public IEnumerable<AlbumResource> FilterAlbums(IEnumerable<AlbumResource> albums, int metadataProfileId)
+        public Tuple<string, Book, List<AuthorMetadata>> GetBookInfo(string foreignBookId)
         {
-            var metadataProfile = _metadataProfileService.Exists(metadataProfileId) ? _metadataProfileService.Get(metadataProfileId) : _metadataProfileService.All().First();
-            var primaryTypes = new HashSet<string>(metadataProfile.PrimaryAlbumTypes.Where(s => s.Allowed).Select(s => s.PrimaryAlbumType.Name));
-            var secondaryTypes = new HashSet<string>(metadataProfile.SecondaryAlbumTypes.Where(s => s.Allowed).Select(s => s.SecondaryAlbumType.Name));
-            var releaseStatuses = new HashSet<string>(metadataProfile.ReleaseStatuses.Where(s => s.Allowed).Select(s => s.ReleaseStatus.Name));
-
-            return albums.Where(album => primaryTypes.Contains(album.Type) &&
-                                ((!album.SecondaryTypes.Any() && secondaryTypes.Contains("Studio")) ||
-                                 album.SecondaryTypes.Any(x => secondaryTypes.Contains(x))) &&
-                                album.ReleaseStatuses.Any(x => releaseStatuses.Contains(x)));
-        }
-
-        public Tuple<string, Album, List<ArtistMetadata>> GetAlbumInfo(string foreignAlbumId)
-        {
-            _logger.Debug("Getting Album with ReadarrAPI.MetadataID of {0}", foreignAlbumId);
+            _logger.Debug("Getting Book with ReadarrAPI.MetadataID of {0}", foreignBookId);
 
             var httpRequest = _requestBuilder.GetRequestBuilder().Create()
-                .SetSegment("route", "album/" + foreignAlbumId)
-                .Build();
+                                             .SetSegment("route", $"book/show/{foreignBookId}.xml")
+                                             .Build();
 
             httpRequest.AllowAutoRedirect = true;
             httpRequest.SuppressHttpError = true;
 
-            var httpResponse = _httpClient.Get<AlbumResource>(httpRequest);
+            var httpResponse = _httpClient.Get(httpRequest);
 
             if (httpResponse.HasHttpError)
             {
                 if (httpResponse.StatusCode == HttpStatusCode.NotFound)
                 {
-                    throw new AlbumNotFoundException(foreignAlbumId);
+                    throw new ArtistNotFoundException(foreignBookId);
                 }
                 else if (httpResponse.StatusCode == HttpStatusCode.BadRequest)
                 {
-                    throw new BadRequestException(foreignAlbumId);
+                    throw new BadRequestException(foreignBookId);
                 }
                 else
                 {
@@ -172,60 +196,69 @@ namespace NzbDrone.Core.MetadataSource.SkyHook
                 }
             }
 
-            var artists = httpResponse.Resource.Artists.Select(MapArtistMetadata).ToList();
-            var artistDict = artists.ToDictionary(x => x.ForeignArtistId, x => x);
-            var album = MapAlbum(httpResponse.Resource, artistDict);
-            album.ArtistMetadata = artistDict[httpResponse.Resource.ArtistId];
+            var resource = httpResponse.Deserialize<BookResource>();
 
-            return new Tuple<string, Album, List<ArtistMetadata>>(httpResponse.Resource.ArtistId, album, artists);
+            var book = MapBook(resource);
+            book.CleanTitle = Parser.Parser.CleanArtistName(book.Title);
+
+            var authors = resource.Authors.SelectList(MapAuthor);
+            book.AuthorMetadata = authors.First();
+
+            return new Tuple<string, Book, List<AuthorMetadata>>(resource.Authors.First().Id.ToString(), book, authors);
         }
 
-        public List<Artist> SearchForNewArtist(string title)
+        public List<Author> SearchForNewAuthor(string title)
+        {
+            var books = SearchForNewBook(title, null);
+
+            return books.Select(x => x.Author.Value).ToList();
+        }
+
+        public List<Book> SearchForNewBook(string title, string artist)
         {
             try
             {
                 var lowerTitle = title.ToLowerInvariant();
 
-                if (lowerTitle.StartsWith("readarr:") || lowerTitle.StartsWith("readarrid:") || lowerTitle.StartsWith("mbid:"))
+                if (lowerTitle.StartsWith("readarr:") || lowerTitle.StartsWith("readarrid:") || lowerTitle.StartsWith("goodreads:"))
                 {
                     var slug = lowerTitle.Split(':')[1].Trim();
 
-                    Guid searchGuid;
-
-                    bool isValid = Guid.TryParse(slug, out searchGuid);
+                    var isValid = long.TryParse(slug, out var searchId);
 
                     if (slug.IsNullOrWhiteSpace() || slug.Any(char.IsWhiteSpace) || isValid == false)
                     {
-                        return new List<Artist>();
+                        return new List<Book>();
                     }
 
                     try
                     {
-                        var existingArtist = _artistService.FindById(searchGuid.ToString());
-                        if (existingArtist != null)
+                        var existingBook = _bookService.FindById(searchId.ToString());
+                        if (existingBook != null)
                         {
-                            return new List<Artist> { existingArtist };
+                            return new List<Book> { existingBook };
                         }
 
-                        var metadataProfile = _metadataProfileService.All().First().Id; //Change this to Use last Used profile?
-
-                        return new List<Artist> { GetArtistInfo(searchGuid.ToString(), metadataProfile) };
+                        return new List<Book> { GetBookInfo(searchId.ToString()).Item2 };
                     }
                     catch (ArtistNotFoundException)
                     {
-                        return new List<Artist>();
+                        return new List<Book>();
                     }
                 }
 
                 var httpRequest = _requestBuilder.GetRequestBuilder().Create()
-                                    .SetSegment("route", "search")
-                                    .AddQueryParam("type", "artist")
-                                    .AddQueryParam("query", title.ToLower().Trim())
-                                    .Build();
+                    .SetSegment("route", "search.xml")
+                    .AddQueryParam("page", 1)
+                    .AddQueryParam("per_page", 20)
+                    .AddQueryParam("search_field", "all")
+                    .AddQueryParam("q", title.ToLower().Trim())
+                    .Build();
 
-                var httpResponse = _httpClient.Get<List<ArtistResource>>(httpRequest);
+                var httpResponse = _httpClient.Get(httpRequest);
+                var result = httpResponse.Deserialize<BookSearchResultResource>();
 
-                return httpResponse.Resource.SelectList(MapSearchResult);
+                return result.Results.SelectList(MapSearchResult);
             }
             catch (HttpException)
             {
@@ -238,382 +271,139 @@ namespace NzbDrone.Core.MetadataSource.SkyHook
             }
         }
 
-        public List<Album> SearchForNewAlbum(string title, string artist)
+        public List<Book> SearchForNewAlbumByRecordingIds(List<string> recordingIds)
         {
-            try
-            {
-                var lowerTitle = title.ToLowerInvariant();
-
-                if (lowerTitle.StartsWith("readarr:") || lowerTitle.StartsWith("readarrid:") || lowerTitle.StartsWith("mbid:"))
-                {
-                    var slug = lowerTitle.Split(':')[1].Trim();
-
-                    Guid searchGuid;
-
-                    bool isValid = Guid.TryParse(slug, out searchGuid);
-
-                    if (slug.IsNullOrWhiteSpace() || slug.Any(char.IsWhiteSpace) || isValid == false)
-                    {
-                        return new List<Album>();
-                    }
-
-                    try
-                    {
-                        var existingAlbum = _albumService.FindById(searchGuid.ToString());
-
-                        if (existingAlbum == null)
-                        {
-                            var data = GetAlbumInfo(searchGuid.ToString());
-                            var album = data.Item2;
-                            album.Artist = _artistService.FindById(data.Item1) ?? new Artist
-                            {
-                                Metadata = data.Item3.Single(x => x.ForeignArtistId == data.Item1)
-                            };
-
-                            return new List<Album> { album };
-                        }
-
-                        existingAlbum.Artist = _artistService.GetArtist(existingAlbum.ArtistId);
-                        return new List<Album> { existingAlbum };
-                    }
-                    catch (ArtistNotFoundException)
-                    {
-                        return new List<Album>();
-                    }
-                }
-
-                var httpRequest = _requestBuilder.GetRequestBuilder().Create()
-                                    .SetSegment("route", "search")
-                                    .AddQueryParam("type", "album")
-                                    .AddQueryParam("query", title.ToLower().Trim())
-                                    .AddQueryParam("artist", artist.IsNotNullOrWhiteSpace() ? artist.ToLower().Trim() : string.Empty)
-                                    .AddQueryParam("includeTracks", "1")
-                                    .Build();
-
-                var httpResponse = _httpClient.Get<List<AlbumResource>>(httpRequest);
-
-                return httpResponse.Resource.SelectList(MapSearchResult);
-            }
-            catch (HttpException)
-            {
-                throw new SkyHookException("Search for '{0}' failed. Unable to communicate with ReadarrAPI.", title);
-            }
-            catch (Exception ex)
-            {
-                _logger.Warn(ex, ex.Message);
-                throw new SkyHookException("Search for '{0}' failed. Invalid response received from ReadarrAPI.", title);
-            }
-        }
-
-        public List<Album> SearchForNewAlbumByRecordingIds(List<string> recordingIds)
-        {
-            var ids = recordingIds.Where(x => x.IsNotNullOrWhiteSpace()).Distinct();
-            var httpRequest = _requestBuilder.GetRequestBuilder().Create()
-                .SetSegment("route", "search/fingerprint")
-                .Build();
-
-            httpRequest.SetContent(ids.ToJson());
-            httpRequest.Headers.ContentType = "application/json";
-
-            var httpResponse = _httpClient.Post<List<AlbumResource>>(httpRequest);
-
-            return httpResponse.Resource.SelectList(MapSearchResult);
+            return null;
         }
 
         public List<object> SearchForNewEntity(string title)
         {
-            try
+            var books = SearchForNewBook(title, null);
+
+            var result = new List<object>();
+            foreach (var book in books)
             {
-                var httpRequest = _requestBuilder.GetRequestBuilder().Create()
-                                    .SetSegment("route", "search")
-                                    .AddQueryParam("type", "all")
-                                    .AddQueryParam("query", title.ToLower().Trim())
-                                    .Build();
+                var author = book.Author.Value;
 
-                var httpResponse = _httpClient.Get<List<EntityResource>>(httpRequest);
-
-                return httpResponse.Resource.SelectList(MapSearchResult);
-            }
-            catch (HttpException)
-            {
-                throw new SkyHookException("Search for '{0}' failed. Unable to communicate with ReadarrAPI.", title);
-            }
-            catch (Exception ex)
-            {
-                _logger.Warn(ex, ex.Message);
-                throw new SkyHookException("Search for '{0}' failed. Invalid response received from ReadarrAPI.", title);
-            }
-        }
-
-        private Artist MapSearchResult(ArtistResource resource)
-        {
-            var artist = _artistService.FindById(resource.Id);
-            if (artist == null)
-            {
-                artist = new Artist();
-                artist.Metadata = MapArtistMetadata(resource);
-            }
-
-            return artist;
-        }
-
-        private Album MapSearchResult(AlbumResource resource)
-        {
-            var artists = resource.Artists.Select(MapArtistMetadata).ToDictionary(x => x.ForeignArtistId, x => x);
-
-            var artist = _artistService.FindById(resource.ArtistId);
-            if (artist == null)
-            {
-                artist = new Artist();
-                artist.Metadata = artists[resource.ArtistId];
-            }
-
-            var album = _albumService.FindById(resource.Id) ?? MapAlbum(resource, artists);
-            album.Artist = artist;
-            album.ArtistMetadata = artist.Metadata.Value;
-
-            return album;
-        }
-
-        private object MapSearchResult(EntityResource resource)
-        {
-            if (resource.Artist != null)
-            {
-                return MapSearchResult(resource.Artist);
-            }
-            else
-            {
-                return MapSearchResult(resource.Album);
-            }
-        }
-
-        private static Album MapAlbum(AlbumResource resource, Dictionary<string, ArtistMetadata> artistDict)
-        {
-            Album album = new Album();
-            album.ForeignAlbumId = resource.Id;
-            album.OldForeignAlbumIds = resource.OldIds;
-            album.Title = resource.Title;
-            album.Overview = resource.Overview;
-            album.Disambiguation = resource.Disambiguation;
-            album.ReleaseDate = resource.ReleaseDate;
-
-            if (resource.Images != null)
-            {
-                album.Images = resource.Images.Select(MapImage).ToList();
-            }
-
-            album.AlbumType = resource.Type;
-            album.SecondaryTypes = resource.SecondaryTypes.Select(MapSecondaryTypes).ToList();
-            album.Ratings = MapRatings(resource.Rating);
-            album.Links = resource.Links?.Select(MapLink).ToList();
-            album.Genres = resource.Genres;
-            album.CleanTitle = Parser.Parser.CleanArtistName(album.Title);
-
-            if (resource.Releases != null)
-            {
-                album.AlbumReleases = resource.Releases.Select(x => MapRelease(x, artistDict)).Where(x => x.TrackCount > 0).ToList();
-
-                // Monitor the release with most tracks
-                var mostTracks = album.AlbumReleases.Value.OrderByDescending(x => x.TrackCount).FirstOrDefault();
-                if (mostTracks != null)
+                if (!result.Contains(author))
                 {
-                    mostTracks.Monitored = true;
+                    result.Add(author);
                 }
-            }
-            else
-            {
-                album.AlbumReleases = new List<AlbumRelease>();
+
+                result.Add(book);
             }
 
-            album.AnyReleaseOk = true;
-
-            return album;
+            return result;
         }
 
-        private static AlbumRelease MapRelease(ReleaseResource resource, Dictionary<string, ArtistMetadata> artistDict)
+        private static AuthorMetadata MapAuthor(AuthorResource resource)
         {
-            AlbumRelease release = new AlbumRelease();
-            release.ForeignReleaseId = resource.Id;
-            release.OldForeignReleaseIds = resource.OldIds;
-            release.Title = resource.Title;
-            release.Status = resource.Status;
-            release.Label = resource.Label;
-            release.Disambiguation = resource.Disambiguation;
-            release.Country = resource.Country;
-            release.ReleaseDate = resource.ReleaseDate;
-
-            // Get the complete set of media/tracks returned by the API, adding missing media if necessary
-            var allMedia = resource.Media.Select(MapMedium).ToList();
-            var allTracks = resource.Tracks.Select(x => MapTrack(x, artistDict));
-            if (!allMedia.Any())
+            var author = new AuthorMetadata
             {
-                foreach (int n in allTracks.Select(x => x.MediumNumber).Distinct())
+                ForeignAuthorId = resource.Id.ToString(),
+                Name = resource.Name.CleanSpaces(),
+                Overview = resource.About
+            };
+
+            author.Images.Add(new MediaCover.MediaCover
+            {
+                Url = resource.LargeImageUrl,
+                CoverType = MediaCoverTypes.Poster
+            });
+
+            author.Links.Add(new Links { Url = resource.Link, Name = "Goodreads" });
+
+            return author;
+        }
+
+        private static AuthorMetadata MapAuthor(AuthorSummaryResource resource)
+        {
+            var author = new AuthorMetadata
+            {
+                ForeignAuthorId = resource.Id.ToString(),
+                Name = resource.Name.CleanSpaces()
+            };
+
+            author.Images.Add(new MediaCover.MediaCover
+            {
+                Url = resource.ImageUrl,
+                CoverType = MediaCoverTypes.Poster
+            });
+
+            return author;
+        }
+
+        private static Book MapBook(BookResource resource)
+        {
+            var book = new Book
+            {
+                ForeignBookId = resource.Id.ToString(),
+                Isbn13 = resource.Isbn13,
+                Asin = resource.Asin,
+                Title = (resource.Work.OriginalTitle ?? resource.Title).CleanSpaces(),
+                Overview = resource.Description,
+                ReleaseDate = resource.Work.OriginalPublicationDate ?? resource.PublicationDate,
+                Ratings = MapRatings(resource)
+            };
+
+            book.Images.Add(new MediaCover.MediaCover { Url = resource.ImageUrl, CoverType = MediaCoverTypes.Cover });
+
+            if (resource.BookLinks != null)
+            {
+                book.Links.AddRange(resource.BookLinks.Select(x => new Links { Url = x.Link, Name = x.Name }));
+            }
+
+            if (resource.BuyLinks != null)
+            {
+                book.Links.AddRange(resource.BuyLinks.Select(x => new Links { Url = x.Link, Name = x.Name }));
+            }
+
+            return book;
+        }
+
+        private static Ratings MapRatings(BookResource resource)
+        {
+            if (resource.Work.RatingsCount > 0)
+            {
+                return MapRatings(resource.Work);
+            }
+
+            return new Ratings { Votes = resource.RatingsCount, Value = resource.AverageRating };
+        }
+
+        private static Ratings MapRatings(WorkResource resource)
+        {
+            return new Ratings { Votes = resource.RatingsCount, Value = resource.AverageRating };
+        }
+
+        private Book MapSearchResult(WorkResource resource)
+        {
+            var book = _bookService.FindById(resource.BestBookId.ToString());
+            if (book == null)
+            {
+                book = new Book();
+                book.ForeignBookId = resource.BestBook.Id.ToString();
+                book.Title = resource.BestBook.Title;
+                book.ReleaseDate = resource.OriginalPublicationDate;
+                book.Images.Add(new MediaCover.MediaCover { Url = resource.BestBook.ImageUrl, CoverType = MediaCoverTypes.Cover });
+                book.Ratings = MapRatings(resource);
+
+                if (resource.BestBook != null)
                 {
-                    allMedia.Add(new Medium { Name = "Unknown", Number = n, Format = "Unknown" });
+                    book.Author = new Author
+                    {
+                        CleanName = resource.BestBook.AuthorName,
+                        Metadata = new AuthorMetadata()
+                        {
+                            ForeignAuthorId = resource.BestBook.AuthorId.ToString(),
+                            Name = resource.BestBook.AuthorName,
+                            Ratings = new Ratings()
+                        }
+                    };
                 }
             }
 
-            // Skip non-audio media
-            var audioMediaNumbers = allMedia.Where(x => !NonAudioMedia.Contains(x.Format)).Select(x => x.Number);
-
-            // Get tracks on the audio media and omit any that are skipped
-            release.Tracks = allTracks.Where(x => audioMediaNumbers.Contains(x.MediumNumber) && !SkippedTracks.Contains(x.Title)).ToList();
-            release.TrackCount = release.Tracks.Value.Count;
-
-            // Only include the media that contain the tracks we have selected
-            var usedMediaNumbers = release.Tracks.Value.Select(track => track.MediumNumber);
-            release.Media = allMedia.Where(medium => usedMediaNumbers.Contains(medium.Number)).ToList();
-
-            release.Duration = release.Tracks.Value.Sum(x => x.Duration);
-
-            return release;
-        }
-
-        private static Medium MapMedium(MediumResource resource)
-        {
-            Medium medium = new Medium
-            {
-                Name = resource.Name,
-                Number = resource.Position,
-                Format = resource.Format
-            };
-
-            return medium;
-        }
-
-        private static Track MapTrack(TrackResource resource, Dictionary<string, ArtistMetadata> artistDict)
-        {
-            Track track = new Track
-            {
-                ArtistMetadata = artistDict[resource.ArtistId],
-                Title = resource.TrackName,
-                ForeignTrackId = resource.Id,
-                OldForeignTrackIds = resource.OldIds,
-                ForeignRecordingId = resource.RecordingId,
-                OldForeignRecordingIds = resource.OldRecordingIds,
-                TrackNumber = resource.TrackNumber,
-                AbsoluteTrackNumber = resource.TrackPosition,
-                Duration = resource.DurationMs,
-                MediumNumber = resource.MediumNumber
-            };
-
-            return track;
-        }
-
-        private static ArtistMetadata MapArtistMetadata(ArtistResource resource)
-        {
-            ArtistMetadata artist = new ArtistMetadata();
-
-            artist.Name = resource.ArtistName;
-            artist.Aliases = resource.ArtistAliases;
-            artist.ForeignArtistId = resource.Id;
-            artist.OldForeignArtistIds = resource.OldIds;
-            artist.Genres = resource.Genres;
-            artist.Overview = resource.Overview;
-            artist.Disambiguation = resource.Disambiguation;
-            artist.Type = resource.Type;
-            artist.Status = MapArtistStatus(resource.Status);
-            artist.Ratings = MapRatings(resource.Rating);
-            artist.Images = resource.Images?.Select(MapImage).ToList();
-            artist.Links = resource.Links?.Select(MapLink).ToList();
-            return artist;
-        }
-
-        private static ArtistStatusType MapArtistStatus(string status)
-        {
-            if (status == null)
-            {
-                return ArtistStatusType.Continuing;
-            }
-
-            if (status.Equals("ended", StringComparison.InvariantCultureIgnoreCase))
-            {
-                return ArtistStatusType.Ended;
-            }
-
-            return ArtistStatusType.Continuing;
-        }
-
-        private static Ratings MapRatings(RatingResource rating)
-        {
-            if (rating == null)
-            {
-                return new Ratings();
-            }
-
-            return new Ratings
-            {
-                Votes = rating.Count,
-                Value = rating.Value
-            };
-        }
-
-        private static MediaCover.MediaCover MapImage(ImageResource arg)
-        {
-            return new MediaCover.MediaCover
-            {
-                Url = arg.Url,
-                CoverType = MapCoverType(arg.CoverType)
-            };
-        }
-
-        private static Links MapLink(LinkResource arg)
-        {
-            return new Links
-            {
-                Url = arg.Target,
-                Name = arg.Type
-            };
-        }
-
-        private static MediaCoverTypes MapCoverType(string coverType)
-        {
-            switch (coverType.ToLower())
-            {
-                case "poster":
-                    return MediaCoverTypes.Poster;
-                case "banner":
-                    return MediaCoverTypes.Banner;
-                case "fanart":
-                    return MediaCoverTypes.Fanart;
-                case "cover":
-                    return MediaCoverTypes.Cover;
-                case "disc":
-                    return MediaCoverTypes.Disc;
-                case "logo":
-                    return MediaCoverTypes.Logo;
-                default:
-                    return MediaCoverTypes.Unknown;
-            }
-        }
-
-        public static SecondaryAlbumType MapSecondaryTypes(string albumType)
-        {
-            switch (albumType.ToLowerInvariant())
-            {
-                case "compilation":
-                    return SecondaryAlbumType.Compilation;
-                case "soundtrack":
-                    return SecondaryAlbumType.Soundtrack;
-                case "spokenword":
-                    return SecondaryAlbumType.Spokenword;
-                case "interview":
-                    return SecondaryAlbumType.Interview;
-                case "audiobook":
-                    return SecondaryAlbumType.Audiobook;
-                case "live":
-                    return SecondaryAlbumType.Live;
-                case "remix":
-                    return SecondaryAlbumType.Remix;
-                case "dj-mix":
-                    return SecondaryAlbumType.DJMix;
-                case "mixtape/street":
-                    return SecondaryAlbumType.Mixtape;
-                case "demo":
-                    return SecondaryAlbumType.Demo;
-                default:
-                    return SecondaryAlbumType.Studio;
-            }
+            return book;
         }
     }
 }

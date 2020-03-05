@@ -145,7 +145,7 @@ namespace NzbDrone.Core.History
                     Date = DateTime.UtcNow,
                     Quality = message.Album.ParsedAlbumInfo.Quality,
                     SourceTitle = message.Album.Release.Title,
-                    ArtistId = album.ArtistId,
+                    ArtistId = album.AuthorId,
                     AlbumId = album.Id,
                     DownloadId = message.DownloadId
                 };
@@ -190,7 +190,7 @@ namespace NzbDrone.Core.History
                     Date = DateTime.UtcNow,
                     Quality = message.TrackedDownload.RemoteAlbum.ParsedAlbumInfo?.Quality ?? new QualityModel(),
                     SourceTitle = message.TrackedDownload.DownloadItem.Title,
-                    ArtistId = album.ArtistId,
+                    ArtistId = album.AuthorId,
                     AlbumId = album.Id,
                     DownloadId = message.TrackedDownload.DownloadItem.DownloadId
                 };
@@ -224,7 +224,6 @@ namespace NzbDrone.Core.History
                     SourceTitle = message.ImportedTrack.SceneName ?? Path.GetFileNameWithoutExtension(message.TrackInfo.Path),
                     ArtistId = message.TrackInfo.Artist.Id,
                     AlbumId = message.TrackInfo.Album.Id,
-                    TrackId = track.Id,
                     DownloadId = downloadId
                 };
 
@@ -270,7 +269,7 @@ namespace NzbDrone.Core.History
                     Date = DateTime.UtcNow,
                     Quality = message.TrackedDownload.RemoteAlbum.ParsedAlbumInfo?.Quality ?? new QualityModel(),
                     SourceTitle = message.TrackedDownload.DownloadItem.Title,
-                    ArtistId = album.ArtistId,
+                    ArtistId = album.AuthorId,
                     AlbumId = album.Id,
                     DownloadId = message.TrackedDownload.DownloadItem.DownloadId
                 };
@@ -301,8 +300,7 @@ namespace NzbDrone.Core.History
                     Quality = message.TrackFile.Quality,
                     SourceTitle = message.TrackFile.Path,
                     ArtistId = message.TrackFile.Artist.Value.Id,
-                    AlbumId = message.TrackFile.AlbumId,
-                    TrackId = track.Id,
+                    AlbumId = message.TrackFile.AlbumId
                 };
 
                 history.Data.Add("Reason", message.Reason.ToString());
@@ -325,8 +323,7 @@ namespace NzbDrone.Core.History
                     Quality = message.TrackFile.Quality,
                     SourceTitle = message.OriginalPath,
                     ArtistId = message.TrackFile.Artist.Value.Id,
-                    AlbumId = message.TrackFile.AlbumId,
-                    TrackId = track.Id,
+                    AlbumId = message.TrackFile.AlbumId
                 };
 
                 history.Data.Add("SourcePath", sourcePath);
@@ -349,8 +346,7 @@ namespace NzbDrone.Core.History
                     Quality = message.TrackFile.Quality,
                     SourceTitle = path,
                     ArtistId = message.TrackFile.Artist.Value.Id,
-                    AlbumId = message.TrackFile.AlbumId,
-                    TrackId = track.Id,
+                    AlbumId = message.TrackFile.AlbumId
                 };
 
                 history.Data.Add("TagsScrubbed", message.Scrubbed.ToString());

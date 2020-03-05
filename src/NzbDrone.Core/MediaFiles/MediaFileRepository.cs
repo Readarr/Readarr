@@ -32,10 +32,9 @@ namespace NzbDrone.Core.MediaFiles
         // always join with all the other good stuff
         // needed more often than not so better to load it all now
         protected override SqlBuilder Builder() => new SqlBuilder()
-            .LeftJoin<TrackFile, Track>((t, x) => t.Id == x.TrackFileId)
-            .LeftJoin<TrackFile, Album>((t, a) => t.AlbumId == a.Id)
-            .LeftJoin<Album, Artist>((album, artist) => album.ArtistMetadataId == artist.ArtistMetadataId)
-            .LeftJoin<Artist, ArtistMetadata>((a, m) => a.ArtistMetadataId == m.Id);
+            .LeftJoin<TrackFile, Book>((t, a) => t.AlbumId == a.Id)
+            .LeftJoin<Book, Author>((album, artist) => album.AuthorMetadataId == artist.AuthorMetadataId)
+            .LeftJoin<Author, AuthorMetadata>((a, m) => a.AuthorMetadataId == m.Id);
 
         protected override List<TrackFile> Query(SqlBuilder builder) => Query(_database, builder).ToList();
 
@@ -43,12 +42,12 @@ namespace NzbDrone.Core.MediaFiles
         {
             var fileDictionary = new Dictionary<int, TrackFile>();
 
-            _ = database.QueryJoined<TrackFile, Track, Album, Artist, ArtistMetadata>(builder, (file, track, album, artist, metadata) => Map(fileDictionary, file, track, album, artist, metadata));
+            _ = database.QueryJoined<TrackFile, Book, Author, AuthorMetadata>(builder, (file, album, artist, metadata) => Map(fileDictionary, file, album, artist, metadata));
 
             return fileDictionary.Values;
         }
 
-        private static TrackFile Map(Dictionary<int, TrackFile> dict, TrackFile file, Track track, Album album, Artist artist, ArtistMetadata metadata)
+        private static TrackFile Map(Dictionary<int, TrackFile> dict, TrackFile file, Book album, Author artist, AuthorMetadata metadata)
         {
             if (!dict.TryGetValue(file.Id, out var entry))
             {
@@ -58,15 +57,15 @@ namespace NzbDrone.Core.MediaFiles
                 }
 
                 entry = file;
-                entry.Tracks = new List<Track>();
+                entry.Books = new List<Book>();
                 entry.Album = album;
                 entry.Artist = artist;
                 dict.Add(entry.Id, entry);
             }
 
-            if (track != null)
+            if (album != null)
             {
-                entry.Tracks.Value.Add(track);
+                entry.Books.Value.Add(album);
             }
 
             return entry;
@@ -74,16 +73,12 @@ namespace NzbDrone.Core.MediaFiles
 
         public List<TrackFile> GetFilesByArtist(int artistId)
         {
-            return Query(Builder().LeftJoin<Track, AlbumRelease>((t, r) => t.AlbumReleaseId == r.Id)
-                         .Where<AlbumRelease>(r => r.Monitored == true)
-                         .Where<Artist>(a => a.Id == artistId));
+            return Query(Builder().Where<Author>(a => a.Id == artistId));
         }
 
         public List<TrackFile> GetFilesByAlbum(int albumId)
         {
-            return Query(Builder().LeftJoin<Track, AlbumRelease>((t, r) => t.AlbumReleaseId == r.Id)
-                         .Where<AlbumRelease>(r => r.Monitored == true)
-                         .Where<TrackFile>(f => f.AlbumId == albumId));
+            return Query(Builder().Where<TrackFile>(f => f.AlbumId == albumId));
         }
 
         public List<TrackFile> GetUnmappedFiles()
@@ -91,8 +86,8 @@ namespace NzbDrone.Core.MediaFiles
             //x.Id == null is converted to SQL, so warning incorrect
 #pragma warning disable CS0472
             return _database.Query<TrackFile>(new SqlBuilder().Select(typeof(TrackFile))
-                                              .LeftJoin<TrackFile, Track>((f, t) => f.Id == t.TrackFileId)
-                                              .Where<Track>(t => t.Id == null)).ToList();
+                                              .LeftJoin<TrackFile, Book>((f, t) => f.Id == t.BookFileId)
+                                              .Where<Book>(t => t.Id == null)).ToList();
 #pragma warning restore CS0472
         }
 
@@ -129,28 +124,28 @@ namespace NzbDrone.Core.MediaFiles
         {
             // use more limited join for speed
             var builder = new SqlBuilder()
-                .LeftJoin<TrackFile, Track>((f, t) => f.Id == t.TrackFileId);
+                .LeftJoin<TrackFile, Book>((f, t) => f.Id == t.BookFileId);
 
             var dict = new Dictionary<int, TrackFile>();
-            _ = _database.QueryJoined<TrackFile, Track>(builder, (file, track) => MapTrack(dict, file, track)).ToList();
+            _ = _database.QueryJoined<TrackFile, Book>(builder, (file, book) => MapTrack(dict, file, book)).ToList();
             var all = dict.Values.ToList();
 
             var joined = all.Join(paths, x => x.Path, x => x, (file, path) => file, PathEqualityComparer.Instance).ToList();
             return joined;
         }
 
-        private TrackFile MapTrack(Dictionary<int, TrackFile> dict, TrackFile file, Track track)
+        private TrackFile MapTrack(Dictionary<int, TrackFile> dict, TrackFile file, Book book)
         {
             if (!dict.TryGetValue(file.Id, out var entry))
             {
                 entry = file;
-                entry.Tracks = new List<Track>();
+                entry.Books = new List<Book>();
                 dict.Add(entry.Id, entry);
             }
 
-            if (track != null)
+            if (book != null)
             {
-                entry.Tracks.Value.Add(track);
+                entry.Books.Value.Add(book);
             }
 
             return entry;

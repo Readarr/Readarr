@@ -39,7 +39,7 @@ namespace NzbDrone.Core.IndexerSearch
             _logger = logger;
         }
 
-        private void SearchForMissingAlbums(List<Album> albums, bool userInvokedSearch)
+        private void SearchForMissingAlbums(List<Book> albums, bool userInvokedSearch)
         {
             _logger.ProgressInfo("Performing missing search for {0} albums", albums.Count);
             var downloadedCount = 0;
@@ -70,13 +70,13 @@ namespace NzbDrone.Core.IndexerSearch
 
         public void Execute(MissingAlbumSearchCommand message)
         {
-            List<Album> albums;
+            List<Book> albums;
 
             if (message.ArtistId.HasValue)
             {
                 int artistId = message.ArtistId.Value;
 
-                var pagingSpec = new PagingSpec<Album>
+                var pagingSpec = new PagingSpec<Book>
                 {
                     Page = 1,
                     PageSize = 100000,
@@ -84,13 +84,13 @@ namespace NzbDrone.Core.IndexerSearch
                     SortKey = "Id"
                 };
 
-                pagingSpec.FilterExpressions.Add(v => v.Monitored == true && v.Artist.Value.Monitored == true);
+                pagingSpec.FilterExpressions.Add(v => v.Monitored == true && v.Author.Value.Monitored == true);
 
-                albums = _albumService.AlbumsWithoutFiles(pagingSpec).Records.Where(e => e.ArtistId.Equals(artistId)).ToList();
+                albums = _albumService.AlbumsWithoutFiles(pagingSpec).Records.Where(e => e.AuthorId.Equals(artistId)).ToList();
             }
             else
             {
-                var pagingSpec = new PagingSpec<Album>
+                var pagingSpec = new PagingSpec<Book>
                 {
                     Page = 1,
                     PageSize = 100000,
@@ -98,7 +98,7 @@ namespace NzbDrone.Core.IndexerSearch
                     SortKey = "Id"
                 };
 
-                pagingSpec.FilterExpressions.Add(v => v.Monitored == true && v.Artist.Value.Monitored == true);
+                pagingSpec.FilterExpressions.Add(v => v.Monitored == true && v.Author.Value.Monitored == true);
 
                 albums = _albumService.AlbumsWithoutFiles(pagingSpec).Records.ToList();
             }
@@ -111,13 +111,13 @@ namespace NzbDrone.Core.IndexerSearch
 
         public void Execute(CutoffUnmetAlbumSearchCommand message)
         {
-            Expression<Func<Album, bool>> filterExpression;
+            Expression<Func<Book, bool>> filterExpression;
 
             filterExpression = v =>
                 v.Monitored == true &&
-                v.Artist.Value.Monitored == true;
+                v.Author.Value.Monitored == true;
 
-            var pagingSpec = new PagingSpec<Album>
+            var pagingSpec = new PagingSpec<Book>
             {
                 Page = 1,
                 PageSize = 100000,

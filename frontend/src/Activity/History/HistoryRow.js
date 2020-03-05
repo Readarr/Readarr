@@ -53,7 +53,6 @@ class HistoryRow extends Component {
     const {
       artist,
       album,
-      track,
       quality,
       qualityCutoffNotMet,
       eventType,
@@ -94,7 +93,7 @@ class HistoryRow extends Component {
               );
             }
 
-            if (name === 'artist.sortName') {
+            if (name === 'authors.sortName') {
               return (
                 <TableRowCell key={name}>
                   <ArtistNameLink
@@ -105,7 +104,7 @@ class HistoryRow extends Component {
               );
             }
 
-            if (name === 'album.title') {
+            if (name === 'books.title') {
               return (
                 <TableRowCell key={name}>
                   <AlbumTitleLink
@@ -113,14 +112,6 @@ class HistoryRow extends Component {
                     title={album.title}
                     disambiguation={album.disambiguation}
                   />
-                </TableRowCell>
-              );
-            }
-
-            if (name === 'trackTitle') {
-              return (
-                <TableRowCell key={name}>
-                  {track.title}
                 </TableRowCell>
               );
             }
@@ -217,7 +208,6 @@ HistoryRow.propTypes = {
   albumId: PropTypes.number,
   artist: PropTypes.object.isRequired,
   album: PropTypes.object,
-  track: PropTypes.object,
   quality: PropTypes.object.isRequired,
   qualityCutoffNotMet: PropTypes.bool.isRequired,
   eventType: PropTypes.string.isRequired,
@@ -230,12 +220,6 @@ HistoryRow.propTypes = {
   shortDateFormat: PropTypes.string.isRequired,
   timeFormat: PropTypes.string.isRequired,
   onMarkAsFailedPress: PropTypes.func.isRequired
-};
-
-HistoryRow.defaultProps = {
-  track: {
-    title: ''
-  }
 };
 
 export default HistoryRow;

@@ -42,7 +42,7 @@ namespace NzbDrone.Core.Notifications.CustomScript
             environmentVariables.Add("Readarr_EventType", "Grab");
             environmentVariables.Add("Readarr_Artist_Id", artist.Id.ToString());
             environmentVariables.Add("Readarr_Artist_Name", artist.Metadata.Value.Name);
-            environmentVariables.Add("Readarr_Artist_MBId", artist.Metadata.Value.ForeignArtistId);
+            environmentVariables.Add("Readarr_Artist_MBId", artist.Metadata.Value.ForeignAuthorId);
             environmentVariables.Add("Readarr_Artist_Type", artist.Metadata.Value.Type);
             environmentVariables.Add("Readarr_Release_AlbumCount", remoteAlbum.Albums.Count.ToString());
             environmentVariables.Add("Readarr_Release_AlbumReleaseDates", string.Join(",", remoteAlbum.Albums.Select(e => e.ReleaseDate)));
@@ -70,11 +70,11 @@ namespace NzbDrone.Core.Notifications.CustomScript
             environmentVariables.Add("Readarr_Artist_Id", artist.Id.ToString());
             environmentVariables.Add("Readarr_Artist_Name", artist.Metadata.Value.Name);
             environmentVariables.Add("Readarr_Artist_Path", artist.Path);
-            environmentVariables.Add("Readarr_Artist_MBId", artist.Metadata.Value.ForeignArtistId);
+            environmentVariables.Add("Readarr_Artist_MBId", artist.Metadata.Value.ForeignAuthorId);
             environmentVariables.Add("Readarr_Artist_Type", artist.Metadata.Value.Type);
             environmentVariables.Add("Readarr_Album_Id", album.Id.ToString());
             environmentVariables.Add("Readarr_Album_Title", album.Title);
-            environmentVariables.Add("Readarr_Album_MBId", album.ForeignAlbumId);
+            environmentVariables.Add("Readarr_Album_MBId", album.ForeignBookId);
             environmentVariables.Add("Readarr_AlbumRelease_MBId", release.ForeignReleaseId);
             environmentVariables.Add("Readarr_Album_ReleaseDate", album.ReleaseDate.ToString());
             environmentVariables.Add("Readarr_Download_Client", message.DownloadClient ?? string.Empty);
@@ -93,7 +93,7 @@ namespace NzbDrone.Core.Notifications.CustomScript
             ExecuteScript(environmentVariables);
         }
 
-        public override void OnRename(Artist artist)
+        public override void OnRename(Author artist)
         {
             var environmentVariables = new StringDictionary();
 
@@ -101,7 +101,7 @@ namespace NzbDrone.Core.Notifications.CustomScript
             environmentVariables.Add("Readarr_Artist_Id", artist.Id.ToString());
             environmentVariables.Add("Readarr_Artist_Name", artist.Metadata.Value.Name);
             environmentVariables.Add("Readarr_Artist_Path", artist.Path);
-            environmentVariables.Add("Readarr_Artist_MBId", artist.Metadata.Value.ForeignArtistId);
+            environmentVariables.Add("Readarr_Artist_MBId", artist.Metadata.Value.ForeignAuthorId);
             environmentVariables.Add("Readarr_Artist_Type", artist.Metadata.Value.Type);
 
             ExecuteScript(environmentVariables);
@@ -119,11 +119,11 @@ namespace NzbDrone.Core.Notifications.CustomScript
             environmentVariables.Add("Readarr_Artist_Id", artist.Id.ToString());
             environmentVariables.Add("Readarr_Artist_Name", artist.Metadata.Value.Name);
             environmentVariables.Add("Readarr_Artist_Path", artist.Path);
-            environmentVariables.Add("Readarr_Artist_MBId", artist.Metadata.Value.ForeignArtistId);
+            environmentVariables.Add("Readarr_Artist_MBId", artist.Metadata.Value.ForeignAuthorId);
             environmentVariables.Add("Readarr_Artist_Type", artist.Metadata.Value.Type);
             environmentVariables.Add("Readarr_Album_Id", album.Id.ToString());
             environmentVariables.Add("Readarr_Album_Title", album.Title);
-            environmentVariables.Add("Readarr_Album_MBId", album.ForeignAlbumId);
+            environmentVariables.Add("Readarr_Album_MBId", album.ForeignBookId);
             environmentVariables.Add("Readarr_AlbumRelease_MBId", release.ForeignReleaseId);
             environmentVariables.Add("Readarr_Album_ReleaseDate", album.ReleaseDate.ToString());
             environmentVariables.Add("Readarr_TrackFile_Id", trackFile.Id.ToString());

@@ -26,8 +26,8 @@ namespace NzbDrone.Core.Test.MediaFiles.TrackImport
     {
         private List<IFileInfo> _fileInfos;
         private LocalTrack _localTrack;
-        private Artist _artist;
-        private Album _album;
+        private Author _artist;
+        private Book _album;
         private AlbumRelease _albumRelease;
         private QualityModel _quality;
 
@@ -85,13 +85,13 @@ namespace NzbDrone.Core.Test.MediaFiles.TrackImport
             _fail2.Setup(c => c.IsSatisfiedBy(It.IsAny<LocalTrack>(), It.IsAny<DownloadClientItem>())).Returns(Decision.Reject("_fail2"));
             _fail3.Setup(c => c.IsSatisfiedBy(It.IsAny<LocalTrack>(), It.IsAny<DownloadClientItem>())).Returns(Decision.Reject("_fail3"));
 
-            _artist = Builder<Artist>.CreateNew()
+            _artist = Builder<Author>.CreateNew()
                 .With(e => e.QualityProfileId = 1)
                 .With(e => e.QualityProfile = new QualityProfile { Items = Qualities.QualityFixture.GetDefaultQualities() })
                 .Build();
 
-            _album = Builder<Album>.CreateNew()
-                .With(x => x.Artist = _artist)
+            _album = Builder<Book>.CreateNew()
+                .With(x => x.Author = _artist)
                 .Build();
 
             _albumRelease = Builder<AlbumRelease>.CreateNew()

@@ -14,7 +14,6 @@ function MissingRow(props) {
     id,
     artist,
     releaseDate,
-    albumType,
     foreignAlbumId,
     title,
     disambiguation,
@@ -46,7 +45,7 @@ function MissingRow(props) {
             return null;
           }
 
-          if (name === 'artist.sortName') {
+          if (name === 'authors.sortName') {
             return (
               <TableRowCell key={name}>
                 <ArtistNameLink
@@ -57,7 +56,7 @@ function MissingRow(props) {
             );
           }
 
-          if (name === 'albumTitle') {
+          if (name === 'books.title') {
             return (
               <TableRowCell key={name}>
                 <AlbumTitleLink
@@ -65,14 +64,6 @@ function MissingRow(props) {
                   title={title}
                   disambiguation={disambiguation}
                 />
-              </TableRowCell>
-            );
-          }
-
-          if (name === 'albumType') {
-            return (
-              <TableRowCell key={name}>
-                {albumType}
               </TableRowCell>
             );
           }
@@ -111,7 +102,6 @@ MissingRow.propTypes = {
   artist: PropTypes.object.isRequired,
   releaseDate: PropTypes.string.isRequired,
   foreignAlbumId: PropTypes.string.isRequired,
-  albumType: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   disambiguation: PropTypes.string,
   isSelected: PropTypes.bool,

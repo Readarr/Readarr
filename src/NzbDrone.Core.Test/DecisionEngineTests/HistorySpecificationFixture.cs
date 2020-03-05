@@ -29,7 +29,7 @@ namespace NzbDrone.Core.Test.DecisionEngineTests
         private RemoteAlbum _parseResultSingle;
         private QualityModel _upgradableQuality;
         private QualityModel _notupgradableQuality;
-        private Artist _fakeArtist;
+        private Author _fakeArtist;
 
         [SetUp]
         public void Setup()
@@ -37,15 +37,15 @@ namespace NzbDrone.Core.Test.DecisionEngineTests
             Mocker.Resolve<UpgradableSpecification>();
             _upgradeHistory = Mocker.Resolve<HistorySpecification>();
 
-            var singleAlbumList = new List<Album> { new Album { Id = FIRST_ALBUM_ID } };
-            var doubleAlbumList = new List<Album>
+            var singleAlbumList = new List<Book> { new Book { Id = FIRST_ALBUM_ID } };
+            var doubleAlbumList = new List<Book>
             {
-                                                            new Album { Id = FIRST_ALBUM_ID },
-                                                            new Album { Id = SECOND_ALBUM_ID },
-                                                            new Album { Id = 3 }
+                                                            new Book { Id = FIRST_ALBUM_ID },
+                                                            new Book { Id = SECOND_ALBUM_ID },
+                                                            new Book { Id = 3 }
             };
 
-            _fakeArtist = Builder<Artist>.CreateNew()
+            _fakeArtist = Builder<Author>.CreateNew()
                 .With(c => c.QualityProfile = new QualityProfile
                 {
                     UpgradeAllowed = true,

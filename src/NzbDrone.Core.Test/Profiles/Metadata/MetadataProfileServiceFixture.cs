@@ -113,7 +113,7 @@ namespace NzbDrone.Core.Test.Profiles.Metadata
                 .With(p => p.Id = 2)
                 .Build();
 
-            var artistList = Builder<Artist>.CreateListOfSize(3)
+            var artistList = Builder<Author>.CreateListOfSize(3)
                                             .Random(1)
                                             .With(c => c.MetadataProfileId = profile.Id)
                                             .Build().ToList();
@@ -145,7 +145,7 @@ namespace NzbDrone.Core.Test.Profiles.Metadata
                 .With(p => p.Id = 2)
                 .Build();
 
-            var artistList = Builder<Artist>.CreateListOfSize(3)
+            var artistList = Builder<Author>.CreateListOfSize(3)
                 .All()
                 .With(c => c.MetadataProfileId = 1)
                 .Build().ToList();
@@ -177,7 +177,7 @@ namespace NzbDrone.Core.Test.Profiles.Metadata
                 .With(p => p.Id = 2)
                 .Build();
 
-            var artistList = Builder<Artist>.CreateListOfSize(3)
+            var artistList = Builder<Author>.CreateListOfSize(3)
                 .All()
                 .With(c => c.MetadataProfileId = 1)
                 .Build().ToList();
@@ -209,7 +209,7 @@ namespace NzbDrone.Core.Test.Profiles.Metadata
                 .With(p => p.Id = 1)
                 .Build();
 
-            var artistList = Builder<Artist>.CreateListOfSize(3)
+            var artistList = Builder<Author>.CreateListOfSize(3)
                                             .All()
                                             .With(c => c.MetadataProfileId = 2)
                                             .Build().ToList();

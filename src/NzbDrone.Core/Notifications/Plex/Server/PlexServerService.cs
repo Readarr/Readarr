@@ -12,7 +12,7 @@ namespace NzbDrone.Core.Notifications.Plex.Server
 {
     public interface IPlexServerService
     {
-        void UpdateLibrary(Artist artist, PlexServerSettings settings);
+        void UpdateLibrary(Author artist, PlexServerSettings settings);
         ValidationFailure Test(PlexServerSettings settings);
     }
 
@@ -31,7 +31,7 @@ namespace NzbDrone.Core.Notifications.Plex.Server
             _logger = logger;
         }
 
-        public void UpdateLibrary(Artist artist, PlexServerSettings settings)
+        public void UpdateLibrary(Author artist, PlexServerSettings settings)
         {
             try
             {
@@ -123,7 +123,7 @@ namespace NzbDrone.Core.Notifications.Plex.Server
             _plexServerProxy.Update(sectionId, settings);
         }
 
-        private void UpdatePartialSection(Artist artist, List<PlexSection> sections, PlexServerSettings settings)
+        private void UpdatePartialSection(Author artist, List<PlexSection> sections, PlexServerSettings settings)
         {
             var partiallyUpdated = false;
 
@@ -148,11 +148,11 @@ namespace NzbDrone.Core.Notifications.Plex.Server
             }
         }
 
-        private int? GetMetadataId(int sectionId, Artist artist, string language, PlexServerSettings settings)
+        private int? GetMetadataId(int sectionId, Author artist, string language, PlexServerSettings settings)
         {
             _logger.Debug("Getting metadata from Plex host: {0} for artist: {1}", settings.Host, artist);
 
-            return _plexServerProxy.GetMetadataId(sectionId, artist.Metadata.Value.ForeignArtistId, language, settings);
+            return _plexServerProxy.GetMetadataId(sectionId, artist.Metadata.Value.ForeignAuthorId, language, settings);
         }
 
         public ValidationFailure Test(PlexServerSettings settings)

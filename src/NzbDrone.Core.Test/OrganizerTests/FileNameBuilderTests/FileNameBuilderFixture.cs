@@ -16,8 +16,8 @@ namespace NzbDrone.Core.Test.OrganizerTests.FileNameBuilderTests
 
     public class FileNameBuilderFixture : CoreTest<FileNameBuilder>
     {
-        private Artist _artist;
-        private Album _album;
+        private Author _artist;
+        private Book _album;
         private Medium _medium;
         private AlbumRelease _release;
         private Track _track1;
@@ -27,10 +27,10 @@ namespace NzbDrone.Core.Test.OrganizerTests.FileNameBuilderTests
         [SetUp]
         public void Setup()
         {
-            _artist = Builder<Artist>
+            _artist = Builder<Author>
                     .CreateNew()
                     .With(s => s.Name = "Linkin Park")
-                    .With(s => s.Metadata = new ArtistMetadata
+                    .With(s => s.Metadata = new AuthorMetadata
                     {
                         Disambiguation = "US Rock Band",
                         Name = "Linkin Park"
@@ -48,10 +48,9 @@ namespace NzbDrone.Core.Test.OrganizerTests.FileNameBuilderTests
                 .With(s => s.Monitored = true)
                 .Build();
 
-            _album = Builder<Album>
+            _album = Builder<Book>
                 .CreateNew()
                 .With(s => s.Title = "Hybrid Theory")
-                .With(s => s.AlbumType = "Album")
                 .With(s => s.Disambiguation = "The Best Album")
                 .Build();
 
@@ -100,7 +99,7 @@ namespace NzbDrone.Core.Test.OrganizerTests.FileNameBuilderTests
         {
             _namingConfig.StandardTrackFormat = "{Artist Name}";
 
-            Subject.BuildTrackFileName(new List<Track> { _track1 }, _artist, _album, _trackFile)
+            Subject.BuildTrackFileName(_artist, _album, _trackFile)
                    .Should().Be("Linkin Park");
         }
 
@@ -109,7 +108,7 @@ namespace NzbDrone.Core.Test.OrganizerTests.FileNameBuilderTests
         {
             _namingConfig.StandardTrackFormat = "{Artist_Name}";
 
-            Subject.BuildTrackFileName(new List<Track> { _track1 }, _artist, _album, _trackFile)
+            Subject.BuildTrackFileName(_artist, _album, _trackFile)
                    .Should().Be("Linkin_Park");
         }
 
@@ -118,7 +117,7 @@ namespace NzbDrone.Core.Test.OrganizerTests.FileNameBuilderTests
         {
             _namingConfig.StandardTrackFormat = "{Artist.Name}";
 
-            Subject.BuildTrackFileName(new List<Track> { _track1 }, _artist, _album, _trackFile)
+            Subject.BuildTrackFileName(_artist, _album, _trackFile)
                    .Should().Be("Linkin.Park");
         }
 
@@ -127,7 +126,7 @@ namespace NzbDrone.Core.Test.OrganizerTests.FileNameBuilderTests
         {
             _namingConfig.StandardTrackFormat = "{Artist-Name}";
 
-            Subject.BuildTrackFileName(new List<Track> { _track1 }, _artist, _album, _trackFile)
+            Subject.BuildTrackFileName(_artist, _album, _trackFile)
                    .Should().Be("Linkin-Park");
         }
 
@@ -136,7 +135,7 @@ namespace NzbDrone.Core.Test.OrganizerTests.FileNameBuilderTests
         {
             _namingConfig.StandardTrackFormat = "{ARTIST NAME}";
 
-            Subject.BuildTrackFileName(new List<Track> { _track1 }, _artist, _album, _trackFile)
+            Subject.BuildTrackFileName(_artist, _album, _trackFile)
                    .Should().Be("LINKIN PARK");
         }
 
@@ -145,7 +144,7 @@ namespace NzbDrone.Core.Test.OrganizerTests.FileNameBuilderTests
         {
             _namingConfig.StandardTrackFormat = "{aRtIST-nAmE}";
 
-            Subject.BuildTrackFileName(new List<Track> { _track1 }, _artist, _album, _trackFile)
+            Subject.BuildTrackFileName(_artist, _album, _trackFile)
                    .Should().Be(_artist.Name.Replace(' ', '-'));
         }
 
@@ -154,7 +153,7 @@ namespace NzbDrone.Core.Test.OrganizerTests.FileNameBuilderTests
         {
             _namingConfig.StandardTrackFormat = "{artist name}";
 
-            Subject.BuildTrackFileName(new List<Track> { _track1 }, _artist, _album, _trackFile)
+            Subject.BuildTrackFileName(_artist, _album, _trackFile)
                    .Should().Be("linkin park");
         }
 
@@ -164,7 +163,7 @@ namespace NzbDrone.Core.Test.OrganizerTests.FileNameBuilderTests
             _namingConfig.StandardTrackFormat = "{Artist.CleanName}";
             _artist.Name = "Linkin Park (1997)";
 
-            Subject.BuildTrackFileName(new List<Track> { _track1 }, _artist, _album, _trackFile)
+            Subject.BuildTrackFileName(_artist, _album, _trackFile)
                    .Should().Be("Linkin.Park.1997");
         }
 
@@ -173,7 +172,7 @@ namespace NzbDrone.Core.Test.OrganizerTests.FileNameBuilderTests
         {
             _namingConfig.StandardTrackFormat = "{Artist Disambiguation}";
 
-            Subject.BuildTrackFileName(new List<Track> { _track1 }, _artist, _album, _trackFile)
+            Subject.BuildTrackFileName(_artist, _album, _trackFile)
                    .Should().Be("US Rock Band");
         }
 
@@ -182,7 +181,7 @@ namespace NzbDrone.Core.Test.OrganizerTests.FileNameBuilderTests
         {
             _namingConfig.StandardTrackFormat = "{Album Title}";
 
-            Subject.BuildTrackFileName(new List<Track> { _track1 }, _artist, _album, _trackFile)
+            Subject.BuildTrackFileName(_artist, _album, _trackFile)
                    .Should().Be("Hybrid Theory");
         }
 
@@ -191,7 +190,7 @@ namespace NzbDrone.Core.Test.OrganizerTests.FileNameBuilderTests
         {
             _namingConfig.StandardTrackFormat = "{Album Type}";
 
-            Subject.BuildTrackFileName(new List<Track> { _track1 }, _artist, _album, _trackFile)
+            Subject.BuildTrackFileName(_artist, _album, _trackFile)
                 .Should().Be("Album");
         }
 
@@ -200,7 +199,7 @@ namespace NzbDrone.Core.Test.OrganizerTests.FileNameBuilderTests
         {
             _namingConfig.StandardTrackFormat = "{Album Disambiguation}";
 
-            Subject.BuildTrackFileName(new List<Track> { _track1 }, _artist, _album, _trackFile)
+            Subject.BuildTrackFileName(_artist, _album, _trackFile)
                 .Should().Be("The Best Album");
         }
 
@@ -209,7 +208,7 @@ namespace NzbDrone.Core.Test.OrganizerTests.FileNameBuilderTests
         {
             _namingConfig.StandardTrackFormat = "{Album_Title}";
 
-            Subject.BuildTrackFileName(new List<Track> { _track1 }, _artist, _album, _trackFile)
+            Subject.BuildTrackFileName(_artist, _album, _trackFile)
                    .Should().Be("Hybrid_Theory");
         }
 
@@ -218,7 +217,7 @@ namespace NzbDrone.Core.Test.OrganizerTests.FileNameBuilderTests
         {
             _namingConfig.StandardTrackFormat = "{Album.Title}";
 
-            Subject.BuildTrackFileName(new List<Track> { _track1 }, _artist, _album, _trackFile)
+            Subject.BuildTrackFileName(_artist, _album, _trackFile)
                    .Should().Be("Hybrid.Theory");
         }
 
@@ -227,7 +226,7 @@ namespace NzbDrone.Core.Test.OrganizerTests.FileNameBuilderTests
         {
             _namingConfig.StandardTrackFormat = "{Album-Title}";
 
-            Subject.BuildTrackFileName(new List<Track> { _track1 }, _artist, _album, _trackFile)
+            Subject.BuildTrackFileName(_artist, _album, _trackFile)
                    .Should().Be("Hybrid-Theory");
         }
 
@@ -236,7 +235,7 @@ namespace NzbDrone.Core.Test.OrganizerTests.FileNameBuilderTests
         {
             _namingConfig.StandardTrackFormat = "{ALBUM TITLE}";
 
-            Subject.BuildTrackFileName(new List<Track> { _track1 }, _artist, _album, _trackFile)
+            Subject.BuildTrackFileName(_artist, _album, _trackFile)
                    .Should().Be("HYBRID THEORY");
         }
 
@@ -245,7 +244,7 @@ namespace NzbDrone.Core.Test.OrganizerTests.FileNameBuilderTests
         {
             _namingConfig.StandardTrackFormat = "{aLbUM-tItLE}";
 
-            Subject.BuildTrackFileName(new List<Track> { _track1 }, _artist, _album, _trackFile)
+            Subject.BuildTrackFileName(_artist, _album, _trackFile)
                    .Should().Be(_album.Title.Replace(' ', '-'));
         }
 
@@ -254,7 +253,7 @@ namespace NzbDrone.Core.Test.OrganizerTests.FileNameBuilderTests
         {
             _namingConfig.StandardTrackFormat = "{album title}";
 
-            Subject.BuildTrackFileName(new List<Track> { _track1 }, _artist, _album, _trackFile)
+            Subject.BuildTrackFileName(_artist, _album, _trackFile)
                    .Should().Be("hybrid theory");
         }
 
@@ -264,7 +263,7 @@ namespace NzbDrone.Core.Test.OrganizerTests.FileNameBuilderTests
             _namingConfig.StandardTrackFormat = "{Artist.CleanName}";
             _artist.Name = "Hybrid Theory (2000)";
 
-            Subject.BuildTrackFileName(new List<Track> { _track1 }, _artist, _album, _trackFile)
+            Subject.BuildTrackFileName(_artist, _album, _trackFile)
                    .Should().Be("Hybrid.Theory.2000");
         }
 
@@ -273,7 +272,7 @@ namespace NzbDrone.Core.Test.OrganizerTests.FileNameBuilderTests
         {
             _namingConfig.StandardTrackFormat = "{Track Title}";
 
-            Subject.BuildTrackFileName(new List<Track> { _track1 }, _artist, _album, _trackFile)
+            Subject.BuildTrackFileName(_artist, _album, _trackFile)
                    .Should().Be("City Sushi");
         }
 
@@ -282,7 +281,7 @@ namespace NzbDrone.Core.Test.OrganizerTests.FileNameBuilderTests
         {
             _namingConfig.StandardTrackFormat = "{tRaCK-TitLe}";
 
-            Subject.BuildTrackFileName(new List<Track> { _track1 }, _artist, _album, _trackFile)
+            Subject.BuildTrackFileName(_artist, _album, _trackFile)
                    .Should().Be("City-Sushi");
         }
 
@@ -292,7 +291,7 @@ namespace NzbDrone.Core.Test.OrganizerTests.FileNameBuilderTests
             _track1.AbsoluteTrackNumber = 1;
             _namingConfig.StandardTrackFormat = "{track}";
 
-            Subject.BuildTrackFileName(new List<Track> { _track1 }, _artist, _album, _trackFile)
+            Subject.BuildTrackFileName(_artist, _album, _trackFile)
                    .Should().Be("1");
         }
 
@@ -302,7 +301,7 @@ namespace NzbDrone.Core.Test.OrganizerTests.FileNameBuilderTests
             _track1.AbsoluteTrackNumber = 1;
             _namingConfig.StandardTrackFormat = "{track:00}";
 
-            Subject.BuildTrackFileName(new List<Track> { _track1 }, _artist, _album, _trackFile)
+            Subject.BuildTrackFileName(_artist, _album, _trackFile)
                    .Should().Be("01");
         }
 
@@ -311,7 +310,7 @@ namespace NzbDrone.Core.Test.OrganizerTests.FileNameBuilderTests
         {
             _namingConfig.StandardTrackFormat = "{medium}";
 
-            Subject.BuildTrackFileName(new List<Track> { _track1 }, _artist, _album, _trackFile)
+            Subject.BuildTrackFileName(_artist, _album, _trackFile)
                    .Should().Be("3");
         }
 
@@ -320,7 +319,7 @@ namespace NzbDrone.Core.Test.OrganizerTests.FileNameBuilderTests
         {
             _namingConfig.StandardTrackFormat = "{medium:00}";
 
-            Subject.BuildTrackFileName(new List<Track> { _track1 }, _artist, _album, _trackFile)
+            Subject.BuildTrackFileName(_artist, _album, _trackFile)
                    .Should().Be("03");
         }
 
@@ -329,7 +328,7 @@ namespace NzbDrone.Core.Test.OrganizerTests.FileNameBuilderTests
         {
             _namingConfig.StandardTrackFormat = "{Quality Title}";
 
-            Subject.BuildTrackFileName(new List<Track> { _track1 }, _artist, _album, _trackFile)
+            Subject.BuildTrackFileName(_artist, _album, _trackFile)
                    .Should().Be("MP3-256");
         }
 
@@ -338,7 +337,7 @@ namespace NzbDrone.Core.Test.OrganizerTests.FileNameBuilderTests
         {
             _namingConfig.StandardTrackFormat = "{MediaInfo AudioCodec}";
 
-            Subject.BuildTrackFileName(new List<Track> { _track1 }, _artist, _album, _trackFile)
+            Subject.BuildTrackFileName(_artist, _album, _trackFile)
                    .Should().Be("FLAC");
         }
 
@@ -347,7 +346,7 @@ namespace NzbDrone.Core.Test.OrganizerTests.FileNameBuilderTests
         {
             _namingConfig.StandardTrackFormat = "{MediaInfo AudioBitRate}";
 
-            Subject.BuildTrackFileName(new List<Track> { _track1 }, _artist, _album, _trackFile)
+            Subject.BuildTrackFileName(_artist, _album, _trackFile)
                    .Should().Be("320 kbps");
         }
 
@@ -356,7 +355,7 @@ namespace NzbDrone.Core.Test.OrganizerTests.FileNameBuilderTests
         {
             _namingConfig.StandardTrackFormat = "{MediaInfo AudioChannels}";
 
-            Subject.BuildTrackFileName(new List<Track> { _track1 }, _artist, _album, _trackFile)
+            Subject.BuildTrackFileName(_artist, _album, _trackFile)
                    .Should().Be("2.0");
         }
 
@@ -365,7 +364,7 @@ namespace NzbDrone.Core.Test.OrganizerTests.FileNameBuilderTests
         {
             _namingConfig.StandardTrackFormat = "{MediaInfo AudioBitsPerSample}";
 
-            Subject.BuildTrackFileName(new List<Track> { _track1 }, _artist, _album, _trackFile)
+            Subject.BuildTrackFileName(_artist, _album, _trackFile)
                    .Should().Be("16bit");
         }
 
@@ -374,7 +373,7 @@ namespace NzbDrone.Core.Test.OrganizerTests.FileNameBuilderTests
         {
             _namingConfig.StandardTrackFormat = "{MediaInfo AudioSampleRate}";
 
-            Subject.BuildTrackFileName(new List<Track> { _track1 }, _artist, _album, _trackFile)
+            Subject.BuildTrackFileName(_artist, _album, _trackFile)
                    .Should().Be("44.1kHz");
         }
 
@@ -383,7 +382,7 @@ namespace NzbDrone.Core.Test.OrganizerTests.FileNameBuilderTests
         {
             _namingConfig.StandardTrackFormat = "{Artist Name} - {Album Title} - {track:00} - {Track Title} [{Quality Title}]";
 
-            Subject.BuildTrackFileName(new List<Track> { _track1 }, _artist, _album, _trackFile)
+            Subject.BuildTrackFileName(_artist, _album, _trackFile)
                    .Should().Be("Linkin Park - Hybrid Theory - 06 - City Sushi [MP3-256]");
         }
 
@@ -393,7 +392,7 @@ namespace NzbDrone.Core.Test.OrganizerTests.FileNameBuilderTests
             _namingConfig.RenameTracks = false;
             _trackFile.Path = "Linkin Park - 06 - Test";
 
-            Subject.BuildTrackFileName(new List<Track> { _track1 }, _artist, _album, _trackFile)
+            Subject.BuildTrackFileName(_artist, _album, _trackFile)
                    .Should().Be(Path.GetFileNameWithoutExtension(_trackFile.Path));
         }
 
@@ -404,7 +403,7 @@ namespace NzbDrone.Core.Test.OrganizerTests.FileNameBuilderTests
             _trackFile.Path = "Linkin Park - 06 - Test";
             _trackFile.SceneName = "SceneName";
 
-            Subject.BuildTrackFileName(new List<Track> { _track1 }, _artist, _album, _trackFile)
+            Subject.BuildTrackFileName(_artist, _album, _trackFile)
                    .Should().Be(Path.GetFileNameWithoutExtension(_trackFile.Path));
         }
 
@@ -414,7 +413,7 @@ namespace NzbDrone.Core.Test.OrganizerTests.FileNameBuilderTests
             _namingConfig.RenameTracks = false;
             _trackFile.Path = @"C:\Test\Unsorted\Artist - 01 - Test";
 
-            Subject.BuildTrackFileName(new List<Track> { _track1 }, _artist, _album, _trackFile)
+            Subject.BuildTrackFileName(_artist, _album, _trackFile)
                    .Should().Be(Path.GetFileNameWithoutExtension(_trackFile.Path));
         }
 
@@ -426,7 +425,7 @@ namespace NzbDrone.Core.Test.OrganizerTests.FileNameBuilderTests
 
             _namingConfig.StandardTrackFormat = "{Track Title}";
 
-            Subject.BuildTrackFileName(new List<Track> { _track1 }, _artist, _album, _trackFile)
+            Subject.BuildTrackFileName(_artist, _album, _trackFile)
                    .Should().Be(title);
         }
 
@@ -435,7 +434,7 @@ namespace NzbDrone.Core.Test.OrganizerTests.FileNameBuilderTests
         {
             _namingConfig.StandardTrackFormat = "{Release Group}";
 
-            Subject.BuildTrackFileName(new List<Track> { _track1 }, _artist, _album, _trackFile)
+            Subject.BuildTrackFileName(_artist, _album, _trackFile)
                    .Should().Be(_trackFile.ReleaseGroup);
         }
 
@@ -448,7 +447,7 @@ namespace NzbDrone.Core.Test.OrganizerTests.FileNameBuilderTests
             _trackFile.SceneName = "Linkin.Park.Meteora.320-LOL";
             _trackFile.Path = "30 Rock - 01 - Test";
 
-            Subject.BuildTrackFileName(new List<Track> { _track1 }, _artist, _album, _trackFile)
+            Subject.BuildTrackFileName(_artist, _album, _trackFile)
                    .Should().Be("Linkin Park - Linkin.Park.Meteora.320-LOL - City Sushi");
         }
 
@@ -463,7 +462,7 @@ namespace NzbDrone.Core.Test.OrganizerTests.FileNameBuilderTests
                             .With(e => e.AlbumRelease = _release)
                             .Build();
 
-            Subject.BuildTrackFileName(new List<Track> { track }, new Artist { Name = "In The Woods." }, new Album { Title = "30 Rock" }, _trackFile)
+            Subject.BuildTrackFileName(new Author { Name = "In The Woods." }, new Book { Title = "30 Rock" }, _trackFile)
                    .Should().Be("In.The.Woods.06.Part.1");
         }
 
@@ -478,7 +477,7 @@ namespace NzbDrone.Core.Test.OrganizerTests.FileNameBuilderTests
                             .With(e => e.AlbumRelease = _release)
                             .Build();
 
-            Subject.BuildTrackFileName(new List<Track> { track }, new Artist { Name = "In The Woods..." }, new Album { Title = "30 Rock" }, _trackFile)
+            Subject.BuildTrackFileName(new Author { Name = "In The Woods..." }, new Book { Title = "30 Rock" }, _trackFile)
                    .Should().Be("In.The.Woods.06.Part.1");
         }
 
@@ -487,7 +486,7 @@ namespace NzbDrone.Core.Test.OrganizerTests.FileNameBuilderTests
         {
             _namingConfig.StandardTrackFormat = "{Artist.Name}.{track:00}{_Track.Title_}{Quality.Title}";
 
-            Subject.BuildTrackFileName(new List<Track> { _track1 }, _artist, _album, _trackFile)
+            Subject.BuildTrackFileName(_artist, _album, _trackFile)
                    .Should().Be("Linkin.Park.06_City.Sushi_MP3-256");
         }
 
@@ -498,7 +497,7 @@ namespace NzbDrone.Core.Test.OrganizerTests.FileNameBuilderTests
 
             _track1.Title = "";
 
-            Subject.BuildTrackFileName(new List<Track> { _track1 }, _artist, _album, _trackFile)
+            Subject.BuildTrackFileName(_artist, _album, _trackFile)
                    .Should().Be("Linkin.Park.06");
         }
 
@@ -508,7 +507,7 @@ namespace NzbDrone.Core.Test.OrganizerTests.FileNameBuilderTests
             _artist.Name = "Venture Bros.";
             _namingConfig.StandardTrackFormat = "{Artist.Name}.{Album.Title}-{track:00}";
 
-            Subject.BuildTrackFileName(new List<Track> { _track1 }, _artist, _album, _trackFile)
+            Subject.BuildTrackFileName(_artist, _album, _trackFile)
                    .Should().Be("Venture.Bros.Hybrid.Theory-06");
         }
 
@@ -521,7 +520,7 @@ namespace NzbDrone.Core.Test.OrganizerTests.FileNameBuilderTests
             _trackFile.SceneName = null;
             _trackFile.Path = "existing.file.mkv";
 
-            Subject.BuildTrackFileName(new List<Track> { _track1 }, _artist, _album, _trackFile)
+            Subject.BuildTrackFileName(_artist, _album, _trackFile)
                    .Should().Be(Path.GetFileNameWithoutExtension(_trackFile.Path));
         }
 
@@ -534,7 +533,7 @@ namespace NzbDrone.Core.Test.OrganizerTests.FileNameBuilderTests
             _trackFile.SceneName = "30.Rock.S01E01.xvid-LOL";
             _trackFile.Path = "30 Rock - S01E01 - Test";
 
-            Subject.BuildTrackFileName(new List<Track> { _track1 }, _artist, _album, _trackFile)
+            Subject.BuildTrackFileName(_artist, _album, _trackFile)
                    .Should().Be("30.Rock.S01E01.xvid-LOL");
         }
 
@@ -543,7 +542,7 @@ namespace NzbDrone.Core.Test.OrganizerTests.FileNameBuilderTests
         {
             _namingConfig.StandardTrackFormat = "{Quality Title} {Quality Proper}";
 
-            Subject.BuildTrackFileName(new List<Track> { _track1 }, _artist, _album, _trackFile)
+            Subject.BuildTrackFileName(_artist, _album, _trackFile)
                    .Should().Be("MP3-256");
         }
 
@@ -552,7 +551,7 @@ namespace NzbDrone.Core.Test.OrganizerTests.FileNameBuilderTests
         {
             _namingConfig.StandardTrackFormat = "{Artist Name} - {track:00} [{Quality Title}] {[Quality Proper]}";
 
-            Subject.BuildTrackFileName(new List<Track> { _track1 }, _artist, _album, _trackFile)
+            Subject.BuildTrackFileName(_artist, _album, _trackFile)
                    .Should().Be("Linkin Park - 06 [MP3-256]");
         }
 
@@ -561,7 +560,7 @@ namespace NzbDrone.Core.Test.OrganizerTests.FileNameBuilderTests
         {
             _namingConfig.StandardTrackFormat = "{Artist Name} - {track:00} [{Quality Full}]";
 
-            Subject.BuildTrackFileName(new List<Track> { _track1 }, _artist, _album, _trackFile)
+            Subject.BuildTrackFileName(_artist, _album, _trackFile)
                    .Should().Be("Linkin Park - 06 [MP3-256]");
         }
 
@@ -573,7 +572,7 @@ namespace NzbDrone.Core.Test.OrganizerTests.FileNameBuilderTests
         {
             _namingConfig.StandardTrackFormat = string.Format("{{Quality{0}Title}}{0}{{Quality{0}Proper}}", separator);
 
-            Subject.BuildTrackFileName(new List<Track> { _track1 }, _artist, _album, _trackFile)
+            Subject.BuildTrackFileName(_artist, _album, _trackFile)
                    .Should().Be("MP3-256");
         }
 
@@ -585,7 +584,7 @@ namespace NzbDrone.Core.Test.OrganizerTests.FileNameBuilderTests
         {
             _namingConfig.StandardTrackFormat = string.Format("{{Quality{0}Title}}{0}{{Quality{0}Proper}}{0}{{Track{0}Title}}", separator);
 
-            Subject.BuildTrackFileName(new List<Track> { _track1 }, _artist, _album, _trackFile)
+            Subject.BuildTrackFileName(_artist, _album, _trackFile)
                    .Should().Be(string.Format("MP3-256{0}City{0}Sushi", separator));
         }
 
@@ -598,7 +597,7 @@ namespace NzbDrone.Core.Test.OrganizerTests.FileNameBuilderTests
             _trackFile.SceneName = "30.Rock.S01E01.xvid-LOL";
             _trackFile.Path = "30 Rock - S01E01 - Test";
 
-            Subject.BuildTrackFileName(new List<Track> { _track1 }, _artist, _album, _trackFile)
+            Subject.BuildTrackFileName(_artist, _album, _trackFile)
                    .Should().Be("30 Rock - 30 Rock - S01E01 - Test");
         }
 
@@ -611,7 +610,7 @@ namespace NzbDrone.Core.Test.OrganizerTests.FileNameBuilderTests
             _trackFile.SceneName = "30.Rock.S01E01.xvid-LOL";
             _trackFile.Path = "30 Rock - S01E01 - Test";
 
-            Subject.BuildTrackFileName(new List<Track> { _track1 }, _artist, _album, _trackFile)
+            Subject.BuildTrackFileName(_artist, _album, _trackFile)
                    .Should().Be("30 Rock - S01E01 - Test");
         }
 
@@ -621,7 +620,7 @@ namespace NzbDrone.Core.Test.OrganizerTests.FileNameBuilderTests
             _trackFile.ReleaseGroup = null;
             _namingConfig.StandardTrackFormat = "{Release Group}";
 
-            Subject.BuildTrackFileName(new List<Track> { _track1 }, _artist, _album, _trackFile)
+            Subject.BuildTrackFileName(_artist, _album, _trackFile)
                    .Should().Be("Readarr");
         }
 
@@ -633,7 +632,7 @@ namespace NzbDrone.Core.Test.OrganizerTests.FileNameBuilderTests
             _trackFile.ReleaseGroup = null;
             _namingConfig.StandardTrackFormat = pattern;
 
-            Subject.BuildTrackFileName(new List<Track> { _track1 }, _artist, _album, _trackFile)
+            Subject.BuildTrackFileName(_artist, _album, _trackFile)
                    .Should().Be(expectedFileName);
         }
 
@@ -645,7 +644,7 @@ namespace NzbDrone.Core.Test.OrganizerTests.FileNameBuilderTests
             _trackFile.ReleaseGroup = releaseGroup;
             _namingConfig.StandardTrackFormat = "{Release Group}";
 
-            Subject.BuildTrackFileName(new List<Track> { _track1 }, _artist, _album, _trackFile)
+            Subject.BuildTrackFileName(_artist, _album, _trackFile)
                    .Should().Be(releaseGroup);
         }
     }

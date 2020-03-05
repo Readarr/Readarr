@@ -28,7 +28,7 @@ namespace NzbDrone.Core.Extras.Lyrics
 
         public override int Order => 1;
 
-        public override IEnumerable<ExtraFile> ProcessFiles(Artist artist, List<string> filesOnDisk, List<string> importedFiles)
+        public override IEnumerable<ExtraFile> ProcessFiles(Author artist, List<string> filesOnDisk, List<string> importedFiles)
         {
             _logger.Debug("Looking for existing lyrics files in {0}", artist.Path);
 

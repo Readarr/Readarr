@@ -46,11 +46,6 @@ namespace Readarr.Api.V1.Artist
                     artist.MetadataProfileId = resource.MetadataProfileId.Value;
                 }
 
-                if (resource.AlbumFolder.HasValue)
-                {
-                    artist.AlbumFolder = resource.AlbumFolder.Value;
-                }
-
                 if (resource.RootFolderPath.IsNotNullOrWhiteSpace())
                 {
                     artist.RootFolderPath = resource.RootFolderPath;

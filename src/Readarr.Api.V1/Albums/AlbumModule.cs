@@ -74,20 +74,11 @@ namespace Readarr.Api.V1.Albums
             {
                 var albums = _albumService.GetAllAlbums();
 
-                var artists = _artistService.GetAllArtists().ToDictionary(x => x.ArtistMetadataId);
-                var releases = _releaseService.GetAllReleases().GroupBy(x => x.AlbumId).ToDictionary(x => x.Key, y => y.ToList());
+                var artists = _artistService.GetAllArtists().ToDictionary(x => x.AuthorMetadataId);
 
                 foreach (var album in albums)
                 {
-                    album.Artist = artists[album.ArtistMetadataId];
-                    if (releases.TryGetValue(album.Id, out var albumReleases))
-                    {
-                        album.AlbumReleases = albumReleases;
-                    }
-                    else
-                    {
-                        album.AlbumReleases = new List<AlbumRelease>();
-                    }
+                    album.Author = artists[album.AuthorMetadataId];
                 }
 
                 return MapToResource(albums, false);
@@ -108,16 +99,16 @@ namespace Readarr.Api.V1.Albums
 
                 if (album == null)
                 {
-                    return MapToResource(new List<Album>(), false);
+                    return MapToResource(new List<Book>(), false);
                 }
 
                 if (includeAllArtistAlbumsQuery.HasValue && Convert.ToBoolean(includeAllArtistAlbumsQuery.Value))
                 {
-                    return MapToResource(_albumService.GetAlbumsByArtist(album.ArtistId), false);
+                    return MapToResource(_albumService.GetAlbumsByArtist(album.AuthorId), false);
                 }
                 else
                 {
-                    return MapToResource(new List<Album> { album }, false);
+                    return MapToResource(new List<Book> { album }, false);
                 }
             }
 

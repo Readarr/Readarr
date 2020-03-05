@@ -35,7 +35,7 @@ namespace NzbDrone.Core.Extras.Metadata.Consumers.Xbmc
 
         public override string Name => "Kodi (XBMC) / Emby";
 
-        public override string GetFilenameAfterMove(Artist artist, TrackFile trackFile, MetadataFile metadataFile)
+        public override string GetFilenameAfterMove(Author artist, TrackFile trackFile, MetadataFile metadataFile)
         {
             var trackFilePath = trackFile.Path;
 
@@ -48,7 +48,7 @@ namespace NzbDrone.Core.Extras.Metadata.Consumers.Xbmc
             return Path.Combine(artist.Path, metadataFile.RelativePath);
         }
 
-        public override MetadataFile FindMetadataFile(Artist artist, string path)
+        public override MetadataFile FindMetadataFile(Author artist, string path)
         {
             var filename = Path.GetFileName(path);
 
@@ -97,7 +97,7 @@ namespace NzbDrone.Core.Extras.Metadata.Consumers.Xbmc
             return null;
         }
 
-        public override MetadataFileResult ArtistMetadata(Artist artist)
+        public override MetadataFileResult ArtistMetadata(Author artist)
         {
             if (!Settings.ArtistMetadata)
             {
@@ -121,7 +121,7 @@ namespace NzbDrone.Core.Extras.Metadata.Consumers.Xbmc
                     artistElement.Add(new XElement("rating", artist.Metadata.Value.Ratings.Value));
                 }
 
-                artistElement.Add(new XElement("musicbrainzartistid", artist.Metadata.Value.ForeignArtistId));
+                artistElement.Add(new XElement("musicbrainzartistid", artist.Metadata.Value.ForeignAuthorId));
                 artistElement.Add(new XElement("biography", artist.Metadata.Value.Overview));
                 artistElement.Add(new XElement("outline", artist.Metadata.Value.Overview));
 
@@ -134,7 +134,7 @@ namespace NzbDrone.Core.Extras.Metadata.Consumers.Xbmc
             }
         }
 
-        public override MetadataFileResult AlbumMetadata(Artist artist, Album album, string albumPath)
+        public override MetadataFileResult AlbumMetadata(Author artist, Book album, string albumPath)
         {
             if (!Settings.AlbumMetadata)
             {
@@ -158,7 +158,7 @@ namespace NzbDrone.Core.Extras.Metadata.Consumers.Xbmc
                     albumElement.Add(new XElement("rating", album.Ratings.Value));
                 }
 
-                albumElement.Add(new XElement("musicbrainzalbumid", album.ForeignAlbumId));
+                albumElement.Add(new XElement("musicbrainzalbumid", album.ForeignBookId));
                 albumElement.Add(new XElement("artistdesc", artist.Metadata.Value.Overview));
                 albumElement.Add(new XElement("releasedate", album.ReleaseDate.Value.ToShortDateString()));
 
@@ -173,12 +173,12 @@ namespace NzbDrone.Core.Extras.Metadata.Consumers.Xbmc
             }
         }
 
-        public override MetadataFileResult TrackMetadata(Artist artist, TrackFile trackFile)
+        public override MetadataFileResult TrackMetadata(Author artist, TrackFile trackFile)
         {
             return null;
         }
 
-        public override List<ImageFileResult> ArtistImages(Artist artist)
+        public override List<ImageFileResult> ArtistImages(Author artist)
         {
             if (!Settings.ArtistImages)
             {
@@ -188,7 +188,7 @@ namespace NzbDrone.Core.Extras.Metadata.Consumers.Xbmc
             return ProcessArtistImages(artist).ToList();
         }
 
-        public override List<ImageFileResult> AlbumImages(Artist artist, Album album, string albumPath)
+        public override List<ImageFileResult> AlbumImages(Author artist, Book album, string albumPath)
         {
             if (!Settings.AlbumImages)
             {
@@ -198,12 +198,12 @@ namespace NzbDrone.Core.Extras.Metadata.Consumers.Xbmc
             return ProcessAlbumImages(artist, album, albumPath).ToList();
         }
 
-        public override List<ImageFileResult> TrackImages(Artist artist, TrackFile trackFile)
+        public override List<ImageFileResult> TrackImages(Author artist, TrackFile trackFile)
         {
             return new List<ImageFileResult>();
         }
 
-        private IEnumerable<ImageFileResult> ProcessArtistImages(Artist artist)
+        private IEnumerable<ImageFileResult> ProcessArtistImages(Author artist)
         {
             foreach (var image in artist.Metadata.Value.Images)
             {
@@ -218,7 +218,7 @@ namespace NzbDrone.Core.Extras.Metadata.Consumers.Xbmc
             }
         }
 
-        private IEnumerable<ImageFileResult> ProcessAlbumImages(Artist artist, Album album, string albumPath)
+        private IEnumerable<ImageFileResult> ProcessAlbumImages(Author artist, Book album, string albumPath)
         {
             foreach (var image in album.Images)
             {

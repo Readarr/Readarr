@@ -29,17 +29,14 @@ namespace NzbDrone.Core.Test.OrganizerTests
             var filename = @"02 - Track Title";
             var expectedPath = @"C:\Test\Fake- The Artist\Fake- The Artist Fake- Album\02 - Track Title.flac";
 
-            var fakeArtist = Builder<Artist>.CreateNew()
+            var fakeArtist = Builder<Author>.CreateNew()
                 .With(s => s.Name = "Fake: The Artist")
                 .With(s => s.Path = @"C:\Test\Fake- The Artist".AsOsAgnostic())
-                .With(s => s.AlbumFolder = true)
                 .Build();
 
-            var fakeAlbum = Builder<Album>.CreateNew()
+            var fakeAlbum = Builder<Book>.CreateNew()
                 .With(s => s.Title = "Fake: Album")
                 .Build();
-
-            _namingConfig.AlbumFolderFormat = "{Artist Name} {Album Title}";
 
             Subject.BuildTrackFilePath(fakeArtist, fakeAlbum, filename, ".flac").Should().Be(expectedPath.AsOsAgnostic());
         }

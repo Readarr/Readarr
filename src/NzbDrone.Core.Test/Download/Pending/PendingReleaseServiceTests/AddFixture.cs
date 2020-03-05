@@ -21,8 +21,8 @@ namespace NzbDrone.Core.Test.Download.Pending.PendingReleaseServiceTests
     public class AddFixture : CoreTest<PendingReleaseService>
     {
         private DownloadDecision _temporarilyRejected;
-        private Artist _artist;
-        private Album _album;
+        private Author _artist;
+        private Book _album;
         private QualityProfile _profile;
         private ReleaseInfo _release;
         private ParsedAlbumInfo _parsedAlbumInfo;
@@ -32,10 +32,10 @@ namespace NzbDrone.Core.Test.Download.Pending.PendingReleaseServiceTests
         [SetUp]
         public void Setup()
         {
-            _artist = Builder<Artist>.CreateNew()
+            _artist = Builder<Author>.CreateNew()
                                      .Build();
 
-            _album = Builder<Album>.CreateNew()
+            _album = Builder<Book>.CreateNew()
                                        .Build();
 
             _profile = new QualityProfile
@@ -58,7 +58,7 @@ namespace NzbDrone.Core.Test.Download.Pending.PendingReleaseServiceTests
             _parsedAlbumInfo.Quality = new QualityModel(Quality.MP3_256);
 
             _remoteAlbum = new RemoteAlbum();
-            _remoteAlbum.Albums = new List<Album> { _album };
+            _remoteAlbum.Albums = new List<Book> { _album };
             _remoteAlbum.Artist = _artist;
             _remoteAlbum.ParsedAlbumInfo = _parsedAlbumInfo;
             _remoteAlbum.Release = _release;
@@ -81,11 +81,11 @@ namespace NzbDrone.Core.Test.Download.Pending.PendingReleaseServiceTests
 
             Mocker.GetMock<IArtistService>()
                   .Setup(s => s.GetArtists(It.IsAny<IEnumerable<int>>()))
-                  .Returns(new List<Artist> { _artist });
+                  .Returns(new List<Author> { _artist });
 
             Mocker.GetMock<IParsingService>()
                   .Setup(s => s.GetAlbums(It.IsAny<ParsedAlbumInfo>(), _artist, null))
-                  .Returns(new List<Album> { _album });
+                  .Returns(new List<Book> { _album });
 
             Mocker.GetMock<IPrioritizeDownloadDecision>()
                   .Setup(s => s.PrioritizeDecisions(It.IsAny<List<DownloadDecision>>()))

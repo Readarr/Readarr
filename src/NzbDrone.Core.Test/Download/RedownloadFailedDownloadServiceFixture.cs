@@ -23,7 +23,7 @@ namespace NzbDrone.Core.Test.Download
 
             Mocker.GetMock<IAlbumService>()
                 .Setup(x => x.GetAlbumsByArtist(It.IsAny<int>()))
-                .Returns(Builder<Album>.CreateListOfSize(3).Build() as List<Album>);
+                .Returns(Builder<Book>.CreateListOfSize(3).Build() as List<Book>);
         }
 
         [Test]

@@ -29,24 +29,24 @@ namespace NzbDrone.Core.Test.Datastore
 
             profile = Db.Insert(profile);
 
-            var metadata = Builder<ArtistMetadata>.CreateNew()
+            var metadata = Builder<AuthorMetadata>.CreateNew()
                 .With(v => v.Id = 0)
                 .Build();
             Db.Insert(metadata);
 
-            var artist = Builder<Artist>.CreateListOfSize(1)
+            var artist = Builder<Author>.CreateListOfSize(1)
                 .All()
                 .With(v => v.Id = 0)
                 .With(v => v.QualityProfileId = profile.Id)
-                .With(v => v.ArtistMetadataId = metadata.Id)
+                .With(v => v.AuthorMetadataId = metadata.Id)
                 .BuildListOfNew();
 
             Db.InsertMany(artist);
 
-            var albums = Builder<Album>.CreateListOfSize(3)
+            var albums = Builder<Book>.CreateListOfSize(3)
                 .All()
                 .With(v => v.Id = 0)
-                .With(v => v.ArtistMetadataId = metadata.Id)
+                .With(v => v.AuthorMetadataId = metadata.Id)
                 .BuildListOfNew();
 
             Db.InsertMany(albums);
@@ -137,9 +137,9 @@ namespace NzbDrone.Core.Test.Datastore
             var files = MediaFileRepository.Query(db,
                                                   new SqlBuilder()
                                                   .Join<TrackFile, Track>((f, t) => f.Id == t.TrackFileId)
-                                                  .Join<TrackFile, Album>((t, a) => t.AlbumId == a.Id)
-                                                  .Join<Album, Artist>((album, artist) => album.ArtistMetadataId == artist.ArtistMetadataId)
-                                                  .Join<Artist, ArtistMetadata>((a, m) => a.ArtistMetadataId == m.Id));
+                                                  .Join<TrackFile, Book>((t, a) => t.AlbumId == a.Id)
+                                                  .Join<Book, Author>((album, artist) => album.AuthorMetadataId == artist.AuthorMetadataId)
+                                                  .Join<Author, AuthorMetadata>((a, m) => a.AuthorMetadataId == m.Id));
 
             Assert.IsNotEmpty(files);
             foreach (var file in files)
@@ -156,11 +156,11 @@ namespace NzbDrone.Core.Test.Datastore
         public void should_lazy_load_tracks_if_not_joined_to_trackfile()
         {
             var db = Mocker.Resolve<IDatabase>();
-            var files = db.QueryJoined<TrackFile, Album, Artist, ArtistMetadata>(
+            var files = db.QueryJoined<TrackFile, Book, Author, AuthorMetadata>(
                 new SqlBuilder()
-                .Join<TrackFile, Album>((t, a) => t.AlbumId == a.Id)
-                .Join<Album, Artist>((album, artist) => album.ArtistMetadataId == artist.ArtistMetadataId)
-                .Join<Artist, ArtistMetadata>((a, m) => a.ArtistMetadataId == m.Id),
+                .Join<TrackFile, Book>((t, a) => t.AlbumId == a.Id)
+                .Join<Book, Author>((album, artist) => album.AuthorMetadataId == artist.AuthorMetadataId)
+                .Join<Author, AuthorMetadata>((a, m) => a.AuthorMetadataId == m.Id),
                 (file, album, artist, metadata) =>
                 {
                     file.Album = album;

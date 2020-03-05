@@ -109,7 +109,7 @@ namespace Readarr.Api.V1.TrackFiles
                 foreach (var albumId in albumIds)
                 {
                     var album = _albumService.GetAlbum(albumId);
-                    var albumArtist = _artistService.GetArtist(album.ArtistId);
+                    var albumArtist = _artistService.GetArtist(album.AuthorId);
                     result.AddRange(_mediaFileService.GetFilesByAlbum(album.Id).ConvertAll(f => f.ToResource(albumArtist, _upgradableSpecification)));
                 }
 

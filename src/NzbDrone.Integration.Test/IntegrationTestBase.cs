@@ -327,8 +327,6 @@ namespace NzbDrone.Integration.Test
                                 Path = path,
                                 ArtistId = artist.Id,
                                 AlbumId = albumId,
-                                AlbumReleaseId = albumReleaseId,
-                                TrackIds = new List<int> { trackId },
                                 Quality = new QualityModel(quality)
                             }
                     }

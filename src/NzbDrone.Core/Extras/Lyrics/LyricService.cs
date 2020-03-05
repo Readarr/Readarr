@@ -30,22 +30,22 @@ namespace NzbDrone.Core.Extras.Lyrics
 
         public override int Order => 1;
 
-        public override IEnumerable<ExtraFile> CreateAfterArtistScan(Artist artist, List<TrackFile> trackFiles)
+        public override IEnumerable<ExtraFile> CreateAfterArtistScan(Author artist, List<TrackFile> trackFiles)
         {
             return Enumerable.Empty<LyricFile>();
         }
 
-        public override IEnumerable<ExtraFile> CreateAfterTrackImport(Artist artist, TrackFile trackFile)
+        public override IEnumerable<ExtraFile> CreateAfterTrackImport(Author artist, TrackFile trackFile)
         {
             return Enumerable.Empty<LyricFile>();
         }
 
-        public override IEnumerable<ExtraFile> CreateAfterTrackImport(Artist artist, Album album, string artistFolder, string albumFolder)
+        public override IEnumerable<ExtraFile> CreateAfterTrackImport(Author artist, Book album, string artistFolder, string albumFolder)
         {
             return Enumerable.Empty<LyricFile>();
         }
 
-        public override IEnumerable<ExtraFile> MoveFilesAfterRename(Artist artist, List<TrackFile> trackFiles)
+        public override IEnumerable<ExtraFile> MoveFilesAfterRename(Author artist, List<TrackFile> trackFiles)
         {
             var subtitleFiles = _lyricFileService.GetFilesByArtist(artist.Id);
 
@@ -81,7 +81,7 @@ namespace NzbDrone.Core.Extras.Lyrics
             return movedFiles;
         }
 
-        public override ExtraFile Import(Artist artist, TrackFile trackFile, string path, string extension, bool readOnly)
+        public override ExtraFile Import(Author artist, TrackFile trackFile, string path, string extension, bool readOnly)
         {
             if (LyricFileExtensions.Extensions.Contains(Path.GetExtension(path)))
             {

@@ -12,10 +12,10 @@ using NzbDrone.Core.Test.Framework;
 namespace NzbDrone.Core.Test.ArtistStatsTests
 {
     [TestFixture]
-    public class ArtistStatisticsFixture : DbTest<ArtistStatisticsRepository, Artist>
+    public class ArtistStatisticsFixture : DbTest<ArtistStatisticsRepository, Author>
     {
-        private Artist _artist;
-        private Album _album;
+        private Author _artist;
+        private Book _album;
         private AlbumRelease _release;
         private Track _track;
         private TrackFile _trackFile;
@@ -23,14 +23,14 @@ namespace NzbDrone.Core.Test.ArtistStatsTests
         [SetUp]
         public void Setup()
         {
-            _artist = Builder<Artist>.CreateNew()
-                .With(a => a.ArtistMetadataId = 10)
+            _artist = Builder<Author>.CreateNew()
+                .With(a => a.AuthorMetadataId = 10)
                 .BuildNew();
             Db.Insert(_artist);
 
-            _album = Builder<Album>.CreateNew()
+            _album = Builder<Book>.CreateNew()
                 .With(e => e.ReleaseDate = DateTime.Today.AddDays(-5))
-                .With(e => e.ArtistMetadataId = 10)
+                .With(e => e.AuthorMetadataId = 10)
                 .BuildNew();
             Db.Insert(_album);
 

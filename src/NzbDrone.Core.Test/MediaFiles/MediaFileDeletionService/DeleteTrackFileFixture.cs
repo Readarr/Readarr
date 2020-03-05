@@ -15,13 +15,13 @@ namespace NzbDrone.Core.Test.MediaFiles.MediaFileDeletionService
     public class DeleteTrackFileFixture : CoreTest<Core.MediaFiles.MediaFileDeletionService>
     {
         private static readonly string RootFolder = @"C:\Test\Music";
-        private Artist _artist;
+        private Author _artist;
         private TrackFile _trackFile;
 
         [SetUp]
         public void Setup()
         {
-            _artist = Builder<Artist>.CreateNew()
+            _artist = Builder<Author>.CreateNew()
                                      .With(s => s.Path = Path.Combine(RootFolder, "Artist Name"))
                                      .Build();
 

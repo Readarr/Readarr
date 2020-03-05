@@ -18,7 +18,6 @@ function CutoffUnmetRow(props) {
     artist,
     releaseDate,
     foreignAlbumId,
-    albumType,
     title,
     disambiguation,
     isSelected,
@@ -49,7 +48,7 @@ function CutoffUnmetRow(props) {
             return null;
           }
 
-          if (name === 'artist.sortName') {
+          if (name === 'authors.sortName') {
             return (
               <TableRowCell key={name}>
                 <ArtistNameLink
@@ -60,7 +59,7 @@ function CutoffUnmetRow(props) {
             );
           }
 
-          if (name === 'albumTitle') {
+          if (name === 'books.title') {
             return (
               <TableRowCell key={name}>
                 <AlbumTitleLink
@@ -68,14 +67,6 @@ function CutoffUnmetRow(props) {
                   title={title}
                   disambiguation={disambiguation}
                 />
-              </TableRowCell>
-            );
-          }
-
-          if (name === 'albumType') {
-            return (
-              <TableRowCell key={name}>
-                {albumType}
               </TableRowCell>
             );
           }
@@ -130,7 +121,6 @@ CutoffUnmetRow.propTypes = {
   artist: PropTypes.object.isRequired,
   releaseDate: PropTypes.string.isRequired,
   foreignAlbumId: PropTypes.string.isRequired,
-  albumType: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   disambiguation: PropTypes.string,
   isSelected: PropTypes.bool,

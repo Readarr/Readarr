@@ -4,7 +4,6 @@ using NzbDrone.Core.History;
 using NzbDrone.Core.Qualities;
 using Readarr.Api.V1.Albums;
 using Readarr.Api.V1.Artist;
-using Readarr.Api.V1.Tracks;
 using Readarr.Http.REST;
 
 namespace Readarr.Api.V1.History
@@ -13,7 +12,6 @@ namespace Readarr.Api.V1.History
     {
         public int AlbumId { get; set; }
         public int ArtistId { get; set; }
-        public int TrackId { get; set; }
         public string SourceTitle { get; set; }
         public QualityModel Quality { get; set; }
         public bool QualityCutoffNotMet { get; set; }
@@ -26,7 +24,6 @@ namespace Readarr.Api.V1.History
 
         public AlbumResource Album { get; set; }
         public ArtistResource Artist { get; set; }
-        public TrackResource Track { get; set; }
     }
 
     public static class HistoryResourceMapper
@@ -44,7 +41,6 @@ namespace Readarr.Api.V1.History
 
                 AlbumId = model.AlbumId,
                 ArtistId = model.ArtistId,
-                TrackId = model.TrackId,
                 SourceTitle = model.SourceTitle,
                 Quality = model.Quality,
 

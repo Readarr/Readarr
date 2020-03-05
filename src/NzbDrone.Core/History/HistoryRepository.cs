@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Dapper;
 using NzbDrone.Core.Datastore;
 using NzbDrone.Core.Messaging.Events;
 using NzbDrone.Core.Music;
@@ -44,10 +43,10 @@ namespace NzbDrone.Core.History
 
         public List<History> FindByDownloadId(string downloadId)
         {
-            return _database.QueryJoined<History, Artist, Album>(
+            return _database.QueryJoined<History, Author, Book>(
                 Builder()
-                .Join<History, Artist>((h, a) => h.ArtistId == a.Id)
-                .Join<History, Album>((h, a) => h.AlbumId == a.Id)
+                .Join<History, Author>((h, a) => h.ArtistId == a.Id)
+                .Join<History, Book>((h, a) => h.AlbumId == a.Id)
                 .Where<History>(h => h.DownloadId == downloadId),
                 (history, artist, album) =>
                 {
@@ -72,7 +71,7 @@ namespace NzbDrone.Core.History
         public List<History> GetByAlbum(int albumId, HistoryEventType? eventType)
         {
             var builder = Builder()
-                .Join<History, Album>((h, a) => h.AlbumId == a.Id)
+                .Join<History, Book>((h, a) => h.AlbumId == a.Id)
                 .Where<History>(h => h.AlbumId == albumId);
 
             if (eventType.HasValue)
@@ -80,7 +79,7 @@ namespace NzbDrone.Core.History
                 builder.Where<History>(h => h.EventType == eventType);
             }
 
-            return _database.QueryJoined<History, Album>(
+            return _database.QueryJoined<History, Book>(
                 builder,
                 (history, album) =>
                 {
@@ -104,15 +103,14 @@ namespace NzbDrone.Core.History
         }
 
         protected override SqlBuilder PagedBuilder() => new SqlBuilder()
-            .Join<History, Artist>((h, a) => h.ArtistId == a.Id)
-            .Join<History, Album>((h, a) => h.AlbumId == a.Id)
-            .LeftJoin<History, Track>((h, t) => h.TrackId == t.Id);
+            .Join<History, Author>((h, a) => h.ArtistId == a.Id)
+            .Join<History, Book>((h, a) => h.AlbumId == a.Id);
+
         protected override IEnumerable<History> PagedQuery(SqlBuilder builder) =>
-            _database.QueryJoined<History, Artist, Album, Track>(builder, (history, artist, album, track) =>
+            _database.QueryJoined<History, Author, Book>(builder, (history, artist, album) =>
                     {
                         history.Artist = artist;
                         history.Album = album;
-                        history.Track = track;
                         return history;
                     });
 

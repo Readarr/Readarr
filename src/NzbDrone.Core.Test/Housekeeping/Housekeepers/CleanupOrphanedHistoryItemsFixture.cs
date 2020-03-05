@@ -11,16 +11,16 @@ namespace NzbDrone.Core.Test.Housekeeping.Housekeepers
     [TestFixture]
     public class CleanupOrphanedHistoryItemsFixture : DbTest<CleanupOrphanedHistoryItems, History.History>
     {
-        private Artist _artist;
-        private Album _album;
+        private Author _artist;
+        private Book _album;
 
         [SetUp]
         public void Setup()
         {
-            _artist = Builder<Artist>.CreateNew()
+            _artist = Builder<Author>.CreateNew()
                                      .BuildNew();
 
-            _album = Builder<Album>.CreateNew()
+            _album = Builder<Book>.CreateNew()
                 .BuildNew();
         }
 

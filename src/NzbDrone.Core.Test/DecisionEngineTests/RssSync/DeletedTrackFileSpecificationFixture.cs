@@ -48,17 +48,17 @@ namespace NzbDrone.Core.Test.DecisionEngineTests.RssSync
                     AlbumId = 2
                 };
 
-            var singleAlbumList = new List<Album> { new Album { Id = 1 } };
-            var doubleAlbumList = new List<Album>
+            var singleAlbumList = new List<Book> { new Book { Id = 1 } };
+            var doubleAlbumList = new List<Book>
             {
-                new Album { Id = 1 },
-                new Album { Id = 2 }
+                new Book { Id = 1 },
+                new Book { Id = 2 }
             };
 
             var firstTrack = new Track { TrackFile = _firstFile, TrackFileId = 1, AlbumId = 1 };
             var secondTrack = new Track { TrackFile = _secondFile, TrackFileId = 2, AlbumId = 2 };
 
-            var fakeArtist = Builder<Artist>.CreateNew()
+            var fakeArtist = Builder<Author>.CreateNew()
                          .With(c => c.QualityProfile = new QualityProfile { Cutoff = Quality.FLAC.Id })
                          .With(c => c.Path = @"C:\Music\My.Artist".AsOsAgnostic())
                          .Build();

@@ -14,7 +14,7 @@ namespace NzbDrone.Core.Test.MediaFiles.TrackImport.Identification
     {
         private Track GivenTrack(string title)
         {
-            var artist = Builder<ArtistMetadata>
+            var artist = Builder<AuthorMetadata>
                 .CreateNew()
                 .With(x => x.Name = "artist")
                 .Build();

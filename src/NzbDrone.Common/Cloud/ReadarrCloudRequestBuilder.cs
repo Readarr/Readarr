@@ -1,3 +1,4 @@
+using System.Linq;
 using NzbDrone.Common.Http;
 
 namespace NzbDrone.Common.Cloud
@@ -17,7 +18,9 @@ namespace NzbDrone.Common.Cloud
             Services = new HttpRequestBuilder("https://readarr.lidarr.audio/v1/")
                 .CreateFactory();
 
-            Search = new HttpRequestBuilder("https://api.lidarr.audio/api/v0.4/{route}")
+            Search = new HttpRequestBuilder("https://www.goodreads.com/{route}")
+                .AddQueryParam("key", new string("gSuM2Onzl6sjMU25HY1Xcd".Reverse().ToArray()))
+                .AddQueryParam("_nc", "1")
                 .KeepAlive()
                 .CreateFactory();
         }

@@ -14,8 +14,8 @@ namespace NzbDrone.Core.Test.OrganizerTests.FileNameBuilderTests
     [TestFixture]
     public class TitleTheFixture : CoreTest<FileNameBuilder>
     {
-        private Artist _artist;
-        private Album _album;
+        private Author _artist;
+        private Book _album;
         private AlbumRelease _release;
         private Track _track;
         private TrackFile _trackFile;
@@ -24,12 +24,12 @@ namespace NzbDrone.Core.Test.OrganizerTests.FileNameBuilderTests
         [SetUp]
         public void Setup()
         {
-            _artist = Builder<Artist>
+            _artist = Builder<Author>
                     .CreateNew()
                     .With(s => s.Name = "Alien Ant Farm")
                     .Build();
 
-            _album = Builder<Album>
+            _album = Builder<Book>
                     .CreateNew()
                     .With(s => s.Title = "Anthology")
                     .Build();
@@ -75,7 +75,7 @@ namespace NzbDrone.Core.Test.OrganizerTests.FileNameBuilderTests
             _artist.Name = name;
             _namingConfig.StandardTrackFormat = "{Artist NameThe}";
 
-            Subject.BuildTrackFileName(new List<Track> { _track }, _artist, _album, _trackFile)
+            Subject.BuildTrackFileName(_artist, _album, _trackFile)
                    .Should().Be(expected);
         }
 
@@ -88,7 +88,7 @@ namespace NzbDrone.Core.Test.OrganizerTests.FileNameBuilderTests
             _artist.Name = name;
             _namingConfig.StandardTrackFormat = "{Artist NameThe}";
 
-            Subject.BuildTrackFileName(new List<Track> { _track }, _artist, _album, _trackFile)
+            Subject.BuildTrackFileName(_artist, _album, _trackFile)
                    .Should().Be(name);
         }
     }

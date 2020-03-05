@@ -9,7 +9,7 @@ namespace NzbDrone.Core.Notifications.Xbmc
     public interface IXbmcService
     {
         void Notify(XbmcSettings settings, string title, string message);
-        void Update(XbmcSettings settings, Artist artist);
+        void Update(XbmcSettings settings, Author artist);
         void Clean(XbmcSettings settings);
         ValidationFailure Test(XbmcSettings settings, string message);
     }
@@ -31,7 +31,7 @@ namespace NzbDrone.Core.Notifications.Xbmc
             _proxy.Notify(settings, title, message);
         }
 
-        public void Update(XbmcSettings settings, Artist artist)
+        public void Update(XbmcSettings settings, Author artist)
         {
             if (!settings.AlwaysUpdate)
             {
@@ -53,7 +53,7 @@ namespace NzbDrone.Core.Notifications.Xbmc
             _proxy.CleanLibrary(settings);
         }
 
-        public string GetArtistPath(XbmcSettings settings, Artist artist)
+        public string GetArtistPath(XbmcSettings settings, Author artist)
         {
             var allArtists = _proxy.GetArtist(settings);
 
@@ -67,13 +67,13 @@ namespace NzbDrone.Core.Notifications.Xbmc
             {
                 var musicBrainzId = s.MusicbrainzArtistId.FirstOrDefault();
 
-                return musicBrainzId == artist.Metadata.Value.ForeignArtistId || s.Label == artist.Name;
+                return musicBrainzId == artist.Metadata.Value.ForeignAuthorId || s.Label == artist.Name;
             });
 
             return matchingArtist?.File;
         }
 
-        private void UpdateLibrary(XbmcSettings settings, Artist artist)
+        private void UpdateLibrary(XbmcSettings settings, Author artist)
         {
             try
             {

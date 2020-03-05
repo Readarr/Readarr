@@ -97,7 +97,7 @@ class ArtistIndexFooter extends PureComponent {
               <div className={styles.statistics}>
                 <DescriptionList>
                   <DescriptionListItem
-                    title="Artist"
+                    title="Authors"
                     data={count}
                   />
 
@@ -126,7 +126,7 @@ class ArtistIndexFooter extends PureComponent {
 
                 <DescriptionList>
                   <DescriptionListItem
-                    title="Tracks"
+                    title="Books"
                     data={tracks}
                   />
 

@@ -14,13 +14,13 @@ namespace NzbDrone.Core.Test.MediaFiles
 {
     public class RenameTrackFileServiceFixture : CoreTest<RenameTrackFileService>
     {
-        private Artist _artist;
+        private Author _artist;
         private List<TrackFile> _trackFiles;
 
         [SetUp]
         public void Setup()
         {
-            _artist = Builder<Artist>.CreateNew()
+            _artist = Builder<Author>.CreateNew()
                                      .Build();
 
             _trackFiles = Builder<TrackFile>.CreateListOfSize(2)
@@ -71,7 +71,7 @@ namespace NzbDrone.Core.Test.MediaFiles
             GivenTrackFiles();
 
             Mocker.GetMock<IMoveTrackFiles>()
-                  .Setup(s => s.MoveTrackFile(It.IsAny<TrackFile>(), It.IsAny<Artist>()))
+                  .Setup(s => s.MoveTrackFile(It.IsAny<TrackFile>(), It.IsAny<Author>()))
                   .Throws(new SameFilenameException("Same file name", "Filename"));
 
             Subject.Execute(new RenameFilesCommand(_artist.Id, new List<int> { 1 }));

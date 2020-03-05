@@ -58,25 +58,8 @@ export const defaultState = {
       isVisible: true
     },
     {
-      name: 'secondaryTypes',
-      label: 'Secondary Types',
-      isSortable: true,
-      isVisible: false
-    },
-    {
-      name: 'mediumCount',
-      label: 'Media Count',
-      isVisible: false
-    },
-    {
       name: 'trackCount',
       label: 'Track Count',
-      isVisible: false
-    },
-    {
-      name: 'duration',
-      label: 'Duration',
-      isSortable: true,
       isVisible: false
     },
     {

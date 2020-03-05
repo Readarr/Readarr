@@ -2,7 +2,6 @@ import _ from 'lodash';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import TagListConnector from 'Components/TagListConnector';
-import CheckInput from 'Components/Form/CheckInput';
 import TableRow from 'Components/Table/TableRow';
 import TableRowCell from 'Components/Table/Cells/TableRowCell';
 import TableSelectCell from 'Components/Table/Cells/TableSelectCell';
@@ -33,7 +32,6 @@ class ArtistEditorRow extends Component {
       monitored,
       metadataProfile,
       qualityProfile,
-      albumFolder,
       path,
       tags,
       columns,
@@ -73,15 +71,6 @@ class ArtistEditorRow extends Component {
             </TableRowCell>
         }
 
-        <TableRowCell className={styles.albumFolder}>
-          <CheckInput
-            name="albumFolder"
-            value={albumFolder}
-            isDisabled={true}
-            onChange={this.onAlbumFolderChange}
-          />
-        </TableRowCell>
-
         <TableRowCell>
           {path}
         </TableRowCell>
@@ -105,7 +94,6 @@ ArtistEditorRow.propTypes = {
   monitored: PropTypes.bool.isRequired,
   metadataProfile: PropTypes.object.isRequired,
   qualityProfile: PropTypes.object.isRequired,
-  albumFolder: PropTypes.bool.isRequired,
   path: PropTypes.string.isRequired,
   tags: PropTypes.arrayOf(PropTypes.number).isRequired,
   columns: PropTypes.arrayOf(PropTypes.object).isRequired,

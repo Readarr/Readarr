@@ -16,12 +16,12 @@ namespace NzbDrone.Core.Test.MediaFiles.TrackImport.Identification
     [TestFixture]
     public class GetCandidatesFixture : CoreTest<CandidateService>
     {
-        private ArtistMetadata _artist;
+        private AuthorMetadata _artist;
 
         [SetUp]
         public void Setup()
         {
-            _artist = Builder<ArtistMetadata>
+            _artist = Builder<AuthorMetadata>
                 .CreateNew()
                 .With(x => x.Name = "artist")
                 .Build();
@@ -71,10 +71,10 @@ namespace NzbDrone.Core.Test.MediaFiles.TrackImport.Identification
 
         private AlbumRelease GivenAlbumRelease(string title, List<Track> tracks)
         {
-            var album = Builder<Album>
+            var album = Builder<Book>
                 .CreateNew()
                 .With(x => x.Title = title)
-                .With(x => x.ArtistMetadata = _artist)
+                .With(x => x.AuthorMetadata = _artist)
                 .Build();
 
             var media = Builder<Medium>
@@ -101,28 +101,6 @@ namespace NzbDrone.Core.Test.MediaFiles.TrackImport.Identification
             var localTracks = GivenLocalTracks(tracks, release);
 
             return new LocalAlbumRelease(localTracks);
-        }
-
-        [Test]
-        public void get_candidates_by_fingerprint_should_not_fail_if_fingerprint_lookup_returned_null()
-        {
-            Mocker.GetMock<IFingerprintingService>()
-                .Setup(x => x.Lookup(It.IsAny<List<LocalTrack>>(), It.IsAny<double>()))
-                .Callback((List<LocalTrack> x, double thres) =>
-                    {
-                        foreach (var track in x)
-                        {
-                            track.AcoustIdResults = null;
-                        }
-                    });
-
-            Mocker.GetMock<IReleaseService>()
-                .Setup(x => x.GetReleasesByRecordingIds(It.IsAny<List<string>>()))
-                .Returns(new List<AlbumRelease>());
-
-            var local = GivenLocalAlbumRelease();
-
-            Subject.GetDbCandidatesFromFingerprint(local, null, false).Should().BeEquivalentTo(new List<CandidateAlbumRelease>());
         }
 
         [Test]

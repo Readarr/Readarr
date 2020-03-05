@@ -20,7 +20,7 @@ namespace NzbDrone.Core.MediaCover
     {
         void ConvertToLocalUrls(int entityId, MediaCoverEntity coverEntity, IEnumerable<MediaCover> covers);
         string GetCoverPath(int entityId, MediaCoverEntity coverEntity, MediaCoverTypes mediaCoverTypes, string extension, int? height = null);
-        void EnsureAlbumCovers(Album album);
+        void EnsureAlbumCovers(Book album);
     }
 
     public class MediaCoverService :
@@ -113,7 +113,7 @@ namespace NzbDrone.Core.MediaCover
             return Path.Combine(_coverRootFolder, "Albums", albumId.ToString());
         }
 
-        private void EnsureArtistCovers(Artist artist)
+        private void EnsureArtistCovers(Author artist)
         {
             var toResize = new List<Tuple<MediaCover, bool>>();
 
@@ -160,7 +160,7 @@ namespace NzbDrone.Core.MediaCover
             }
         }
 
-        public void EnsureAlbumCovers(Album album)
+        public void EnsureAlbumCovers(Book album)
         {
             foreach (var cover in album.Images.Where(e => e.CoverType == MediaCoverTypes.Cover))
             {
@@ -188,7 +188,7 @@ namespace NzbDrone.Core.MediaCover
             }
         }
 
-        private void DownloadCover(Artist artist, MediaCover cover, DateTime lastModified)
+        private void DownloadCover(Author artist, MediaCover cover, DateTime lastModified)
         {
             var fileName = GetCoverPath(artist.Id, MediaCoverEntity.Artist, cover.CoverType, cover.Extension);
 
@@ -205,7 +205,7 @@ namespace NzbDrone.Core.MediaCover
             }
         }
 
-        private void DownloadAlbumCover(Album album, MediaCover cover, DateTime lastModified)
+        private void DownloadAlbumCover(Book album, MediaCover cover, DateTime lastModified)
         {
             var fileName = GetCoverPath(album.Id, MediaCoverEntity.Album, cover.CoverType, cover.Extension, null);
 
@@ -222,7 +222,7 @@ namespace NzbDrone.Core.MediaCover
             }
         }
 
-        private void EnsureResizedCovers(Artist artist, MediaCover cover, bool forceResize, Album album = null)
+        private void EnsureResizedCovers(Author artist, MediaCover cover, bool forceResize, Book album = null)
         {
             int[] heights = GetDefaultHeights(cover.CoverType);
 
@@ -275,7 +275,7 @@ namespace NzbDrone.Core.MediaCover
             EnsureArtistCovers(message.Artist);
 
             var albums = _albumService.GetAlbumsByArtist(message.Artist.Id);
-            foreach (Album album in albums)
+            foreach (Book album in albums)
             {
                 EnsureAlbumCovers(album);
             }

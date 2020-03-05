@@ -28,7 +28,7 @@ namespace NzbDrone.Core.Test.Housekeeping.Housekeepers
         [Test]
         public void should_not_delete_unorphaned_pending_items()
         {
-            var artist = Builder<Artist>.CreateNew().BuildNew();
+            var artist = Builder<Author>.CreateNew().BuildNew();
 
             Db.Insert(artist);
 

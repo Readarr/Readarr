@@ -123,7 +123,7 @@ namespace NzbDrone.Core.Extras
             }
         }
 
-        private void CreateAfterImport(Artist artist, TrackFile trackFile)
+        private void CreateAfterImport(Author artist, TrackFile trackFile)
         {
             foreach (var extraFileManager in _extraFileManagers)
             {

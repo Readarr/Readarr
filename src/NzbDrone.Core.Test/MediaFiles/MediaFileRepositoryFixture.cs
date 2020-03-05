@@ -14,27 +14,27 @@ namespace NzbDrone.Core.Test.MediaFiles
     [TestFixture]
     public class MediaFileRepositoryFixture : DbTest<MediaFileRepository, TrackFile>
     {
-        private Artist _artist;
-        private Album _album;
+        private Author _artist;
+        private Book _album;
         private List<AlbumRelease> _releases;
 
         [SetUp]
         public void Setup()
         {
-            var meta = Builder<ArtistMetadata>.CreateNew()
+            var meta = Builder<AuthorMetadata>.CreateNew()
                 .With(a => a.Id = 0)
                 .Build();
             Db.Insert(meta);
 
-            _artist = Builder<Artist>.CreateNew()
-                .With(a => a.ArtistMetadataId = meta.Id)
+            _artist = Builder<Author>.CreateNew()
+                .With(a => a.AuthorMetadataId = meta.Id)
                 .With(a => a.Id = 0)
                 .Build();
             Db.Insert(_artist);
 
-            _album = Builder<Album>.CreateNew()
+            _album = Builder<Book>.CreateNew()
                 .With(a => a.Id = 0)
-                .With(a => a.ArtistMetadataId = _artist.ArtistMetadataId)
+                .With(a => a.AuthorMetadataId = _artist.AuthorMetadataId)
                 .Build();
             Db.Insert(_album);
 
@@ -196,8 +196,8 @@ namespace NzbDrone.Core.Test.MediaFiles
 
         private void VerifyData()
         {
-            Db.All<Artist>().Should().HaveCount(1);
-            Db.All<Album>().Should().HaveCount(1);
+            Db.All<Author>().Should().HaveCount(1);
+            Db.All<Book>().Should().HaveCount(1);
             Db.All<Track>().Should().HaveCount(10);
             Db.All<TrackFile>().Should().HaveCount(10);
         }

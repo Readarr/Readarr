@@ -41,8 +41,8 @@ namespace NzbDrone.Core.Test.Download.TrackedDownloads
 
             var remoteAlbum = new RemoteAlbum
             {
-                Artist = new Artist() { Id = 5 },
-                Albums = new List<Album> { new Album { Id = 4 } },
+                Artist = new Author() { Id = 5 },
+                Albums = new List<Book> { new Book { Id = 4 } },
                 ParsedAlbumInfo = new ParsedAlbumInfo()
                 {
                     AlbumTitle = "Audio Album",
@@ -82,8 +82,8 @@ namespace NzbDrone.Core.Test.Download.TrackedDownloads
 
             var remoteAlbum = new RemoteAlbum
             {
-                Artist = new Artist() { Id = 5 },
-                Albums = new List<Album> { new Album { Id = 4 } },
+                Artist = new Author() { Id = 5 },
+                Albums = new List<Book> { new Book { Id = 4 } },
                 ParsedAlbumInfo = new ParsedAlbumInfo()
                 {
                     AlbumTitle = "Audio Album",

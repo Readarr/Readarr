@@ -150,6 +150,31 @@
   padding: 20px;
 }
 
+.tabList {
+  margin: 0;
+  padding: 0;
+  border-bottom: 1px solid $lightGray;
+}
+
+.tab {
+  position: relative;
+  bottom: -1px;
+  display: inline-block;
+  padding: 6px 12px;
+  border: 1px solid transparent;
+  border-top: none;
+  list-style: none;
+  cursor: pointer;
+}
+
+.selectedTab {
+  border-bottom: 4px solid $linkColor;
+}
+
+.tabContent {
+  margin-top: 20px;
+}
+
 @media only screen and (max-width: $breakpointSmall) {
   .contentContainer {
     padding: 20px 0;

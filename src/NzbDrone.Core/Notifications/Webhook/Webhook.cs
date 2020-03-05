@@ -62,7 +62,7 @@ namespace NzbDrone.Core.Notifications.Webhook
             _proxy.SendWebhook(payload, Settings);
         }
 
-        public override void OnRename(Artist artist)
+        public override void OnRename(Author artist)
         {
             var payload = new WebhookPayload
             {

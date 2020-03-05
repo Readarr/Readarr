@@ -37,7 +37,7 @@ namespace NzbDrone.Core.Test.DecisionEngineTests.RssSync
                                       .With(d => d.PreferredProtocol = DownloadProtocol.Usenet)
                                       .Build();
 
-            var artist = Builder<Artist>.CreateNew()
+            var artist = Builder<Author>.CreateNew()
                                         .With(s => s.QualityProfile = _profile)
                                         .Build();
 
@@ -56,7 +56,7 @@ namespace NzbDrone.Core.Test.DecisionEngineTests.RssSync
             _remoteAlbum.Release = new ReleaseInfo();
             _remoteAlbum.Release.DownloadProtocol = DownloadProtocol.Usenet;
 
-            _remoteAlbum.Albums = Builder<Album>.CreateListOfSize(1).Build().ToList();
+            _remoteAlbum.Albums = Builder<Book>.CreateListOfSize(1).Build().ToList();
 
             Mocker.GetMock<IMediaFileService>()
                 .Setup(s => s.GetFilesByAlbum(It.IsAny<int>()))

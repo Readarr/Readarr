@@ -22,9 +22,10 @@ namespace NzbDrone.Core.MediaFiles
         public int AlbumId { get; set; }
 
         // These are queried from the database
+        public LazyLoaded<List<Book>> Books { get; set; }
         public LazyLoaded<List<Track>> Tracks { get; set; }
-        public LazyLoaded<Artist> Artist { get; set; }
-        public LazyLoaded<Album> Album { get; set; }
+        public LazyLoaded<Author> Artist { get; set; }
+        public LazyLoaded<Book> Album { get; set; }
 
         public override string ToString()
         {

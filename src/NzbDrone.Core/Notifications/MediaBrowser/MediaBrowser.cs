@@ -38,7 +38,7 @@ namespace NzbDrone.Core.Notifications.Emby
             }
         }
 
-        public override void OnRename(Artist artist)
+        public override void OnRename(Author artist)
         {
             if (Settings.UpdateLibrary)
             {

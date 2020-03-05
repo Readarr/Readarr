@@ -23,7 +23,7 @@ function createMapStateToProps() {
     createUISettingsSelector(),
     (label, albums, artist, commands, dimensions, uiSettings) => {
 
-      const albumsInGroup = _.filter(albums.items, { albumType: label });
+      const albumsInGroup = albums.items;
 
       let sortDir = 'asc';
 

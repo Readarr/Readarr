@@ -31,7 +31,7 @@ namespace NzbDrone.Core.Extras.Metadata.Consumers.Wdtv
 
         public override string Name => "WDTV";
 
-        public override string GetFilenameAfterMove(Artist artist, TrackFile trackFile, MetadataFile metadataFile)
+        public override string GetFilenameAfterMove(Author artist, TrackFile trackFile, MetadataFile metadataFile)
         {
             var trackFilePath = trackFile.Path;
 
@@ -44,7 +44,7 @@ namespace NzbDrone.Core.Extras.Metadata.Consumers.Wdtv
             return Path.Combine(artist.Path, metadataFile.RelativePath);
         }
 
-        public override MetadataFile FindMetadataFile(Artist artist, string path)
+        public override MetadataFile FindMetadataFile(Author artist, string path)
         {
             var filename = Path.GetFileName(path);
 
@@ -75,18 +75,18 @@ namespace NzbDrone.Core.Extras.Metadata.Consumers.Wdtv
             return null;
         }
 
-        public override MetadataFileResult ArtistMetadata(Artist artist)
+        public override MetadataFileResult ArtistMetadata(Author artist)
         {
             //Artist metadata is not supported
             return null;
         }
 
-        public override MetadataFileResult AlbumMetadata(Artist artist, Album album, string albumPath)
+        public override MetadataFileResult AlbumMetadata(Author artist, Book album, string albumPath)
         {
             return null;
         }
 
-        public override MetadataFileResult TrackMetadata(Artist artist, TrackFile trackFile)
+        public override MetadataFileResult TrackMetadata(Author artist, TrackFile trackFile)
         {
             if (!Settings.TrackMetadata)
             {
@@ -128,17 +128,17 @@ namespace NzbDrone.Core.Extras.Metadata.Consumers.Wdtv
             return new MetadataFileResult(filename, xmlResult.Trim(Environment.NewLine.ToCharArray()));
         }
 
-        public override List<ImageFileResult> ArtistImages(Artist artist)
+        public override List<ImageFileResult> ArtistImages(Author artist)
         {
             return new List<ImageFileResult>();
         }
 
-        public override List<ImageFileResult> AlbumImages(Artist artist, Album album, string albumFolder)
+        public override List<ImageFileResult> AlbumImages(Author artist, Book album, string albumFolder)
         {
             return new List<ImageFileResult>();
         }
 
-        public override List<ImageFileResult> TrackImages(Artist artist, TrackFile trackFile)
+        public override List<ImageFileResult> TrackImages(Author artist, TrackFile trackFile)
         {
             return new List<ImageFileResult>();
         }

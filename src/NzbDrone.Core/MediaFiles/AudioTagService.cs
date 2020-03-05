@@ -24,7 +24,7 @@ namespace NzbDrone.Core.MediaFiles
         ParsedTrackInfo ReadTags(string file);
         void WriteTags(TrackFile trackfile, bool newDownload, bool force = false);
         void SyncTags(List<Track> tracks);
-        void RemoveMusicBrainzTags(IEnumerable<Album> album);
+        void RemoveMusicBrainzTags(IEnumerable<Book> album);
         void RemoveMusicBrainzTags(IEnumerable<AlbumRelease> albumRelease);
         void RemoveMusicBrainzTags(IEnumerable<Track> tracks);
         void RemoveMusicBrainzTags(TrackFile trackfile);
@@ -79,7 +79,7 @@ namespace NzbDrone.Core.MediaFiles
             var track = trackfile.Tracks.Value[0];
             var release = track.AlbumRelease.Value;
             var album = release.Album.Value;
-            var albumartist = album.Artist.Value;
+            var albumartist = album.Author.Value;
             var artist = track.ArtistMetadata.Value;
 
             var cover = album.Images.FirstOrDefault(x => x.CoverType == MediaCoverTypes.Cover);
@@ -123,11 +123,10 @@ namespace NzbDrone.Core.MediaFiles
                 ImageSize = imageSize,
                 MusicBrainzReleaseCountry = IsoCountries.Find(release.Country.FirstOrDefault())?.TwoLetterCode,
                 MusicBrainzReleaseStatus = release.Status.ToLower(),
-                MusicBrainzReleaseType = album.AlbumType.ToLower(),
                 MusicBrainzReleaseId = release.ForeignReleaseId,
-                MusicBrainzArtistId = artist.ForeignArtistId,
-                MusicBrainzReleaseArtistId = albumartist.ForeignArtistId,
-                MusicBrainzReleaseGroupId = album.ForeignAlbumId,
+                MusicBrainzArtistId = artist.ForeignAuthorId,
+                MusicBrainzReleaseArtistId = albumartist.ForeignAuthorId,
+                MusicBrainzReleaseGroupId = album.ForeignBookId,
                 MusicBrainzTrackId = track.ForeignRecordingId,
                 MusicBrainzReleaseTrackId = track.ForeignTrackId,
                 MusicBrainzAlbumComment = album.Disambiguation,
@@ -253,7 +252,7 @@ namespace NzbDrone.Core.MediaFiles
             }
         }
 
-        public void RemoveMusicBrainzTags(IEnumerable<Album> albums)
+        public void RemoveMusicBrainzTags(IEnumerable<Book> albums)
         {
             if (_configService.WriteAudioTags < WriteAudioTagsType.AllFiles)
             {

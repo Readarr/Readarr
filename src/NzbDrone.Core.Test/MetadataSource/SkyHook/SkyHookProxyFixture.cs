@@ -4,6 +4,7 @@ using System.Linq;
 using FluentAssertions;
 using Moq;
 using NUnit.Framework;
+using NzbDrone.Common.Serializer;
 using NzbDrone.Core.Exceptions;
 using NzbDrone.Core.MetadataSource.SkyHook;
 using NzbDrone.Core.MetadataSource.SkyHook.Resource;
@@ -85,80 +86,23 @@ namespace NzbDrone.Core.Test.MetadataSource.SkyHook
             return result;
         }
 
-        [TestCase("f59c5520-5f46-4d2c-b2c4-822eabf53419", "Linkin Park")]
-        [TestCase("66c662b6-6e2f-4930-8610-912e24c63ed1", "AC/DC")]
-        public void should_be_able_to_get_artist_detail(string mbId, string name)
+        [TestCase("1654", "Terry Pratchett")]
+        [TestCase("575", "Robert Harris")]
+        public void should_be_able_to_get_author_detail(string mbId, string name)
         {
-            var details = Subject.GetArtistInfo(mbId, 1);
+            var details = Subject.GetAuthorInfo(mbId, 1);
 
-            ValidateArtist(details);
-            ValidateAlbums(details.Albums.Value, true);
+            ValidateAuthor(details);
 
             details.Name.Should().Be(name);
-        }
-
-        [TestCaseSource(typeof(PrimaryAlbumType), "All")]
-        public void should_filter_albums_by_primary_release_type(PrimaryAlbumType type)
-        {
-            _metadataProfile.PrimaryAlbumTypes = new List<ProfilePrimaryAlbumTypeItem>
-            {
-                    new ProfilePrimaryAlbumTypeItem
-                    {
-                        PrimaryAlbumType = type,
-                        Allowed = true
-                    }
-            };
-
-            var albums = GivenExampleAlbums();
-            Subject.FilterAlbums(albums, 1).Select(x => x.Type).Distinct()
-                   .Should().BeEquivalentTo(new List<string> { type.Name });
-        }
-
-        [TestCaseSource(typeof(SecondaryAlbumType), "All")]
-        public void should_filter_albums_by_secondary_release_type(SecondaryAlbumType type)
-        {
-            _metadataProfile.SecondaryAlbumTypes = new List<ProfileSecondaryAlbumTypeItem>
-            {
-                    new ProfileSecondaryAlbumTypeItem
-                    {
-                        SecondaryAlbumType = type,
-                        Allowed = true
-                    }
-            };
-
-            var albums = GivenExampleAlbums();
-            var filtered = Subject.FilterAlbums(albums, 1);
-            TestLogger.Debug(filtered.Count());
-
-            filtered.SelectMany(x => x.SecondaryTypes.Select(SkyHookProxy.MapSecondaryTypes))
-                    .Select(x => x.Name)
-                    .Distinct()
-                    .Should().BeEquivalentTo(type.Name == "Studio" ? new List<string>() : new List<string> { type.Name });
-        }
-
-        [TestCaseSource(typeof(ReleaseStatus), "All")]
-        public void should_filter_albums_by_release_status(ReleaseStatus type)
-        {
-            _metadataProfile.ReleaseStatuses = new List<ProfileReleaseStatusItem>
-            {
-                    new ProfileReleaseStatusItem
-                    {
-                        ReleaseStatus = type,
-                        Allowed = true
-                    }
-            };
-
-            var albums = GivenExampleAlbums();
-            Subject.FilterAlbums(albums, 1).SelectMany(x => x.ReleaseStatuses).Distinct()
-                   .Should().BeEquivalentTo(new List<string> { type.Name });
         }
 
         [TestCase("12fa3845-7c62-36e5-a8da-8be137155a72", "Hysteria")]
         public void should_be_able_to_get_album_detail(string mbId, string name)
         {
-            var details = Subject.GetAlbumInfo(mbId);
+            var details = Subject.GetBookInfo(mbId);
 
-            ValidateAlbums(new List<Album> { details.Item2 });
+            ValidateAlbums(new List<Book> { details.Item2 });
 
             details.Item2.Title.Should().Be(name);
         }
@@ -167,9 +111,9 @@ namespace NzbDrone.Core.Test.MetadataSource.SkyHook
         [TestCase("12fa3845-7c62-36e5-a8da-8be137155a72", "dee9ca6f-4f84-4359-82a9-b75a37ffc316", 2, 27, "Hysteria")]
         public void should_be_able_to_get_album_detail_with_release(string mbId, string release, int mediaCount, int trackCount, string name)
         {
-            var details = Subject.GetAlbumInfo(mbId);
+            var details = Subject.GetBookInfo(mbId);
 
-            ValidateAlbums(new List<Album> { details.Item2 });
+            ValidateAlbums(new List<Book> { details.Item2 });
 
             details.Item2.AlbumReleases.Value.Single(r => r.ForeignReleaseId == release).Media.Count.Should().Be(mediaCount);
             details.Item2.AlbumReleases.Value.Single(r => r.ForeignReleaseId == release).Tracks.Value.Count.Should().Be(trackCount);
@@ -179,45 +123,48 @@ namespace NzbDrone.Core.Test.MetadataSource.SkyHook
         [Test]
         public void getting_details_of_invalid_artist()
         {
-            Assert.Throws<ArtistNotFoundException>(() => Subject.GetArtistInfo("66c66aaa-6e2f-4930-8610-912e24c63ed1", 1));
+            Assert.Throws<ArtistNotFoundException>(() => Subject.GetAuthorInfo("66c66aaa-6e2f-4930-8610-912e24c63ed1", 1));
         }
 
         [Test]
         public void getting_details_of_invalid_guid_for_artist()
         {
-            Assert.Throws<BadRequestException>(() => Subject.GetArtistInfo("66c66aaa-6e2f-4930-aaaaaa", 1));
+            Assert.Throws<BadRequestException>(() => Subject.GetAuthorInfo("66c66aaa-6e2f-4930-aaaaaa", 1));
         }
 
         [Test]
         public void getting_details_of_invalid_album()
         {
-            Assert.Throws<AlbumNotFoundException>(() => Subject.GetAlbumInfo("66c66aaa-6e2f-4930-8610-912e24c63ed1"));
+            Assert.Throws<AlbumNotFoundException>(() => Subject.GetBookInfo("66c66aaa-6e2f-4930-8610-912e24c63ed1"));
         }
 
         [Test]
         public void getting_details_of_invalid_guid_for_album()
         {
-            Assert.Throws<BadRequestException>(() => Subject.GetAlbumInfo("66c66aaa-6e2f-4930-aaaaaa"));
+            Assert.Throws<BadRequestException>(() => Subject.GetBookInfo("66c66aaa-6e2f-4930-aaaaaa"));
         }
 
-        private void ValidateArtist(Artist artist)
+        private void ValidateAuthor(Author author)
         {
-            artist.Should().NotBeNull();
-            artist.Name.Should().NotBeNullOrWhiteSpace();
-            artist.CleanName.Should().Be(Parser.Parser.CleanArtistName(artist.Name));
-            artist.SortName.Should().Be(Parser.Parser.NormalizeTitle(artist.Name));
-            artist.Metadata.Value.Overview.Should().NotBeNullOrWhiteSpace();
-            artist.Metadata.Value.Images.Should().NotBeEmpty();
-            artist.ForeignArtistId.Should().NotBeNullOrWhiteSpace();
+            author.Should().NotBeNull();
+            author.Name.Should().NotBeNullOrWhiteSpace();
+            author.CleanName.Should().Be(Parser.Parser.CleanArtistName(author.Name));
+            author.SortName.Should().Be(Parser.Parser.NormalizeTitle(author.Name));
+            author.Metadata.Value.Overview.Should().NotBeNullOrWhiteSpace();
+            author.Metadata.Value.Images.Should().NotBeEmpty();
+            author.ForeignAuthorId.Should().NotBeNullOrWhiteSpace();
+            author.Books.IsLoaded.Should().BeTrue();
+            author.Books.Value.Should().NotBeEmpty();
+            author.Books.Value.Should().OnlyContain(x => x.CleanTitle != null);
         }
 
-        private void ValidateAlbums(List<Album> albums, bool idOnly = false)
+        private void ValidateAlbums(List<Book> albums, bool idOnly = false)
         {
             albums.Should().NotBeEmpty();
 
             foreach (var album in albums)
             {
-                album.ForeignAlbumId.Should().NotBeNullOrWhiteSpace();
+                album.ForeignBookId.Should().NotBeNullOrWhiteSpace();
                 if (!idOnly)
                 {
                     ValidateAlbum(album);
@@ -231,12 +178,11 @@ namespace NzbDrone.Core.Test.MetadataSource.SkyHook
             }
         }
 
-        private void ValidateAlbum(Album album)
+        private void ValidateAlbum(Book album)
         {
             album.Should().NotBeNull();
 
             album.Title.Should().NotBeNullOrWhiteSpace();
-            album.AlbumType.Should().NotBeNullOrWhiteSpace();
 
             album.Should().NotBeNull();
 

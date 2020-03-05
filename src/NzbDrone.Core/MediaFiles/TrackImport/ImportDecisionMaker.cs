@@ -23,8 +23,8 @@ namespace NzbDrone.Core.MediaFiles.TrackImport
 
     public class IdentificationOverrides
     {
-        public Artist Artist { get; set; }
-        public Album Album { get; set; }
+        public Author Artist { get; set; }
+        public Book Album { get; set; }
         public AlbumRelease AlbumRelease { get; set; }
     }
 
@@ -179,12 +179,12 @@ namespace NzbDrone.Core.MediaFiles.TrackImport
 
         private void EnsureData(LocalAlbumRelease release)
         {
-            if (release.AlbumRelease != null && release.AlbumRelease.Album.Value.Artist.Value.QualityProfileId == 0)
+            if (release.Book != null && release.Book.Author.Value.QualityProfileId == 0)
             {
                 var rootFolder = _rootFolderService.GetBestRootFolder(release.LocalTracks.First().Path);
                 var qualityProfile = _qualityProfileService.Get(rootFolder.DefaultQualityProfileId);
 
-                var artist = release.AlbumRelease.Album.Value.Artist.Value;
+                var artist = release.Book.Author.Value;
                 artist.QualityProfileId = qualityProfile.Id;
                 artist.QualityProfile = qualityProfile;
             }
@@ -194,9 +194,9 @@ namespace NzbDrone.Core.MediaFiles.TrackImport
         {
             ImportDecision<LocalAlbumRelease> decision = null;
 
-            if (localAlbumRelease.AlbumRelease == null)
+            if (localAlbumRelease.Book == null)
             {
-                decision = new ImportDecision<LocalAlbumRelease>(localAlbumRelease, new Rejection($"Couldn't find similar album for {localAlbumRelease}"));
+                decision = new ImportDecision<LocalAlbumRelease>(localAlbumRelease, new Rejection($"Couldn't find similar book for {localAlbumRelease}"));
             }
             else
             {
@@ -212,11 +212,11 @@ namespace NzbDrone.Core.MediaFiles.TrackImport
             }
             else if (decision.Rejections.Any())
             {
-                _logger.Debug("Album rejected for the following reasons: {0}", string.Join(", ", decision.Rejections));
+                _logger.Debug("Book rejected for the following reasons: {0}", string.Join(", ", decision.Rejections));
             }
             else
             {
-                _logger.Debug("Album accepted");
+                _logger.Debug("Book accepted");
             }
 
             return decision;
@@ -226,10 +226,9 @@ namespace NzbDrone.Core.MediaFiles.TrackImport
         {
             ImportDecision<LocalTrack> decision = null;
 
-            if (localTrack.Tracks.Empty())
+            if (localTrack.Album == null)
             {
-                decision = localTrack.Album != null ? new ImportDecision<LocalTrack>(localTrack, new Rejection($"Couldn't parse track from: {localTrack.FileTrackInfo}")) :
-                    new ImportDecision<LocalTrack>(localTrack, new Rejection($"Couldn't parse album from: {localTrack.FileTrackInfo}"));
+                decision = new ImportDecision<LocalTrack>(localTrack, new Rejection($"Couldn't parse album from: {localTrack.FileTrackInfo}"));
             }
             else
             {

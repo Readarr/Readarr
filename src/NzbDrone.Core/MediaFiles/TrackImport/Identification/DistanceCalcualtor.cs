@@ -79,15 +79,50 @@ namespace NzbDrone.Core.MediaFiles.TrackImport.Identification
             return dist;
         }
 
+        public static Distance BookDistance(List<LocalTrack> localTracks, Book release)
+        {
+            var dist = new Distance();
+
+            var artist = localTracks.MostCommon(x => x.FileTrackInfo.ArtistTitle) ?? "";
+            dist.AddString("artist", artist, release.AuthorMetadata.Value.Name);
+            Logger.Trace("artist: {0} vs {1}; {2}", artist, release.AuthorMetadata.Value.Name, dist.NormalizedDistance());
+
+            var title = localTracks.MostCommon(x => x.FileTrackInfo.Title) ?? "";
+            dist.AddString("album", title, release.Title);
+            Logger.Trace("album: {0} vs {1}; {2}", title, release.Title, dist.NormalizedDistance());
+
+            // Year
+            var localYear = localTracks.MostCommon(x => x.FileTrackInfo.Year);
+            if (localYear > 0 && release.ReleaseDate.HasValue)
+            {
+                var albumYear = release.ReleaseDate?.Year ?? 0;
+                if (localYear == albumYear)
+                {
+                    dist.Add("year", 0.0);
+                }
+                else
+                {
+                    var remoteYear = albumYear;
+                    var diff = Math.Abs(localYear - remoteYear);
+                    var diff_max = Math.Abs(DateTime.Now.Year - remoteYear);
+                    dist.AddRatio("year", diff, diff_max);
+                }
+
+                Logger.Trace($"year: {localYear} vs {release.ReleaseDate?.Year}; {dist.NormalizedDistance()}");
+            }
+
+            return dist;
+        }
+
         public static Distance AlbumReleaseDistance(List<LocalTrack> localTracks, AlbumRelease release, TrackMapping mapping)
         {
             var dist = new Distance();
 
-            if (!VariousArtistIds.Contains(release.Album.Value.ArtistMetadata.Value.ForeignArtistId))
+            if (!VariousArtistIds.Contains(release.Album.Value.AuthorMetadata.Value.ForeignAuthorId))
             {
                 var artist = localTracks.MostCommon(x => x.FileTrackInfo.ArtistTitle) ?? "";
-                dist.AddString("artist", artist, release.Album.Value.ArtistMetadata.Value.Name);
-                Logger.Trace("artist: {0} vs {1}; {2}", artist, release.Album.Value.ArtistMetadata.Value.Name, dist.NormalizedDistance());
+                dist.AddString("artist", artist, release.Album.Value.AuthorMetadata.Value.Name);
+                Logger.Trace("artist: {0} vs {1}; {2}", artist, release.Album.Value.AuthorMetadata.Value.Name, dist.NormalizedDistance());
             }
 
             var title = localTracks.MostCommon(x => x.FileTrackInfo.AlbumTitle) ?? "";

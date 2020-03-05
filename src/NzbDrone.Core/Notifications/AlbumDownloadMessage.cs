@@ -7,8 +7,8 @@ namespace NzbDrone.Core.Notifications
     public class AlbumDownloadMessage
     {
         public string Message { get; set; }
-        public Artist Artist { get; set; }
-        public Album Album { get; set; }
+        public Author Artist { get; set; }
+        public Book Album { get; set; }
         public AlbumRelease Release { get; set; }
         public List<TrackFile> TrackFiles { get; set; }
         public List<TrackFile> OldFiles { get; set; }

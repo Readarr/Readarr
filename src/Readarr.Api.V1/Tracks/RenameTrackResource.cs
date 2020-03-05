@@ -8,7 +8,6 @@ namespace Readarr.Api.V1.Tracks
     {
         public int ArtistId { get; set; }
         public int AlbumId { get; set; }
-        public List<int> TrackNumbers { get; set; }
         public int TrackFileId { get; set; }
         public string ExistingPath { get; set; }
         public string NewPath { get; set; }
@@ -27,7 +26,6 @@ namespace Readarr.Api.V1.Tracks
             {
                 ArtistId = model.ArtistId,
                 AlbumId = model.AlbumId,
-                TrackNumbers = model.TrackNumbers.ToList(),
                 TrackFileId = model.TrackFileId,
                 ExistingPath = model.ExistingPath,
                 NewPath = model.NewPath

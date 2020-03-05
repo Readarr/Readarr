@@ -105,18 +105,20 @@ function InteractiveSearch(props) {
 
   return (
     <div>
-      <div className={styles.filterMenuContainer}>
-        <FilterMenu
-          alignMenu={align.RIGHT}
-          selectedFilterKey={selectedFilterKey}
-          filters={filters}
-          customFilters={customFilters}
-          buttonComponent={PageMenuButton}
-          filterModalConnectorComponent={InteractiveSearchFilterModalConnector}
-          filterModalConnectorComponentProps={{ type }}
-          onFilterSelect={onFilterSelect}
-        />
-      </div>
+      { false &&
+        <div className={styles.filterMenuContainer}>
+          <FilterMenu
+            alignMenu={align.RIGHT}
+            selectedFilterKey={selectedFilterKey}
+            filters={filters}
+            customFilters={customFilters}
+            buttonComponent={PageMenuButton}
+            filterModalConnectorComponent={InteractiveSearchFilterModalConnector}
+            filterModalConnectorComponentProps={{ type }}
+            onFilterSelect={onFilterSelect}
+          />
+        </div>
+      }
 
       {
         isFetching ? <LoadingIndicator /> : null

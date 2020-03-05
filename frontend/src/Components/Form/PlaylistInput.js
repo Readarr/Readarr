@@ -125,7 +125,7 @@ class PlaylistInput extends Component {
         {
           isPopulated && !isFetching && user && !!items.length &&
             <div className={className}>
-              Select playlists to import from Spotify user {user}.
+              Select playlists to import from Goodreads user {user}.
               <Table
                 columns={columns}
                 selectAll={true}

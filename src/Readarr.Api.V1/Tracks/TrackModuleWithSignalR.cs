@@ -81,7 +81,7 @@ namespace Readarr.Api.V1.Tracks
 
             if (includeArtist || includeTrackFile)
             {
-                var artistDict = new Dictionary<int, NzbDrone.Core.Music.Artist>();
+                var artistDict = new Dictionary<int, NzbDrone.Core.Music.Author>();
                 for (var i = 0; i < tracks.Count; i++)
                 {
                     var track = tracks[i];

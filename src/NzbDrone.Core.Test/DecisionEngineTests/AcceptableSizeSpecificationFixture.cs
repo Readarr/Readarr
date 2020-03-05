@@ -22,12 +22,12 @@ namespace NzbDrone.Core.Test.DecisionEngineTests
         private RemoteAlbum _parseResultMultiSet;
         private RemoteAlbum _parseResultMulti;
         private RemoteAlbum _parseResultSingle;
-        private Artist _artist;
+        private Author _artist;
         private QualityDefinition _qualityType;
 
-        private Album AlbumBuilder(int id = 0)
+        private Book AlbumBuilder(int id = 0)
         {
-            return new Album
+            return new Book
             {
                 Id = id,
                 AlbumReleases = new List<AlbumRelease>
@@ -44,7 +44,7 @@ namespace NzbDrone.Core.Test.DecisionEngineTests
         [SetUp]
         public void Setup()
         {
-            _artist = Builder<Artist>.CreateNew()
+            _artist = Builder<Author>.CreateNew()
                 .Build();
 
             _parseResultMultiSet = new RemoteAlbum
@@ -52,7 +52,7 @@ namespace NzbDrone.Core.Test.DecisionEngineTests
                 Artist = _artist,
                 Release = new ReleaseInfo(),
                 ParsedAlbumInfo = new ParsedAlbumInfo { Quality = new QualityModel(Quality.MP3_192, new Revision(version: 2)) },
-                Albums = new List<Album> { AlbumBuilder(), AlbumBuilder(), AlbumBuilder(), AlbumBuilder(), AlbumBuilder(), AlbumBuilder() }
+                Albums = new List<Book> { AlbumBuilder(), AlbumBuilder(), AlbumBuilder(), AlbumBuilder(), AlbumBuilder(), AlbumBuilder() }
             };
 
             _parseResultMulti = new RemoteAlbum
@@ -60,7 +60,7 @@ namespace NzbDrone.Core.Test.DecisionEngineTests
                 Artist = _artist,
                 Release = new ReleaseInfo(),
                 ParsedAlbumInfo = new ParsedAlbumInfo { Quality = new QualityModel(Quality.MP3_192, new Revision(version: 2)) },
-                Albums = new List<Album> { AlbumBuilder(), AlbumBuilder() }
+                Albums = new List<Book> { AlbumBuilder(), AlbumBuilder() }
             };
 
             _parseResultSingle = new RemoteAlbum
@@ -68,7 +68,7 @@ namespace NzbDrone.Core.Test.DecisionEngineTests
                 Artist = _artist,
                 Release = new ReleaseInfo(),
                 ParsedAlbumInfo = new ParsedAlbumInfo { Quality = new QualityModel(Quality.MP3_192, new Revision(version: 2)) },
-                Albums = new List<Album> { AlbumBuilder(2) }
+                Albums = new List<Book> { AlbumBuilder(2) }
             };
 
             Mocker.GetMock<IQualityDefinitionService>()
@@ -85,7 +85,7 @@ namespace NzbDrone.Core.Test.DecisionEngineTests
 
             Mocker.GetMock<IAlbumService>().Setup(
                 s => s.GetAlbumsByArtist(It.IsAny<int>()))
-                .Returns(new List<Album>()
+                .Returns(new List<Book>()
                 {
                     AlbumBuilder(), AlbumBuilder(), AlbumBuilder(), AlbumBuilder(), AlbumBuilder(),
                     AlbumBuilder(), AlbumBuilder(), AlbumBuilder(), AlbumBuilder(2), AlbumBuilder()
@@ -96,7 +96,7 @@ namespace NzbDrone.Core.Test.DecisionEngineTests
         {
             Mocker.GetMock<IAlbumService>().Setup(
                 s => s.GetAlbumsByArtist(It.IsAny<int>()))
-                .Returns(new List<Album>
+                .Returns(new List<Book>
                 {
                     AlbumBuilder(), AlbumBuilder(), AlbumBuilder(), AlbumBuilder(), AlbumBuilder(),
                     AlbumBuilder(), AlbumBuilder(), AlbumBuilder(), AlbumBuilder(), AlbumBuilder(2)

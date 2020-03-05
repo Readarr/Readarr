@@ -12,7 +12,7 @@ namespace NzbDrone.Core.Test.IndexerSearchTests
         [TestCase("방탄소년단", "방탄소년단")]
         public void should_replace_some_special_characters_artist(string artist, string expected)
         {
-            Subject.Artist = new Artist { Name = artist };
+            Subject.Artist = new Author { Name = artist };
             Subject.ArtistQuery.Should().Be(expected);
         }
 

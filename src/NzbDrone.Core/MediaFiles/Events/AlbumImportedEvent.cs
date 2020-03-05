@@ -7,8 +7,8 @@ namespace NzbDrone.Core.MediaFiles.Events
 {
     public class AlbumImportedEvent : IEvent
     {
-        public Artist Artist { get; private set; }
-        public Album Album { get; private set; }
+        public Author Artist { get; private set; }
+        public Book Album { get; private set; }
         public AlbumRelease AlbumRelease { get; private set; }
         public List<TrackFile> ImportedTracks { get; private set; }
         public List<TrackFile> OldFiles { get; private set; }
@@ -16,7 +16,7 @@ namespace NzbDrone.Core.MediaFiles.Events
         public string DownloadClient { get; private set; }
         public string DownloadId { get; private set; }
 
-        public AlbumImportedEvent(Artist artist, Album album, AlbumRelease release, List<TrackFile> importedTracks, List<TrackFile> oldFiles, bool newDownload, DownloadClientItem downloadClientItem)
+        public AlbumImportedEvent(Author artist, Book album, AlbumRelease release, List<TrackFile> importedTracks, List<TrackFile> oldFiles, bool newDownload, DownloadClientItem downloadClientItem)
         {
             Artist = artist;
             Album = album;

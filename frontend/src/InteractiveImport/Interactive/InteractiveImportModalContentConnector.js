@@ -124,8 +124,6 @@ class InteractiveImportModalContentConnector extends Component {
         const {
           artist,
           album,
-          albumReleaseId,
-          tracks,
           quality,
           disableReleaseSwitching
         } = item;
@@ -140,11 +138,6 @@ class InteractiveImportModalContentConnector extends Component {
           return false;
         }
 
-        if (!tracks || !tracks.length) {
-          this.setState({ interactiveImportErrorMessage: 'One or more tracks must be chosen for each selected file' });
-          return false;
-        }
-
         if (!quality) {
           this.setState({ interactiveImportErrorMessage: 'Quality must be chosen for each selected file' });
           return false;
@@ -154,8 +147,6 @@ class InteractiveImportModalContentConnector extends Component {
           path: item.path,
           artistId: artist.id,
           albumId: album.id,
-          albumReleaseId,
-          trackIds: _.map(tracks, 'id'),
           quality,
           downloadId: this.props.downloadId,
           disableReleaseSwitching

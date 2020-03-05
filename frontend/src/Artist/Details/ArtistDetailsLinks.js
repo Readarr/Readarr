@@ -16,14 +16,14 @@ function ArtistDetailsLinks(props) {
 
       <Link
         className={styles.link}
-        to={`https://musicbrainz.org/artist/${foreignArtistId}`}
+        to={`https://goodreads.com/author/show/${foreignArtistId}`}
       >
         <Label
           className={styles.linkLabel}
           kind={kinds.INFO}
           size={sizes.LARGE}
         >
-          Musicbrainz
+          Goodreads
         </Label>
       </Link>
 

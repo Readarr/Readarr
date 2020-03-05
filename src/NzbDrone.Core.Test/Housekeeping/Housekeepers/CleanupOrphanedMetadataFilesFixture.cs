@@ -29,7 +29,7 @@ namespace NzbDrone.Core.Test.Housekeeping.Housekeepers
         [Test]
         public void should_delete_metadata_files_that_dont_have_a_coresponding_album()
         {
-            var artist = Builder<Artist>.CreateNew()
+            var artist = Builder<Author>.CreateNew()
                                         .BuildNew();
 
             Db.Insert(artist);
@@ -47,7 +47,7 @@ namespace NzbDrone.Core.Test.Housekeeping.Housekeepers
         [Test]
         public void should_not_delete_metadata_files_that_have_a_coresponding_artist()
         {
-            var artist = Builder<Artist>.CreateNew()
+            var artist = Builder<Author>.CreateNew()
                                         .BuildNew();
 
             Db.Insert(artist);
@@ -67,10 +67,10 @@ namespace NzbDrone.Core.Test.Housekeeping.Housekeepers
         [Test]
         public void should_not_delete_metadata_files_that_have_a_coresponding_album()
         {
-            var artist = Builder<Artist>.CreateNew()
+            var artist = Builder<Author>.CreateNew()
                                         .BuildNew();
 
-            var album = Builder<Album>.CreateNew()
+            var album = Builder<Book>.CreateNew()
                 .BuildNew();
 
             Db.Insert(artist);
@@ -90,10 +90,10 @@ namespace NzbDrone.Core.Test.Housekeeping.Housekeepers
         [Test]
         public void should_delete_metadata_files_that_dont_have_a_coresponding_track_file()
         {
-            var artist = Builder<Artist>.CreateNew()
+            var artist = Builder<Author>.CreateNew()
                                         .BuildNew();
 
-            var album = Builder<Album>.CreateNew()
+            var album = Builder<Book>.CreateNew()
                 .BuildNew();
 
             Db.Insert(artist);
@@ -113,10 +113,10 @@ namespace NzbDrone.Core.Test.Housekeeping.Housekeepers
         [Test]
         public void should_not_delete_metadata_files_that_have_a_coresponding_track_file()
         {
-            var artist = Builder<Artist>.CreateNew()
+            var artist = Builder<Author>.CreateNew()
                                         .BuildNew();
 
-            var album = Builder<Album>.CreateNew()
+            var album = Builder<Book>.CreateNew()
                                         .BuildNew();
 
             var trackFile = Builder<TrackFile>.CreateNew()
@@ -141,7 +141,7 @@ namespace NzbDrone.Core.Test.Housekeeping.Housekeepers
         [Test]
         public void should_delete_album_metadata_files_that_have_albumid_of_zero()
         {
-            var artist = Builder<Artist>.CreateNew()
+            var artist = Builder<Author>.CreateNew()
                 .BuildNew();
 
             Db.Insert(artist);
@@ -161,7 +161,7 @@ namespace NzbDrone.Core.Test.Housekeeping.Housekeepers
         [Test]
         public void should_delete_album_image_files_that_have_albumid_of_zero()
         {
-            var artist = Builder<Artist>.CreateNew()
+            var artist = Builder<Author>.CreateNew()
                 .BuildNew();
 
             Db.Insert(artist);
@@ -181,7 +181,7 @@ namespace NzbDrone.Core.Test.Housekeeping.Housekeepers
         [Test]
         public void should_delete_track_metadata_files_that_have_trackfileid_of_zero()
         {
-            var artist = Builder<Artist>.CreateNew()
+            var artist = Builder<Author>.CreateNew()
                                         .BuildNew();
 
             Db.Insert(artist);

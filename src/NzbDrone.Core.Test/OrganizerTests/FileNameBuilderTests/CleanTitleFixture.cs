@@ -14,8 +14,8 @@ namespace NzbDrone.Core.Test.OrganizerTests.FileNameBuilderTests
     [TestFixture]
     public class CleanTitleFixture : CoreTest<FileNameBuilder>
     {
-        private Artist _artist;
-        private Album _album;
+        private Author _artist;
+        private Book _album;
         private AlbumRelease _release;
         private Track _track;
         private TrackFile _trackFile;
@@ -24,12 +24,12 @@ namespace NzbDrone.Core.Test.OrganizerTests.FileNameBuilderTests
         [SetUp]
         public void Setup()
         {
-            _artist = Builder<Artist>
+            _artist = Builder<Author>
                     .CreateNew()
                     .With(s => s.Name = "Avenged Sevenfold")
                     .Build();
 
-            _album = Builder<Album>
+            _album = Builder<Book>
                     .CreateNew()
                     .With(s => s.Title = "Hail to the King")
                     .Build();
@@ -81,27 +81,8 @@ namespace NzbDrone.Core.Test.OrganizerTests.FileNameBuilderTests
             _artist.Name = name;
             _namingConfig.StandardTrackFormat = "{Artist CleanName}";
 
-            Subject.BuildTrackFileName(new List<Track> { _track }, _artist, _album, _trackFile)
+            Subject.BuildTrackFileName(_artist, _album, _trackFile)
                    .Should().Be(expected);
-        }
-
-        [Test]
-        public void should_use_and_as_separator_for_multiple_episodes()
-        {
-            var tracks = Builder<Track>.CreateListOfSize(2)
-                                           .TheFirst(1)
-                                           .With(e => e.Title = "Surrender Benson")
-                                           .TheNext(1)
-                                           .With(e => e.Title = "Imprisoned Lives")
-                                           .All()
-                                           .With(e => e.AlbumRelease = _release)
-                                           .Build()
-                                           .ToList();
-
-            _namingConfig.StandardTrackFormat = "{Track CleanTitle}";
-
-            Subject.BuildTrackFileName(tracks, _artist, _album, _trackFile)
-                   .Should().Be(tracks.First().Title + " and " + tracks.Last().Title);
         }
     }
 }

@@ -22,12 +22,12 @@ namespace NzbDrone.Core.Test.Datastore
             Mocker.Resolve<DbFactory>();
         }
 
-        private WhereBuilder Where(Expression<Func<Artist, bool>> filter)
+        private WhereBuilder Where(Expression<Func<Author, bool>> filter)
         {
             return new WhereBuilder(filter, true, 0);
         }
 
-        private WhereBuilder WhereMetadata(Expression<Func<ArtistMetadata, bool>> filter)
+        private WhereBuilder WhereMetadata(Expression<Func<AuthorMetadata, bool>> filter)
         {
             return new WhereBuilder(filter, true, 0);
         }
@@ -54,7 +54,7 @@ namespace NzbDrone.Core.Test.Datastore
         [Test]
         public void where_equal_property()
         {
-            var artist = new Artist { Id = 10 };
+            var artist = new Author { Id = 10 };
             _subject = Where(x => x.Id == artist.Id);
 
             _subject.Parameters.ParameterNames.Should().HaveCount(1);
@@ -75,7 +75,7 @@ namespace NzbDrone.Core.Test.Datastore
         [Test]
         public void where_throws_without_concrete_condition_if_requiresConcreteCondition()
         {
-            Expression<Func<Artist, Artist, bool>> filter = (x, y) => x.Id == y.Id;
+            Expression<Func<Author, Author, bool>> filter = (x, y) => x.Id == y.Id;
             _subject = new WhereBuilder(filter, true, 0);
             Assert.Throws<InvalidOperationException>(() => _subject.ToString());
         }
@@ -83,7 +83,7 @@ namespace NzbDrone.Core.Test.Datastore
         [Test]
         public void where_allows_abstract_condition_if_not_requiresConcreteCondition()
         {
-            Expression<Func<Artist, Artist, bool>> filter = (x, y) => x.Id == y.Id;
+            Expression<Func<Author, Author, bool>> filter = (x, y) => x.Id == y.Id;
             _subject = new WhereBuilder(filter, false, 0);
             _subject.ToString().Should().Be($"(\"Artists\".\"Id\" = \"Artists\".\"Id\")");
         }
@@ -108,7 +108,7 @@ namespace NzbDrone.Core.Test.Datastore
         [Test]
         public void where_equal_null_property()
         {
-            var artist = new Artist { CleanName = null };
+            var artist = new Author { CleanName = null };
             _subject = Where(x => x.CleanName == artist.CleanName);
 
             _subject.ToString().Should().Be($"(\"Artists\".\"CleanName\" IS NULL)");

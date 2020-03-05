@@ -35,8 +35,8 @@ namespace NzbDrone.Core.Blacklisting
             return Query(b => b.ArtistId == artistId);
         }
 
-        protected override SqlBuilder PagedBuilder() => new SqlBuilder().Join<Blacklist, Artist>((b, m) => b.ArtistId == m.Id);
-        protected override IEnumerable<Blacklist> PagedQuery(SqlBuilder builder) => _database.QueryJoined<Blacklist, Artist>(builder, (bl, artist) =>
+        protected override SqlBuilder PagedBuilder() => new SqlBuilder().Join<Blacklist, Author>((b, m) => b.ArtistId == m.Id);
+        protected override IEnumerable<Blacklist> PagedQuery(SqlBuilder builder) => _database.QueryJoined<Blacklist, Author>(builder, (bl, artist) =>
                     {
                         bl.Artist = artist;
                         return bl;

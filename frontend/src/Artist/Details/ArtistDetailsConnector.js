@@ -12,6 +12,7 @@ import { fetchAlbums, clearAlbums } from 'Store/Actions/albumActions';
 import { fetchTrackFiles, clearTrackFiles } from 'Store/Actions/trackFileActions';
 import { toggleArtistMonitored } from 'Store/Actions/artistActions';
 import { fetchQueueDetails, clearQueueDetails } from 'Store/Actions/queueActions';
+import { clearReleases, cancelFetchReleases } from 'Store/Actions/releaseActions';
 import { executeCommand } from 'Store/Actions/commandActions';
 import * as commandNames from 'Commands/commandNames';
 import ArtistDetails from './ArtistDetails';
@@ -158,6 +159,8 @@ const mapDispatchToProps = {
   toggleArtistMonitored,
   fetchQueueDetails,
   clearQueueDetails,
+  clearReleases,
+  cancelFetchReleases,
   executeCommand
 };
 
@@ -215,9 +218,11 @@ class ArtistDetailsConnector extends Component {
   }
 
   unpopulate = () => {
+    this.props.cancelFetchReleases();
     this.props.clearAlbums();
     this.props.clearTrackFiles();
     this.props.clearQueueDetails();
+    this.props.clearReleases();
   }
 
   //
@@ -274,6 +279,8 @@ ArtistDetailsConnector.propTypes = {
   toggleArtistMonitored: PropTypes.func.isRequired,
   fetchQueueDetails: PropTypes.func.isRequired,
   clearQueueDetails: PropTypes.func.isRequired,
+  clearReleases: PropTypes.func.isRequired,
+  cancelFetchReleases: PropTypes.func.isRequired,
   executeCommand: PropTypes.func.isRequired
 };
 

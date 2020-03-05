@@ -43,8 +43,8 @@ namespace NzbDrone.Core.Test.NotificationTests.Xbmc
         [Test]
         public void should_update_using_artist_path()
         {
-            var artist = Builder<Music.Artist>.CreateNew()
-                                        .With(s => s.ForeignArtistId = MB_ID)
+            var artist = Builder<Music.Author>.CreateNew()
+                                        .With(s => s.ForeignAuthorId = MB_ID)
                                         .Build();
 
             Subject.Update(_settings, artist);
@@ -56,8 +56,8 @@ namespace NzbDrone.Core.Test.NotificationTests.Xbmc
         [Test]
         public void should_update_all_paths_when_artist_path_not_found()
         {
-            var fakeArtist = Builder<Artist>.CreateNew()
-                                            .With(s => s.ForeignArtistId = "9f4e41c3-2648-428e-b8c7-dc10465b49ad")
+            var fakeArtist = Builder<Author>.CreateNew()
+                                            .With(s => s.ForeignAuthorId = "9f4e41c3-2648-428e-b8c7-dc10465b49ad")
                                             .With(s => s.Name = "Not Shawn Desman")
                                             .Build();
 

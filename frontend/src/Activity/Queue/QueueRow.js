@@ -137,7 +137,7 @@ class QueueRow extends Component {
               );
             }
 
-            if (name === 'artist.sortName') {
+            if (name === 'authors.sortName') {
               return (
                 <TableRowCell key={name}>
                   {
@@ -152,7 +152,7 @@ class QueueRow extends Component {
               );
             }
 
-            if (name === 'album.title') {
+            if (name === 'books.title') {
               return (
                 <TableRowCell key={name}>
                   {
@@ -168,7 +168,7 @@ class QueueRow extends Component {
               );
             }
 
-            if (name === 'album.releaseDate') {
+            if (name === 'books.releaseDate') {
               if (album) {
                 return (
                   <RelativeDateCellConnector

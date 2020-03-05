@@ -22,7 +22,7 @@ namespace NzbDrone.Core.Test.DecisionEngineTests
         private const int FIRST_ALBUM_ID = 1;
         private const string TITLE = "Some.Artist-Some.Album-2018-320kbps-CD-Readarr";
 
-        private Artist _artist;
+        private Author _artist;
         private QualityModel _mp3;
         private QualityModel _flac;
         private RemoteAlbum _remoteAlbum;
@@ -32,16 +32,16 @@ namespace NzbDrone.Core.Test.DecisionEngineTests
         [SetUp]
         public void Setup()
         {
-            var singleAlbumList = new List<Album>
+            var singleAlbumList = new List<Book>
                                     {
-                                        new Album
+                                        new Book
                                         {
                                             Id = FIRST_ALBUM_ID,
                                             Title = "Some Album"
                                         }
                                     };
 
-            _artist = Builder<Artist>.CreateNew()
+            _artist = Builder<Author>.CreateNew()
                                      .Build();
 
             _firstFile = new TrackFile { Quality = new QualityModel(Quality.FLAC, new Revision(version: 2)), DateAdded = DateTime.Now };

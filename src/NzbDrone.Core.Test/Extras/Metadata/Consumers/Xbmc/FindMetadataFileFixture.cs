@@ -14,12 +14,12 @@ namespace NzbDrone.Core.Test.Extras.Metadata.Consumers.Xbmc
     [TestFixture]
     public class FindMetadataFileFixture : CoreTest<XbmcMetadata>
     {
-        private Artist _artist;
+        private Author _artist;
 
         [SetUp]
         public void Setup()
         {
-            _artist = Builder<Artist>.CreateNew()
+            _artist = Builder<Author>.CreateNew()
                                      .With(s => s.Path = @"C:\Test\Music\The.Artist".AsOsAgnostic())
                                      .Build();
         }

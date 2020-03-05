@@ -63,17 +63,15 @@ namespace NzbDrone.Core.Test.MediaFiles.TrackImport.Identification
             Mocker.SetConstant<IMediaFileService>(Mocker.Resolve<MediaFileService>());
 
             Mocker.SetConstant<IConfigService>(Mocker.Resolve<IConfigService>());
-            Mocker.SetConstant<IProvideArtistInfo>(Mocker.Resolve<SkyHookProxy>());
-            Mocker.SetConstant<IProvideAlbumInfo>(Mocker.Resolve<SkyHookProxy>());
+            Mocker.SetConstant<IProvideAuthorInfo>(Mocker.Resolve<SkyHookProxy>());
+            Mocker.SetConstant<IProvideBookInfo>(Mocker.Resolve<SkyHookProxy>());
 
             _addArtistService = Mocker.Resolve<AddArtistService>();
 
-            Mocker.SetConstant<IRefreshTrackService>(Mocker.Resolve<RefreshTrackService>());
-            Mocker.SetConstant<IRefreshAlbumReleaseService>(Mocker.Resolve<RefreshAlbumReleaseService>());
             Mocker.SetConstant<IRefreshAlbumService>(Mocker.Resolve<RefreshAlbumService>());
             _refreshArtistService = Mocker.Resolve<RefreshArtistService>();
 
-            Mocker.GetMock<IAddArtistValidator>().Setup(x => x.Validate(It.IsAny<Artist>())).Returns(new ValidationResult());
+            Mocker.GetMock<IAddArtistValidator>().Setup(x => x.Validate(It.IsAny<Author>())).Returns(new ValidationResult());
 
             Mocker.SetConstant<ITrackGroupingService>(Mocker.Resolve<TrackGroupingService>());
             Mocker.SetConstant<ICandidateService>(Mocker.Resolve<CandidateService>());
@@ -94,9 +92,9 @@ namespace NzbDrone.Core.Test.MediaFiles.TrackImport.Identification
             Mocker.GetMock<IMetadataProfileService>().Setup(x => x.Get(profile.Id)).Returns(profile);
         }
 
-        private List<Artist> GivenArtists(List<ArtistTestCase> artists)
+        private List<Author> GivenArtists(List<ArtistTestCase> artists)
         {
-            var outp = new List<Artist>();
+            var outp = new List<Author>();
             for (int i = 0; i < artists.Count; i++)
             {
                 var meta = artists[i].MetadataProfile;
@@ -108,13 +106,13 @@ namespace NzbDrone.Core.Test.MediaFiles.TrackImport.Identification
             return outp;
         }
 
-        private Artist GivenArtist(string foreignArtistId, int metadataProfileId)
+        private Author GivenArtist(string foreignArtistId, int metadataProfileId)
         {
-            var artist = _addArtistService.AddArtist(new Artist
+            var artist = _addArtistService.AddArtist(new Author
             {
-                Metadata = new ArtistMetadata
+                Metadata = new AuthorMetadata
                 {
-                    ForeignArtistId = foreignArtistId
+                    ForeignAuthorId = foreignArtistId
                 },
                 Path = @"c:\test".AsOsAgnostic(),
                 MetadataProfileId = metadataProfileId
@@ -179,7 +177,7 @@ namespace NzbDrone.Core.Test.MediaFiles.TrackImport.Identification
             var testcase = JsonConvert.DeserializeObject<IdTestCase>(File.ReadAllText(path));
 
             var artists = GivenArtists(testcase.LibraryArtists);
-            var specifiedArtist = artists.SingleOrDefault(x => x.Metadata.Value.ForeignArtistId == testcase.Artist);
+            var specifiedArtist = artists.SingleOrDefault(x => x.Metadata.Value.ForeignAuthorId == testcase.Artist);
             var idOverrides = new IdentificationOverrides { Artist = specifiedArtist };
 
             var tracks = testcase.Tracks.Select(x => new LocalTrack

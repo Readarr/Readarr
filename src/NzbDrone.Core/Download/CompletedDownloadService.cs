@@ -111,13 +111,14 @@ namespace NzbDrone.Core.Download
                 return;
             }
 
-            var allTracksImported = importResults.All(c => c.Result == ImportResultType.Imported) ||
-                importResults.Count(c => c.Result == ImportResultType.Imported) >=
-                Math.Max(1, trackedDownload.RemoteAlbum.Albums.Sum(x => x.AlbumReleases.Value.Where(y => y.Monitored).Sum(z => z.TrackCount)));
+            var allTracksImported = importResults.All(c => c.Result == ImportResultType.Imported);
 
+            // TODO reinstate this check||
+            // importResults.Count(c => c.Result == ImportResultType.Imported) >=
+            // Math.Max(1, trackedDownload.RemoteAlbum.Albums.Sum(x => x.AlbumReleases.Value.Where(y => y.Monitored).Sum(z => z.TrackCount)));
+            // Console.WriteLine($"max: {Math.Max(1, trackedDownload.RemoteAlbum.Albums.Sum(x => x.AlbumReleases.Value.Where(y => y.Monitored).Sum(z => z.TrackCount)))}");
             Console.WriteLine($"allimported: {allTracksImported}");
             Console.WriteLine($"count: {importResults.Count(c => c.Result == ImportResultType.Imported)}");
-            Console.WriteLine($"max: {Math.Max(1, trackedDownload.RemoteAlbum.Albums.Sum(x => x.AlbumReleases.Value.Where(y => y.Monitored).Sum(z => z.TrackCount)))}");
 
             if (allTracksImported)
             {

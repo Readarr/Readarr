@@ -15,7 +15,7 @@ namespace NzbDrone.Core.Test.NotificationTests.Xbmc
     {
         private const string MB_ID = "9f4e41c3-2648-428e-b8c7-dc10465b49ac";
         private XbmcSettings _settings;
-        private Music.Artist _artist;
+        private Music.Author _artist;
         private List<KodiArtist> _xbmcArtist;
 
         [SetUp]
@@ -39,27 +39,27 @@ namespace NzbDrone.Core.Test.NotificationTests.Xbmc
 
         private void GivenMatchingMusicbrainzId()
         {
-            _artist = new Artist
+            _artist = new Author
             {
-                ForeignArtistId = MB_ID,
+                ForeignAuthorId = MB_ID,
                 Name = "Artist"
             };
         }
 
         private void GivenMatchingTitle()
         {
-            _artist = new Artist
+            _artist = new Author
             {
-                ForeignArtistId = "1000",
+                ForeignAuthorId = "1000",
                 Name = _xbmcArtist.First().Label
             };
         }
 
         private void GivenMatchingArtist()
         {
-            _artist = new Artist
+            _artist = new Author
             {
-                ForeignArtistId = "1000",
+                ForeignAuthorId = "1000",
                 Name = "Does not exist"
             };
         }

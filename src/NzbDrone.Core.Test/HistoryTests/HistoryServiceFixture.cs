@@ -41,7 +41,7 @@ namespace NzbDrone.Core.Test.HistoryTests
         [Test]
         public void should_use_file_name_for_source_title_if_scene_name_is_null()
         {
-            var artist = Builder<Artist>.CreateNew().Build();
+            var artist = Builder<Author>.CreateNew().Build();
             var tracks = Builder<Track>.CreateListOfSize(1).Build().ToList();
             var trackFile = Builder<TrackFile>.CreateNew()
                 .With(f => f.SceneName = null)
@@ -51,7 +51,7 @@ namespace NzbDrone.Core.Test.HistoryTests
             var localTrack = new LocalTrack
             {
                 Artist = artist,
-                Album = new Album(),
+                Album = new Book(),
                 Tracks = tracks,
                 Path = @"C:\Test\Unsorted\Artist.01.Hymn.mp3"
             };

@@ -107,6 +107,7 @@ class AddNewArtistSearchResult extends Component {
                 images={images}
                 size={250}
                 overflow={true}
+                lazy={false}
               />
           }
 
@@ -140,7 +141,7 @@ class AddNewArtistSearchResult extends Component {
 
               <Link
                 className={styles.mbLink}
-                to={`https://musicbrainz.org/artist/${foreignArtistId}`}
+                to={`https://goodreads.com/author/show/${foreignArtistId}`}
                 onPress={this.onMBLinkPress}
               >
                 <Icon

@@ -339,13 +339,13 @@ namespace NzbDrone.Core.Test.MediaFiles.AudioTagServiceFixture
 
         private TrackFile GivenPopulatedTrackfile(int mediumOffset)
         {
-            var meta = Builder<ArtistMetadata>.CreateNew().Build();
-            var artist = Builder<Artist>.CreateNew()
+            var meta = Builder<AuthorMetadata>.CreateNew().Build();
+            var artist = Builder<Author>.CreateNew()
                 .With(x => x.Metadata = meta)
                 .Build();
 
-            var album = Builder<Album>.CreateNew()
-                .With(x => x.Artist = artist)
+            var album = Builder<Book>.CreateNew()
+                .With(x => x.Author = artist)
                 .Build();
 
             var media = Builder<Medium>.CreateListOfSize(2).Build() as List<Medium>;

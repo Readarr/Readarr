@@ -21,7 +21,7 @@ using Readarr.Http.Extensions;
 
 namespace Readarr.Api.V1.Artist
 {
-    public class ArtistModule : ReadarrRestModuleWithSignalR<ArtistResource, NzbDrone.Core.Music.Artist>,
+    public class ArtistModule : ReadarrRestModuleWithSignalR<ArtistResource, NzbDrone.Core.Music.Author>,
                                 IHandle<AlbumImportedEvent>,
                                 IHandle<AlbumEditedEvent>,
                                 IHandle<TrackFileDeletedEvent>,
@@ -102,7 +102,7 @@ namespace Readarr.Api.V1.Artist
             return GetArtistResource(artist);
         }
 
-        private ArtistResource GetArtistResource(NzbDrone.Core.Music.Artist artist)
+        private ArtistResource GetArtistResource(NzbDrone.Core.Music.Author artist)
         {
             if (artist == null)
             {
@@ -189,8 +189,8 @@ namespace Readarr.Api.V1.Artist
 
             foreach (var artistResource in artists)
             {
-                artistResource.NextAlbum = nextAlbums.FirstOrDefault(x => x.ArtistMetadataId == artistResource.ArtistMetadataId);
-                artistResource.LastAlbum = lastAlbums.FirstOrDefault(x => x.ArtistMetadataId == artistResource.ArtistMetadataId);
+                artistResource.NextAlbum = nextAlbums.FirstOrDefault(x => x.AuthorMetadataId == artistResource.ArtistMetadataId);
+                artistResource.LastAlbum = lastAlbums.FirstOrDefault(x => x.AuthorMetadataId == artistResource.ArtistMetadataId);
             }
         }
 
@@ -246,7 +246,7 @@ namespace Readarr.Api.V1.Artist
 
         public void Handle(AlbumEditedEvent message)
         {
-            BroadcastResourceChange(ModelAction.Updated, GetArtistResource(message.Album.Artist.Value));
+            BroadcastResourceChange(ModelAction.Updated, GetArtistResource(message.Album.Author.Value));
         }
 
         public void Handle(TrackFileDeletedEvent message)

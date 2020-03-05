@@ -11,7 +11,7 @@ namespace NzbDrone.Core.Notifications.Emby
     public interface IMediaBrowserService
     {
         void Notify(MediaBrowserSettings settings, string title, string message);
-        void Update(MediaBrowserSettings settings, Artist artist);
+        void Update(MediaBrowserSettings settings, Author artist);
         ValidationFailure Test(MediaBrowserSettings settings);
     }
 
@@ -31,7 +31,7 @@ namespace NzbDrone.Core.Notifications.Emby
             _proxy.Notify(settings, title, message);
         }
 
-        public void Update(MediaBrowserSettings settings, Artist artist)
+        public void Update(MediaBrowserSettings settings, Author artist)
         {
             var folders = _proxy.GetArtist(settings);
 

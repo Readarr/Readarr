@@ -83,6 +83,7 @@ class SelectAlbumModalContentConnector extends Component {
     return (
       <SelectAlbumModalContent
         {...this.props}
+        onSortPress={this.onSortPress}
         onAlbumSelect={this.onAlbumSelect}
       />
     );

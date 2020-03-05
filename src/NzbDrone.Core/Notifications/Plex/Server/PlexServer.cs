@@ -28,7 +28,7 @@ namespace NzbDrone.Core.Notifications.Plex.Server
             UpdateIfEnabled(message.Artist);
         }
 
-        public override void OnRename(Artist artist)
+        public override void OnRename(Author artist)
         {
             UpdateIfEnabled(artist);
         }
@@ -38,7 +38,7 @@ namespace NzbDrone.Core.Notifications.Plex.Server
             UpdateIfEnabled(message.Artist);
         }
 
-        private void UpdateIfEnabled(Artist artist)
+        private void UpdateIfEnabled(Author artist)
         {
             if (Settings.UpdateLibrary)
             {

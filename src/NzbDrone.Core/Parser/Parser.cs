@@ -317,7 +317,7 @@ namespace NzbDrone.Core.Parser
             return null;
         }
 
-        public static ParsedAlbumInfo ParseAlbumTitleWithSearchCriteria(string title, Artist artist, List<Album> album)
+        public static ParsedAlbumInfo ParseAlbumTitleWithSearchCriteria(string title, Author artist, List<Book> album)
         {
             try
             {
