@@ -21,6 +21,8 @@ using NzbDrone.Common.Instrumentation;
 using NzbDrone.Common.Instrumentation.Extensions;
 using NzbDrone.Core.Configuration;
 using NzbDrone.Core.Datastore.Extensions;
+using NzbDrone.Core.Lifecycle;
+using NzbDrone.Core.Messaging.Events;
 
 namespace NzbDrone.Host
 {
@@ -128,7 +130,9 @@ namespace NzbDrone.Host
                     c.AutoAddServices(Bootstrap.ASSEMBLIES)
                         .AddNzbDroneLogger()
                         .AddDatabase()
-                        .AddStartupContext(context);
+                        .Resolve<IEventAggregator>().PublishEvent(new ApplicationStartingEvent());
+
+                    c.AddStartupContext(context);
                 })
                 .ConfigureWebHost(builder =>
                 {
