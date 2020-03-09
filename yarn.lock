@@ -3361,9 +3361,9 @@ dnode-protocol@~0.2.2:
     jsonify "~0.0.0"
     traverse "~0.6.3"
 
-"dnode@git+https://github.com/christianvuerings/dnode.git#e08e620b18c9086d47fe68e08328b19465c62fb7":
+"dnode@https://github.com/christianvuerings/dnode#e08e620b18c9086d47fe68e08328b19465c62fb7":
   version "1.2.2"
-  resolved "git+https://github.com/christianvuerings/dnode.git#e08e620b18c9086d47fe68e08328b19465c62fb7"
+  resolved "https://github.com/christianvuerings/dnode#e08e620b18c9086d47fe68e08328b19465c62fb7"
   dependencies:
     dnode-protocol "~0.2.2"
     jsonify "~0.0.0"
