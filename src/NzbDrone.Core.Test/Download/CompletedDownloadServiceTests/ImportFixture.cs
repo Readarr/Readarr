@@ -62,15 +62,7 @@ namespace NzbDrone.Core.Test.Download.CompletedDownloadServiceTests
         {
             return new Book
             {
-                Id = id,
-                AlbumReleases = new List<AlbumRelease>
-                {
-                    new AlbumRelease
-                    {
-                        Monitored = true,
-                        TrackCount = trackCount
-                    }
-                }
+                Id = id
             };
         }
 
@@ -236,18 +228,7 @@ namespace NzbDrone.Core.Test.Download.CompletedDownloadServiceTests
         [Test]
         public void should_not_mark_as_imported_if_some_of_episodes_were_not_imported_including_history()
         {
-            var tracks = Builder<Track>.CreateListOfSize(3).BuildList();
-
-            var releases = Builder<AlbumRelease>.CreateListOfSize(3).All().With(x => x.Monitored = true).With(x => x.TrackCount = 1).BuildList();
-            releases[0].Tracks = new List<Track> { tracks[0] };
-            releases[1].Tracks = new List<Track> { tracks[1] };
-            releases[2].Tracks = new List<Track> { tracks[2] };
-
             var albums = Builder<Book>.CreateListOfSize(3).BuildList();
-
-            albums[0].AlbumReleases = new List<AlbumRelease> { releases[0] };
-            albums[1].AlbumReleases = new List<AlbumRelease> { releases[1] };
-            albums[2].AlbumReleases = new List<AlbumRelease> { releases[2] };
 
             _trackedDownload.RemoteAlbum.Albums = albums;
 
@@ -305,17 +286,7 @@ namespace NzbDrone.Core.Test.Download.CompletedDownloadServiceTests
         [Test]
         public void should_mark_as_imported_if_all_episodes_were_imported_including_history()
         {
-            var track1 = new Track { Id = 1 };
-            var track2 = new Track { Id = 2 };
-
-            var releases = Builder<AlbumRelease>.CreateListOfSize(2).All().With(x => x.Monitored = true).With(x => x.TrackCount = 1).BuildList();
-            releases[0].Tracks = new List<Track> { track1 };
-            releases[1].Tracks = new List<Track> { track2 };
-
             var albums = Builder<Book>.CreateListOfSize(2).BuildList();
-
-            albums[0].AlbumReleases = new List<AlbumRelease> { releases[0] };
-            albums[1].AlbumReleases = new List<AlbumRelease> { releases[1] };
 
             _trackedDownload.RemoteAlbum.Albums = albums;
 
@@ -325,11 +296,11 @@ namespace NzbDrone.Core.Test.Download.CompletedDownloadServiceTests
                 {
                     new ImportResult(
                         new ImportDecision<LocalTrack>(
-                            new LocalTrack { Path = @"C:\TestPath\Droned.S01E01.mkv", Tracks = new List<Track> { track1 } })),
+                            new LocalTrack { Path = @"C:\TestPath\Droned.S01E01.mkv", Album = albums[0] })),
 
                     new ImportResult(
                         new ImportDecision<LocalTrack>(
-                            new LocalTrack { Path = @"C:\TestPath\Droned.S01E02.mkv", Tracks = new List<Track> { track2 } }), "Test Failure")
+                            new LocalTrack { Path = @"C:\TestPath\Droned.S01E02.mkv", Album = albums[1] }), "Test Failure")
                 });
 
             var history = Builder<History.History>.CreateListOfSize(2)

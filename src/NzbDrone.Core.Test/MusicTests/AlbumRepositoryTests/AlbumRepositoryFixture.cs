@@ -16,9 +16,7 @@ namespace NzbDrone.Core.Test.MusicTests.AlbumRepositoryTests
         private Book _album;
         private Book _albumSpecial;
         private List<Book> _albums;
-        private AlbumRelease _release;
         private AlbumRepository _albumRepo;
-        private ReleaseRepository _releaseRepo;
 
         [SetUp]
         public void Setup()
@@ -33,14 +31,6 @@ namespace NzbDrone.Core.Test.MusicTests.AlbumRepositoryTests
             };
 
             _albumRepo = Mocker.Resolve<AlbumRepository>();
-            _releaseRepo = Mocker.Resolve<ReleaseRepository>();
-
-            _release = Builder<AlbumRelease>
-                .CreateNew()
-                .With(e => e.Id = 0)
-                .With(e => e.ForeignReleaseId = "e00e40a3-5ed5-4ed3-9c22-0a8ff4119bdf")
-                .With(e => e.Monitored = true)
-                .Build();
 
             _album = new Book
             {
@@ -49,12 +39,9 @@ namespace NzbDrone.Core.Test.MusicTests.AlbumRepositoryTests
                 CleanTitle = "anthology",
                 Author = _artist,
                 AuthorMetadataId = _artist.AuthorMetadataId,
-                AlbumReleases = new List<AlbumRelease> { _release },
             };
 
             _albumRepo.Insert(_album);
-            _release.AlbumId = _album.Id;
-            _releaseRepo.Insert(_release);
             _albumRepo.Update(_album);
 
             _albumSpecial = new Book
@@ -63,28 +50,10 @@ namespace NzbDrone.Core.Test.MusicTests.AlbumRepositoryTests
                 ForeignBookId = "2",
                 CleanTitle = "",
                 Author = _artist,
-                AuthorMetadataId = _artist.AuthorMetadataId,
-                AlbumReleases = new List<AlbumRelease>
-                {
-                    new AlbumRelease
-                    {
-                        ForeignReleaseId = "fake id"
-                    }
-                }
+                AuthorMetadataId = _artist.AuthorMetadataId
             };
 
             _albumRepo.Insert(_albumSpecial);
-        }
-
-        [Test]
-        public void should_find_album_in_db_by_releaseid()
-        {
-            var id = "e00e40a3-5ed5-4ed3-9c22-0a8ff4119bdf";
-
-            var album = _albumRepo.FindAlbumByRelease(id);
-
-            album.Should().NotBeNull();
-            album.Title.Should().Be(_album.Title);
         }
 
         [TestCase("ANThology")]
@@ -135,16 +104,6 @@ namespace NzbDrone.Core.Test.MusicTests.AlbumRepositoryTests
             var album = _albumRepo.FindByTitle(_artist.AuthorMetadataId, "Weezer");
 
             _albumRepo.All().Should().HaveCount(4);
-            album.Should().BeNull();
-        }
-
-        [Test]
-        public void should_not_find_album_in_db_by_partial_releaseid()
-        {
-            var id = "e00e40a3-5ed5-4ed3-9c22";
-
-            var album = _albumRepo.FindAlbumByRelease(id);
-
             album.Should().BeNull();
         }
 

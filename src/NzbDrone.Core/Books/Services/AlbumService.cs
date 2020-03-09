@@ -12,22 +12,23 @@ namespace NzbDrone.Core.Music
 {
     public interface IAlbumService
     {
-        Book GetAlbum(int albumId);
-        List<Book> GetAlbums(IEnumerable<int> albumIds);
-        List<Book> GetAlbumsByArtist(int artistId);
+        Book GetAlbum(int bookId);
+        List<Book> GetAlbums(IEnumerable<int> bookIds);
+        List<Book> GetAlbumsByArtist(int authorId);
         List<Book> GetNextAlbumsByArtistMetadataId(IEnumerable<int> artistMetadataIds);
         List<Book> GetLastAlbumsByArtistMetadataId(IEnumerable<int> artistMetadataIds);
         List<Book> GetAlbumsByArtistMetadataId(int artistMetadataId);
         List<Book> GetAlbumsForRefresh(int artistMetadataId, IEnumerable<string> foreignIds);
+        List<Book> GetAlbumsByFileIds(IEnumerable<int> fileIds);
         Book AddAlbum(Book newAlbum);
         Book FindById(string foreignId);
         Book FindByTitle(int artistMetadataId, string title);
         Book FindByTitleInexact(int artistMetadataId, string title);
         List<Book> GetCandidates(int artistMetadataId, string title);
-        void DeleteAlbum(int albumId, bool deleteFiles, bool addImportListExclusion = false);
+        void DeleteAlbum(int bookId, bool deleteFiles, bool addImportListExclusion = false);
         List<Book> GetAllAlbums();
         Book UpdateAlbum(Book album);
-        void SetAlbumMonitored(int albumId, bool monitored);
+        void SetAlbumMonitored(int bookId, bool monitored);
         void SetMonitored(IEnumerable<int> ids, bool monitored);
         void SetFileIds(List<Book> books);
         PagingSpec<Book> AlbumsWithoutFiles(PagingSpec<Book> pagingSpec);
@@ -37,8 +38,6 @@ namespace NzbDrone.Core.Music
         void UpdateMany(List<Book> albums);
         void DeleteMany(List<Book> albums);
         void SetAddOptions(IEnumerable<Book> albums);
-        Book FindAlbumByRelease(string albumReleaseId);
-        Book FindAlbumByTrackId(int trackId);
         List<Book> GetArtistAlbumsWithFiles(Author artist);
     }
 
@@ -67,11 +66,11 @@ namespace NzbDrone.Core.Music
             return newAlbum;
         }
 
-        public void DeleteAlbum(int albumId, bool deleteFiles, bool addImportListExclusion = false)
+        public void DeleteAlbum(int bookId, bool deleteFiles, bool addImportListExclusion = false)
         {
-            var album = _albumRepository.Get(albumId);
+            var album = _albumRepository.Get(bookId);
             album.Author.LazyLoad();
-            _albumRepository.Delete(albumId);
+            _albumRepository.Delete(bookId);
             _eventAggregator.PublishEvent(new AlbumDeletedEvent(album, deleteFiles, addImportListExclusion));
         }
 
@@ -156,19 +155,19 @@ namespace NzbDrone.Core.Music
             return _albumRepository.All().ToList();
         }
 
-        public Book GetAlbum(int albumId)
+        public Book GetAlbum(int bookId)
         {
-            return _albumRepository.Get(albumId);
+            return _albumRepository.Get(bookId);
         }
 
-        public List<Book> GetAlbums(IEnumerable<int> albumIds)
+        public List<Book> GetAlbums(IEnumerable<int> bookIds)
         {
-            return _albumRepository.Get(albumIds).ToList();
+            return _albumRepository.Get(bookIds).ToList();
         }
 
-        public List<Book> GetAlbumsByArtist(int artistId)
+        public List<Book> GetAlbumsByArtist(int authorId)
         {
-            return _albumRepository.GetAlbums(artistId).ToList();
+            return _albumRepository.GetAlbums(authorId).ToList();
         }
 
         public List<Book> GetNextAlbumsByArtistMetadataId(IEnumerable<int> artistMetadataIds)
@@ -191,14 +190,9 @@ namespace NzbDrone.Core.Music
             return _albumRepository.GetAlbumsForRefresh(artistMetadataId, foreignIds);
         }
 
-        public Book FindAlbumByRelease(string albumReleaseId)
+        public List<Book> GetAlbumsByFileIds(IEnumerable<int> fileIds)
         {
-            return _albumRepository.FindAlbumByRelease(albumReleaseId);
-        }
-
-        public Book FindAlbumByTrackId(int trackId)
-        {
-            return _albumRepository.FindAlbumByTrack(trackId);
+            return _albumRepository.GetAlbumsByFileIds(fileIds);
         }
 
         public void SetAddOptions(IEnumerable<Book> albums)
@@ -257,26 +251,20 @@ namespace NzbDrone.Core.Music
             var storedAlbum = GetAlbum(album.Id);
             var updatedAlbum = _albumRepository.Update(album);
 
-            // If updatedAlbum has populated the Releases, populate in the storedAlbum too
-            if (updatedAlbum.AlbumReleases.IsLoaded)
-            {
-                storedAlbum.AlbumReleases.LazyLoad();
-            }
-
             _eventAggregator.PublishEvent(new AlbumEditedEvent(updatedAlbum, storedAlbum));
 
             return updatedAlbum;
         }
 
-        public void SetAlbumMonitored(int albumId, bool monitored)
+        public void SetAlbumMonitored(int bookId, bool monitored)
         {
-            var album = _albumRepository.Get(albumId);
+            var album = _albumRepository.Get(bookId);
             _albumRepository.SetMonitoredFlat(album, monitored);
 
             // publish album edited event so artist stats update
             _eventAggregator.PublishEvent(new AlbumEditedEvent(album, album));
 
-            _logger.Debug("Monitored flag for Album:{0} was set to {1}", albumId, monitored);
+            _logger.Debug("Monitored flag for Album:{0} was set to {1}", bookId, monitored);
         }
 
         public void SetMonitored(IEnumerable<int> ids, bool monitored)

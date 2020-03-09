@@ -37,7 +37,7 @@ namespace NzbDrone.Core.Test.MusicTests.ArtistRepositoryTests
             var metadata = Builder<AuthorMetadata>.CreateNew()
                 .With(a => a.Id = 0)
                 .With(a => a.Name = name)
-                .With(a => a.OldForeignArtistIds = oldIds)
+                .With(a => a.OldForeignAuthorIds = oldIds)
                 .BuildNew();
 
             var artist = Builder<Author>.CreateNew()
@@ -63,7 +63,7 @@ namespace NzbDrone.Core.Test.MusicTests.ArtistRepositoryTests
         {
             var profile = new QualityProfile
             {
-                Items = Qualities.QualityFixture.GetDefaultQualities(Quality.FLAC, Quality.MP3_192, Quality.MP3_320),
+                Items = Qualities.QualityFixture.GetDefaultQualities(Quality.FLAC, Quality.MP3_320, Quality.MP3_320),
 
                 Cutoff = Quality.FLAC.Id,
                 Name = "TestProfile"
@@ -71,10 +71,7 @@ namespace NzbDrone.Core.Test.MusicTests.ArtistRepositoryTests
 
             var metaProfile = new MetadataProfile
             {
-                Name = "TestProfile",
-                PrimaryAlbumTypes = new List<ProfilePrimaryAlbumTypeItem>(),
-                SecondaryAlbumTypes = new List<ProfileSecondaryAlbumTypeItem>(),
-                ReleaseStatuses = new List<ProfileReleaseStatusItem>()
+                Name = "TestProfile"
             };
 
             Mocker.Resolve<QualityProfileRepository>().Insert(profile);

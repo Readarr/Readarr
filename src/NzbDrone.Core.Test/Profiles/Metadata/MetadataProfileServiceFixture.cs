@@ -61,14 +61,6 @@ namespace NzbDrone.Core.Test.Profiles.Metadata
             var profiles = Builder<MetadataProfile>.CreateListOfSize(2)
                 .TheFirst(1)
                 .With(x => x.Name = MetadataProfileService.NONE_PROFILE_NAME)
-                .With(x => x.PrimaryAlbumTypes = new List<ProfilePrimaryAlbumTypeItem>
-                    {
-                        new ProfilePrimaryAlbumTypeItem
-                        {
-                            PrimaryAlbumType = PrimaryAlbumType.Album,
-                            Allowed = true
-                        }
-                    })
                 .BuildList();
 
             Mocker.GetMock<IMetadataProfileRepository>()

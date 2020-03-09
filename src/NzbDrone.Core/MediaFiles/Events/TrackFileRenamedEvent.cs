@@ -6,10 +6,10 @@ namespace NzbDrone.Core.MediaFiles.Events
     public class TrackFileRenamedEvent : IEvent
     {
         public Author Artist { get; private set; }
-        public TrackFile TrackFile { get; private set; }
+        public BookFile TrackFile { get; private set; }
         public string OriginalPath { get; private set; }
 
-        public TrackFileRenamedEvent(Author artist, TrackFile trackFile, string originalPath)
+        public TrackFileRenamedEvent(Author artist, BookFile trackFile, string originalPath)
         {
             Artist = artist;
             TrackFile = trackFile;

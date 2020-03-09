@@ -35,12 +35,12 @@ function createSchemaSelector() {
 
 function createMapStateToProps() {
   return createSelector(
-    (state, { albumId }) => albumId,
+    (state, { bookId }) => bookId,
     (state) => state.trackFiles,
     createSchemaSelector(),
     createArtistSelector(),
     (
-      albumId,
+      bookId,
       trackFiles,
       schema,
       artist
@@ -126,8 +126,8 @@ class TrackFileEditorTableContentConnector extends Component {
 }
 
 TrackFileEditorTableContentConnector.propTypes = {
-  artistId: PropTypes.number.isRequired,
-  albumId: PropTypes.number,
+  authorId: PropTypes.number.isRequired,
+  bookId: PropTypes.number,
   qualities: PropTypes.arrayOf(PropTypes.object).isRequired,
   dispatchFetchTracks: PropTypes.func.isRequired,
   dispatchClearTracks: PropTypes.func.isRequired,

@@ -33,7 +33,7 @@ namespace NzbDrone.Core.Test.Housekeeping.Housekeepers
             Db.Insert(artist);
 
             var pendingRelease = Builder<PendingRelease>.CreateNew()
-                .With(h => h.ArtistId = artist.Id)
+                .With(h => h.AuthorId = artist.Id)
                 .With(h => h.ParsedAlbumInfo = new ParsedAlbumInfo())
                 .With(h => h.Release = new ReleaseInfo())
                 .BuildNew();

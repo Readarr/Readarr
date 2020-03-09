@@ -8,7 +8,6 @@ using NzbDrone.Core.Download;
 using NzbDrone.Core.History;
 using Readarr.Api.V1.Albums;
 using Readarr.Api.V1.Artist;
-using Readarr.Api.V1.Tracks;
 using Readarr.Http;
 using Readarr.Http.Extensions;
 using Readarr.Http.REST;
@@ -64,7 +63,7 @@ namespace Readarr.Api.V1.History
             var includeAlbum = Request.GetBooleanQueryParameter("includeAlbum");
 
             var eventTypeFilter = pagingResource.Filters.FirstOrDefault(f => f.Key == "eventType");
-            var albumIdFilter = pagingResource.Filters.FirstOrDefault(f => f.Key == "albumId");
+            var bookIdFilter = pagingResource.Filters.FirstOrDefault(f => f.Key == "bookId");
             var downloadIdFilter = pagingResource.Filters.FirstOrDefault(f => f.Key == "downloadId");
 
             if (eventTypeFilter != null)
@@ -73,10 +72,10 @@ namespace Readarr.Api.V1.History
                 pagingSpec.FilterExpressions.Add(v => v.EventType == filterValue);
             }
 
-            if (albumIdFilter != null)
+            if (bookIdFilter != null)
             {
-                var albumId = Convert.ToInt32(albumIdFilter.Value);
-                pagingSpec.FilterExpressions.Add(h => h.AlbumId == albumId);
+                var bookId = Convert.ToInt32(bookIdFilter.Value);
+                pagingSpec.FilterExpressions.Add(h => h.BookId == bookId);
             }
 
             if (downloadIdFilter != null)
@@ -113,16 +112,16 @@ namespace Readarr.Api.V1.History
 
         private List<HistoryResource> GetArtistHistory()
         {
-            var queryArtistId = Request.Query.ArtistId;
-            var queryAlbumId = Request.Query.AlbumId;
+            var queryAuthorId = Request.Query.AuthorId;
+            var queryBookId = Request.Query.BookId;
             var queryEventType = Request.Query.EventType;
 
-            if (!queryArtistId.HasValue)
+            if (!queryAuthorId.HasValue)
             {
-                throw new BadRequestException("artistId is missing");
+                throw new BadRequestException("authorId is missing");
             }
 
-            int artistId = Convert.ToInt32(queryArtistId.Value);
+            int authorId = Convert.ToInt32(queryAuthorId.Value);
             HistoryEventType? eventType = null;
             var includeArtist = Request.GetBooleanQueryParameter("includeArtist");
             var includeAlbum = Request.GetBooleanQueryParameter("includeAlbum");
@@ -132,14 +131,14 @@ namespace Readarr.Api.V1.History
                 eventType = (HistoryEventType)Convert.ToInt32(queryEventType.Value);
             }
 
-            if (queryAlbumId.HasValue)
+            if (queryBookId.HasValue)
             {
-                int albumId = Convert.ToInt32(queryAlbumId.Value);
+                int bookId = Convert.ToInt32(queryBookId.Value);
 
-                return _historyService.GetByAlbum(albumId, eventType).Select(h => MapToResource(h, includeArtist, includeAlbum)).ToList();
+                return _historyService.GetByAlbum(bookId, eventType).Select(h => MapToResource(h, includeArtist, includeAlbum)).ToList();
             }
 
-            return _historyService.GetByArtist(artistId, eventType).Select(h => MapToResource(h, includeArtist, includeAlbum)).ToList();
+            return _historyService.GetByArtist(authorId, eventType).Select(h => MapToResource(h, includeArtist, includeAlbum)).ToList();
         }
 
         private object MarkAsFailed()

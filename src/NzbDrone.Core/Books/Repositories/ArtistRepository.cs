@@ -11,7 +11,7 @@ namespace NzbDrone.Core.Music
     {
         bool ArtistPathExists(string path);
         Author FindByName(string cleanName);
-        Author FindById(string foreignArtistId);
+        Author FindById(string foreignAuthorId);
         Author GetArtistByMetadataId(int artistMetadataId);
         List<Author> GetArtistByMetadataId(IEnumerable<int> artistMetadataId);
     }
@@ -43,13 +43,13 @@ namespace NzbDrone.Core.Music
             return Query(c => c.Path == path).Any();
         }
 
-        public Author FindById(string foreignArtistId)
+        public Author FindById(string foreignAuthorId)
         {
-            var artist = Query(Builder().Where<AuthorMetadata>(m => m.ForeignAuthorId == foreignArtistId)).SingleOrDefault();
+            var artist = Query(Builder().Where<AuthorMetadata>(m => m.ForeignAuthorId == foreignAuthorId)).SingleOrDefault();
 
             if (artist == null)
             {
-                artist = Query(Builder().Where<AuthorMetadata>(x => x.OldForeignArtistIds.Contains(foreignArtistId))).SingleOrDefault();
+                artist = Query(Builder().Where<AuthorMetadata>(x => x.OldForeignAuthorIds.Contains(foreignAuthorId))).SingleOrDefault();
             }
 
             return artist;

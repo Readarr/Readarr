@@ -70,7 +70,7 @@ class ArtistIndexPoster extends Component {
       id,
       artistName,
       monitored,
-      foreignArtistId,
+      foreignAuthorId,
       status,
       nextAiring,
       statistics,
@@ -107,7 +107,7 @@ class ArtistIndexPoster extends Component {
       isDeleteArtistModalOpen
     } = this.state;
 
-    const link = `/artist/${foreignArtistId}`;
+    const link = `/artist/${foreignAuthorId}`;
 
     const elementStyle = {
       width: `${posterWidth}px`,
@@ -239,14 +239,14 @@ class ArtistIndexPoster extends Component {
 
           <EditArtistModalConnector
             isOpen={isEditArtistModalOpen}
-            artistId={id}
+            authorId={id}
             onModalClose={this.onEditArtistModalClose}
             onDeleteArtistPress={this.onDeleteArtistPress}
           />
 
           <DeleteArtistModal
             isOpen={isDeleteArtistModalOpen}
-            artistId={id}
+            authorId={id}
             onModalClose={this.onDeleteArtistModalClose}
           />
         </div>
@@ -260,7 +260,7 @@ ArtistIndexPoster.propTypes = {
   artistName: PropTypes.string.isRequired,
   monitored: PropTypes.bool.isRequired,
   status: PropTypes.string.isRequired,
-  foreignArtistId: PropTypes.string.isRequired,
+  foreignAuthorId: PropTypes.string.isRequired,
   nextAiring: PropTypes.string,
   statistics: PropTypes.object.isRequired,
   images: PropTypes.arrayOf(PropTypes.object).isRequired,

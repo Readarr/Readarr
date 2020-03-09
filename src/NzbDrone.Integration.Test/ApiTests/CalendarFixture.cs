@@ -30,7 +30,7 @@ namespace NzbDrone.Integration.Test.ApiTests
             request.AddParameter("end", new DateTime(2015, 11, 21).ToString("s") + "Z");
             var items = Calendar.Get<List<AlbumResource>>(request);
 
-            items = items.Where(v => v.ArtistId == artist.Id).ToList();
+            items = items.Where(v => v.AuthorId == artist.Id).ToList();
 
             items.Should().HaveCount(1);
             items.First().Title.Should().Be("25");
@@ -47,7 +47,7 @@ namespace NzbDrone.Integration.Test.ApiTests
             request.AddParameter("unmonitored", "false");
             var items = Calendar.Get<List<AlbumResource>>(request);
 
-            items = items.Where(v => v.ArtistId == artist.Id).ToList();
+            items = items.Where(v => v.AuthorId == artist.Id).ToList();
 
             items.Should().BeEmpty();
         }
@@ -63,7 +63,7 @@ namespace NzbDrone.Integration.Test.ApiTests
             request.AddParameter("unmonitored", "true");
             var items = Calendar.Get<List<AlbumResource>>(request);
 
-            items = items.Where(v => v.ArtistId == artist.Id).ToList();
+            items = items.Where(v => v.AuthorId == artist.Id).ToList();
 
             items.Should().HaveCount(1);
             items.First().Title.Should().Be("25");

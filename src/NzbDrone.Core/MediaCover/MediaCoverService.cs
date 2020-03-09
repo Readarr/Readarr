@@ -103,14 +103,14 @@ namespace NzbDrone.Core.MediaCover
             }
         }
 
-        private string GetArtistCoverPath(int artistId)
+        private string GetArtistCoverPath(int authorId)
         {
-            return Path.Combine(_coverRootFolder, artistId.ToString());
+            return Path.Combine(_coverRootFolder, authorId.ToString());
         }
 
-        private string GetAlbumCoverPath(int albumId)
+        private string GetAlbumCoverPath(int bookId)
         {
-            return Path.Combine(_coverRootFolder, "Albums", albumId.ToString());
+            return Path.Combine(_coverRootFolder, "Albums", bookId.ToString());
         }
 
         private void EnsureArtistCovers(Author artist)

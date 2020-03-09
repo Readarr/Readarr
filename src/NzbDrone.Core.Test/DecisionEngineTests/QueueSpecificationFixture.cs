@@ -58,7 +58,7 @@ namespace NzbDrone.Core.Test.DecisionEngineTests
             _remoteAlbum = Builder<RemoteAlbum>.CreateNew()
                                                    .With(r => r.Artist = _artist)
                                                    .With(r => r.Albums = new List<Book> { _album })
-                                                   .With(r => r.ParsedAlbumInfo = new ParsedAlbumInfo { Quality = new QualityModel(Quality.MP3_256) })
+                                                   .With(r => r.ParsedAlbumInfo = new ParsedAlbumInfo { Quality = new QualityModel(Quality.MP3_320) })
                                                    .With(r => r.PreferredWordScore = 0)
                                                    .Build();
         }
@@ -113,7 +113,7 @@ namespace NzbDrone.Core.Test.DecisionEngineTests
                 .With(r => r.Albums = new List<Book> { _album })
                 .With(r => r.ParsedAlbumInfo = new ParsedAlbumInfo
                 {
-                    Quality = new QualityModel(Quality.MP3_256)
+                    Quality = new QualityModel(Quality.MP3_320)
                 })
                 .With(r => r.Release = _releaseInfo)
                 .Build();
@@ -133,7 +133,7 @@ namespace NzbDrone.Core.Test.DecisionEngineTests
                                                       .With(r => r.Albums = new List<Book> { _album })
                                                       .With(r => r.ParsedAlbumInfo = new ParsedAlbumInfo
                                                       {
-                                                          Quality = new QualityModel(Quality.MP3_192)
+                                                          Quality = new QualityModel(Quality.MP3_320)
                                                       })
                                                       .With(r => r.Release = _releaseInfo)
                                                       .Build();
@@ -150,7 +150,7 @@ namespace NzbDrone.Core.Test.DecisionEngineTests
                                                       .With(r => r.Albums = new List<Book> { _otherAlbum })
                                                       .With(r => r.ParsedAlbumInfo = new ParsedAlbumInfo
                                                       {
-                                                          Quality = new QualityModel(Quality.MP3_192)
+                                                          Quality = new QualityModel(Quality.MP3_320)
                                                       })
                                                       .With(r => r.Release = _releaseInfo)
                                                       .Build();
@@ -169,7 +169,7 @@ namespace NzbDrone.Core.Test.DecisionEngineTests
                 .With(r => r.Albums = new List<Book> { _album })
                 .With(r => r.ParsedAlbumInfo = new ParsedAlbumInfo
                 {
-                    Quality = new QualityModel(Quality.MP3_256)
+                    Quality = new QualityModel(Quality.MP3_320)
                 })
                 .With(r => r.Release = _releaseInfo)
                 .Build();
@@ -186,7 +186,7 @@ namespace NzbDrone.Core.Test.DecisionEngineTests
                                                       .With(r => r.Albums = new List<Book> { _album })
                                                       .With(r => r.ParsedAlbumInfo = new ParsedAlbumInfo
                                                       {
-                                                          Quality = new QualityModel(Quality.MP3_192)
+                                                          Quality = new QualityModel(Quality.MP3_320)
                                                       })
                                                       .With(r => r.Release = _releaseInfo)
                                                       .Build();
@@ -321,7 +321,7 @@ namespace NzbDrone.Core.Test.DecisionEngineTests
                 .With(r => r.Albums = new List<Book> { _album })
                 .With(r => r.ParsedAlbumInfo = new ParsedAlbumInfo
                 {
-                    Quality = new QualityModel(Quality.MP3_008)
+                    Quality = new QualityModel(Quality.MP3_320)
                 })
                 .With(r => r.Release = _releaseInfo)
                 .Build();

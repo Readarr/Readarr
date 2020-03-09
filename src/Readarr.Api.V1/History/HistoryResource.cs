@@ -10,8 +10,8 @@ namespace Readarr.Api.V1.History
 {
     public class HistoryResource : RestResource
     {
-        public int AlbumId { get; set; }
-        public int ArtistId { get; set; }
+        public int BookId { get; set; }
+        public int AuthorId { get; set; }
         public string SourceTitle { get; set; }
         public QualityModel Quality { get; set; }
         public bool QualityCutoffNotMet { get; set; }
@@ -39,8 +39,8 @@ namespace Readarr.Api.V1.History
             {
                 Id = model.Id,
 
-                AlbumId = model.AlbumId,
-                ArtistId = model.ArtistId,
+                BookId = model.BookId,
+                AuthorId = model.AuthorId,
                 SourceTitle = model.SourceTitle,
                 Quality = model.Quality,
 

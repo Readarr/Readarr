@@ -66,7 +66,7 @@ namespace NzbDrone.Core.Music
 
             // remove not in remote list and ShouldDelete is true
             if (remote != null &&
-                !remote.Any(x => x.ForeignBookId == local.ForeignBookId || x.OldForeignAlbumIds.Contains(local.ForeignBookId)) &&
+                !remote.Any(x => x.ForeignBookId == local.ForeignBookId || x.OldForeignBookIds.Contains(local.ForeignBookId)) &&
                 ShouldDelete(local))
             {
                 return result;
@@ -165,7 +165,6 @@ namespace NzbDrone.Core.Music
 
             local.AuthorMetadataId = remote.AuthorMetadata.Value.Id;
             local.LastInfoSync = DateTime.UtcNow;
-            local.AlbumReleases = new List<AlbumRelease>();
 
             return result;
         }
@@ -176,12 +175,12 @@ namespace NzbDrone.Core.Music
 
             // Update album ids for trackfiles
             var files = _mediaFileService.GetFilesByAlbum(local.Id);
-            files.ForEach(x => x.AlbumId = target.Id);
+            files.ForEach(x => x.BookId = target.Id);
             _mediaFileService.Update(files);
 
             // Update album ids for history
             var items = _historyService.GetByAlbum(local.Id, null);
-            items.ForEach(x => x.AlbumId = target.Id);
+            items.ForEach(x => x.BookId = target.Id);
             _historyService.UpdateMany(items);
 
             // Finally delete the old album
@@ -279,9 +278,9 @@ namespace NzbDrone.Core.Music
 
         public void Execute(RefreshAlbumCommand message)
         {
-            if (message.AlbumId.HasValue)
+            if (message.BookId.HasValue)
             {
-                var album = _albumService.GetAlbum(message.AlbumId.Value);
+                var album = _albumService.GetAlbum(message.BookId.Value);
                 var artist = _artistService.GetArtistByMetadataId(album.AuthorMetadataId);
                 var updated = RefreshAlbumInfo(album, null, false);
                 if (updated)

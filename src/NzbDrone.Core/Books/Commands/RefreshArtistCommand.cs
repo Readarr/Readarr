@@ -4,21 +4,21 @@ namespace NzbDrone.Core.Music.Commands
 {
     public class RefreshArtistCommand : Command
     {
-        public int? ArtistId { get; set; }
+        public int? AuthorId { get; set; }
         public bool IsNewArtist { get; set; }
 
         public RefreshArtistCommand()
         {
         }
 
-        public RefreshArtistCommand(int? artistId, bool isNewArtist = false)
+        public RefreshArtistCommand(int? authorId, bool isNewArtist = false)
         {
-            ArtistId = artistId;
+            AuthorId = authorId;
             IsNewArtist = isNewArtist;
         }
 
         public override bool SendUpdatesToClient => true;
 
-        public override bool UpdateScheduledTask => !ArtistId.HasValue;
+        public override bool UpdateScheduledTask => !AuthorId.HasValue;
     }
 }

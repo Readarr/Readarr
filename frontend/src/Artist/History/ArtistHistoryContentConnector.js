@@ -26,13 +26,13 @@ class ArtistHistoryContentConnector extends Component {
 
   componentDidMount() {
     const {
-      artistId,
-      albumId
+      authorId,
+      bookId
     } = this.props;
 
     this.props.fetchArtistHistory({
-      artistId,
-      albumId
+      authorId,
+      bookId
     });
   }
 
@@ -45,14 +45,14 @@ class ArtistHistoryContentConnector extends Component {
 
   onMarkAsFailedPress = (historyId) => {
     const {
-      artistId,
-      albumId
+      authorId,
+      bookId
     } = this.props;
 
     this.props.artistHistoryMarkAsFailed({
       historyId,
-      artistId,
-      albumId
+      authorId,
+      bookId
     });
   }
 
@@ -76,8 +76,8 @@ class ArtistHistoryContentConnector extends Component {
 
 ArtistHistoryContentConnector.propTypes = {
   component: PropTypes.elementType.isRequired,
-  artistId: PropTypes.number.isRequired,
-  albumId: PropTypes.number,
+  authorId: PropTypes.number.isRequired,
+  bookId: PropTypes.number,
   fetchArtistHistory: PropTypes.func.isRequired,
   clearArtistHistory: PropTypes.func.isRequired,
   artistHistoryMarkAsFailed: PropTypes.func.isRequired

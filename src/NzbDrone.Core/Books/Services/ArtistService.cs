@@ -12,16 +12,16 @@ namespace NzbDrone.Core.Music
 {
     public interface IArtistService
     {
-        Author GetArtist(int artistId);
+        Author GetArtist(int authorId);
         Author GetArtistByMetadataId(int artistMetadataId);
-        List<Author> GetArtists(IEnumerable<int> artistIds);
+        List<Author> GetArtists(IEnumerable<int> authorIds);
         Author AddArtist(Author newArtist, bool doRefresh);
         List<Author> AddArtists(List<Author> newArtists);
-        Author FindById(string foreignArtistId);
+        Author FindById(string foreignAuthorId);
         Author FindByName(string title);
         Author FindByNameInexact(string title);
         List<Author> GetCandidates(string title);
-        void DeleteArtist(int artistId, bool deleteFiles, bool addImportListExclusion = false);
+        void DeleteArtist(int authorId, bool deleteFiles, bool addImportListExclusion = false);
         List<Author> GetAllArtists();
         List<Author> AllForTag(int tagId);
         Author UpdateArtist(Author artist);
@@ -74,17 +74,17 @@ namespace NzbDrone.Core.Music
             return _artistRepository.ArtistPathExists(folder);
         }
 
-        public void DeleteArtist(int artistId, bool deleteFiles, bool addImportListExclusion = false)
+        public void DeleteArtist(int authorId, bool deleteFiles, bool addImportListExclusion = false)
         {
             _cache.Clear();
-            var artist = _artistRepository.Get(artistId);
-            _artistRepository.Delete(artistId);
+            var artist = _artistRepository.Get(authorId);
+            _artistRepository.Delete(authorId);
             _eventAggregator.PublishEvent(new ArtistDeletedEvent(artist, deleteFiles, addImportListExclusion));
         }
 
-        public Author FindById(string foreignArtistId)
+        public Author FindById(string foreignAuthorId)
         {
-            return _artistRepository.FindById(foreignArtistId);
+            return _artistRepository.FindById(foreignAuthorId);
         }
 
         public Author FindByName(string title)
@@ -174,9 +174,9 @@ namespace NzbDrone.Core.Music
                                  .ToList();
         }
 
-        public Author GetArtist(int artistId)
+        public Author GetArtist(int authorId)
         {
-            return _artistRepository.Get(artistId);
+            return _artistRepository.Get(authorId);
         }
 
         public Author GetArtistByMetadataId(int artistMetadataId)
@@ -184,9 +184,9 @@ namespace NzbDrone.Core.Music
             return _artistRepository.GetArtistByMetadataId(artistMetadataId);
         }
 
-        public List<Author> GetArtists(IEnumerable<int> artistIds)
+        public List<Author> GetArtists(IEnumerable<int> authorIds)
         {
-            return _artistRepository.Get(artistIds).ToList();
+            return _artistRepository.Get(authorIds).ToList();
         }
 
         public void RemoveAddOptions(Author artist)

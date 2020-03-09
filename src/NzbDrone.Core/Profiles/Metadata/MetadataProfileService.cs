@@ -87,29 +87,13 @@ namespace NzbDrone.Core.Profiles.Metadata
             return _profileRepository.Exists(id);
         }
 
-        private void AddDefaultProfile(string name, List<PrimaryAlbumType> primAllowed, List<SecondaryAlbumType> secAllowed, List<ReleaseStatus> relAllowed)
+        private void AddDefaultProfile(string name, double minRating, int minRatingCount)
         {
-            var primaryTypes = PrimaryAlbumType.All
-                .OrderByDescending(l => l.Name)
-                .Select(v => new ProfilePrimaryAlbumTypeItem { PrimaryAlbumType = v, Allowed = primAllowed.Contains(v) })
-                .ToList();
-
-            var secondaryTypes = SecondaryAlbumType.All
-                .OrderByDescending(l => l.Name)
-                .Select(v => new ProfileSecondaryAlbumTypeItem { SecondaryAlbumType = v, Allowed = secAllowed.Contains(v) })
-                .ToList();
-
-            var releaseStatues = ReleaseStatus.All
-                .OrderByDescending(l => l.Name)
-                .Select(v => new ProfileReleaseStatusItem { ReleaseStatus = v, Allowed = relAllowed.Contains(v) })
-                .ToList();
-
             var profile = new MetadataProfile
             {
                 Name = name,
-                PrimaryAlbumTypes = primaryTypes,
-                SecondaryAlbumTypes = secondaryTypes,
-                ReleaseStatuses = releaseStatues
+                MinRating = minRating,
+                MinRatingCount = minRatingCount
             };
 
             Add(profile);
@@ -123,10 +107,8 @@ namespace NzbDrone.Core.Profiles.Metadata
             var emptyProfile = profiles.FirstOrDefault(x => x.Name == NONE_PROFILE_NAME);
 
             // make sure empty profile exists and is actually empty
-            if (emptyProfile != null &&
-                !emptyProfile.PrimaryAlbumTypes.Any(x => x.Allowed) &&
-                !emptyProfile.SecondaryAlbumTypes.Any(x => x.Allowed) &&
-                !emptyProfile.ReleaseStatuses.Any(x => x.Allowed))
+            // TODO: reinstate
+            if (emptyProfile != null)
             {
                 return;
             }
@@ -135,7 +117,8 @@ namespace NzbDrone.Core.Profiles.Metadata
             {
                 _logger.Info("Setting up standard metadata profile");
 
-                AddDefaultProfile("Standard", new List<PrimaryAlbumType> { PrimaryAlbumType.Album }, new List<SecondaryAlbumType> { SecondaryAlbumType.Studio }, new List<ReleaseStatus> { ReleaseStatus.Official });
+                AddDefaultProfile("All", 0, 0);
+                AddDefaultProfile("Standard", 0, 100);
             }
 
             if (emptyProfile != null)
@@ -158,7 +141,7 @@ namespace NzbDrone.Core.Profiles.Metadata
 
             _logger.Info("Setting up empty metadata profile");
 
-            AddDefaultProfile(NONE_PROFILE_NAME, new List<PrimaryAlbumType>(), new List<SecondaryAlbumType>(), new List<ReleaseStatus>());
+            AddDefaultProfile(NONE_PROFILE_NAME, 100, 1);
         }
     }
 }

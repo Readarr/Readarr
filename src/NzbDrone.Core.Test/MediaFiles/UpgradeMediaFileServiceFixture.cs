@@ -16,7 +16,7 @@ namespace NzbDrone.Core.Test.MediaFiles
 {
     public class UpgradeMediaFileServiceFixture : CoreTest<UpgradeMediaFileService>
     {
-        private TrackFile _trackFile;
+        private BookFile _trackFile;
         private LocalTrack _localTrack;
         private string _rootPath = @"C:\Test\Music\Artist".AsOsAgnostic();
 
@@ -29,7 +29,7 @@ namespace NzbDrone.Core.Test.MediaFiles
                 Path = _rootPath
             };
 
-            _trackFile = Builder<TrackFile>
+            _trackFile = Builder<BookFile>
                 .CreateNew()
                 .Build();
 
@@ -48,53 +48,15 @@ namespace NzbDrone.Core.Test.MediaFiles
 
         private void GivenSingleTrackWithSingleTrackFile()
         {
-            _localTrack.Tracks = Builder<Track>.CreateListOfSize(1)
-                                                     .All()
-                                                     .With(e => e.TrackFileId = 1)
-                                                     .With(e => e.TrackFile = new LazyLoaded<TrackFile>(
-                                                                                new TrackFile
-                                                                                {
-                                                                                    Id = 1,
-                                                                                    Path = Path.Combine(_rootPath, @"Season 01\30.rock.s01e01.avi"),
-                                                                                }))
-                                                     .Build()
-                                                     .ToList();
-        }
-
-        private void GivenMultipleTracksWithSingleTrackFile()
-        {
-            _localTrack.Tracks = Builder<Track>.CreateListOfSize(2)
-                                                     .All()
-                                                     .With(e => e.TrackFileId = 1)
-                                                     .With(e => e.TrackFile = new LazyLoaded<TrackFile>(
-                                                                                new TrackFile
-                                                                                {
-                                                                                    Id = 1,
-                                                                                    Path = Path.Combine(_rootPath, @"Season 01\30.rock.s01e01.avi"),
-                                                                                }))
-                                                     .Build()
-                                                     .ToList();
-        }
-
-        private void GivenMultipleTracksWithMultipleTrackFiles()
-        {
-            _localTrack.Tracks = Builder<Track>.CreateListOfSize(2)
-                                                     .TheFirst(1)
-                                                     .With(e => e.TrackFile = new LazyLoaded<TrackFile>(
-                                                                                new TrackFile
-                                                                                {
-                                                                                    Id = 1,
-                                                                                    Path = Path.Combine(_rootPath, @"Season 01\30.rock.s01e01.avi"),
-                                                                                }))
-                                                     .TheNext(1)
-                                                     .With(e => e.TrackFile = new LazyLoaded<TrackFile>(
-                                                                                new TrackFile
-                                                                                {
-                                                                                    Id = 2,
-                                                                                    Path = Path.Combine(_rootPath, @"Season 01\30.rock.s01e02.avi"),
-                                                                                }))
-                                                     .Build()
-                                                     .ToList();
+            _localTrack.Album = Builder<Book>.CreateNew()
+                .With(e => e.BookFileId = 1)
+                .With(e => e.BookFile = new LazyLoaded<BookFile>(
+                          new BookFile
+                          {
+                              Id = 1,
+                              Path = Path.Combine(_rootPath, @"Season 01\30.rock.s01e01.avi"),
+                          }))
+                .Build();
         }
 
         [Test]
@@ -108,33 +70,13 @@ namespace NzbDrone.Core.Test.MediaFiles
         }
 
         [Test]
-        public void should_delete_the_same_track_file_only_once()
-        {
-            GivenMultipleTracksWithSingleTrackFile();
-
-            Subject.UpgradeTrackFile(_trackFile, _localTrack);
-
-            Mocker.GetMock<IRecycleBinProvider>().Verify(v => v.DeleteFile(It.IsAny<string>(), It.IsAny<string>()), Times.Once());
-        }
-
-        [Test]
-        public void should_delete_multiple_different_track_files()
-        {
-            GivenMultipleTracksWithMultipleTrackFiles();
-
-            Subject.UpgradeTrackFile(_trackFile, _localTrack);
-
-            Mocker.GetMock<IRecycleBinProvider>().Verify(v => v.DeleteFile(It.IsAny<string>(), It.IsAny<string>()), Times.Exactly(2));
-        }
-
-        [Test]
         public void should_delete_track_file_from_database()
         {
             GivenSingleTrackWithSingleTrackFile();
 
             Subject.UpgradeTrackFile(_trackFile, _localTrack);
 
-            Mocker.GetMock<IMediaFileService>().Verify(v => v.Delete(It.IsAny<TrackFile>(), DeleteMediaFileReason.Upgrade), Times.Once());
+            Mocker.GetMock<IMediaFileService>().Verify(v => v.Delete(It.IsAny<BookFile>(), DeleteMediaFileReason.Upgrade), Times.Once());
         }
 
         [Test]
@@ -148,7 +90,7 @@ namespace NzbDrone.Core.Test.MediaFiles
 
             Subject.UpgradeTrackFile(_trackFile, _localTrack);
 
-            Mocker.GetMock<IMediaFileService>().Verify(v => v.Delete(_localTrack.Tracks.Single().TrackFile.Value, DeleteMediaFileReason.Upgrade), Times.Once());
+            Mocker.GetMock<IMediaFileService>().Verify(v => v.Delete(_localTrack.Album.BookFile.Value, DeleteMediaFileReason.Upgrade), Times.Once());
         }
 
         [Test]
@@ -174,26 +116,16 @@ namespace NzbDrone.Core.Test.MediaFiles
         }
 
         [Test]
-        public void should_return_old_track_files_in_oldFiles()
-        {
-            GivenMultipleTracksWithMultipleTrackFiles();
-
-            Subject.UpgradeTrackFile(_trackFile, _localTrack).OldFiles.Count.Should().Be(2);
-        }
-
-        [Test]
         public void should_import_if_existing_file_doesnt_exist_in_db()
         {
-            _localTrack.Tracks = Builder<Track>.CreateListOfSize(1)
-                                                     .All()
-                                                     .With(e => e.TrackFileId = 1)
-                                                     .With(e => e.TrackFile = new LazyLoaded<TrackFile>(null))
-                                                     .Build()
-                                                     .ToList();
+            _localTrack.Album = Builder<Book>.CreateNew()
+                .With(e => e.BookFileId = 1)
+                .With(e => e.BookFile = new LazyLoaded<BookFile>(null))
+                .Build();
 
             Subject.UpgradeTrackFile(_trackFile, _localTrack);
 
-            Mocker.GetMock<IMediaFileService>().Verify(v => v.Delete(_localTrack.Tracks.Single().TrackFile.Value, It.IsAny<DeleteMediaFileReason>()), Times.Never());
+            Mocker.GetMock<IMediaFileService>().Verify(v => v.Delete(_localTrack.Album.BookFile.Value, It.IsAny<DeleteMediaFileReason>()), Times.Never());
         }
     }
 }

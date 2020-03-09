@@ -63,7 +63,6 @@ namespace NzbDrone.Core.Notifications.CustomScript
         {
             var artist = message.Artist;
             var album = message.Album;
-            var release = message.Release;
             var environmentVariables = new StringDictionary();
 
             environmentVariables.Add("Readarr_EventType", "AlbumDownload");
@@ -75,7 +74,6 @@ namespace NzbDrone.Core.Notifications.CustomScript
             environmentVariables.Add("Readarr_Album_Id", album.Id.ToString());
             environmentVariables.Add("Readarr_Album_Title", album.Title);
             environmentVariables.Add("Readarr_Album_MBId", album.ForeignBookId);
-            environmentVariables.Add("Readarr_AlbumRelease_MBId", release.ForeignReleaseId);
             environmentVariables.Add("Readarr_Album_ReleaseDate", album.ReleaseDate.ToString());
             environmentVariables.Add("Readarr_Download_Client", message.DownloadClient ?? string.Empty);
             environmentVariables.Add("Readarr_Download_Id", message.DownloadId ?? string.Empty);
@@ -111,7 +109,6 @@ namespace NzbDrone.Core.Notifications.CustomScript
         {
             var artist = message.Artist;
             var album = message.Album;
-            var release = message.Release;
             var trackFile = message.TrackFile;
             var environmentVariables = new StringDictionary();
 
@@ -124,13 +121,9 @@ namespace NzbDrone.Core.Notifications.CustomScript
             environmentVariables.Add("Readarr_Album_Id", album.Id.ToString());
             environmentVariables.Add("Readarr_Album_Title", album.Title);
             environmentVariables.Add("Readarr_Album_MBId", album.ForeignBookId);
-            environmentVariables.Add("Readarr_AlbumRelease_MBId", release.ForeignReleaseId);
             environmentVariables.Add("Readarr_Album_ReleaseDate", album.ReleaseDate.ToString());
             environmentVariables.Add("Readarr_TrackFile_Id", trackFile.Id.ToString());
-            environmentVariables.Add("Readarr_TrackFile_TrackCount", trackFile.Tracks.Value.Count.ToString());
             environmentVariables.Add("Readarr_TrackFile_Path", trackFile.Path);
-            environmentVariables.Add("Readarr_TrackFile_TrackNumbers", string.Join(",", trackFile.Tracks.Value.Select(e => e.TrackNumber)));
-            environmentVariables.Add("Readarr_TrackFile_TrackTitles", string.Join("|", trackFile.Tracks.Value.Select(e => e.Title)));
             environmentVariables.Add("Readarr_TrackFile_Quality", trackFile.Quality.Quality.Name);
             environmentVariables.Add("Readarr_TrackFile_QualityVersion", trackFile.Quality.Revision.Version.ToString());
             environmentVariables.Add("Readarr_TrackFile_ReleaseGroup", trackFile.ReleaseGroup ?? string.Empty);

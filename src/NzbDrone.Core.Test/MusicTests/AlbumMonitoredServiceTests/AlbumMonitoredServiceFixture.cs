@@ -46,10 +46,6 @@ namespace NzbDrone.Core.Test.MusicTests.AlbumMonitoredServiceTests
             Mocker.GetMock<IAlbumService>()
                 .Setup(s => s.GetArtistAlbumsWithFiles(It.IsAny<Author>()))
                 .Returns(new List<Book>());
-
-            Mocker.GetMock<ITrackService>()
-                .Setup(s => s.GetTracksByAlbum(It.IsAny<int>()))
-                .Returns(new List<Track>());
         }
 
         [Test]

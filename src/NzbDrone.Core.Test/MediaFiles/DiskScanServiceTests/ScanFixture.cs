@@ -53,11 +53,11 @@ namespace NzbDrone.Core.Test.MediaFiles.DiskScanServiceTests
 
             Mocker.GetMock<IMediaFileService>()
                 .Setup(v => v.GetFilesByArtist(It.IsAny<int>()))
-                .Returns(new List<TrackFile>());
+                .Returns(new List<BookFile>());
 
             Mocker.GetMock<IMediaFileService>()
                 .Setup(v => v.GetFilesWithBasePath(It.IsAny<string>()))
-                .Returns(new List<TrackFile>());
+                .Returns(new List<BookFile>());
 
             Mocker.GetMock<IMediaFileService>()
                 .Setup(v => v.FilterUnchangedFiles(It.IsAny<List<IFileInfo>>(), It.IsAny<FilterFilesType>()))
@@ -105,7 +105,7 @@ namespace NzbDrone.Core.Test.MediaFiles.DiskScanServiceTests
 
             Mocker.GetMock<IMediaFileService>()
                 .Setup(x => x.GetFilesWithBasePath(_artist.Path))
-                .Returns(files.Select(x => new TrackFile
+                .Returns(files.Select(x => new BookFile
                 {
                     Path = x,
                     Modified = lastWrite.Value.UtcDateTime
@@ -397,7 +397,7 @@ namespace NzbDrone.Core.Test.MediaFiles.DiskScanServiceTests
             Subject.Scan(new List<string> { _artist.Path });
 
             Mocker.GetMock<IMediaFileService>()
-                .Verify(x => x.AddMany(It.Is<List<TrackFile>>(l => l.Select(t => t.Path).SequenceEqual(files))),
+                .Verify(x => x.AddMany(It.Is<List<BookFile>>(l => l.Select(t => t.Path).SequenceEqual(files))),
                         Times.Once());
         }
 
@@ -417,7 +417,7 @@ namespace NzbDrone.Core.Test.MediaFiles.DiskScanServiceTests
             Subject.Scan(new List<string> { _artist.Path });
 
             Mocker.GetMock<IMediaFileService>()
-                .Verify(x => x.AddMany(It.Is<List<TrackFile>>(l => l.Select(t => t.Path).SequenceEqual(files.GetRange(0, 1)))),
+                .Verify(x => x.AddMany(It.Is<List<BookFile>>(l => l.Select(t => t.Path).SequenceEqual(files.GetRange(0, 1)))),
                         Times.Once());
         }
 
@@ -437,11 +437,11 @@ namespace NzbDrone.Core.Test.MediaFiles.DiskScanServiceTests
             Subject.Scan(new List<string> { _artist.Path });
 
             Mocker.GetMock<IMediaFileService>()
-                .Verify(x => x.AddMany(It.Is<List<TrackFile>>(l => l.Count == 0)),
+                .Verify(x => x.AddMany(It.Is<List<BookFile>>(l => l.Count == 0)),
                         Times.Once());
 
             Mocker.GetMock<IMediaFileService>()
-                .Verify(x => x.AddMany(It.Is<List<TrackFile>>(l => l.Count > 0)),
+                .Verify(x => x.AddMany(It.Is<List<BookFile>>(l => l.Count > 0)),
                         Times.Never());
         }
 
@@ -461,11 +461,11 @@ namespace NzbDrone.Core.Test.MediaFiles.DiskScanServiceTests
             Subject.Scan(new List<string> { _artist.Path });
 
             Mocker.GetMock<IMediaFileService>()
-                .Verify(x => x.Update(It.Is<List<TrackFile>>(l => l.Count == 0)),
+                .Verify(x => x.Update(It.Is<List<BookFile>>(l => l.Count == 0)),
                         Times.Once());
 
             Mocker.GetMock<IMediaFileService>()
-                .Verify(x => x.Update(It.Is<List<TrackFile>>(l => l.Count > 0)),
+                .Verify(x => x.Update(It.Is<List<BookFile>>(l => l.Count > 0)),
                         Times.Never());
         }
 
@@ -485,7 +485,7 @@ namespace NzbDrone.Core.Test.MediaFiles.DiskScanServiceTests
             Subject.Scan(new List<string> { _artist.Path });
 
             Mocker.GetMock<IMediaFileService>()
-                .Verify(x => x.Update(It.Is<List<TrackFile>>(l => l.Count == 2)),
+                .Verify(x => x.Update(It.Is<List<BookFile>>(l => l.Count == 2)),
                         Times.Once());
         }
 
@@ -519,7 +519,7 @@ namespace NzbDrone.Core.Test.MediaFiles.DiskScanServiceTests
             Subject.Scan(new List<string> { _artist.Path });
 
             Mocker.GetMock<IMediaFileService>()
-                .Verify(x => x.Update(It.Is<List<TrackFile>>(
+                .Verify(x => x.Update(It.Is<List<BookFile>>(
                                           l => l.Count == 1  &&
                                           l[0].Path == localTrack.Path &&
                                           l[0].Modified == localTrack.Modified &&

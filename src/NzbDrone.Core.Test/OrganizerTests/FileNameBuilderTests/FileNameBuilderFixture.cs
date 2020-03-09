@@ -18,10 +18,7 @@ namespace NzbDrone.Core.Test.OrganizerTests.FileNameBuilderTests
     {
         private Author _artist;
         private Book _album;
-        private Medium _medium;
-        private AlbumRelease _release;
-        private Track _track1;
-        private TrackFile _trackFile;
+        private BookFile _trackFile;
         private NamingConfig _namingConfig;
 
         [SetUp]
@@ -37,17 +34,6 @@ namespace NzbDrone.Core.Test.OrganizerTests.FileNameBuilderTests
                     })
                     .Build();
 
-            _medium = Builder<Medium>
-                .CreateNew()
-                .With(m => m.Number = 3)
-                .Build();
-
-            _release = Builder<AlbumRelease>
-                .CreateNew()
-                .With(s => s.Media = new List<Medium> { _medium })
-                .With(s => s.Monitored = true)
-                .Build();
-
             _album = Builder<Book>
                 .CreateNew()
                 .With(s => s.Title = "Hybrid Theory")
@@ -60,15 +46,8 @@ namespace NzbDrone.Core.Test.OrganizerTests.FileNameBuilderTests
             Mocker.GetMock<INamingConfigService>()
                   .Setup(c => c.GetConfig()).Returns(_namingConfig);
 
-            _track1 = Builder<Track>.CreateNew()
-                            .With(e => e.Title = "City Sushi")
-                            .With(e => e.AbsoluteTrackNumber = 6)
-                            .With(e => e.AlbumRelease = _release)
-                            .With(e => e.MediumNumber = _medium.Number)
-                            .Build();
-
-            _trackFile = Builder<TrackFile>.CreateNew()
-                .With(e => e.Quality = new QualityModel(Quality.MP3_256))
+            _trackFile = Builder<BookFile>.CreateNew()
+                .With(e => e.Quality = new QualityModel(Quality.MP3_320))
                 .With(e => e.ReleaseGroup = "ReadarrTest")
                 .With(e => e.MediaInfo = new Parser.Model.MediaInfoModel
                 {
@@ -288,7 +267,6 @@ namespace NzbDrone.Core.Test.OrganizerTests.FileNameBuilderTests
         [Test]
         public void should_replace_track_number_with_single_digit()
         {
-            _track1.AbsoluteTrackNumber = 1;
             _namingConfig.StandardTrackFormat = "{track}";
 
             Subject.BuildTrackFileName(_artist, _album, _trackFile)
@@ -298,7 +276,6 @@ namespace NzbDrone.Core.Test.OrganizerTests.FileNameBuilderTests
         [Test]
         public void should_replace_track00_number_with_two_digits()
         {
-            _track1.AbsoluteTrackNumber = 1;
             _namingConfig.StandardTrackFormat = "{track:00}";
 
             Subject.BuildTrackFileName(_artist, _album, _trackFile)
@@ -421,7 +398,6 @@ namespace NzbDrone.Core.Test.OrganizerTests.FileNameBuilderTests
         public void should_not_clean_track_title_if_there_is_only_one()
         {
             var title = "City Sushi (1)";
-            _track1.Title = title;
 
             _namingConfig.StandardTrackFormat = "{Track Title}";
 
@@ -456,12 +432,6 @@ namespace NzbDrone.Core.Test.OrganizerTests.FileNameBuilderTests
         {
             _namingConfig.StandardTrackFormat = "{Artist.Name}.{track:00}.{Track.Title}";
 
-            var track = Builder<Track>.CreateNew()
-                            .With(e => e.Title = "Part 1")
-                            .With(e => e.AbsoluteTrackNumber = 6)
-                            .With(e => e.AlbumRelease = _release)
-                            .Build();
-
             Subject.BuildTrackFileName(new Author { Name = "In The Woods." }, new Book { Title = "30 Rock" }, _trackFile)
                    .Should().Be("In.The.Woods.06.Part.1");
         }
@@ -470,12 +440,6 @@ namespace NzbDrone.Core.Test.OrganizerTests.FileNameBuilderTests
         public void should_replace_triple_period_with_single_period()
         {
             _namingConfig.StandardTrackFormat = "{Artist.Name}.{track:00}.{Track.Title}";
-
-            var track = Builder<Track>.CreateNew()
-                            .With(e => e.Title = "Part 1")
-                            .With(e => e.AbsoluteTrackNumber = 6)
-                            .With(e => e.AlbumRelease = _release)
-                            .Build();
 
             Subject.BuildTrackFileName(new Author { Name = "In The Woods..." }, new Book { Title = "30 Rock" }, _trackFile)
                    .Should().Be("In.The.Woods.06.Part.1");
@@ -494,8 +458,6 @@ namespace NzbDrone.Core.Test.OrganizerTests.FileNameBuilderTests
         public void should_not_include_affixes_if_value_empty()
         {
             _namingConfig.StandardTrackFormat = "{Artist.Name}.{track:00}{_Track.Title_}";
-
-            _track1.Title = "";
 
             Subject.BuildTrackFileName(_artist, _album, _trackFile)
                    .Should().Be("Linkin.Park.06");

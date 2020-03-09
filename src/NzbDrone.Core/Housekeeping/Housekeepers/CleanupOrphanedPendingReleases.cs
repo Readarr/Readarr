@@ -20,7 +20,7 @@ namespace NzbDrone.Core.Housekeeping.Housekeepers
                                      WHERE Id IN (
                                      SELECT PendingReleases.Id FROM PendingReleases
                                      LEFT OUTER JOIN Artists
-                                     ON PendingReleases.ArtistId = Artists.Id
+                                     ON PendingReleases.AuthorId = Artists.Id
                                      WHERE Artists.Id IS NULL)");
             }
         }

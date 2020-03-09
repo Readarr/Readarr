@@ -28,8 +28,8 @@ namespace NzbDrone.Core.Test.Download.TrackedDownloads
                 {
                      DownloadId = "35238",
                      SourceTitle = "Audio Artist - Audio Album [2018 - FLAC]",
-                     ArtistId = 5,
-                     AlbumId = 4,
+                     AuthorId = 5,
+                     BookId = 4,
                 }
                 });
         }

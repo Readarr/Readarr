@@ -9,13 +9,13 @@ namespace NzbDrone.Core.Music.Commands
         {
         }
 
-        public BulkRefreshArtistCommand(List<int> artistIds, bool areNewArtists = false)
+        public BulkRefreshArtistCommand(List<int> authorIds, bool areNewArtists = false)
         {
-            ArtistIds = artistIds;
+            AuthorIds = authorIds;
             AreNewArtists = areNewArtists;
         }
 
-        public List<int> ArtistIds { get; set; }
+        public List<int> AuthorIds { get; set; }
         public bool AreNewArtists { get; set; }
 
         public override bool SendUpdatesToClient => true;

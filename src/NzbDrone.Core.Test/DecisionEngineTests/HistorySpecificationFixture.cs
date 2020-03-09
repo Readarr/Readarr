@@ -57,18 +57,18 @@ namespace NzbDrone.Core.Test.DecisionEngineTests
             _parseResultMulti = new RemoteAlbum
             {
                 Artist = _fakeArtist,
-                ParsedAlbumInfo = new ParsedAlbumInfo { Quality = new QualityModel(Quality.MP3_192, new Revision(version: 2)) },
+                ParsedAlbumInfo = new ParsedAlbumInfo { Quality = new QualityModel(Quality.MP3_320, new Revision(version: 2)) },
                 Albums = doubleAlbumList
             };
 
             _parseResultSingle = new RemoteAlbum
             {
                 Artist = _fakeArtist,
-                ParsedAlbumInfo = new ParsedAlbumInfo { Quality = new QualityModel(Quality.MP3_192, new Revision(version: 2)) },
+                ParsedAlbumInfo = new ParsedAlbumInfo { Quality = new QualityModel(Quality.MP3_320, new Revision(version: 2)) },
                 Albums = singleAlbumList
             };
 
-            _upgradableQuality = new QualityModel(Quality.MP3_192, new Revision(version: 1));
+            _upgradableQuality = new QualityModel(Quality.MP3_320, new Revision(version: 1));
             _notupgradableQuality = new QualityModel(Quality.MP3_320, new Revision(version: 2));
 
             Mocker.GetMock<IConfigService>()
@@ -76,9 +76,9 @@ namespace NzbDrone.Core.Test.DecisionEngineTests
                   .Returns(true);
         }
 
-        private void GivenMostRecentForAlbum(int albumId, string downloadId, QualityModel quality, DateTime date, HistoryEventType eventType)
+        private void GivenMostRecentForAlbum(int bookId, string downloadId, QualityModel quality, DateTime date, HistoryEventType eventType)
         {
-            Mocker.GetMock<IHistoryService>().Setup(s => s.MostRecentForAlbum(albumId))
+            Mocker.GetMock<IHistoryService>().Setup(s => s.MostRecentForAlbum(bookId))
                   .Returns(new History.History { DownloadId = downloadId, Quality = quality, Date = date, EventType = eventType });
         }
 

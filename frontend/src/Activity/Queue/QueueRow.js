@@ -143,7 +143,7 @@ class QueueRow extends Component {
                   {
                     artist ?
                       <ArtistNameLink
-                        foreignArtistId={artist.foreignArtistId}
+                        foreignAuthorId={artist.foreignAuthorId}
                         artistName={artist.artistName}
                       /> :
                       title
@@ -158,7 +158,7 @@ class QueueRow extends Component {
                   {
                     album ?
                       <AlbumTitleLink
-                        foreignAlbumId={album.foreignAlbumId}
+                        foreignBookId={album.foreignBookId}
                         title={album.title}
                         disambiguation={album.disambiguation}
                       /> :

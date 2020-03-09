@@ -54,14 +54,14 @@ namespace NzbDrone.Core.Test.MusicTests
                   .Returns<Author, NamingConfig>((c, n) => c.Name);
         }
 
-        private Book AlbumToAdd(string albumId, string artistId)
+        private Book AlbumToAdd(string bookId, string authorId)
         {
             return new Book
             {
-                ForeignBookId = albumId,
+                ForeignBookId = bookId,
                 AuthorMetadata = new AuthorMetadata
                 {
-                    ForeignAuthorId = artistId
+                    ForeignAuthorId = authorId
                 }
             };
         }

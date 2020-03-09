@@ -1,3 +1,4 @@
+using System.IO;
 using NzbDrone.Core.Datastore;
 
 namespace NzbDrone.Core.Organizer
@@ -8,7 +9,7 @@ namespace NzbDrone.Core.Organizer
         {
             RenameTracks = false,
             ReplaceIllegalCharacters = true,
-            StandardTrackFormat = "{Artist Name} - {Album Title}",
+            StandardTrackFormat = "{Album Title}" + Path.DirectorySeparatorChar + "{Artist Name} - {Album Title}",
             ArtistFolderFormat = "{Artist Name}",
         };
 

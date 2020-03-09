@@ -39,17 +39,17 @@ const selectTrackFiles = createSelector(
 
 function createMapStateToProps() {
   return createSelector(
-    (state, { foreignAlbumId }) => foreignAlbumId,
+    (state, { foreignBookId }) => foreignBookId,
     selectTrackFiles,
     (state) => state.albums,
     createAllArtistSelector(),
     createCommandsSelector(),
     createUISettingsSelector(),
-    (foreignAlbumId, trackFiles, albums, artists, commands, uiSettings) => {
+    (foreignBookId, trackFiles, albums, artists, commands, uiSettings) => {
       const sortedAlbums = _.orderBy(albums.items, 'releaseDate');
-      const albumIndex = _.findIndex(sortedAlbums, { foreignAlbumId });
+      const albumIndex = _.findIndex(sortedAlbums, { foreignBookId });
       const album = sortedAlbums[albumIndex];
-      const artist = _.find(artists, { id: album.artistId });
+      const artist = _.find(artists, { id: album.authorId });
 
       if (!album) {
         return {};
@@ -67,7 +67,7 @@ function createMapStateToProps() {
       const isSearchingCommand = findCommand(commands, { name: commandNames.ALBUM_SEARCH });
       const isSearching = (
         isCommandExecuting(isSearchingCommand) &&
-        isSearchingCommand.body.albumIds.indexOf(album.id) > -1
+        isSearchingCommand.body.bookIds.indexOf(album.id) > -1
       );
 
       const isFetching = isTrackFilesFetching;
@@ -124,9 +124,9 @@ class AlbumDetailsConnector extends Component {
   // Control
 
   populate = () => {
-    const albumId = this.props.id;
+    const bookId = this.props.id;
 
-    this.props.fetchTrackFiles({ albumId });
+    this.props.fetchTrackFiles({ bookId });
   }
 
   unpopulate = () => {
@@ -140,7 +140,7 @@ class AlbumDetailsConnector extends Component {
 
   onMonitorTogglePress = (monitored) => {
     this.props.toggleAlbumsMonitored({
-      albumIds: [this.props.id],
+      bookIds: [this.props.id],
       monitored
     });
   }
@@ -148,7 +148,7 @@ class AlbumDetailsConnector extends Component {
   onSearchPress = () => {
     this.props.executeCommand({
       name: commandNames.ALBUM_SEARCH,
-      albumIds: [this.props.id]
+      bookIds: [this.props.id]
     });
   }
 
@@ -171,7 +171,7 @@ AlbumDetailsConnector.propTypes = {
   anyReleaseOk: PropTypes.bool,
   isAlbumFetching: PropTypes.bool,
   isAlbumPopulated: PropTypes.bool,
-  foreignAlbumId: PropTypes.string.isRequired,
+  foreignBookId: PropTypes.string.isRequired,
   fetchTrackFiles: PropTypes.func.isRequired,
   clearTrackFiles: PropTypes.func.isRequired,
   clearReleases: PropTypes.func.isRequired,

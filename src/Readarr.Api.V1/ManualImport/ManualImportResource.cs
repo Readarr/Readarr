@@ -6,7 +6,6 @@ using NzbDrone.Core.Parser.Model;
 using NzbDrone.Core.Qualities;
 using Readarr.Api.V1.Albums;
 using Readarr.Api.V1.Artist;
-using Readarr.Api.V1.Tracks;
 using Readarr.Http.REST;
 
 namespace Readarr.Api.V1.ManualImport

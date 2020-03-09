@@ -43,47 +43,32 @@ namespace NzbDrone.Core.Test.MediaFiles
                 .With(e => e.Author = artist)
                 .Build();
 
-            var release = Builder<AlbumRelease>.CreateNew()
-                .With(e => e.AlbumId = album.Id)
-                .With(e => e.Monitored = true)
-                .Build();
-
-            album.AlbumReleases = new List<AlbumRelease> { release };
-
-            var tracks = Builder<Track>.CreateListOfSize(5)
-                                           .Build();
-
             _rejectedDecisions.Add(new ImportDecision<LocalTrack>(new LocalTrack(), new Rejection("Rejected!")));
             _rejectedDecisions.Add(new ImportDecision<LocalTrack>(new LocalTrack(), new Rejection("Rejected!")));
             _rejectedDecisions.Add(new ImportDecision<LocalTrack>(new LocalTrack(), new Rejection("Rejected!")));
 
-            foreach (var track in tracks)
-            {
-                _approvedDecisions.Add(new ImportDecision<LocalTrack>(
-                                           new LocalTrack
+            _approvedDecisions.Add(new ImportDecision<LocalTrack>(
+                                       new LocalTrack
+                                       {
+                                           Artist = artist,
+                                           Album = album,
+                                           Path = Path.Combine(artist.Path, "Alien Ant Farm - 01 - Pilot.mp3"),
+                                           Quality = new QualityModel(Quality.MP3_320),
+                                           FileTrackInfo = new ParsedTrackInfo
                                            {
-                                               Artist = artist,
-                                               Album = album,
-                                               Release = release,
-                                               Tracks = new List<Track> { track },
-                                               Path = Path.Combine(artist.Path, "Alien Ant Farm - 01 - Pilot.mp3"),
-                                               Quality = new QualityModel(Quality.MP3_256),
-                                               FileTrackInfo = new ParsedTrackInfo
-                                               {
-                                                   ReleaseGroup = "DRONE"
-                                               }
-                                           }));
-            }
+                                               ReleaseGroup = "DRONE"
+                                           }
+                                       }));
 
             Mocker.GetMock<IUpgradeMediaFiles>()
-                  .Setup(s => s.UpgradeTrackFile(It.IsAny<TrackFile>(), It.IsAny<LocalTrack>(), It.IsAny<bool>()))
+                  .Setup(s => s.UpgradeTrackFile(It.IsAny<BookFile>(), It.IsAny<LocalTrack>(), It.IsAny<bool>()))
                   .Returns(new TrackFileMoveResult());
 
             _downloadClientItem = Builder<DownloadClientItem>.CreateNew().Build();
 
             Mocker.GetMock<IMediaFileService>()
                 .Setup(s => s.GetFilesByAlbum(It.IsAny<int>()))
-                .Returns(new List<TrackFile>());
+                .Returns(new List<BookFile>());
         }
 
         [Test]
@@ -91,7 +76,7 @@ namespace NzbDrone.Core.Test.MediaFiles
         {
             Subject.Import(_rejectedDecisions, false).Where(i => i.Result == ImportResultType.Imported).Should().BeEmpty();
 
-            Mocker.GetMock<IMediaFileService>().Verify(v => v.Add(It.IsAny<TrackFile>()), Times.Never());
+            Mocker.GetMock<IMediaFileService>().Verify(v => v.Add(It.IsAny<BookFile>()), Times.Never());
         }
 
         [Test]
@@ -131,7 +116,7 @@ namespace NzbDrone.Core.Test.MediaFiles
             Subject.Import(new List<ImportDecision<LocalTrack>> { _approvedDecisions.First() }, true);
 
             Mocker.GetMock<IUpgradeMediaFiles>()
-                  .Verify(v => v.UpgradeTrackFile(It.IsAny<TrackFile>(), _approvedDecisions.First().Item, false),
+                  .Verify(v => v.UpgradeTrackFile(It.IsAny<BookFile>(), _approvedDecisions.First().Item, false),
                           Times.Once());
         }
 
@@ -152,7 +137,7 @@ namespace NzbDrone.Core.Test.MediaFiles
             Subject.Import(new List<ImportDecision<LocalTrack>> { track }, false);
 
             Mocker.GetMock<IUpgradeMediaFiles>()
-                  .Verify(v => v.UpgradeTrackFile(It.IsAny<TrackFile>(), _approvedDecisions.First().Item, false),
+                  .Verify(v => v.UpgradeTrackFile(It.IsAny<BookFile>(), _approvedDecisions.First().Item, false),
                           Times.Never());
         }
 
@@ -167,9 +152,8 @@ namespace NzbDrone.Core.Test.MediaFiles
                 {
                     Artist = fileDecision.Item.Artist,
                     Album = fileDecision.Item.Album,
-                    Tracks = new List<Track> { fileDecision.Item.Tracks.First() },
                     Path = @"C:\Test\Music\Alien Ant Farm\Alien Ant Farm - 01 - Pilot.mp3".AsOsAgnostic(),
-                    Quality = new QualityModel(Quality.MP3_256),
+                    Quality = new QualityModel(Quality.MP3_320),
                     Size = 80.Megabytes()
                 });
 
@@ -190,7 +174,7 @@ namespace NzbDrone.Core.Test.MediaFiles
             Subject.Import(new List<ImportDecision<LocalTrack>> { _approvedDecisions.First() }, true, new DownloadClientItem { Title = "Alien.Ant.Farm-Truant", CanMoveFiles = false });
 
             Mocker.GetMock<IUpgradeMediaFiles>()
-                  .Verify(v => v.UpgradeTrackFile(It.IsAny<TrackFile>(), _approvedDecisions.First().Item, true), Times.Once());
+                  .Verify(v => v.UpgradeTrackFile(It.IsAny<BookFile>(), _approvedDecisions.First().Item, true), Times.Once());
         }
 
         [Test]
@@ -199,7 +183,7 @@ namespace NzbDrone.Core.Test.MediaFiles
             Subject.Import(new List<ImportDecision<LocalTrack>> { _approvedDecisions.First() }, true, new DownloadClientItem { Title = "Alien.Ant.Farm-Truant", CanMoveFiles = false }, ImportMode.Move);
 
             Mocker.GetMock<IUpgradeMediaFiles>()
-                  .Verify(v => v.UpgradeTrackFile(It.IsAny<TrackFile>(), _approvedDecisions.First().Item, false), Times.Once());
+                  .Verify(v => v.UpgradeTrackFile(It.IsAny<BookFile>(), _approvedDecisions.First().Item, false), Times.Once());
         }
 
         [Test]
@@ -207,14 +191,14 @@ namespace NzbDrone.Core.Test.MediaFiles
         {
             Mocker.GetMock<IMediaFileService>()
                 .Setup(s => s.GetFileWithPath(It.IsAny<string>()))
-                .Returns(Builder<TrackFile>.CreateNew().Build());
+                .Returns(Builder<BookFile>.CreateNew().Build());
 
             var track = _approvedDecisions.First();
             track.Item.ExistingFile = true;
             Subject.Import(new List<ImportDecision<LocalTrack>> { track }, false);
 
             Mocker.GetMock<IMediaFileService>()
-                .Verify(v => v.Delete(It.IsAny<TrackFile>(), DeleteMediaFileReason.ManualOverride), Times.Once());
+                .Verify(v => v.Delete(It.IsAny<BookFile>(), DeleteMediaFileReason.ManualOverride), Times.Once());
         }
     }
 }

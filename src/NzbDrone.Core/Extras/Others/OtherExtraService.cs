@@ -26,12 +26,12 @@ namespace NzbDrone.Core.Extras.Others
 
         public override int Order => 2;
 
-        public override IEnumerable<ExtraFile> CreateAfterArtistScan(Author artist, List<TrackFile> trackFiles)
+        public override IEnumerable<ExtraFile> CreateAfterArtistScan(Author artist, List<BookFile> trackFiles)
         {
             return Enumerable.Empty<ExtraFile>();
         }
 
-        public override IEnumerable<ExtraFile> CreateAfterTrackImport(Author artist, TrackFile trackFile)
+        public override IEnumerable<ExtraFile> CreateAfterTrackImport(Author artist, BookFile trackFile)
         {
             return Enumerable.Empty<ExtraFile>();
         }
@@ -41,7 +41,7 @@ namespace NzbDrone.Core.Extras.Others
             return Enumerable.Empty<ExtraFile>();
         }
 
-        public override IEnumerable<ExtraFile> MoveFilesAfterRename(Author artist, List<TrackFile> trackFiles)
+        public override IEnumerable<ExtraFile> MoveFilesAfterRename(Author artist, List<BookFile> trackFiles)
         {
             var extraFiles = _otherExtraFileService.GetFilesByArtist(artist.Id);
             var movedFiles = new List<OtherExtraFile>();
@@ -61,7 +61,7 @@ namespace NzbDrone.Core.Extras.Others
             return movedFiles;
         }
 
-        public override ExtraFile Import(Author artist, TrackFile trackFile, string path, string extension, bool readOnly)
+        public override ExtraFile Import(Author artist, BookFile trackFile, string path, string extension, bool readOnly)
         {
             var extraFile = ImportFile(artist, trackFile, path, readOnly, extension, null);
 

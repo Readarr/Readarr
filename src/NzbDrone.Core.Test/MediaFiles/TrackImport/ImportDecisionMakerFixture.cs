@@ -28,7 +28,6 @@ namespace NzbDrone.Core.Test.MediaFiles.TrackImport
         private LocalTrack _localTrack;
         private Author _artist;
         private Book _album;
-        private AlbumRelease _albumRelease;
         private QualityModel _quality;
 
         private IdentificationOverrides _idOverrides;
@@ -94,17 +93,13 @@ namespace NzbDrone.Core.Test.MediaFiles.TrackImport
                 .With(x => x.Author = _artist)
                 .Build();
 
-            _albumRelease = Builder<AlbumRelease>.CreateNew()
-                .With(x => x.Album = _album)
-                .Build();
-
-            _quality = new QualityModel(Quality.MP3_256);
+            _quality = new QualityModel(Quality.MP3_320);
 
             _localTrack = new LocalTrack
             {
                 Artist = _artist,
                 Quality = _quality,
-                Tracks = new List<Track> { new Track() },
+                Album = new Book(),
                 Path = @"C:\Test\Unsorted\The.Office.S03E115.DVDRip.XviD-OSiTV.avi".AsOsAgnostic()
             };
 
@@ -122,7 +117,6 @@ namespace NzbDrone.Core.Test.MediaFiles.TrackImport
                 .Returns((List<LocalTrack> tracks, IdentificationOverrides idOverrides, ImportDecisionMakerConfig config) =>
                 {
                     var ret = new LocalAlbumRelease(tracks);
-                    ret.AlbumRelease = _albumRelease;
                     return new List<LocalAlbumRelease> { ret };
                 });
 
@@ -154,7 +148,7 @@ namespace NzbDrone.Core.Test.MediaFiles.TrackImport
                   .Setup(s => s.Augment(It.IsAny<LocalTrack>(), It.IsAny<bool>()))
                   .Callback<LocalTrack, bool>((localTrack, otherFiles) =>
                   {
-                      localTrack.Tracks = _localTrack.Tracks;
+                      // localTrack.Tracks = _localTrack.Tracks;
                   });
         }
 

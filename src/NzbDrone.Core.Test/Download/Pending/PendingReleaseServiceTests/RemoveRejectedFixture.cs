@@ -41,11 +41,11 @@ namespace NzbDrone.Core.Test.Download.Pending.PendingReleaseServiceTests
             _profile = new QualityProfile
             {
                 Name = "Test",
-                Cutoff = Quality.MP3_192.Id,
+                Cutoff = Quality.MP3_320.Id,
                 Items = new List<QualityProfileQualityItem>
                                    {
-                                       new QualityProfileQualityItem { Allowed = true, Quality = Quality.MP3_192 },
-                                       new QualityProfileQualityItem { Allowed = true, Quality = Quality.MP3_256 },
+                                       new QualityProfileQualityItem { Allowed = true, Quality = Quality.MP3_320 },
+                                       new QualityProfileQualityItem { Allowed = true, Quality = Quality.MP3_320 },
                                        new QualityProfileQualityItem { Allowed = true, Quality = Quality.MP3_320 }
                                    },
             };
@@ -55,7 +55,7 @@ namespace NzbDrone.Core.Test.Download.Pending.PendingReleaseServiceTests
             _release = Builder<ReleaseInfo>.CreateNew().Build();
 
             _parsedAlbumInfo = Builder<ParsedAlbumInfo>.CreateNew().Build();
-            _parsedAlbumInfo.Quality = new QualityModel(Quality.MP3_192);
+            _parsedAlbumInfo.Quality = new QualityModel(Quality.MP3_320);
 
             _remoteAlbum = new RemoteAlbum();
             _remoteAlbum.Albums = new List<Book> { _album };
@@ -94,7 +94,7 @@ namespace NzbDrone.Core.Test.Download.Pending.PendingReleaseServiceTests
 
             var heldReleases = Builder<PendingRelease>.CreateListOfSize(1)
                                                    .All()
-                                                   .With(h => h.ArtistId = _artist.Id)
+                                                   .With(h => h.AuthorId = _artist.Id)
                                                    .With(h => h.Title = title)
                                                    .With(h => h.Release = release)
                                                    .Build();

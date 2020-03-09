@@ -10,15 +10,14 @@ namespace NzbDrone.Core.Music
         {
             Images = new List<MediaCover.MediaCover>();
             Genres = new List<string>();
-            Members = new List<Member>();
             Links = new List<Links>();
-            OldForeignArtistIds = new List<string>();
+            OldForeignAuthorIds = new List<string>();
             Aliases = new List<string>();
             Ratings = new Ratings();
         }
 
         public string ForeignAuthorId { get; set; }
-        public List<string> OldForeignArtistIds { get; set; }
+        public List<string> OldForeignAuthorIds { get; set; }
         public string Name { get; set; }
         public List<string> Aliases { get; set; }
         public string Overview { get; set; }
@@ -29,7 +28,6 @@ namespace NzbDrone.Core.Music
         public List<Links> Links { get; set; }
         public List<string> Genres { get; set; }
         public Ratings Ratings { get; set; }
-        public List<Member> Members { get; set; }
 
         public override string ToString()
         {
@@ -39,7 +37,7 @@ namespace NzbDrone.Core.Music
         public override void UseMetadataFrom(AuthorMetadata other)
         {
             ForeignAuthorId = other.ForeignAuthorId;
-            OldForeignArtistIds = other.OldForeignArtistIds;
+            OldForeignAuthorIds = other.OldForeignAuthorIds;
             Name = other.Name;
             Aliases = other.Aliases;
             Overview = other.Overview.IsNullOrWhiteSpace() ? Overview : other.Overview;
@@ -50,7 +48,6 @@ namespace NzbDrone.Core.Music
             Links = other.Links;
             Genres = other.Genres;
             Ratings = other.Ratings.Votes > 0 ? other.Ratings : Ratings;
-            Members = other.Members;
         }
     }
 }

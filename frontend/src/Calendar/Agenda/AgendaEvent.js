@@ -41,7 +41,7 @@ class AgendaEvent extends Component {
       id,
       artist,
       title,
-      foreignAlbumId,
+      foreignBookId,
       releaseDate,
       monitored,
       statistics,
@@ -86,7 +86,7 @@ class AgendaEvent extends Component {
           </div>
 
           <div className={styles.artistName}>
-            <Link to={`/artist/${artist.foreignArtistId}`}>
+            <Link to={`/artist/${artist.foreignAuthorId}`}>
               {artist.artistName}
             </Link>
           </div>
@@ -94,7 +94,7 @@ class AgendaEvent extends Component {
           <div className={styles.albumSeparator}> - </div>
 
           <div className={styles.albumTitle}>
-            <Link to={`/album/${foreignAlbumId}`}>
+            <Link to={`/album/${foreignBookId}`}>
               {title}
             </Link>
           </div>
@@ -123,7 +123,7 @@ AgendaEvent.propTypes = {
   id: PropTypes.number.isRequired,
   artist: PropTypes.object.isRequired,
   title: PropTypes.string.isRequired,
-  foreignAlbumId: PropTypes.string.isRequired,
+  foreignBookId: PropTypes.string.isRequired,
   albumType: PropTypes.string.isRequired,
   releaseDate: PropTypes.string.isRequired,
   monitored: PropTypes.bool.isRequired,

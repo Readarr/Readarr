@@ -73,9 +73,9 @@ namespace NzbDrone.Core.Music
             }
         }
 
-        private void RevertPath(int artistId, string path)
+        private void RevertPath(int authorId, string path)
         {
-            var artist = _artistService.GetArtist(artistId);
+            var artist = _artistService.GetArtist(authorId);
 
             artist.Path = path;
             _artistService.UpdateArtist(artist);
@@ -83,7 +83,7 @@ namespace NzbDrone.Core.Music
 
         public void Execute(MoveArtistCommand message)
         {
-            var artist = _artistService.GetArtist(message.ArtistId);
+            var artist = _artistService.GetArtist(message.AuthorId);
             MoveSingleArtist(artist, message.SourcePath, message.DestinationPath);
         }
 
@@ -97,7 +97,7 @@ namespace NzbDrone.Core.Music
             for (var index = 0; index < artistToMove.Count; index++)
             {
                 var s = artistToMove[index];
-                var artist = _artistService.GetArtist(s.ArtistId);
+                var artist = _artistService.GetArtist(s.AuthorId);
                 var destinationPath = Path.Combine(destinationRootFolder, _filenameBuilder.GetArtistFolder(artist));
 
                 MoveSingleArtist(artist, s.SourcePath, destinationPath, index, artistToMove.Count);

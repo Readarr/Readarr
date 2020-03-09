@@ -65,14 +65,14 @@ const selectTrackFiles = createSelector(
 
 function createMapStateToProps() {
   return createSelector(
-    (state, { foreignArtistId }) => foreignArtistId,
+    (state, { foreignAuthorId }) => foreignAuthorId,
     selectAlbums,
     selectTrackFiles,
     createAllArtistSelector(),
     createCommandsSelector(),
-    (foreignArtistId, albums, trackFiles, allArtists, commands) => {
+    (foreignAuthorId, albums, trackFiles, allArtists, commands) => {
       const sortedArtist = _.orderBy(allArtists, 'sortName');
-      const artistIndex = _.findIndex(sortedArtist, { foreignArtistId });
+      const artistIndex = _.findIndex(sortedArtist, { foreignAuthorId });
       const artist = sortedArtist[artistIndex];
 
       if (!artist) {
@@ -99,20 +99,20 @@ function createMapStateToProps() {
 
       const previousArtist = sortedArtist[artistIndex - 1] || _.last(sortedArtist);
       const nextArtist = sortedArtist[artistIndex + 1] || _.first(sortedArtist);
-      const isArtistRefreshing = isCommandExecuting(findCommand(commands, { name: commandNames.REFRESH_ARTIST, artistId: artist.id }));
+      const isArtistRefreshing = isCommandExecuting(findCommand(commands, { name: commandNames.REFRESH_ARTIST, authorId: artist.id }));
       const artistRefreshingCommand = findCommand(commands, { name: commandNames.REFRESH_ARTIST });
       const allArtistRefreshing = (
         isCommandExecuting(artistRefreshingCommand) &&
-        !artistRefreshingCommand.body.artistId
+        !artistRefreshingCommand.body.authorId
       );
       const isRefreshing = isArtistRefreshing || allArtistRefreshing;
-      const isSearching = isCommandExecuting(findCommand(commands, { name: commandNames.ARTIST_SEARCH, artistId: artist.id }));
-      const isRenamingFiles = isCommandExecuting(findCommand(commands, { name: commandNames.RENAME_FILES, artistId: artist.id }));
+      const isSearching = isCommandExecuting(findCommand(commands, { name: commandNames.ARTIST_SEARCH, authorId: artist.id }));
+      const isRenamingFiles = isCommandExecuting(findCommand(commands, { name: commandNames.RENAME_FILES, authorId: artist.id }));
 
       const isRenamingArtistCommand = findCommand(commands, { name: commandNames.RENAME_ARTIST });
       const isRenamingArtist = (
         isCommandExecuting(isRenamingArtistCommand) &&
-        isRenamingArtistCommand.body.artistIds.indexOf(artist.id) > -1
+        isRenamingArtistCommand.body.authorIds.indexOf(artist.id) > -1
       );
 
       const isFetching = isAlbumsFetching || isTrackFilesFetching;
@@ -210,11 +210,11 @@ class ArtistDetailsConnector extends Component {
   // Control
 
   populate = () => {
-    const artistId = this.props.id;
+    const authorId = this.props.id;
 
-    this.props.fetchAlbums({ artistId });
-    this.props.fetchTrackFiles({ artistId });
-    this.props.fetchQueueDetails({ artistId });
+    this.props.fetchAlbums({ authorId });
+    this.props.fetchTrackFiles({ authorId });
+    this.props.fetchQueueDetails({ authorId });
   }
 
   unpopulate = () => {
@@ -230,7 +230,7 @@ class ArtistDetailsConnector extends Component {
 
   onMonitorTogglePress = (monitored) => {
     this.props.toggleArtistMonitored({
-      artistId: this.props.id,
+      authorId: this.props.id,
       monitored
     });
   }
@@ -238,14 +238,14 @@ class ArtistDetailsConnector extends Component {
   onRefreshPress = () => {
     this.props.executeCommand({
       name: commandNames.REFRESH_ARTIST,
-      artistId: this.props.id
+      authorId: this.props.id
     });
   }
 
   onSearchPress = () => {
     this.props.executeCommand({
       name: commandNames.ARTIST_SEARCH,
-      artistId: this.props.id
+      authorId: this.props.id
     });
   }
 
@@ -266,7 +266,7 @@ class ArtistDetailsConnector extends Component {
 
 ArtistDetailsConnector.propTypes = {
   id: PropTypes.number.isRequired,
-  foreignArtistId: PropTypes.string.isRequired,
+  foreignAuthorId: PropTypes.string.isRequired,
   isArtistRefreshing: PropTypes.bool.isRequired,
   allArtistRefreshing: PropTypes.bool.isRequired,
   isRefreshing: PropTypes.bool.isRequired,

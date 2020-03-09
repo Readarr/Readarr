@@ -35,7 +35,7 @@ namespace NzbDrone.Core.ImportLists.HeadphonesImport
                 items.AddIfNotNull(new ImportListItemInfo
                 {
                     Artist = item.ArtistName,
-                    ArtistMusicBrainzId = item.ArtistId
+                    ArtistMusicBrainzId = item.AuthorId
                 });
             }
 

@@ -45,18 +45,18 @@ namespace NzbDrone.Core.Datastore.Migration
                 .WithColumn("Links").AsString().Nullable()
                 .WithColumn("Genres").AsString().Nullable()
                 .WithColumn("Ratings").AsString().Nullable()
-                .WithColumn("Members").AsString().Nullable()
                 .WithColumn("Aliases").AsString().WithDefaultValue("[]")
-                .WithColumn("OldForeignArtistIds").AsString().WithDefaultValue("[]");
+                .WithColumn("OldForeignAuthorIds").AsString().WithDefaultValue("[]");
 
             Create.TableForModel("Books")
                 .WithColumn("AuthorMetadataId").AsInt32().WithDefaultValue(0)
                 .WithColumn("ForeignBookId").AsString().Unique()
                 .WithColumn("Isbn13").AsString().Nullable()
                 .WithColumn("Asin").AsString().Nullable()
-                .WithColumn("OldForeignAlbumIds").AsString().WithDefaultValue("[]")
+                .WithColumn("OldForeignBookIds").AsString().WithDefaultValue("[]")
                 .WithColumn("Title").AsString()
                 .WithColumn("Overview").AsString().Nullable()
+                .WithColumn("PageCount").AsInt32().Nullable()
                 .WithColumn("Disambiguation").AsString().Nullable()
                 .WithColumn("ReleaseDate").AsDateTime().Nullable()
                 .WithColumn("Images").AsString()
@@ -70,8 +70,8 @@ namespace NzbDrone.Core.Datastore.Migration
                 .WithColumn("BookFileId").AsInt32().Nullable()
                 .WithColumn("AddOptions").AsString().Nullable();
 
-            Create.TableForModel("TrackFiles")
-                .WithColumn("AlbumId").AsInt32().Indexed()
+            Create.TableForModel("BookFiles")
+                .WithColumn("BookId").AsInt32().Indexed()
                 .WithColumn("Quality").AsString()
                 .WithColumn("Size").AsInt64()
                 .WithColumn("SceneName").AsString().Nullable()
@@ -88,8 +88,8 @@ namespace NzbDrone.Core.Datastore.Migration
                 .WithColumn("Data").AsString()
                 .WithColumn("EventType").AsInt32().Nullable().Indexed()
                 .WithColumn("DownloadId").AsString().Nullable().Indexed()
-                .WithColumn("ArtistId").AsInt32().WithDefaultValue(0)
-                .WithColumn("AlbumId").AsInt32().Indexed().WithDefaultValue(0);
+                .WithColumn("AuthorId").AsInt32().WithDefaultValue(0)
+                .WithColumn("BookId").AsInt32().Indexed().WithDefaultValue(0);
 
             Create.TableForModel("Notifications")
                 .WithColumn("Name").AsString()
@@ -130,9 +130,8 @@ namespace NzbDrone.Core.Datastore.Migration
 
             Create.TableForModel("MetadataProfiles")
                 .WithColumn("Name").AsString().Unique()
-                .WithColumn("PrimaryAlbumTypes").AsString()
-                .WithColumn("SecondaryAlbumTypes").AsString()
-                .WithColumn("ReleaseStatuses").AsString().WithDefaultValue("");
+                .WithColumn("MinRating").AsDouble()
+                .WithColumn("MinRatingCount").AsInt32();
 
             Create.TableForModel("QualityDefinitions")
                 .WithColumn("Quality").AsInt32().Unique()
@@ -158,8 +157,8 @@ namespace NzbDrone.Core.Datastore.Migration
                 .WithColumn("Indexer").AsString().Nullable()
                 .WithColumn("Message").AsString().Nullable()
                 .WithColumn("TorrentInfoHash").AsString().Nullable()
-                .WithColumn("ArtistId").AsInt32().WithDefaultValue(0)
-                .WithColumn("AlbumIds").AsString().WithDefaultValue("");
+                .WithColumn("AuthorId").AsInt32().WithDefaultValue(0)
+                .WithColumn("BookIds").AsString().WithDefaultValue("");
 
             Create.TableForModel("Metadata")
                 .WithColumn("Enable").AsBoolean().NotNullable()
@@ -169,12 +168,12 @@ namespace NzbDrone.Core.Datastore.Migration
                 .WithColumn("ConfigContract").AsString().NotNullable();
 
             Create.TableForModel("MetadataFiles")
-                .WithColumn("ArtistId").AsInt32().NotNullable()
+                .WithColumn("AuthorId").AsInt32().NotNullable()
                 .WithColumn("Consumer").AsString().NotNullable()
                 .WithColumn("Type").AsInt32().NotNullable()
                 .WithColumn("RelativePath").AsString().NotNullable()
                 .WithColumn("LastUpdated").AsDateTime().NotNullable()
-                .WithColumn("AlbumId").AsInt32().Nullable()
+                .WithColumn("BookId").AsInt32().Nullable()
                 .WithColumn("TrackFileId").AsInt32().Nullable()
                 .WithColumn("Hash").AsString().Nullable()
                 .WithColumn("Added").AsDateTime().Nullable()
@@ -192,7 +191,7 @@ namespace NzbDrone.Core.Datastore.Migration
                 .WithColumn("Title").AsString()
                 .WithColumn("Added").AsDateTime()
                 .WithColumn("Release").AsString()
-                .WithColumn("ArtistId").AsInt32().WithDefaultValue(0)
+                .WithColumn("AuthorId").AsInt32().WithDefaultValue(0)
                 .WithColumn("ParsedAlbumInfo").AsString().WithDefaultValue("")
                 .WithColumn("Reason").AsInt32().WithDefaultValue(0);
 
@@ -246,17 +245,8 @@ namespace NzbDrone.Core.Datastore.Migration
                 .WithColumn("LastRssSyncReleaseInfo").AsString().Nullable();
 
             Create.TableForModel("ExtraFiles")
-                .WithColumn("ArtistId").AsInt32().NotNullable()
-                .WithColumn("AlbumId").AsInt32().NotNullable()
-                .WithColumn("TrackFileId").AsInt32().NotNullable()
-                .WithColumn("RelativePath").AsString().NotNullable()
-                .WithColumn("Extension").AsString().NotNullable()
-                .WithColumn("Added").AsDateTime().NotNullable()
-                .WithColumn("LastUpdated").AsDateTime().NotNullable();
-
-            Create.TableForModel("LyricFiles")
-                .WithColumn("ArtistId").AsInt32().NotNullable()
-                .WithColumn("AlbumId").AsInt32().NotNullable()
+                .WithColumn("AuthorId").AsInt32().NotNullable()
+                .WithColumn("BookId").AsInt32().NotNullable()
                 .WithColumn("TrackFileId").AsInt32().NotNullable()
                 .WithColumn("RelativePath").AsString().NotNullable()
                 .WithColumn("Extension").AsString().NotNullable()
@@ -303,8 +293,8 @@ namespace NzbDrone.Core.Datastore.Migration
             Create.Index().OnTable("Books").OnColumn("AuthorId").Ascending()
                 .OnColumn("ReleaseDate").Ascending();
 
-            Delete.Index().OnTable("History").OnColumn("AlbumId");
-            Create.Index().OnTable("History").OnColumn("AlbumId").Ascending()
+            Delete.Index().OnTable("History").OnColumn("BookId");
+            Create.Index().OnTable("History").OnColumn("BookId").Ascending()
                                              .OnColumn("Date").Descending();
 
             Delete.Index().OnTable("History").OnColumn("DownloadId");

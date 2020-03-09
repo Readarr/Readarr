@@ -135,7 +135,7 @@ class ArtistDetails extends Component {
     this.setState(getExpandedState(selectAll(expandedState, !allExpanded)));
   }
 
-  onExpandPress = (albumId, isExpanded) => {
+  onExpandPress = (bookId, isExpanded) => {
     this.setState((state) => {
       const convertedState = {
         allSelected: state.allExpanded,
@@ -143,7 +143,7 @@ class ArtistDetails extends Component {
         selectedState: state.expandedState
       };
 
-      const newState = toggleSelected(convertedState, [], albumId, isExpanded, false);
+      const newState = toggleSelected(convertedState, [], bookId, isExpanded, false);
 
       return getExpandedState(newState);
     });
@@ -155,7 +155,7 @@ class ArtistDetails extends Component {
   render() {
     const {
       id,
-      foreignArtistId,
+      foreignAuthorId,
       artistName,
       ratings,
       path,
@@ -349,7 +349,7 @@ class ArtistDetails extends Component {
                       name={icons.ARROW_LEFT}
                       size={30}
                       title={`Go to ${previousArtist.artistName}`}
-                      to={`/artist/${previousArtist.foreignArtistId}`}
+                      to={`/artist/${previousArtist.foreignAuthorId}`}
                     />
 
                     <IconButton
@@ -365,7 +365,7 @@ class ArtistDetails extends Component {
                       name={icons.ARROW_RIGHT}
                       size={30}
                       title={`Go to ${nextArtist.artistName}`}
-                      to={`/artist/${nextArtist.foreignArtistId}`}
+                      to={`/artist/${nextArtist.foreignAuthorId}`}
                     />
                   </div>
                 </div>
@@ -477,7 +477,7 @@ class ArtistDetails extends Component {
                     }
                     tooltip={
                       <ArtistDetailsLinks
-                        foreignArtistId={foreignArtistId}
+                        foreignAuthorId={foreignAuthorId}
                         links={links}
                       />
                     }
@@ -503,7 +503,7 @@ class ArtistDetails extends Component {
                             </span>
                           </Label>
                         }
-                        tooltip={<ArtistTagsConnector artistId={id} />}
+                        tooltip={<ArtistTagsConnector authorId={id} />}
                         kind={kinds.INVERSE}
                         position={tooltipPositions.BOTTOM}
                       />
@@ -582,7 +582,7 @@ class ArtistDetails extends Component {
 
                   <TabPanel>
                     <ArtistDetailsSeasonConnector
-                      artistId={id}
+                      authorId={id}
                       isExpanded={true}
                       onExpandPress={this.onExpandPress}
                     />
@@ -590,20 +590,20 @@ class ArtistDetails extends Component {
 
                   <TabPanel>
                     <ArtistHistoryTable
-                      artistId={id}
+                      authorId={id}
                     />
                   </TabPanel>
 
                   <TabPanel>
                     <InteractiveSearchTable
                       type="artist"
-                      artistId={id}
+                      authorId={id}
                     />
                   </TabPanel>
 
                   <TabPanel>
                     <TrackFileEditorTable
-                      artistId={id}
+                      authorId={id}
                     />
                   </TabPanel>
                 </Tabs>
@@ -621,26 +621,26 @@ class ArtistDetails extends Component {
 
           <OrganizePreviewModalConnector
             isOpen={isOrganizeModalOpen}
-            artistId={id}
+            authorId={id}
             onModalClose={this.onOrganizeModalClose}
           />
 
           <RetagPreviewModalConnector
             isOpen={isRetagModalOpen}
-            artistId={id}
+            authorId={id}
             onModalClose={this.onRetagModalClose}
           />
 
           <EditArtistModalConnector
             isOpen={isEditArtistModalOpen}
-            artistId={id}
+            authorId={id}
             onModalClose={this.onEditArtistModalClose}
             onDeleteArtistPress={this.onDeleteArtistPress}
           />
 
           <DeleteArtistModal
             isOpen={isDeleteArtistModalOpen}
-            artistId={id}
+            authorId={id}
             onModalClose={this.onDeleteArtistModalClose}
           />
 
@@ -660,7 +660,7 @@ class ArtistDetails extends Component {
 
 ArtistDetails.propTypes = {
   id: PropTypes.number.isRequired,
-  foreignArtistId: PropTypes.string.isRequired,
+  foreignAuthorId: PropTypes.string.isRequired,
   artistName: PropTypes.string.isRequired,
   ratings: PropTypes.object.isRequired,
   path: PropTypes.string.isRequired,

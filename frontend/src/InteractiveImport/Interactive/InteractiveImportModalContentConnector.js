@@ -145,8 +145,8 @@ class InteractiveImportModalContentConnector extends Component {
 
         files.push({
           path: item.path,
-          artistId: artist.id,
-          albumId: album.id,
+          authorId: artist.id,
+          bookId: album.id,
           quality,
           downloadId: this.props.downloadId,
           disableReleaseSwitching

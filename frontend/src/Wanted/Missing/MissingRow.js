@@ -14,7 +14,7 @@ function MissingRow(props) {
     id,
     artist,
     releaseDate,
-    foreignAlbumId,
+    foreignBookId,
     title,
     disambiguation,
     isSelected,
@@ -49,7 +49,7 @@ function MissingRow(props) {
             return (
               <TableRowCell key={name}>
                 <ArtistNameLink
-                  foreignArtistId={artist.foreignArtistId}
+                  foreignAuthorId={artist.foreignAuthorId}
                   artistName={artist.artistName}
                 />
               </TableRowCell>
@@ -60,7 +60,7 @@ function MissingRow(props) {
             return (
               <TableRowCell key={name}>
                 <AlbumTitleLink
-                  foreignAlbumId={foreignAlbumId}
+                  foreignBookId={foreignBookId}
                   title={title}
                   disambiguation={disambiguation}
                 />
@@ -81,8 +81,8 @@ function MissingRow(props) {
             return (
               <AlbumSearchCellConnector
                 key={name}
-                albumId={id}
-                artistId={artist.id}
+                bookId={id}
+                authorId={artist.id}
                 albumTitle={title}
                 albumEntity={albumEntities.WANTED_MISSING}
                 showOpenArtistButton={true}
@@ -101,7 +101,7 @@ MissingRow.propTypes = {
   id: PropTypes.number.isRequired,
   artist: PropTypes.object.isRequired,
   releaseDate: PropTypes.string.isRequired,
-  foreignAlbumId: PropTypes.string.isRequired,
+  foreignBookId: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   disambiguation: PropTypes.string,
   isSelected: PropTypes.bool,

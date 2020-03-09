@@ -22,7 +22,7 @@ namespace NzbDrone.Core.Test.MediaFiles.TrackFileMovingServiceTests
     public class MoveTrackFileFixture : CoreTest<TrackFileMovingService>
     {
         private Author _artist;
-        private TrackFile _trackFile;
+        private BookFile _trackFile;
         private LocalTrack _localtrack;
 
         [SetUp]
@@ -32,18 +32,18 @@ namespace NzbDrone.Core.Test.MediaFiles.TrackFileMovingServiceTests
                                      .With(s => s.Path = @"C:\Test\Music\Artist".AsOsAgnostic())
                                      .Build();
 
-            _trackFile = Builder<TrackFile>.CreateNew()
+            _trackFile = Builder<BookFile>.CreateNew()
                                                .With(f => f.Path = null)
                                                .With(f => f.Path = Path.Combine(_artist.Path, @"Album\File.mp3"))
                                                .Build();
 
             _localtrack = Builder<LocalTrack>.CreateNew()
                                                  .With(l => l.Artist = _artist)
-                                                 .With(l => l.Tracks = Builder<Track>.CreateListOfSize(1).Build().ToList())
+                                                 .With(l => l.Album = Builder<Book>.CreateNew().Build())
                                                  .Build();
 
             Mocker.GetMock<IBuildFileNames>()
-                  .Setup(s => s.BuildTrackFileName(It.IsAny<Author>(), It.IsAny<Book>(), It.IsAny<TrackFile>(), null, null))
+                  .Setup(s => s.BuildTrackFileName(It.IsAny<Author>(), It.IsAny<Book>(), It.IsAny<BookFile>(), null, null))
                   .Returns("File Name");
 
             Mocker.GetMock<IBuildFileNames>()

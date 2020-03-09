@@ -17,7 +17,7 @@ function createMapStateToProps() {
     (state, { match }) => match,
     (state) => state.artist,
     (match, artist) => {
-      const foreignArtistId = match.params.foreignArtistId;
+      const foreignAuthorId = match.params.foreignAuthorId;
       const {
         isFetching,
         isPopulated,
@@ -25,13 +25,13 @@ function createMapStateToProps() {
         items
       } = artist;
 
-      const artistIndex = _.findIndex(items, { foreignArtistId });
+      const artistIndex = _.findIndex(items, { foreignAuthorId });
 
       if (artistIndex > -1) {
         return {
           isFetching,
           isPopulated,
-          foreignArtistId
+          foreignAuthorId
         };
       }
 
@@ -54,7 +54,7 @@ class ArtistDetailsPageConnector extends Component {
   // Lifecycle
 
   componentDidUpdate(prevProps) {
-    if (!this.props.foreignArtistId) {
+    if (!this.props.foreignAuthorId) {
       this.props.push(`${window.Readarr.urlBase}/`);
       return;
     }
@@ -65,7 +65,7 @@ class ArtistDetailsPageConnector extends Component {
 
   render() {
     const {
-      foreignArtistId,
+      foreignAuthorId,
       isFetching,
       isPopulated,
       error
@@ -89,7 +89,7 @@ class ArtistDetailsPageConnector extends Component {
       );
     }
 
-    if (!foreignArtistId) {
+    if (!foreignAuthorId) {
       return (
         <NotFound
           message="Sorry, that artist cannot be found."
@@ -99,18 +99,18 @@ class ArtistDetailsPageConnector extends Component {
 
     return (
       <ArtistDetailsConnector
-        foreignArtistId={foreignArtistId}
+        foreignAuthorId={foreignAuthorId}
       />
     );
   }
 }
 
 ArtistDetailsPageConnector.propTypes = {
-  foreignArtistId: PropTypes.string,
+  foreignAuthorId: PropTypes.string,
   isFetching: PropTypes.bool.isRequired,
   isPopulated: PropTypes.bool.isRequired,
   error: PropTypes.object,
-  match: PropTypes.shape({ params: PropTypes.shape({ foreignArtistId: PropTypes.string.isRequired }).isRequired }).isRequired,
+  match: PropTypes.shape({ params: PropTypes.shape({ foreignAuthorId: PropTypes.string.isRequired }).isRequired }).isRequired,
   push: PropTypes.func.isRequired
 };
 

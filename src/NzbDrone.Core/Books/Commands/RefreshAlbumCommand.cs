@@ -4,19 +4,19 @@ namespace NzbDrone.Core.Music.Commands
 {
     public class RefreshAlbumCommand : Command
     {
-        public int? AlbumId { get; set; }
+        public int? BookId { get; set; }
 
         public RefreshAlbumCommand()
         {
         }
 
-        public RefreshAlbumCommand(int? albumId)
+        public RefreshAlbumCommand(int? bookId)
         {
-            AlbumId = albumId;
+            BookId = bookId;
         }
 
         public override bool SendUpdatesToClient => true;
 
-        public override bool UpdateScheduledTask => !AlbumId.HasValue;
+        public override bool UpdateScheduledTask => !BookId.HasValue;
     }
 }

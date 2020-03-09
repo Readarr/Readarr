@@ -17,7 +17,7 @@ namespace NzbDrone.Core.Organizer
 {
     public interface IBuildFileNames
     {
-        string BuildTrackFileName(Author artist, Book album, TrackFile trackFile, NamingConfig namingConfig = null, List<string> preferredWords = null);
+        string BuildTrackFileName(Author artist, Book album, BookFile trackFile, NamingConfig namingConfig = null, List<string> preferredWords = null);
         string BuildTrackFilePath(Author artist, Book album, string fileName, string extension);
         string BuildAlbumPath(Author artist, Book album);
         BasicNamingConfig GetBasicNamingConfig(NamingConfig nameSpec);
@@ -83,7 +83,7 @@ namespace NzbDrone.Core.Organizer
             _logger = logger;
         }
 
-        public string BuildTrackFileName(Author artist, Book album, TrackFile trackFile, NamingConfig namingConfig = null, List<string> preferredWords = null)
+        public string BuildTrackFileName(Author artist, Book album, BookFile trackFile, NamingConfig namingConfig = null, List<string> preferredWords = null)
         {
             if (namingConfig == null)
             {
@@ -263,14 +263,14 @@ namespace NzbDrone.Core.Organizer
             }
         }
 
-        private void AddTrackFileTokens(Dictionary<string, Func<TokenMatch, string>> tokenHandlers, TrackFile trackFile)
+        private void AddTrackFileTokens(Dictionary<string, Func<TokenMatch, string>> tokenHandlers, BookFile trackFile)
         {
             tokenHandlers["{Original Title}"] = m => GetOriginalTitle(trackFile);
             tokenHandlers["{Original Filename}"] = m => GetOriginalFileName(trackFile);
             tokenHandlers["{Release Group}"] = m => trackFile.ReleaseGroup ?? m.DefaultValue("Readarr");
         }
 
-        private void AddQualityTokens(Dictionary<string, Func<TokenMatch, string>> tokenHandlers, Author artist, TrackFile trackFile)
+        private void AddQualityTokens(Dictionary<string, Func<TokenMatch, string>> tokenHandlers, Author artist, BookFile trackFile)
         {
             var qualityTitle = _qualityDefinitionService.Get(trackFile.Quality.Quality).Title;
             var qualityProper = GetQualityProper(trackFile.Quality);
@@ -283,7 +283,7 @@ namespace NzbDrone.Core.Organizer
             //tokenHandlers["{Quality Real}"] = m => qualityReal;
         }
 
-        private void AddMediaInfoTokens(Dictionary<string, Func<TokenMatch, string>> tokenHandlers, TrackFile trackFile)
+        private void AddMediaInfoTokens(Dictionary<string, Func<TokenMatch, string>> tokenHandlers, BookFile trackFile)
         {
             if (trackFile.MediaInfo == null)
             {
@@ -305,7 +305,7 @@ namespace NzbDrone.Core.Organizer
             tokenHandlers["{MediaInfo AudioSampleRate}"] = m => MediaInfoFormatter.FormatAudioSampleRate(trackFile.MediaInfo);
         }
 
-        private void AddPreferredWords(Dictionary<string, Func<TokenMatch, string>> tokenHandlers, Author artist, TrackFile trackFile, List<string> preferredWords = null)
+        private void AddPreferredWords(Dictionary<string, Func<TokenMatch, string>> tokenHandlers, Author artist, BookFile trackFile, List<string> preferredWords = null)
         {
             if (preferredWords == null)
             {
@@ -391,7 +391,7 @@ namespace NzbDrone.Core.Organizer
             return string.Empty;
         }
 
-        private string GetOriginalTitle(TrackFile trackFile)
+        private string GetOriginalTitle(BookFile trackFile)
         {
             if (trackFile.SceneName.IsNullOrWhiteSpace())
             {
@@ -401,7 +401,7 @@ namespace NzbDrone.Core.Organizer
             return trackFile.SceneName;
         }
 
-        private string GetOriginalFileName(TrackFile trackFile)
+        private string GetOriginalFileName(BookFile trackFile)
         {
             return Path.GetFileNameWithoutExtension(trackFile.Path);
         }

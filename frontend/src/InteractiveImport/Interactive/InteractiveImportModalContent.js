@@ -112,8 +112,8 @@ class InteractiveImportModalContent extends Component {
     const selectedItems = _.filter(this.props.items, (x) => _.includes(selectedIds, x.id));
 
     const inconsistent = _(selectedItems)
-      .map((x) => ({ albumId: x.album ? x.album.id : 0, releaseId: x.albumReleaseId }))
-      .groupBy('albumId')
+      .map((x) => ({ bookId: x.album ? x.album.id : 0, releaseId: x.albumReleaseId }))
+      .groupBy('bookId')
       .mapValues((album) => _(album).groupBy((x) => x.releaseId).values().value().length)
       .values()
       .some((x) => x !== undefined && x > 1);
@@ -465,7 +465,7 @@ class InteractiveImportModalContent extends Component {
         <SelectAlbumModal
           isOpen={selectModalOpen === ALBUM}
           ids={selectedIds}
-          artistId={selectedItem && selectedItem.artist && selectedItem.artist.id}
+          authorId={selectedItem && selectedItem.artist && selectedItem.artist.id}
           onModalClose={this.onSelectModalClose}
         />
 

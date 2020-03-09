@@ -46,8 +46,6 @@ namespace NzbDrone.Core.Test.MediaFiles.TrackImport.Identification
             Mocker.SetConstant<IArtistRepository>(Mocker.Resolve<ArtistRepository>());
             Mocker.SetConstant<IArtistMetadataRepository>(Mocker.Resolve<ArtistMetadataRepository>());
             Mocker.SetConstant<IAlbumRepository>(Mocker.Resolve<AlbumRepository>());
-            Mocker.SetConstant<IReleaseRepository>(Mocker.Resolve<ReleaseRepository>());
-            Mocker.SetConstant<ITrackRepository>(Mocker.Resolve<TrackRepository>());
             Mocker.SetConstant<IImportListExclusionRepository>(Mocker.Resolve<ImportListExclusionRepository>());
             Mocker.SetConstant<IMediaFileRepository>(Mocker.Resolve<MediaFileRepository>());
 
@@ -57,8 +55,6 @@ namespace NzbDrone.Core.Test.MediaFiles.TrackImport.Identification
             Mocker.SetConstant<IArtistService>(_artistService);
             Mocker.SetConstant<IArtistMetadataService>(Mocker.Resolve<ArtistMetadataService>());
             Mocker.SetConstant<IAlbumService>(Mocker.Resolve<AlbumService>());
-            Mocker.SetConstant<IReleaseService>(Mocker.Resolve<ReleaseService>());
-            Mocker.SetConstant<ITrackService>(Mocker.Resolve<TrackService>());
             Mocker.SetConstant<IImportListExclusionService>(Mocker.Resolve<ImportListExclusionService>());
             Mocker.SetConstant<IMediaFileService>(Mocker.Resolve<MediaFileService>());
 
@@ -106,13 +102,13 @@ namespace NzbDrone.Core.Test.MediaFiles.TrackImport.Identification
             return outp;
         }
 
-        private Author GivenArtist(string foreignArtistId, int metadataProfileId)
+        private Author GivenArtist(string foreignAuthorId, int metadataProfileId)
         {
             var artist = _addArtistService.AddArtist(new Author
             {
                 Metadata = new AuthorMetadata
                 {
-                    ForeignAuthorId = foreignArtistId
+                    ForeignAuthorId = foreignAuthorId
                 },
                 Path = @"c:\test".AsOsAgnostic(),
                 MetadataProfileId = metadataProfileId
@@ -120,13 +116,13 @@ namespace NzbDrone.Core.Test.MediaFiles.TrackImport.Identification
 
             var command = new RefreshArtistCommand
             {
-                ArtistId = artist.Id,
+                AuthorId = artist.Id,
                 Trigger = CommandTrigger.Unspecified
             };
 
             _refreshArtistService.Execute(command);
 
-            return _artistService.FindById(foreignArtistId);
+            return _artistService.FindById(foreignAuthorId);
         }
 
         private void GivenFingerprints(List<AcoustIdTestCase> fingerprints)
@@ -200,10 +196,7 @@ namespace NzbDrone.Core.Test.MediaFiles.TrackImport.Identification
 
             var result = _Subject.Identify(tracks, idOverrides, config);
 
-            TestLogger.Debug($"Found releases:\n{result.Where(x => x.AlbumRelease != null).Select(x => x.AlbumRelease?.ForeignReleaseId).ToJson()}");
-
             result.Should().HaveCount(testcase.ExpectedMusicBrainzReleaseIds.Count);
-            result.Where(x => x.AlbumRelease != null).Select(x => x.AlbumRelease.ForeignReleaseId).Should().BeEquivalentTo(testcase.ExpectedMusicBrainzReleaseIds);
         }
     }
 }

@@ -15,7 +15,7 @@ namespace NzbDrone.Core.Music.Commands
 
     public class BulkMoveArtist : IEquatable<BulkMoveArtist>
     {
-        public int ArtistId { get; set; }
+        public int AuthorId { get; set; }
         public string SourcePath { get; set; }
 
         public bool Equals(BulkMoveArtist other)
@@ -25,7 +25,7 @@ namespace NzbDrone.Core.Music.Commands
                 return false;
             }
 
-            return ArtistId.Equals(other.ArtistId);
+            return AuthorId.Equals(other.AuthorId);
         }
 
         public override bool Equals(object obj)
@@ -40,12 +40,12 @@ namespace NzbDrone.Core.Music.Commands
                 return false;
             }
 
-            return ArtistId.Equals(((BulkMoveArtist)obj).ArtistId);
+            return AuthorId.Equals(((BulkMoveArtist)obj).AuthorId);
         }
 
         public override int GetHashCode()
         {
-            return ArtistId.GetHashCode();
+            return AuthorId.GetHashCode();
         }
     }
 }

@@ -45,7 +45,7 @@ class CalendarEvent extends Component {
       id,
       artist,
       title,
-      foreignAlbumId,
+      foreignBookId,
       releaseDate,
       monitored,
       statistics,
@@ -78,7 +78,7 @@ class CalendarEvent extends Component {
         >
           <div className={styles.info}>
             <div className={styles.artistName}>
-              <Link to={`/artist/${artist.foreignArtistId}`}>
+              <Link to={`/artist/${artist.foreignAuthorId}`}>
                 {artist.artistName}
               </Link>
             </div>
@@ -104,7 +104,7 @@ class CalendarEvent extends Component {
 
           <div className={styles.albumInfo}>
             <div className={styles.albumTitle}>
-              <Link to={`/album/${foreignAlbumId}`}>
+              <Link to={`/album/${foreignBookId}`}>
                 {title}
               </Link>
             </div>
@@ -119,7 +119,7 @@ CalendarEvent.propTypes = {
   id: PropTypes.number.isRequired,
   artist: PropTypes.object.isRequired,
   title: PropTypes.string.isRequired,
-  foreignAlbumId: PropTypes.string.isRequired,
+  foreignBookId: PropTypes.string.isRequired,
   statistics: PropTypes.object.isRequired,
   releaseDate: PropTypes.string.isRequired,
   monitored: PropTypes.bool.isRequired,

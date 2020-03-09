@@ -8,7 +8,6 @@ using NzbDrone.Common.Extensions;
 using NzbDrone.Common.Http;
 using NzbDrone.Core.Exceptions;
 using NzbDrone.Core.MediaCover;
-using NzbDrone.Core.MetadataSource.SkyHook.Resource;
 using NzbDrone.Core.Music;
 using NzbDrone.Core.Parser;
 using NzbDrone.Core.Profiles.Metadata;
@@ -41,22 +40,7 @@ namespace NzbDrone.Core.MetadataSource.SkyHook
 
         public HashSet<string> GetChangedArtists(DateTime startTime)
         {
-            var startTimeUtc = (DateTimeOffset)DateTime.SpecifyKind(startTime, DateTimeKind.Utc);
-            var httpRequest = _requestBuilder.GetRequestBuilder().Create()
-                .SetSegment("route", "recent/artist")
-                .AddQueryParam("since", startTimeUtc.ToUnixTimeSeconds())
-                .Build();
-
-            httpRequest.SuppressHttpError = true;
-
-            var httpResponse = _httpClient.Get<RecentUpdatesResource>(httpRequest);
-
-            if (httpResponse.Resource.Limited)
-            {
-                return null;
-            }
-
-            return new HashSet<string>(httpResponse.Resource.Items);
+            return null;
         }
 
         public Author GetAuthorInfo(string foreignAuthorId, int metadataProfileId)
@@ -132,9 +116,15 @@ namespace NzbDrone.Core.MetadataSource.SkyHook
 
             var resource = httpResponse.Deserialize<AuthorBookListResource>();
 
+            var allBooks = resource.List
+                .Where(x => x.Authors.First().Id.ToString() == foreignAuthorId)
+                .Select(MapBook);
+
+            var metadataProfile = _metadataProfileService.Get(metadataProfileId);
+
             var books = resource.List.Where(x => x.Authors.First().Id.ToString() == foreignAuthorId)
                 .Select(MapBook)
-                .Where(x => x.Ratings.Votes >= 100)
+                .Where(x => x.Ratings.Votes >= metadataProfile.MinRatingCount && (double)x.Ratings.Value >= metadataProfile.MinRating)
                 .ToList();
 
             books.ForEach(x => x.CleanTitle = x.Title.CleanArtistName());
@@ -149,22 +139,7 @@ namespace NzbDrone.Core.MetadataSource.SkyHook
 
         private HashSet<string> GetChangedAlbumsUncached(DateTime startTime)
         {
-            var startTimeUtc = (DateTimeOffset)DateTime.SpecifyKind(startTime, DateTimeKind.Utc);
-            var httpRequest = _requestBuilder.GetRequestBuilder().Create()
-                .SetSegment("route", "recent/album")
-                .AddQueryParam("since", startTimeUtc.ToUnixTimeSeconds())
-                .Build();
-
-            httpRequest.SuppressHttpError = true;
-
-            var httpResponse = _httpClient.Get<RecentUpdatesResource>(httpRequest);
-
-            if (httpResponse.Resource.Limited)
-            {
-                return null;
-            }
-
-            return new HashSet<string>(httpResponse.Resource.Items);
+            return null;
         }
 
         public Tuple<string, Book, List<AuthorMetadata>> GetBookInfo(string foreignBookId)
@@ -247,12 +222,18 @@ namespace NzbDrone.Core.MetadataSource.SkyHook
                     }
                 }
 
+                var q = title.ToLower().Trim();
+                if (artist != null)
+                {
+                    q += " " + artist;
+                }
+
                 var httpRequest = _requestBuilder.GetRequestBuilder().Create()
                     .SetSegment("route", "search.xml")
                     .AddQueryParam("page", 1)
                     .AddQueryParam("per_page", 20)
-                    .AddQueryParam("search_field", "all")
-                    .AddQueryParam("q", title.ToLower().Trim())
+                    .AddQueryParam("search[field]", "all")
+                    .AddQueryParam("q", q)
                     .Build();
 
                 var httpResponse = _httpClient.Get(httpRequest);
@@ -268,6 +249,34 @@ namespace NzbDrone.Core.MetadataSource.SkyHook
             {
                 _logger.Warn(ex, ex.Message);
                 throw new SkyHookException("Search for '{0}' failed. Invalid response received from ReadarrAPI.", title);
+            }
+        }
+
+        public List<Book> SearchByIsbn(string isbn)
+        {
+            try
+            {
+                var httpRequest = _requestBuilder.GetRequestBuilder().Create()
+                    .SetSegment("route", "search.xml")
+                    .AddQueryParam("page", 1)
+                    .AddQueryParam("per_page", 20)
+                    .AddQueryParam("search[field]", "isbn")
+                    .AddQueryParam("q", isbn)
+                    .Build();
+
+                var httpResponse = _httpClient.Get(httpRequest);
+                var result = httpResponse.Deserialize<BookSearchResultResource>();
+
+                return result.Results?.SelectList(MapSearchResult);
+            }
+            catch (HttpException)
+            {
+                throw new SkyHookException("Search for isbn '{0}' failed. Unable to communicate with ReadarrAPI.", isbn);
+            }
+            catch (Exception ex)
+            {
+                _logger.Warn(ex, ex.Message);
+                throw new SkyHookException("Search for isbn '{0}' failed. Invalid response received from ReadarrAPI.", isbn);
             }
         }
 
@@ -339,7 +348,7 @@ namespace NzbDrone.Core.MetadataSource.SkyHook
             {
                 ForeignBookId = resource.Id.ToString(),
                 Isbn13 = resource.Isbn13,
-                Asin = resource.Asin,
+                Asin = resource.Asin ?? resource.KindleAsin,
                 Title = (resource.Work.OriginalTitle ?? resource.Title).CleanSpaces(),
                 Overview = resource.Description,
                 ReleaseDate = resource.Work.OriginalPublicationDate ?? resource.PublicationDate,
@@ -379,7 +388,7 @@ namespace NzbDrone.Core.MetadataSource.SkyHook
         private Book MapSearchResult(WorkResource resource)
         {
             var book = _bookService.FindById(resource.BestBookId.ToString());
-            if (book == null)
+            if (book == null && resource.BestBook != null)
             {
                 book = new Book();
                 book.ForeignBookId = resource.BestBook.Id.ToString();
@@ -387,20 +396,19 @@ namespace NzbDrone.Core.MetadataSource.SkyHook
                 book.ReleaseDate = resource.OriginalPublicationDate;
                 book.Images.Add(new MediaCover.MediaCover { Url = resource.BestBook.ImageUrl, CoverType = MediaCoverTypes.Cover });
                 book.Ratings = MapRatings(resource);
-
-                if (resource.BestBook != null)
+                book.Author = new Author
                 {
-                    book.Author = new Author
+                    CleanName = Parser.Parser.CleanArtistName(resource.BestBook.AuthorName),
+                    Metadata = new AuthorMetadata()
                     {
-                        CleanName = resource.BestBook.AuthorName,
-                        Metadata = new AuthorMetadata()
-                        {
-                            ForeignAuthorId = resource.BestBook.AuthorId.ToString(),
-                            Name = resource.BestBook.AuthorName,
-                            Ratings = new Ratings()
-                        }
-                    };
-                }
+                        ForeignAuthorId = resource.BestBook.AuthorId.ToString(),
+                        Name = resource.BestBook.AuthorName,
+                        Ratings = new Ratings()
+                    }
+                };
+
+                book.AuthorMetadata = book.Author.Value.Metadata.Value;
+                book.CleanTitle = book.Title.CleanArtistName();
             }
 
             return book;

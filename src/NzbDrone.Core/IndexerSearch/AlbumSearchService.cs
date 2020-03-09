@@ -58,10 +58,10 @@ namespace NzbDrone.Core.IndexerSearch
 
         public void Execute(AlbumSearchCommand message)
         {
-            foreach (var albumId in message.AlbumIds)
+            foreach (var bookId in message.BookIds)
             {
                 var decisions =
-                    _nzbSearchService.AlbumSearch(albumId, false, message.Trigger == CommandTrigger.Manual, false);
+                    _nzbSearchService.AlbumSearch(bookId, false, message.Trigger == CommandTrigger.Manual, false);
                 var processed = _processDownloadDecisions.ProcessDecisions(decisions);
 
                 _logger.ProgressInfo("Album search completed. {0} reports downloaded.", processed.Grabbed.Count);
@@ -72,9 +72,9 @@ namespace NzbDrone.Core.IndexerSearch
         {
             List<Book> albums;
 
-            if (message.ArtistId.HasValue)
+            if (message.AuthorId.HasValue)
             {
-                int artistId = message.ArtistId.Value;
+                int authorId = message.AuthorId.Value;
 
                 var pagingSpec = new PagingSpec<Book>
                 {
@@ -86,7 +86,7 @@ namespace NzbDrone.Core.IndexerSearch
 
                 pagingSpec.FilterExpressions.Add(v => v.Monitored == true && v.Author.Value.Monitored == true);
 
-                albums = _albumService.AlbumsWithoutFiles(pagingSpec).Records.Where(e => e.AuthorId.Equals(artistId)).ToList();
+                albums = _albumService.AlbumsWithoutFiles(pagingSpec).Records.Where(e => e.AuthorId.Equals(authorId)).ToList();
             }
             else
             {

@@ -5,11 +5,11 @@ namespace NzbDrone.Core.Music.Events
 {
     public class ArtistsImportedEvent : IEvent
     {
-        public List<int> ArtistIds { get; private set; }
+        public List<int> AuthorIds { get; private set; }
 
-        public ArtistsImportedEvent(List<int> artistIds)
+        public ArtistsImportedEvent(List<int> authorIds)
         {
-            ArtistIds = artistIds;
+            AuthorIds = authorIds;
         }
     }
 }

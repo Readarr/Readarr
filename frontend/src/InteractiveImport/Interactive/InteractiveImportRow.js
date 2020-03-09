@@ -271,7 +271,7 @@ class InteractiveImportRow extends Component {
         <SelectAlbumModal
           isOpen={isSelectAlbumModalOpen}
           ids={[id]}
-          artistId={artist && artist.id}
+          authorId={artist && artist.id}
           onModalClose={this.onSelectAlbumModalClose}
         />
 

@@ -7,8 +7,8 @@ namespace NzbDrone.Core.MediaFiles.TrackImport.Manual
     public class ManualImportFile : IEquatable<ManualImportFile>
     {
         public string Path { get; set; }
-        public int ArtistId { get; set; }
-        public int AlbumId { get; set; }
+        public int AuthorId { get; set; }
+        public int BookId { get; set; }
         public QualityModel Quality { get; set; }
         public string DownloadId { get; set; }
 

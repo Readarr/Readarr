@@ -5,6 +5,7 @@ using Newtonsoft.Json;
 using NzbDrone.Core.MediaCover;
 using NzbDrone.Core.Music;
 using Readarr.Api.V1.Artist;
+using Readarr.Api.V1.TrackFiles;
 using Readarr.Http.REST;
 
 namespace Readarr.Api.V1.Albums
@@ -14,8 +15,11 @@ namespace Readarr.Api.V1.Albums
         public string Title { get; set; }
         public string Disambiguation { get; set; }
         public string Overview { get; set; }
-        public int ArtistId { get; set; }
-        public string ForeignAlbumId { get; set; }
+        public int AuthorId { get; set; }
+        public string ForeignBookId { get; set; }
+        public int BookFileId { get; set; }
+        public bool HasFile { get; set; }
+        public TrackFileResource BookFile { get; set; }
         public bool Monitored { get; set; }
         public Ratings Ratings { get; set; }
         public DateTime? ReleaseDate { get; set; }
@@ -44,8 +48,10 @@ namespace Readarr.Api.V1.Albums
             return new AlbumResource
             {
                 Id = model.Id,
-                ArtistId = model.AuthorId,
-                ForeignAlbumId = model.ForeignBookId,
+                AuthorId = model.AuthorId,
+                ForeignBookId = model.ForeignBookId,
+                BookFileId = model.BookFileId,
+                HasFile = model.HasFile,
                 Monitored = model.Monitored,
                 ReleaseDate = model.ReleaseDate,
                 Genres = model.Genres,
@@ -71,7 +77,8 @@ namespace Readarr.Api.V1.Albums
             return new Book
             {
                 Id = resource.Id,
-                ForeignBookId = resource.ForeignAlbumId,
+                ForeignBookId = resource.ForeignBookId,
+                BookFileId = resource.BookFileId,
                 Title = resource.Title,
                 Disambiguation = resource.Disambiguation,
                 Overview = resource.Overview,
@@ -88,7 +95,6 @@ namespace Readarr.Api.V1.Albums
             var updatedAlbum = resource.ToModel();
 
             album.ApplyChanges(updatedAlbum);
-            album.AlbumReleases = updatedAlbum.AlbumReleases;
 
             return album;
         }

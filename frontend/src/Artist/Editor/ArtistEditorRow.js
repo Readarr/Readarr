@@ -26,7 +26,7 @@ class ArtistEditorRow extends Component {
     const {
       id,
       status,
-      foreignArtistId,
+      foreignAuthorId,
       artistName,
       artistType,
       monitored,
@@ -55,7 +55,7 @@ class ArtistEditorRow extends Component {
 
         <TableRowCell className={styles.title}>
           <ArtistNameLink
-            foreignArtistId={foreignArtistId}
+            foreignAuthorId={foreignAuthorId}
             artistName={artistName}
           />
         </TableRowCell>
@@ -88,7 +88,7 @@ class ArtistEditorRow extends Component {
 ArtistEditorRow.propTypes = {
   id: PropTypes.number.isRequired,
   status: PropTypes.string.isRequired,
-  foreignArtistId: PropTypes.string.isRequired,
+  foreignAuthorId: PropTypes.string.isRequired,
   artistName: PropTypes.string.isRequired,
   artistType: PropTypes.string,
   monitored: PropTypes.bool.isRequired,

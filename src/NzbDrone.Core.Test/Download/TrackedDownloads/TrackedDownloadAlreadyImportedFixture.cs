@@ -45,7 +45,7 @@ namespace NzbDrone.Core.Test.Download.TrackedDownloads
             {
                 _historyItems.Add(
                     Builder<History.History>.CreateNew()
-                                            .With(h => h.AlbumId = episode.Id)
+                                            .With(h => h.BookId = episode.Id)
                                             .With(h => h.EventType = eventType)
                                             .Build());
             }

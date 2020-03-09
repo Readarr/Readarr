@@ -9,9 +9,8 @@ namespace NzbDrone.Core.Notifications
         public string Message { get; set; }
         public Author Artist { get; set; }
         public Book Album { get; set; }
-        public AlbumRelease Release { get; set; }
-        public List<TrackFile> TrackFiles { get; set; }
-        public List<TrackFile> OldFiles { get; set; }
+        public List<BookFile> TrackFiles { get; set; }
+        public List<BookFile> OldFiles { get; set; }
         public string DownloadClient { get; set; }
         public string DownloadId { get; set; }
 

@@ -17,7 +17,7 @@ function CutoffUnmetRow(props) {
     trackFileId,
     artist,
     releaseDate,
-    foreignAlbumId,
+    foreignBookId,
     title,
     disambiguation,
     isSelected,
@@ -52,7 +52,7 @@ function CutoffUnmetRow(props) {
             return (
               <TableRowCell key={name}>
                 <ArtistNameLink
-                  foreignArtistId={artist.foreignArtistId}
+                  foreignAuthorId={artist.foreignAuthorId}
                   artistName={artist.artistName}
                 />
               </TableRowCell>
@@ -63,7 +63,7 @@ function CutoffUnmetRow(props) {
             return (
               <TableRowCell key={name}>
                 <AlbumTitleLink
-                  foreignAlbumId={foreignAlbumId}
+                  foreignBookId={foreignBookId}
                   title={title}
                   disambiguation={disambiguation}
                 />
@@ -87,7 +87,7 @@ function CutoffUnmetRow(props) {
                 className={styles.status}
               >
                 <EpisodeStatusConnector
-                  albumId={id}
+                  bookId={id}
                   trackFileId={trackFileId}
                   albumEntity={albumEntities.WANTED_CUTOFF_UNMET}
                 />
@@ -99,8 +99,8 @@ function CutoffUnmetRow(props) {
             return (
               <AlbumSearchCellConnector
                 key={name}
-                albumId={id}
-                artistId={artist.id}
+                bookId={id}
+                authorId={artist.id}
                 albumTitle={title}
                 albumEntity={albumEntities.WANTED_CUTOFF_UNMET}
                 showOpenArtistButton={true}
@@ -120,7 +120,7 @@ CutoffUnmetRow.propTypes = {
   trackFileId: PropTypes.number,
   artist: PropTypes.object.isRequired,
   releaseDate: PropTypes.string.isRequired,
-  foreignAlbumId: PropTypes.string.isRequired,
+  foreignBookId: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   disambiguation: PropTypes.string,
   isSelected: PropTypes.bool,

@@ -25,7 +25,6 @@ namespace NzbDrone.Core.MediaFiles.TrackImport
     {
         public Author Artist { get; set; }
         public Book Album { get; set; }
-        public AlbumRelease AlbumRelease { get; set; }
     }
 
     public class ImportDecisionMakerInfo
@@ -48,6 +47,7 @@ namespace NzbDrone.Core.MediaFiles.TrackImport
         private readonly IEnumerable<IImportDecisionEngineSpecification<LocalTrack>> _trackSpecifications;
         private readonly IEnumerable<IImportDecisionEngineSpecification<LocalAlbumRelease>> _albumSpecifications;
         private readonly IMediaFileService _mediaFileService;
+        private readonly IEBookTagService _eBookTagService;
         private readonly IAudioTagService _audioTagService;
         private readonly IAugmentingService _augmentingService;
         private readonly IIdentificationService _identificationService;
@@ -58,6 +58,7 @@ namespace NzbDrone.Core.MediaFiles.TrackImport
         public ImportDecisionMaker(IEnumerable<IImportDecisionEngineSpecification<LocalTrack>> trackSpecifications,
                                    IEnumerable<IImportDecisionEngineSpecification<LocalAlbumRelease>> albumSpecifications,
                                    IMediaFileService mediaFileService,
+                                   IEBookTagService eBookTagService,
                                    IAudioTagService audioTagService,
                                    IAugmentingService augmentingService,
                                    IIdentificationService identificationService,
@@ -68,6 +69,7 @@ namespace NzbDrone.Core.MediaFiles.TrackImport
             _trackSpecifications = trackSpecifications;
             _albumSpecifications = albumSpecifications;
             _mediaFileService = mediaFileService;
+            _eBookTagService = eBookTagService;
             _audioTagService = audioTagService;
             _augmentingService = augmentingService;
             _identificationService = identificationService;
@@ -112,7 +114,7 @@ namespace NzbDrone.Core.MediaFiles.TrackImport
                     Path = file.FullName,
                     Size = file.Length,
                     Modified = file.LastWriteTimeUtc,
-                    FileTrackInfo = _audioTagService.ReadTags(file.FullName),
+                    FileTrackInfo = _eBookTagService.ReadTags(file),
                     AdditionalFile = false
                 };
 

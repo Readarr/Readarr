@@ -20,7 +20,7 @@ namespace NzbDrone.Core.Housekeeping.Housekeepers
                                      WHERE Id IN (
                                      SELECT Blacklist.Id FROM Blacklist
                                      LEFT OUTER JOIN Artists
-                                     ON Blacklist.ArtistId = Artists.Id
+                                     ON Blacklist.AuthorId = Artists.Id
                                      WHERE Artists.Id IS NULL)");
             }
         }

@@ -27,7 +27,7 @@ namespace NzbDrone.Core.Test.Download.Pending.PendingReleaseServiceTests
                                        .Build();
 
             Mocker.GetMock<IPendingReleaseRepository>()
-                 .Setup(s => s.AllByArtistId(It.IsAny<int>()))
+                 .Setup(s => s.AllByAuthorId(It.IsAny<int>()))
                  .Returns(_pending);
 
             Mocker.GetMock<IPendingReleaseRepository>()

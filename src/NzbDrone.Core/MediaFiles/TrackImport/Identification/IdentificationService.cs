@@ -91,7 +91,7 @@ namespace NzbDrone.Core.MediaFiles.TrackImport.Identification
             return releases;
         }
 
-        private List<LocalTrack> ToLocalTrack(IEnumerable<TrackFile> trackfiles, LocalAlbumRelease localRelease)
+        private List<LocalTrack> ToLocalTrack(IEnumerable<BookFile> trackfiles, LocalAlbumRelease localRelease)
         {
             var scanned = trackfiles.Join(localRelease.LocalTracks, t => t.Path, l => l.Path, (track, localTrack) => localTrack);
             var toScan = trackfiles.ExceptBy(t => t.Path, scanned, s => s.Path, StringComparer.InvariantCulture);
@@ -158,7 +158,7 @@ namespace NzbDrone.Core.MediaFiles.TrackImport.Identification
             foreach (var candidateRelease in candidateReleases)
             {
                 var release = candidateRelease.Book;
-                _logger.Debug("Trying Release {0} [{1}, {2}]", release, release.Title);
+                _logger.Debug($"Trying Release {release}");
                 var rwatch = System.Diagnostics.Stopwatch.StartNew();
 
                 var extraTrackPaths = candidateRelease.ExistingTracks.Select(x => x.Path).ToList();

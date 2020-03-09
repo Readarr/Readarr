@@ -16,7 +16,7 @@ namespace NzbDrone.Core.Parser
         Author GetArtist(string title);
         Author GetArtistFromTag(string file);
         RemoteAlbum Map(ParsedAlbumInfo parsedAlbumInfo, SearchCriteriaBase searchCriteria = null);
-        RemoteAlbum Map(ParsedAlbumInfo parsedAlbumInfo, int artistId, IEnumerable<int> albumIds);
+        RemoteAlbum Map(ParsedAlbumInfo parsedAlbumInfo, int authorId, IEnumerable<int> bookIds);
         List<Book> GetAlbums(ParsedAlbumInfo parsedAlbumInfo, Author artist, SearchCriteriaBase searchCriteria = null);
 
         // Music stuff here
@@ -27,19 +27,16 @@ namespace NzbDrone.Core.Parser
     {
         private readonly IArtistService _artistService;
         private readonly IAlbumService _albumService;
-        private readonly ITrackService _trackService;
         private readonly IMediaFileService _mediaFileService;
         private readonly Logger _logger;
 
-        public ParsingService(ITrackService trackService,
-                              IArtistService artistService,
+        public ParsingService(IArtistService artistService,
                               IAlbumService albumService,
                               IMediaFileService mediaFileService,
                               Logger logger)
         {
             _albumService = albumService;
             _artistService = artistService;
-            _trackService = trackService;
             _mediaFileService = mediaFileService;
             _logger = logger;
         }
@@ -178,13 +175,13 @@ namespace NzbDrone.Core.Parser
             return result;
         }
 
-        public RemoteAlbum Map(ParsedAlbumInfo parsedAlbumInfo, int artistId, IEnumerable<int> albumIds)
+        public RemoteAlbum Map(ParsedAlbumInfo parsedAlbumInfo, int authorId, IEnumerable<int> bookIds)
         {
             return new RemoteAlbum
             {
                 ParsedAlbumInfo = parsedAlbumInfo,
-                Artist = _artistService.GetArtist(artistId),
-                Albums = _albumService.GetAlbums(albumIds)
+                Artist = _artistService.GetArtist(authorId),
+                Albums = _albumService.GetAlbums(bookIds)
             };
         }
 
@@ -226,10 +223,10 @@ namespace NzbDrone.Core.Parser
 
             var tracksInAlbum = _mediaFileService.GetFilesByArtist(artist.Id)
                 .FindAll(s => Path.GetDirectoryName(s.Path) == filename)
-                .DistinctBy(s => s.AlbumId)
+                .DistinctBy(s => s.BookId)
                 .ToList();
 
-            return tracksInAlbum.Count == 1 ? _albumService.GetAlbum(tracksInAlbum.First().AlbumId) : null;
+            return tracksInAlbum.Count == 1 ? _albumService.GetAlbum(tracksInAlbum.First().BookId) : null;
         }
     }
 }

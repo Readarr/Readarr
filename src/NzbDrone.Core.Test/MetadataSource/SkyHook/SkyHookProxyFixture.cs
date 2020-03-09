@@ -1,13 +1,10 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using FluentAssertions;
 using Moq;
 using NUnit.Framework;
-using NzbDrone.Common.Serializer;
 using NzbDrone.Core.Exceptions;
 using NzbDrone.Core.MetadataSource.SkyHook;
-using NzbDrone.Core.MetadataSource.SkyHook.Resource;
 using NzbDrone.Core.Music;
 using NzbDrone.Core.Profiles.Metadata;
 using NzbDrone.Core.Test.Framework;
@@ -24,33 +21,7 @@ namespace NzbDrone.Core.Test.MetadataSource.SkyHook
         {
             UseRealHttp();
 
-            _metadataProfile = new MetadataProfile
-            {
-                PrimaryAlbumTypes = new List<ProfilePrimaryAlbumTypeItem>
-                {
-                    new ProfilePrimaryAlbumTypeItem
-                    {
-                        PrimaryAlbumType = PrimaryAlbumType.Album,
-                        Allowed = true
-                    }
-                },
-                SecondaryAlbumTypes = new List<ProfileSecondaryAlbumTypeItem>
-                {
-                    new ProfileSecondaryAlbumTypeItem()
-                    {
-                        SecondaryAlbumType = SecondaryAlbumType.Studio,
-                        Allowed = true
-                    }
-                },
-                ReleaseStatuses = new List<ProfileReleaseStatusItem>
-                {
-                    new ProfileReleaseStatusItem
-                    {
-                        ReleaseStatus = ReleaseStatus.Official,
-                        Allowed = true
-                    }
-                }
-            };
+            _metadataProfile = new MetadataProfile();
 
             Mocker.GetMock<IMetadataProfileService>()
                 .Setup(s => s.Get(It.IsAny<int>()))
@@ -59,31 +30,6 @@ namespace NzbDrone.Core.Test.MetadataSource.SkyHook
             Mocker.GetMock<IMetadataProfileService>()
                 .Setup(s => s.Exists(It.IsAny<int>()))
                 .Returns(true);
-        }
-
-        public List<AlbumResource> GivenExampleAlbums()
-        {
-            var result = new List<AlbumResource>();
-
-            foreach (var primaryType in PrimaryAlbumType.All)
-            {
-                foreach (var secondaryType in SecondaryAlbumType.All)
-                {
-                    var secondaryTypes = secondaryType.Name == "Studio" ? new List<string>() : new List<string> { secondaryType.Name };
-                    foreach (var releaseStatus in ReleaseStatus.All)
-                    {
-                        var releaseStatuses = new List<string> { releaseStatus.Name };
-                        result.Add(new AlbumResource
-                        {
-                            Type = primaryType.Name,
-                            SecondaryTypes = secondaryTypes,
-                            ReleaseStatuses = releaseStatuses
-                        });
-                    }
-                }
-            }
-
-            return result;
         }
 
         [TestCase("1654", "Terry Pratchett")]
@@ -115,8 +61,6 @@ namespace NzbDrone.Core.Test.MetadataSource.SkyHook
 
             ValidateAlbums(new List<Book> { details.Item2 });
 
-            details.Item2.AlbumReleases.Value.Single(r => r.ForeignReleaseId == release).Media.Count.Should().Be(mediaCount);
-            details.Item2.AlbumReleases.Value.Single(r => r.ForeignReleaseId == release).Tracks.Value.Count.Should().Be(trackCount);
             details.Item2.Title.Should().Be(name);
         }
 

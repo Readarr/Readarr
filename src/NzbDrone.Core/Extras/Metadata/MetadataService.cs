@@ -59,7 +59,7 @@ namespace NzbDrone.Core.Extras.Metadata
 
         public override int Order => 0;
 
-        public override IEnumerable<ExtraFile> CreateAfterArtistScan(Author artist, List<TrackFile> trackFiles)
+        public override IEnumerable<ExtraFile> CreateAfterArtistScan(Author artist, List<BookFile> trackFiles)
         {
             var metadataFiles = _metadataFileService.GetFilesByArtist(artist.Id);
             _cleanMetadataService.Clean(artist);
@@ -83,7 +83,7 @@ namespace NzbDrone.Core.Extras.Metadata
 
                 foreach (var group in albumGroups)
                 {
-                    var album = _albumService.GetAlbum(group.First().AlbumId);
+                    var album = _albumService.GetAlbum(group.First().BookId);
                     var albumFolder = group.Key;
                     files.AddIfNotNull(ProcessAlbumMetadata(consumer, artist, album, albumFolder, consumerFiles));
                     files.AddRange(ProcessAlbumImages(consumer, artist, album, albumFolder, consumerFiles));
@@ -100,7 +100,7 @@ namespace NzbDrone.Core.Extras.Metadata
             return files;
         }
 
-        public override IEnumerable<ExtraFile> CreateAfterTrackImport(Author artist, TrackFile trackFile)
+        public override IEnumerable<ExtraFile> CreateAfterTrackImport(Author artist, BookFile trackFile)
         {
             var files = new List<MetadataFile>();
 
@@ -141,7 +141,7 @@ namespace NzbDrone.Core.Extras.Metadata
             return files;
         }
 
-        public override IEnumerable<ExtraFile> MoveFilesAfterRename(Author artist, List<TrackFile> trackFiles)
+        public override IEnumerable<ExtraFile> MoveFilesAfterRename(Author artist, List<BookFile> trackFiles)
         {
             var metadataFiles = _metadataFileService.GetFilesByArtist(artist.Id);
             var movedFiles = new List<MetadataFile>();
@@ -154,7 +154,7 @@ namespace NzbDrone.Core.Extras.Metadata
                 foreach (var filePath in distinctTrackFilePaths)
                 {
                     var metadataFilesForConsumer = GetMetadataFilesForConsumer(consumer, metadataFiles)
-                        .Where(m => m.AlbumId == filePath.AlbumId)
+                        .Where(m => m.BookId == filePath.BookId)
                         .Where(m => m.Type == MetadataType.AlbumImage || m.Type == MetadataType.AlbumMetadata)
                         .ToList();
 
@@ -210,7 +210,7 @@ namespace NzbDrone.Core.Extras.Metadata
             return movedFiles;
         }
 
-        public override ExtraFile Import(Author artist, TrackFile trackFile, string path, string extension, bool readOnly)
+        public override ExtraFile Import(Author artist, BookFile trackFile, string path, string extension, bool readOnly)
         {
             return null;
         }
@@ -234,7 +234,7 @@ namespace NzbDrone.Core.Extras.Metadata
             var metadata = GetMetadataFile(artist, existingMetadataFiles, e => e.Type == MetadataType.ArtistMetadata) ??
                                new MetadataFile
                                {
-                                   ArtistId = artist.Id,
+                                   AuthorId = artist.Id,
                                    Consumer = consumer.GetType().Name,
                                    Type = MetadataType.ArtistMetadata
                                };
@@ -276,11 +276,11 @@ namespace NzbDrone.Core.Extras.Metadata
 
             var hash = albumMetadata.Contents.SHA256Hash();
 
-            var metadata = GetMetadataFile(artist, existingMetadataFiles, e => e.Type == MetadataType.AlbumMetadata && e.AlbumId == album.Id) ??
+            var metadata = GetMetadataFile(artist, existingMetadataFiles, e => e.Type == MetadataType.AlbumMetadata && e.BookId == album.Id) ??
                                new MetadataFile
                                {
-                                   ArtistId = artist.Id,
-                                   AlbumId = album.Id,
+                                   AuthorId = artist.Id,
+                                   BookId = album.Id,
                                    Consumer = consumer.GetType().Name,
                                    Type = MetadataType.AlbumMetadata
                                };
@@ -311,7 +311,7 @@ namespace NzbDrone.Core.Extras.Metadata
             return metadata;
         }
 
-        private MetadataFile ProcessTrackMetadata(IMetadata consumer, Author artist, TrackFile trackFile, List<MetadataFile> existingMetadataFiles)
+        private MetadataFile ProcessTrackMetadata(IMetadata consumer, Author artist, BookFile trackFile, List<MetadataFile> existingMetadataFiles)
         {
             var trackMetadata = consumer.TrackMetadata(artist, trackFile);
 
@@ -342,8 +342,8 @@ namespace NzbDrone.Core.Extras.Metadata
             var metadata = existingMetadata ??
                            new MetadataFile
                            {
-                               ArtistId = artist.Id,
-                               AlbumId = trackFile.AlbumId,
+                               AuthorId = artist.Id,
+                               BookId = trackFile.BookId,
                                TrackFileId = trackFile.Id,
                                Consumer = consumer.GetType().Name,
                                Type = MetadataType.TrackMetadata,
@@ -384,7 +384,7 @@ namespace NzbDrone.Core.Extras.Metadata
                                                                               c.RelativePath == image.RelativePath) ??
                                new MetadataFile
                                {
-                                   ArtistId = artist.Id,
+                                   AuthorId = artist.Id,
                                    Consumer = consumer.GetType().Name,
                                    Type = MetadataType.ArtistImage,
                                    RelativePath = image.RelativePath,
@@ -416,12 +416,12 @@ namespace NzbDrone.Core.Extras.Metadata
                 _otherExtraFileRenamer.RenameOtherExtraFile(artist, fullPath);
 
                 var metadata = GetMetadataFile(artist, existingMetadataFiles, c => c.Type == MetadataType.AlbumImage &&
-                                                                                c.AlbumId == album.Id &&
+                                                                                c.BookId == album.Id &&
                                                                                 c.RelativePath == image.RelativePath) ??
                             new MetadataFile
                             {
-                                ArtistId = artist.Id,
-                                AlbumId = album.Id,
+                                AuthorId = artist.Id,
+                                BookId = album.Id,
                                 Consumer = consumer.GetType().Name,
                                 Type = MetadataType.AlbumImage,
                                 RelativePath = image.RelativePath,

@@ -140,7 +140,7 @@ export const actionHandlers = handleThunks({
 
   [TOGGLE_ALBUM_MONITORED]: function(getState, payload, dispatch) {
     const {
-      albumId,
+      bookId,
       albumEntity = albumEntities.ALBUMS,
       monitored
     } = payload;
@@ -148,13 +148,13 @@ export const actionHandlers = handleThunks({
     const albumSection = _.last(albumEntity.split('.'));
 
     dispatch(updateItem({
-      id: albumId,
+      id: bookId,
       section: albumSection,
       isSaving: true
     }));
 
     const promise = createAjaxRequest({
-      url: `/album/${albumId}`,
+      url: `/album/${bookId}`,
       method: 'PUT',
       data: JSON.stringify({ monitored }),
       dataType: 'json'
@@ -162,7 +162,7 @@ export const actionHandlers = handleThunks({
 
     promise.done((data) => {
       dispatch(updateItem({
-        id: albumId,
+        id: bookId,
         section: albumSection,
         isSaving: false,
         monitored
@@ -171,7 +171,7 @@ export const actionHandlers = handleThunks({
 
     promise.fail((xhr) => {
       dispatch(updateItem({
-        id: albumId,
+        id: bookId,
         section: albumSection,
         isSaving: false
       }));
@@ -180,15 +180,15 @@ export const actionHandlers = handleThunks({
 
   [TOGGLE_ALBUMS_MONITORED]: function(getState, payload, dispatch) {
     const {
-      albumIds,
+      bookIds,
       albumEntity = albumEntities.ALBUMS,
       monitored
     } = payload;
 
     dispatch(batchActions(
-      albumIds.map((albumId) => {
+      bookIds.map((bookId) => {
         return updateItem({
-          id: albumId,
+          id: bookId,
           section: albumEntity,
           isSaving: true
         });
@@ -198,15 +198,15 @@ export const actionHandlers = handleThunks({
     const promise = createAjaxRequest({
       url: '/album/monitor',
       method: 'PUT',
-      data: JSON.stringify({ albumIds, monitored }),
+      data: JSON.stringify({ bookIds, monitored }),
       dataType: 'json'
     }).request;
 
     promise.done((data) => {
       dispatch(batchActions(
-        albumIds.map((albumId) => {
+        bookIds.map((bookId) => {
           return updateItem({
-            id: albumId,
+            id: bookId,
             section: albumEntity,
             isSaving: false,
             monitored
@@ -217,9 +217,9 @@ export const actionHandlers = handleThunks({
 
     promise.fail((xhr) => {
       dispatch(batchActions(
-        albumIds.map((albumId) => {
+        bookIds.map((bookId) => {
           return updateItem({
-            id: albumId,
+            id: bookId,
             section: albumEntity,
             isSaving: false
           });

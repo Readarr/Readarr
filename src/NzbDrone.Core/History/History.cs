@@ -15,8 +15,8 @@ namespace NzbDrone.Core.History
             Data = new Dictionary<string, string>();
         }
 
-        public int AlbumId { get; set; }
-        public int ArtistId { get; set; }
+        public int BookId { get; set; }
+        public int AuthorId { get; set; }
         public string SourceTitle { get; set; }
         public QualityModel Quality { get; set; }
         public DateTime Date { get; set; }

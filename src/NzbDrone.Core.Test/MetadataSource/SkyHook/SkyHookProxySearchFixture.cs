@@ -19,34 +19,7 @@ namespace NzbDrone.Core.Test.MetadataSource.SkyHook
         {
             UseRealHttp();
 
-            var metadataProfile = new MetadataProfile
-            {
-                Id = 1,
-                PrimaryAlbumTypes = new List<ProfilePrimaryAlbumTypeItem>
-                {
-                    new ProfilePrimaryAlbumTypeItem
-                    {
-                        PrimaryAlbumType = PrimaryAlbumType.Album,
-                        Allowed = true
-                    }
-                },
-                SecondaryAlbumTypes = new List<ProfileSecondaryAlbumTypeItem>
-                {
-                    new ProfileSecondaryAlbumTypeItem()
-                    {
-                        SecondaryAlbumType = SecondaryAlbumType.Studio,
-                        Allowed = true
-                    }
-                },
-                ReleaseStatuses = new List<ProfileReleaseStatusItem>
-                {
-                    new ProfileReleaseStatusItem
-                    {
-                        ReleaseStatus = ReleaseStatus.Official,
-                        Allowed = true
-                    }
-                }
-            };
+            var metadataProfile = new MetadataProfile();
 
             Mocker.GetMock<IMetadataProfileService>()
                 .Setup(s => s.All())

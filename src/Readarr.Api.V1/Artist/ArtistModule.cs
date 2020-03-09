@@ -91,7 +91,7 @@ namespace Readarr.Api.V1.Artist
             PostValidator.RuleFor(s => s.Path).IsValidPath().When(s => s.RootFolderPath.IsNullOrWhiteSpace());
             PostValidator.RuleFor(s => s.RootFolderPath).IsValidPath().When(s => s.Path.IsNullOrWhiteSpace());
             PostValidator.RuleFor(s => s.ArtistName).NotEmpty();
-            PostValidator.RuleFor(s => s.ForeignArtistId).NotEmpty().SetValidator(artistExistsValidator);
+            PostValidator.RuleFor(s => s.ForeignAuthorId).NotEmpty().SetValidator(artistExistsValidator);
 
             PutValidator.RuleFor(s => s.Path).IsValidPath();
         }
@@ -152,7 +152,7 @@ namespace Readarr.Api.V1.Artist
 
                 _commandQueueManager.Push(new MoveArtistCommand
                 {
-                    ArtistId = artist.Id,
+                    AuthorId = artist.Id,
                     SourcePath = sourcePath,
                     DestinationPath = destinationPath,
                     Trigger = CommandTrigger.Manual
@@ -203,7 +203,7 @@ namespace Readarr.Api.V1.Artist
         {
             foreach (var artist in resources)
             {
-                var stats = artistStatistics.SingleOrDefault(ss => ss.ArtistId == artist.Id);
+                var stats = artistStatistics.SingleOrDefault(ss => ss.AuthorId == artist.Id);
                 if (stats == null)
                 {
                     continue;

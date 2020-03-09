@@ -91,8 +91,8 @@ namespace NzbDrone.Integration.Test.ApiTests
             var artists = Artist.All();
 
             artists.Should().NotBeNullOrEmpty();
-            artists.Should().Contain(v => v.ForeignArtistId == "8ac6cc32-8ddf-43b1-9ac4-4b04f9053176");
-            artists.Should().Contain(v => v.ForeignArtistId == "cc197bad-dc9c-440d-a5b5-d52ba2e14234");
+            artists.Should().Contain(v => v.ForeignAuthorId == "8ac6cc32-8ddf-43b1-9ac4-4b04f9053176");
+            artists.Should().Contain(v => v.ForeignAuthorId == "cc197bad-dc9c-440d-a5b5-d52ba2e14234");
         }
 
         [Test]
@@ -103,7 +103,7 @@ namespace NzbDrone.Integration.Test.ApiTests
 
             var result = Artist.Get(artist.Id);
 
-            result.ForeignArtistId.Should().Be("8ac6cc32-8ddf-43b1-9ac4-4b04f9053176");
+            result.ForeignAuthorId.Should().Be("8ac6cc32-8ddf-43b1-9ac4-4b04f9053176");
         }
 
         [Test]
@@ -188,7 +188,7 @@ namespace NzbDrone.Integration.Test.ApiTests
 
             Artist.Delete(artist.Id);
 
-            Artist.All().Should().NotContain(v => v.ForeignArtistId == "8ac6cc32-8ddf-43b1-9ac4-4b04f9053176");
+            Artist.All().Should().NotContain(v => v.ForeignAuthorId == "8ac6cc32-8ddf-43b1-9ac4-4b04f9053176");
         }
     }
 }

@@ -31,10 +31,8 @@ namespace NzbDrone.Core.Parser.Model
         public List<LocalTrack> LocalTracks { get; set; }
         public int TrackCount => LocalTracks.Count;
 
-        public TrackMapping TrackMapping { get; set; }
         public Distance Distance { get; set; }
         public Book Book { get; set; }
-        public AlbumRelease AlbumRelease { get; set; }
         public List<LocalTrack> ExistingTracks { get; set; }
         public bool NewDownload { get; set; }
 
@@ -55,17 +53,5 @@ namespace NzbDrone.Core.Parser.Model
         {
             return "[" + string.Join(", ", LocalTracks.Select(x => Path.GetDirectoryName(x.Path)).Distinct()) + "]";
         }
-    }
-
-    public class TrackMapping
-    {
-        public TrackMapping()
-        {
-            Mapping = new Dictionary<LocalTrack, Tuple<Track, Distance>>();
-        }
-
-        public Dictionary<LocalTrack, Tuple<Track, Distance>> Mapping { get; set; }
-        public List<LocalTrack> LocalExtra { get; set; }
-        public List<Track> MBExtra { get; set; }
     }
 }

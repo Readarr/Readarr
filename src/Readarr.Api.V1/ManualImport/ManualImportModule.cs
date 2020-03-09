@@ -15,19 +15,16 @@ namespace Readarr.Api.V1.ManualImport
     {
         private readonly IArtistService _artistService;
         private readonly IAlbumService _albumService;
-        private readonly IReleaseService _releaseService;
         private readonly IManualImportService _manualImportService;
         private readonly Logger _logger;
 
         public ManualImportModule(IManualImportService manualImportService,
                                   IArtistService artistService,
                                   IAlbumService albumService,
-                                  IReleaseService releaseService,
                                   Logger logger)
         {
             _artistService = artistService;
             _albumService = albumService;
-            _releaseService = releaseService;
             _manualImportService = manualImportService;
             _logger = logger;
 

@@ -83,7 +83,7 @@ namespace NzbDrone.Core.Download
             {
                 if (historyItem != null)
                 {
-                    artist = _artistService.GetArtist(historyItem.ArtistId);
+                    artist = _artistService.GetArtist(historyItem.AuthorId);
                 }
 
                 if (artist == null)

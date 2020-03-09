@@ -26,7 +26,7 @@ namespace NzbDrone.Core.Music
 
         public void Handle(ArtistsImportedEvent message)
         {
-            _commandQueueManager.PushMany(message.ArtistIds.Select(s => new RefreshArtistCommand(s, true)).ToList());
+            _commandQueueManager.PushMany(message.AuthorIds.Select(s => new RefreshArtistCommand(s, true)).ToList());
         }
     }
 }

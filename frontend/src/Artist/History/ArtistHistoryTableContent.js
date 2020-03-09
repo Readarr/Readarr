@@ -49,7 +49,7 @@ class ArtistHistoryTableContent extends Component {
 
   render() {
     const {
-      albumId,
+      bookId,
       isFetching,
       isPopulated,
       error,
@@ -57,7 +57,7 @@ class ArtistHistoryTableContent extends Component {
       onMarkAsFailedPress
     } = this.props;
 
-    const fullArtist = albumId == null;
+    const fullArtist = bookId == null;
     const hasItems = !!items.length;
 
     return (
@@ -102,7 +102,7 @@ class ArtistHistoryTableContent extends Component {
 }
 
 ArtistHistoryTableContent.propTypes = {
-  albumId: PropTypes.number,
+  bookId: PropTypes.number,
   isFetching: PropTypes.bool.isRequired,
   isPopulated: PropTypes.bool.isRequired,
   error: PropTypes.object,

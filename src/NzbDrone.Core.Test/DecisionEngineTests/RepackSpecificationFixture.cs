@@ -18,7 +18,7 @@ namespace NzbDrone.Core.Test.DecisionEngineTests
     {
         private ParsedAlbumInfo _parsedAlbumInfo;
         private List<Book> _albums;
-        private List<TrackFile> _trackFiles;
+        private List<BookFile> _trackFiles;
 
         [SetUp]
         public void Setup()
@@ -35,9 +35,9 @@ namespace NzbDrone.Core.Test.DecisionEngineTests
                                         .All()
                                         .BuildList();
 
-            _trackFiles = Builder<TrackFile>.CreateListOfSize(3)
+            _trackFiles = Builder<BookFile>.CreateListOfSize(3)
                                             .All()
-                                            .With(t => t.AlbumId = _albums.First().Id)
+                                            .With(t => t.BookId = _albums.First().Id)
                                             .BuildList();
 
             Mocker.GetMock<IMediaFileService>()
@@ -64,7 +64,7 @@ namespace NzbDrone.Core.Test.DecisionEngineTests
         {
             Mocker.GetMock<IMediaFileService>()
                   .Setup(c => c.GetFilesByAlbum(It.IsAny<int>()))
-                  .Returns(new List<TrackFile>());
+                  .Returns(new List<BookFile>());
 
             _parsedAlbumInfo.Quality.Revision.IsRepack = true;
 
@@ -91,7 +91,7 @@ namespace NzbDrone.Core.Test.DecisionEngineTests
             }).ToList();
             _trackFiles.Select(c =>
             {
-                c.Quality = new QualityModel(Quality.MP3_256);
+                c.Quality = new QualityModel(Quality.MP3_320);
                 return c;
             }).ToList();
 

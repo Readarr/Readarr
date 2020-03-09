@@ -11,7 +11,7 @@ function createMapStateToProps() {
     createTrackFileSelector(),
     (artist = {}, trackFile) => {
       return {
-        foreignArtistId: artist.foreignArtistId,
+        foreignAuthorId: artist.foreignAuthorId,
         artistMonitored: artist.monitored,
         trackFilePath: trackFile ? trackFile.path : null
       };

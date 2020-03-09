@@ -38,7 +38,6 @@ namespace NzbDrone.Core.MediaFiles.TrackImport
         private readonly IRecycleBinProvider _recycleBinProvider;
         private readonly IExtraService _extraService;
         private readonly IDiskProvider _diskProvider;
-        private readonly IReleaseService _releaseService;
         private readonly IEventAggregator _eventAggregator;
         private readonly IManageCommandQueue _commandQueueManager;
         private readonly Logger _logger;
@@ -54,7 +53,6 @@ namespace NzbDrone.Core.MediaFiles.TrackImport
                                     IRecycleBinProvider recycleBinProvider,
                                     IExtraService extraService,
                                     IDiskProvider diskProvider,
-                                    IReleaseService releaseService,
                                     IEventAggregator eventAggregator,
                                     IManageCommandQueue commandQueueManager,
                                     Logger logger)
@@ -70,7 +68,6 @@ namespace NzbDrone.Core.MediaFiles.TrackImport
             _recycleBinProvider = recycleBinProvider;
             _extraService = extraService;
             _diskProvider = diskProvider;
-            _releaseService = releaseService;
             _eventAggregator = eventAggregator;
             _commandQueueManager = commandQueueManager;
             _logger = logger;
@@ -79,8 +76,8 @@ namespace NzbDrone.Core.MediaFiles.TrackImport
         public List<ImportResult> Import(List<ImportDecision<LocalTrack>> decisions, bool replaceExisting, DownloadClientItem downloadClientItem = null, ImportMode importMode = ImportMode.Auto)
         {
             var importResults = new List<ImportResult>();
-            var allImportedTrackFiles = new List<TrackFile>();
-            var allOldTrackFiles = new List<TrackFile>();
+            var allImportedTrackFiles = new List<BookFile>();
+            var allOldTrackFiles = new List<BookFile>();
             var addedArtists = new List<Author>();
 
             var albumDecisions = decisions.Where(e => e.Item.Album != null && e.Approved)
@@ -129,13 +126,13 @@ namespace NzbDrone.Core.MediaFiles.TrackImport
             _logger.ProgressInfo($"Importing {qualifiedImports.Count} files");
             _logger.Debug($"Importing {qualifiedImports.Count} files. replaceExisting: {replaceExisting}");
 
-            var filesToAdd = new List<TrackFile>(qualifiedImports.Count);
+            var filesToAdd = new List<BookFile>(qualifiedImports.Count);
             var trackImportedEvents = new List<TrackImportedEvent>(qualifiedImports.Count);
 
             foreach (var importDecision in qualifiedImports.OrderByDescending(e => e.Item.Size))
             {
                 var localTrack = importDecision.Item;
-                var oldFiles = new List<TrackFile>();
+                var oldFiles = new List<BookFile>();
 
                 try
                 {
@@ -148,7 +145,7 @@ namespace NzbDrone.Core.MediaFiles.TrackImport
 
                     localTrack.Album.Author = localTrack.Artist;
 
-                    var trackFile = new TrackFile
+                    var trackFile = new BookFile
                     {
                         Path = localTrack.Path.CleanFilePath(),
                         Size = localTrack.Size,
@@ -157,7 +154,7 @@ namespace NzbDrone.Core.MediaFiles.TrackImport
                         ReleaseGroup = localTrack.ReleaseGroup,
                         Quality = localTrack.Quality,
                         MediaInfo = localTrack.FileTrackInfo.MediaInfo,
-                        AlbumId = localTrack.Album.Id,
+                        BookId = localTrack.Album.Id,
                         Artist = localTrack.Artist,
                         Album = localTrack.Album
                     };
@@ -265,9 +262,8 @@ namespace NzbDrone.Core.MediaFiles.TrackImport
                     _eventAggregator.PublishEvent(new AlbumImportedEvent(
                         artist,
                         album,
-                        null,
-                        allImportedTrackFiles.Where(s => s.AlbumId == album.Id).ToList(),
-                        allOldTrackFiles.Where(s => s.AlbumId == album.Id).ToList(),
+                        allImportedTrackFiles.Where(s => s.BookId == album.Id).ToList(),
+                        allOldTrackFiles.Where(s => s.BookId == album.Id).ToList(),
                         replaceExisting,
                         downloadClientItem));
                 }

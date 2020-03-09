@@ -30,21 +30,21 @@ namespace NzbDrone.Core.Test.NotificationTests
             {
                 Artist = _artist,
 
-                TrackFiles = new List<TrackFile>
+                TrackFiles = new List<BookFile>
                 {
-                    new TrackFile
+                    new BookFile
                     {
                         Path = Path.Combine(_rootPath, "file1.S01E01E02.mkv")
                     }
                 },
 
-                OldFiles = new List<TrackFile>
+                OldFiles = new List<BookFile>
                 {
-                    new TrackFile
+                    new BookFile
                     {
                         Path = Path.Combine(_rootPath, "file1.S01E01.mkv")
                     },
-                    new TrackFile
+                    new BookFile
                     {
                         Path = Path.Combine(_rootPath, "file1.S01E02.mkv")
                     }

@@ -1,31 +1,46 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using NzbDrone.Core.Qualities;
 
 namespace NzbDrone.Core.MediaFiles
 {
     public static class MediaFileExtensions
     {
-        private static Dictionary<string, Quality> _fileExtensions;
+        private static readonly Dictionary<string, Quality> _textExtensions;
+        private static readonly Dictionary<string, Quality> _audioExtensions;
 
         static MediaFileExtensions()
         {
-            _fileExtensions = new Dictionary<string, Quality>(StringComparer.OrdinalIgnoreCase)
+            _textExtensions = new Dictionary<string, Quality>(StringComparer.OrdinalIgnoreCase)
             {
-                { ".epub", Quality.Unknown },
-                { ".mobi", Quality.Unknown },
-                { ".azw3", Quality.Unknown },
+                { ".epub", Quality.EPUB },
+                { ".mobi", Quality.MOBI },
+                { ".azw3", Quality.AZW3 },
                 { ".pdf", Quality.Unknown }
+            };
+
+            _audioExtensions = new Dictionary<string, Quality>(StringComparer.OrdinalIgnoreCase)
+            {
+                { ".mp3", Quality.MP3_320 },
+                { ".flac", Quality.FLAC }
             };
         }
 
-        public static HashSet<string> Extensions => new HashSet<string>(_fileExtensions.Keys, StringComparer.OrdinalIgnoreCase);
+        public static HashSet<string> TextExtensions => new HashSet<string>(_textExtensions.Keys, StringComparer.OrdinalIgnoreCase);
+        public static HashSet<string> AudioExtensions => new HashSet<string>(_audioExtensions.Keys, StringComparer.OrdinalIgnoreCase);
+        public static HashSet<string> AllExtensions => new HashSet<string>(_textExtensions.Keys.Concat(_audioExtensions.Keys), StringComparer.OrdinalIgnoreCase);
 
         public static Quality GetQualityForExtension(string extension)
         {
-            if (_fileExtensions.ContainsKey(extension))
+            if (_textExtensions.ContainsKey(extension))
             {
-                return _fileExtensions[extension];
+                return _textExtensions[extension];
+            }
+
+            if (_audioExtensions.ContainsKey(extension))
+            {
+                return _audioExtensions[extension];
             }
 
             return Quality.Unknown;

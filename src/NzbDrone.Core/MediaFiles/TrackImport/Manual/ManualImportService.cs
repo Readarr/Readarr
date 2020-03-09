@@ -261,19 +261,19 @@ namespace NzbDrone.Core.MediaFiles.TrackImport.Manual
 
             var imported = new List<ImportResult>();
             var importedTrackedDownload = new List<ManuallyImportedFile>();
-            var albumIds = message.Files.GroupBy(e => e.AlbumId).ToList();
+            var bookIds = message.Files.GroupBy(e => e.BookId).ToList();
             var fileCount = 0;
 
-            foreach (var importAlbumId in albumIds)
+            foreach (var importBookId in bookIds)
             {
                 var albumImportDecisions = new List<ImportDecision<LocalTrack>>();
 
-                foreach (var file in importAlbumId)
+                foreach (var file in importBookId)
                 {
                     _logger.ProgressTrace("Processing file {0} of {1}", fileCount + 1, message.Files.Count);
 
-                    var artist = _artistService.GetArtist(file.ArtistId);
-                    var album = _albumService.GetAlbum(file.AlbumId);
+                    var artist = _artistService.GetArtist(file.AuthorId);
+                    var album = _albumService.GetAlbum(file.BookId);
                     var fileTrackInfo = _audioTagService.ReadTags(file.Path) ?? new ParsedTrackInfo();
                     var fileInfo = _diskProvider.GetFileInfo(file.Path);
 
@@ -300,7 +300,7 @@ namespace NzbDrone.Core.MediaFiles.TrackImport.Manual
                     fileCount += 1;
                 }
 
-                var downloadId = importAlbumId.Select(x => x.DownloadId).FirstOrDefault(x => x.IsNotNullOrWhiteSpace());
+                var downloadId = importBookId.Select(x => x.DownloadId).FirstOrDefault(x => x.IsNotNullOrWhiteSpace());
                 if (downloadId.IsNullOrWhiteSpace())
                 {
                     imported.AddRange(_importApprovedTracks.Import(albumImportDecisions, message.ReplaceExistingFiles, null, message.ImportMode));

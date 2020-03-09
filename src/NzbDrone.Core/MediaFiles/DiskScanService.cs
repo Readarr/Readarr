@@ -22,7 +22,7 @@ namespace NzbDrone.Core.MediaFiles
 {
     public interface IDiskScanService
     {
-        void Scan(List<string> folders = null, FilterFilesType filter = FilterFilesType.Known, bool addNewArtists = false, List<int> artistIds = null);
+        void Scan(List<string> folders = null, FilterFilesType filter = FilterFilesType.Known, bool addNewArtists = false, List<int> authorIds = null);
         IFileInfo[] GetAudioFiles(string path, bool allDirectories = true);
         string[] GetNonAudioFiles(string path, bool allDirectories = true);
         List<IFileInfo> FilterFiles(string basePath, IEnumerable<IFileInfo> files);
@@ -67,16 +67,16 @@ namespace NzbDrone.Core.MediaFiles
             _logger = logger;
         }
 
-        public void Scan(List<string> folders = null, FilterFilesType filter = FilterFilesType.Known, bool addNewArtists = false, List<int> artistIds = null)
+        public void Scan(List<string> folders = null, FilterFilesType filter = FilterFilesType.Known, bool addNewArtists = false, List<int> authorIds = null)
         {
             if (folders == null)
             {
                 folders = _rootFolderService.All().Select(x => x.Path).ToList();
             }
 
-            if (artistIds == null)
+            if (authorIds == null)
             {
-                artistIds = new List<int>();
+                authorIds = new List<int>();
             }
 
             var mediaFileList = new List<IFileInfo>();
@@ -99,7 +99,7 @@ namespace NzbDrone.Core.MediaFiles
                 {
                     _logger.Warn("Root folder {0} doesn't exist.", rootFolder.Path);
 
-                    var skippedArtists = _artistService.GetArtists(artistIds);
+                    var skippedArtists = _artistService.GetArtists(authorIds);
                     skippedArtists.ForEach(x => _eventAggregator.PublishEvent(new ArtistScanSkippedEvent(x, ArtistScanSkippedReason.RootFolderDoesNotExist)));
                     return;
                 }
@@ -108,7 +108,7 @@ namespace NzbDrone.Core.MediaFiles
                 {
                     _logger.Warn("Root folder {0} is empty.", rootFolder.Path);
 
-                    var skippedArtists = _artistService.GetArtists(artistIds);
+                    var skippedArtists = _artistService.GetArtists(authorIds);
                     skippedArtists.ForEach(x => _eventAggregator.PublishEvent(new ArtistScanSkippedEvent(x, ArtistScanSkippedReason.RootFolderIsEmpty)));
                     return;
                 }
@@ -158,12 +158,12 @@ namespace NzbDrone.Core.MediaFiles
             // decisions may have been filtered to just new files.  Anything new and approved will have been inserted.
             // Now we need to make sure anything new but not approved gets inserted
             // Note that knownFiles will include anything imported just now
-            var knownFiles = new List<TrackFile>();
+            var knownFiles = new List<BookFile>();
             folders.ForEach(x => knownFiles.AddRange(_mediaFileService.GetFilesWithBasePath(x)));
 
             var newFiles = decisions
                 .ExceptBy(x => x.Item.Path, knownFiles, x => x.Path, PathEqualityComparer.Instance)
-                .Select(decision => new TrackFile
+                .Select(decision => new BookFile
                 {
                     Path = decision.Item.Path,
                     Size = decision.Item.Size,
@@ -204,7 +204,7 @@ namespace NzbDrone.Core.MediaFiles
 
             _logger.Debug($"Updated info for {updatedFiles.Count} known files");
 
-            var artists = _artistService.GetArtists(artistIds);
+            var artists = _artistService.GetArtists(authorIds);
             foreach (var artist in artists)
             {
                 CompletedScanning(artist);
@@ -233,7 +233,7 @@ namespace NzbDrone.Core.MediaFiles
             var searchOption = allDirectories ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly;
             var filesOnDisk = _diskProvider.GetFileInfos(path, searchOption);
 
-            var mediaFileList = filesOnDisk.Where(file => MediaFileExtensions.Extensions.Contains(file.Extension))
+            var mediaFileList = filesOnDisk.Where(file => MediaFileExtensions.AllExtensions.Contains(file.Extension))
                                            .ToList();
 
             _logger.Trace("{0} files were found in {1}", filesOnDisk.Count, path);
@@ -249,7 +249,7 @@ namespace NzbDrone.Core.MediaFiles
             var searchOption = allDirectories ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly;
             var filesOnDisk = _diskProvider.GetFiles(path, searchOption).ToList();
 
-            var mediaFileList = filesOnDisk.Where(file => !MediaFileExtensions.Extensions.Contains(Path.GetExtension(file)))
+            var mediaFileList = filesOnDisk.Where(file => !MediaFileExtensions.AllExtensions.Contains(Path.GetExtension(file)))
                                            .ToList();
 
             _logger.Trace("{0} files were found in {1}", filesOnDisk.Count, path);
@@ -274,7 +274,7 @@ namespace NzbDrone.Core.MediaFiles
 
         public void Execute(RescanFoldersCommand message)
         {
-            Scan(message.Folders, message.Filter, message.AddNewArtists, message.ArtistIds);
+            Scan(message.Folders, message.Filter, message.AddNewArtists, message.AuthorIds);
         }
     }
 }

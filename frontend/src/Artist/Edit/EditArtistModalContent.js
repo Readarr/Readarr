@@ -200,7 +200,7 @@ class EditArtistModalContent extends Component {
 }
 
 EditArtistModalContent.propTypes = {
-  artistId: PropTypes.number.isRequired,
+  authorId: PropTypes.number.isRequired,
   artistName: PropTypes.string.isRequired,
   item: PropTypes.object.isRequired,
   isSaving: PropTypes.bool.isRequired,

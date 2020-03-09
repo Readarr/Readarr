@@ -34,7 +34,7 @@ namespace NzbDrone.Core.Test.HistoryTests
             _profileCustom = new QualityProfile
             {
                 Cutoff = Quality.MP3_320.Id,
-                Items = QualityFixture.GetDefaultQualities(Quality.MP3_256),
+                Items = QualityFixture.GetDefaultQualities(Quality.MP3_320),
             };
         }
 
@@ -42,8 +42,7 @@ namespace NzbDrone.Core.Test.HistoryTests
         public void should_use_file_name_for_source_title_if_scene_name_is_null()
         {
             var artist = Builder<Author>.CreateNew().Build();
-            var tracks = Builder<Track>.CreateListOfSize(1).Build().ToList();
-            var trackFile = Builder<TrackFile>.CreateNew()
+            var trackFile = Builder<BookFile>.CreateNew()
                 .With(f => f.SceneName = null)
                 .With(f => f.Artist = artist)
                 .Build();
@@ -52,7 +51,6 @@ namespace NzbDrone.Core.Test.HistoryTests
             {
                 Artist = artist,
                 Album = new Book(),
-                Tracks = tracks,
                 Path = @"C:\Test\Unsorted\Artist.01.Hymn.mp3"
             };
 
@@ -62,7 +60,7 @@ namespace NzbDrone.Core.Test.HistoryTests
                 DownloadId = "abcd"
             };
 
-            Subject.Handle(new TrackImportedEvent(localTrack, trackFile, new List<TrackFile>(), true, downloadClientItem));
+            Subject.Handle(new TrackImportedEvent(localTrack, trackFile, new List<BookFile>(), true, downloadClientItem));
 
             Mocker.GetMock<IHistoryRepository>()
                 .Verify(v => v.Insert(It.Is<History.History>(h => h.SourceTitle == Path.GetFileNameWithoutExtension(localTrack.Path))));

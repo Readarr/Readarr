@@ -69,7 +69,7 @@ class AddNewAlbumSearchResult extends Component {
 
   render() {
     const {
-      foreignAlbumId,
+      foreignBookId,
       title,
       releaseDate,
       disambiguation,
@@ -86,7 +86,7 @@ class AddNewAlbumSearchResult extends Component {
       isNewAddAlbumModalOpen
     } = this.state;
 
-    const linkProps = isExistingAlbum ? { to: `/album/${foreignAlbumId}` } : { onPress: this.onPress };
+    const linkProps = isExistingAlbum ? { to: `/album/${foreignBookId}` } : { onPress: this.onPress };
 
     const height = calculateHeight(230, isSmallScreen);
 
@@ -130,7 +130,7 @@ class AddNewAlbumSearchResult extends Component {
 
               <Link
                 className={styles.mbLink}
-                to={`https://goodreads.com/book/show/${foreignAlbumId}`}
+                to={`https://goodreads.com/book/show/${foreignBookId}`}
                 onPress={this.onMBLinkPress}
               >
                 <Icon
@@ -192,7 +192,7 @@ class AddNewAlbumSearchResult extends Component {
         <AddNewAlbumModal
           isOpen={isNewAddAlbumModalOpen && !isExistingAlbum}
           isExistingArtist={isExistingArtist}
-          foreignAlbumId={foreignAlbumId}
+          foreignBookId={foreignBookId}
           albumTitle={title}
           disambiguation={disambiguation}
           artistName={artist.artistName}
@@ -206,7 +206,7 @@ class AddNewAlbumSearchResult extends Component {
 }
 
 AddNewAlbumSearchResult.propTypes = {
-  foreignAlbumId: PropTypes.string.isRequired,
+  foreignBookId: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   releaseDate: PropTypes.string,
   disambiguation: PropTypes.string,

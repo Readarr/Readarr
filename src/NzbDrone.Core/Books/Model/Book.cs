@@ -13,7 +13,7 @@ namespace NzbDrone.Core.Music
     {
         public Book()
         {
-            OldForeignAlbumIds = new List<string>();
+            OldForeignBookIds = new List<string>();
             Overview = string.Empty;
             Images = new List<MediaCover.MediaCover>();
             Links = new List<Links>();
@@ -29,10 +29,11 @@ namespace NzbDrone.Core.Music
         public string ForeignBookId { get; set; }
         public string Isbn13 { get; set; }
         public string Asin { get; set; }
-        public List<string> OldForeignAlbumIds { get; set; }
+        public List<string> OldForeignBookIds { get; set; }
         public string Title { get; set; }
         public string Overview { get; set; }
         public string Disambiguation { get; set; }
+        public int PageCount { get; set; }
         public DateTime? ReleaseDate { get; set; }
         public List<MediaCover.MediaCover> Images { get; set; }
         public List<Links> Links { get; set; }
@@ -55,11 +56,9 @@ namespace NzbDrone.Core.Music
         [MemberwiseEqualityIgnore]
         public LazyLoaded<AuthorMetadata> AuthorMetadata { get; set; }
         [MemberwiseEqualityIgnore]
-        public LazyLoaded<List<AlbumRelease>> AlbumReleases { get; set; }
-        [MemberwiseEqualityIgnore]
         public LazyLoaded<Author> Author { get; set; }
         [MemberwiseEqualityIgnore]
-        public LazyLoaded<TrackFile> BookFile { get; set; }
+        public LazyLoaded<BookFile> BookFile { get; set; }
 
         //compatibility properties with old version of Album
         [MemberwiseEqualityIgnore]
@@ -77,10 +76,13 @@ namespace NzbDrone.Core.Music
         public override void UseMetadataFrom(Book other)
         {
             ForeignBookId = other.ForeignBookId;
-            OldForeignAlbumIds = other.OldForeignAlbumIds;
+            OldForeignBookIds = other.OldForeignBookIds;
+            Isbn13 = other.Isbn13;
+            Asin = other.Asin;
             Title = other.Title;
             Overview = other.Overview.IsNullOrWhiteSpace() ? Overview : other.Overview;
             Disambiguation = other.Disambiguation;
+            PageCount = other.PageCount;
             ReleaseDate = other.ReleaseDate;
             Images = other.Images.Any() ? other.Images : Images;
             Links = other.Links;

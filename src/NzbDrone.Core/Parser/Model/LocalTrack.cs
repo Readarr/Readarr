@@ -8,11 +8,6 @@ namespace NzbDrone.Core.Parser.Model
 {
     public class LocalTrack
     {
-        public LocalTrack()
-        {
-            Tracks = new List<Track>();
-        }
-
         public string Path { get; set; }
         public long Size { get; set; }
         public DateTime Modified { get; set; }
@@ -22,8 +17,6 @@ namespace NzbDrone.Core.Parser.Model
         public List<string> AcoustIdResults { get; set; }
         public Author Artist { get; set; }
         public Book Album { get; set; }
-        public AlbumRelease Release { get; set; }
-        public List<Track> Tracks { get; set; }
         public Distance Distance { get; set; }
         public QualityModel Quality { get; set; }
         public bool ExistingFile { get; set; }

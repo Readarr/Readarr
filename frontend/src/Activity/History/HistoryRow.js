@@ -97,7 +97,7 @@ class HistoryRow extends Component {
               return (
                 <TableRowCell key={name}>
                   <ArtistNameLink
-                    foreignArtistId={artist.foreignArtistId}
+                    foreignAuthorId={artist.foreignAuthorId}
                     artistName={artist.artistName}
                   />
                 </TableRowCell>
@@ -108,7 +108,7 @@ class HistoryRow extends Component {
               return (
                 <TableRowCell key={name}>
                   <AlbumTitleLink
-                    foreignAlbumId={album.foreignAlbumId}
+                    foreignBookId={album.foreignBookId}
                     title={album.title}
                     disambiguation={album.disambiguation}
                   />
@@ -205,7 +205,7 @@ class HistoryRow extends Component {
 }
 
 HistoryRow.propTypes = {
-  albumId: PropTypes.number,
+  bookId: PropTypes.number,
   artist: PropTypes.object.isRequired,
   album: PropTypes.object,
   quality: PropTypes.object.isRequired,

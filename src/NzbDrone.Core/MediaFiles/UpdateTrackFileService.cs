@@ -14,7 +14,7 @@ namespace NzbDrone.Core.MediaFiles
 {
     public interface IUpdateTrackFileService
     {
-        void ChangeFileDateForFile(TrackFile trackFile, Author artist, Book book);
+        void ChangeFileDateForFile(BookFile trackFile, Author artist, Book book);
     }
 
     public class UpdateTrackFileService : IUpdateTrackFileService,
@@ -23,29 +23,26 @@ namespace NzbDrone.Core.MediaFiles
         private readonly IDiskProvider _diskProvider;
         private readonly IAlbumService _albumService;
         private readonly IConfigService _configService;
-        private readonly ITrackService _trackService;
         private readonly Logger _logger;
         private static readonly DateTime EpochTime = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
 
         public UpdateTrackFileService(IDiskProvider diskProvider,
-                                        IConfigService configService,
-                                        ITrackService trackService,
-                                        IAlbumService albumService,
-                                        Logger logger)
+                                      IConfigService configService,
+                                      IAlbumService albumService,
+                                      Logger logger)
         {
             _diskProvider = diskProvider;
             _configService = configService;
-            _trackService = trackService;
             _albumService = albumService;
             _logger = logger;
         }
 
-        public void ChangeFileDateForFile(TrackFile trackFile, Author artist, Book book)
+        public void ChangeFileDateForFile(BookFile trackFile, Author artist, Book book)
         {
             ChangeFileDate(trackFile, book);
         }
 
-        private bool ChangeFileDate(TrackFile trackFile, Book album)
+        private bool ChangeFileDate(BookFile trackFile, Book album)
         {
             var trackFilePath = trackFile.Path;
 
@@ -101,8 +98,8 @@ namespace NzbDrone.Core.MediaFiles
 
             var books = _albumService.GetArtistAlbumsWithFiles(message.Artist);
 
-            var trackFiles = new List<TrackFile>();
-            var updated = new List<TrackFile>();
+            var trackFiles = new List<BookFile>();
+            var updated = new List<BookFile>();
 
             foreach (var group in books.GroupBy(e => e.BookFileId))
             {

@@ -22,26 +22,14 @@ namespace NzbDrone.Core.Test.MusicTests
         private readonly string _fakeArtistForeignId = "xxx-xxx-xxx";
         private Author _artist;
         private List<Book> _albums;
-        private List<AlbumRelease> _releases;
 
         [SetUp]
         public void Setup()
         {
-            var release = Builder<AlbumRelease>
-                .CreateNew()
-                .With(s => s.Media = new List<Medium> { new Medium { Number = 1 } })
-                .With(s => s.ForeignReleaseId = "xxx-xxx-xxx-xxx")
-                .With(s => s.Monitored = true)
-                .With(s => s.TrackCount = 10)
-                .Build();
-
-            _releases = new List<AlbumRelease> { release };
-
             var album1 = Builder<Book>.CreateNew()
                 .With(x => x.AuthorMetadata = Builder<AuthorMetadata>.CreateNew().Build())
                 .With(s => s.Id = 1234)
                 .With(s => s.ForeignBookId = "1")
-                .With(s => s.AlbumReleases = _releases)
                 .Build();
 
             _albums = new List<Book> { album1 };
@@ -53,10 +41,6 @@ namespace NzbDrone.Core.Test.MusicTests
             Mocker.GetMock<IArtistService>()
                   .Setup(s => s.GetArtist(_artist.Id))
                   .Returns(_artist);
-
-            Mocker.GetMock<IReleaseService>()
-                .Setup(s => s.GetReleasesForRefresh(album1.Id, It.IsAny<IEnumerable<string>>()))
-                .Returns(new List<AlbumRelease> { release });
 
             Mocker.GetMock<IArtistMetadataService>()
                 .Setup(s => s.UpsertMany(It.IsAny<List<AuthorMetadata>>()))
@@ -72,11 +56,7 @@ namespace NzbDrone.Core.Test.MusicTests
 
             Mocker.GetMock<IMediaFileService>()
                 .Setup(x => x.GetFilesByAlbum(It.IsAny<int>()))
-                .Returns(new List<TrackFile>());
-
-            Mocker.GetMock<IMediaFileService>()
-                .Setup(x => x.GetFilesByRelease(It.IsAny<int>()))
-                .Returns(new List<TrackFile>());
+                .Returns(new List<BookFile>());
 
             Mocker.GetMock<IHistoryService>()
                 .Setup(x => x.GetByAlbum(It.IsAny<int>(), It.IsAny<HistoryEventType?>()))
@@ -96,7 +76,6 @@ namespace NzbDrone.Core.Test.MusicTests
             var newAlbumInfo = _albums.First().JsonClone();
             newAlbumInfo.AuthorMetadata = _albums.First().AuthorMetadata.Value.JsonClone();
             newAlbumInfo.ForeignBookId = _albums.First().ForeignBookId + 1;
-            newAlbumInfo.AlbumReleases = _releases;
 
             GivenNewAlbumInfo(newAlbumInfo);
 
@@ -116,38 +95,17 @@ namespace NzbDrone.Core.Test.MusicTests
             clash.AuthorMetadata = existing.AuthorMetadata.Value.JsonClone();
             clash.ForeignBookId = clash.ForeignBookId + 1;
 
-            clash.AlbumReleases = Builder<AlbumRelease>.CreateListOfSize(10)
-                .All().With(x => x.AlbumId = clash.Id)
-                .BuildList();
-
             Mocker.GetMock<IAlbumService>()
                 .Setup(x => x.FindById(clash.ForeignBookId))
                 .Returns(clash);
 
-            Mocker.GetMock<IReleaseService>()
-                .Setup(x => x.GetReleasesByAlbum(_albums.First().Id))
-                .Returns(_releases);
-
-            Mocker.GetMock<IReleaseService>()
-                .Setup(x => x.GetReleasesByAlbum(clash.Id))
-                .Returns(new List<AlbumRelease>());
-
-            Mocker.GetMock<IReleaseService>()
-                .Setup(x => x.GetReleasesForRefresh(It.IsAny<int>(), It.IsAny<IEnumerable<string>>()))
-                .Returns(_releases);
-
             var newAlbumInfo = existing.JsonClone();
             newAlbumInfo.AuthorMetadata = existing.AuthorMetadata.Value.JsonClone();
             newAlbumInfo.ForeignBookId = _albums.First().ForeignBookId + 1;
-            newAlbumInfo.AlbumReleases = _releases;
 
             GivenNewAlbumInfo(newAlbumInfo);
 
             Subject.RefreshAlbumInfo(_albums, null, false, false, null);
-
-            // check releases moved to clashing album
-            Mocker.GetMock<IReleaseService>()
-                .Verify(v => v.UpdateMany(It.Is<List<AlbumRelease>>(x => x.All(y => y.AlbumId == clash.Id) && x.Count == _releases.Count)));
 
             // check old album is deleted
             Mocker.GetMock<IAlbumService>()
@@ -158,211 +116,6 @@ namespace NzbDrone.Core.Test.MusicTests
                 .Verify(v => v.UpdateMany(It.Is<List<Book>>(s => s.First().ForeignBookId == newAlbumInfo.ForeignBookId)));
 
             ExceptionVerification.ExpectedWarns(1);
-        }
-
-        [Test]
-        public void should_remove_album_with_no_valid_releases()
-        {
-            var album = _albums.First();
-            album.AlbumReleases = new List<AlbumRelease>();
-
-            GivenNewAlbumInfo(album);
-
-            Subject.RefreshAlbumInfo(album, null, false);
-
-            Mocker.GetMock<IAlbumService>()
-                .Verify(x => x.DeleteAlbum(album.Id, true, false),
-                        Times.Once());
-
-            ExceptionVerification.ExpectedWarns(1);
-        }
-
-        [Test]
-        public void should_not_add_duplicate_releases()
-        {
-            var newAlbum = Builder<Book>.CreateNew()
-                .With(x => x.AuthorMetadata = Builder<AuthorMetadata>.CreateNew().Build())
-                .Build();
-
-            // this is required because RefreshAlbumInfo will edit the album passed in
-            var albumCopy = Builder<Book>.CreateNew()
-                .With(x => x.AuthorMetadata = Builder<AuthorMetadata>.CreateNew().Build())
-                .Build();
-
-            var releases = Builder<AlbumRelease>.CreateListOfSize(10)
-                .All()
-                .With(x => x.AlbumId = newAlbum.Id)
-                .With(x => x.Monitored = true)
-                .TheFirst(4)
-                .With(x => x.ForeignReleaseId = "DuplicateId1")
-                .TheLast(1)
-                .With(x => x.ForeignReleaseId = "DuplicateId2")
-                .Build() as List<AlbumRelease>;
-
-            newAlbum.AlbumReleases = releases;
-            albumCopy.AlbumReleases = releases;
-
-            var existingReleases = Builder<AlbumRelease>.CreateListOfSize(1)
-                .TheFirst(1)
-                .With(x => x.ForeignReleaseId = "DuplicateId2")
-                .With(x => x.Monitored = true)
-                .Build() as List<AlbumRelease>;
-
-            Mocker.GetMock<IReleaseService>()
-                .Setup(x => x.GetReleasesForRefresh(It.IsAny<int>(), It.IsAny<IEnumerable<string>>()))
-                .Returns(existingReleases);
-
-            Mocker.GetMock<IProvideBookInfo>()
-                .Setup(x => x.GetBookInfo(It.IsAny<string>()))
-                .Returns(Tuple.Create("dummy string", albumCopy, new List<AuthorMetadata>()));
-
-            Subject.RefreshAlbumInfo(newAlbum, null, false);
-        }
-
-        [TestCase(true, true, 1)]
-        [TestCase(true, false, 0)]
-        [TestCase(false, true, 1)]
-        [TestCase(false, false, 0)]
-        public void should_only_leave_one_release_monitored(bool skyhookMonitored, bool existingMonitored, int expectedUpdates)
-        {
-            var newAlbum = Builder<Book>.CreateNew()
-                .With(x => x.AuthorMetadata = Builder<AuthorMetadata>.CreateNew().Build())
-                .Build();
-
-            // this is required because RefreshAlbumInfo will edit the album passed in
-            var albumCopy = Builder<Book>.CreateNew()
-                .With(x => x.AuthorMetadata = Builder<AuthorMetadata>.CreateNew().Build())
-                .Build();
-
-            var releases = Builder<AlbumRelease>.CreateListOfSize(10)
-                .All()
-                .With(x => x.AlbumId = newAlbum.Id)
-                .With(x => x.Monitored = skyhookMonitored)
-                .TheFirst(1)
-                .With(x => x.ForeignReleaseId = "ExistingId1")
-                .TheNext(1)
-                .With(x => x.ForeignReleaseId = "ExistingId2")
-                .Build() as List<AlbumRelease>;
-
-            newAlbum.AlbumReleases = releases;
-            albumCopy.AlbumReleases = releases;
-
-            var existingReleases = Builder<AlbumRelease>.CreateListOfSize(2)
-                .All()
-                .With(x => x.Monitored = existingMonitored)
-                .TheFirst(1)
-                .With(x => x.ForeignReleaseId = "ExistingId1")
-                .TheNext(1)
-                .With(x => x.ForeignReleaseId = "ExistingId2")
-                .Build() as List<AlbumRelease>;
-
-            Mocker.GetMock<IReleaseService>()
-                .Setup(x => x.GetReleasesForRefresh(It.IsAny<int>(), It.IsAny<IEnumerable<string>>()))
-                .Returns(existingReleases);
-
-            Mocker.GetMock<IProvideBookInfo>()
-                .Setup(x => x.GetBookInfo(It.IsAny<string>()))
-                .Returns(Tuple.Create("dummy string", albumCopy, new List<AuthorMetadata>()));
-
-            Subject.RefreshAlbumInfo(newAlbum, null, false);
-        }
-
-        [Test]
-        public void refreshing_album_should_not_change_monitored_release_if_monitored_release_not_deleted()
-        {
-            var newAlbum = Builder<Book>.CreateNew()
-                .With(x => x.AuthorMetadata = Builder<AuthorMetadata>.CreateNew().Build())
-                .Build();
-
-            // this is required because RefreshAlbumInfo will edit the album passed in
-            var albumCopy = Builder<Book>.CreateNew()
-                .With(x => x.AuthorMetadata = Builder<AuthorMetadata>.CreateNew().Build())
-                .Build();
-
-            // only ExistingId1 is monitored from dummy skyhook
-            var releases = Builder<AlbumRelease>.CreateListOfSize(10)
-                .All()
-                .With(x => x.AlbumId = newAlbum.Id)
-                .With(x => x.Monitored = false)
-                .TheFirst(1)
-                .With(x => x.ForeignReleaseId = "ExistingId1")
-                .With(x => x.Monitored = true)
-                .TheNext(1)
-                .With(x => x.ForeignReleaseId = "ExistingId2")
-                .Build() as List<AlbumRelease>;
-
-            newAlbum.AlbumReleases = releases;
-            albumCopy.AlbumReleases = releases;
-
-            // ExistingId2 is monitored in DB
-            var existingReleases = Builder<AlbumRelease>.CreateListOfSize(2)
-                .All()
-                .With(x => x.Monitored = false)
-                .TheFirst(1)
-                .With(x => x.ForeignReleaseId = "ExistingId1")
-                .TheNext(1)
-                .With(x => x.ForeignReleaseId = "ExistingId2")
-                .With(x => x.Monitored = true)
-                .Build() as List<AlbumRelease>;
-
-            Mocker.GetMock<IReleaseService>()
-                .Setup(x => x.GetReleasesForRefresh(It.IsAny<int>(), It.IsAny<IEnumerable<string>>()))
-                .Returns(existingReleases);
-
-            Mocker.GetMock<IProvideBookInfo>()
-                .Setup(x => x.GetBookInfo(It.IsAny<string>()))
-                .Returns(Tuple.Create("dummy string", albumCopy, new List<AuthorMetadata>()));
-
-            Subject.RefreshAlbumInfo(newAlbum, null, false);
-        }
-
-        [Test]
-        public void refreshing_album_should_change_monitored_release_if_monitored_release_deleted()
-        {
-            var newAlbum = Builder<Book>.CreateNew()
-                .With(x => x.AuthorMetadata = Builder<AuthorMetadata>.CreateNew().Build())
-                .Build();
-
-            // this is required because RefreshAlbumInfo will edit the album passed in
-            var albumCopy = Builder<Book>.CreateNew()
-                .With(x => x.AuthorMetadata = Builder<AuthorMetadata>.CreateNew().Build())
-                .Build();
-
-            // Only existingId1 monitored in skyhook.  ExistingId2 is missing
-            var releases = Builder<AlbumRelease>.CreateListOfSize(10)
-                .All()
-                .With(x => x.AlbumId = newAlbum.Id)
-                .With(x => x.Monitored = false)
-                .TheFirst(1)
-                .With(x => x.ForeignReleaseId = "ExistingId1")
-                .With(x => x.Monitored = true)
-                .TheNext(1)
-                .With(x => x.ForeignReleaseId = "NotExistingId2")
-                .Build() as List<AlbumRelease>;
-
-            newAlbum.AlbumReleases = releases;
-            albumCopy.AlbumReleases = releases;
-
-            // ExistingId2 is monitored but will be deleted
-            var existingReleases = Builder<AlbumRelease>.CreateListOfSize(2)
-                .All()
-                .With(x => x.Monitored = false)
-                .TheFirst(1)
-                .With(x => x.ForeignReleaseId = "ExistingId1")
-                .TheNext(1)
-                .With(x => x.ForeignReleaseId = "ExistingId2")
-                .With(x => x.Monitored = true)
-                .Build() as List<AlbumRelease>;
-
-            Mocker.GetMock<IReleaseService>()
-                .Setup(x => x.GetReleasesForRefresh(It.IsAny<int>(), It.IsAny<IEnumerable<string>>()))
-                .Returns(existingReleases);
-
-            Mocker.GetMock<IProvideBookInfo>()
-                .Setup(x => x.GetBookInfo(It.IsAny<string>()))
-                .Returns(Tuple.Create("dummy string", albumCopy, new List<AuthorMetadata>()));
-
-            Subject.RefreshAlbumInfo(newAlbum, null, false);
         }
     }
 }

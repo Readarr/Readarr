@@ -12,9 +12,6 @@ import Form from 'Components/Form/Form';
 import FormGroup from 'Components/Form/FormGroup';
 import FormLabel from 'Components/Form/FormLabel';
 import FormInputGroup from 'Components/Form/FormInputGroup';
-import PrimaryTypeItems from './PrimaryTypeItems';
-import SecondaryTypeItems from './SecondaryTypeItems';
-import ReleaseStatusItems from './ReleaseStatusItems';
 import styles from './EditMetadataProfileModalContent.css';
 
 function EditMetadataProfileModalContent(props) {
@@ -23,8 +20,6 @@ function EditMetadataProfileModalContent(props) {
     error,
     isSaving,
     saveError,
-    primaryAlbumTypes,
-    secondaryAlbumTypes,
     item,
     isInUse,
     onInputChange,
@@ -37,9 +32,8 @@ function EditMetadataProfileModalContent(props) {
   const {
     id,
     name,
-    primaryAlbumTypes: itemPrimaryAlbumTypes,
-    secondaryAlbumTypes: itemSecondaryAlbumTypes,
-    releaseStatuses: itemReleaseStatuses
+    minRating,
+    minRatingCount
   } = item;
 
   return (
@@ -73,29 +67,31 @@ function EditMetadataProfileModalContent(props) {
                 />
               </FormGroup>
 
-              <PrimaryTypeItems
-                metadataProfileItems={itemPrimaryAlbumTypes.value}
-                errors={itemPrimaryAlbumTypes.errors}
-                warnings={itemPrimaryAlbumTypes.warnings}
-                formLabel="Primary Album Types"
-                {...otherProps}
-              />
+              <FormGroup>
+                <FormLabel>Minimum Rating</FormLabel>
 
-              <SecondaryTypeItems
-                metadataProfileItems={itemSecondaryAlbumTypes.value}
-                errors={itemSecondaryAlbumTypes.errors}
-                warnings={itemSecondaryAlbumTypes.warnings}
-                formLabel="Secondary Album Types"
-                {...otherProps}
-              />
+                <FormInputGroup
+                  type={inputTypes.NUMBER}
+                  name="minRating"
+                  {...minRating}
+                  isFloat={true}
+                  min={0}
+                  max={5}
+                  onChange={onInputChange}
+                />
+              </FormGroup>
 
-              <ReleaseStatusItems
-                metadataProfileItems={itemReleaseStatuses.value}
-                errors={itemReleaseStatuses.errors}
-                warnings={itemReleaseStatuses.warnings}
-                formLabel="Release Statuses"
-                {...otherProps}
-              />
+              <FormGroup>
+                <FormLabel>Minimum Number of Ratings</FormLabel>
+
+                <FormInputGroup
+                  type={inputTypes.NUMBER}
+                  name="minRatingCount"
+                  {...minRatingCount}
+                  min={0}
+                  onChange={onInputChange}
+                />
+              </FormGroup>
 
             </Form>
         }
@@ -140,9 +136,6 @@ EditMetadataProfileModalContent.propTypes = {
   error: PropTypes.object,
   isSaving: PropTypes.bool.isRequired,
   saveError: PropTypes.object,
-  primaryAlbumTypes: PropTypes.arrayOf(PropTypes.object).isRequired,
-  secondaryAlbumTypes: PropTypes.arrayOf(PropTypes.object).isRequired,
-  releaseStatuses: PropTypes.arrayOf(PropTypes.object).isRequired,
   item: PropTypes.object.isRequired,
   isInUse: PropTypes.bool.isRequired,
   onInputChange: PropTypes.func.isRequired,

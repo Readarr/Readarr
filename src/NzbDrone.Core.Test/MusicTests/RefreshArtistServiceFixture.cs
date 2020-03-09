@@ -61,7 +61,7 @@ namespace NzbDrone.Core.Test.MusicTests
 
             Mocker.GetMock<IMediaFileService>()
                 .Setup(x => x.GetFilesByArtist(It.IsAny<int>()))
-                .Returns(new List<TrackFile>());
+                .Returns(new List<BookFile>());
 
             Mocker.GetMock<IHistoryService>()
                 .Setup(x => x.GetByArtist(It.IsAny<int>(), It.IsAny<HistoryEventType?>()))
@@ -87,7 +87,7 @@ namespace NzbDrone.Core.Test.MusicTests
         {
             Mocker.GetMock<IMediaFileService>()
                   .Setup(x => x.GetFilesByArtist(It.IsAny<int>()))
-                  .Returns(Builder<TrackFile>.CreateListOfSize(1).BuildList());
+                  .Returns(Builder<BookFile>.CreateListOfSize(1).BuildList());
         }
 
         private void GivenAlbumsForRefresh(List<Book> albums)

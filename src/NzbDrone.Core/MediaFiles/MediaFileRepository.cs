@@ -9,20 +9,19 @@ using NzbDrone.Core.Music;
 
 namespace NzbDrone.Core.MediaFiles
 {
-    public interface IMediaFileRepository : IBasicRepository<TrackFile>
+    public interface IMediaFileRepository : IBasicRepository<BookFile>
     {
-        List<TrackFile> GetFilesByArtist(int artistId);
-        List<TrackFile> GetFilesByAlbum(int albumId);
-        List<TrackFile> GetFilesByRelease(int releaseId);
-        List<TrackFile> GetUnmappedFiles();
-        List<TrackFile> GetFilesWithBasePath(string path);
-        List<TrackFile> GetFileWithPath(List<string> paths);
-        TrackFile GetFileWithPath(string path);
-        void DeleteFilesByAlbum(int albumId);
-        void UnlinkFilesByAlbum(int albumId);
+        List<BookFile> GetFilesByArtist(int authorId);
+        List<BookFile> GetFilesByAlbum(int bookId);
+        List<BookFile> GetUnmappedFiles();
+        List<BookFile> GetFilesWithBasePath(string path);
+        List<BookFile> GetFileWithPath(List<string> paths);
+        BookFile GetFileWithPath(string path);
+        void DeleteFilesByAlbum(int bookId);
+        void UnlinkFilesByAlbum(int bookId);
     }
 
-    public class MediaFileRepository : BasicRepository<TrackFile>, IMediaFileRepository
+    public class MediaFileRepository : BasicRepository<BookFile>, IMediaFileRepository
     {
         public MediaFileRepository(IMainDatabase database, IEventAggregator eventAggregator)
             : base(database, eventAggregator)
@@ -32,123 +31,91 @@ namespace NzbDrone.Core.MediaFiles
         // always join with all the other good stuff
         // needed more often than not so better to load it all now
         protected override SqlBuilder Builder() => new SqlBuilder()
-            .LeftJoin<TrackFile, Book>((t, a) => t.AlbumId == a.Id)
+            .LeftJoin<BookFile, Book>((t, a) => t.BookId == a.Id)
             .LeftJoin<Book, Author>((album, artist) => album.AuthorMetadataId == artist.AuthorMetadataId)
             .LeftJoin<Author, AuthorMetadata>((a, m) => a.AuthorMetadataId == m.Id);
 
-        protected override List<TrackFile> Query(SqlBuilder builder) => Query(_database, builder).ToList();
+        protected override List<BookFile> Query(SqlBuilder builder) => Query(_database, builder).ToList();
 
-        public static IEnumerable<TrackFile> Query(IDatabase database, SqlBuilder builder)
+        public static IEnumerable<BookFile> Query(IDatabase database, SqlBuilder builder)
         {
-            var fileDictionary = new Dictionary<int, TrackFile>();
-
-            _ = database.QueryJoined<TrackFile, Book, Author, AuthorMetadata>(builder, (file, album, artist, metadata) => Map(fileDictionary, file, album, artist, metadata));
-
-            return fileDictionary.Values;
+            return database.QueryJoined<BookFile, Book, Author, AuthorMetadata>(builder, (file, album, artist, metadata) => Map(file, album, artist, metadata));
         }
 
-        private static TrackFile Map(Dictionary<int, TrackFile> dict, TrackFile file, Book album, Author artist, AuthorMetadata metadata)
+        private static BookFile Map(BookFile file, Book album, Author artist, AuthorMetadata metadata)
         {
-            if (!dict.TryGetValue(file.Id, out var entry))
-            {
-                if (artist != null)
-                {
-                    artist.Metadata = metadata;
-                }
+            file.Album = album;
 
-                entry = file;
-                entry.Books = new List<Book>();
-                entry.Album = album;
-                entry.Artist = artist;
-                dict.Add(entry.Id, entry);
+            if (artist != null)
+            {
+                artist.Metadata = metadata;
             }
 
-            if (album != null)
-            {
-                entry.Books.Value.Add(album);
-            }
+            file.Artist = artist;
 
-            return entry;
+            return file;
         }
 
-        public List<TrackFile> GetFilesByArtist(int artistId)
+        public List<BookFile> GetFilesByArtist(int authorId)
         {
-            return Query(Builder().Where<Author>(a => a.Id == artistId));
+            return Query(Builder().Where<Author>(a => a.Id == authorId));
         }
 
-        public List<TrackFile> GetFilesByAlbum(int albumId)
+        public List<BookFile> GetFilesByAlbum(int bookId)
         {
-            return Query(Builder().Where<TrackFile>(f => f.AlbumId == albumId));
+            return Query(Builder().Where<BookFile>(f => f.BookId == bookId));
         }
 
-        public List<TrackFile> GetUnmappedFiles()
+        public List<BookFile> GetUnmappedFiles()
         {
             //x.Id == null is converted to SQL, so warning incorrect
 #pragma warning disable CS0472
-            return _database.Query<TrackFile>(new SqlBuilder().Select(typeof(TrackFile))
-                                              .LeftJoin<TrackFile, Book>((f, t) => f.Id == t.BookFileId)
+            return _database.Query<BookFile>(new SqlBuilder().Select(typeof(BookFile))
+                                              .LeftJoin<BookFile, Book>((f, t) => f.Id == t.BookFileId)
                                               .Where<Book>(t => t.Id == null)).ToList();
 #pragma warning restore CS0472
         }
 
-        public void DeleteFilesByAlbum(int albumId)
+        public void DeleteFilesByAlbum(int bookId)
         {
-            Delete(x => x.AlbumId == albumId);
+            Delete(x => x.BookId == bookId);
         }
 
-        public void UnlinkFilesByAlbum(int albumId)
+        public void UnlinkFilesByAlbum(int bookId)
         {
-            var files = Query(x => x.AlbumId == albumId);
-            files.ForEach(x => x.AlbumId = 0);
-            SetFields(files, f => f.AlbumId);
+            var files = Query(x => x.BookId == bookId);
+            files.ForEach(x => x.BookId = 0);
+            SetFields(files, f => f.BookId);
         }
 
-        public List<TrackFile> GetFilesByRelease(int releaseId)
-        {
-            return Query(Builder().Where<Track>(x => x.AlbumReleaseId == releaseId));
-        }
-
-        public List<TrackFile> GetFilesWithBasePath(string path)
+        public List<BookFile> GetFilesWithBasePath(string path)
         {
             // ensure path ends with a single trailing path separator to avoid matching partial paths
             var safePath = path.TrimEnd(Path.DirectorySeparatorChar) + Path.DirectorySeparatorChar;
-            return _database.Query<TrackFile>(new SqlBuilder().Where<TrackFile>(x => x.Path.StartsWith(safePath))).ToList();
+            return _database.Query<BookFile>(new SqlBuilder().Where<BookFile>(x => x.Path.StartsWith(safePath))).ToList();
         }
 
-        public TrackFile GetFileWithPath(string path)
+        public BookFile GetFileWithPath(string path)
         {
             return Query(x => x.Path == path).SingleOrDefault();
         }
 
-        public List<TrackFile> GetFileWithPath(List<string> paths)
+        public List<BookFile> GetFileWithPath(List<string> paths)
         {
             // use more limited join for speed
             var builder = new SqlBuilder()
-                .LeftJoin<TrackFile, Book>((f, t) => f.Id == t.BookFileId);
+                .LeftJoin<BookFile, Book>((f, t) => f.Id == t.BookFileId);
 
-            var dict = new Dictionary<int, TrackFile>();
-            _ = _database.QueryJoined<TrackFile, Book>(builder, (file, book) => MapTrack(dict, file, book)).ToList();
-            var all = dict.Values.ToList();
+            var all = _database.QueryJoined<BookFile, Book>(builder, (file, book) => MapTrack(file, book)).ToList();
 
             var joined = all.Join(paths, x => x.Path, x => x, (file, path) => file, PathEqualityComparer.Instance).ToList();
             return joined;
         }
 
-        private TrackFile MapTrack(Dictionary<int, TrackFile> dict, TrackFile file, Book book)
+        private BookFile MapTrack(BookFile file, Book book)
         {
-            if (!dict.TryGetValue(file.Id, out var entry))
-            {
-                entry = file;
-                entry.Books = new List<Book>();
-                dict.Add(entry.Id, entry);
-            }
-
-            if (book != null)
-            {
-                entry.Books.Value.Add(book);
-            }
-
-            return entry;
+            file.Album = book;
+            return file;
         }
     }
 }

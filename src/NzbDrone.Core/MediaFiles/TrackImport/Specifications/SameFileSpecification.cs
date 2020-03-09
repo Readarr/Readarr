@@ -16,7 +16,13 @@ namespace NzbDrone.Core.MediaFiles.TrackImport.Specifications
 
         public Decision IsSatisfiedBy(LocalTrack item, DownloadClientItem downloadClientItem)
         {
-            var trackFile = item.Album.BookFile.Value;
+            if (item.Album.BookFileId == 0)
+            {
+                _logger.Debug("No existing track file, skipping");
+                return Decision.Accept();
+            }
+
+            var trackFile = item.Album?.BookFile?.Value;
 
             if (trackFile == null)
             {

@@ -24,22 +24,22 @@ class ArtistDetailsSeason extends Component {
   //
   // Listeners
 
-  onMonitorAlbumPress = (albumId, monitored, { shiftKey }) => {
+  onMonitorAlbumPress = (bookId, monitored, { shiftKey }) => {
     const lastToggled = this.state.lastToggledAlbum;
-    const albumIds = [albumId];
+    const bookIds = [bookId];
 
     if (shiftKey && lastToggled) {
-      const { lower, upper } = getToggledRange(this.props.items, albumId, lastToggled);
+      const { lower, upper } = getToggledRange(this.props.items, bookId, lastToggled);
       const items = this.props.items;
 
       for (let i = lower; i < upper; i++) {
-        albumIds.push(items[i].id);
+        bookIds.push(items[i].id);
       }
     }
 
-    this.setState({ lastToggledAlbum: albumId });
+    this.setState({ lastToggledAlbum: bookId });
 
-    this.props.onMonitorAlbumPress(_.uniq(albumIds), monitored);
+    this.props.onMonitorAlbumPress(_.uniq(bookIds), monitored);
   }
 
   //

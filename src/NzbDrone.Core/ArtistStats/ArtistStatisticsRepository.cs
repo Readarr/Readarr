@@ -11,7 +11,7 @@ namespace NzbDrone.Core.ArtistStats
     public interface IArtistStatisticsRepository
     {
         List<AlbumStatistics> ArtistStatistics();
-        List<AlbumStatistics> ArtistStatistics(int artistId);
+        List<AlbumStatistics> ArtistStatistics(int authorId);
     }
 
     public class ArtistStatisticsRepository : IArtistStatisticsRepository
@@ -31,11 +31,11 @@ namespace NzbDrone.Core.ArtistStats
             return Query(Builder().Where<Book>(x => x.ReleaseDate < time));
         }
 
-        public List<AlbumStatistics> ArtistStatistics(int artistId)
+        public List<AlbumStatistics> ArtistStatistics(int authorId)
         {
             var time = DateTime.UtcNow;
             return Query(Builder().Where<Book>(x => x.ReleaseDate < time)
-                         .Where<Author>(x => x.Id == artistId));
+                         .Where<Author>(x => x.Id == authorId));
         }
 
         private List<AlbumStatistics> Query(SqlBuilder builder)
@@ -49,15 +49,15 @@ namespace NzbDrone.Core.ArtistStats
         }
 
         private SqlBuilder Builder() => new SqlBuilder()
-            .Select(@"Authors.Id AS ArtistId,
-                     Books.Id AS AlbumId,
-                     SUM(COALESCE(TrackFiles.Size, 0)) AS SizeOnDisk,
+            .Select(@"Authors.Id AS AuthorId,
+                     Books.Id AS BookId,
+                     SUM(COALESCE(BookFiles.Size, 0)) AS SizeOnDisk,
                      COUNT(Books.Id) AS TotalTrackCount,
                      SUM(CASE WHEN Books.BookFileId > 0 THEN 1 ELSE 0 END) AS AvailableTrackCount,
                      SUM(CASE WHEN Books.Monitored = 1 OR Books.BookFileId > 0 THEN 1 ELSE 0 END) AS TrackCount,
-                     SUM(CASE WHEN TrackFiles.Id IS NULL THEN 0 ELSE 1 END) AS TrackFileCount")
+                     SUM(CASE WHEN BookFiles.Id IS NULL THEN 0 ELSE 1 END) AS TrackFileCount")
             .Join<Book, Author>((album, artist) => album.AuthorMetadataId == artist.AuthorMetadataId)
-            .LeftJoin<Book, TrackFile>((t, f) => t.BookFileId == f.Id)
+            .LeftJoin<Book, BookFile>((t, f) => t.BookFileId == f.Id)
             .GroupBy<Author>(x => x.Id)
             .GroupBy<Book>(x => x.Id);
     }

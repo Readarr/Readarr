@@ -62,23 +62,17 @@ namespace NzbDrone.Core.Extras.Others
                     continue;
                 }
 
-                if (localTrack.Tracks.Empty())
+                if (localTrack.Album == null)
                 {
-                    _logger.Debug("Cannot find related tracks for: {0}", possibleExtraFile);
-                    continue;
-                }
-
-                if (localTrack.Tracks.DistinctBy(e => e.TrackFileId).Count() > 1)
-                {
-                    _logger.Debug("Extra file: {0} does not match existing files.", possibleExtraFile);
+                    _logger.Debug("Cannot find related book for: {0}", possibleExtraFile);
                     continue;
                 }
 
                 var extraFile = new OtherExtraFile
                 {
-                    ArtistId = artist.Id,
-                    AlbumId = localTrack.Album.Id,
-                    TrackFileId = localTrack.Tracks.First().TrackFileId,
+                    AuthorId = artist.Id,
+                    BookId = localTrack.Album.Id,
+                    TrackFileId = localTrack.Album.BookFileId,
                     RelativePath = artist.Path.GetRelativePath(possibleExtraFile),
                     Extension = extension
                 };

@@ -11,6 +11,8 @@ namespace NzbDrone.Core.Parser.Model
         public string CleanTitle { get; set; }
         public string ArtistTitle { get; set; }
         public string AlbumTitle { get; set; }
+        public string Isbn { get; set; }
+        public string Asin { get; set; }
         public ArtistTitleInfo ArtistTitleInfo { get; set; }
         public string ArtistMBId { get; set; }
         public string AlbumMBId { get; set; }
@@ -28,6 +30,7 @@ namespace NzbDrone.Core.Parser.Model
         public QualityModel Quality { get; set; }
         public MediaInfoModel MediaInfo { get; set; }
         public int[] TrackNumbers { get; set; }
+        public string Language { get; set; }
         public string ReleaseGroup { get; set; }
         public string ReleaseHash { get; set; }
 

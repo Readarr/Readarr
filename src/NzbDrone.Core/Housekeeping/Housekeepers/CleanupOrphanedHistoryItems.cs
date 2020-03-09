@@ -26,7 +26,7 @@ namespace NzbDrone.Core.Housekeeping.Housekeepers
                                      WHERE Id IN (
                                      SELECT History.Id FROM History
                                      LEFT OUTER JOIN Artists
-                                     ON History.ArtistId = Artists.Id
+                                     ON History.AuthorId = Artists.Id
                                      WHERE Artists.Id IS NULL)");
             }
         }
@@ -39,7 +39,7 @@ namespace NzbDrone.Core.Housekeeping.Housekeepers
                                      WHERE Id IN (
                                      SELECT History.Id FROM History
                                      LEFT OUTER JOIN Albums
-                                     ON History.AlbumId = Albums.Id
+                                     ON History.BookId = Albums.Id
                                      WHERE Albums.Id IS NULL)");
             }
         }

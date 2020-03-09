@@ -43,7 +43,7 @@ namespace NzbDrone.Core.Test.IndexerSearchTests
                 new Book { Monitored = true }
             };
 
-            Subject.Execute(new ArtistSearchCommand { ArtistId = _artist.Id, Trigger = CommandTrigger.Manual });
+            Subject.Execute(new ArtistSearchCommand { AuthorId = _artist.Id, Trigger = CommandTrigger.Manual });
 
             Mocker.GetMock<ISearchForNzb>()
                 .Verify(v => v.ArtistSearch(_artist.Id, false, true, false),

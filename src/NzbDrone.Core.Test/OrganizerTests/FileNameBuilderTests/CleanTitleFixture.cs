@@ -16,9 +16,7 @@ namespace NzbDrone.Core.Test.OrganizerTests.FileNameBuilderTests
     {
         private Author _artist;
         private Book _album;
-        private AlbumRelease _release;
-        private Track _track;
-        private TrackFile _trackFile;
+        private BookFile _trackFile;
         private NamingConfig _namingConfig;
 
         [SetUp]
@@ -34,18 +32,7 @@ namespace NzbDrone.Core.Test.OrganizerTests.FileNameBuilderTests
                     .With(s => s.Title = "Hail to the King")
                     .Build();
 
-            _release = Builder<AlbumRelease>
-                .CreateNew()
-                .With(s => s.Media = new List<Medium> { new Medium { Number = 1 } })
-                .Build();
-
-            _track = Builder<Track>.CreateNew()
-                            .With(e => e.Title = "Doing Time")
-                            .With(e => e.AbsoluteTrackNumber = 3)
-                            .With(e => e.AlbumRelease = _release)
-                            .Build();
-
-            _trackFile = new TrackFile { Quality = new QualityModel(Quality.MP3_256), ReleaseGroup = "ReadarrTest" };
+            _trackFile = new BookFile { Quality = new QualityModel(Quality.MP3_320), ReleaseGroup = "ReadarrTest" };
 
             _namingConfig = NamingConfig.Default;
             _namingConfig.RenameTracks = true;

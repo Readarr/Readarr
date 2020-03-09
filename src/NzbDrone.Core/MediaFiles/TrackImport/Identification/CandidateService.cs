@@ -109,7 +109,7 @@ namespace NzbDrone.Core.MediaFiles.TrackImport.Identification
                 new CandidateAlbumRelease
                 {
                     Book = album,
-                    ExistingTracks = includeExisting ? _mediaFileService.GetFilesByAlbum(album.Id) : new List<TrackFile>()
+                    ExistingTracks = includeExisting ? _mediaFileService.GetFilesByAlbum(album.Id) : new List<BookFile>()
                 }
             };
         }
@@ -119,7 +119,7 @@ namespace NzbDrone.Core.MediaFiles.TrackImport.Identification
             _logger.Trace("Getting candidates for {0}", artist);
             var candidateReleases = new List<CandidateAlbumRelease>();
 
-            var albumTag = localAlbumRelease.LocalTracks.MostCommon(x => x.FileTrackInfo.Title) ?? "";
+            var albumTag = localAlbumRelease.LocalTracks.MostCommon(x => x.FileTrackInfo.AlbumTitle) ?? "";
             if (albumTag.IsNotNullOrWhiteSpace())
             {
                 var possibleAlbums = _albumService.GetCandidates(artist.AuthorMetadataId, albumTag);
@@ -141,7 +141,7 @@ namespace NzbDrone.Core.MediaFiles.TrackImport.Identification
             // check if it looks like VA.
             if (TrackGroupingService.IsVariousArtists(localAlbumRelease.LocalTracks))
             {
-                var va = _artistService.FindById(DistanceCalculator.VariousArtistIds[0]);
+                var va = _artistService.FindById(DistanceCalculator.VariousAuthorIds[0]);
                 if (va != null)
                 {
                     candidateReleases.AddRange(GetDbCandidatesByArtist(localAlbumRelease, va, includeExisting));
@@ -167,19 +167,30 @@ namespace NzbDrone.Core.MediaFiles.TrackImport.Identification
             // Will eventually need adding locally if we find a match
             var watch = System.Diagnostics.Stopwatch.StartNew();
 
-            List<Book> remoteAlbums;
+            List<Book> remoteAlbums = null;
             var candidates = new List<CandidateAlbumRelease>();
 
-            var albumIds = localAlbumRelease.LocalTracks.Select(x => x.FileTrackInfo.AlbumMBId).Distinct().ToList();
+            var isbns = localAlbumRelease.LocalTracks.Select(x => x.FileTrackInfo.Isbn).Distinct().ToList();
+            var asins = localAlbumRelease.LocalTracks.Select(x => x.FileTrackInfo.Asin).Distinct().ToList();
 
             try
             {
-                if (albumIds.Count == 1 && albumIds[0].IsNotNullOrWhiteSpace())
+                if (isbns.Count == 1 && isbns[0].IsNotNullOrWhiteSpace())
                 {
-                    // Use mbids in tags if set
-                    remoteAlbums = _albumSearchService.SearchForNewBook($"readarr:{albumIds[0]}", null);
+                    // Use isbn in tags if set
+                    _logger.Trace($"Searching by isbn {isbns[0]}");
+                    remoteAlbums = _albumSearchService.SearchByIsbn(isbns[0]);
                 }
-                else
+
+                if (asins.Count == 1 && asins[0].IsNotNullOrWhiteSpace() && (remoteAlbums == null || !remoteAlbums.Any()))
+                {
+                    // Try asin if no result
+                    _logger.Trace($"Searching by asin {asins[0]}");
+                    remoteAlbums = _albumSearchService.SearchForNewBook(asins[0], null);
+                }
+
+                // if no asin/isbn or no result, fall back to text search
+                if (remoteAlbums == null || !remoteAlbums.Any())
                 {
                     // fall back to artist / album name search
                     string artistTag;
@@ -211,17 +222,11 @@ namespace NzbDrone.Core.MediaFiles.TrackImport.Identification
 
             foreach (var album in remoteAlbums)
             {
-                // We have to make sure various bits and pieces are populated that are normally handled
-                // by a database lazy load
-                foreach (var release in album.AlbumReleases.Value)
+                candidates.Add(new CandidateAlbumRelease
                 {
-                    release.Album = album;
-                    candidates.Add(new CandidateAlbumRelease
-                    {
-                        AlbumRelease = release,
-                        ExistingTracks = new List<TrackFile>()
-                    });
-                }
+                    Book = album,
+                    ExistingTracks = new List<BookFile>()
+                });
             }
 
             watch.Stop();

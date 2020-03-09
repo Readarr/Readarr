@@ -100,14 +100,14 @@ namespace Readarr.Api.V1.Albums
 
         private void FetchAndLinkAlbumStatistics(AlbumResource resource)
         {
-            LinkArtistStatistics(resource, _artistStatisticsService.ArtistStatistics(resource.ArtistId));
+            LinkArtistStatistics(resource, _artistStatisticsService.ArtistStatistics(resource.AuthorId));
         }
 
         private void LinkArtistStatistics(List<AlbumResource> resources, List<ArtistStatistics> artistStatistics)
         {
             foreach (var album in resources)
             {
-                var stats = artistStatistics.SingleOrDefault(ss => ss.ArtistId == album.ArtistId);
+                var stats = artistStatistics.SingleOrDefault(ss => ss.AuthorId == album.AuthorId);
                 LinkArtistStatistics(album, stats);
             }
         }
@@ -116,7 +116,7 @@ namespace Readarr.Api.V1.Albums
         {
             if (artistStatistics?.AlbumStatistics != null)
             {
-                var dictAlbumStats = artistStatistics.AlbumStatistics.ToDictionary(v => v.AlbumId);
+                var dictAlbumStats = artistStatistics.AlbumStatistics.ToDictionary(v => v.BookId);
 
                 resource.Statistics = dictAlbumStats.GetValueOrDefault(resource.Id).ToResource();
             }

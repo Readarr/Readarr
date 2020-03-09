@@ -29,7 +29,7 @@ namespace NzbDrone.Core.Test.MusicTests
 
             _command = new MoveArtistCommand
             {
-                ArtistId = 1,
+                AuthorId = 1,
                 SourcePath = @"C:\Test\Music\Artist".AsOsAgnostic(),
                 DestinationPath = @"C:\Test\Music2\Artist".AsOsAgnostic()
             };
@@ -40,7 +40,7 @@ namespace NzbDrone.Core.Test.MusicTests
                 {
                     new BulkMoveArtist
                     {
-                        ArtistId = 1,
+                        AuthorId = 1,
                         SourcePath = @"C:\Test\Music\Artist".AsOsAgnostic()
                     }
                 },

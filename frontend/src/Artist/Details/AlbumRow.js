@@ -66,7 +66,7 @@ class AlbumRow extends Component {
   render() {
     const {
       id,
-      artistId,
+      authorId,
       monitored,
       statistics,
       releaseDate,
@@ -75,7 +75,7 @@ class AlbumRow extends Component {
       disambiguation,
       isSaving,
       artistMonitored,
-      foreignAlbumId,
+      foreignBookId,
       columns
     } = this.props;
 
@@ -121,7 +121,7 @@ class AlbumRow extends Component {
                   className={styles.title}
                 >
                   <AlbumTitleLink
-                    foreignAlbumId={foreignAlbumId}
+                    foreignBookId={foreignBookId}
                     title={title}
                     disambiguation={disambiguation}
                   />
@@ -174,8 +174,8 @@ class AlbumRow extends Component {
               return (
                 <AlbumSearchCellConnector
                   key={name}
-                  albumId={id}
-                  artistId={artistId}
+                  bookId={id}
+                  authorId={authorId}
                   albumTitle={title}
                 />
               );
@@ -190,13 +190,13 @@ class AlbumRow extends Component {
 
 AlbumRow.propTypes = {
   id: PropTypes.number.isRequired,
-  artistId: PropTypes.number.isRequired,
+  authorId: PropTypes.number.isRequired,
   monitored: PropTypes.bool.isRequired,
   releaseDate: PropTypes.string,
   title: PropTypes.string.isRequired,
   ratings: PropTypes.object.isRequired,
   disambiguation: PropTypes.string,
-  foreignAlbumId: PropTypes.string.isRequired,
+  foreignBookId: PropTypes.string.isRequired,
   isSaving: PropTypes.bool,
   artistMonitored: PropTypes.bool.isRequired,
   statistics: PropTypes.object.isRequired,

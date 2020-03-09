@@ -16,7 +16,7 @@ namespace NzbDrone.Core.Test.MediaFiles.MediaFileDeletionService
     {
         private static readonly string RootFolder = @"C:\Test\Music";
         private Author _artist;
-        private TrackFile _trackFile;
+        private BookFile _trackFile;
 
         [SetUp]
         public void Setup()
@@ -25,7 +25,7 @@ namespace NzbDrone.Core.Test.MediaFiles.MediaFileDeletionService
                                      .With(s => s.Path = Path.Combine(RootFolder, "Artist Name"))
                                      .Build();
 
-            _trackFile = Builder<TrackFile>.CreateNew()
+            _trackFile = Builder<BookFile>.CreateNew()
                                                .With(f => f.Path = "/Artist Name - Track01")
                                                .Build();
 

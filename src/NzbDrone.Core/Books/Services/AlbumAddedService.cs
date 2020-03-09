@@ -13,7 +13,7 @@ namespace NzbDrone.Core.Music
 {
     public interface IAlbumAddedService
     {
-        void SearchForRecentlyAdded(int artistId);
+        void SearchForRecentlyAdded(int authorId);
     }
 
     public class AlbumAddedService : IHandle<AlbumInfoRefreshedEvent>, IAlbumAddedService
@@ -34,9 +34,9 @@ namespace NzbDrone.Core.Music
             _addedAlbumsCache = cacheManager.GetCache<List<int>>(GetType());
         }
 
-        public void SearchForRecentlyAdded(int artistId)
+        public void SearchForRecentlyAdded(int authorId)
         {
-            var allAlbums = _albumService.GetAlbumsByArtist(artistId);
+            var allAlbums = _albumService.GetAlbumsByArtist(authorId);
             var toSearch = allAlbums.Where(x => x.AddOptions.SearchForNewAlbum).ToList();
 
             if (toSearch.Any())
@@ -46,7 +46,7 @@ namespace NzbDrone.Core.Music
                 _albumService.SetAddOptions(toSearch);
             }
 
-            var recentlyAddedIds = _addedAlbumsCache.Find(artistId.ToString());
+            var recentlyAddedIds = _addedAlbumsCache.Find(authorId.ToString());
             if (recentlyAddedIds != null)
             {
                 toSearch.AddRange(allAlbums.Where(x => recentlyAddedIds.Contains(x.Id)));
@@ -57,7 +57,7 @@ namespace NzbDrone.Core.Music
                 _commandQueueManager.Push(new AlbumSearchCommand(toSearch.Select(e => e.Id).ToList()));
             }
 
-            _addedAlbumsCache.Remove(artistId.ToString());
+            _addedAlbumsCache.Remove(authorId.ToString());
         }
 
         public void Handle(AlbumInfoRefreshedEvent message)

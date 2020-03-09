@@ -17,8 +17,8 @@ namespace NzbDrone.Core.MediaFiles
 {
     public interface IRenameTrackFileService
     {
-        List<RenameTrackFilePreview> GetRenamePreviews(int artistId);
-        List<RenameTrackFilePreview> GetRenamePreviews(int artistId, int albumId);
+        List<RenameTrackFilePreview> GetRenamePreviews(int authorId);
+        List<RenameTrackFilePreview> GetRenamePreviews(int authorId, int bookId);
     }
 
     public class RenameTrackFileService : IRenameTrackFileService, IExecute<RenameFilesCommand>, IExecute<RenameArtistCommand>
@@ -48,28 +48,28 @@ namespace NzbDrone.Core.MediaFiles
             _logger = logger;
         }
 
-        public List<RenameTrackFilePreview> GetRenamePreviews(int artistId)
+        public List<RenameTrackFilePreview> GetRenamePreviews(int authorId)
         {
-            var artist = _artistService.GetArtist(artistId);
-            var files = _mediaFileService.GetFilesByArtist(artistId);
+            var artist = _artistService.GetArtist(authorId);
+            var files = _mediaFileService.GetFilesByArtist(authorId);
 
             _logger.Trace($"got {files.Count} files");
 
             return GetPreviews(artist, files)
-                .OrderByDescending(e => e.AlbumId)
+                .OrderByDescending(e => e.BookId)
                 .ToList();
         }
 
-        public List<RenameTrackFilePreview> GetRenamePreviews(int artistId, int albumId)
+        public List<RenameTrackFilePreview> GetRenamePreviews(int authorId, int bookId)
         {
-            var artist = _artistService.GetArtist(artistId);
-            var files = _mediaFileService.GetFilesByAlbum(albumId);
+            var artist = _artistService.GetArtist(authorId);
+            var files = _mediaFileService.GetFilesByAlbum(bookId);
 
             return GetPreviews(artist, files)
                 .OrderByDescending(e => e.TrackNumbers.First()).ToList();
         }
 
-        private IEnumerable<RenameTrackFilePreview> GetPreviews(Author artist, List<TrackFile> files)
+        private IEnumerable<RenameTrackFilePreview> GetPreviews(Author artist, List<BookFile> files)
         {
             foreach (var f in files)
             {
@@ -95,8 +95,8 @@ namespace NzbDrone.Core.MediaFiles
                 {
                     yield return new RenameTrackFilePreview
                     {
-                        ArtistId = artist.Id,
-                        AlbumId = book.Id,
+                        AuthorId = artist.Id,
+                        BookId = book.Id,
                         TrackFileId = file.Id,
                         ExistingPath = file.Path,
                         NewPath = newPath
@@ -105,9 +105,9 @@ namespace NzbDrone.Core.MediaFiles
             }
         }
 
-        private void RenameFiles(List<TrackFile> trackFiles, Author artist)
+        private void RenameFiles(List<BookFile> trackFiles, Author artist)
         {
-            var renamed = new List<TrackFile>();
+            var renamed = new List<BookFile>();
 
             foreach (var trackFile in trackFiles)
             {
@@ -146,7 +146,7 @@ namespace NzbDrone.Core.MediaFiles
 
         public void Execute(RenameFilesCommand message)
         {
-            var artist = _artistService.GetArtist(message.ArtistId);
+            var artist = _artistService.GetArtist(message.AuthorId);
             var trackFiles = _mediaFileService.Get(message.Files);
 
             _logger.ProgressInfo("Renaming {0} files for {1}", trackFiles.Count, artist.Name);
@@ -157,7 +157,7 @@ namespace NzbDrone.Core.MediaFiles
         public void Execute(RenameArtistCommand message)
         {
             _logger.Debug("Renaming all files for selected artist");
-            var artistToRename = _artistService.GetArtists(message.ArtistIds);
+            var artistToRename = _artistService.GetArtists(message.AuthorIds);
 
             foreach (var artist in artistToRename)
             {

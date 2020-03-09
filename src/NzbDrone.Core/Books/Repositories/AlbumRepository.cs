@@ -11,13 +11,14 @@ namespace NzbDrone.Core.Music
 {
     public interface IAlbumRepository : IBasicRepository<Book>
     {
-        List<Book> GetAlbums(int artistId);
+        List<Book> GetAlbums(int authorId);
         List<Book> GetLastAlbums(IEnumerable<int> artistMetadataIds);
         List<Book> GetNextAlbums(IEnumerable<int> artistMetadataIds);
         List<Book> GetAlbumsByArtistMetadataId(int artistMetadataId);
         List<Book> GetAlbumsForRefresh(int artistMetadataId, IEnumerable<string> foreignIds);
+        List<Book> GetAlbumsByFileIds(IEnumerable<int> fileIds);
         Book FindByTitle(int artistMetadataId, string title);
-        Book FindById(string foreignAlbumId);
+        Book FindById(string foreignBookId);
         PagingSpec<Book> AlbumsWithoutFiles(PagingSpec<Book> pagingSpec);
         PagingSpec<Book> AlbumsWhereCutoffUnmet(PagingSpec<Book> pagingSpec, List<QualitiesBelowCutoff> qualitiesBelowCutoff);
         List<Book> AlbumsBetweenDates(DateTime startDate, DateTime endDate, bool includeUnmonitored);
@@ -25,8 +26,6 @@ namespace NzbDrone.Core.Music
         void SetMonitoredFlat(Book album, bool monitored);
         void SetMonitored(IEnumerable<int> ids, bool monitored);
         void SetFileId(List<Book> books);
-        Book FindAlbumByRelease(string albumReleaseId);
-        Book FindAlbumByTrack(int trackId);
         List<Book> GetArtistAlbumsWithFiles(Author artist);
     }
 
@@ -37,9 +36,9 @@ namespace NzbDrone.Core.Music
         {
         }
 
-        public List<Book> GetAlbums(int artistId)
+        public List<Book> GetAlbums(int authorId)
         {
-            return Query(Builder().Join<Book, Author>((l, r) => l.AuthorMetadataId == r.AuthorMetadataId).Where<Author>(a => a.Id == artistId));
+            return Query(Builder().Join<Book, Author>((l, r) => l.AuthorMetadataId == r.AuthorMetadataId).Where<Author>(a => a.Id == authorId));
         }
 
         public List<Book> GetLastAlbums(IEnumerable<int> artistMetadataIds)
@@ -68,17 +67,22 @@ namespace NzbDrone.Core.Music
             return Query(a => a.AuthorMetadataId == artistMetadataId || foreignIds.Contains(a.ForeignBookId));
         }
 
-        public Book FindById(string foreignAlbumId)
+        public List<Book> GetAlbumsByFileIds(IEnumerable<int> fileIds)
         {
-            return Query(s => s.ForeignBookId == foreignAlbumId).SingleOrDefault();
+            return Query(s => fileIds.Contains(s.BookFileId));
+        }
+
+        public Book FindById(string foreignBookId)
+        {
+            return Query(s => s.ForeignBookId == foreignBookId).SingleOrDefault();
         }
 
         //x.Id == null is converted to SQL, so warning incorrect
 #pragma warning disable CS0472
         private SqlBuilder AlbumsWithoutFilesBuilder(DateTime currentTime, bool monitored) => Builder()
             .Join<Book, Author>((l, r) => l.AuthorMetadataId == r.AuthorMetadataId)
-            .LeftJoin<Book, TrackFile>((t, f) => t.BookFileId == f.Id)
-            .Where<TrackFile>(f => f.Id == null)
+            .LeftJoin<Book, BookFile>((t, f) => t.BookFileId == f.Id)
+            .Where<BookFile>(f => f.Id == null)
             .Where<Book>(a => a.ReleaseDate <= currentTime && a.Monitored == monitored)
             .Where<Author>(a => a.Monitored == monitored);
 #pragma warning restore CS0472
@@ -96,7 +100,7 @@ namespace NzbDrone.Core.Music
 
         private SqlBuilder AlbumsWhereCutoffUnmetBuilder(bool monitored, List<QualitiesBelowCutoff> qualitiesBelowCutoff) => Builder()
             .Join<Book, Author>((l, r) => l.AuthorMetadataId == r.AuthorMetadataId)
-            .Join<Book, TrackFile>((t, f) => t.BookFileId == f.Id)
+            .Join<Book, BookFile>((t, f) => t.BookFileId == f.Id)
             .Where<Book>(a => a.Monitored == monitored)
             .Where<Author>(a => a.Monitored == monitored)
             .Where(BuildQualityCutoffWhereClause(qualitiesBelowCutoff));
@@ -188,23 +192,10 @@ namespace NzbDrone.Core.Music
                 .ExclusiveOrDefault();
         }
 
-        public Book FindAlbumByRelease(string albumReleaseId)
-        {
-            return Query(Builder().Join<Book, AlbumRelease>((a, r) => a.Id == r.AlbumId)
-                         .Where<AlbumRelease>(x => x.ForeignReleaseId == albumReleaseId)).FirstOrDefault();
-        }
-
-        public Book FindAlbumByTrack(int trackId)
-        {
-            return Query(Builder().Join<Book, AlbumRelease>((a, r) => a.Id == r.AlbumId)
-                         .Join<AlbumRelease, Track>((r, t) => r.Id == t.AlbumReleaseId)
-                         .Where<Track>(x => x.Id == trackId)).FirstOrDefault();
-        }
-
         public List<Book> GetArtistAlbumsWithFiles(Author artist)
         {
             return Query(Builder()
-                         .Join<Book, TrackFile>((t, f) => t.BookFileId == f.Id)
+                         .Join<Book, BookFile>((t, f) => t.BookFileId == f.Id)
                          .Where<Book>(x => x.AuthorMetadataId == artist.AuthorMetadataId));
         }
     }

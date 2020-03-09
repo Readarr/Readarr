@@ -177,7 +177,7 @@ namespace NzbDrone.Core.Music
 
             // Update history entries to new id
             var items = _historyService.GetByArtist(local.Id, null);
-            items.ForEach(x => x.ArtistId = target.Id);
+            items.ForEach(x => x.AuthorId = target.Id);
             _historyService.UpdateMany(items);
 
             // We know we need to update tags as artist id has changed
@@ -202,22 +202,22 @@ namespace NzbDrone.Core.Music
         protected override List<Book> GetRemoteChildren(Author remote)
         {
             var all = remote.Books.Value.DistinctBy(m => m.ForeignBookId).ToList();
-            var ids = all.SelectMany(x => x.OldForeignAlbumIds.Concat(new List<string> { x.ForeignBookId })).ToList();
+            var ids = all.SelectMany(x => x.OldForeignBookIds.Concat(new List<string> { x.ForeignBookId })).ToList();
             var excluded = _importListExclusionService.FindByForeignId(ids).Select(x => x.ForeignId).ToList();
-            return all.Where(x => !excluded.Contains(x.ForeignBookId) && !x.OldForeignAlbumIds.Any(y => excluded.Contains(y))).ToList();
+            return all.Where(x => !excluded.Contains(x.ForeignBookId) && !x.OldForeignBookIds.Any(y => excluded.Contains(y))).ToList();
         }
 
         protected override List<Book> GetLocalChildren(Author entity, List<Book> remoteChildren)
         {
             return _albumService.GetAlbumsForRefresh(entity.AuthorMetadataId,
                                                      remoteChildren.Select(x => x.ForeignBookId)
-                                                     .Concat(remoteChildren.SelectMany(x => x.OldForeignAlbumIds)));
+                                                     .Concat(remoteChildren.SelectMany(x => x.OldForeignBookIds)));
         }
 
         protected override Tuple<Book, List<Book>> GetMatchingExistingChildren(List<Book> existingChildren, Book remote)
         {
             var existingChild = existingChildren.SingleOrDefault(x => x.ForeignBookId == remote.ForeignBookId);
-            var mergeChildren = existingChildren.Where(x => remote.OldForeignAlbumIds.Contains(x.ForeignBookId)).ToList();
+            var mergeChildren = existingChildren.Where(x => remote.OldForeignBookIds.Contains(x.ForeignBookId)).ToList();
             return Tuple.Create(existingChild, mergeChildren);
         }
 
@@ -265,7 +265,7 @@ namespace NzbDrone.Core.Music
             _eventAggregator.PublishEvent(new AlbumInfoRefreshedEvent(entity, newChildren, updateChildren));
         }
 
-        private void Rescan(List<int> artistIds, bool isNew, CommandTrigger trigger, bool infoUpdated)
+        private void Rescan(List<int> authorIds, bool isNew, CommandTrigger trigger, bool infoUpdated)
         {
             var rescanAfterRefresh = _configService.RescanAfterRefresh;
             var shouldRescan = true;
@@ -297,14 +297,14 @@ namespace NzbDrone.Core.Music
                 // (but don't add new artists to reduce repeated searches against api)
                 var folders = _rootFolderService.All().Select(x => x.Path).ToList();
 
-                _commandQueueManager.Push(new RescanFoldersCommand(folders, FilterFilesType.Matched, false, artistIds));
+                _commandQueueManager.Push(new RescanFoldersCommand(folders, FilterFilesType.Matched, false, authorIds));
             }
         }
 
-        private void RefreshSelectedArtists(List<int> artistIds, bool isNew, CommandTrigger trigger)
+        private void RefreshSelectedArtists(List<int> authorIds, bool isNew, CommandTrigger trigger)
         {
             bool updated = false;
-            var artists = _artistService.GetArtists(artistIds);
+            var artists = _artistService.GetArtists(authorIds);
 
             foreach (var artist in artists)
             {
@@ -318,12 +318,12 @@ namespace NzbDrone.Core.Music
                 }
             }
 
-            Rescan(artistIds, isNew, trigger, updated);
+            Rescan(authorIds, isNew, trigger, updated);
         }
 
         public void Execute(BulkRefreshArtistCommand message)
         {
-            RefreshSelectedArtists(message.ArtistIds, message.AreNewArtists, message.Trigger);
+            RefreshSelectedArtists(message.AuthorIds, message.AreNewArtists, message.Trigger);
         }
 
         public void Execute(RefreshArtistCommand message)
@@ -331,15 +331,15 @@ namespace NzbDrone.Core.Music
             var trigger = message.Trigger;
             var isNew = message.IsNewArtist;
 
-            if (message.ArtistId.HasValue)
+            if (message.AuthorId.HasValue)
             {
-                RefreshSelectedArtists(new List<int> { message.ArtistId.Value }, isNew, trigger);
+                RefreshSelectedArtists(new List<int> { message.AuthorId.Value }, isNew, trigger);
             }
             else
             {
                 var updated = false;
                 var artists = _artistService.GetAllArtists().OrderBy(c => c.Name).ToList();
-                var artistIds = artists.Select(x => x.Id).ToList();
+                var authorIds = artists.Select(x => x.Id).ToList();
 
                 var updatedMusicbrainzArtists = new HashSet<string>();
 
@@ -371,7 +371,7 @@ namespace NzbDrone.Core.Music
                     }
                 }
 
-                Rescan(artistIds, isNew, trigger, updated);
+                Rescan(authorIds, isNew, trigger, updated);
             }
         }
     }

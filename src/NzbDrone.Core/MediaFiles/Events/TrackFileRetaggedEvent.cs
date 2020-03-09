@@ -8,12 +8,12 @@ namespace NzbDrone.Core.MediaFiles.Events
     public class TrackFileRetaggedEvent : IEvent
     {
         public Author Artist { get; private set; }
-        public TrackFile TrackFile { get; private set; }
+        public BookFile TrackFile { get; private set; }
         public Dictionary<string, Tuple<string, string>> Diff { get; private set; }
         public bool Scrubbed { get; private set; }
 
         public TrackFileRetaggedEvent(Author artist,
-                                      TrackFile trackFile,
+                                      BookFile trackFile,
                                       Dictionary<string, Tuple<string, string>> diff,
                                       bool scrubbed)
         {

@@ -21,7 +21,7 @@ namespace Readarr.Api.V1.Artist
         public bool Ended => Status == ArtistStatusType.Ended;
 
         public string ArtistName { get; set; }
-        public string ForeignArtistId { get; set; }
+        public string ForeignAuthorId { get; set; }
         public string MBId { get; set; }
         public int TADBId { get; set; }
         public int DiscogsId { get; set; }
@@ -35,7 +35,6 @@ namespace Readarr.Api.V1.Artist
         public Book LastAlbum { get; set; }
 
         public List<MediaCover> Images { get; set; }
-        public List<Member> Members { get; set; }
 
         public string RemotePoster { get; set; }
 
@@ -94,7 +93,7 @@ namespace Readarr.Api.V1.Artist
                 Monitored = model.Monitored,
 
                 CleanName = model.CleanName,
-                ForeignArtistId = model.Metadata.Value.ForeignAuthorId,
+                ForeignAuthorId = model.Metadata.Value.ForeignAuthorId,
 
                 // Root folder path is now calculated from the artist path
                 // RootFolderPath = model.RootFolderPath,
@@ -121,7 +120,7 @@ namespace Readarr.Api.V1.Artist
 
                 Metadata = new NzbDrone.Core.Music.AuthorMetadata
                 {
-                    ForeignAuthorId = resource.ForeignArtistId,
+                    ForeignAuthorId = resource.ForeignAuthorId,
                     Name = resource.ArtistName,
                     Status = resource.Status,
                     Overview = resource.Overview,

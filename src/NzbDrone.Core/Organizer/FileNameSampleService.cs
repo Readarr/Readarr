@@ -19,7 +19,7 @@ namespace NzbDrone.Core.Organizer
 
         private static Author _standardArtist;
         private static Book _standardAlbum;
-        private static TrackFile _singleTrackFile;
+        private static BookFile _singleTrackFile;
         private static List<string> _preferredWords;
 
         public FileNameSampleService(IBuildFileNames buildFileNames)
@@ -51,9 +51,9 @@ namespace NzbDrone.Core.Organizer
                 AudioSampleRate = 44100
             };
 
-            _singleTrackFile = new TrackFile
+            _singleTrackFile = new BookFile
             {
-                Quality = new QualityModel(Quality.MP3_256, new Revision(2)),
+                Quality = new QualityModel(Quality.MP3_320, new Revision(2)),
                 Path = "/music/Artist.Name.Album.Name.TrackNum.Track.Title.MP3256.mp3",
                 SceneName = "Artist.Name.Album.Name.TrackNum.Track.Title.MP3256",
                 ReleaseGroup = "RlsGrp",
@@ -97,7 +97,7 @@ namespace NzbDrone.Core.Organizer
             return _buildFileNames.GetArtistFolder(_standardArtist, nameSpec);
         }
 
-        private string BuildTrackSample(Author artist, Book album, TrackFile trackFile, NamingConfig nameSpec)
+        private string BuildTrackSample(Author artist, Book album, BookFile trackFile, NamingConfig nameSpec)
         {
             try
             {

@@ -27,7 +27,7 @@ namespace NzbDrone.Core.Extras.Metadata
             return new ValidationResult();
         }
 
-        public virtual string GetFilenameAfterMove(Author artist, TrackFile trackFile, MetadataFile metadataFile)
+        public virtual string GetFilenameAfterMove(Author artist, BookFile trackFile, MetadataFile metadataFile)
         {
             var existingFilename = Path.Combine(artist.Path, metadataFile.RelativePath);
             var extension = Path.GetExtension(existingFilename).TrimStart('.');
@@ -48,10 +48,10 @@ namespace NzbDrone.Core.Extras.Metadata
 
         public abstract MetadataFileResult ArtistMetadata(Author artist);
         public abstract MetadataFileResult AlbumMetadata(Author artist, Book album, string albumPath);
-        public abstract MetadataFileResult TrackMetadata(Author artist, TrackFile trackFile);
+        public abstract MetadataFileResult TrackMetadata(Author artist, BookFile trackFile);
         public abstract List<ImageFileResult> ArtistImages(Author artist);
         public abstract List<ImageFileResult> AlbumImages(Author artist, Book album, string albumPath);
-        public abstract List<ImageFileResult> TrackImages(Author artist, TrackFile trackFile);
+        public abstract List<ImageFileResult> TrackImages(Author artist, BookFile trackFile);
 
         public virtual object RequestAction(string action, IDictionary<string, string> query)
         {

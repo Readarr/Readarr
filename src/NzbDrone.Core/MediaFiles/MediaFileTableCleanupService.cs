@@ -15,15 +15,15 @@ namespace NzbDrone.Core.MediaFiles
     public class MediaFileTableCleanupService : IMediaFileTableCleanupService
     {
         private readonly IMediaFileService _mediaFileService;
-        private readonly ITrackService _trackService;
+        private readonly IAlbumService _albumService;
         private readonly Logger _logger;
 
         public MediaFileTableCleanupService(IMediaFileService mediaFileService,
-                                            ITrackService trackService,
+                                            IAlbumService albumService,
                                             Logger logger)
         {
             _mediaFileService = mediaFileService;
-            _trackService = trackService;
+            _albumService = albumService;
             _logger = logger;
         }
 
@@ -39,10 +39,10 @@ namespace NzbDrone.Core.MediaFiles
 
             _mediaFileService.DeleteMany(missingFiles, DeleteMediaFileReason.MissingFromDisk);
 
-            // get any tracks matched to these trackfiles and unlink them
-            var orphanedTracks = _trackService.GetTracksByFileId(missingFiles.Select(x => x.Id));
-            orphanedTracks.ForEach(x => x.TrackFileId = 0);
-            _trackService.SetFileIds(orphanedTracks);
+            // get any albums matched to these trackfiles and unlink them
+            var orphanedTracks = _albumService.GetAlbumsByFileIds(missingFiles.Select(x => x.Id));
+            orphanedTracks.ForEach(x => x.BookFileId = 0);
+            _albumService.SetFileIds(orphanedTracks);
         }
     }
 }

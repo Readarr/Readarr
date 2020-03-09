@@ -291,7 +291,7 @@ namespace NzbDrone.Core.Parser
 
                             if (result != null)
                             {
-                                result.Quality = QualityParser.ParseQuality(title, null, 0);
+                                result.Quality = QualityParser.ParseQuality(title);
                                 Logger.Debug("Quality parsed: {0}", result.Quality);
 
                                 return result;
@@ -356,7 +356,7 @@ namespace NzbDrone.Core.Parser
 
                         if (result != null)
                         {
-                            result.Quality = QualityParser.ParseQuality(title, null, 0);
+                            result.Quality = QualityParser.ParseQuality(title);
                             Logger.Debug("Quality parsed: {0}", result.Quality);
 
                             result.ReleaseGroup = ParseReleaseGroup(releaseTitle);
@@ -450,7 +450,7 @@ namespace NzbDrone.Core.Parser
 
                             if (result != null)
                             {
-                                result.Quality = QualityParser.ParseQuality(title, null, 0);
+                                result.Quality = QualityParser.ParseQuality(title);
                                 Logger.Debug("Quality parsed: {0}", result.Quality);
 
                                 result.ReleaseGroup = ParseReleaseGroup(releaseTitle);
@@ -562,7 +562,7 @@ namespace NzbDrone.Core.Parser
             title = FileExtensionRegex.Replace(title, m =>
                 {
                     var extension = m.Value.ToLower();
-                    if (MediaFiles.MediaFileExtensions.Extensions.Contains(extension) || new[] { ".par2", ".nzb" }.Contains(extension))
+                    if (MediaFiles.MediaFileExtensions.AllExtensions.Contains(extension) || new[] { ".par2", ".nzb" }.Contains(extension))
                     {
                         return string.Empty;
                     }

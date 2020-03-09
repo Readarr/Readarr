@@ -131,7 +131,7 @@ class AlbumDetails extends Component {
     this.setState(getExpandedState(selectAll(expandedState, !allExpanded)));
   }
 
-  onExpandPress = (albumId, isExpanded) => {
+  onExpandPress = (bookId, isExpanded) => {
     this.setState((state) => {
       const convertedState = {
         allSelected: state.allExpanded,
@@ -139,7 +139,7 @@ class AlbumDetails extends Component {
         selectedState: state.expandedState
       };
 
-      const newState = toggleSelected(convertedState, [], albumId, isExpanded, false);
+      const newState = toggleSelected(convertedState, [], bookId, isExpanded, false);
 
       return getExpandedState(newState);
     });
@@ -151,7 +151,7 @@ class AlbumDetails extends Component {
   render() {
     const {
       id,
-      foreignAlbumId,
+      foreignBookId,
       title,
       disambiguation,
       duration,
@@ -282,7 +282,7 @@ class AlbumDetails extends Component {
                       name={icons.ARROW_LEFT}
                       size={30}
                       title={`Go to ${previousAlbum.title}`}
-                      to={`/album/${previousAlbum.foreignAlbumId}`}
+                      to={`/album/${previousAlbum.foreignBookId}`}
                     />
 
                     <IconButton
@@ -290,7 +290,7 @@ class AlbumDetails extends Component {
                       name={icons.ARROW_UP}
                       size={30}
                       title={`Go to ${artist.artistName}`}
-                      to={`/artist/${artist.foreignArtistId}`}
+                      to={`/artist/${artist.foreignAuthorId}`}
                     />
 
                     <IconButton
@@ -298,7 +298,7 @@ class AlbumDetails extends Component {
                       name={icons.ARROW_RIGHT}
                       size={30}
                       title={`Go to ${nextAlbum.title}`}
-                      to={`/album/${nextAlbum.foreignAlbumId}`}
+                      to={`/album/${nextAlbum.foreignBookId}`}
                     />
                   </div>
                 </div>
@@ -385,7 +385,7 @@ class AlbumDetails extends Component {
                     }
                     tooltip={
                       <AlbumDetailsLinks
-                        foreignAlbumId={foreignAlbumId}
+                        foreignBookId={foreignBookId}
                         links={links}
                       />
                     }
@@ -451,21 +451,21 @@ class AlbumDetails extends Component {
 
               <TabPanel>
                 <ArtistHistoryTable
-                  artistId={artist.id}
-                  albumId={id}
+                  authorId={artist.id}
+                  bookId={id}
                 />
               </TabPanel>
 
               <TabPanel>
                 <InteractiveSearchTable
-                  albumId={id}
+                  bookId={id}
                 />
               </TabPanel>
 
               <TabPanel>
                 <TrackFileEditorTable
-                  artistId={artist.id}
-                  albumId={id}
+                  authorId={artist.id}
+                  bookId={id}
                 />
               </TabPanel>
             </Tabs>
@@ -473,22 +473,22 @@ class AlbumDetails extends Component {
 
           <OrganizePreviewModalConnector
             isOpen={isOrganizeModalOpen}
-            artistId={artist.id}
-            albumId={id}
+            authorId={artist.id}
+            bookId={id}
             onModalClose={this.onOrganizeModalClose}
           />
 
           {/* <RetagPreviewModalConnector */}
           {/*   isOpen={isRetagModalOpen} */}
-          {/*   artistId={artist.id} */}
-          {/*   albumId={id} */}
+          {/*   authorId={artist.id} */}
+          {/*   bookId={id} */}
           {/*   onModalClose={this.onRetagModalClose} */}
           {/* /> */}
 
           <DeleteAlbumModal
             isOpen={isDeleteAlbumModalOpen}
-            albumId={id}
-            foreignArtistId={artist.foreignArtistId}
+            bookId={id}
+            foreignAuthorId={artist.foreignAuthorId}
             onModalClose={this.onDeleteAlbumModalClose}
           />
 
@@ -500,7 +500,7 @@ class AlbumDetails extends Component {
 
 AlbumDetails.propTypes = {
   id: PropTypes.number.isRequired,
-  foreignAlbumId: PropTypes.string.isRequired,
+  foreignBookId: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   disambiguation: PropTypes.string,
   duration: PropTypes.number,

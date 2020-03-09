@@ -52,9 +52,9 @@ namespace NzbDrone.Core.Download.TrackedDownloads
             return _cache.Find(downloadId);
         }
 
-        public void UpdateAlbumCache(int albumId)
+        public void UpdateAlbumCache(int bookId)
         {
-            var updateCacheItems = _cache.Values.Where(x => x.RemoteAlbum != null && x.RemoteAlbum.Albums.Any(a => a.Id == albumId)).ToList();
+            var updateCacheItems = _cache.Values.Where(x => x.RemoteAlbum != null && x.RemoteAlbum.Albums.Any(a => a.Id == bookId)).ToList();
 
             foreach (var item in updateCacheItems)
             {
@@ -168,8 +168,8 @@ namespace NzbDrone.Core.Download.TrackedDownloads
                         if (parsedAlbumInfo != null)
                         {
                             trackedDownload.RemoteAlbum = _parsingService.Map(parsedAlbumInfo,
-                                firstHistoryItem.ArtistId,
-                                historyItems.Where(v => v.EventType == HistoryEventType.Grabbed).Select(h => h.AlbumId)
+                                firstHistoryItem.AuthorId,
+                                historyItems.Where(v => v.EventType == HistoryEventType.Grabbed).Select(h => h.BookId)
                                     .Distinct());
                         }
                         else
@@ -182,8 +182,8 @@ namespace NzbDrone.Core.Download.TrackedDownloads
                             if (parsedAlbumInfo != null)
                             {
                                 trackedDownload.RemoteAlbum = _parsingService.Map(parsedAlbumInfo,
-                                    firstHistoryItem.ArtistId,
-                                    historyItems.Where(v => v.EventType == HistoryEventType.Grabbed).Select(h => h.AlbumId)
+                                    firstHistoryItem.AuthorId,
+                                    historyItems.Where(v => v.EventType == HistoryEventType.Grabbed).Select(h => h.BookId)
                                         .Distinct());
                             }
                         }

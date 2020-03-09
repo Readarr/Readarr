@@ -18,7 +18,7 @@ namespace NzbDrone.Integration.Test.ApiTests
 
             Blacklist.Post(new BlacklistResource
             {
-                ArtistId = _artist.Id,
+                AuthorId = _artist.Id,
                 SourceTitle = "Blacklist - Album 1 [2015 FLAC]"
             });
         }
