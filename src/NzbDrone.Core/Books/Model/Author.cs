@@ -40,6 +40,8 @@ namespace NzbDrone.Core.Music
         public LazyLoaded<MetadataProfile> MetadataProfile { get; set; }
         [MemberwiseEqualityIgnore]
         public LazyLoaded<List<Book>> Books { get; set; }
+        [MemberwiseEqualityIgnore]
+        public LazyLoaded<List<Series>> Series { get; set; }
 
         //compatibility properties
         [MemberwiseEqualityIgnore]

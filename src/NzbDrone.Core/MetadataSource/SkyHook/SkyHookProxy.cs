@@ -80,6 +80,7 @@ namespace NzbDrone.Core.MetadataSource.SkyHook
             author.SortName = Parser.Parser.NormalizeTitle(author.Metadata.Value.Name);
 
             author.Books = GetAuthorBooks(foreignAuthorId, metadataProfileId);
+            author.Series = GetAuthorSeries(foreignAuthorId, author.Books);
 
             return author;
         }
@@ -130,6 +131,68 @@ namespace NzbDrone.Core.MetadataSource.SkyHook
             books.ForEach(x => x.CleanTitle = x.Title.CleanArtistName());
 
             return books;
+        }
+
+        private List<Series> GetAuthorSeries(string foreignAuthorId, List<Book> filteredBooks)
+        {
+            _logger.Debug("Getting Author Series with ReadarrAPI.MetadataID of {0}", foreignAuthorId);
+
+            var httpRequest = _requestBuilder.GetRequestBuilder().Create()
+                .SetSegment("route", $"series/list/{foreignAuthorId}.xml")
+                .Build();
+
+            httpRequest.AllowAutoRedirect = true;
+            httpRequest.SuppressHttpError = true;
+
+            var httpResponse = _httpClient.Get(httpRequest);
+
+            if (httpResponse.HasHttpError)
+            {
+                if (httpResponse.StatusCode == HttpStatusCode.NotFound)
+                {
+                    throw new ArtistNotFoundException(foreignAuthorId);
+                }
+                else if (httpResponse.StatusCode == HttpStatusCode.BadRequest)
+                {
+                    throw new BadRequestException(foreignAuthorId);
+                }
+                else
+                {
+                    throw new HttpException(httpRequest, httpResponse);
+                }
+            }
+
+            var resource = httpResponse.Deserialize<AuthorSeriesListResource>();
+
+            var bookDict = filteredBooks.ToDictionary(x => long.Parse(x.ForeignWorkId));
+
+            // remove works that we've filtered out
+            foreach (var series in resource.List)
+            {
+                series.Works = series.Works.Where(x => bookDict.ContainsKey(x.Id)).ToList();
+            }
+
+            var result = new List<Series>();
+
+            // only take series where there are some works
+            foreach (var seriesResource in resource.List.Where(x => x.Works.Any()))
+            {
+                var series = MapSeries(seriesResource);
+                series.LinkItems = new List<SeriesBookLink>();
+                foreach (var work in seriesResource.Works)
+                {
+                    series.LinkItems.Value.Add(new SeriesBookLink
+                    {
+                        ForeignId = work.SeriesLinkId.ToString(),
+                        Position = work.UserPosition,
+                        Book = bookDict[work.Id]
+                    });
+                }
+
+                result.Add(series);
+            }
+
+            return result;
         }
 
         public HashSet<string> GetChangedAlbums(DateTime startTime)
@@ -342,11 +405,27 @@ namespace NzbDrone.Core.MetadataSource.SkyHook
             return author;
         }
 
+        private static Series MapSeries(SeriesResource resource)
+        {
+            var series = new Series
+            {
+                ForeignSeriesId = resource.Id.ToString(),
+                Title = resource.Title,
+                Description = resource.Description,
+                Numbered = resource.IsNumbered,
+                WorkCount = resource.SeriesWorksCount,
+                PrimaryWorkCount = resource.PrimaryWorksCount
+            };
+
+            return series;
+        }
+
         private static Book MapBook(BookResource resource)
         {
             var book = new Book
             {
                 ForeignBookId = resource.Id.ToString(),
+                ForeignWorkId = resource.Work.Id.ToString(),
                 Isbn13 = resource.Isbn13,
                 Asin = resource.Asin ?? resource.KindleAsin,
                 Title = (resource.Work.OriginalTitle ?? resource.Title).CleanSpaces(),
@@ -392,6 +471,7 @@ namespace NzbDrone.Core.MetadataSource.SkyHook
             {
                 book = new Book();
                 book.ForeignBookId = resource.BestBook.Id.ToString();
+                book.ForeignWorkId = resource.Id.ToString();
                 book.Title = resource.BestBook.Title;
                 book.ReleaseDate = resource.OriginalPublicationDate;
                 book.Images.Add(new MediaCover.MediaCover { Url = resource.BestBook.ImageUrl, CoverType = MediaCoverTypes.Cover });

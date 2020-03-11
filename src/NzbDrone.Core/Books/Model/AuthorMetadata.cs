@@ -11,13 +11,11 @@ namespace NzbDrone.Core.Music
             Images = new List<MediaCover.MediaCover>();
             Genres = new List<string>();
             Links = new List<Links>();
-            OldForeignAuthorIds = new List<string>();
             Aliases = new List<string>();
             Ratings = new Ratings();
         }
 
         public string ForeignAuthorId { get; set; }
-        public List<string> OldForeignAuthorIds { get; set; }
         public string Name { get; set; }
         public List<string> Aliases { get; set; }
         public string Overview { get; set; }
@@ -37,7 +35,6 @@ namespace NzbDrone.Core.Music
         public override void UseMetadataFrom(AuthorMetadata other)
         {
             ForeignAuthorId = other.ForeignAuthorId;
-            OldForeignAuthorIds = other.OldForeignAuthorIds;
             Name = other.Name;
             Aliases = other.Aliases;
             Overview = other.Overview.IsNullOrWhiteSpace() ? Overview : other.Overview;

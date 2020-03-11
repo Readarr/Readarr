@@ -29,6 +29,7 @@ namespace NzbDrone.Core.Music
         private readonly IArtistService _artistService;
         private readonly IAlbumService _albumService;
         private readonly IRefreshAlbumService _refreshAlbumService;
+        private readonly IRefreshSeriesService _refreshSeriesService;
         private readonly IEventAggregator _eventAggregator;
         private readonly IManageCommandQueue _commandQueueManager;
         private readonly IMediaFileService _mediaFileService;
@@ -44,6 +45,7 @@ namespace NzbDrone.Core.Music
                                     IArtistMetadataService artistMetadataService,
                                     IAlbumService albumService,
                                     IRefreshAlbumService refreshAlbumService,
+                                    IRefreshSeriesService refreshSeriesService,
                                     IEventAggregator eventAggregator,
                                     IManageCommandQueue commandQueueManager,
                                     IMediaFileService mediaFileService,
@@ -59,6 +61,7 @@ namespace NzbDrone.Core.Music
             _artistService = artistService;
             _albumService = albumService;
             _refreshAlbumService = refreshAlbumService;
+            _refreshSeriesService = refreshSeriesService;
             _eventAggregator = eventAggregator;
             _commandQueueManager = commandQueueManager;
             _mediaFileService = mediaFileService;
@@ -113,6 +116,7 @@ namespace NzbDrone.Core.Music
 
             local.UseMetadataFrom(remote);
             local.Metadata = remote.Metadata;
+            local.Series = remote.Series.Value;
             local.LastInfoSync = DateTime.UtcNow;
 
             try
@@ -202,22 +206,21 @@ namespace NzbDrone.Core.Music
         protected override List<Book> GetRemoteChildren(Author remote)
         {
             var all = remote.Books.Value.DistinctBy(m => m.ForeignBookId).ToList();
-            var ids = all.SelectMany(x => x.OldForeignBookIds.Concat(new List<string> { x.ForeignBookId })).ToList();
+            var ids = all.Select(x => x.ForeignBookId).ToList();
             var excluded = _importListExclusionService.FindByForeignId(ids).Select(x => x.ForeignId).ToList();
-            return all.Where(x => !excluded.Contains(x.ForeignBookId) && !x.OldForeignBookIds.Any(y => excluded.Contains(y))).ToList();
+            return all.Where(x => !excluded.Contains(x.ForeignBookId)).ToList();
         }
 
         protected override List<Book> GetLocalChildren(Author entity, List<Book> remoteChildren)
         {
             return _albumService.GetAlbumsForRefresh(entity.AuthorMetadataId,
-                                                     remoteChildren.Select(x => x.ForeignBookId)
-                                                     .Concat(remoteChildren.SelectMany(x => x.OldForeignBookIds)));
+                                                     remoteChildren.Select(x => x.ForeignBookId));
         }
 
         protected override Tuple<Book, List<Book>> GetMatchingExistingChildren(List<Book> existingChildren, Book remote)
         {
             var existingChild = existingChildren.SingleOrDefault(x => x.ForeignBookId == remote.ForeignBookId);
-            var mergeChildren = existingChildren.Where(x => remote.OldForeignBookIds.Contains(x.ForeignBookId)).ToList();
+            var mergeChildren = new List<Book>();
             return Tuple.Create(existingChild, mergeChildren);
         }
 
@@ -236,6 +239,7 @@ namespace NzbDrone.Core.Music
             local.Author = entity;
             local.AuthorMetadata = entity.Metadata.Value;
             local.AuthorMetadataId = entity.Metadata.Value.Id;
+            remote.Id = local.Id;
         }
 
         protected override void AddChildren(List<Book> children)
@@ -245,13 +249,16 @@ namespace NzbDrone.Core.Music
 
         protected override bool RefreshChildren(SortedChildren localChildren, List<Book> remoteChildren, bool forceChildRefresh, bool forceUpdateFileTags, DateTime? lastUpdate)
         {
-            // we always want to end up refreshing the albums since we don't yet have proper data
+            // we always want to end up refreshing the books since we don't yet have proper data
             Ensure.That(localChildren.UpToDate.Count, () => localChildren.UpToDate.Count).IsLessThanOrEqualTo(0);
             return _refreshAlbumService.RefreshAlbumInfo(localChildren.All, remoteChildren, forceChildRefresh, forceUpdateFileTags, lastUpdate);
         }
 
         protected override void PublishEntityUpdatedEvent(Author entity)
         {
+            // little hack - trigger the series update here
+            _refreshSeriesService.RefreshSeriesInfo(entity.AuthorMetadataId, entity.Series, false, false, null);
+
             _eventAggregator.PublishEvent(new ArtistUpdatedEvent(entity));
         }
 

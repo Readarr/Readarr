@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using NLog;
-using NzbDrone.Common.Extensions;
 using NzbDrone.Common.Instrumentation.Extensions;
 using NzbDrone.Core.Exceptions;
 using NzbDrone.Core.History;
@@ -66,7 +65,7 @@ namespace NzbDrone.Core.Music
 
             // remove not in remote list and ShouldDelete is true
             if (remote != null &&
-                !remote.Any(x => x.ForeignBookId == local.ForeignBookId || x.OldForeignBookIds.Contains(local.ForeignBookId)) &&
+                !remote.Any(x => x.ForeignBookId == local.ForeignBookId) &&
                 ShouldDelete(local))
             {
                 return result;
@@ -155,12 +154,11 @@ namespace NzbDrone.Core.Music
             }
 
             // Force update and fetch covers if images have changed so that we can write them into tags
-            if (remote.Images.Any() && !local.Images.SequenceEqual(remote.Images))
-            {
-                _mediaCoverService.EnsureAlbumCovers(remote);
-                result = UpdateResult.UpdateTags;
-            }
-
+            // if (remote.Images.Any() && !local.Images.SequenceEqual(remote.Images))
+            // {
+            //     _mediaCoverService.EnsureAlbumCovers(remote);
+            //     result = UpdateResult.UpdateTags;
+            // }
             local.UseMetadataFrom(remote);
 
             local.AuthorMetadataId = remote.AuthorMetadata.Value.Id;

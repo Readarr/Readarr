@@ -71,6 +71,7 @@ class AlbumRow extends Component {
       statistics,
       releaseDate,
       title,
+      position,
       ratings,
       disambiguation,
       isSaving,
@@ -125,6 +126,17 @@ class AlbumRow extends Component {
                     title={title}
                     disambiguation={disambiguation}
                   />
+                </TableRowCell>
+              );
+            }
+
+            if (name === 'position') {
+              return (
+                <TableRowCell
+                  key={name}
+                  className={styles.title}
+                >
+                  {position || ''}
                 </TableRowCell>
               );
             }
@@ -194,6 +206,7 @@ AlbumRow.propTypes = {
   monitored: PropTypes.bool.isRequired,
   releaseDate: PropTypes.string,
   title: PropTypes.string.isRequired,
+  position: PropTypes.string,
   ratings: PropTypes.object.isRequired,
   disambiguation: PropTypes.string,
   foreignBookId: PropTypes.string.isRequired,

@@ -1,4 +1,5 @@
 using System;
+using System.Data;
 using FluentMigrator;
 using NzbDrone.Core.Datastore.Migration.Framework;
 
@@ -34,6 +35,21 @@ namespace NzbDrone.Core.Datastore.Migration
                 .WithColumn("MetadataProfileId").AsInt32().WithDefaultValue(1)
                 .WithColumn("AuthorMetadataId").AsInt32().Unique();
 
+            Create.TableForModel("Series")
+                .WithColumn("ForeignSeriesId").AsString().Unique()
+                .WithColumn("AuthorMetadataId").AsInt32().Indexed()
+                .WithColumn("Title").AsString()
+                .WithColumn("Description").AsString().Nullable()
+                .WithColumn("Numbered").AsBoolean()
+                .WithColumn("WorkCount").AsInt32()
+                .WithColumn("PrimaryWorkCount").AsInt32();
+
+            Create.TableForModel("SeriesBookLink")
+                .WithColumn("ForeignId").AsString().Unique()
+                .WithColumn("SeriesId").AsInt32().Indexed().ForeignKey("Series", "Id").OnDelete(Rule.Cascade)
+                .WithColumn("BookId").AsInt32().ForeignKey("Books", "Id").OnDelete(Rule.Cascade)
+                .WithColumn("Position").AsString().Nullable();
+
             Create.TableForModel("AuthorMetadata")
                 .WithColumn("ForeignAuthorId").AsString().Unique()
                 .WithColumn("Name").AsString()
@@ -45,15 +61,14 @@ namespace NzbDrone.Core.Datastore.Migration
                 .WithColumn("Links").AsString().Nullable()
                 .WithColumn("Genres").AsString().Nullable()
                 .WithColumn("Ratings").AsString().Nullable()
-                .WithColumn("Aliases").AsString().WithDefaultValue("[]")
-                .WithColumn("OldForeignAuthorIds").AsString().WithDefaultValue("[]");
+                .WithColumn("Aliases").AsString().WithDefaultValue("[]");
 
             Create.TableForModel("Books")
                 .WithColumn("AuthorMetadataId").AsInt32().WithDefaultValue(0)
                 .WithColumn("ForeignBookId").AsString().Unique()
+                .WithColumn("ForeignWorkId").AsString().Indexed()
                 .WithColumn("Isbn13").AsString().Nullable()
                 .WithColumn("Asin").AsString().Nullable()
-                .WithColumn("OldForeignBookIds").AsString().WithDefaultValue("[]")
                 .WithColumn("Title").AsString()
                 .WithColumn("Overview").AsString().Nullable()
                 .WithColumn("PageCount").AsInt32().Nullable()

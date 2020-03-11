@@ -32,6 +32,7 @@ import DeleteArtistModal from 'Artist/Delete/DeleteArtistModal';
 import ArtistHistoryTable from 'Artist/History/ArtistHistoryTable';
 import ArtistAlternateTitles from './ArtistAlternateTitles';
 import ArtistDetailsSeasonConnector from './ArtistDetailsSeasonConnector';
+import AuthorDetailsSeriesConnector from './AuthorDetailsSeriesConnector';
 import ArtistTagsConnector from './ArtistTagsConnector';
 import ArtistDetailsLinks from './ArtistDetailsLinks';
 import styles from './ArtistDetails.css';
@@ -178,6 +179,8 @@ class ArtistDetails extends Component {
       trackFilesError,
       hasAlbums,
       hasMonitoredAlbums,
+      hasSeries,
+      series,
       hasTrackFiles,
       previousArtist,
       nextArtist,
@@ -199,6 +202,7 @@ class ArtistDetails extends Component {
       isInteractiveImportModalOpen,
       allExpanded,
       allCollapsed,
+      expandedState,
       selectedTabIndex
     } = this.state;
 
@@ -513,7 +517,7 @@ class ArtistDetails extends Component {
                 <div className={styles.overview}>
                   <TextTruncate
                     line={Math.floor(125 / (defaultFontSize * lineHeight))}
-                    text={overview}
+                    text={overview.replace(/<[^>]*>?/gm, '')}
                   />
                 </div>
               </div>
@@ -553,6 +557,13 @@ class ArtistDetails extends Component {
                       className={styles.tab}
                       selectedClassName={styles.selectedTab}
                     >
+                      Series
+                    </Tab>
+
+                    <Tab
+                      className={styles.tab}
+                      selectedClassName={styles.selectedTab}
+                    >
                       History
                     </Tab>
 
@@ -571,7 +582,7 @@ class ArtistDetails extends Component {
                     </Tab>
 
                     {
-                      selectedTabIndex === 2 &&
+                      selectedTabIndex === 3 &&
                         <div className={styles.filterIcon}>
                           <InteractiveSearchFilterMenuConnector
                             type="artist"
@@ -586,6 +597,27 @@ class ArtistDetails extends Component {
                       isExpanded={true}
                       onExpandPress={this.onExpandPress}
                     />
+                  </TabPanel>
+
+                  <TabPanel>
+                    {
+                      isPopulated && hasSeries &&
+                        <div>
+                          {
+                            series.map((item) => {
+                              return (
+                                <AuthorDetailsSeriesConnector
+                                  key={item.id}
+                                  seriesId={item.id}
+                                  authorId={id}
+                                  isExpanded={expandedState[item.id]}
+                                  onExpandPress={this.onExpandPress}
+                                />
+                              );
+                            })
+                          }
+                        </div>
+                    }
                   </TabPanel>
 
                   <TabPanel>
@@ -683,6 +715,8 @@ ArtistDetails.propTypes = {
   trackFilesError: PropTypes.object,
   hasAlbums: PropTypes.bool.isRequired,
   hasMonitoredAlbums: PropTypes.bool.isRequired,
+  hasSeries: PropTypes.bool.isRequired,
+  series: PropTypes.arrayOf(PropTypes.object).isRequired,
   hasTrackFiles: PropTypes.bool.isRequired,
   previousArtist: PropTypes.object.isRequired,
   nextArtist: PropTypes.object.isRequired,

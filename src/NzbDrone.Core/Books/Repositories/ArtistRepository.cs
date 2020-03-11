@@ -45,14 +45,7 @@ namespace NzbDrone.Core.Music
 
         public Author FindById(string foreignAuthorId)
         {
-            var artist = Query(Builder().Where<AuthorMetadata>(m => m.ForeignAuthorId == foreignAuthorId)).SingleOrDefault();
-
-            if (artist == null)
-            {
-                artist = Query(Builder().Where<AuthorMetadata>(x => x.OldForeignAuthorIds.Contains(foreignAuthorId))).SingleOrDefault();
-            }
-
-            return artist;
+            return Query(Builder().Where<AuthorMetadata>(m => m.ForeignAuthorId == foreignAuthorId)).SingleOrDefault();
         }
 
         public Author FindByName(string cleanName)

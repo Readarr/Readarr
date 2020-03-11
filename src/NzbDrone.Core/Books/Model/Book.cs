@@ -13,7 +13,6 @@ namespace NzbDrone.Core.Music
     {
         public Book()
         {
-            OldForeignBookIds = new List<string>();
             Overview = string.Empty;
             Images = new List<MediaCover.MediaCover>();
             Links = new List<Links>();
@@ -27,9 +26,9 @@ namespace NzbDrone.Core.Music
         // These are metadata entries
         public int AuthorMetadataId { get; set; }
         public string ForeignBookId { get; set; }
+        public string ForeignWorkId { get; set; }
         public string Isbn13 { get; set; }
         public string Asin { get; set; }
-        public List<string> OldForeignBookIds { get; set; }
         public string Title { get; set; }
         public string Overview { get; set; }
         public string Disambiguation { get; set; }
@@ -76,7 +75,7 @@ namespace NzbDrone.Core.Music
         public override void UseMetadataFrom(Book other)
         {
             ForeignBookId = other.ForeignBookId;
-            OldForeignBookIds = other.OldForeignBookIds;
+            ForeignWorkId = other.ForeignWorkId;
             Isbn13 = other.Isbn13;
             Asin = other.Asin;
             Title = other.Title;
@@ -104,6 +103,7 @@ namespace NzbDrone.Core.Music
         public override void ApplyChanges(Book other)
         {
             ForeignBookId = other.ForeignBookId;
+            ForeignWorkId = other.ForeignWorkId;
             AddOptions = other.AddOptions;
             Monitored = other.Monitored;
         }

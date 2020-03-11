@@ -39,6 +39,8 @@ namespace NzbDrone.Core.MetadataSource.SkyHook
         /// </summary>
         public BestBookResource BestBook { get; private set; }
 
+        public long SeriesLinkId { get; private set; }
+
         /// <summary>
         /// If included in a list, this defines this work's position.
         /// </summary>
@@ -157,9 +159,10 @@ namespace NzbDrone.Core.MetadataSource.SkyHook
             }
         }
 
-        internal void SetUserPosition(string userPosition)
+        internal void SetSeriesInfo(XElement element)
         {
-            UserPosition = userPosition;
+            SeriesLinkId = element.ElementAsLong("id");
+            UserPosition = element.ElementAsString("user_position");
         }
     }
 }

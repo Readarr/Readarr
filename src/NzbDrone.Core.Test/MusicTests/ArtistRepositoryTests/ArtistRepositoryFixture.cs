@@ -37,7 +37,6 @@ namespace NzbDrone.Core.Test.MusicTests.ArtistRepositoryTests
             var metadata = Builder<AuthorMetadata>.CreateNew()
                 .With(a => a.Id = 0)
                 .With(a => a.Name = name)
-                .With(a => a.OldForeignAuthorIds = oldIds)
                 .BuildNew();
 
             var artist = Builder<Author>.CreateNew()

@@ -397,7 +397,7 @@ class AlbumDetails extends Component {
                 <div className={styles.overview}>
                   <TextTruncate
                     line={Math.floor(125 / (defaultFontSize * lineHeight))}
-                    text={overview}
+                    text={overview.replace(/<[^>]*>?/gm, '')}
                   />
                 </div>
               </div>
@@ -443,7 +443,9 @@ class AlbumDetails extends Component {
                 {
                   selectedTabIndex === 1 &&
                     <div className={styles.filterIcon}>
-                      <InteractiveSearchFilterMenuConnector />
+                      <InteractiveSearchFilterMenuConnector
+                        type="album"
+                      />
                     </div>
                 }
 
@@ -459,6 +461,7 @@ class AlbumDetails extends Component {
               <TabPanel>
                 <InteractiveSearchTable
                   bookId={id}
+                  type="album"
                 />
               </TabPanel>
 
