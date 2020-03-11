@@ -286,7 +286,10 @@ namespace Readarr.Api.V1.Author
         [NonAction]
         public void Handle(MediaCoversUpdatedEvent message)
         {
-            BroadcastResourceChange(ModelAction.Updated, GetAuthorResource(message.Author));
+            if (message.Updated)
+            {
+                BroadcastResourceChange(ModelAction.Updated, GetAuthorResource(message.Author));
+            }
         }
     }
 }

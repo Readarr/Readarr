@@ -18,6 +18,7 @@ namespace NzbDrone.Core.MediaCover
         public MediaCoversUpdatedEvent(Book book, bool updated)
         {
             Book = book;
+            Updated = updated;
         }
     }
 }
