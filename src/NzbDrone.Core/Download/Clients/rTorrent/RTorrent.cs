@@ -5,6 +5,7 @@ using System.Threading;
 using FluentValidation.Results;
 using NLog;
 using NzbDrone.Common.Disk;
+using NzbDrone.Common.EnvironmentInfo;
 using NzbDrone.Common.Extensions;
 using NzbDrone.Common.Http;
 using NzbDrone.Core.Configuration;
@@ -22,6 +23,8 @@ namespace NzbDrone.Core.Download.Clients.RTorrent
     {
         private readonly IRTorrentProxy _proxy;
         private readonly IRTorrentDirectoryValidator _rTorrentDirectoryValidator;
+        private readonly IDownloadSeedConfigProvider _downloadSeedConfigProvider;
+        private readonly string _imported_view = string.Concat(BuildInfo.AppName.ToLower(), "_imported");
 
         public RTorrent(IRTorrentProxy proxy,
                         ITorrentFileInfoReader torrentFileInfoReader,
@@ -29,17 +32,19 @@ namespace NzbDrone.Core.Download.Clients.RTorrent
                         IConfigService configService,
                         IDiskProvider diskProvider,
                         IRemotePathMappingService remotePathMappingService,
+                        IDownloadSeedConfigProvider downloadSeedConfigProvider,
                         IRTorrentDirectoryValidator rTorrentDirectoryValidator,
                         Logger logger)
             : base(torrentFileInfoReader, httpClient, configService, diskProvider, remotePathMappingService, logger)
         {
             _proxy = proxy;
             _rTorrentDirectoryValidator = rTorrentDirectoryValidator;
+            _downloadSeedConfigProvider = downloadSeedConfigProvider;
         }
 
         public override void MarkItemAsImported(DownloadClientItem downloadClientItem)
         {
-            // set post-import category
+            // Set post-import label
             if (Settings.MusicImportedCategory.IsNotNullOrWhiteSpace() &&
                 Settings.MusicImportedCategory != Settings.MusicCategory)
             {
@@ -54,6 +59,19 @@ namespace NzbDrone.Core.Download.Clients.RTorrent
                         Settings.MusicImportedCategory,
                         downloadClientItem.Title);
                 }
+            }
+
+            // Set post-import view
+            try
+            {
+                _proxy.PushTorrentUniqueView(downloadClientItem.DownloadId.ToLower(), _imported_view, Settings);
+            }
+            catch (Exception ex)
+            {
+                _logger.Warn(ex,
+                    "Failed to set torrent post-import view \"{0}\" for {1} in rTorrent.",
+                    _imported_view,
+                    downloadClientItem.Title);
             }
         }
 
@@ -97,7 +115,7 @@ namespace NzbDrone.Core.Download.Clients.RTorrent
 
         public override string Name => "rTorrent";
 
-        public override ProviderMessage Message => new ProviderMessage("Readarr is unable to remove torrents that have finished seeding when using rTorrent", ProviderMessageType.Warning);
+        public override ProviderMessage Message => new ProviderMessage($"Readarr will handle automatic removal of torrents based on the current seed criteria in Settings->Indexers. After importing it will also set \"{_imported_view}\" as an rTorrent view, which can be used in rTorrent scripts to customize behavior.", ProviderMessageType.Info);
 
         public override IEnumerable<DownloadClientItem> GetItems()
         {
@@ -152,8 +170,14 @@ namespace NzbDrone.Core.Download.Clients.RTorrent
                     item.Status = DownloadItemStatus.Paused;
                 }
 
-                // No stop ratio data is present, so do not delete
-                item.CanMoveFiles = item.CanBeRemoved = false;
+                // Grab cached seedConfig
+                var seedConfig = _downloadSeedConfigProvider.GetSeedConfiguration(torrent.Hash);
+
+                // Check if torrent is finished and if it exceeds cached seedConfig
+                item.CanMoveFiles = item.CanBeRemoved =
+                    torrent.IsFinished &&
+                    ((torrent.Ratio / 1000.0) >= seedConfig.Ratio ||
+                     (DateTimeOffset.Now - DateTimeOffset.FromUnixTimeSeconds(torrent.FinishedTime)) >= seedConfig.SeedTime);
 
                 items.Add(item);
             }

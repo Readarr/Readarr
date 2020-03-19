@@ -1,9 +1,11 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using FluentAssertions;
 using Moq;
 using NUnit.Framework;
 using NzbDrone.Core.Download;
+using NzbDrone.Core.Download.Clients;
 using NzbDrone.Core.Download.Clients.RTorrent;
 using NzbDrone.Core.MediaFiles.TorrentInfo;
 
@@ -91,6 +93,14 @@ namespace NzbDrone.Core.Test.Download.DownloadClientTests.RTorrentTests
             GivenTorrents(new List<RTorrentTorrent>
                 {
                     _completed
+                });
+
+            Mocker.GetMock<IDownloadSeedConfigProvider>()
+                .Setup(x => x.GetSeedConfiguration(It.IsAny<string>()))
+                .Returns(new TorrentSeedConfiguration
+                {
+                    Ratio = 1.0,
+                    SeedTime = TimeSpan.MaxValue
                 });
         }
 
