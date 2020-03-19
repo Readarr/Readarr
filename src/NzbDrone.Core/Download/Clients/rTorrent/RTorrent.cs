@@ -5,12 +5,14 @@ using System.Threading;
 using FluentValidation.Results;
 using NLog;
 using NzbDrone.Common.Disk;
+using NzbDrone.Common.EnvironmentInfo;
 using NzbDrone.Common.Extensions;
 using NzbDrone.Common.Http;
 using NzbDrone.Core.Configuration;
 using NzbDrone.Core.Download.Clients.rTorrent;
 using NzbDrone.Core.Exceptions;
 using NzbDrone.Core.MediaFiles.TorrentInfo;
+using NzbDrone.Core.Organizer;
 using NzbDrone.Core.Parser.Model;
 using NzbDrone.Core.RemotePathMappings;
 using NzbDrone.Core.ThingiProvider;
@@ -22,16 +24,19 @@ namespace NzbDrone.Core.Download.Clients.RTorrent
     {
         private readonly IRTorrentProxy _proxy;
         private readonly IRTorrentDirectoryValidator _rTorrentDirectoryValidator;
+        private readonly IDownloadSeedConfigProvider _downloadSeedConfigProvider;
+        private readonly string _imported_view = string.Concat(BuildInfo.AppName.ToLower(), "_imported");
 
         public RTorrent(IRTorrentProxy proxy,
                         ITorrentFileInfoReader torrentFileInfoReader,
                         IHttpClient httpClient,
                         IConfigService configService,
+                        INamingConfigService namingConfigService,
                         IDiskProvider diskProvider,
                         IRemotePathMappingService remotePathMappingService,
                         IRTorrentDirectoryValidator rTorrentDirectoryValidator,
                         Logger logger)
-            : base(torrentFileInfoReader, httpClient, configService, diskProvider, remotePathMappingService, logger)
+            : base(torrentFileInfoReader, httpClient, configService, namingConfigService, diskProvider, remotePathMappingService, logger)
         {
             _proxy = proxy;
             _rTorrentDirectoryValidator = rTorrentDirectoryValidator;
@@ -54,6 +59,16 @@ namespace NzbDrone.Core.Download.Clients.RTorrent
                         Settings.MusicImportedCategory,
                         downloadClientItem.Title);
                 }
+            }
+
+            // Set post-import view
+            try
+            {
+                _proxy.PushTorrentUniqueView(downloadClientItem.DownloadId.ToLower(), _imported_view, Settings);
+            }
+            catch (Exception ex)
+            {
+                _logger.Warn(ex, "Failed to set torrent post-import view \"{0}\" for {1} in rTorrent.", _imported_view, downloadClientItem.Title);
             }
         }
 
@@ -97,7 +112,7 @@ namespace NzbDrone.Core.Download.Clients.RTorrent
 
         public override string Name => "rTorrent";
 
-        public override ProviderMessage Message => new ProviderMessage("Readarr is unable to remove torrents that have finished seeding when using rTorrent", ProviderMessageType.Warning);
+        public override ProviderMessage Message => new ProviderMessage($"Readarr will handle automatic removal of torrents based on the current seed criteria in Settings->Indexers. After importing it will also set \"{_imported_view}\" as an rTorrent view, which can be used in rTorrent scripts to customize behavior.", ProviderMessageType.Info);
 
         public override IEnumerable<DownloadClientItem> GetItems()
         {
