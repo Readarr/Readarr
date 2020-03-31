@@ -64,7 +64,7 @@ namespace Readarr.Api.V1.Calendar
             var albums = _albumService.AlbumsBetweenDates(start, end, unmonitored);
             var calendar = new Ical.Net.Calendar
             {
-                ProductId = "-//readarr.audio//Readarr//EN"
+                ProductId = "-//readarr.com//Readarr//EN"
             };
 
             var calendarName = "Readarr Music Schedule";
