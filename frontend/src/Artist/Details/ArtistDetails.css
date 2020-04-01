@@ -96,6 +96,10 @@
   margin-left: 20px;
 }
 
+.filterIcon {
+  float: right;
+}
+
 .artistNavigationButtons {
   white-space: nowrap;
 }

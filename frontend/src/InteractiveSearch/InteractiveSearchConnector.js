@@ -67,16 +67,6 @@ class InteractiveSearchConnector extends Component {
     }
   }
 
-  componentDidUpdate(prevProps) {
-    const {
-      searchPayload,
-      dispatchFetchReleases
-    } = this.props;
-    if (prevProps.searchPayload !== searchPayload) {
-      dispatchFetchReleases(searchPayload);
-    }
-  }
-
   //
   // Render
 
