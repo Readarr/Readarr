@@ -13,7 +13,7 @@ using NzbDrone.Common.OAuth;
 using NzbDrone.Core.Configuration;
 using NzbDrone.Core.Exceptions;
 using NzbDrone.Core.MetadataSource;
-using NzbDrone.Core.MetadataSource.SkyHook;
+using NzbDrone.Core.MetadataSource.Goodreads;
 using NzbDrone.Core.Parser;
 
 namespace NzbDrone.Core.ImportLists.Goodreads

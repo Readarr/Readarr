@@ -18,9 +18,7 @@ namespace NzbDrone.Common.Cloud
             Services = new HttpRequestBuilder("https://readarr.servarr.com/v1/")
                 .CreateFactory();
 
-            Search = new HttpRequestBuilder("https://www.goodreads.com/{route}")
-                .AddQueryParam("key", new string("gSuM2Onzl6sjMU25HY1Xcd".Reverse().ToArray()))
-                .AddQueryParam("_nc", "1")
+            Search = new HttpRequestBuilder("https://api.readarr.com/v0.1/{route}")
                 .KeepAlive()
                 .CreateFactory();
         }

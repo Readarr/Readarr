@@ -5,10 +5,10 @@ namespace NzbDrone.Core.Music
 {
     public class SeriesBookLink : Entity<SeriesBookLink>
     {
-        public string ForeignId { get; set; }
         public string Position { get; set; }
         public int SeriesId { get; set; }
         public int BookId { get; set; }
+        public bool IsPrimary { get; set; }
 
         [MemberwiseEqualityIgnore]
         public LazyLoaded<Series> Series { get; set; }
@@ -17,8 +17,8 @@ namespace NzbDrone.Core.Music
 
         public override void UseMetadataFrom(SeriesBookLink other)
         {
-            ForeignId = other.ForeignId;
             Position = other.Position;
+            IsPrimary = other.IsPrimary;
         }
 
         public override void UseDbFieldsFrom(SeriesBookLink other)

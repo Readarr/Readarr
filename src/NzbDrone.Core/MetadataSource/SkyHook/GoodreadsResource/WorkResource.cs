@@ -4,7 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Xml.Linq;
 
-namespace NzbDrone.Core.MetadataSource.SkyHook
+namespace NzbDrone.Core.MetadataSource.Goodreads
 {
     /// <summary>
     /// This class models a work as defined by the Goodreads API.

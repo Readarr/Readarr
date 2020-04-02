@@ -1,7 +1,7 @@
 using System.Diagnostics;
 using System.Xml.Linq;
 
-namespace NzbDrone.Core.MetadataSource.SkyHook
+namespace NzbDrone.Core.MetadataSource.Goodreads
 {
     /// <summary>
     /// Represents pagination information as returned by the Goodreads API.

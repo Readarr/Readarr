@@ -6,7 +6,7 @@ using NzbDrone.Common.Extensions;
 using NzbDrone.Common.Http;
 using NzbDrone.Core.Configuration;
 using NzbDrone.Core.MetadataSource;
-using NzbDrone.Core.MetadataSource.SkyHook;
+using NzbDrone.Core.MetadataSource.Goodreads;
 using NzbDrone.Core.Parser;
 using NzbDrone.Core.Parser.Model;
 using NzbDrone.Core.Validation;
@@ -52,9 +52,8 @@ namespace NzbDrone.Core.ImportLists.Goodreads
             return reviews.Select(x => new ImportListItemInfo
             {
                 Artist = x.Book.Authors.First().Name.CleanSpaces(),
-                ArtistMusicBrainzId = x.Book.Authors.First().Id.ToString(),
                 Album = x.Book.TitleWithoutSeries.CleanSpaces(),
-                AlbumMusicBrainzId = x.Book.Id.ToString()
+                AlbumMusicBrainzId = x.Book.Uri.Replace("kca://book/", string.Empty)
             }).ToList();
         }
 

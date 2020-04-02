@@ -45,10 +45,10 @@ namespace NzbDrone.Core.Datastore.Migration
                 .WithColumn("PrimaryWorkCount").AsInt32();
 
             Create.TableForModel("SeriesBookLink")
-                .WithColumn("ForeignId").AsString().Unique()
                 .WithColumn("SeriesId").AsInt32().Indexed().ForeignKey("Series", "Id").OnDelete(Rule.Cascade)
                 .WithColumn("BookId").AsInt32().ForeignKey("Books", "Id").OnDelete(Rule.Cascade)
-                .WithColumn("Position").AsString().Nullable();
+                .WithColumn("Position").AsString().Nullable()
+                .WithColumn("IsPrimary").AsBoolean();
 
             Create.TableForModel("AuthorMetadata")
                 .WithColumn("ForeignAuthorId").AsString().Unique()

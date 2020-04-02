@@ -3,7 +3,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.Xml.Linq;
 
-namespace NzbDrone.Core.MetadataSource.SkyHook
+namespace NzbDrone.Core.MetadataSource.Goodreads
 {
     /// <summary>
     /// This class models an Author as defined by the Goodreads API.

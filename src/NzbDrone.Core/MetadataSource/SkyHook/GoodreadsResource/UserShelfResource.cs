@@ -2,7 +2,7 @@ using System;
 using System.Diagnostics;
 using System.Xml.Linq;
 
-namespace NzbDrone.Core.MetadataSource.SkyHook
+namespace NzbDrone.Core.MetadataSource.Goodreads
 {
     /// <summary>
     /// Represents a user's shelf on their Goodreads profile.

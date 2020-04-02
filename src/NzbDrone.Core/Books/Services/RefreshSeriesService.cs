@@ -82,7 +82,7 @@ namespace NzbDrone.Core.Music
 
         protected override Tuple<SeriesBookLink, List<SeriesBookLink>> GetMatchingExistingChildren(List<SeriesBookLink> existingChildren, SeriesBookLink remote)
         {
-            var existingChild = existingChildren.SingleOrDefault(x => x.ForeignId == remote.ForeignId);
+            var existingChild = existingChildren.SingleOrDefault(x => x.BookId == remote.Book.Value.Id);
             var mergeChildren = new List<SeriesBookLink>();
             return Tuple.Create(existingChild, mergeChildren);
         }

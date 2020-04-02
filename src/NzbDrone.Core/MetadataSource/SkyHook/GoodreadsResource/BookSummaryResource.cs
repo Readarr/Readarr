@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Xml.Linq;
 
-namespace NzbDrone.Core.MetadataSource.SkyHook
+namespace NzbDrone.Core.MetadataSource.Goodreads
 {
     /// <summary>
     /// This class models areas of the API where Goodreads returns
@@ -18,6 +18,8 @@ namespace NzbDrone.Core.MetadataSource.SkyHook
         /// The Id of this book.
         /// </summary>
         public long Id { get; private set; }
+
+        public string Uri { get; set; }
 
         /// <summary>
         /// The title of this book.
@@ -117,6 +119,7 @@ namespace NzbDrone.Core.MetadataSource.SkyHook
         public override void Parse(XElement element)
         {
             Id = element.ElementAsLong("id");
+            Uri = element.ElementAsString("uri");
             Title = element.ElementAsString("title");
             TitleWithoutSeries = element.ElementAsString("title_without_series");
             Link = element.ElementAsString("link");

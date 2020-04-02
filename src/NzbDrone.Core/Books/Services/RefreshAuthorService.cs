@@ -239,7 +239,8 @@ namespace NzbDrone.Core.Music
             local.Author = entity;
             local.AuthorMetadata = entity.Metadata.Value;
             local.AuthorMetadataId = entity.Metadata.Value.Id;
-            remote.Id = local.Id;
+
+            remote.UseDbFieldsFrom(local);
         }
 
         protected override void AddChildren(List<Book> children)
@@ -249,21 +250,19 @@ namespace NzbDrone.Core.Music
 
         protected override bool RefreshChildren(SortedChildren localChildren, List<Book> remoteChildren, bool forceChildRefresh, bool forceUpdateFileTags, DateTime? lastUpdate)
         {
-            // we always want to end up refreshing the books since we don't yet have proper data
-            Ensure.That(localChildren.UpToDate.Count, () => localChildren.UpToDate.Count).IsLessThanOrEqualTo(0);
             return _refreshAlbumService.RefreshAlbumInfo(localChildren.All, remoteChildren, forceChildRefresh, forceUpdateFileTags, lastUpdate);
         }
 
         protected override void PublishEntityUpdatedEvent(Author entity)
         {
-            // little hack - trigger the series update here
-            _refreshSeriesService.RefreshSeriesInfo(entity.AuthorMetadataId, entity.Series, false, false, null);
-
             _eventAggregator.PublishEvent(new ArtistUpdatedEvent(entity));
         }
 
         protected override void PublishRefreshCompleteEvent(Author entity)
         {
+            // little hack - trigger the series update here
+            _refreshSeriesService.RefreshSeriesInfo(entity.AuthorMetadataId, entity.Series, false, false, null);
+
             _eventAggregator.PublishEvent(new ArtistRefreshCompleteEvent(entity));
         }
 

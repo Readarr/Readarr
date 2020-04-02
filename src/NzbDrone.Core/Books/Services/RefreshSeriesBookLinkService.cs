@@ -28,7 +28,7 @@ namespace NzbDrone.Core.Music
 
             foreach (var link in update)
             {
-                var remoteSeriesBookLink = remoteSeriesBookLinks.Single(e => e.ForeignId == link.ForeignId);
+                var remoteSeriesBookLink = remoteSeriesBookLinks.Single(e => e.Book.Value.Id == link.BookId);
                 link.UseMetadataFrom(remoteSeriesBookLink);
 
                 // make sure title is not null

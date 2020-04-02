@@ -62,28 +62,8 @@ namespace NzbDrone.Core.Music
         protected override RemoteData GetRemoteData(Book local, List<Book> remote)
         {
             var result = new RemoteData();
-
-            // remove not in remote list and ShouldDelete is true
-            if (remote != null &&
-                !remote.Any(x => x.ForeignBookId == local.ForeignBookId) &&
-                ShouldDelete(local))
-            {
-                return result;
-            }
-
-            Tuple<string, Book, List<AuthorMetadata>> tuple = null;
-            try
-            {
-                tuple = _albumInfo.GetBookInfo(local.ForeignBookId);
-            }
-            catch (AlbumNotFoundException)
-            {
-                return result;
-            }
-
-            result.Entity = tuple.Item2;
+            result.Entity = remote.SingleOrDefault(x => x.ForeignBookId == local.ForeignBookId);
             result.Entity.Id = local.Id;
-            result.Metadata = tuple.Item3;
             return result;
         }
 

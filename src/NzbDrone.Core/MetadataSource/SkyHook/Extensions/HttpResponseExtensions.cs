@@ -4,8 +4,9 @@ using System.Xml;
 using System.Xml.Linq;
 using System.Xml.XPath;
 using NzbDrone.Common.Http;
+using NzbDrone.Core.MetadataSource.SkyHook;
 
-namespace NzbDrone.Core.MetadataSource.SkyHook
+namespace NzbDrone.Core.MetadataSource.Goodreads
 {
     public static class HttpResponseExtensions
     {

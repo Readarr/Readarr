@@ -1,6 +1,6 @@
 using System.Xml.Linq;
 
-namespace NzbDrone.Core.MetadataSource.SkyHook
+namespace NzbDrone.Core.MetadataSource.Goodreads
 {
     public abstract class GoodreadsResource
     {
