@@ -70,11 +70,7 @@ namespace NzbDrone.Core.Notifications.Boxcar
         {
             try
             {
-<<<<<<< HEAD
                 var requestBuilder = new HttpRequestBuilder(URL).Post();
-=======
-                var client = _restClientFactory.BuildClient(URL);
->>>>>>> ae5bf2426 (Fixed: RestClient does not use global proxy settings)
 
                 var request = requestBuilder.AddFormParameter("user_credentials", settings.Token)
                     .AddFormParameter("notification[title]", title)

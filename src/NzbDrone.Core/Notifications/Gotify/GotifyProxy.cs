@@ -21,14 +21,14 @@ namespace NzbDrone.Core.Notifications.Gotify
         {
             try
             {
-                var request = new HttpRequestBuilder(settings.Server).Resource("message").Post()
-                .AddQueryParam("token", settings.AppToken)
+                var request = new HttpRequestBuilder(settings.Server).Post()
+                .AddFormParameter("token", settings.AppToken)
                 .AddFormParameter("title", title)
                 .AddFormParameter("message", message)
                 .AddFormParameter("priority", settings.Priority)
                 .Build();
 
-                _httpClient.Execute(request);
+                _httpClient.Post(request);
             }
             catch (HttpException ex)
             {
