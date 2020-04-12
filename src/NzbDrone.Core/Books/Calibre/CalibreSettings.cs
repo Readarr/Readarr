@@ -3,13 +3,13 @@ using NzbDrone.Core.Annotations;
 using NzbDrone.Core.ThingiProvider;
 using NzbDrone.Core.Validation;
 
-namespace NzbDrone.Core.Notifications.Calibre
+namespace NzbDrone.Core.Books.Calibre
 {
     public class CalibreSettingsValidator : AbstractValidator<CalibreSettings>
     {
         public CalibreSettingsValidator()
         {
-            RuleFor(c => c.Url).IsValidUrl();
+            RuleFor(c => c.Host).IsValidUrl();
             RuleFor(c => c.Username).NotEmpty().WithMessage("Calibre must have a user/password set and be run with --enable-auth");
             RuleFor(c => c.Password).NotEmpty().WithMessage("Calibre must have a user/password set and be run with --enable-auth");
         }
@@ -19,8 +19,11 @@ namespace NzbDrone.Core.Notifications.Calibre
     {
         private static readonly CalibreSettingsValidator Validator = new CalibreSettingsValidator();
 
-        [FieldDefinition(0, Label = "URL", Type = FieldType.Url)]
-        public string Url { get; set; }
+        [FieldDefinition(0, Label = "Host", Type = FieldType.Textbox)]
+        public string Host { get; set; }
+
+        [FieldDefinition(0, Label = "Port", Type = FieldType.Textbox)]
+        public int Port { get; set; }
 
         [FieldDefinition(1, Label = "Username", Type = FieldType.Textbox)]
         public string Username { get; set; }

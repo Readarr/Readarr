@@ -1,9 +1,9 @@
+using System;
 using System.IO.Abstractions;
 using System.Linq;
 using NLog;
 using NzbDrone.Common.Serializer;
 using NzbDrone.Core.MediaFiles.Azw;
-using NzbDrone.Core.Music;
 using NzbDrone.Core.Parser.Model;
 using NzbDrone.Core.Qualities;
 using VersOne.Epub;
@@ -46,21 +46,28 @@ namespace NzbDrone.Core.MediaFiles
             _logger.Trace($"Reading {file}");
             var result = new ParsedTrackInfo();
 
-            using (var bookRef = EpubReader.OpenBook(file))
+            try
             {
-                result.ArtistTitle = bookRef.AuthorList.FirstOrDefault();
-                result.AlbumTitle = bookRef.Title;
-
-                var meta = bookRef.Schema.Package.Metadata;
-                result.Isbn = meta?.Identifiers?.FirstOrDefault(x => x.Scheme?.ToLower().Contains("isbn") ?? false)?.Identifier;
-                result.Asin = meta?.Identifiers?.FirstOrDefault(x => x.Scheme?.ToLower().Contains("asin") ?? false)?.Identifier;
-                result.Language = meta?.Languages?.FirstOrDefault();
-
-                result.Quality = new QualityModel
+                using (var bookRef = EpubReader.OpenBook(file))
                 {
-                    Quality = Quality.EPUB,
-                    QualityDetectionSource = QualityDetectionSource.TagLib
-                };
+                    result.ArtistTitle = bookRef.AuthorList.FirstOrDefault();
+                    result.AlbumTitle = bookRef.Title;
+
+                    var meta = bookRef.Schema.Package.Metadata;
+                    result.Isbn = meta?.Identifiers?.FirstOrDefault(x => x.Scheme?.ToLower().Contains("isbn") ?? false)?.Identifier;
+                    result.Asin = meta?.Identifiers?.FirstOrDefault(x => x.Scheme?.ToLower().Contains("asin") ?? false)?.Identifier;
+                    result.Language = meta?.Languages?.FirstOrDefault();
+
+                    result.Quality = new QualityModel
+                    {
+                        Quality = Quality.EPUB,
+                        QualityDetectionSource = QualityDetectionSource.TagLib
+                    };
+                }
+            }
+            catch (Exception e)
+            {
+                _logger.Error(e, "Error reading epub");
             }
 
             _logger.Trace($"Got {result.ToJson()}");
@@ -73,18 +80,25 @@ namespace NzbDrone.Core.MediaFiles
             _logger.Trace($"Reading {file}");
             var result = new ParsedTrackInfo();
 
-            var book = new Azw3File(file);
-            result.ArtistTitle = book.Author;
-            result.AlbumTitle = book.Title;
-            result.Isbn = book.Isbn;
-            result.Asin = book.Asin;
-            result.Language = book.Language;
-
-            result.Quality = new QualityModel
+            try
             {
-                Quality = book.Version == 6 ? Quality.MOBI : Quality.AZW3,
-                QualityDetectionSource = QualityDetectionSource.TagLib
-            };
+                var book = new Azw3File(file);
+                result.ArtistTitle = book.Author;
+                result.AlbumTitle = book.Title;
+                result.Isbn = book.Isbn;
+                result.Asin = book.Asin;
+                result.Language = book.Language;
+
+                result.Quality = new QualityModel
+                {
+                    Quality = book.Version == 6 ? Quality.MOBI : Quality.AZW3,
+                    QualityDetectionSource = QualityDetectionSource.TagLib
+                };
+            }
+            catch (Exception e)
+            {
+                _logger.Error(e, "Error reading epub");
+            }
 
             _logger.Trace($"Got {result.ToJson()}");
 

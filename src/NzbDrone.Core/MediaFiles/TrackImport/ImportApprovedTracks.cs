@@ -14,6 +14,7 @@ using NzbDrone.Core.Messaging.Events;
 using NzbDrone.Core.Music;
 using NzbDrone.Core.Music.Commands;
 using NzbDrone.Core.Music.Events;
+using NzbDrone.Core.Parser;
 using NzbDrone.Core.Parser.Model;
 using NzbDrone.Core.Qualities;
 using NzbDrone.Core.RootFolders;
@@ -191,6 +192,12 @@ namespace NzbDrone.Core.MediaFiles.TrackImport
                             _mediaFileService.Delete(previousFile, DeleteMediaFileReason.ManualOverride);
                         }
 
+                        var rootFolder = _rootFolderService.GetBestRootFolder(localTrack.Path);
+                        if (rootFolder.IsCalibreLibrary)
+                        {
+                            trackFile.CalibreId = trackFile.Path.ParseCalibreId();
+                        }
+
                         _audioTagService.WriteTags(trackFile, false);
                     }
 
@@ -293,7 +300,8 @@ namespace NzbDrone.Core.MediaFiles.TrackImport
                 if (dbArtist == null)
                 {
                     _logger.Debug($"Adding remote artist {artist}");
-                    var rootFolder = _rootFolderService.GetBestRootFolder(decisions.First().Item.Path);
+                    var path = decisions.First().Item.Path;
+                    var rootFolder = _rootFolderService.GetBestRootFolder(path);
 
                     artist.RootFolderPath = rootFolder.Path;
                     artist.MetadataProfileId = rootFolder.DefaultMetadataProfileId;
@@ -306,6 +314,12 @@ namespace NzbDrone.Core.MediaFiles.TrackImport
                         Monitored = artist.Monitored,
                         Monitor = rootFolder.DefaultMonitorOption
                     };
+
+                    if (rootFolder.IsCalibreLibrary)
+                    {
+                        // calibre has artist / book / files
+                        artist.Path = path.GetParentPath().GetParentPath();
+                    }
 
                     try
                     {

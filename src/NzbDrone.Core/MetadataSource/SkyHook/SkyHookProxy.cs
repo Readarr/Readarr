@@ -262,9 +262,6 @@ namespace NzbDrone.Core.MetadataSource.SkyHook
                 seriesList.Add(series);
             }
 
-            _logger.Trace("series");
-            _logger.Trace(seriesList.ToJson());
-
             var result = new Author
             {
                 Metadata = metadata,
@@ -282,6 +279,8 @@ namespace NzbDrone.Core.MetadataSource.SkyHook
             var author = new AuthorMetadata
             {
                 ForeignAuthorId = resource.ForeignId,
+                GoodreadsId = resource.GoodreadsId,
+                TitleSlug = resource.TitleSlug,
                 Name = resource.Name.CleanSpaces(),
                 Overview = resource.Description,
                 Ratings = new Ratings { Votes = resource.RatingsCount, Value = (decimal)resource.AverageRating }
@@ -314,6 +313,8 @@ namespace NzbDrone.Core.MetadataSource.SkyHook
             {
                 ForeignBookId = resource.ForeignId,
                 ForeignWorkId = resource.WorkForeignId,
+                GoodreadsId = resource.GoodreadsId,
+                TitleSlug = resource.TitleSlug,
                 Isbn13 = resource.Isbn13,
                 Asin = resource.Asin,
                 Title = resource.Title.CleanSpaces(),

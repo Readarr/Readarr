@@ -10,12 +10,16 @@ using NzbDrone.Common;
 using NzbDrone.Common.Disk;
 using NzbDrone.Common.Extensions;
 using NzbDrone.Common.Instrumentation.Extensions;
+using NzbDrone.Common.Serializer;
+using NzbDrone.Core.Books.Calibre;
 using NzbDrone.Core.MediaFiles.Commands;
 using NzbDrone.Core.MediaFiles.Events;
 using NzbDrone.Core.MediaFiles.TrackImport;
 using NzbDrone.Core.Messaging.Commands;
 using NzbDrone.Core.Messaging.Events;
 using NzbDrone.Core.Music;
+using NzbDrone.Core.Parser;
+using NzbDrone.Core.RemotePathMappings;
 using NzbDrone.Core.RootFolders;
 
 namespace NzbDrone.Core.MediaFiles
@@ -37,6 +41,8 @@ namespace NzbDrone.Core.MediaFiles
         public static readonly Regex ExcludedFilesRegex = new Regex(@"^\._|^Thumbs\.db$|^\.DS_store$|\.partial~$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
         private readonly IDiskProvider _diskProvider;
+        private readonly ICalibreProxy _calibre;
+        private readonly IRemotePathMappingService _pathMapper;
         private readonly IMediaFileService _mediaFileService;
         private readonly IMakeImportDecision _importDecisionMaker;
         private readonly IImportApprovedTracks _importApprovedTracks;
@@ -47,6 +53,8 @@ namespace NzbDrone.Core.MediaFiles
         private readonly Logger _logger;
 
         public DiskScanService(IDiskProvider diskProvider,
+                               ICalibreProxy calibre,
+                               IRemotePathMappingService pathMapper,
                                IMediaFileService mediaFileService,
                                IMakeImportDecision importDecisionMaker,
                                IImportApprovedTracks importApprovedTracks,
@@ -57,6 +65,8 @@ namespace NzbDrone.Core.MediaFiles
                                Logger logger)
         {
             _diskProvider = diskProvider;
+            _calibre = calibre;
+            _pathMapper = pathMapper;
             _mediaFileService = mediaFileService;
             _importDecisionMaker = importDecisionMaker;
             _importApprovedTracks = importApprovedTracks;
@@ -166,6 +176,7 @@ namespace NzbDrone.Core.MediaFiles
                 .Select(decision => new BookFile
                 {
                     Path = decision.Item.Path,
+                    CalibreId = decision.Item.Path.ParseCalibreId(),
                     Size = decision.Item.Size,
                     Modified = decision.Item.Modified,
                     DateAdded = DateTime.UtcNow,
@@ -228,18 +239,37 @@ namespace NzbDrone.Core.MediaFiles
 
         public IFileInfo[] GetAudioFiles(string path, bool allDirectories = true)
         {
-            _logger.Debug("Scanning '{0}' for music files", path);
+            IEnumerable<IFileInfo> filesOnDisk;
 
-            var searchOption = allDirectories ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly;
-            var filesOnDisk = _diskProvider.GetFileInfos(path, searchOption);
+            var rootFolder = _rootFolderService.GetBestRootFolder(path);
+
+            _logger.Trace(rootFolder.ToJson());
+
+            if (rootFolder != null && rootFolder.IsCalibreLibrary && rootFolder.CalibreSettings != null)
+            {
+                _logger.Info($"Getting book list from calibre for {path}");
+                var paths = _calibre.GetAllBookFilePaths(rootFolder.CalibreSettings);
+                var localPaths = paths.Select(x => _pathMapper.RemapRemoteToLocal(rootFolder.CalibreSettings.Host, new OsPath(x)));
+                var folderPaths = localPaths.Where(x => path.IsParentPath(x.FullPath));
+
+                filesOnDisk = folderPaths.Select(x => _diskProvider.GetFileInfo(x.FullPath));
+            }
+            else
+            {
+                _logger.Debug("Scanning '{0}' for music files", path);
+
+                var searchOption = allDirectories ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly;
+                filesOnDisk = _diskProvider.GetFileInfos(path, searchOption);
+
+                _logger.Trace("{0} files were found in {1}", filesOnDisk.Count(), path);
+            }
 
             var mediaFileList = filesOnDisk.Where(file => MediaFileExtensions.AllExtensions.Contains(file.Extension))
-                                           .ToList();
+                .ToArray();
 
-            _logger.Trace("{0} files were found in {1}", filesOnDisk.Count, path);
-            _logger.Debug("{0} audio files were found in {1}", mediaFileList.Count, path);
+            _logger.Debug("{0} book files were found in {1}", mediaFileList.Length, path);
 
-            return mediaFileList.ToArray();
+            return mediaFileList;
         }
 
         public string[] GetNonAudioFiles(string path, bool allDirectories = true)

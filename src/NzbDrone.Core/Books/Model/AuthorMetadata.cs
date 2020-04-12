@@ -16,6 +16,8 @@ namespace NzbDrone.Core.Music
         }
 
         public string ForeignAuthorId { get; set; }
+        public int GoodreadsId { get; set; }
+        public string TitleSlug { get; set; }
         public string Name { get; set; }
         public List<string> Aliases { get; set; }
         public string Overview { get; set; }

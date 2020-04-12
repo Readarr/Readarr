@@ -27,6 +27,8 @@ namespace NzbDrone.Core.Music
         public int AuthorMetadataId { get; set; }
         public string ForeignBookId { get; set; }
         public string ForeignWorkId { get; set; }
+        public int GoodreadsId { get; set; }
+        public string TitleSlug { get; set; }
         public string Isbn13 { get; set; }
         public string Asin { get; set; }
         public string Title { get; set; }

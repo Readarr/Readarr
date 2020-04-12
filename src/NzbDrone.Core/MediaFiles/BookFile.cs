@@ -20,6 +20,7 @@ namespace NzbDrone.Core.MediaFiles
         public QualityModel Quality { get; set; }
         public MediaInfoModel MediaInfo { get; set; }
         public int BookId { get; set; }
+        public int CalibreId { get; set; }
 
         // These are queried from the database
         public LazyLoaded<Author> Artist { get; set; }

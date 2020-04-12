@@ -6,6 +6,8 @@ namespace NzbDrone.Core.MetadataSource.SkyHook
     public class BookResource
     {
         public string ForeignId { get; set; }
+        public int GoodreadsId { get; set; }
+        public string TitleSlug { get; set; }
         public string Asin { get; set; }
         public string Description { get; set; }
         public string Isbn13 { get; set; }

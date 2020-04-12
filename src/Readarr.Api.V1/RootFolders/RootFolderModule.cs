@@ -53,6 +53,11 @@ namespace Readarr.Api.V1.RootFolders
 
             SharedValidator.RuleFor(c => c.DefaultQualityProfileId)
                 .SetValidator(qualityProfileExistsValidator);
+
+            SharedValidator.RuleFor(c => c.Host).ValidHost().When(x => x.IsCalibreLibrary);
+            SharedValidator.RuleFor(c => c.Port).InclusiveBetween(1, 65535).When(x => x.IsCalibreLibrary);
+            SharedValidator.RuleFor(c => c.Username).NotEmpty().When(c => !string.IsNullOrWhiteSpace(c.Password));
+            SharedValidator.RuleFor(c => c.Password).NotEmpty().When(c => !string.IsNullOrWhiteSpace(c.Username));
         }
 
         private RootFolderResource GetRootFolder(int id)

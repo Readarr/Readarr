@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Newtonsoft.Json;
 
-namespace NzbDrone.Core.Notifications.Calibre
+namespace NzbDrone.Core.Books.Calibre
 {
     public class CalibreImportJob
     {

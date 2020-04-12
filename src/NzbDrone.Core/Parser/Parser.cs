@@ -219,6 +219,8 @@ namespace NzbDrone.Core.Parser
 
         private static readonly Regex AfterDashRegex = new Regex(@"[-:].*", RegexOptions.Compiled);
 
+        private static readonly Regex CalibreIdRegex = new Regex(@"\((?<id>\d+)\)", RegexOptions.Compiled);
+
         public static ParsedTrackInfo ParseMusicPath(string path)
         {
             var fileInfo = new FileInfo(path);
@@ -394,6 +396,15 @@ namespace NzbDrone.Core.Parser
 
             Logger.Debug("Unable to parse {0}", title);
             return null;
+        }
+
+        public static int ParseCalibreId(this string path)
+        {
+            var bookFolder = path.GetParentPath();
+
+            var match = CalibreIdRegex.Match(bookFolder);
+
+            return match.Success ? int.Parse(match.Groups["id"].Value) : 0;
         }
 
         public static ParsedAlbumInfo ParseAlbumTitle(string title)

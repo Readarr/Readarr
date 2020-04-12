@@ -42,7 +42,12 @@ function EditRootFolderModalContent(props) {
     defaultQualityProfileId,
     defaultMetadataProfileId,
     defaultMonitorOption,
-    defaultTags
+    defaultTags,
+    isCalibreLibrary,
+    host,
+    port,
+    username,
+    password
   } = item;
 
   return (
@@ -89,6 +94,71 @@ function EditRootFolderModalContent(props) {
                   onChange={onInputChange}
                 />
               </FormGroup>
+
+              <FormGroup>
+                <FormLabel>Calibre Library</FormLabel>
+
+                <FormInputGroup
+                  type={inputTypes.CHECK}
+                  name="isCalibreLibrary"
+                  helpText="Use calibre content server to manipulate library"
+                  {...isCalibreLibrary}
+                  onChange={onInputChange}
+                />
+              </FormGroup>
+
+              {
+                isCalibreLibrary !== undefined && isCalibreLibrary.value &&
+                  <div>
+                    <FormGroup>
+                      <FormLabel>Calibre Host</FormLabel>
+
+                      <FormInputGroup
+                        type={inputTypes.TEXT}
+                        name="host"
+                        helpText="Calibre content server host"
+                        {...host}
+                        onChange={onInputChange}
+                      />
+                    </FormGroup>
+
+                    <FormGroup>
+                      <FormLabel>Calibre Port</FormLabel>
+
+                      <FormInputGroup
+                        type={inputTypes.NUMBER}
+                        name="port"
+                        helpText="Calibre content server port"
+                        {...port}
+                        onChange={onInputChange}
+                      />
+                    </FormGroup>
+
+                    <FormGroup>
+                      <FormLabel>Calibre Username</FormLabel>
+
+                      <FormInputGroup
+                        type={inputTypes.TEXT}
+                        name="username"
+                        helpText="Calibre username"
+                        {...username}
+                        onChange={onInputChange}
+                      />
+                    </FormGroup>
+
+                    <FormGroup>
+                      <FormLabel>Calibre Password</FormLabel>
+
+                      <FormInputGroup
+                        type={inputTypes.PASSWORD}
+                        name="password"
+                        helpText="Calibre content server password"
+                        {...password}
+                        onChange={onInputChange}
+                      />
+                    </FormGroup>
+                  </div>
+              }
 
               <FormGroup>
                 <FormLabel>

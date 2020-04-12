@@ -20,7 +20,9 @@ namespace NzbDrone.Core.Datastore.Migration
                 .WithColumn("DefaultMetadataProfileId").AsInt32().WithDefaultValue(0)
                 .WithColumn("DefaultQualityProfileId").AsInt32().WithDefaultValue(0)
                 .WithColumn("DefaultMonitorOption").AsInt32().WithDefaultValue(0)
-                .WithColumn("DefaultTags").AsString().Nullable();
+                .WithColumn("DefaultTags").AsString().Nullable()
+                .WithColumn("IsCalibreLibrary").AsBoolean()
+                .WithColumn("CalibreSettings").AsString().Nullable();
 
             Create.TableForModel("Authors")
                 .WithColumn("CleanName").AsString().Indexed()
@@ -52,6 +54,8 @@ namespace NzbDrone.Core.Datastore.Migration
 
             Create.TableForModel("AuthorMetadata")
                 .WithColumn("ForeignAuthorId").AsString().Unique()
+                .WithColumn("GoodreadsId").AsInt32()
+                .WithColumn("TitleSlug").AsString().Unique()
                 .WithColumn("Name").AsString()
                 .WithColumn("Overview").AsString().Nullable()
                 .WithColumn("Disambiguation").AsString().Nullable()
@@ -67,6 +71,8 @@ namespace NzbDrone.Core.Datastore.Migration
                 .WithColumn("AuthorMetadataId").AsInt32().WithDefaultValue(0)
                 .WithColumn("ForeignBookId").AsString().Unique()
                 .WithColumn("ForeignWorkId").AsString().Indexed()
+                .WithColumn("GoodreadsId").AsInt32()
+                .WithColumn("TitleSlug").AsString().Unique()
                 .WithColumn("Isbn13").AsString().Nullable()
                 .WithColumn("Asin").AsString().Nullable()
                 .WithColumn("Title").AsString()
@@ -87,6 +93,7 @@ namespace NzbDrone.Core.Datastore.Migration
 
             Create.TableForModel("BookFiles")
                 .WithColumn("BookId").AsInt32().Indexed()
+                .WithColumn("CalibreId").AsInt32()
                 .WithColumn("Quality").AsString()
                 .WithColumn("Size").AsInt64()
                 .WithColumn("SceneName").AsString().Nullable()

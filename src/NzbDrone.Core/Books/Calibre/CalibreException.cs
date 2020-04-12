@@ -1,7 +1,7 @@
 ﻿using System;
 using NzbDrone.Common.Exceptions;
 
-namespace NzbDrone.Core.Notifications.Calibre
+namespace NzbDrone.Core.Books.Calibre
 {
     public class CalibreException : NzbDroneException
     {

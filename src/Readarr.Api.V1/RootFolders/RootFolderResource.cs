@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using NzbDrone.Core.Books.Calibre;
 using NzbDrone.Core.Music;
 using NzbDrone.Core.RootFolders;
 using Readarr.Http.REST;
@@ -14,6 +15,13 @@ namespace Readarr.Api.V1.RootFolders
         public int DefaultQualityProfileId { get; set; }
         public MonitorTypes DefaultMonitorOption { get; set; }
         public HashSet<int> DefaultTags { get; set; }
+        public bool IsCalibreLibrary { get; set; }
+        public string Host { get; set; }
+        public int Port { get; set; }
+        public string Username { get; set; }
+        public string Password { get; set; }
+        public int OutputFormat { get; set; }
+        public int OutputProfile { get; set; }
 
         public bool Accessible { get; set; }
         public long? FreeSpace { get; set; }
@@ -39,6 +47,13 @@ namespace Readarr.Api.V1.RootFolders
                 DefaultQualityProfileId = model.DefaultQualityProfileId,
                 DefaultMonitorOption = model.DefaultMonitorOption,
                 DefaultTags = model.DefaultTags,
+                IsCalibreLibrary = model.IsCalibreLibrary,
+                Host = model.CalibreSettings?.Host,
+                Port = model.CalibreSettings?.Port ?? 0,
+                Username = model.CalibreSettings?.Username,
+                Password = model.CalibreSettings?.Password,
+                OutputFormat = model.CalibreSettings?.OutputFormat ?? 0,
+                OutputProfile = model.CalibreSettings?.OutputProfile ?? 0,
 
                 Accessible = model.Accessible,
                 FreeSpace = model.FreeSpace,
@@ -53,6 +68,24 @@ namespace Readarr.Api.V1.RootFolders
                 return null;
             }
 
+            CalibreSettings cs;
+            if (resource.IsCalibreLibrary)
+            {
+                cs = new CalibreSettings
+                {
+                    Host = resource.Host,
+                    Port = resource.Port,
+                    Username = resource.Username,
+                    Password = resource.Password,
+                    OutputFormat = resource.OutputFormat,
+                    OutputProfile = resource.OutputProfile
+                };
+            }
+            else
+            {
+                cs = null;
+            }
+
             return new RootFolder
             {
                 Id = resource.Id,
@@ -62,7 +95,9 @@ namespace Readarr.Api.V1.RootFolders
                 DefaultMetadataProfileId = resource.DefaultMetadataProfileId,
                 DefaultQualityProfileId = resource.DefaultQualityProfileId,
                 DefaultMonitorOption = resource.DefaultMonitorOption,
-                DefaultTags = resource.DefaultTags
+                DefaultTags = resource.DefaultTags,
+                IsCalibreLibrary = resource.IsCalibreLibrary,
+                CalibreSettings = cs
             };
         }
 
