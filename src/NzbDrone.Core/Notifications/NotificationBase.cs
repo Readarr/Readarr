@@ -9,12 +9,12 @@ namespace NzbDrone.Core.Notifications
     public abstract class NotificationBase<TSettings> : INotification
         where TSettings : IProviderConfig, new()
     {
-        protected const string ALBUM_GRABBED_TITLE = "Album Grabbed";
-        protected const string ALBUM_DOWNLOADED_TITLE = "Album Downloaded";
+        protected const string ALBUM_GRABBED_TITLE = "Book Grabbed";
+        protected const string ALBUM_DOWNLOADED_TITLE = "Book Downloaded";
         protected const string HEALTH_ISSUE_TITLE = "Health Check Failure";
         protected const string DOWNLOAD_FAILURE_TITLE = "Download Failed";
         protected const string IMPORT_FAILURE_TITLE = "Import Failed";
-        protected const string TRACK_RETAGGED_TITLE = "Track File Tags Updated";
+        protected const string TRACK_RETAGGED_TITLE = "Book File Tags Updated";
 
         protected const string ALBUM_GRABBED_TITLE_BRANDED = "Readarr - " + ALBUM_GRABBED_TITLE;
         protected const string ALBUM_DOWNLOADED_TITLE_BRANDED = "Readarr - " + ALBUM_DOWNLOADED_TITLE;
