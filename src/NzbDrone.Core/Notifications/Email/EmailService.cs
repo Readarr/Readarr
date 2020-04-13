@@ -1,4 +1,5 @@
-﻿using System;
+using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Net.Mail;
 using FluentValidation.Results;
@@ -8,7 +9,7 @@ namespace NzbDrone.Core.Notifications.Email
 {
     public interface IEmailService
     {
-        void SendEmail(EmailSettings settings, string subject, string body, bool htmlBody = false);
+        void SendEmail(EmailSettings settings, string subject, string body, bool htmlBody = false, List<string> attachmentUrls = null);
         ValidationFailure Test(EmailSettings settings);
     }
 
@@ -21,7 +22,7 @@ namespace NzbDrone.Core.Notifications.Email
             _logger = logger;
         }
 
-        public void SendEmail(EmailSettings settings, string subject, string body, bool htmlBody = false)
+        public void SendEmail(EmailSettings settings, string subject, string body, bool htmlBody = false, List<string> attachmentUrls = null)
         {
             var email = new MailMessage();
             email.From = new MailAddress(settings.From);
@@ -31,6 +32,14 @@ namespace NzbDrone.Core.Notifications.Email
             email.Subject = subject;
             email.Body = body;
             email.IsBodyHtml = htmlBody;
+
+            if (attachmentUrls != null)
+            {
+                foreach (var url in attachmentUrls)
+                {
+                    email.Attachments.Add(new Attachment(url));
+                }
+            }
 
             NetworkCredential credentials = null;
 

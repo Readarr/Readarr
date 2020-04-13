@@ -28,7 +28,9 @@ namespace NzbDrone.Core.Notifications.Email
         {
             var body = $"{message.Message} Downloaded and sorted.";
 
-            _emailService.SendEmail(Settings, ALBUM_DOWNLOADED_TITLE_BRANDED, body);
+            var paths = Settings.AttachFiles ? message.TrackFiles.SelectList(a => a.Path) : null;
+
+            _emailService.SendEmail(Settings, ALBUM_DOWNLOADED_TITLE_BRANDED, body, false, paths);
         }
 
         public override void OnHealthIssue(HealthCheck.HealthCheck message)

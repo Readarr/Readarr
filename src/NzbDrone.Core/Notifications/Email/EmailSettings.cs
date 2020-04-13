@@ -1,4 +1,4 @@
-﻿using FluentValidation;
+using FluentValidation;
 using NzbDrone.Core.Annotations;
 using NzbDrone.Core.ThingiProvider;
 using NzbDrone.Core.Validation;
@@ -45,6 +45,9 @@ namespace NzbDrone.Core.Notifications.Email
 
         [FieldDefinition(6, Label = "Recipient Address")]
         public string To { get; set; }
+
+        [FieldDefinition(7, Label = "Attach Books", HelpText = "Add books as an attachment on import", Type = FieldType.Checkbox)]
+        public bool AttachFiles { get; set; }
 
         public NzbDroneValidationResult Validate()
         {
