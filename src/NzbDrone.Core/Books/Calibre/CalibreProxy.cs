@@ -247,7 +247,7 @@ namespace NzbDrone.Core.Books.Calibre
 
         private HttpRequestBuilder GetBuilder(string relativePath, CalibreSettings settings)
         {
-            var baseUrl = HttpRequestBuilder.BuildBaseUrl(false, settings.Host, settings.Port, null);
+            var baseUrl = HttpRequestBuilder.BuildBaseUrl(settings.UseSsl, settings.Host, settings.Port, settings.UrlBase);
             baseUrl = HttpUri.CombinePath(baseUrl, relativePath);
 
             var builder = new HttpRequestBuilder(baseUrl)

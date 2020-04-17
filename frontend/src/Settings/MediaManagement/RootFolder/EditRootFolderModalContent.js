@@ -46,8 +46,12 @@ function EditRootFolderModalContent(props) {
     isCalibreLibrary,
     host,
     port,
+    urlBase,
     username,
-    password
+    password,
+    outputFormat,
+    outputProfile,
+    useSsl
   } = item;
 
   return (
@@ -134,13 +138,28 @@ function EditRootFolderModalContent(props) {
                       />
                     </FormGroup>
 
+                    <FormGroup
+                      advancedSettings={advancedSettings}
+                      isAdvanced={true}
+                    >
+                      <FormLabel>Calibre Url Base</FormLabel>
+
+                      <FormInputGroup
+                        type={inputTypes.TEXT}
+                        name="urlBase"
+                        helpText="Adds a prefix to the calibre url, e.g. http://[host]:[port]/[urlBase]"
+                        {...urlBase}
+                        onChange={onInputChange}
+                      />
+                    </FormGroup>
+
                     <FormGroup>
                       <FormLabel>Calibre Username</FormLabel>
 
                       <FormInputGroup
                         type={inputTypes.TEXT}
                         name="username"
-                        helpText="Calibre username"
+                        helpText="Calibre content server username"
                         {...username}
                         onChange={onInputChange}
                       />
@@ -154,6 +173,42 @@ function EditRootFolderModalContent(props) {
                         name="password"
                         helpText="Calibre content server password"
                         {...password}
+                        onChange={onInputChange}
+                      />
+                    </FormGroup>
+
+                    <FormGroup>
+                      <FormLabel>Convert to format</FormLabel>
+
+                      <FormInputGroup
+                        type={inputTypes.TEXT}
+                        name="outputFormat"
+                        helpText="Optionally ask calibre to convert to other formats on import. Comma separated list."
+                        {...outputFormat}
+                        onChange={onInputChange}
+                      />
+                    </FormGroup>
+
+                    <FormGroup>
+                      <FormLabel>Calibre Output Profile</FormLabel>
+
+                      <FormInputGroup
+                        type={inputTypes.NUMBER}
+                        name="outputProfile"
+                        helpText="Output profile for conversion"
+                        {...outputProfile}
+                        onChange={onInputChange}
+                      />
+                    </FormGroup>
+
+                    <FormGroup>
+                      <FormLabel>Use SSL</FormLabel>
+
+                      <FormInputGroup
+                        type={inputTypes.CHECK}
+                        name="useSsl"
+                        helpText="Use SSL to connect to calibre content server"
+                        {...useSsl}
                         onChange={onInputChange}
                       />
                     </FormGroup>

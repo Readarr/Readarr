@@ -18,10 +18,12 @@ namespace Readarr.Api.V1.RootFolders
         public bool IsCalibreLibrary { get; set; }
         public string Host { get; set; }
         public int Port { get; set; }
+        public string UrlBase { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }
-        public int OutputFormat { get; set; }
+        public string OutputFormat { get; set; }
         public int OutputProfile { get; set; }
+        public bool UseSsl { get; set; }
 
         public bool Accessible { get; set; }
         public long? FreeSpace { get; set; }
@@ -50,10 +52,12 @@ namespace Readarr.Api.V1.RootFolders
                 IsCalibreLibrary = model.IsCalibreLibrary,
                 Host = model.CalibreSettings?.Host,
                 Port = model.CalibreSettings?.Port ?? 0,
+                UrlBase = model.CalibreSettings?.UrlBase,
                 Username = model.CalibreSettings?.Username,
                 Password = model.CalibreSettings?.Password,
-                OutputFormat = model.CalibreSettings?.OutputFormat ?? 0,
+                OutputFormat = model.CalibreSettings?.OutputFormat,
                 OutputProfile = model.CalibreSettings?.OutputProfile ?? 0,
+                UseSsl = model.CalibreSettings?.UseSsl ?? false,
 
                 Accessible = model.Accessible,
                 FreeSpace = model.FreeSpace,
@@ -75,10 +79,12 @@ namespace Readarr.Api.V1.RootFolders
                 {
                     Host = resource.Host,
                     Port = resource.Port,
+                    UrlBase = resource.UrlBase,
                     Username = resource.Username,
                     Password = resource.Password,
                     OutputFormat = resource.OutputFormat,
-                    OutputProfile = resource.OutputProfile
+                    OutputProfile = resource.OutputProfile,
+                    UseSsl = resource.UseSsl
                 };
             }
             else

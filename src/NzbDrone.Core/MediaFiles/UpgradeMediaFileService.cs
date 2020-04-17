@@ -86,7 +86,6 @@ namespace NzbDrone.Core.MediaFiles
                         _calibre.RemoveFormats(existingFiles.CalibreId,
                                               new[]
                                               {
-                                                  Path.GetExtension(existingFiles.Path),
                                                   Path.GetExtension(trackFile.Path)
                                               },
                                               settings);
@@ -150,21 +149,31 @@ namespace NzbDrone.Core.MediaFiles
 
             _rootFolderWatchingService.ReportFileSystemChangeBeginning(file.Path);
 
-            if (settings.OutputFormat != (int)CalibreFormat.None)
+            if (settings.OutputFormat.IsNotNullOrWhiteSpace())
             {
                 _logger.Trace($"Getting book data for {file.CalibreId}");
                 var options = _calibre.GetBookData(file.CalibreId, settings);
 
                 options.Conversion_options.Input_fmt = options.Input_formats.First();
-                options.Conversion_options.Output_fmt = ((CalibreFormat)settings.OutputFormat).ToString();
 
-                if (settings.OutputProfile != (int)CalibreProfile.Default)
+                var formats = settings.OutputFormat.Split(',');
+                foreach (var format in formats)
                 {
-                    options.Conversion_options.Options.Output_profile = ((CalibreProfile)settings.OutputProfile).ToString();
-                }
+                    if (format.ToLower() == file.Quality.Quality.Name.ToLower())
+                    {
+                        continue;
+                    }
 
-                _logger.Trace($"Starting conversion to {settings.OutputFormat}");
-                _calibre.ConvertBook(file.CalibreId, options.Conversion_options, settings);
+                    options.Conversion_options.Output_fmt = format;
+
+                    if (settings.OutputProfile != (int)CalibreProfile.Default)
+                    {
+                        options.Conversion_options.Options.Output_profile = ((CalibreProfile)settings.OutputProfile).ToString();
+                    }
+
+                    _logger.Trace($"Starting conversion to {format}");
+                    _calibre.ConvertBook(file.CalibreId, options.Conversion_options, settings);
+                }
             }
 
             return file;
