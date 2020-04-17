@@ -23,6 +23,10 @@ namespace NzbDrone.Core.DecisionEngine.Specifications
 
         public Decision IsSatisfiedBy(RemoteAlbum subject, SearchCriteriaBase searchCriteria)
         {
+            _logger.Debug("size restriction not implemented");
+            return Decision.Accept();
+
+            /*
             _logger.Debug("Beginning size check for: {0}", subject);
 
             var quality = subject.ParsedAlbumInfo.Quality.Quality;
@@ -65,6 +69,7 @@ namespace NzbDrone.Core.DecisionEngine.Specifications
 
             _logger.Debug("Item: {0}, meets size constraints.", subject);
             return Decision.Accept();
+            */
         }
     }
 }
