@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Net.Mail;
 using FluentValidation.Results;
@@ -27,7 +28,9 @@ namespace NzbDrone.Core.Notifications.Email
             var email = new MailMessage();
             email.From = new MailAddress(settings.From);
 
-            email.To.Add(settings.To);
+            settings.To.ToList().ForEach(x => email.To.Add(x));
+            settings.CC.ToList().ForEach(x => email.CC.Add(x));
+            settings.Bcc.ToList().ForEach(x => email.Bcc.Add(x));
 
             email.Subject = subject;
             email.Body = body;
