@@ -351,23 +351,13 @@ namespace NzbDrone.Core.MetadataSource.SkyHook
 
                     var author = metadata[authorid];
 
-                    book = new Book
+                    book = MapBook(b);
+                    book.Author = new Author
                     {
-                        ForeignBookId = b.ForeignId,
-                        ForeignWorkId = b.WorkForeignId,
-                        Title = b.Title,
-                        CleanTitle = b.Title.CleanArtistName(),
-                        ReleaseDate = b.ReleaseDate,
-                        Ratings = new Ratings { Votes = b.RatingCount, Value = (decimal)b.AverageRating },
-                        Author = new Author
-                        {
-                            CleanName = Parser.Parser.CleanArtistName(author.Name),
-                            Metadata = author
-                        },
-                        AuthorMetadata = author
+                        CleanName = Parser.Parser.CleanArtistName(author.Name),
+                        Metadata = author
                     };
-
-                    book.Images.Add(new MediaCover.MediaCover { Url = b.ImageUrl, CoverType = MediaCoverTypes.Cover });
+                    book.AuthorMetadata = author;
                 }
 
                 result.Add(book);
