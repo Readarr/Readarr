@@ -292,6 +292,8 @@ namespace NzbDrone.Core.MetadataSource.SkyHook
                 CoverType = MediaCoverTypes.Poster
             });
 
+            author.Links.Add(new Links { Url = resource.WebUrl, Name = "Goodreads" });
+
             return author;
         }
 

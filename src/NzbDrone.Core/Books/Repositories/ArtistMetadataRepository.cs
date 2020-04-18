@@ -43,10 +43,8 @@ namespace NzbDrone.Core.Music
                     meta.UseDbFieldsFrom(existing);
 
                     // responses vary, so try adding remote to what we have
-                    existing.UseMetadataFrom(meta);
                     if (!meta.Equals(existing))
                     {
-                        meta.UseMetadataFrom(existing);
                         updateMetadataList.Add(meta);
                     }
                     else

@@ -7,25 +7,11 @@ import styles from './AlbumDetailsLinks.css';
 
 function AlbumDetailsLinks(props) {
   const {
-    foreignBookId,
     links
   } = props;
 
   return (
     <div className={styles.links}>
-
-      <Link
-        className={styles.link}
-        to={`https://goodreads.com/book/show/${foreignBookId}`}
-      >
-        <Label
-          className={styles.linkLabel}
-          kind={kinds.INFO}
-          size={sizes.LARGE}
-        >
-          Goodreads
-        </Label>
-      </Link>
 
       {links.map((link, index) => {
         return (
