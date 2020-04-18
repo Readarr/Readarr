@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Threading.Tasks;
 using NLog;
 using NzbDrone.Common.Extensions;
 using NzbDrone.Common.Http;
@@ -46,7 +47,7 @@ namespace NzbDrone.Core.Books.Calibre
             var jobid = (int)(DateTime.UtcNow.Ticks % 1000000000);
             var addDuplicates = false;
             var path = book.Path;
-            var filename = Path.GetFileName(path);
+            var filename = $"$dummy{Path.GetExtension(path)}";
             var body = File.ReadAllBytes(path);
 
             _logger.Trace($"Read {body.Length} bytes from {path}");
@@ -184,7 +185,12 @@ namespace NzbDrone.Core.Books.Calibre
                 var request = builder.Build();
                 request.SetContent(options.ToJson());
 
-                return _httpClient.Post<long>(request).Resource;
+                var jobId = _httpClient.Post<long>(request).Resource;
+
+                // Run async task to check if conversion complete
+                _ = PollConvertStatus(jobId, settings);
+
+                return jobId;
             }
             catch (RestException ex)
             {
@@ -261,6 +267,29 @@ namespace NzbDrone.Core.Books.Calibre
             }
 
             return builder;
+        }
+
+        private async Task PollConvertStatus(long jobId, CalibreSettings settings)
+        {
+            var builder = GetBuilder($"/conversion/status/{jobId}", settings);
+            var request = builder.Build();
+
+            while (true)
+            {
+                var status = _httpClient.Get<CalibreConversionStatus>(request).Resource;
+
+                if (!status.Running)
+                {
+                    if (!status.Ok)
+                    {
+                        _logger.Warn("Calibre conversion failed.\n{0}\n{1}", status.Traceback, status.Log);
+                    }
+
+                    return;
+                }
+
+                await Task.Delay(2000);
+            }
         }
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using System.Linq;
 using NLog;
@@ -153,13 +154,15 @@ namespace NzbDrone.Core.MediaFiles
             {
                 _logger.Trace($"Getting book data for {file.CalibreId}");
                 var options = _calibre.GetBookData(file.CalibreId, settings);
+                var inputFormat = file.Quality.Quality.Name.ToUpper();
 
-                options.Conversion_options.Input_fmt = options.Input_formats.First();
+                options.Conversion_options.Input_fmt = inputFormat;
 
                 var formats = settings.OutputFormat.Split(',');
                 foreach (var format in formats)
                 {
-                    if (format.ToLower() == file.Quality.Quality.Name.ToLower())
+                    if (format.ToLower() == inputFormat ||
+                        options.Input_formats.Contains(format, StringComparer.OrdinalIgnoreCase))
                     {
                         continue;
                     }
