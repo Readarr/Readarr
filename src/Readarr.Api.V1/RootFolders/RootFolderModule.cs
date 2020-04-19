@@ -64,7 +64,7 @@ namespace Readarr.Api.V1.RootFolders
             SharedValidator.RuleFor(c => c.Username).NotEmpty().When(c => !string.IsNullOrWhiteSpace(c.Password));
             SharedValidator.RuleFor(c => c.Password).NotEmpty().When(c => !string.IsNullOrWhiteSpace(c.Username));
 
-            SharedValidator.RuleFor(c => c.OutputFormat).Must(x => x.Split(',').All(y => Enum.TryParse<CalibreFormat>(y, true, out _))).WithMessage("Invalid output formats");
+            SharedValidator.RuleFor(c => c.OutputFormat).Must(x => x.Split(',').All(y => Enum.TryParse<CalibreFormat>(y, true, out _))).When(x => x.OutputFormat.IsNotNullOrWhiteSpace()).WithMessage("Invalid output formats");
         }
 
         private RootFolderResource GetRootFolder(int id)
