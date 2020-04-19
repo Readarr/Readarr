@@ -13,7 +13,10 @@ namespace Readarr.Api.V1.Profiles.Metadata
 
         private MetadataProfileResource GetAll()
         {
-            var profile = new MetadataProfile();
+            var profile = new MetadataProfile
+            {
+                AllowedLanguages = "eng, en-US, en-GB"
+            };
 
             return profile.ToResource();
         }

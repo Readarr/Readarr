@@ -76,9 +76,11 @@ namespace NzbDrone.Core.Datastore.Migration
                 .WithColumn("Isbn13").AsString().Nullable()
                 .WithColumn("Asin").AsString().Nullable()
                 .WithColumn("Title").AsString()
+                .WithColumn("Language").AsString()
                 .WithColumn("Overview").AsString().Nullable()
                 .WithColumn("PageCount").AsInt32().Nullable()
                 .WithColumn("Disambiguation").AsString().Nullable()
+                .WithColumn("Publisher").AsString().Nullable()
                 .WithColumn("ReleaseDate").AsDateTime().Nullable()
                 .WithColumn("Images").AsString()
                 .WithColumn("Links").AsString().Nullable()
@@ -153,7 +155,12 @@ namespace NzbDrone.Core.Datastore.Migration
             Create.TableForModel("MetadataProfiles")
                 .WithColumn("Name").AsString().Unique()
                 .WithColumn("MinRating").AsDouble()
-                .WithColumn("MinRatingCount").AsInt32();
+                .WithColumn("MinRatingCount").AsInt32()
+                .WithColumn("SkipMissingDate").AsBoolean()
+                .WithColumn("SkipMissingIsbn").AsBoolean()
+                .WithColumn("SkipPartsAndSets").AsBoolean()
+                .WithColumn("SkipSeriesSecondary").AsBoolean()
+                .WithColumn("AllowedLanguages").AsString().Nullable();
 
             Create.TableForModel("QualityDefinitions")
                 .WithColumn("Quality").AsInt32().Unique()

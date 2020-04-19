@@ -32,8 +32,10 @@ namespace NzbDrone.Core.Music
         public string Isbn13 { get; set; }
         public string Asin { get; set; }
         public string Title { get; set; }
+        public string Language { get; set; }
         public string Overview { get; set; }
         public string Disambiguation { get; set; }
+        public string Publisher { get; set; }
         public int PageCount { get; set; }
         public DateTime? ReleaseDate { get; set; }
         public List<MediaCover.MediaCover> Images { get; set; }
@@ -60,6 +62,8 @@ namespace NzbDrone.Core.Music
         public LazyLoaded<Author> Author { get; set; }
         [MemberwiseEqualityIgnore]
         public LazyLoaded<BookFile> BookFile { get; set; }
+        [MemberwiseEqualityIgnore]
+        public LazyLoaded<List<SeriesBookLink>> SeriesLinks { get; set; }
 
         //compatibility properties with old version of Album
         [MemberwiseEqualityIgnore]
@@ -81,6 +85,7 @@ namespace NzbDrone.Core.Music
             Isbn13 = other.Isbn13;
             Asin = other.Asin;
             Title = other.Title;
+            Language = other.Language;
             Overview = other.Overview.IsNullOrWhiteSpace() ? Overview : other.Overview;
             Disambiguation = other.Disambiguation;
             PageCount = other.PageCount;

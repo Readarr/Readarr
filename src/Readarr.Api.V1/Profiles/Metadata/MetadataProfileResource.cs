@@ -10,6 +10,11 @@ namespace Readarr.Api.V1.Profiles.Metadata
         public string Name { get; set; }
         public double MinRating { get; set; }
         public int MinRatingCount { get; set; }
+        public bool SkipMissingDate { get; set; }
+        public bool SkipMissingIsbn { get; set; }
+        public bool SkipPartsAndSets { get; set; }
+        public bool SkipSeriesSecondary { get; set; }
+        public string AllowedLanguages { get; set; }
     }
 
     public static class MetadataProfileResourceMapper
@@ -26,7 +31,12 @@ namespace Readarr.Api.V1.Profiles.Metadata
                 Id = model.Id,
                 Name = model.Name,
                 MinRating = model.MinRating,
-                MinRatingCount = model.MinRatingCount
+                MinRatingCount = model.MinRatingCount,
+                SkipMissingDate = model.SkipMissingDate,
+                SkipMissingIsbn = model.SkipMissingIsbn,
+                SkipPartsAndSets = model.SkipPartsAndSets,
+                SkipSeriesSecondary = model.SkipSeriesSecondary,
+                AllowedLanguages = model.AllowedLanguages
             };
         }
 
@@ -42,7 +52,12 @@ namespace Readarr.Api.V1.Profiles.Metadata
                 Id = resource.Id,
                 Name = resource.Name,
                 MinRating = resource.MinRating,
-                MinRatingCount = resource.MinRatingCount
+                MinRatingCount = resource.MinRatingCount,
+                SkipMissingDate = resource.SkipMissingDate,
+                SkipMissingIsbn = resource.SkipMissingIsbn,
+                SkipPartsAndSets = resource.SkipPartsAndSets,
+                SkipSeriesSecondary = resource.SkipSeriesSecondary,
+                AllowedLanguages = resource.AllowedLanguages
             };
         }
 

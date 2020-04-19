@@ -87,18 +87,6 @@ namespace NzbDrone.Core.Profiles.Metadata
             return _profileRepository.Exists(id);
         }
 
-        private void AddDefaultProfile(string name, double minRating, int minRatingCount)
-        {
-            var profile = new MetadataProfile
-            {
-                Name = name,
-                MinRating = minRating,
-                MinRatingCount = minRatingCount
-            };
-
-            Add(profile);
-        }
-
         public void Handle(ApplicationStartedEvent message)
         {
             var profiles = All();
@@ -117,8 +105,15 @@ namespace NzbDrone.Core.Profiles.Metadata
             {
                 _logger.Info("Setting up standard metadata profile");
 
-                AddDefaultProfile("All", 0, 0);
-                AddDefaultProfile("Standard", 0, 100);
+                Add(new MetadataProfile
+                {
+                    Name = "Standard",
+                    MinRating = 0,
+                    MinRatingCount = 100,
+                    SkipMissingDate = true,
+                    SkipPartsAndSets = true,
+                    AllowedLanguages = "eng, en-US, en-GB"
+                });
             }
 
             if (emptyProfile != null)
@@ -141,7 +136,11 @@ namespace NzbDrone.Core.Profiles.Metadata
 
             _logger.Info("Setting up empty metadata profile");
 
-            AddDefaultProfile(NONE_PROFILE_NAME, 100, 1);
+            Add(new MetadataProfile
+            {
+                Name = NONE_PROFILE_NAME,
+                MinRating = 100
+            });
         }
     }
 }

@@ -2,21 +2,22 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Text.RegularExpressions;
 using NLog;
 using NzbDrone.Common.Cache;
 using NzbDrone.Common.Extensions;
 using NzbDrone.Common.Http;
-using NzbDrone.Common.Serializer;
 using NzbDrone.Core.Exceptions;
 using NzbDrone.Core.MediaCover;
 using NzbDrone.Core.Music;
-using NzbDrone.Core.Parser;
 using NzbDrone.Core.Profiles.Metadata;
 
 namespace NzbDrone.Core.MetadataSource.SkyHook
 {
     public class SkyHookProxy : IProvideAuthorInfo, ISearchForNewAuthor, IProvideBookInfo, ISearchForNewBook, ISearchForNewEntity
     {
+        private static readonly Regex PartOrSetRegex = new Regex(@"(?:\d+ of \d+|\d+/\d+|(?<from>\d+)-(?<to>\d+))");
+
         private readonly IHttpClient _httpClient;
         private readonly Logger _logger;
         private readonly IAlbumService _bookService;
@@ -225,12 +226,15 @@ namespace NzbDrone.Core.MetadataSource.SkyHook
         {
             var metadata = MapAuthor(resource.AuthorMetadata.First(x => x.ForeignId == resource.ForeignId));
 
-            var metadataProfile = _metadataProfileService.Get(metadataProfileId);
-            var books = resource.Books
+            var allBooks = resource.Books
                 .Where(x => x.Contributors.FirstOrDefault(c => c.Role == "Author")?.ForeignId == resource.ForeignId)
-                .Select(MapBook)
-                .Where(x => x.Ratings.Votes >= metadataProfile.MinRatingCount && (double)x.Ratings.Value >= metadataProfile.MinRating)
-                .ToList();
+                .Select(MapBook);
+
+            var seriesLinks = resource.Series.SelectMany(x => x.BookLinks)
+                .GroupBy(x => x.BookForeignId)
+                .ToDictionary(x => x.Key, y => y.ToList());
+
+            var books = FilterBooks(allBooks, seriesLinks, metadataProfileId);
 
             books.ForEach(x => x.AuthorMetadata = metadata);
 
@@ -262,6 +266,18 @@ namespace NzbDrone.Core.MetadataSource.SkyHook
                 seriesList.Add(series);
             }
 
+            var bookSeriesLinks = seriesList.SelectMany(x => x.LinkItems.Value)
+                .GroupBy(x => x.Book.Value.ForeignBookId)
+                .ToDictionary(x => x.Key, y => y.ToList());
+
+            foreach (var book in books)
+            {
+                if (bookSeriesLinks.TryGetValue(book.ForeignBookId, out var links))
+                {
+                    book.SeriesLinks = links;
+                }
+            }
+
             var result = new Author
             {
                 Metadata = metadata,
@@ -272,6 +288,43 @@ namespace NzbDrone.Core.MetadataSource.SkyHook
             };
 
             return result;
+        }
+
+        private List<Book> FilterBooks(IEnumerable<Book> books, Dictionary<string, List<SeriesBookLinkResource>> seriesLinks, int metadataProfileId)
+        {
+            var p = _metadataProfileService.Get(metadataProfileId);
+            var allowedLanguages = new HashSet<string>(p.AllowedLanguages?.Split(',') ?? Enumerable.Empty<string>());
+
+            var result = books
+                .Where(x => x.Ratings.Votes >= p.MinRatingCount &&
+                       (double)x.Ratings.Value >= p.MinRating &&
+                       (!p.SkipMissingDate || x.ReleaseDate.HasValue) &&
+                       (!p.SkipMissingIsbn || x.Isbn13.IsNotNullOrWhiteSpace() || x.Asin.IsNotNullOrWhiteSpace()) &&
+                       (!p.SkipPartsAndSets || !IsPartOrSet(x, seriesLinks.GetValueOrDefault(x.ForeignBookId))) &&
+                       (!p.SkipSeriesSecondary || !seriesLinks.ContainsKey(x.ForeignBookId) || seriesLinks[x.ForeignBookId].Any(y => y.Primary)) &&
+                       (!allowedLanguages.Any() || allowedLanguages.Contains(x.Language)))
+                .ToList();
+
+            return result;
+        }
+
+        private bool IsPartOrSet(Book book, List<SeriesBookLinkResource> seriesLinks)
+        {
+            if (seriesLinks != null && !seriesLinks.Any(s => double.TryParse(s.Position, out _)))
+            {
+                // No series entries parse to a number, so all like 1-3 etc.
+                return true;
+            }
+
+            var match = PartOrSetRegex.Match(book.Title);
+
+            if (match.Groups["from"].Success)
+            {
+                var from = int.Parse(match.Groups["from"].Value);
+                return from >= 1800 && from <= DateTime.UtcNow.Year ? false : true;
+            }
+
+            return match.Success;
         }
 
         private static AuthorMetadata MapAuthor(AuthorSummaryResource resource)
@@ -320,6 +373,7 @@ namespace NzbDrone.Core.MetadataSource.SkyHook
                 Isbn13 = resource.Isbn13,
                 Asin = resource.Asin,
                 Title = resource.Title.CleanSpaces(),
+                Language = "eng",
                 CleanTitle = Parser.Parser.CleanArtistName(resource.Title),
                 Overview = resource.Description,
                 ReleaseDate = resource.ReleaseDate,

@@ -128,7 +128,10 @@ namespace NzbDrone.Core.Datastore
                                                                 new SqlBuilder()
                                                                 .Join<Author, AuthorMetadata>((a, m) => a.AuthorMetadataId == m.Id)
                                                                 .Where<Author>(a => a.AuthorMetadataId == album.AuthorMetadataId)).SingleOrDefault(),
-                          a => a.AuthorMetadataId > 0);
+                          a => a.AuthorMetadataId > 0)
+                .LazyLoad(s => s.SeriesLinks,
+                          (db, book) => db.Query<SeriesBookLink>(new SqlBuilder().Where<SeriesBookLink>(s => s.BookId == book.Id)).ToList(),
+                          s => s.Id > 0);
 
             Mapper.Entity<BookFile>("BookFiles").RegisterModel()
                 .HasOne(f => f.Album, f => f.BookId)

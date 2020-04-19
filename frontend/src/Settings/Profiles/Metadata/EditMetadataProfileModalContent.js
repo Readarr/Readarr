@@ -33,7 +33,12 @@ function EditMetadataProfileModalContent(props) {
     id,
     name,
     minRating,
-    minRatingCount
+    minRatingCount,
+    skipMissingDate,
+    skipMissingIsbn,
+    skipPartsAndSets,
+    skipSeriesSecondary,
+    allowedLanguages
   } = item;
 
   return (
@@ -89,6 +94,61 @@ function EditMetadataProfileModalContent(props) {
                   name="minRatingCount"
                   {...minRatingCount}
                   min={0}
+                  onChange={onInputChange}
+                />
+              </FormGroup>
+
+              <FormGroup>
+                <FormLabel>Skip books with missing release date</FormLabel>
+
+                <FormInputGroup
+                  type={inputTypes.CHECK}
+                  name="skipMissingDate"
+                  {...skipMissingDate}
+                  onChange={onInputChange}
+                />
+              </FormGroup>
+
+              <FormGroup>
+                <FormLabel>Skip books with no ISBN or ASIN</FormLabel>
+
+                <FormInputGroup
+                  type={inputTypes.CHECK}
+                  name="skipMissingIsbn"
+                  {...skipMissingIsbn}
+                  onChange={onInputChange}
+                />
+              </FormGroup>
+
+              <FormGroup>
+                <FormLabel>Skip part books and sets</FormLabel>
+
+                <FormInputGroup
+                  type={inputTypes.CHECK}
+                  name="skipPartsAndSets"
+                  {...skipPartsAndSets}
+                  onChange={onInputChange}
+                />
+              </FormGroup>
+
+              <FormGroup>
+                <FormLabel>Skip secondary series books</FormLabel>
+
+                <FormInputGroup
+                  type={inputTypes.CHECK}
+                  name="skipSeriesSecondary"
+                  {...skipSeriesSecondary}
+                  onChange={onInputChange}
+                />
+              </FormGroup>
+
+              <FormGroup>
+                <FormLabel>Allowed Languages</FormLabel>
+
+                <FormInputGroup
+                  type={inputTypes.TEXT}
+                  name="allowedLanguages"
+                  {...allowedLanguages}
                   onChange={onInputChange}
                 />
               </FormGroup>

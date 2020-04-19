@@ -265,14 +265,17 @@ namespace NzbDrone.Core.Music
                 }
             }
 
-            _logger.Debug("{0} {1} {2}s up to date. Adding {3}, Updating {4}, Merging {5}, Deleting {6}.",
-                          entity,
-                          sortedChildren.UpToDate.Count,
-                          typeof(TChild).Name.ToLower(),
-                          sortedChildren.Added.Count,
-                          sortedChildren.Updated.Count,
-                          sortedChildren.Merged.Count,
-                          sortedChildren.Deleted.Count);
+            if (typeof(TChild) != typeof(object))
+            {
+                _logger.Debug("{0} {1} {2}s up to date. Adding {3}, Updating {4}, Merging {5}, Deleting {6}.",
+                              entity,
+                              sortedChildren.UpToDate.Count,
+                              typeof(TChild).Name.ToLower(),
+                              sortedChildren.Added.Count,
+                              sortedChildren.Updated.Count,
+                              sortedChildren.Merged.Count,
+                              sortedChildren.Deleted.Count);
+            }
 
             // Add in the new children (we have checked that foreign IDs don't clash)
             AddChildren(sortedChildren.Added);

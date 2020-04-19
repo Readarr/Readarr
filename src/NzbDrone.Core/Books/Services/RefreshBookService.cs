@@ -61,9 +61,16 @@ namespace NzbDrone.Core.Music
 
         protected override RemoteData GetRemoteData(Book local, List<Book> remote)
         {
-            var result = new RemoteData();
-            result.Entity = remote.SingleOrDefault(x => x.ForeignBookId == local.ForeignBookId);
-            result.Entity.Id = local.Id;
+            var result = new RemoteData
+            {
+                Entity = remote.SingleOrDefault(x => x.ForeignBookId == local.ForeignBookId)
+            };
+
+            if (result.Entity != null)
+            {
+                result.Entity.Id = local.Id;
+            }
+
             return result;
         }
 
