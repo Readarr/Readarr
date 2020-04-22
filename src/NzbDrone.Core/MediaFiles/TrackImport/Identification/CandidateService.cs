@@ -179,14 +179,26 @@ namespace NzbDrone.Core.MediaFiles.TrackImport.Identification
                 {
                     // Use isbn in tags if set
                     _logger.Trace($"Searching by isbn {isbns[0]}");
-                    remoteAlbums = _albumSearchService.SearchByIsbn(isbns[0]);
+
+                    var remoteBook = _albumSearchService.SearchByIsbn(isbns[0]);
+                    if (remoteBook != null)
+                    {
+                        remoteAlbums = new List<Book> { remoteBook };
+                    }
                 }
 
-                if (asins.Count == 1 && asins[0].IsNotNullOrWhiteSpace() && (remoteAlbums == null || !remoteAlbums.Any()))
+                if (asins.Count == 1 &&
+                    asins[0].IsNotNullOrWhiteSpace() &&
+                    asins[0].Length == 10 && // Calibre puts junk asins into books it creates
+                    (remoteAlbums == null || !remoteAlbums.Any()))
                 {
                     // Try asin if no result
                     _logger.Trace($"Searching by asin {asins[0]}");
-                    remoteAlbums = _albumSearchService.SearchForNewBook(asins[0], null);
+                    var remoteBook = _albumSearchService.SearchByAsin(asins[0]);
+                    if (remoteBook != null)
+                    {
+                        remoteAlbums = new List<Book> { remoteBook };
+                    }
                 }
 
                 // if no asin/isbn or no result, fall back to text search

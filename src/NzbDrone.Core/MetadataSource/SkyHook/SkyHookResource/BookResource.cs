@@ -13,6 +13,8 @@ namespace NzbDrone.Core.MetadataSource.SkyHook
         public string Isbn13 { get; set; }
         public long Rvn { get; set; }
         public string Title { get; set; }
+        public string Publisher { get; set; }
+        public string Language { get; set; }
         public string DisplayGroup { get; set; }
         public string ImageUrl { get; set; }
         public string KindleMappingStatus { get; set; }

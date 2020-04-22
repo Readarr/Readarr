@@ -15,6 +15,8 @@ namespace Readarr.Api.V1.Albums
         public string Title { get; set; }
         public string Disambiguation { get; set; }
         public string Overview { get; set; }
+        public string Publisher { get; set; }
+        public string Language { get; set; }
         public int AuthorId { get; set; }
         public string ForeignBookId { get; set; }
         public int BookFileId { get; set; }
@@ -58,6 +60,8 @@ namespace Readarr.Api.V1.Albums
                 Title = model.Title,
                 Disambiguation = model.Disambiguation,
                 Overview = model.Overview,
+                Publisher = model.Publisher,
+                Language = model.Language,
                 Images = model.Images,
                 Links = model.Links,
                 Ratings = model.Ratings,
@@ -82,6 +86,8 @@ namespace Readarr.Api.V1.Albums
                 Title = resource.Title,
                 Disambiguation = resource.Disambiguation,
                 Overview = resource.Overview,
+                Publisher = resource.Publisher,
+                Language = resource.Language,
                 Images = resource.Images,
                 Monitored = resource.Monitored,
                 AddOptions = resource.AddOptions,

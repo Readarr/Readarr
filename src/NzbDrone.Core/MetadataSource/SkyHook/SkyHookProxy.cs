@@ -192,9 +192,68 @@ namespace NzbDrone.Core.MetadataSource.SkyHook
             }
         }
 
-        public List<Book> SearchByIsbn(string isbn)
+        public Book SearchByIsbn(string isbn)
         {
-            return null;
+            return SearchByAlternateId("isbn", isbn);
+        }
+
+        public Book SearchByAsin(string asin)
+        {
+            return SearchByAlternateId("asin", asin);
+        }
+
+        public Book SearchByGoodreadsId(int goodreadsId)
+        {
+            return SearchByAlternateId("goodreads", goodreadsId.ToString());
+        }
+
+        private Book SearchByAlternateId(string type, string id)
+        {
+            try
+            {
+                var httpRequest = _requestBuilder.GetRequestBuilder().Create()
+                    .SetSegment("route", $"book/{type}/{id}")
+                    .Build();
+
+                httpRequest.AllowAutoRedirect = true;
+                httpRequest.SuppressHttpError = true;
+
+                var httpResponse = _httpClient.Get<BookResource>(httpRequest);
+
+                if (httpResponse.HasHttpError)
+                {
+                    if (httpResponse.StatusCode == HttpStatusCode.NotFound)
+                    {
+                        throw new ArtistNotFoundException(id);
+                    }
+                    else if (httpResponse.StatusCode == HttpStatusCode.BadRequest)
+                    {
+                        throw new BadRequestException(id);
+                    }
+                    else
+                    {
+                        throw new HttpException(httpRequest, httpResponse);
+                    }
+                }
+
+                var b = httpResponse.Resource;
+                var book = MapBook(b);
+
+                var authors = httpResponse.Resource.AuthorMetadata.SelectList(MapAuthor);
+                var authorid = b.Contributors.First(x => x.Role == "Author").ForeignId;
+                book.AuthorMetadata = authors.First(x => x.ForeignAuthorId == authorid);
+
+                return book;
+            }
+            catch (HttpException)
+            {
+                throw new SkyHookException("Search for {0} '{1}' failed. Unable to communicate with ReadarrAPI.", type, id);
+            }
+            catch (Exception ex)
+            {
+                _logger.Warn(ex, ex.Message);
+                throw new SkyHookException("Search for {0 }'{1}' failed. Invalid response received from ReadarrAPI.", type, id);
+            }
         }
 
         public List<Book> SearchForNewAlbumByRecordingIds(List<string> recordingIds)
@@ -293,7 +352,7 @@ namespace NzbDrone.Core.MetadataSource.SkyHook
         private List<Book> FilterBooks(IEnumerable<Book> books, Dictionary<string, List<SeriesBookLinkResource>> seriesLinks, int metadataProfileId)
         {
             var p = _metadataProfileService.Get(metadataProfileId);
-            var allowedLanguages = new HashSet<string>(p.AllowedLanguages?.Split(',') ?? Enumerable.Empty<string>());
+            var allowedLanguages = new HashSet<string>(p.AllowedLanguages?.Split(',').Select(x => x.ToLower()) ?? Enumerable.Empty<string>());
 
             var result = books
                 .Where(x => x.Ratings.Votes >= p.MinRatingCount &&
@@ -302,7 +361,7 @@ namespace NzbDrone.Core.MetadataSource.SkyHook
                        (!p.SkipMissingIsbn || x.Isbn13.IsNotNullOrWhiteSpace() || x.Asin.IsNotNullOrWhiteSpace()) &&
                        (!p.SkipPartsAndSets || !IsPartOrSet(x, seriesLinks.GetValueOrDefault(x.ForeignBookId))) &&
                        (!p.SkipSeriesSecondary || !seriesLinks.ContainsKey(x.ForeignBookId) || seriesLinks[x.ForeignBookId].Any(y => y.Primary)) &&
-                       (!allowedLanguages.Any() || allowedLanguages.Contains(x.Language)))
+                       (!allowedLanguages.Any() || allowedLanguages.Contains(x.Language.ToLower() ?? "null")))
                 .ToList();
 
             return result;
@@ -373,7 +432,8 @@ namespace NzbDrone.Core.MetadataSource.SkyHook
                 Isbn13 = resource.Isbn13,
                 Asin = resource.Asin,
                 Title = resource.Title.CleanSpaces(),
-                Language = "eng",
+                Language = resource.Language,
+                Publisher = resource.Publisher,
                 CleanTitle = Parser.Parser.CleanArtistName(resource.Title),
                 Overview = resource.Description,
                 ReleaseDate = resource.ReleaseDate,

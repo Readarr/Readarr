@@ -76,7 +76,7 @@ namespace NzbDrone.Core.Datastore.Migration
                 .WithColumn("Isbn13").AsString().Nullable()
                 .WithColumn("Asin").AsString().Nullable()
                 .WithColumn("Title").AsString()
-                .WithColumn("Language").AsString()
+                .WithColumn("Language").AsString().Nullable()
                 .WithColumn("Overview").AsString().Nullable()
                 .WithColumn("PageCount").AsInt32().Nullable()
                 .WithColumn("Disambiguation").AsString().Nullable()
