@@ -70,6 +70,7 @@ class AddNewAlbumSearchResult extends Component {
   render() {
     const {
       foreignBookId,
+      goodreadsId,
       title,
       releaseDate,
       disambiguation,
@@ -130,7 +131,7 @@ class AddNewAlbumSearchResult extends Component {
 
               <Link
                 className={styles.mbLink}
-                to={`https://goodreads.com/book/show/${foreignBookId}`}
+                to={`https://goodreads.com/book/show/${goodreadsId}`}
                 onPress={this.onMBLinkPress}
               >
                 <Icon
@@ -207,6 +208,7 @@ class AddNewAlbumSearchResult extends Component {
 
 AddNewAlbumSearchResult.propTypes = {
   foreignBookId: PropTypes.string.isRequired,
+  goodreadsId: PropTypes.number.isRequired,
   title: PropTypes.string.isRequired,
   releaseDate: PropTypes.string,
   disambiguation: PropTypes.string,

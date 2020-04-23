@@ -19,6 +19,9 @@ namespace Readarr.Api.V1.Albums
         public string Language { get; set; }
         public int AuthorId { get; set; }
         public string ForeignBookId { get; set; }
+        public int GoodreadsId { get; set; }
+        public string Isbn { get; set; }
+        public string Asin { get; set; }
         public int BookFileId { get; set; }
         public bool HasFile { get; set; }
         public TrackFileResource BookFile { get; set; }
@@ -52,6 +55,9 @@ namespace Readarr.Api.V1.Albums
                 Id = model.Id,
                 AuthorId = model.AuthorId,
                 ForeignBookId = model.ForeignBookId,
+                GoodreadsId = model.GoodreadsId,
+                Asin = model.Asin,
+                Isbn = model.Isbn13,
                 BookFileId = model.BookFileId,
                 HasFile = model.HasFile,
                 Monitored = model.Monitored,
@@ -82,6 +88,9 @@ namespace Readarr.Api.V1.Albums
             {
                 Id = resource.Id,
                 ForeignBookId = resource.ForeignBookId,
+                GoodreadsId = resource.GoodreadsId,
+                Asin = resource.Asin,
+                Isbn13 = resource.Isbn,
                 BookFileId = resource.BookFileId,
                 Title = resource.Title,
                 Disambiguation = resource.Disambiguation,

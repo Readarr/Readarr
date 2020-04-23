@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using System.IO.Abstractions;
 using System.Linq;
 using NLog;
@@ -44,7 +45,14 @@ namespace NzbDrone.Core.MediaFiles
         private ParsedTrackInfo ReadEpub(string file)
         {
             _logger.Trace($"Reading {file}");
-            var result = new ParsedTrackInfo();
+            var result = new ParsedTrackInfo
+            {
+                Quality = new QualityModel
+                {
+                    Quality = Quality.EPUB,
+                    QualityDetectionSource = QualityDetectionSource.TagLib
+                }
+            };
 
             try
             {
@@ -57,17 +65,12 @@ namespace NzbDrone.Core.MediaFiles
                     result.Isbn = meta?.Identifiers?.FirstOrDefault(x => x.Scheme?.ToLower().Contains("isbn") ?? false)?.Identifier;
                     result.Asin = meta?.Identifiers?.FirstOrDefault(x => x.Scheme?.ToLower().Contains("asin") ?? false)?.Identifier;
                     result.Language = meta?.Languages?.FirstOrDefault();
-
-                    result.Quality = new QualityModel
-                    {
-                        Quality = Quality.EPUB,
-                        QualityDetectionSource = QualityDetectionSource.TagLib
-                    };
                 }
             }
             catch (Exception e)
             {
                 _logger.Error(e, "Error reading epub");
+                result.Quality.QualityDetectionSource = QualityDetectionSource.Extension;
             }
 
             _logger.Trace($"Got {result.ToJson()}");
@@ -98,6 +101,12 @@ namespace NzbDrone.Core.MediaFiles
             catch (Exception e)
             {
                 _logger.Error(e, "Error reading epub");
+
+                result.Quality = new QualityModel
+                {
+                    Quality = Path.GetExtension(file) == ".mobi" ? Quality.MOBI : Quality.AZW3,
+                    QualityDetectionSource = QualityDetectionSource.Extension
+                };
             }
 
             _logger.Trace($"Got {result.ToJson()}");

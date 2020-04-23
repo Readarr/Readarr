@@ -22,10 +22,7 @@ namespace Readarr.Api.V1.Artist
 
         public string ArtistName { get; set; }
         public string ForeignAuthorId { get; set; }
-        public string MBId { get; set; }
-        public int TADBId { get; set; }
-        public int DiscogsId { get; set; }
-        public string AllMusicId { get; set; }
+        public int GoodreadsId { get; set; }
         public string Overview { get; set; }
         public string ArtistType { get; set; }
         public string Disambiguation { get; set; }
@@ -94,6 +91,7 @@ namespace Readarr.Api.V1.Artist
 
                 CleanName = model.CleanName,
                 ForeignAuthorId = model.Metadata.Value.ForeignAuthorId,
+                GoodreadsId = model.Metadata.Value.GoodreadsId,
 
                 // Root folder path is now calculated from the artist path
                 // RootFolderPath = model.RootFolderPath,
@@ -121,6 +119,7 @@ namespace Readarr.Api.V1.Artist
                 Metadata = new NzbDrone.Core.Music.AuthorMetadata
                 {
                     ForeignAuthorId = resource.ForeignAuthorId,
+                    GoodreadsId = resource.GoodreadsId,
                     Name = resource.ArtistName,
                     Status = resource.Status,
                     Overview = resource.Overview,

@@ -180,11 +180,7 @@ namespace NzbDrone.Core.MediaFiles.TrackImport.Identification
                     // Use isbn in tags if set
                     _logger.Trace($"Searching by isbn {isbns[0]}");
 
-                    var remoteBook = _albumSearchService.SearchByIsbn(isbns[0]);
-                    if (remoteBook != null)
-                    {
-                        remoteAlbums = new List<Book> { remoteBook };
-                    }
+                    remoteAlbums = _albumSearchService.SearchByIsbn(isbns[0]);
                 }
 
                 if (asins.Count == 1 &&
@@ -194,11 +190,8 @@ namespace NzbDrone.Core.MediaFiles.TrackImport.Identification
                 {
                     // Try asin if no result
                     _logger.Trace($"Searching by asin {asins[0]}");
-                    var remoteBook = _albumSearchService.SearchByAsin(asins[0]);
-                    if (remoteBook != null)
-                    {
-                        remoteAlbums = new List<Book> { remoteBook };
-                    }
+
+                    remoteAlbums = _albumSearchService.SearchByAsin(asins[0]);
                 }
 
                 // if no asin/isbn or no result, fall back to text search

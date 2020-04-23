@@ -139,30 +139,35 @@ namespace NzbDrone.Core.MetadataSource.SkyHook
             {
                 var lowerTitle = title.ToLowerInvariant();
 
-                if (lowerTitle.StartsWith("readarr:") || lowerTitle.StartsWith("readarrid:") || lowerTitle.StartsWith("goodreads:"))
+                var split = lowerTitle.Split(':');
+                var prefix = split[0];
+
+                if (split.Length == 2 && new[] { "readarr", "readarrid", "goodreads", "isbn", "asin" }.Contains(prefix))
                 {
-                    var slug = lowerTitle.Split(':')[1].Trim();
+                    var slug = split[1].Trim();
 
-                    var isValid = long.TryParse(slug, out var searchId);
-
-                    if (slug.IsNullOrWhiteSpace() || slug.Any(char.IsWhiteSpace) || isValid == false)
+                    if (slug.IsNullOrWhiteSpace() || slug.Any(char.IsWhiteSpace))
                     {
                         return new List<Book>();
                     }
 
-                    try
+                    if (prefix == "goodreads" || prefix == "readarr" || prefix == "readarrid")
                     {
-                        var existingBook = _bookService.FindById(searchId.ToString());
-                        if (existingBook != null)
+                        var isValid = int.TryParse(slug, out var searchId);
+                        if (!isValid)
                         {
-                            return new List<Book> { existingBook };
+                            return new List<Book>();
                         }
 
-                        return new List<Book> { GetBookInfo(searchId.ToString()).Item2 };
+                        return SearchByGoodreadsId(searchId);
                     }
-                    catch (ArtistNotFoundException)
+                    else if (prefix == "isbn")
                     {
-                        return new List<Book>();
+                        return SearchByIsbn(slug);
+                    }
+                    else if (prefix == "asin")
+                    {
+                        return SearchByAsin(slug);
                     }
                 }
 
@@ -192,22 +197,22 @@ namespace NzbDrone.Core.MetadataSource.SkyHook
             }
         }
 
-        public Book SearchByIsbn(string isbn)
+        public List<Book> SearchByIsbn(string isbn)
         {
             return SearchByAlternateId("isbn", isbn);
         }
 
-        public Book SearchByAsin(string asin)
+        public List<Book> SearchByAsin(string asin)
         {
             return SearchByAlternateId("asin", asin);
         }
 
-        public Book SearchByGoodreadsId(int goodreadsId)
+        public List<Book> SearchByGoodreadsId(int goodreadsId)
         {
             return SearchByAlternateId("goodreads", goodreadsId.ToString());
         }
 
-        private Book SearchByAlternateId(string type, string id)
+        private List<Book> SearchByAlternateId(string type, string id)
         {
             try
             {
@@ -215,35 +220,11 @@ namespace NzbDrone.Core.MetadataSource.SkyHook
                     .SetSegment("route", $"book/{type}/{id}")
                     .Build();
 
-                httpRequest.AllowAutoRedirect = true;
-                httpRequest.SuppressHttpError = true;
+                var httpResponse = _httpClient.Get<BookSearchResource>(httpRequest);
 
-                var httpResponse = _httpClient.Get<BookResource>(httpRequest);
+                var result = _httpClient.Get<BookSearchResource>(httpRequest);
 
-                if (httpResponse.HasHttpError)
-                {
-                    if (httpResponse.StatusCode == HttpStatusCode.NotFound)
-                    {
-                        throw new ArtistNotFoundException(id);
-                    }
-                    else if (httpResponse.StatusCode == HttpStatusCode.BadRequest)
-                    {
-                        throw new BadRequestException(id);
-                    }
-                    else
-                    {
-                        throw new HttpException(httpRequest, httpResponse);
-                    }
-                }
-
-                var b = httpResponse.Resource;
-                var book = MapBook(b);
-
-                var authors = httpResponse.Resource.AuthorMetadata.SelectList(MapAuthor);
-                var authorid = b.Contributors.First(x => x.Role == "Author").ForeignId;
-                book.AuthorMetadata = authors.First(x => x.ForeignAuthorId == authorid);
-
-                return book;
+                return MapSearchResult(result.Resource);
             }
             catch (HttpException)
             {
@@ -361,7 +342,7 @@ namespace NzbDrone.Core.MetadataSource.SkyHook
                        (!p.SkipMissingIsbn || x.Isbn13.IsNotNullOrWhiteSpace() || x.Asin.IsNotNullOrWhiteSpace()) &&
                        (!p.SkipPartsAndSets || !IsPartOrSet(x, seriesLinks.GetValueOrDefault(x.ForeignBookId))) &&
                        (!p.SkipSeriesSecondary || !seriesLinks.ContainsKey(x.ForeignBookId) || seriesLinks[x.ForeignBookId].Any(y => y.Primary)) &&
-                       (!allowedLanguages.Any() || allowedLanguages.Contains(x.Language.ToLower() ?? "null")))
+                       (!allowedLanguages.Any() || allowedLanguages.Contains(x.Language?.ToLower() ?? "null")))
                 .ToList();
 
             return result;
