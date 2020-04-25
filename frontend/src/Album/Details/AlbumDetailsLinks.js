@@ -42,7 +42,6 @@ function AlbumDetailsLinks(props) {
 }
 
 AlbumDetailsLinks.propTypes = {
-  foreignBookId: PropTypes.string.isRequired,
   links: PropTypes.arrayOf(PropTypes.object).isRequired
 };
 

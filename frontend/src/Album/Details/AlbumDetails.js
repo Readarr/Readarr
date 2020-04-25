@@ -151,7 +151,7 @@ class AlbumDetails extends Component {
   render() {
     const {
       id,
-      foreignBookId,
+      titleSlug,
       title,
       disambiguation,
       duration,
@@ -282,7 +282,7 @@ class AlbumDetails extends Component {
                       name={icons.ARROW_LEFT}
                       size={30}
                       title={`Go to ${previousAlbum.title}`}
-                      to={`/album/${previousAlbum.foreignBookId}`}
+                      to={`/book/${previousAlbum.titleSlug}`}
                     />
 
                     <IconButton
@@ -290,7 +290,7 @@ class AlbumDetails extends Component {
                       name={icons.ARROW_UP}
                       size={30}
                       title={`Go to ${artist.artistName}`}
-                      to={`/artist/${artist.foreignAuthorId}`}
+                      to={`/author/${artist.titleSlug}`}
                     />
 
                     <IconButton
@@ -298,7 +298,7 @@ class AlbumDetails extends Component {
                       name={icons.ARROW_RIGHT}
                       size={30}
                       title={`Go to ${nextAlbum.title}`}
-                      to={`/album/${nextAlbum.foreignBookId}`}
+                      to={`/book/${nextAlbum.titleSlug}`}
                     />
                   </div>
                 </div>
@@ -385,7 +385,7 @@ class AlbumDetails extends Component {
                     }
                     tooltip={
                       <AlbumDetailsLinks
-                        foreignBookId={foreignBookId}
+                        titleSlug={titleSlug}
                         links={links}
                       />
                     }
@@ -491,7 +491,7 @@ class AlbumDetails extends Component {
           <DeleteAlbumModal
             isOpen={isDeleteAlbumModalOpen}
             bookId={id}
-            foreignAuthorId={artist.foreignAuthorId}
+            titleSlug={artist.titleSlug}
             onModalClose={this.onDeleteAlbumModalClose}
           />
 
@@ -503,7 +503,7 @@ class AlbumDetails extends Component {
 
 AlbumDetails.propTypes = {
   id: PropTypes.number.isRequired,
-  foreignBookId: PropTypes.string.isRequired,
+  titleSlug: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   disambiguation: PropTypes.string,
   duration: PropTypes.number,

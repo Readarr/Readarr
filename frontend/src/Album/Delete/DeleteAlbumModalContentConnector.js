@@ -35,7 +35,7 @@ class DeleteAlbumModalContentConnector extends Component {
 
     this.props.onModalClose(true);
 
-    this.props.push(`${window.Readarr.urlBase}/artist/${this.props.foreignAuthorId}`);
+    this.props.push(`${window.Readarr.urlBase}/author/${this.props.titleSlug}`);
   }
 
   //
@@ -53,7 +53,7 @@ class DeleteAlbumModalContentConnector extends Component {
 
 DeleteAlbumModalContentConnector.propTypes = {
   bookId: PropTypes.number.isRequired,
-  foreignAuthorId: PropTypes.string.isRequired,
+  titleSlug: PropTypes.string.isRequired,
   push: PropTypes.func.isRequired,
   onModalClose: PropTypes.func.isRequired,
   deleteAlbum: PropTypes.func.isRequired

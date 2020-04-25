@@ -71,6 +71,7 @@ class AddNewAlbumSearchResult extends Component {
     const {
       foreignBookId,
       goodreadsId,
+      titleSlug,
       title,
       releaseDate,
       disambiguation,
@@ -87,7 +88,7 @@ class AddNewAlbumSearchResult extends Component {
       isNewAddAlbumModalOpen
     } = this.state;
 
-    const linkProps = isExistingAlbum ? { to: `/album/${foreignBookId}` } : { onPress: this.onPress };
+    const linkProps = isExistingAlbum ? { to: `/book/${titleSlug}` } : { onPress: this.onPress };
 
     const height = calculateHeight(230, isSmallScreen);
 
@@ -209,6 +210,7 @@ class AddNewAlbumSearchResult extends Component {
 AddNewAlbumSearchResult.propTypes = {
   foreignBookId: PropTypes.string.isRequired,
   goodreadsId: PropTypes.number.isRequired,
+  titleSlug: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   releaseDate: PropTypes.string,
   disambiguation: PropTypes.string,

@@ -16,7 +16,7 @@ function createBatchToggleAlbumMonitoredHandler(section, fetchHandler) {
     }));
 
     const promise = createAjaxRequest({
-      url: '/album/monitor',
+      url: '/book/monitor',
       method: 'PUT',
       data: JSON.stringify({ bookIds, monitored }),
       dataType: 'json'

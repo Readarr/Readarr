@@ -23,6 +23,7 @@ namespace Readarr.Api.V1.Artist
         public string ArtistName { get; set; }
         public string ForeignAuthorId { get; set; }
         public int GoodreadsId { get; set; }
+        public string TitleSlug { get; set; }
         public string Overview { get; set; }
         public string ArtistType { get; set; }
         public string Disambiguation { get; set; }
@@ -92,6 +93,7 @@ namespace Readarr.Api.V1.Artist
                 CleanName = model.CleanName,
                 ForeignAuthorId = model.Metadata.Value.ForeignAuthorId,
                 GoodreadsId = model.Metadata.Value.GoodreadsId,
+                TitleSlug = model.Metadata.Value.TitleSlug,
 
                 // Root folder path is now calculated from the artist path
                 // RootFolderPath = model.RootFolderPath,
@@ -120,6 +122,7 @@ namespace Readarr.Api.V1.Artist
                 {
                     ForeignAuthorId = resource.ForeignAuthorId,
                     GoodreadsId = resource.GoodreadsId,
+                    TitleSlug = resource.TitleSlug,
                     Name = resource.ArtistName,
                     Status = resource.Status,
                     Overview = resource.Overview,

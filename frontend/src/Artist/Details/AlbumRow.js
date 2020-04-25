@@ -76,7 +76,7 @@ class AlbumRow extends Component {
       disambiguation,
       isSaving,
       artistMonitored,
-      foreignBookId,
+      titleSlug,
       columns
     } = this.props;
 
@@ -122,7 +122,7 @@ class AlbumRow extends Component {
                   className={styles.title}
                 >
                   <AlbumTitleLink
-                    foreignBookId={foreignBookId}
+                    titleSlug={titleSlug}
                     title={title}
                     disambiguation={disambiguation}
                   />
@@ -209,7 +209,7 @@ AlbumRow.propTypes = {
   position: PropTypes.string,
   ratings: PropTypes.object.isRequired,
   disambiguation: PropTypes.string,
-  foreignBookId: PropTypes.string.isRequired,
+  titleSlug: PropTypes.string.isRequired,
   isSaving: PropTypes.bool,
   artistMonitored: PropTypes.bool.isRequired,
   statistics: PropTypes.object.isRequired,

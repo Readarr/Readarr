@@ -91,12 +91,12 @@ function AppRoutes(props) {
       />
 
       <Route
-        path="/artist/:foreignAuthorId"
+        path="/author/:titleSlug"
         component={ArtistDetailsPageConnector}
       />
 
       <Route
-        path="/album/:foreignBookId"
+        path="/book/:titleSlug"
         component={AlbumDetailsPageConnector}
       />
 

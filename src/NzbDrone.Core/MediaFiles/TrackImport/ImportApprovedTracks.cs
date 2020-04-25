@@ -87,7 +87,7 @@ namespace NzbDrone.Core.MediaFiles.TrackImport
             int iDecision = 1;
             foreach (var albumDecision in albumDecisions)
             {
-                _logger.ProgressInfo($"Importing album {iDecision++}/{albumDecisions.Count} {albumDecision.First().Item.Album}");
+                _logger.ProgressInfo($"Importing book {iDecision++}/{albumDecisions.Count} {albumDecision.First().Item.Album}");
 
                 var decisionList = albumDecision.ToList();
 

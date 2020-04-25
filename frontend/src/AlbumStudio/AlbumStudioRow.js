@@ -18,7 +18,7 @@ class AlbumStudioRow extends Component {
     const {
       authorId,
       status,
-      foreignAuthorId,
+      titleSlug,
       artistName,
       monitored,
       albums,
@@ -58,7 +58,7 @@ class AlbumStudioRow extends Component {
 
         <VirtualTableRowCell className={styles.title}>
           <ArtistNameLink
-            foreignAuthorId={foreignAuthorId}
+            titleSlug={titleSlug}
             artistName={artistName}
           />
         </VirtualTableRowCell>
@@ -84,7 +84,7 @@ class AlbumStudioRow extends Component {
 AlbumStudioRow.propTypes = {
   authorId: PropTypes.number.isRequired,
   status: PropTypes.string.isRequired,
-  foreignAuthorId: PropTypes.string.isRequired,
+  titleSlug: PropTypes.string.isRequired,
   artistName: PropTypes.string.isRequired,
   monitored: PropTypes.bool.isRequired,
   albums: PropTypes.arrayOf(PropTypes.object).isRequired,

@@ -42,7 +42,6 @@ function ArtistDetailsLinks(props) {
 }
 
 ArtistDetailsLinks.propTypes = {
-  foreignAuthorId: PropTypes.string.isRequired,
   links: PropTypes.arrayOf(PropTypes.object).isRequired
 };
 

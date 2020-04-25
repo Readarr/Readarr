@@ -81,7 +81,7 @@ class ArtistIndexRow extends Component {
       monitored,
       status,
       artistName,
-      foreignAuthorId,
+      titleSlug,
       artistType,
       qualityProfile,
       metadataProfile,
@@ -157,7 +157,7 @@ class ArtistIndexRow extends Component {
                     showBanners ?
                       <Link
                         className={styles.link}
-                        to={`/artist/${foreignAuthorId}`}
+                        to={`/author/${titleSlug}`}
                       >
                         <ArtistBanner
                           className={styles.bannerImage}
@@ -177,7 +177,7 @@ class ArtistIndexRow extends Component {
                       </Link> :
 
                       <ArtistNameLink
-                        foreignAuthorId={foreignAuthorId}
+                        titleSlug={titleSlug}
                         artistName={artistName}
                       />
                   }
@@ -228,7 +228,7 @@ class ArtistIndexRow extends Component {
                     <AlbumTitleLink
                       title={nextAlbum.title}
                       disambiguation={nextAlbum.disambiguation}
-                      foreignBookId={nextAlbum.foreignBookId}
+                      titleSlug={nextAlbum.titleSlug}
                     />
                   </VirtualTableRowCell>
                 );
@@ -253,7 +253,7 @@ class ArtistIndexRow extends Component {
                     <AlbumTitleLink
                       title={lastAlbum.title}
                       disambiguation={lastAlbum.disambiguation}
-                      foreignBookId={lastAlbum.foreignBookId}
+                      titleSlug={lastAlbum.titleSlug}
                     />
                   </VirtualTableRowCell>
                 );
@@ -443,7 +443,7 @@ ArtistIndexRow.propTypes = {
   monitored: PropTypes.bool.isRequired,
   status: PropTypes.string.isRequired,
   artistName: PropTypes.string.isRequired,
-  foreignAuthorId: PropTypes.string.isRequired,
+  titleSlug: PropTypes.string.isRequired,
   artistType: PropTypes.string,
   qualityProfile: PropTypes.object.isRequired,
   metadataProfile: PropTypes.object.isRequired,

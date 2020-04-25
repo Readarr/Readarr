@@ -70,7 +70,7 @@ class ArtistIndexPoster extends Component {
       id,
       artistName,
       monitored,
-      foreignAuthorId,
+      titleSlug,
       status,
       nextAiring,
       statistics,
@@ -107,12 +107,13 @@ class ArtistIndexPoster extends Component {
       isDeleteArtistModalOpen
     } = this.state;
 
-    const link = `/artist/${foreignAuthorId}`;
+    const link = `/author/${titleSlug}`;
 
     const elementStyle = {
       width: `${posterWidth}px`,
       height: `${posterHeight}px`
     };
+    elementStyle['object-fit'] = 'contain';
 
     return (
       <div className={styles.container}>
@@ -260,7 +261,7 @@ ArtistIndexPoster.propTypes = {
   artistName: PropTypes.string.isRequired,
   monitored: PropTypes.bool.isRequired,
   status: PropTypes.string.isRequired,
-  foreignAuthorId: PropTypes.string.isRequired,
+  titleSlug: PropTypes.string.isRequired,
   nextAiring: PropTypes.string,
   statistics: PropTypes.object.isRequired,
   images: PropTypes.arrayOf(PropTypes.object).isRequired,

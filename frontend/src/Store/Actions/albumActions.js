@@ -154,7 +154,7 @@ export const actionHandlers = handleThunks({
     }));
 
     const promise = createAjaxRequest({
-      url: `/album/${bookId}`,
+      url: `/book/${bookId}`,
       method: 'PUT',
       data: JSON.stringify({ monitored }),
       dataType: 'json'
@@ -196,7 +196,7 @@ export const actionHandlers = handleThunks({
     ));
 
     const promise = createAjaxRequest({
-      url: '/album/monitor',
+      url: '/book/monitor',
       method: 'PUT',
       data: JSON.stringify({ bookIds, monitored }),
       dataType: 'json'

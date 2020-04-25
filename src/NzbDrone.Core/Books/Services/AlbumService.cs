@@ -22,6 +22,7 @@ namespace NzbDrone.Core.Music
         List<Book> GetAlbumsByFileIds(IEnumerable<int> fileIds);
         Book AddAlbum(Book newAlbum);
         Book FindById(string foreignId);
+        Book FindBySlug(string titleSlug);
         Book FindByTitle(int artistMetadataId, string title);
         Book FindByTitleInexact(int artistMetadataId, string title);
         List<Book> GetCandidates(int artistMetadataId, string title);
@@ -77,6 +78,11 @@ namespace NzbDrone.Core.Music
         public Book FindById(string foreignId)
         {
             return _albumRepository.FindById(foreignId);
+        }
+
+        public Book FindBySlug(string titleSlug)
+        {
+            return _albumRepository.FindBySlug(titleSlug);
         }
 
         public Book FindByTitle(int artistMetadataId, string title)

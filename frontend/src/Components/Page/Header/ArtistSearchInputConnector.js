@@ -16,14 +16,14 @@ function createCleanArtistSelector() {
           artistName,
           sortName,
           images,
-          foreignAuthorId,
+          titleSlug,
           tags = []
         } = artist;
 
         return {
           artistName,
           sortName,
-          foreignAuthorId,
+          titleSlug,
           images,
           tags: tags.reduce((acc, id) => {
             const matchingTag = allTags.find((tag) => tag.id === id);
@@ -53,8 +53,8 @@ function createMapStateToProps() {
 
 function createMapDispatchToProps(dispatch, props) {
   return {
-    onGoToArtist(foreignAuthorId) {
-      dispatch(push(`${window.Readarr.urlBase}/artist/${foreignAuthorId}`));
+    onGoToArtist(titleSlug) {
+      dispatch(push(`${window.Readarr.urlBase}/author/${titleSlug}`));
     },
 
     onGoToAddNewArtist(query) {

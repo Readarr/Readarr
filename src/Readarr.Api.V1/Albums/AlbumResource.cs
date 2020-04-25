@@ -20,6 +20,7 @@ namespace Readarr.Api.V1.Albums
         public int AuthorId { get; set; }
         public string ForeignBookId { get; set; }
         public int GoodreadsId { get; set; }
+        public string TitleSlug { get; set; }
         public string Isbn { get; set; }
         public string Asin { get; set; }
         public int BookFileId { get; set; }
@@ -56,6 +57,7 @@ namespace Readarr.Api.V1.Albums
                 AuthorId = model.AuthorId,
                 ForeignBookId = model.ForeignBookId,
                 GoodreadsId = model.GoodreadsId,
+                TitleSlug = model.TitleSlug,
                 Asin = model.Asin,
                 Isbn = model.Isbn13,
                 BookFileId = model.BookFileId,
@@ -89,6 +91,7 @@ namespace Readarr.Api.V1.Albums
                 Id = resource.Id,
                 ForeignBookId = resource.ForeignBookId,
                 GoodreadsId = resource.GoodreadsId,
+                TitleSlug = resource.TitleSlug,
                 Asin = resource.Asin,
                 Isbn13 = resource.Isbn,
                 BookFileId = resource.BookFileId,

@@ -88,15 +88,15 @@ const selectTrackFiles = createSelector(
 
 function createMapStateToProps() {
   return createSelector(
-    (state, { foreignAuthorId }) => foreignAuthorId,
+    (state, { titleSlug }) => titleSlug,
     selectAlbums,
     selectSeries,
     selectTrackFiles,
     createAllArtistSelector(),
     createCommandsSelector(),
-    (foreignAuthorId, albums, series, trackFiles, allArtists, commands) => {
+    (titleSlug, albums, series, trackFiles, allArtists, commands) => {
       const sortedArtist = _.orderBy(allArtists, 'sortName');
-      const artistIndex = _.findIndex(sortedArtist, { foreignAuthorId });
+      const artistIndex = _.findIndex(sortedArtist, { titleSlug });
       const artist = sortedArtist[artistIndex];
 
       if (!artist) {
@@ -301,7 +301,7 @@ class ArtistDetailsConnector extends Component {
 
 ArtistDetailsConnector.propTypes = {
   id: PropTypes.number.isRequired,
-  foreignAuthorId: PropTypes.string.isRequired,
+  titleSlug: PropTypes.string.isRequired,
   isArtistRefreshing: PropTypes.bool.isRequired,
   allArtistRefreshing: PropTypes.bool.isRequired,
   isRefreshing: PropTypes.bool.isRequired,

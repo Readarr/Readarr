@@ -156,7 +156,6 @@ class ArtistDetails extends Component {
   render() {
     const {
       id,
-      foreignAuthorId,
       artistName,
       ratings,
       path,
@@ -353,7 +352,7 @@ class ArtistDetails extends Component {
                       name={icons.ARROW_LEFT}
                       size={30}
                       title={`Go to ${previousArtist.artistName}`}
-                      to={`/artist/${previousArtist.foreignAuthorId}`}
+                      to={`/author/${previousArtist.titleSlug}`}
                     />
 
                     <IconButton
@@ -369,7 +368,7 @@ class ArtistDetails extends Component {
                       name={icons.ARROW_RIGHT}
                       size={30}
                       title={`Go to ${nextArtist.artistName}`}
-                      to={`/artist/${nextArtist.foreignAuthorId}`}
+                      to={`/author/${nextArtist.titleSlug}`}
                     />
                   </div>
                 </div>
@@ -481,7 +480,6 @@ class ArtistDetails extends Component {
                     }
                     tooltip={
                       <ArtistDetailsLinks
-                        foreignAuthorId={foreignAuthorId}
                         links={links}
                       />
                     }
@@ -692,7 +690,6 @@ class ArtistDetails extends Component {
 
 ArtistDetails.propTypes = {
   id: PropTypes.number.isRequired,
-  foreignAuthorId: PropTypes.string.isRequired,
   artistName: PropTypes.string.isRequired,
   ratings: PropTypes.object.isRequired,
   path: PropTypes.string.isRequired,

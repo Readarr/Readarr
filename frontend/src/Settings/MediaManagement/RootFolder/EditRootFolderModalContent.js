@@ -92,7 +92,7 @@ function EditRootFolderModalContent(props) {
                   type={id ? inputTypes.TEXT : inputTypes.PATH}
                   readOnly={!!id}
                   name="path"
-                  helpText="Root Folder containing your music library"
+                  helpText="Root Folder containing your book library"
                   helpTextWarning="This must be different to the directory where your download client puts files"
                   {...path}
                   onChange={onInputChange}
@@ -237,7 +237,7 @@ function EditRootFolderModalContent(props) {
                   name="defaultMonitorOption"
                   onChange={onInputChange}
                   {...defaultMonitorOption}
-                  helpText="Default Monitoring Options for albums by artists detected in this folder"
+                  helpText="Default Monitoring Options for books by authors detected in this folder"
                 />
 
               </FormGroup>
@@ -248,7 +248,7 @@ function EditRootFolderModalContent(props) {
                 <FormInputGroup
                   type={inputTypes.QUALITY_PROFILE_SELECT}
                   name="defaultQualityProfileId"
-                  helpText="Default Quality Profile for artists detected in this folder"
+                  helpText="Default Quality Profile for authors detected in this folder"
                   {...defaultQualityProfileId}
                   onChange={onInputChange}
                 />
@@ -273,7 +273,7 @@ function EditRootFolderModalContent(props) {
                 <FormInputGroup
                   type={inputTypes.METADATA_PROFILE_SELECT}
                   name="defaultMetadataProfileId"
-                  helpText="Default Metadata Profile for artists detected in this folder"
+                  helpText="Default Metadata Profile for authors detected in this folder"
                   {...defaultMetadataProfileId}
                   includeNone={true}
                   onChange={onInputChange}
@@ -286,7 +286,7 @@ function EditRootFolderModalContent(props) {
                 <FormInputGroup
                   type={inputTypes.TAG}
                   name="defaultTags"
-                  helpText="Default Readarr Tags for artists detected in this folder"
+                  helpText="Default Readarr Tags for authors detected in this folder"
                   {...defaultTags}
                   onChange={onInputChange}
                 />

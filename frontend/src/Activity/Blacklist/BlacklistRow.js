@@ -72,7 +72,7 @@ class BlacklistRow extends Component {
               return (
                 <TableRowCell key={name}>
                   <ArtistNameLink
-                    foreignAuthorId={artist.foreignAuthorId}
+                    titleSlug={artist.titleSlug}
                     artistName={artist.artistName}
                   />
                 </TableRowCell>

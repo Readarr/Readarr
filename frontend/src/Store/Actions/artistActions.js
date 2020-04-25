@@ -237,7 +237,7 @@ export const actionHandlers = handleThunks({
     }));
 
     const promise = createAjaxRequest({
-      url: `/artist/${id}`,
+      url: `/author/${id}`,
       method: 'PUT',
       data: JSON.stringify({
         ...artist,
@@ -286,7 +286,7 @@ export const actionHandlers = handleThunks({
     season.monitored = monitored;
 
     const promise = createAjaxRequest({
-      url: `/artist/${id}`,
+      url: `/author/${id}`,
       method: 'PUT',
       data: JSON.stringify({
         ...artist,

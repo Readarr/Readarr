@@ -64,10 +64,10 @@ namespace Readarr.Api.V1.Albums
         {
             var authorIdQuery = Request.Query.AuthorId;
             var bookIdsQuery = Request.Query.BookIds;
-            var foreignIdQuery = Request.Query.ForeignBookId;
+            var slugQuery = Request.Query.TitleSlug;
             var includeAllArtistAlbumsQuery = Request.Query.IncludeAllArtistAlbums;
 
-            if (!Request.Query.AuthorId.HasValue && !bookIdsQuery.HasValue && !foreignIdQuery.HasValue)
+            if (!Request.Query.AuthorId.HasValue && !bookIdsQuery.HasValue && !slugQuery.HasValue)
             {
                 var albums = _albumService.GetAllAlbums();
 
@@ -88,11 +88,11 @@ namespace Readarr.Api.V1.Albums
                 return MapToResource(_albumService.GetAlbumsByArtist(authorId), false);
             }
 
-            if (foreignIdQuery.HasValue)
+            if (slugQuery.HasValue)
             {
-                string foreignBookId = foreignIdQuery.Value.ToString();
+                string titleSlug = slugQuery.Value.ToString();
 
-                var album = _albumService.FindById(foreignBookId);
+                var album = _albumService.FindBySlug(titleSlug);
 
                 if (album == null)
                 {

@@ -80,7 +80,7 @@ namespace NzbDrone.Core.MediaFiles.TrackImport.Identification
             foreach (var localRelease in releases)
             {
                 i++;
-                _logger.ProgressInfo($"Identifying album {i}/{releases.Count}");
+                _logger.ProgressInfo($"Identifying book {i}/{releases.Count}");
                 IdentifyRelease(localRelease, idOverrides, config);
             }
 

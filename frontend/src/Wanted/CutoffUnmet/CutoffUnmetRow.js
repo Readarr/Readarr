@@ -17,7 +17,7 @@ function CutoffUnmetRow(props) {
     trackFileId,
     artist,
     releaseDate,
-    foreignBookId,
+    titleSlug,
     title,
     disambiguation,
     isSelected,
@@ -52,7 +52,7 @@ function CutoffUnmetRow(props) {
             return (
               <TableRowCell key={name}>
                 <ArtistNameLink
-                  foreignAuthorId={artist.foreignAuthorId}
+                  titleSlug={artist.titleSlug}
                   artistName={artist.artistName}
                 />
               </TableRowCell>
@@ -63,7 +63,7 @@ function CutoffUnmetRow(props) {
             return (
               <TableRowCell key={name}>
                 <AlbumTitleLink
-                  foreignBookId={foreignBookId}
+                  titleSlug={titleSlug}
                   title={title}
                   disambiguation={disambiguation}
                 />
@@ -120,7 +120,7 @@ CutoffUnmetRow.propTypes = {
   trackFileId: PropTypes.number,
   artist: PropTypes.object.isRequired,
   releaseDate: PropTypes.string.isRequired,
-  foreignBookId: PropTypes.string.isRequired,
+  titleSlug: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   disambiguation: PropTypes.string,
   isSelected: PropTypes.bool,

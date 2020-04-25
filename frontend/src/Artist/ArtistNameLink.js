@@ -2,8 +2,8 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import Link from 'Components/Link/Link';
 
-function ArtistNameLink({ foreignAuthorId, artistName }) {
-  const link = `/artist/${foreignAuthorId}`;
+function ArtistNameLink({ titleSlug, artistName }) {
+  const link = `/author/${titleSlug}`;
 
   return (
     <Link to={link}>
@@ -13,7 +13,7 @@ function ArtistNameLink({ foreignAuthorId, artistName }) {
 }
 
 ArtistNameLink.propTypes = {
-  foreignAuthorId: PropTypes.string.isRequired,
+  titleSlug: PropTypes.string.isRequired,
   artistName: PropTypes.string.isRequired
 };
 

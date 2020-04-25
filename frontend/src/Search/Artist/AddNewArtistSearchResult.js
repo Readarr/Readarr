@@ -70,6 +70,7 @@ class AddNewArtistSearchResult extends Component {
     const {
       foreignAuthorId,
       goodreadsId,
+      titleSlug,
       artistName,
       year,
       disambiguation,
@@ -86,7 +87,7 @@ class AddNewArtistSearchResult extends Component {
       isNewAddArtistModalOpen
     } = this.state;
 
-    const linkProps = isExistingArtist ? { to: `/artist/${foreignAuthorId}` } : { onPress: this.onPress };
+    const linkProps = isExistingArtist ? { to: `/author/${titleSlug}` } : { onPress: this.onPress };
 
     const endedString = artistType === 'Person' ? 'Deceased' : 'Ended';
 
@@ -214,6 +215,7 @@ class AddNewArtistSearchResult extends Component {
 AddNewArtistSearchResult.propTypes = {
   foreignAuthorId: PropTypes.string.isRequired,
   goodreadsId: PropTypes.number.isRequired,
+  titleSlug: PropTypes.number.isRequired,
   artistName: PropTypes.string.isRequired,
   year: PropTypes.number,
   disambiguation: PropTypes.string,

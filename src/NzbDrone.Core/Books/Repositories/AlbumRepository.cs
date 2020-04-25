@@ -19,6 +19,7 @@ namespace NzbDrone.Core.Music
         List<Book> GetAlbumsByFileIds(IEnumerable<int> fileIds);
         Book FindByTitle(int artistMetadataId, string title);
         Book FindById(string foreignBookId);
+        Book FindBySlug(string titleSlug);
         PagingSpec<Book> AlbumsWithoutFiles(PagingSpec<Book> pagingSpec);
         PagingSpec<Book> AlbumsWhereCutoffUnmet(PagingSpec<Book> pagingSpec, List<QualitiesBelowCutoff> qualitiesBelowCutoff);
         List<Book> AlbumsBetweenDates(DateTime startDate, DateTime endDate, bool includeUnmonitored);
@@ -75,6 +76,11 @@ namespace NzbDrone.Core.Music
         public Book FindById(string foreignBookId)
         {
             return Query(s => s.ForeignBookId == foreignBookId).SingleOrDefault();
+        }
+
+        public Book FindBySlug(string titleSlug)
+        {
+            return Query(s => s.TitleSlug == titleSlug).SingleOrDefault();
         }
 
         //x.Id == null is converted to SQL, so warning incorrect

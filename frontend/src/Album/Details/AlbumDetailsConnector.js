@@ -39,15 +39,15 @@ const selectTrackFiles = createSelector(
 
 function createMapStateToProps() {
   return createSelector(
-    (state, { foreignBookId }) => foreignBookId,
+    (state, { titleSlug }) => titleSlug,
     selectTrackFiles,
     (state) => state.albums,
     createAllArtistSelector(),
     createCommandsSelector(),
     createUISettingsSelector(),
-    (foreignBookId, trackFiles, albums, artists, commands, uiSettings) => {
+    (titleSlug, trackFiles, albums, artists, commands, uiSettings) => {
       const sortedAlbums = _.orderBy(albums.items, 'releaseDate');
-      const albumIndex = _.findIndex(sortedAlbums, { foreignBookId });
+      const albumIndex = _.findIndex(sortedAlbums, { titleSlug });
       const album = sortedAlbums[albumIndex];
       const artist = _.find(artists, { id: album.authorId });
 
@@ -171,7 +171,7 @@ AlbumDetailsConnector.propTypes = {
   anyReleaseOk: PropTypes.bool,
   isAlbumFetching: PropTypes.bool,
   isAlbumPopulated: PropTypes.bool,
-  foreignBookId: PropTypes.string.isRequired,
+  titleSlug: PropTypes.string.isRequired,
   fetchTrackFiles: PropTypes.func.isRequired,
   clearTrackFiles: PropTypes.func.isRequired,
   clearReleases: PropTypes.func.isRequired,
