@@ -7,7 +7,6 @@ namespace NzbDrone.Core.Music
 {
     public class Series : Entity<Series>
     {
-        public int AuthorMetadataId { get; set; }
         public string ForeignSeriesId { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
@@ -39,7 +38,6 @@ namespace NzbDrone.Core.Music
         public override void UseDbFieldsFrom(Series other)
         {
             Id = other.Id;
-            AuthorMetadataId = other.AuthorMetadataId;
         }
     }
 }

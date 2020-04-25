@@ -39,7 +39,6 @@ namespace NzbDrone.Core.Datastore.Migration
 
             Create.TableForModel("Series")
                 .WithColumn("ForeignSeriesId").AsString().Unique()
-                .WithColumn("AuthorMetadataId").AsInt32().Indexed()
                 .WithColumn("Title").AsString()
                 .WithColumn("Description").AsString().Nullable()
                 .WithColumn("Numbered").AsBoolean()

@@ -118,11 +118,12 @@ namespace NzbDrone.Core.Music
         {
             bool updated = false;
 
-            var existing = _seriesService.GetByAuthorMetadataId(authorMetadataId);
+            var existingByAuthor = _seriesService.GetByAuthorMetadataId(authorMetadataId);
+            var existingBySeries = _seriesService.FindById(remoteSeries.Select(x => x.ForeignSeriesId));
+            var existing = existingByAuthor.Concat(existingBySeries).GroupBy(x => x.ForeignSeriesId).Select(x => x.First()).ToList();
+
             var toAdd = remoteSeries.ExceptBy(x => x.ForeignSeriesId, existing, x => x.ForeignSeriesId, StringComparer.Ordinal).ToList();
             var all = toAdd.Union(existing).ToList();
-
-            all.ForEach(x => x.AuthorMetadataId = authorMetadataId);
 
             _seriesService.InsertMany(toAdd);
 

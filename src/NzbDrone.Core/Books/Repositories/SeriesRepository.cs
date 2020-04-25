@@ -8,6 +8,7 @@ namespace NzbDrone.Core.Music
     public interface ISeriesRepository : IBasicRepository<Series>
     {
         Series FindById(string foreignSeriesId);
+        List<Series> FindById(IEnumerable<string> foreignSeriesId);
         List<Series> GetByAuthorMetadataId(int authorMetadataId);
         List<Series> GetByAuthorId(int authorId);
     }
@@ -24,15 +25,24 @@ namespace NzbDrone.Core.Music
             return Query(x => x.ForeignSeriesId == foreignSeriesId).SingleOrDefault();
         }
 
+        public List<Series> FindById(IEnumerable<string> foreignSeriesId)
+        {
+            return Query(x => foreignSeriesId.Contains(x.ForeignSeriesId));
+        }
+
         public List<Series> GetByAuthorMetadataId(int authorMetadataId)
         {
-            return Query(x => x.AuthorMetadataId == authorMetadataId);
+            return QueryDistinct(Builder().Join<Series, SeriesBookLink>((l, r) => l.Id == r.SeriesId)
+                                 .Join<SeriesBookLink, Book>((l, r) => l.BookId == r.Id)
+                                 .Where<Book>(x => x.AuthorMetadataId == authorMetadataId));
         }
 
         public List<Series> GetByAuthorId(int authorId)
         {
-            return Query(Builder().Join<Series, Author>((l, r) => l.AuthorMetadataId == r.AuthorMetadataId)
-                         .Where<Author>(x => x.Id == authorId));
+            return QueryDistinct(Builder().Join<Series, SeriesBookLink>((l, r) => l.Id == r.SeriesId)
+                                 .Join<SeriesBookLink, Book>((l, r) => l.BookId == r.Id)
+                                 .Join<Book, Author>((l, r) => l.AuthorMetadataId == r.AuthorMetadataId)
+                                 .Where<Author>(x => x.Id == authorId));
         }
     }
 }
