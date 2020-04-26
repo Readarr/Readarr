@@ -18,13 +18,12 @@ namespace NzbDrone.Core.ImportLists.Goodreads
 
     public class GoodreadsOwnedBooks : GoodreadsImportListBase<GoodreadsOwnedBooksSettings>
     {
-        public GoodreadsOwnedBooks(IMetadataRequestBuilder requestBuilder,
-                                   IImportListStatusService importListStatusService,
+        public GoodreadsOwnedBooks(IImportListStatusService importListStatusService,
                                    IConfigService configService,
                                    IParsingService parsingService,
                                    IHttpClient httpClient,
                                    Logger logger)
-        : base(requestBuilder, importListStatusService, configService, parsingService, httpClient, logger)
+        : base(importListStatusService, configService, parsingService, httpClient, logger)
         {
         }
 
@@ -62,9 +61,8 @@ namespace NzbDrone.Core.ImportLists.Goodreads
         {
             try
             {
-                var builder = _requestBuilder.GetRequestBuilder().Create()
+                var builder = RequestBuilder()
                     .SetSegment("route", $"owned_books/user")
-                    .AddQueryParam("key", Settings.ConsumerKey, true)
                     .AddQueryParam("id", Settings.UserId)
                     .AddQueryParam("page", page);
 

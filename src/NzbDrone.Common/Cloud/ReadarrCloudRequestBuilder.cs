@@ -1,4 +1,3 @@
-using System.Linq;
 using NzbDrone.Common.Http;
 
 namespace NzbDrone.Common.Cloud

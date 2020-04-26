@@ -5,7 +5,6 @@ using NLog;
 using NzbDrone.Common.Extensions;
 using NzbDrone.Common.Http;
 using NzbDrone.Core.Configuration;
-using NzbDrone.Core.MetadataSource;
 using NzbDrone.Core.MetadataSource.Goodreads;
 using NzbDrone.Core.Parser;
 using NzbDrone.Core.Parser.Model;
@@ -15,13 +14,12 @@ namespace NzbDrone.Core.ImportLists.Goodreads
 {
     public class GoodreadsBookshelf : GoodreadsImportListBase<GoodreadsBookshelfSettings>
     {
-        public GoodreadsBookshelf(IMetadataRequestBuilder requestBuilder,
-                                  IImportListStatusService importListStatusService,
+        public GoodreadsBookshelf(IImportListStatusService importListStatusService,
                                   IConfigService configService,
                                   IParsingService parsingService,
                                   IHttpClient httpClient,
                                   Logger logger)
-        : base(requestBuilder, importListStatusService, configService, parsingService, httpClient, logger)
+        : base(importListStatusService, configService, parsingService, httpClient, logger)
         {
         }
 
@@ -109,9 +107,8 @@ namespace NzbDrone.Core.ImportLists.Goodreads
         {
             try
             {
-                var builder = _requestBuilder.GetRequestBuilder().Create()
+                var builder = RequestBuilder()
                     .SetSegment("route", $"shelf/list.xml")
-                    .AddQueryParam("key", Settings.ConsumerKey, true)
                     .AddQueryParam("user_id", Settings.UserId)
                     .AddQueryParam("page", page);
 
@@ -130,9 +127,8 @@ namespace NzbDrone.Core.ImportLists.Goodreads
         {
             try
             {
-                var builder = _requestBuilder.GetRequestBuilder().Create()
+                var builder = RequestBuilder()
                     .SetSegment("route", $"review/list.xml")
-                    .AddQueryParam("key", Settings.ConsumerKey, true)
                     .AddQueryParam("v", 2)
                     .AddQueryParam("id", Settings.UserId)
                     .AddQueryParam("shelf", shelf)

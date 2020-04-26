@@ -12,7 +12,6 @@ using NzbDrone.Common.Http;
 using NzbDrone.Common.OAuth;
 using NzbDrone.Core.Configuration;
 using NzbDrone.Core.Exceptions;
-using NzbDrone.Core.MetadataSource;
 using NzbDrone.Core.MetadataSource.Goodreads;
 using NzbDrone.Core.Parser;
 
@@ -22,10 +21,8 @@ namespace NzbDrone.Core.ImportLists.Goodreads
         where TSettings : GoodreadsSettingsBase<TSettings>, new()
     {
         protected readonly IHttpClient _httpClient;
-        protected readonly IMetadataRequestBuilder _requestBuilder;
 
-        protected GoodreadsImportListBase(IMetadataRequestBuilder requestBuilder,
-                                          IImportListStatusService importListStatusService,
+        protected GoodreadsImportListBase(IImportListStatusService importListStatusService,
                                           IConfigService configService,
                                           IParsingService parsingService,
                                           IHttpClient httpClient,
@@ -33,12 +30,16 @@ namespace NzbDrone.Core.ImportLists.Goodreads
         : base(importListStatusService, configService, parsingService, logger)
         {
             _httpClient = httpClient;
-            _requestBuilder = requestBuilder;
         }
 
         public override ImportListType ListType => ImportListType.Goodreads;
 
         public string AccessToken => Settings.AccessToken;
+
+        protected HttpRequestBuilder RequestBuilder() => new HttpRequestBuilder("https://www.goodreads.com/{route}")
+            .AddQueryParam("key", "xQh8LhdTztb9u3cL26RqVg", true)
+            .AddQueryParam("_nc", "1")
+            .KeepAlive();
 
         protected override void Test(List<ValidationFailure> failures)
         {
@@ -125,6 +126,7 @@ namespace NzbDrone.Core.ImportLists.Goodreads
             var auth = OAuthRequest.ForProtectedResource(builder.Method.ToString(), Settings.ConsumerKey, Settings.ConsumerSecret, Settings.AccessToken, Settings.AccessTokenSecret);
 
             var request = builder.Build();
+            request.LogResponseContent = true;
 
             // we need the url without the query to sign
             auth.RequestUrl = request.Url.SetQuery(null).FullUri;
@@ -146,7 +148,7 @@ namespace NzbDrone.Core.ImportLists.Goodreads
 
         private Tuple<string, string> GetUser()
         {
-            var builder = _requestBuilder.GetRequestBuilder().Create()
+            var builder = RequestBuilder()
                 .SetSegment("route", $"api/auth_user")
                 .AddQueryParam("key", Settings.ConsumerKey, true);
 

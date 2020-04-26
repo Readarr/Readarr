@@ -82,12 +82,15 @@ namespace NzbDrone.Core.Music
         {
             ForeignBookId = other.ForeignBookId;
             ForeignWorkId = other.ForeignWorkId;
+            GoodreadsId = other.GoodreadsId;
+            TitleSlug = other.TitleSlug;
             Isbn13 = other.Isbn13;
             Asin = other.Asin;
             Title = other.Title;
             Language = other.Language;
             Overview = other.Overview.IsNullOrWhiteSpace() ? Overview : other.Overview;
             Disambiguation = other.Disambiguation;
+            Publisher = other.Publisher;
             PageCount = other.PageCount;
             ReleaseDate = other.ReleaseDate;
             Images = other.Images.Any() ? other.Images : Images;

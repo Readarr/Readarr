@@ -37,6 +37,8 @@ namespace NzbDrone.Core.Music
         public override void UseMetadataFrom(AuthorMetadata other)
         {
             ForeignAuthorId = other.ForeignAuthorId;
+            GoodreadsId = other.GoodreadsId;
+            TitleSlug = other.TitleSlug;
             Name = other.Name;
             Aliases = other.Aliases;
             Overview = other.Overview.IsNullOrWhiteSpace() ? Overview : other.Overview;

@@ -24,8 +24,8 @@ namespace NzbDrone.Core.ImportLists.Goodreads
 
         public string BaseUrl { get; set; }
 
-        public string ConsumerKey => "c4i3vtdHdpJZCaiG8M2MmQ";
-        public string ConsumerSecret => "Ebx2FnXeDsG7kbXZ7gq4vtqZhmKdAAoBZYlikEzuvw";
+        public string ConsumerKey => "xQh8LhdTztb9u3cL26RqVg";
+        public string ConsumerSecret => "96aDA1lJRcS8KofYbw2jjkRk3wTNKypHAL2GeOgbPZw";
         public string OAuthUrl => "https://www.goodreads.com/oauth/authorize";
         public string OAuthRequestTokenUrl => "https://www.goodreads.com/oauth/request_token";
         public string OAuthAccessTokenUrl => "https://www.goodreads.com/oauth/access_token";
