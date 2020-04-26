@@ -495,7 +495,7 @@
   "RenameBooksHelpText": "Readarr will use the existing file name if renaming is disabled",
   "Reorder": "Reorder",
   "ReplaceIllegalCharacters": "Replace Illegal Characters",
-  "ReplaceIllegalCharactersHelpText": "Replace or Remove illegal characters",
+  "ReplaceIllegalCharactersHelpText": "Replace illegal characters. If unchecked, Readarr will remove them instead",
   "RequiredHelpText": "The release must contain at least one of these terms (case insensitive)",
   "RequiredPlaceHolder": "Add new restriction",
   "RescanAfterRefreshHelpText": "Rescan the author folder after refreshing the author",
