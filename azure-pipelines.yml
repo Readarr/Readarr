@@ -11,7 +11,8 @@ variables:
   minorVersion: $[counter('minorVersion', 1)]
   readarrVersion: '$(majorVersion).$(minorVersion)'
   buildName: '$(Build.SourceBranchName).$(readarrVersion)'
-  sentryOrg: 'radarr'
+  sentryOrg: 'servarr'
+  sentryUrl: 'https://sentry.servarr.com'
   dotnetVersion: '3.1.102'
 
 trigger:
@@ -255,7 +256,6 @@ stages:
           sentry-cli releases deploys "${RELEASENAME}" new -e production
           fi
         displayName: Publish Sentry Source Maps
-        enabled: false
         condition: |
           or
           (
@@ -263,9 +263,9 @@ stages:
             and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
           )
         env:
-          SENTRY_AUTH_TOKEN: $(sentryAuthTokenSelfHosted)
+          SENTRY_AUTH_TOKEN: $(sentryAuthTokenServarr)
           SENTRY_ORG: $(sentryOrg)
-          SENTRY_URL: https://sentry.radarr.video
+          SENTRY_URL: $(sentryUrl)
     
   - stage: Unit_Test
     displayName: Unit Tests
