@@ -173,6 +173,10 @@ namespace NzbDrone.Core.Test.ParserTests
         [TestCase("(Heavy Metal) [CD] Forces United - Discography(6 CDs), 2014-2016, FLAC(image + .cue), lossless", "Forces United", "Discography", true)]
         [TestCase("Gorillaz - The now now - 2018 [FLAC]", "Gorillaz", "The now now")]
 
+        // MyAnonaMouse tracker
+        [TestCase("City of Bones by Cassandra Clare [ENG / epub]", "Cassandra Clare", "City of Bones")]
+        [TestCase("The Ivory Tower and Harry Potter -​ Perspectives on a Literary Phenomenon by Lana E Whited [ENG /​ pdf]", "Lana E Whited", "The Ivory Tower and Harry Potter -​ Perspectives on a Literary Phenomenon")]
+
         //Regex Works on below, but ParseAlbumMatchCollection cleans the "..." and converts it to spaces
         // [TestCase("Metallica - ...And Justice for All (1988) [FLAC Lossless]", "Metallica", "...And Justice for All")]
         public void should_parse_artist_name_and_album_title(string postTitle, string name, string title, bool discography = false)

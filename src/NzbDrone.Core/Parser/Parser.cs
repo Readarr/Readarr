@@ -40,11 +40,6 @@ namespace NzbDrone.Core.Parser
 
         private static readonly Regex[] ReportAlbumTitleRegex = new[]
         {
-            //MyAnonaMouse - Title by Author [lang / pdf]
-            //eg. City of Bones by Cassandra Clare [ENG]
-            new Regex(@"^(?<album>.+?)(?:by|-)(?<artist>.+?)(?:\[)(?<language>\w{3})",
-                RegexOptions.IgnoreCase | RegexOptions.Compiled),
-
             //ruTracker - (Genre) [Source]? Artist - Discography
             new Regex(@"^(?:\(.+?\))(?:\W*(?:\[(?<source>.+?)\]))?\W*(?<artist>.+?)(?: - )(?<discography>Discography|Discografia).+?(?<startyear>\d{4}).+?(?<endyear>\d{4})",
                 RegexOptions.IgnoreCase | RegexOptions.Compiled),
@@ -81,6 +76,11 @@ namespace NzbDrone.Core.Parser
             //Artist-Album-Source-Year
             //ex. Dani_Sbert-Togheter-WEB-2017-FURY
             new Regex(@"^(?<artist>.+?)[-](?<album>.+?)[-](?<source>\d?CD|WEB).+?(?<releaseyear>\d{4})",
+                RegexOptions.IgnoreCase | RegexOptions.Compiled),
+
+            //MyAnonaMouse - Title by Author [lang / pdf]
+            //eg. City of Bones by Cassandra Clare [ENG]
+            new Regex(@"^(?<album>.+?)(?:by)(?<artist>.+?)(?:\[)(?<language>\w{3})",
                 RegexOptions.IgnoreCase | RegexOptions.Compiled),
 
             //Artist - Album (Year) Strict
