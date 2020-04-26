@@ -20,6 +20,7 @@ namespace NzbDrone.Core.MetadataSource.SkyHook
 
         private readonly IHttpClient _httpClient;
         private readonly Logger _logger;
+        private readonly IArtistService _authorService;
         private readonly IAlbumService _bookService;
         private readonly IMetadataRequestBuilder _requestBuilder;
         private readonly IMetadataProfileService _metadataProfileService;
@@ -27,6 +28,7 @@ namespace NzbDrone.Core.MetadataSource.SkyHook
 
         public SkyHookProxy(IHttpClient httpClient,
                             IMetadataRequestBuilder requestBuilder,
+                            IArtistService authorService,
                             IAlbumService albumService,
                             Logger logger,
                             IMetadataProfileService metadataProfileService,
@@ -35,6 +37,7 @@ namespace NzbDrone.Core.MetadataSource.SkyHook
             _httpClient = httpClient;
             _metadataProfileService = metadataProfileService;
             _requestBuilder = requestBuilder;
+            _authorService = authorService;
             _bookService = albumService;
             _cache = cacheManager.GetCache<HashSet<string>>(GetType());
             _logger = logger;
@@ -332,29 +335,37 @@ namespace NzbDrone.Core.MetadataSource.SkyHook
 
         private List<Book> FilterBooks(IEnumerable<Book> books, Dictionary<string, List<SeriesBookLinkResource>> seriesLinks, int metadataProfileId)
         {
-            var p = _metadataProfileService.Get(metadataProfileId);
-            var allowedLanguages = p.AllowedLanguages.IsNotNullOrWhiteSpace() ? new HashSet<string>(p.AllowedLanguages.Split(',').Select(x => x.Trim().ToLower())) : new HashSet<string>();
+            var profile = _metadataProfileService.Get(metadataProfileId);
+            var allowedLanguages = profile.AllowedLanguages.IsNotNullOrWhiteSpace() ? new HashSet<string>(profile.AllowedLanguages.Split(',').Select(x => x.Trim().ToLower())) : new HashSet<string>();
 
             _logger.Trace($"Filtering:\n{books.Select(x => x.ToString()).Join("\n")}");
 
-            var result = books
-                .Where(x => x.Ratings.Votes >= p.MinRatingCount &&
-                       (double)x.Ratings.Value >= p.MinRating &&
-                       (!p.SkipMissingDate || x.ReleaseDate.HasValue) &&
-                       (!p.SkipMissingIsbn || x.Isbn13.IsNotNullOrWhiteSpace() || x.Asin.IsNotNullOrWhiteSpace()) &&
-                       (!p.SkipPartsAndSets || !IsPartOrSet(x, seriesLinks.GetValueOrDefault(x.ForeignBookId))) &&
-                       (!p.SkipSeriesSecondary || !seriesLinks.ContainsKey(x.ForeignBookId) || seriesLinks[x.ForeignBookId].Any(y => y.Primary)) &&
-                       (!allowedLanguages.Any() || allowedLanguages.Contains(x.Language?.ToLower() ?? "null")))
-                .ToList();
+            var hash = new HashSet<Book>(books);
 
-            return result;
+            FilterByPredicate(hash, profile, (x, p) => x.Ratings.Votes >= p.MinRatingCount && (double)x.Ratings.Value >= p.MinRating, "rating criteria not met");
+            FilterByPredicate(hash, profile, (x, p) => !p.SkipMissingDate || x.ReleaseDate.HasValue, "release date is missing");
+            FilterByPredicate(hash, profile, (x, p) => !p.SkipMissingIsbn || x.Isbn13.IsNotNullOrWhiteSpace() || x.Asin.IsNotNullOrWhiteSpace(), "isbn and asin is missing");
+            FilterByPredicate(hash, profile, (x, p) => !p.SkipPartsAndSets || !IsPartOrSet(x, seriesLinks.GetValueOrDefault(x.ForeignBookId)), "book is part of set");
+            FilterByPredicate(hash, profile, (x, p) => !p.SkipSeriesSecondary || !seriesLinks.ContainsKey(x.ForeignBookId) || seriesLinks[x.ForeignBookId].Any(y => y.Primary), "book is a secondary series item");
+            FilterByPredicate(hash, profile, (x, p) => !allowedLanguages.Any() || allowedLanguages.Contains(x.Language?.ToLower() ?? "null"), "book language not allowed");
+
+            return hash.ToList();
+        }
+
+        private void FilterByPredicate(HashSet<Book> books, MetadataProfile profile, Func<Book, MetadataProfile, bool> bookAllowed, string message)
+        {
+            var filtered = new HashSet<Book>(books.Where(x => !bookAllowed(x, profile)));
+            _logger.Trace($"Skipping {filtered.Count} books because {message}:\n{filtered.ConcatToString(x => x.ToString(), "\n")}");
+            books.RemoveWhere(x => filtered.Contains(x));
         }
 
         private bool IsPartOrSet(Book book, List<SeriesBookLinkResource> seriesLinks)
         {
-            if (seriesLinks != null && !seriesLinks.Any(s => double.TryParse(s.Position, out _)))
+            if (seriesLinks != null &&
+                seriesLinks.Any(x => x.Position.IsNotNullOrWhiteSpace()) &&
+                !seriesLinks.Any(s => double.TryParse(s.Position, out _)))
             {
-                // No series entries parse to a number, so all like 1-3 etc.
+                // No non-empty series entries parse to a number, so all like 1-3 etc.
                 return true;
             }
 
@@ -441,6 +452,8 @@ namespace NzbDrone.Core.MetadataSource.SkyHook
                 var book = _bookService.FindById(b.ForeignId);
                 if (book == null)
                 {
+                    book = MapBook(b);
+
                     var authorid = GetAuthorId(b);
 
                     if (authorid == null)
@@ -448,15 +461,21 @@ namespace NzbDrone.Core.MetadataSource.SkyHook
                         continue;
                     }
 
-                    var author = metadata[authorid];
+                    var author = _authorService.FindById(authorid);
 
-                    book = MapBook(b);
-                    book.Author = new Author
+                    if (author == null)
                     {
-                        CleanName = Parser.Parser.CleanArtistName(author.Name),
-                        Metadata = author
-                    };
-                    book.AuthorMetadata = author;
+                        var authorMetadata = metadata[authorid];
+
+                        author = new Author
+                        {
+                            CleanName = Parser.Parser.CleanArtistName(authorMetadata.Name),
+                            Metadata = authorMetadata
+                        };
+                    }
+
+                    book.Author = author;
+                    book.AuthorMetadata = author.Metadata.Value;
                 }
 
                 result.Add(book);
