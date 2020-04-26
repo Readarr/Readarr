@@ -94,7 +94,7 @@ class AlbumDetailsPageConnector extends Component {
     if (!titleSlug) {
       return (
         <NotFound
-          message="Sorry, that album cannot be found."
+          message="Sorry, that book cannot be found."
         />
       );
     }

@@ -63,7 +63,7 @@ namespace NzbDrone.Core.Music
         {
             var result = new RemoteData
             {
-                Entity = remote.SingleOrDefault(x => x.ForeignBookId == local.ForeignBookId)
+                Entity = remote.SingleOrDefault(x => x.ForeignWorkId == local.ForeignWorkId)
             };
 
             if (result.Entity != null)

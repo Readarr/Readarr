@@ -365,8 +365,8 @@ namespace NzbDrone.Core.MediaFiles.TrackImport
                     _logger.Debug($"Adding remote album {album}");
                     try
                     {
+                        album.Added = DateTime.UtcNow;
                         _albumService.InsertMany(new List<Book> { album });
-                        _refreshAlbumService.RefreshAlbumInfo(album, new List<Book> { album }, false);
                         dbAlbum = _albumService.FindById(album.ForeignBookId);
                     }
                     catch (Exception e)
