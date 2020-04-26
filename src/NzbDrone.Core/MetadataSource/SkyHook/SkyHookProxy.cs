@@ -120,7 +120,7 @@ namespace NzbDrone.Core.MetadataSource.SkyHook
             var book = MapBook(b);
 
             var authors = httpResponse.Resource.AuthorMetadata.SelectList(MapAuthor);
-            var authorid = b.Contributors.First(x => x.Role == "Author").ForeignId;
+            var authorid = GetAuthorId(b);
             book.AuthorMetadata = authors.First(x => x.ForeignAuthorId == authorid);
 
             return new Tuple<string, Book, List<AuthorMetadata>>(authorid, book, authors);
@@ -267,7 +267,7 @@ namespace NzbDrone.Core.MetadataSource.SkyHook
             var metadata = MapAuthor(resource.AuthorMetadata.First(x => x.ForeignId == resource.ForeignId));
 
             var allBooks = resource.Books
-                .Where(x => x.Contributors.FirstOrDefault(c => c.Role == "Author")?.ForeignId == resource.ForeignId)
+                .Where(x => GetAuthorId(x) == resource.ForeignId)
                 .Select(MapBook);
 
             var seriesLinks = resource.Series.SelectMany(x => x.BookLinks)
@@ -333,7 +333,9 @@ namespace NzbDrone.Core.MetadataSource.SkyHook
         private List<Book> FilterBooks(IEnumerable<Book> books, Dictionary<string, List<SeriesBookLinkResource>> seriesLinks, int metadataProfileId)
         {
             var p = _metadataProfileService.Get(metadataProfileId);
-            var allowedLanguages = new HashSet<string>(p.AllowedLanguages?.Split(',').Select(x => x.ToLower()) ?? Enumerable.Empty<string>());
+            var allowedLanguages = p.AllowedLanguages.IsNotNullOrWhiteSpace() ? new HashSet<string>(p.AllowedLanguages.Split(',').Select(x => x.Trim().ToLower())) : new HashSet<string>();
+
+            _logger.Trace($"Filtering:\n{books.Select(x => x.ToString()).Join("\n")}");
 
             var result = books
                 .Where(x => x.Ratings.Votes >= p.MinRatingCount &&
@@ -439,7 +441,7 @@ namespace NzbDrone.Core.MetadataSource.SkyHook
                 var book = _bookService.FindById(b.ForeignId);
                 if (book == null)
                 {
-                    var authorid = b.Contributors.FirstOrDefault(x => x.Role == "Author")?.ForeignId;
+                    var authorid = GetAuthorId(b);
 
                     if (authorid == null)
                     {
@@ -461,6 +463,12 @@ namespace NzbDrone.Core.MetadataSource.SkyHook
             }
 
             return result;
+        }
+
+        private string GetAuthorId(BookResource b)
+        {
+            return b.Contributors.ExclusiveOrDefault()?.ForeignId ??
+                b.Contributors.FirstOrDefault(x => x.Role == "Author" || x.Role == "Pseudonym")?.ForeignId;
         }
     }
 }
