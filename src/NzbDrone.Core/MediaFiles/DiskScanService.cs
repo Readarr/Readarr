@@ -19,7 +19,6 @@ using NzbDrone.Core.Messaging.Commands;
 using NzbDrone.Core.Messaging.Events;
 using NzbDrone.Core.Music;
 using NzbDrone.Core.Parser;
-using NzbDrone.Core.RemotePathMappings;
 using NzbDrone.Core.RootFolders;
 
 namespace NzbDrone.Core.MediaFiles
@@ -42,7 +41,6 @@ namespace NzbDrone.Core.MediaFiles
 
         private readonly IDiskProvider _diskProvider;
         private readonly ICalibreProxy _calibre;
-        private readonly IRemotePathMappingService _pathMapper;
         private readonly IMediaFileService _mediaFileService;
         private readonly IMakeImportDecision _importDecisionMaker;
         private readonly IImportApprovedTracks _importApprovedTracks;
@@ -54,7 +52,6 @@ namespace NzbDrone.Core.MediaFiles
 
         public DiskScanService(IDiskProvider diskProvider,
                                ICalibreProxy calibre,
-                               IRemotePathMappingService pathMapper,
                                IMediaFileService mediaFileService,
                                IMakeImportDecision importDecisionMaker,
                                IImportApprovedTracks importApprovedTracks,
@@ -66,7 +63,7 @@ namespace NzbDrone.Core.MediaFiles
         {
             _diskProvider = diskProvider;
             _calibre = calibre;
-            _pathMapper = pathMapper;
+
             _mediaFileService = mediaFileService;
             _importDecisionMaker = importDecisionMaker;
             _importApprovedTracks = importApprovedTracks;
@@ -249,10 +246,9 @@ namespace NzbDrone.Core.MediaFiles
             {
                 _logger.Info($"Getting book list from calibre for {path}");
                 var paths = _calibre.GetAllBookFilePaths(rootFolder.CalibreSettings);
-                var localPaths = paths.Select(x => _pathMapper.RemapRemoteToLocal(rootFolder.CalibreSettings.Host, new OsPath(x)));
-                var folderPaths = localPaths.Where(x => path.IsParentPath(x.FullPath));
+                var folderPaths = paths.Where(x => path.IsParentPath(x));
 
-                filesOnDisk = folderPaths.Select(x => _diskProvider.GetFileInfo(x.FullPath));
+                filesOnDisk = folderPaths.Select(x => _diskProvider.GetFileInfo(x));
             }
             else
             {

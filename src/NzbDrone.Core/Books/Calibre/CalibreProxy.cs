@@ -5,11 +5,13 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using NLog;
+using NzbDrone.Common.Disk;
 using NzbDrone.Common.Extensions;
 using NzbDrone.Common.Http;
 using NzbDrone.Common.Serializer;
 using NzbDrone.Core.MediaCover;
 using NzbDrone.Core.MediaFiles;
+using NzbDrone.Core.RemotePathMappings;
 using NzbDrone.Core.Rest;
 
 namespace NzbDrone.Core.Books.Calibre
@@ -31,14 +33,17 @@ namespace NzbDrone.Core.Books.Calibre
     {
         private readonly IHttpClient _httpClient;
         private readonly IMapCoversToLocal _mediaCoverService;
+        private readonly IRemotePathMappingService _pathMapper;
         private readonly Logger _logger;
 
         public CalibreProxy(IHttpClient httpClient,
                             IMapCoversToLocal mediaCoverService,
+                            IRemotePathMappingService pathMapper,
                             Logger logger)
         {
             _httpClient = httpClient;
             _mediaCoverService = mediaCoverService;
+            _pathMapper = pathMapper;
             _logger = logger;
         }
 
@@ -205,9 +210,14 @@ namespace NzbDrone.Core.Books.Calibre
                 var builder = GetBuilder($"ajax/book/{calibreId}", settings);
 
                 var request = builder.Build();
-                var response = _httpClient.Get<CalibreBook>(request);
+                var book = _httpClient.Get<CalibreBook>(request).Resource;
 
-                return response.Resource;
+                foreach (var format in book.Formats.Values)
+                {
+                    format.Path = _pathMapper.RemapRemoteToLocal(settings.Host, new OsPath(format.Path)).FullPath;
+                }
+
+                return book;
             }
             catch (RestException ex)
             {
@@ -224,12 +234,14 @@ namespace NzbDrone.Core.Books.Calibre
                 var request = builder.Build();
                 var response = _httpClient.Get<Dictionary<int, CalibreBook>>(request);
 
-                var paths = response.Resource.Values
+                var remotePaths = response.Resource.Values
                     .Select(b => b?.Formats.Values.OrderBy(f => f.LastModified).FirstOrDefault()?.Path)
                     .Where(x => x.IsNotNullOrWhiteSpace())
                     .ToList();
 
-                return paths;
+                var localPaths = remotePaths.Select(x => _pathMapper.RemapRemoteToLocal(settings.Host, new OsPath(x)));
+
+                return localPaths.Select(x => x.FullPath).ToList();
             }
             catch (RestException ex)
             {

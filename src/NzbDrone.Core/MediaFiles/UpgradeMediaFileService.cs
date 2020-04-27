@@ -142,11 +142,9 @@ namespace NzbDrone.Core.MediaFiles
             _calibre.SetFields(file, settings);
 
             var updated = _calibre.GetBook(file.CalibreId, settings);
-            var remotePath = updated.Formats.Values.OrderByDescending(x => x.LastModified).First().Path;
+            var path = updated.Formats.Values.OrderByDescending(x => x.LastModified).First().Path;
 
-            // TODO remotePathMappings
-            var localPath = remotePath;
-            file.Path = localPath;
+            file.Path = path;
 
             _rootFolderWatchingService.ReportFileSystemChangeBeginning(file.Path);
 
