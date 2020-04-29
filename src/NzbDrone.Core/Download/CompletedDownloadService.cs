@@ -18,6 +18,7 @@ namespace NzbDrone.Core.Download
     {
         void Check(TrackedDownload trackedDownload);
         void Import(TrackedDownload trackedDownload);
+        bool VerifyImport(TrackedDownload trackedDownload, List<ImportResult> importResults);
     }
 
     public class CompletedDownloadService : ICompletedDownloadService
