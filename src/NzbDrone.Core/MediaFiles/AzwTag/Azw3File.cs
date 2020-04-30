@@ -15,11 +15,6 @@ namespace NzbDrone.Core.MediaFiles.Azw
                     _mobiHeader = new MobiHeader(GetSectionData(0));
                     Sections[0] = _mobiHeader;
 
-                    if (_mobiHeader._codepage != 65001)
-                    {
-                        throw new AzwTagException("not UTF8");
-                    }
-
                     if (_mobiHeader._version != 8 && _mobiHeader._version != 6)
                     {
                         throw new AzwTagException("Unhandled mobi version:" + _mobiHeader._version);

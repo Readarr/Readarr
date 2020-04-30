@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Runtime.InteropServices;
 using System.Text;
 
 namespace NzbDrone.Core.MediaFiles.Azw
@@ -11,13 +10,12 @@ namespace NzbDrone.Core.MediaFiles.Azw
         public Dictionary<uint, string> IdString;
         public Dictionary<uint, string> IdHex;
 
-        public ExtMeta(byte[] ext)
+        public ExtMeta(byte[] ext, Encoding encoding)
         {
             IdValue = new Dictionary<uint, ulong>();
             IdString = new Dictionary<uint, string>();
             IdHex = new Dictionary<uint, string>();
 
-            var len = Util.GetUInt32(ext, 4);
             var num_items = Util.GetUInt32(ext, 8);
             uint pos = 12;
             for (var i = 0; i < num_items; i++)
@@ -26,9 +24,8 @@ namespace NzbDrone.Core.MediaFiles.Azw
                 var size = Util.GetUInt32(ext, pos + 4);
                 if (IdMapping.Id_map_strings.ContainsKey(id))
                 {
-                    var a = Encoding.UTF8.GetString(Util.SubArray(ext, pos + 8, size - 8));
+                    var a = encoding.GetString(Util.SubArray(ext, pos + 8, size - 8));
 
-                    //Log.log(" " + IdMapping.id_map_strings[id] + ":" + a);
                     if (IdString.ContainsKey(id))
                     {
                         if (id == 100 || id == 517)
@@ -57,7 +54,6 @@ namespace NzbDrone.Core.MediaFiles.Azw
                         default: Console.WriteLine("unexpected size:" + size); break;
                     }
 
-                    // Console.WriteLine(" " + IdMapping.id_map_values[id] + ":" + a);
                     if (IdValue.ContainsKey(id))
                     {
                         Console.WriteLine(string.Format("Meta id duplicate:{0}\nPervious:{1}  \nLatter:{2}", IdMapping.Id_map_values[id], IdValue[id], a));
@@ -71,7 +67,6 @@ namespace NzbDrone.Core.MediaFiles.Azw
                 {
                     var a = Util.ToHexString(ext, pos + 8, size - 8);
 
-                    // Console.WriteLine(" " + IdMapping.id_map_hex[id] + ":" + a);
                     if (IdHex.ContainsKey(id))
                     {
                         Console.WriteLine(string.Format("Meta id duplicate:{0}\nPervious:{1}  \nLatter:{2}", IdMapping.Id_map_hex[id], IdHex[id], a));
@@ -129,6 +124,11 @@ namespace NzbDrone.Core.MediaFiles.Azw
         : base("Mobi Header", header)
         {
             var mobi = Encoding.ASCII.GetString(header, 16, 4);
+            if (mobi != "MOBI")
+            {
+                throw new AzwTagException("Invalid mobi header");
+            }
+
             _records = Util.GetUInt16(header, 8);
             _compression = Util.GetUInt16(header, 0);
             if (_compression == 0x4448)
@@ -140,9 +140,20 @@ namespace NzbDrone.Core.MediaFiles.Azw
             _length = Util.GetUInt32(header, 20);
             _mobi_type = Util.GetUInt32(header, 24);
             _codepage = Util.GetUInt32(header, 28);
+
+            Encoding encoding;
+            if (_codepage == 65001)
+            {
+                encoding = Encoding.UTF8;
+            }
+            else
+            {
+                encoding = CodePagesEncodingProvider.Instance.GetEncoding((int)_codepage);
+            }
+
             _unique_id = Util.GetUInt32(header, 32);
             _version = Util.GetUInt32(header, 36);
-            _title = Encoding.UTF8.GetString(
+            _title = encoding.GetString(
                 header,
                 (int)Util.GetUInt32(header, 0x54),
                 (int)Util.GetUInt32(header, 0x58));
@@ -150,7 +161,7 @@ namespace NzbDrone.Core.MediaFiles.Azw
             if ((_exth_flag & 0x40) > 0)
             {
                 var exth = Util.SubArray(header, _length + 16, Util.GetUInt32(header, _length + 20));
-                ExtMeta = new ExtMeta(exth);
+                ExtMeta = new ExtMeta(exth, encoding);
             }
 
             _crypto_type = Util.GetUInt16(header, 0xc);
@@ -182,23 +193,25 @@ namespace NzbDrone.Core.MediaFiles.Azw
         public Azw6Header(byte[] header_raw)
         : base("Azw6 Header", header_raw)
         {
-            var header_size = Marshal.SizeOf(typeof(Azw6HeaderInfo));
-
-            // Byte[] header_raw = Util.SubArray(azw6_data, section_info[0].start_addr, (ulong)header_size);
             Info = Util.GetStructBE<Azw6HeaderInfo>(header_raw, 0);
             Array.Reverse(Info.Magic);
 
-            if (Info.Codepage != 65001)
+            Encoding encoding;
+            if (Info.Codepage == 65001)
             {
-                return;
+                encoding = Encoding.UTF8;
+            }
+            else
+            {
+                encoding = CodePagesEncodingProvider.Instance.GetEncoding((int)Info.Codepage);
             }
 
             var title_raw = Util.SubArray(header_raw, Info.Title_offset, Info.Title_length);
-            Title = Encoding.UTF8.GetString(title_raw);
+            Title = encoding.GetString(title_raw);
 
             //Console.WriteLine("Azw6 File Title:" + title);
             var ext = Util.SubArray(header_raw, 48, header_raw.Length - 48);
-            Meta = new ExtMeta(ext);
+            Meta = new ExtMeta(ext, encoding);
         }
     }
 }
