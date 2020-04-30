@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.IO.Abstractions;
 using System.Linq;
@@ -8,6 +9,7 @@ using NzbDrone.Core.MediaFiles.Azw;
 using NzbDrone.Core.Parser.Model;
 using NzbDrone.Core.Qualities;
 using VersOne.Epub;
+using VersOne.Epub.Schema;
 
 namespace NzbDrone.Core.MediaFiles
 {
@@ -65,7 +67,7 @@ namespace NzbDrone.Core.MediaFiles
 
                     _logger.Trace(meta.ToJson());
 
-                    result.Isbn = meta?.Identifiers?.FirstOrDefault(x => x.Scheme?.ToLower().Contains("isbn") ?? false)?.Identifier;
+                    result.Isbn = GetIsbn(meta?.Identifiers);
                     result.Asin = meta?.Identifiers?.FirstOrDefault(x => x.Scheme?.ToLower().Contains("asin") ?? false)?.Identifier;
                     result.Language = meta?.Languages?.FirstOrDefault();
                 }
@@ -76,9 +78,91 @@ namespace NzbDrone.Core.MediaFiles
                 result.Quality.QualityDetectionSource = QualityDetectionSource.Extension;
             }
 
-            _logger.Trace($"Got {result.ToJson()}");
+            _logger.Trace($"Got:\n{result.ToJson()}");
 
             return result;
+        }
+
+        private string GetIsbn(IEnumerable<EpubMetadataIdentifier> ids)
+        {
+            var id = ids?.FirstOrDefault(x => (x.Scheme?.ToLower().Contains("isbn") ?? false) ||
+                                         (x?.Identifier?.ToLower().Contains("isbn") ?? false) ||
+                                         (x?.Identifier?.Contains("978") ?? false) ||
+                                         (GetIsbnChars(x?.Identifier)?.Length == 10));
+
+            return StripIsbn(id?.Identifier);
+        }
+
+        private string GetIsbnChars(string input)
+        {
+            if (input == null)
+            {
+                return null;
+            }
+
+            return new string(input.Where(c => char.IsDigit(c) || c == 'X' || c == 'x').ToArray());
+        }
+
+        private string StripIsbn(string input)
+        {
+            var isbn = GetIsbnChars(input);
+
+            if (isbn == null)
+            {
+                return null;
+            }
+            else if ((isbn.Length == 10 && ValidateIsbn10(isbn)) ||
+                (isbn.Length == 13 && ValidateIsbn13(isbn)))
+            {
+                return isbn;
+            }
+
+            return null;
+        }
+
+        private static char Isbn10Checksum(string isbn)
+        {
+            var sum = 0;
+            for (var i = 0; i < 9; i++)
+            {
+                sum += int.Parse(isbn[i].ToString()) * (10 - i);
+            }
+
+            var result = sum % 11;
+
+            if (result == 0)
+            {
+                return '0';
+            }
+            else if (result == 1)
+            {
+                return 'X';
+            }
+
+            return (11 - result).ToString()[0];
+        }
+
+        private static char Isbn13Checksum(string isbn)
+        {
+            var result = 0;
+            for (var i = 0; i < 12; i++)
+            {
+                result += int.Parse(isbn[i].ToString()) * ((i % 2 == 0) ? 1 : 3);
+            }
+
+            result %= 10;
+
+            return result == 0 ? '0' : (10 - result).ToString()[0];
+        }
+
+        private static bool ValidateIsbn10(string isbn)
+        {
+            return ulong.TryParse(isbn.Substring(0, 9), out _) && isbn[9] == Isbn10Checksum(isbn);
+        }
+
+        private static bool ValidateIsbn13(string isbn)
+        {
+            return ulong.TryParse(isbn, out _) && isbn[12] == Isbn13Checksum(isbn);
         }
 
         private ParsedTrackInfo ReadAzw3(string file)
@@ -91,7 +175,7 @@ namespace NzbDrone.Core.MediaFiles
                 var book = new Azw3File(file);
                 result.ArtistTitle = book.Author;
                 result.AlbumTitle = book.Title;
-                result.Isbn = book.Isbn;
+                result.Isbn = StripIsbn(book.Isbn);
                 result.Asin = book.Asin;
                 result.Language = book.Language;
 
@@ -103,7 +187,7 @@ namespace NzbDrone.Core.MediaFiles
             }
             catch (Exception e)
             {
-                _logger.Error(e, "Error reading epub");
+                _logger.Error(e, "Error reading file");
 
                 result.Quality = new QualityModel
                 {
