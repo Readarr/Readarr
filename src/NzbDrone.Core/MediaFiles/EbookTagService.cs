@@ -62,6 +62,9 @@ namespace NzbDrone.Core.MediaFiles
                     result.AlbumTitle = bookRef.Title;
 
                     var meta = bookRef.Schema.Package.Metadata;
+
+                    _logger.Trace(meta.ToJson());
+
                     result.Isbn = meta?.Identifiers?.FirstOrDefault(x => x.Scheme?.ToLower().Contains("isbn") ?? false)?.Identifier;
                     result.Asin = meta?.Identifiers?.FirstOrDefault(x => x.Scheme?.ToLower().Contains("asin") ?? false)?.Identifier;
                     result.Language = meta?.Languages?.FirstOrDefault();

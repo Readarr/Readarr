@@ -3,25 +3,22 @@ using System.Collections.Generic;
 using System.Linq;
 using NLog;
 using NzbDrone.Common.Instrumentation.Extensions;
-using NzbDrone.Core.Exceptions;
 using NzbDrone.Core.History;
 using NzbDrone.Core.MediaCover;
 using NzbDrone.Core.MediaFiles;
-using NzbDrone.Core.Messaging.Commands;
 using NzbDrone.Core.Messaging.Events;
 using NzbDrone.Core.MetadataSource;
-using NzbDrone.Core.Music.Commands;
 using NzbDrone.Core.Music.Events;
 
 namespace NzbDrone.Core.Music
 {
     public interface IRefreshAlbumService
     {
-        bool RefreshAlbumInfo(Book album, List<Book> remoteAlbums, bool forceUpdateFileTags);
-        bool RefreshAlbumInfo(List<Book> albums, List<Book> remoteAlbums, bool forceAlbumRefresh, bool forceUpdateFileTags, DateTime? lastUpdate);
+        bool RefreshAlbumInfo(Book album, List<Book> remoteAlbums, Author remoteData, bool forceUpdateFileTags);
+        bool RefreshAlbumInfo(List<Book> albums, List<Book> remoteAlbums, Author remoteData, bool forceAlbumRefresh, bool forceUpdateFileTags, DateTime? lastUpdate);
     }
 
-    public class RefreshAlbumService : RefreshEntityServiceBase<Book, object>, IRefreshAlbumService, IExecute<RefreshAlbumCommand>
+    public class RefreshAlbumService : RefreshEntityServiceBase<Book, object>, IRefreshAlbumService
     {
         private readonly IAlbumService _albumService;
         private readonly IArtistService _artistService;
@@ -59,13 +56,23 @@ namespace NzbDrone.Core.Music
             _logger = logger;
         }
 
-        protected override RemoteData GetRemoteData(Book local, List<Book> remote)
+        protected override RemoteData GetRemoteData(Book local, List<Book> remote, Author data)
         {
-            var result = new RemoteData
-            {
-                Entity = remote.SingleOrDefault(x => x.ForeignWorkId == local.ForeignWorkId)
-            };
+            var result = new RemoteData();
 
+            var book = remote.SingleOrDefault(x => x.ForeignWorkId == local.ForeignWorkId);
+
+            if (book == null && ShouldDelete(local))
+            {
+                return result;
+            }
+
+            if (book == null)
+            {
+                book = data.Books.Value.SingleOrDefault(x => x.ForeignWorkId == local.ForeignWorkId);
+            }
+
+            result.Entity = book;
             if (result.Entity != null)
             {
                 result.Entity.Id = local.Id;
@@ -190,7 +197,7 @@ namespace NzbDrone.Core.Music
             _albumService.DeleteAlbum(local.Id, true);
         }
 
-        protected override List<object> GetRemoteChildren(Book remote)
+        protected override List<object> GetRemoteChildren(Book local, Book remote)
         {
             return new List<object>();
         }
@@ -217,7 +224,7 @@ namespace NzbDrone.Core.Music
         {
         }
 
-        protected override bool RefreshChildren(SortedChildren localChildren, List<object> remoteChildren, bool forceChildRefresh, bool forceUpdateFileTags, DateTime? lastUpdate)
+        protected override bool RefreshChildren(SortedChildren localChildren, List<object> remoteChildren, Author remoteData, bool forceChildRefresh, bool forceUpdateFileTags, DateTime? lastUpdate)
         {
             return false;
         }
@@ -228,9 +235,9 @@ namespace NzbDrone.Core.Music
             _eventAggregator.PublishEvent(new AlbumUpdatedEvent(_albumService.GetAlbum(entity.Id)));
         }
 
-        public bool RefreshAlbumInfo(List<Book> albums, List<Book> remoteAlbums, bool forceAlbumRefresh, bool forceUpdateFileTags, DateTime? lastUpdate)
+        public bool RefreshAlbumInfo(List<Book> albums, List<Book> remoteAlbums, Author remoteData, bool forceAlbumRefresh, bool forceUpdateFileTags, DateTime? lastUpdate)
         {
-            bool updated = false;
+            var updated = false;
 
             HashSet<string> updatedMusicbrainzAlbums = null;
 
@@ -245,7 +252,7 @@ namespace NzbDrone.Core.Music
                     (updatedMusicbrainzAlbums == null && _checkIfAlbumShouldBeRefreshed.ShouldRefresh(album)) ||
                     (updatedMusicbrainzAlbums != null && updatedMusicbrainzAlbums.Contains(album.ForeignBookId)))
                 {
-                    updated |= RefreshAlbumInfo(album, remoteAlbums, forceUpdateFileTags);
+                    updated |= RefreshAlbumInfo(album, remoteAlbums, remoteData, forceUpdateFileTags);
                 }
                 else
                 {
@@ -256,24 +263,9 @@ namespace NzbDrone.Core.Music
             return updated;
         }
 
-        public bool RefreshAlbumInfo(Book album, List<Book> remoteAlbums, bool forceUpdateFileTags)
+        public bool RefreshAlbumInfo(Book album, List<Book> remoteAlbums, Author remoteData, bool forceUpdateFileTags)
         {
-            return RefreshEntityInfo(album, remoteAlbums, true, forceUpdateFileTags, null);
-        }
-
-        public void Execute(RefreshAlbumCommand message)
-        {
-            if (message.BookId.HasValue)
-            {
-                var album = _albumService.GetAlbum(message.BookId.Value);
-                var artist = _artistService.GetArtistByMetadataId(album.AuthorMetadataId);
-                var updated = RefreshAlbumInfo(album, null, false);
-                if (updated)
-                {
-                    _eventAggregator.PublishEvent(new ArtistUpdatedEvent(artist));
-                    _eventAggregator.PublishEvent(new AlbumUpdatedEvent(album));
-                }
-            }
+            return RefreshEntityInfo(album, remoteAlbums, remoteData, true, forceUpdateFileTags, null);
         }
     }
 }

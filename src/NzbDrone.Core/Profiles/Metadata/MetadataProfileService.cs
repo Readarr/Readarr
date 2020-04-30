@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using NLog;
+using NzbDrone.Common.Extensions;
 using NzbDrone.Core.ImportLists;
 using NzbDrone.Core.Lifecycle;
 using NzbDrone.Core.Messaging.Events;
@@ -18,11 +20,15 @@ namespace NzbDrone.Core.Profiles.Metadata
         List<MetadataProfile> All();
         MetadataProfile Get(int id);
         bool Exists(int id);
+        List<Book> FilterBooks(Author input, int profileId);
     }
 
     public class MetadataProfileService : IMetadataProfileService, IHandle<ApplicationStartedEvent>
     {
         public const string NONE_PROFILE_NAME = "None";
+
+        private static readonly Regex PartOrSetRegex = new Regex(@"(?:\d+ of \d+|\d+/\d+|(?<from>\d+)-(?<to>\d+))");
+
         private readonly IMetadataProfileRepository _profileRepository;
         private readonly IArtistService _artistService;
         private readonly IImportListFactory _importListFactory;
@@ -85,6 +91,62 @@ namespace NzbDrone.Core.Profiles.Metadata
         public bool Exists(int id)
         {
             return _profileRepository.Exists(id);
+        }
+
+        public List<Book> FilterBooks(Author input, int profileId)
+        {
+            var seriesLinks = input.Series.Value.SelectMany(x => x.LinkItems.Value)
+                .GroupBy(x => x.Book.Value)
+                .ToDictionary(x => x.Key, y => y.ToList());
+
+            return FilterBooks(input.Books.Value, seriesLinks, profileId);
+        }
+
+        private List<Book> FilterBooks(IEnumerable<Book> books, Dictionary<Book, List<SeriesBookLink>> seriesLinks, int metadataProfileId)
+        {
+            var profile = Get(metadataProfileId);
+            var allowedLanguages = profile.AllowedLanguages.IsNotNullOrWhiteSpace() ? new HashSet<string>(profile.AllowedLanguages.Split(',').Select(x => x.Trim().ToLower())) : new HashSet<string>();
+
+            _logger.Trace($"Filtering:\n{books.Select(x => x.ToString()).Join("\n")}");
+
+            var hash = new HashSet<Book>(books);
+
+            FilterByPredicate(hash, profile, (x, p) => x.Ratings.Votes >= p.MinRatingCount && (double)x.Ratings.Value >= p.MinRating, "rating criteria not met");
+            FilterByPredicate(hash, profile, (x, p) => !p.SkipMissingDate || x.ReleaseDate.HasValue, "release date is missing");
+            FilterByPredicate(hash, profile, (x, p) => !p.SkipMissingIsbn || x.Isbn13.IsNotNullOrWhiteSpace() || x.Asin.IsNotNullOrWhiteSpace(), "isbn and asin is missing");
+            FilterByPredicate(hash, profile, (x, p) => !p.SkipPartsAndSets || !IsPartOrSet(x, seriesLinks.GetValueOrDefault(x)), "book is part of set");
+            FilterByPredicate(hash, profile, (x, p) => !p.SkipSeriesSecondary || !seriesLinks.ContainsKey(x) || seriesLinks[x].Any(y => y.IsPrimary), "book is a secondary series item");
+            FilterByPredicate(hash, profile, (x, p) => !allowedLanguages.Any() || allowedLanguages.Contains(x.Language?.ToLower() ?? "null"), "book language not allowed");
+
+            return hash.ToList();
+        }
+
+        private void FilterByPredicate(HashSet<Book> books, MetadataProfile profile, Func<Book, MetadataProfile, bool> bookAllowed, string message)
+        {
+            var filtered = new HashSet<Book>(books.Where(x => !bookAllowed(x, profile)));
+            _logger.Trace($"Skipping {filtered.Count} books because {message}:\n{filtered.ConcatToString(x => x.ToString(), "\n")}");
+            books.RemoveWhere(x => filtered.Contains(x));
+        }
+
+        private bool IsPartOrSet(Book book, List<SeriesBookLink> seriesLinks)
+        {
+            if (seriesLinks != null &&
+                seriesLinks.Any(x => x.Position.IsNotNullOrWhiteSpace()) &&
+                !seriesLinks.Any(s => double.TryParse(s.Position, out _)))
+            {
+                // No non-empty series entries parse to a number, so all like 1-3 etc.
+                return true;
+            }
+
+            var match = PartOrSetRegex.Match(book.Title);
+
+            if (match.Groups["from"].Success)
+            {
+                var from = int.Parse(match.Groups["from"].Value);
+                return from >= 1800 && from <= DateTime.UtcNow.Year ? false : true;
+            }
+
+            return match.Success;
         }
 
         public void Handle(ApplicationStartedEvent message)

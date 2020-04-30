@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using NLog;
-using NzbDrone.Common.EnsureThat;
 using NzbDrone.Common.Extensions;
 using NzbDrone.Common.Instrumentation.Extensions;
 using NzbDrone.Core.Configuration;
@@ -17,6 +16,7 @@ using NzbDrone.Core.Messaging.Events;
 using NzbDrone.Core.MetadataSource;
 using NzbDrone.Core.Music.Commands;
 using NzbDrone.Core.Music.Events;
+using NzbDrone.Core.Profiles.Metadata;
 using NzbDrone.Core.RootFolders;
 
 namespace NzbDrone.Core.Music
@@ -28,6 +28,7 @@ namespace NzbDrone.Core.Music
         private readonly IProvideAuthorInfo _artistInfo;
         private readonly IArtistService _artistService;
         private readonly IAlbumService _albumService;
+        private readonly IMetadataProfileService _metadataProfileService;
         private readonly IRefreshAlbumService _refreshAlbumService;
         private readonly IRefreshSeriesService _refreshSeriesService;
         private readonly IEventAggregator _eventAggregator;
@@ -44,6 +45,7 @@ namespace NzbDrone.Core.Music
                                     IArtistService artistService,
                                     IArtistMetadataService artistMetadataService,
                                     IAlbumService albumService,
+                                    IMetadataProfileService metadataProfileService,
                                     IRefreshAlbumService refreshAlbumService,
                                     IRefreshSeriesService refreshSeriesService,
                                     IEventAggregator eventAggregator,
@@ -60,6 +62,7 @@ namespace NzbDrone.Core.Music
             _artistInfo = artistInfo;
             _artistService = artistService;
             _albumService = albumService;
+            _metadataProfileService = metadataProfileService;
             _refreshAlbumService = refreshAlbumService;
             _refreshSeriesService = refreshSeriesService;
             _eventAggregator = eventAggregator;
@@ -73,17 +76,28 @@ namespace NzbDrone.Core.Music
             _logger = logger;
         }
 
-        protected override RemoteData GetRemoteData(Author local, List<Author> remote)
+        private Author GetSkyhookData(string foreignId)
         {
-            var result = new RemoteData();
             try
             {
-                result.Entity = _artistInfo.GetAuthorInfo(local.Metadata.Value.ForeignAuthorId, local.MetadataProfileId);
-                result.Metadata = new List<AuthorMetadata> { result.Entity.Metadata.Value };
+                return _artistInfo.GetAuthorInfo(foreignId);
             }
             catch (ArtistNotFoundException)
             {
-                _logger.Error($"Could not find artist with id {local.Metadata.Value.ForeignAuthorId}");
+                _logger.Error($"Could not find artist with id {foreignId}");
+            }
+
+            return null;
+        }
+
+        protected override RemoteData GetRemoteData(Author local, List<Author> remote, Author data)
+        {
+            var result = new RemoteData();
+
+            if (data != null)
+            {
+                result.Entity = data;
+                result.Metadata = new List<AuthorMetadata> { data.Metadata.Value };
             }
 
             return result;
@@ -107,7 +121,7 @@ namespace NzbDrone.Core.Music
 
         protected override UpdateResult UpdateEntity(Author local, Author remote)
         {
-            UpdateResult result = UpdateResult.None;
+            var result = UpdateResult.None;
 
             if (!local.Metadata.Value.Equals(remote.Metadata.Value))
             {
@@ -203,9 +217,11 @@ namespace NzbDrone.Core.Music
             _artistService.DeleteArtist(local.Id, true);
         }
 
-        protected override List<Book> GetRemoteChildren(Author remote)
+        protected override List<Book> GetRemoteChildren(Author local, Author remote)
         {
-            var all = remote.Books.Value.DistinctBy(m => m.ForeignBookId).ToList();
+            var filtered = _metadataProfileService.FilterBooks(remote, local.MetadataProfileId);
+
+            var all = filtered.DistinctBy(m => m.ForeignBookId).ToList();
             var ids = all.Select(x => x.ForeignBookId).ToList();
             var excluded = _importListExclusionService.FindByForeignId(ids).Select(x => x.ForeignId).ToList();
             return all.Where(x => !excluded.Contains(x.ForeignBookId)).ToList();
@@ -248,9 +264,9 @@ namespace NzbDrone.Core.Music
             _albumService.InsertMany(children);
         }
 
-        protected override bool RefreshChildren(SortedChildren localChildren, List<Book> remoteChildren, bool forceChildRefresh, bool forceUpdateFileTags, DateTime? lastUpdate)
+        protected override bool RefreshChildren(SortedChildren localChildren, List<Book> remoteChildren, Author remoteData, bool forceChildRefresh, bool forceUpdateFileTags, DateTime? lastUpdate)
         {
-            return _refreshAlbumService.RefreshAlbumInfo(localChildren.All, remoteChildren, forceChildRefresh, forceUpdateFileTags, lastUpdate);
+            return _refreshAlbumService.RefreshAlbumInfo(localChildren.All, remoteChildren, remoteData, forceChildRefresh, forceUpdateFileTags, lastUpdate);
         }
 
         protected override void PublishEntityUpdatedEvent(Author entity)
@@ -261,7 +277,7 @@ namespace NzbDrone.Core.Music
         protected override void PublishRefreshCompleteEvent(Author entity)
         {
             // little hack - trigger the series update here
-            _refreshSeriesService.RefreshSeriesInfo(entity.AuthorMetadataId, entity.Series, false, false, null);
+            _refreshSeriesService.RefreshSeriesInfo(entity.AuthorMetadataId, entity.Series, entity, false, false, null);
 
             _eventAggregator.PublishEvent(new ArtistRefreshCompleteEvent(entity));
         }
@@ -309,14 +325,15 @@ namespace NzbDrone.Core.Music
 
         private void RefreshSelectedArtists(List<int> authorIds, bool isNew, CommandTrigger trigger)
         {
-            bool updated = false;
+            var updated = false;
             var artists = _artistService.GetArtists(authorIds);
 
             foreach (var artist in artists)
             {
                 try
                 {
-                    updated |= RefreshEntityInfo(artist, null, true, false, null);
+                    var data = GetSkyhookData(artist.ForeignAuthorId);
+                    updated |= RefreshEntityInfo(artist, null, data, true, false, null);
                 }
                 catch (Exception e)
                 {
@@ -364,7 +381,8 @@ namespace NzbDrone.Core.Music
                     {
                         try
                         {
-                            updated |= RefreshEntityInfo(artist, null, manualTrigger, false, message.LastStartTime);
+                            var data = GetSkyhookData(artist.ForeignAuthorId);
+                            updated |= RefreshEntityInfo(artist, null, data, manualTrigger, false, message.LastStartTime);
                         }
                         catch (Exception e)
                         {

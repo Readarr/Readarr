@@ -79,7 +79,7 @@ namespace NzbDrone.Core.Test.MusicTests
 
             GivenNewAlbumInfo(newAlbumInfo);
 
-            Subject.RefreshAlbumInfo(_albums, null, false, false, null);
+            Subject.RefreshAlbumInfo(_albums, null, null, false, false, null);
 
             Mocker.GetMock<IAlbumService>()
                 .Verify(v => v.UpdateMany(It.Is<List<Book>>(s => s.First().ForeignBookId == newAlbumInfo.ForeignBookId)));
@@ -105,7 +105,7 @@ namespace NzbDrone.Core.Test.MusicTests
 
             GivenNewAlbumInfo(newAlbumInfo);
 
-            Subject.RefreshAlbumInfo(_albums, null, false, false, null);
+            Subject.RefreshAlbumInfo(_albums, null, null, false, false, null);
 
             // check old album is deleted
             Mocker.GetMock<IAlbumService>()

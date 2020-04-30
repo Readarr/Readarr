@@ -57,7 +57,7 @@ namespace NzbDrone.Core.Music
         {
         }
 
-        protected abstract RemoteData GetRemoteData(TEntity local, List<TEntity> remote);
+        protected abstract RemoteData GetRemoteData(TEntity local, List<TEntity> remote, Author data);
 
         protected virtual void EnsureNewParent(TEntity local, TEntity remote)
         {
@@ -87,14 +87,14 @@ namespace NzbDrone.Core.Music
         protected abstract void SaveEntity(TEntity local);
         protected abstract void DeleteEntity(TEntity local, bool deleteFiles);
 
-        protected abstract List<TChild> GetRemoteChildren(TEntity remote);
+        protected abstract List<TChild> GetRemoteChildren(TEntity local, TEntity remote);
         protected abstract List<TChild> GetLocalChildren(TEntity entity, List<TChild> remoteChildren);
         protected abstract Tuple<TChild, List<TChild>> GetMatchingExistingChildren(List<TChild> existingChildren, TChild remote);
 
         protected abstract void PrepareNewChild(TChild child, TEntity entity);
         protected abstract void PrepareExistingChild(TChild local, TChild remote, TEntity entity);
         protected abstract void AddChildren(List<TChild> children);
-        protected abstract bool RefreshChildren(SortedChildren localChildren, List<TChild> remoteChildren, bool forceChildRefresh, bool forceUpdateFileTags, DateTime? lastUpdate);
+        protected abstract bool RefreshChildren(SortedChildren localChildren, List<TChild> remoteChildren, Author remoteData, bool forceChildRefresh, bool forceUpdateFileTags, DateTime? lastUpdate);
 
         protected virtual void PublishEntityUpdatedEvent(TEntity entity)
         {
@@ -108,13 +108,13 @@ namespace NzbDrone.Core.Music
         {
         }
 
-        public bool RefreshEntityInfo(TEntity local, List<TEntity> remoteList, bool forceChildRefresh, bool forceUpdateFileTags, DateTime? lastUpdate)
+        public bool RefreshEntityInfo(TEntity local, List<TEntity> remoteItems, Author remoteData, bool forceChildRefresh, bool forceUpdateFileTags, DateTime? lastUpdate)
         {
-            bool updated = false;
+            var updated = false;
 
             LogProgress(local);
 
-            var data = GetRemoteData(local, remoteList);
+            var data = GetRemoteData(local, remoteItems, remoteData);
             var remote = data.Entity;
 
             if (remote == null)
@@ -176,8 +176,8 @@ namespace NzbDrone.Core.Music
 
             _logger.Trace($"updated: {updated} forceUpdateFileTags: {forceUpdateFileTags}");
 
-            var remoteChildren = GetRemoteChildren(remote);
-            updated |= SortChildren(local, remoteChildren, forceChildRefresh, forceUpdateFileTags, lastUpdate);
+            var remoteChildren = GetRemoteChildren(local, remote);
+            updated |= SortChildren(local, remoteChildren, remoteData, forceChildRefresh, forceUpdateFileTags, lastUpdate);
 
             // Do this last so entity only marked as refreshed if refresh of children completed successfully
             _logger.Trace($"Saving {typeof(TEntity).Name} {local}");
@@ -195,12 +195,12 @@ namespace NzbDrone.Core.Music
             return updated;
         }
 
-        public bool RefreshEntityInfo(List<TEntity> localList, List<TEntity> remoteList, bool forceChildRefresh, bool forceUpdateFileTags)
+        public bool RefreshEntityInfo(List<TEntity> localList, List<TEntity> remoteItems, Author remoteData, bool forceChildRefresh, bool forceUpdateFileTags)
         {
-            bool updated = false;
+            var updated = false;
             foreach (var entity in localList)
             {
-                updated |= RefreshEntityInfo(entity, remoteList, forceChildRefresh, forceUpdateFileTags, null);
+                updated |= RefreshEntityInfo(entity, remoteItems, remoteData, forceChildRefresh, forceUpdateFileTags, null);
             }
 
             return updated;
@@ -213,7 +213,7 @@ namespace NzbDrone.Core.Music
             return updated ? UpdateResult.UpdateTags : UpdateResult.None;
         }
 
-        protected bool SortChildren(TEntity entity, List<TChild> remoteChildren, bool forceChildRefresh, bool forceUpdateFileTags, DateTime? lastUpdate)
+        protected bool SortChildren(TEntity entity, List<TChild> remoteChildren, Author remoteData, bool forceChildRefresh, bool forceUpdateFileTags, DateTime? lastUpdate)
         {
             // Get existing children (and children to be) from the database
             var localChildren = GetLocalChildren(entity, remoteChildren);
@@ -281,7 +281,7 @@ namespace NzbDrone.Core.Music
             AddChildren(sortedChildren.Added);
 
             // now trigger updates
-            var updated = RefreshChildren(sortedChildren, remoteChildren, forceChildRefresh, forceUpdateFileTags, lastUpdate);
+            var updated = RefreshChildren(sortedChildren, remoteChildren, remoteData, forceChildRefresh, forceUpdateFileTags, lastUpdate);
 
             PublishChildrenUpdatedEvent(entity, sortedChildren.Added, sortedChildren.Updated);
             return updated;

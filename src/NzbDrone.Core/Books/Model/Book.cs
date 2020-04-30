@@ -62,8 +62,6 @@ namespace NzbDrone.Core.Music
         public LazyLoaded<Author> Author { get; set; }
         [MemberwiseEqualityIgnore]
         public LazyLoaded<BookFile> BookFile { get; set; }
-        [MemberwiseEqualityIgnore]
-        public LazyLoaded<List<SeriesBookLink>> SeriesLinks { get; set; }
 
         //compatibility properties with old version of Album
         [MemberwiseEqualityIgnore]

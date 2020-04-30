@@ -6,7 +6,7 @@ namespace NzbDrone.Core.MetadataSource
 {
     public interface IProvideAuthorInfo
     {
-        Author GetAuthorInfo(string readarrId, int metadataProfileId);
+        Author GetAuthorInfo(string readarrId);
         HashSet<string> GetChangedArtists(DateTime startTime);
     }
 }

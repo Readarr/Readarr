@@ -36,7 +36,7 @@ namespace NzbDrone.Core.Test.MetadataSource.SkyHook
         [TestCase("575", "Robert Harris")]
         public void should_be_able_to_get_author_detail(string mbId, string name)
         {
-            var details = Subject.GetAuthorInfo(mbId, 1);
+            var details = Subject.GetAuthorInfo(mbId);
 
             ValidateAuthor(details);
 
@@ -67,13 +67,13 @@ namespace NzbDrone.Core.Test.MetadataSource.SkyHook
         [Test]
         public void getting_details_of_invalid_artist()
         {
-            Assert.Throws<ArtistNotFoundException>(() => Subject.GetAuthorInfo("66c66aaa-6e2f-4930-8610-912e24c63ed1", 1));
+            Assert.Throws<ArtistNotFoundException>(() => Subject.GetAuthorInfo("66c66aaa-6e2f-4930-8610-912e24c63ed1"));
         }
 
         [Test]
         public void getting_details_of_invalid_guid_for_artist()
         {
-            Assert.Throws<BadRequestException>(() => Subject.GetAuthorInfo("66c66aaa-6e2f-4930-aaaaaa", 1));
+            Assert.Throws<BadRequestException>(() => Subject.GetAuthorInfo("66c66aaa-6e2f-4930-aaaaaa"));
         }
 
         [Test]
