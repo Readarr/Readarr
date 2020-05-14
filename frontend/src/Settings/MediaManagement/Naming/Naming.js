@@ -167,7 +167,7 @@ class Naming extends Component {
                   onChange={onInputChange}
                   {...settings.authorFolderFormat}
                   helpTexts={['Used when adding a new artist or moving an author via the author editor', ...authorFolderFormatHelpTexts]}
-                  errors={[...authorFolderFormatErrors, ...settings.authorFolderFormat.errors]}
+                  errors={[...authorFolderFormatErrors, ...settings.authorFolderFormat?.errors]}
                 />
               </FormGroup>
 
