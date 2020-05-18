@@ -13,11 +13,10 @@ function createMapStateToProps() {
     (state) => state.system.health,
     (state) => state.settings.downloadClients.isTestingAll,
     (state) => state.settings.indexers.isTestingAll,
-    (health, isTestingAllDownloadClients, isTestingAllIndexers) => {
+    (items, health, isTestingAllDownloadClients, isTestingAllIndexers) => {
       const {
         isFetching,
-        isPopulated,
-        items
+        isPopulated
       } = health;
 
       return {
