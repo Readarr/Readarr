@@ -23,6 +23,7 @@ namespace NzbDrone.Core.Test.Download.CompletedDownloadServiceTests
     public class ImportFixture : CoreTest<CompletedDownloadService>
     {
         private TrackedDownload _trackedDownload;
+        private Author _author;
 
         [SetUp]
         public void Setup()
@@ -41,6 +42,9 @@ namespace NzbDrone.Core.Test.Download.CompletedDownloadServiceTests
                     .With(c => c.DownloadItem = completed)
                     .With(c => c.RemoteBook = remoteBook)
                     .Build();
+
+            _author = Builder<Author>.CreateNew()
+                .Build();
 
             Mocker.GetMock<IDownloadClient>()
               .SetupGet(c => c.Definition)
@@ -190,8 +194,8 @@ namespace NzbDrone.Core.Test.Download.CompletedDownloadServiceTests
                   .Setup(v => v.ProcessPath(It.IsAny<string>(), It.IsAny<ImportMode>(), It.IsAny<Author>(), It.IsAny<DownloadClientItem>()))
                   .Returns(new List<ImportResult>
                            {
-                               new ImportResult(new ImportDecision<LocalBook>(new LocalBook { Path = @"C:\TestPath\Droned.S01E01.mkv".AsOsAgnostic() })),
-                               new ImportResult(new ImportDecision<LocalBook>(new LocalBook { Path = @"C:\TestPath\Droned.S01E01.mkv".AsOsAgnostic() }), "Test Failure")
+                               new ImportResult(new ImportDecision<LocalBook>(new LocalBook { Path = @"C:\TestPath\Droned.S01E01.mkv".AsOsAgnostic(), Author = _author })),
+                               new ImportResult(new ImportDecision<LocalBook>(new LocalBook { Path = @"C:\TestPath\Droned.S01E01.mkv".AsOsAgnostic(), Author = _author }), "Test Failure")
                            });
 
             Mocker.GetMock<IHistoryService>()
@@ -286,11 +290,11 @@ namespace NzbDrone.Core.Test.Download.CompletedDownloadServiceTests
                            {
                                new ImportResult(
                                    new ImportDecision<LocalBook>(
-                                       new LocalBook { Path = @"C:\TestPath\Droned.S01E01.mkv".AsOsAgnostic() })),
+                                       new LocalBook { Path = @"C:\TestPath\Droned.S01E01.mkv".AsOsAgnostic(), Author = _author })),
 
                                new ImportResult(
                                    new ImportDecision<LocalBook>(
-                                       new LocalBook { Path = @"C:\TestPath\Droned.S01E02.mkv".AsOsAgnostic() }))
+                                       new LocalBook { Path = @"C:\TestPath\Droned.S01E02.mkv".AsOsAgnostic(), Author = _author }))
                            });
 
             Subject.Import(_trackedDownload);
@@ -311,15 +315,18 @@ namespace NzbDrone.Core.Test.Download.CompletedDownloadServiceTests
                 {
                     new ImportResult(
                         new ImportDecision<LocalBook>(
-                            new LocalBook { Path = @"C:\TestPath\Droned.S01E01.mkv", Book = books[0] })),
+                            new LocalBook { Path = @"C:\TestPath\Droned.S01E01.mkv", Book = books[0], Author = _author })),
 
                     new ImportResult(
                         new ImportDecision<LocalBook>(
-                            new LocalBook { Path = @"C:\TestPath\Droned.S01E02.mkv", Book = books[1] }), "Test Failure")
+                            new LocalBook { Path = @"C:\TestPath\Droned.S01E02.mkv", Book = books[1], Author = _author }), "Test Failure")
                 });
 
             var history = Builder<EntityHistory>.CreateListOfSize(2)
-                                                  .BuildList();
+                .All()
+                .With(x => x.EventType = EntityHistoryEventType.BookFileImported)
+                .With(x => x.AuthorId = 1)
+                .BuildList();
 
             Mocker.GetMock<IHistoryService>()
                   .Setup(s => s.FindByDownloadId(It.IsAny<string>()))
@@ -343,7 +350,7 @@ namespace NzbDrone.Core.Test.Download.CompletedDownloadServiceTests
                   .Setup(v => v.ProcessPath(It.IsAny<string>(), It.IsAny<ImportMode>(), It.IsAny<Author>(), It.IsAny<DownloadClientItem>()))
                   .Returns(new List<ImportResult>
                            {
-                               new ImportResult(new ImportDecision<LocalBook>(new LocalBook { Path = @"C:\TestPath\Droned.S01E01.mkv".AsOsAgnostic() }))
+                               new ImportResult(new ImportDecision<LocalBook>(new LocalBook { Path = @"C:\TestPath\Droned.S01E01.mkv".AsOsAgnostic(), Author = _author }))
                            });
 
             Subject.Import(_trackedDownload);

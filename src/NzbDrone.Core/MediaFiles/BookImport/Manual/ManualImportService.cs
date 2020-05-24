@@ -389,7 +389,7 @@ namespace NzbDrone.Core.MediaFiles.BookImport.Manual
                 if (allItemsImported)
                 {
                     trackedDownload.State = TrackedDownloadState.Imported;
-                    _eventAggregator.PublishEvent(new DownloadCompletedEvent(trackedDownload));
+                    _eventAggregator.PublishEvent(new DownloadCompletedEvent(trackedDownload, imported.First().ImportDecision.Item.Author.Id));
                 }
             }
         }
