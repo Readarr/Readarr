@@ -130,7 +130,11 @@ namespace NzbDrone.Core.Download
             if (allItemsImported)
             {
                 trackedDownload.State = TrackedDownloadState.Imported;
-                _eventAggregator.PublishEvent(new DownloadCompletedEvent(trackedDownload));
+
+                var importedAuthorId = importResults.Where(x => x.Result == ImportResultType.Imported)
+                    .Select(c => c.ImportDecision.Item.Author.Id)
+                    .MostCommon();
+                _eventAggregator.PublishEvent(new DownloadCompletedEvent(trackedDownload, trackedDownload.RemoteBook?.Author.Id ?? importedAuthorId));
                 return true;
             }
 
@@ -153,7 +157,11 @@ namespace NzbDrone.Core.Download
                 if (allEpisodesImportedInHistory)
                 {
                     trackedDownload.State = TrackedDownloadState.Imported;
-                    _eventAggregator.PublishEvent(new DownloadCompletedEvent(trackedDownload));
+
+                    var importedAuthorId = historyItems.Where(x => x.EventType == EntityHistoryEventType.BookFileImported)
+                        .Select(x => x.AuthorId)
+                        .MostCommon();
+                    _eventAggregator.PublishEvent(new DownloadCompletedEvent(trackedDownload, trackedDownload.RemoteBook?.Author.Id ?? importedAuthorId));
                     return true;
                 }
             }
