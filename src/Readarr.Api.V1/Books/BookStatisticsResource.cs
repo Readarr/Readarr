@@ -9,7 +9,7 @@ namespace Readarr.Api.V1.Books
         public int TotalBookCount { get; set; }
         public long SizeOnDisk { get; set; }
 
-        public decimal PercentOfTracks
+        public decimal PercentOfBooks
         {
             get
             {
