@@ -114,8 +114,8 @@
 }
 
 .seriesTitle {
-    padding-left: 15px;
-    display: flex;
+  display: flex;
+  padding-left: 15px;
 }
 
 @media only screen and (max-width: $breakpointSmall) {
