@@ -59,7 +59,7 @@ class AuthorDetailsSeries extends Component {
   }
 
   isSeriesSaving(series) {
-    return series.items.every((book) => book.isSaving);
+    return series.items.some((book) => book.isSaving);
   }
 
   //
