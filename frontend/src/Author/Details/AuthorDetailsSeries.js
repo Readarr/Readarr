@@ -55,11 +55,11 @@ class AuthorDetailsSeries extends Component {
   }
 
   isSeriesMonitored(series) {
-    return series.items.every(book => book.monitored);
+    return series.items.every((book) => book.monitored);
   }
 
   isSeriesSaving(series) {
-    return series.items.every(book => book.isSaving);
+    return series.items.every((book) => book.isSaving);
   }
 
   //
@@ -93,7 +93,7 @@ class AuthorDetailsSeries extends Component {
   }
 
   onMonitorSeriesPress = (monitored, { shiftKey }) => {
-    const bookIds = this.props.items.map(book => book.id);
+    const bookIds = this.props.items.map((book) => book.id);
 
     this.props.onMonitorBookPress(_.uniq(bookIds), monitored);
   }
@@ -225,7 +225,8 @@ AuthorDetailsSeries.propTypes = {
   onExpandPress: PropTypes.func.isRequired,
   onSortPress: PropTypes.func.isRequired,
   onMonitorBookPress: PropTypes.func.isRequired,
-  uiSettings: PropTypes.object.isRequired
+  uiSettings: PropTypes.object.isRequired,
+  authorMonitored: PropTypes.object.isRequired
 };
 
 export default AuthorDetailsSeries;
