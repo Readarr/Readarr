@@ -181,7 +181,7 @@ namespace NzbDrone.Core.MediaFiles.BookImport.Manual
                 var idOverride = new IdentificationOverrides
                 {
                     Author = group.First().Author,
-                    Album = group.First().Book,
+                    Book = group.First().Book,
                 };
                 var config = new ImportDecisionMakerConfig
                 {

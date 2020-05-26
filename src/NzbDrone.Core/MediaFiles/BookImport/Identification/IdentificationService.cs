@@ -129,7 +129,7 @@ namespace NzbDrone.Core.MediaFiles.BookImport.Identification
                 // populate the overrides and return
                 foreach (var localTrack in localAlbumRelease.LocalBooks)
                 {
-                    localTrack.Book = idOverrides.Album;
+                    localTrack.Book = idOverrides.Book;
                     localTrack.Author = idOverrides.Author;
                 }
 
