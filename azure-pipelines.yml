@@ -647,6 +647,10 @@ stages:
         vmImage: windows-2019
       steps:
       - checkout: self # Need history for Sonar analysis
+      - powershell: |
+          $jdkPath = 'C:\Program Files\Java\zulu-11-azure-jdk_11.33.15-11.0.4-win_x64'
+          Write-Host "##vso[task.setvariable variable=JAVA_HOME]$jdkPath"
+        displayName: "Set java version"
       - task: SonarCloudPrepare@1
         env:
           SONAR_SCANNER_OPTS: ''
@@ -672,6 +676,10 @@ stages:
         displayName: 'Install .net core'
         inputs:
           version: $(dotnetVersion)
+      - powershell: |
+          $jdkPath = 'C:\Program Files\Java\zulu-11-azure-jdk_11.33.15-11.0.4-win_x64'
+          Write-Host "##vso[task.setvariable variable=JAVA_HOME]$jdkPath"
+        displayName: "Set java version"
       - checkout: self # Need history for Sonar analysis
         submodules: true
       - powershell: Set-Service SCardSvr -StartupType Manual
