@@ -40,8 +40,7 @@ namespace NzbDrone.Core.Download
 
             foreach (var trackedDownload in trackedDownloads)
             {
-                _eventAggregator.PublishEvent(new DownloadCompletedEvent(trackedDownload,
-                    trackedDownload.RemoteBook.Author.Id));
+                _eventAggregator.PublishEvent(new DownloadCanBeRemovedEvent(trackedDownload));
             }
         }
 
