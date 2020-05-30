@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using NLog;
 using NzbDrone.Common.EnvironmentInfo;
 using NzbDrone.Common.Extensions;
 using NzbDrone.Core.Books;
@@ -29,13 +30,15 @@ namespace NzbDrone.Core.Download
         private readonly IAuthorService _authorService;
         private readonly IProvideImportItemService _importItemService;
         private readonly ITrackedDownloadAlreadyImported _trackedDownloadAlreadyImported;
+        private readonly Logger _logger;
 
         public CompletedDownloadService(IEventAggregator eventAggregator,
                                         IHistoryService historyService,
                                         IProvideImportItemService importItemService,
                                         IDownloadedBooksImportService downloadedTracksImportService,
                                         IAuthorService authorService,
-                                        ITrackedDownloadAlreadyImported trackedDownloadAlreadyImported)
+                                        ITrackedDownloadAlreadyImported trackedDownloadAlreadyImported,
+                                        Logger logger)
         {
             _eventAggregator = eventAggregator;
             _historyService = historyService;
@@ -43,6 +46,7 @@ namespace NzbDrone.Core.Download
             _downloadedTracksImportService = downloadedTracksImportService;
             _authorService = authorService;
             _trackedDownloadAlreadyImported = trackedDownloadAlreadyImported;
+            _logger = logger;
         }
 
         public void Check(TrackedDownload trackedDownload)
@@ -129,6 +133,7 @@ namespace NzbDrone.Core.Download
 
             if (allItemsImported)
             {
+                _logger.Debug("All books were imported for {0}", trackedDownload.DownloadItem.Title);
                 trackedDownload.State = TrackedDownloadState.Imported;
 
                 var importedAuthorId = importResults.Where(x => x.Result == ImportResultType.Imported)
@@ -156,6 +161,7 @@ namespace NzbDrone.Core.Download
 
                 if (allEpisodesImportedInHistory)
                 {
+                    _logger.Debug("All books were imported in history for {0}", trackedDownload.DownloadItem.Title);
                     trackedDownload.State = TrackedDownloadState.Imported;
 
                     var importedAuthorId = historyItems.Where(x => x.EventType == EntityHistoryEventType.BookFileImported)
@@ -166,6 +172,7 @@ namespace NzbDrone.Core.Download
                 }
             }
 
+            _logger.Debug("Not all books have been imported for {0}", trackedDownload.DownloadItem.Title);
             return false;
         }
     }
