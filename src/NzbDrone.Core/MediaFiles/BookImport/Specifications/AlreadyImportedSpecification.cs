@@ -44,11 +44,13 @@ namespace NzbDrone.Core.MediaFiles.BookImport.Specifications
 
             if (lastImported == null)
             {
+                _logger.Trace("Book file has not been imported");
                 return Decision.Accept();
             }
 
             if (lastGrabbed != null && lastGrabbed.Date.After(lastImported.Date))
             {
+                _logger.Trace("Book file was grabbed again after importing");
                 return Decision.Accept();
             }
 
