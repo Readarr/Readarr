@@ -49,7 +49,7 @@ namespace NzbDrone.Core.Books
             _authorRepository = authorRepository;
             _eventAggregator = eventAggregator;
             _authorPathBuilder = authorPathBuilder;
-            _cache = cacheManager.GetCache<List<Author>>(GetType());
+            _cache = cacheManager.GetRollingCache<List<Author>>(GetType(), "authorcache", TimeSpan.FromSeconds(30));
             _logger = logger;
         }
 
