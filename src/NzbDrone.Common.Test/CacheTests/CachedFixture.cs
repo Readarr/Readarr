@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Threading;
 using FluentAssertions;
 using NUnit.Framework;
@@ -108,7 +108,7 @@ namespace NzbDrone.Common.Test.CacheTests
         public void should_clear_expired_when_they_expire()
         {
             int hitCount = 0;
-            _cachedString = new Cached<string>();
+            _cachedString = new Cached<string>(rollingExpiry: true);
 
             for (int i = 0; i < 10; i++)
             {
@@ -123,9 +123,9 @@ namespace NzbDrone.Common.Test.CacheTests
                 Thread.Sleep(100);
             }
 
-            Thread.Sleep(1000);
+            Thread.Sleep(2000);
 
-            hitCount.Should().BeInRange(3, 7);
+            hitCount.Should().Be(1);
             _cachedString.Values.Should().HaveCount(0);
         }
     }
