@@ -19,8 +19,7 @@ namespace Readarr.Api.V1.Config
         public AllowFingerprinting AllowFingerprinting { get; set; }
 
         public bool SetPermissionsLinux { get; set; }
-        public string ChmodFolder { get; set; }
-        public string ChownGroup { get; set; }
+        public string FileChmod { get; set; }
 
         public bool SkipFreeSpaceCheckWhenImporting { get; set; }
         public int MinimumFreeSpaceWhenImporting { get; set; }
@@ -47,8 +46,7 @@ namespace Readarr.Api.V1.Config
                 AllowFingerprinting = model.AllowFingerprinting,
 
                 SetPermissionsLinux = model.SetPermissionsLinux,
-                ChmodFolder = model.ChmodFolder,
-                ChownGroup = model.ChownGroup,
+                FileChmod = model.FileChmod,
 
                 SkipFreeSpaceCheckWhenImporting = model.SkipFreeSpaceCheckWhenImporting,
                 MinimumFreeSpaceWhenImporting = model.MinimumFreeSpaceWhenImporting,

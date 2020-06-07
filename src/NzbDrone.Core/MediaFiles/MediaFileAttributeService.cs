@@ -62,7 +62,7 @@ namespace NzbDrone.Core.MediaFiles
         {
             if (OsInfo.IsNotWindows)
             {
-                SetMonoPermissions(path);
+                SetMonoPermissions(path, _configService.FileChmod);
             }
         }
 
@@ -84,7 +84,7 @@ namespace NzbDrone.Core.MediaFiles
 
             try
             {
-                _diskProvider.SetPermissions(path, _configService.ChmodFolder, _configService.ChownGroup);
+                _diskProvider.SetPermissions(path, permissions);
             }
             catch (Exception ex)
             {

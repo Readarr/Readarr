@@ -11,9 +11,7 @@ namespace NzbDrone.Common.Disk
     {
         long? GetAvailableSpace(string path);
         void InheritFolderPermissions(string filename);
-        void SetEveryonePermissions(string filename);
-        void SetFilePermissions(string path, string mask, string group);
-        void SetPermissions(string path, string mask, string group);
+        void SetPermissions(string path, string mask);
         void CopyPermissions(string sourcePath, string targetPath);
         long? GetTotalSize(string path);
         DateTime FolderGetCreationTime(string path);
@@ -58,6 +56,6 @@ namespace NzbDrone.Common.Disk
         List<IFileInfo> GetFileInfos(string path, SearchOption searchOption = SearchOption.TopDirectoryOnly);
         void RemoveEmptySubfolders(string path);
         void SaveStream(Stream stream, string path);
-        bool IsValidFolderPermissionMask(string mask);
+        bool IsValidFilePermissionMask(string mask);
     }
 }

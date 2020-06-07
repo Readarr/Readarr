@@ -384,32 +384,17 @@ class MediaManagement extends Component {
                         advancedSettings={advancedSettings}
                         isAdvanced={true}
                       >
-                        <FormLabel>chmod Folder</FormLabel>
-
-                        <FormInputGroup
-                          type={inputTypes.UMASK}
-                          name="chmodFolder"
-                          helpText="Octal, applied during import/rename to media folders and files (without execute bits)"
-                          helpTextWarning="This only works if the user running Lidarr is the owner of the file. It's better to ensure the download client sets the permissions properly."
-                          onChange={onInputChange}
-                          {...settings.chmodFolder}
-                        />
-                      </FormGroup>
-
-                      <FormGroup
-                        advancedSettings={advancedSettings}
-                        isAdvanced={true}
-                      >
-                        <FormLabel>chown Group</FormLabel>
+                        <FormLabel>File chmod mode</FormLabel>
 
                         <FormInputGroup
                           type={inputTypes.TEXT}
-                          name="chownGroup"
-                          helpText="Group name or gid. Use gid for remote file systems."
-                          helpTextWarning="This only works if the user running Readarr is the owner of the file. It's better to ensure the download client uses the same group as Readarr."
-                          values={fileDateOptions}
+                          name="fileChmod"
+                          helpTexts={[
+                            'Octal, applied to media files when imported/renamed by Readarr',
+                            'The same mode is applied to movie/sub folders with the execute bit added, e.g., 0644 becomes 0755'
+                          ]}
                           onChange={onInputChange}
-                          {...settings.chownGroup}
+                          {...settings.fileChmod}
                         />
                       </FormGroup>
                     </FieldSet>

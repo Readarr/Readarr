@@ -42,8 +42,7 @@ namespace NzbDrone.Core.Configuration
 
         //Permissions (Media Management)
         bool SetPermissionsLinux { get; set; }
-        string ChmodFolder { get; set; }
-        string ChownGroup { get; set; }
+        string FileChmod { get; set; }
 
         //Indexers
         int Retention { get; set; }

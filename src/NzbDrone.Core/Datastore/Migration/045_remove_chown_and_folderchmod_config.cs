@@ -1,7 +1,11 @@
+<<<<<<< HEAD
 using System;
 using System.Data;
 using FluentMigrator;
 using NzbDrone.Common.Extensions;
+=======
+using FluentMigrator;
+>>>>>>> 1734c77d9 (New: Removed chown and simplified chmod options for linux/osx)
 using NzbDrone.Core.Datastore.Migration.Framework;
 
 namespace NzbDrone.Core.Datastore.Migration

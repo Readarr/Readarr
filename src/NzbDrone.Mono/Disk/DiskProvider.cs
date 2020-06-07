@@ -134,28 +134,50 @@ namespace NzbDrone.Mono.Disk
             }
         }
 
-        private static FilePermissions GetFilePermissions(FilePermissions permissions)
+        public override void SetPermissions(string path, string mask)
         {
-            permissions &= ~(FilePermissions.S_IXUSR | FilePermissions.S_IXGRP | FilePermissions.S_IXOTH);
+            _logger.Debug("Setting permissions: {0} on {1}", mask, path);
+
+            var permissions = NativeConvert.FromOctalPermissionString(mask);
+
+            if (Directory.Exists(path))
+            {
+                permissions = GetFolderPermissions(permissions);
+            }
+
+            if (Syscall.chmod(path, permissions) < 0)
+            {
+                var error = Stdlib.GetLastError();
+
+                throw new LinuxPermissionsException("Error setting permissions: " + error);
+            }
+        }
+
+        private static FilePermissions GetFolderPermissions(FilePermissions permissions)
+        {
+            permissions |= (FilePermissions)((int)(permissions & (FilePermissions.S_IRUSR | FilePermissions.S_IRGRP | FilePermissions.S_IROTH)) >> 2);
 
             return permissions;
         }
 
-        public override bool IsValidFolderPermissionMask(string mask)
+        public override bool IsValidFilePermissionMask(string mask)
         {
             try
             {
                 var permissions = NativeConvert.FromOctalPermissionString(mask);
 
-                if ((permissions & ~FilePermissions.ACCESSPERMS) != 0)
+                if ((permissions & (FilePermissions.S_ISUID | FilePermissions.S_ISGID | FilePermissions.S_ISVTX)) != 0)
                 {
-                    // Only allow access permissions
                     return false;
                 }
 
-                if ((permissions & FilePermissions.S_IRWXU) != FilePermissions.S_IRWXU)
+                if ((permissions & (FilePermissions.S_IXUSR | FilePermissions.S_IXGRP | FilePermissions.S_IXOTH)) != 0)
                 {
-                    // We expect at least full owner permissions (700)
+                    return false;
+                }
+
+                if ((permissions & (FilePermissions.S_IRUSR | FilePermissions.S_IWUSR)) != (FilePermissions.S_IRUSR | FilePermissions.S_IWUSR))
+                {
                     return false;
                 }
 
@@ -471,6 +493,7 @@ namespace NzbDrone.Mono.Disk
 
                 return false;
             }
+<<<<<<< HEAD
             catch (Exception ex)
             {
                 _logger.Debug(ex, "Hardlink '{0}' to '{1}' failed.", source, destination);
@@ -481,6 +504,8 @@ namespace NzbDrone.Mono.Disk
         public override bool TryCreateRefLink(string source, string destination)
         {
             return _createRefLink.TryCreateRefLink(source, destination);
+=======
+>>>>>>> 1734c77d9 (New: Removed chown and simplified chmod options for linux/osx)
         }
 
         private uint GetUserId(string user)
