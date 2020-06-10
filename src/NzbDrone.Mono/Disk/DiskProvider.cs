@@ -140,7 +140,7 @@ namespace NzbDrone.Mono.Disk
 
             var permissions = NativeConvert.FromOctalPermissionString(mask);
 
-            if (Directory.Exists(path))
+            if (_fileSystem.Directory.Exists(path))
             {
                 permissions = GetFolderPermissions(permissions);
             }
@@ -504,8 +504,11 @@ namespace NzbDrone.Mono.Disk
         public override bool TryCreateRefLink(string source, string destination)
         {
             return _createRefLink.TryCreateRefLink(source, destination);
+<<<<<<< HEAD
 =======
 >>>>>>> 1734c77d9 (New: Removed chown and simplified chmod options for linux/osx)
+=======
+>>>>>>> 727200baa (New: Fast copy using reflink on btrfs volumes)
         }
 
         private uint GetUserId(string user)
