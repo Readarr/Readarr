@@ -44,36 +44,6 @@ namespace NzbDrone.Common.Test.DiskTests
 
             Mocker.GetMock<IDiskProvider>()
                 .Setup(v => v.GetMount(It.Is<string>(p => p.StartsWith(_sourceMount.RootDirectory))))
-                .Returns(_sourceMount);
-
-            Mocker.GetMock<IDiskProvider>()
-                .Setup(v => v.GetMount(It.Is<string>(p => p.StartsWith(_targetMount.RootDirectory))))
-                .Returns(_targetMount);
-
-            WithEmulatedDiskProvider();
-
-            WithExistingFile(_sourcePath);
-        }
-
-        [Test]
-        public void should_use_verified_transfer_on_mono()
-        {
-            PosixOnly();
-
-            Subject.VerificationMode.Should().Be(DiskTransferVerificationMode.TryTransactional);
-        }
-
-        [Test]
-        public void should_not_use_verified_transfer_on_windows()
-        {
-            WindowsOnly();
-
-            Subject.VerificationMode.Should().Be(DiskTransferVerificationMode.VerifyOnly);
-
-            var result = Subject.TransferFile(_sourcePath, _targetPath, TransferMode.Move);
-
-            Mocker.GetMock<IDiskProvider>()
-                .Setup(v => v.GetMount(It.Is<string>(p => p.StartsWith(_sourceMount.RootDirectory))))
                 .Returns<string>(s => _sourceMount);
 
             Mocker.GetMock<IDiskProvider>()
@@ -83,30 +53,6 @@ namespace NzbDrone.Common.Test.DiskTests
             WithEmulatedDiskProvider();
 
             WithExistingFile(_sourcePath);
-        }
-
-        [TestCase("fuse.mergerfs", "")]
-        [TestCase("fuse.rclone", "")]
-        [TestCase("mergerfs", "")]
-        [TestCase("rclone", "")]
-        [TestCase("", "fuse.mergerfs")]
-        [TestCase("", "fuse.rclone")]
-        [TestCase("", "mergerfs")]
-        [TestCase("", "rclone")]
-        public void should_not_use_verified_transfer_on_specific_filesystems(string fsSource, string fsTarget)
-        {
-            MonoOnly();
-
-            _sourceMount.DriveFormat = fsSource;
-            _targetMount.DriveFormat = fsTarget;
-
-            var result = Subject.TransferFile(_sourcePath, _targetPath, TransferMode.Move);
-
-            Mocker.GetMock<IDiskProvider>()
-                .Verify(v => v.TryCreateHardLink(_sourcePath, _backupPath), Times.Never());
-
-            Mocker.GetMock<IDiskProvider>()
-                .Verify(v => v.MoveFile(_sourcePath, _targetPath, false), Times.Once());
         }
 
         [Test]
@@ -254,12 +200,21 @@ namespace NzbDrone.Common.Test.DiskTests
         {
             _sourceMount.DriveFormat = "cifs";
             _targetMount = _sourceMount;
+<<<<<<< HEAD
 
             var result = Subject.TransferFile(_sourcePath, _targetPath, TransferMode.Move);
 
             Mocker.GetMock<IDiskProvider>()
                 .Verify(v => v.MoveFile(_sourcePath, _targetPath, false), Times.Once());
 
+=======
+
+            var result = Subject.TransferFile(_sourcePath, _targetPath, TransferMode.Move);
+
+            Mocker.GetMock<IDiskProvider>()
+                .Verify(v => v.MoveFile(_sourcePath, _targetPath, false), Times.Once());
+
+>>>>>>> bb3c70620 (Fixed: Removed hardlink-based transactional file transfer logic (instead relying on explicit copy+delete for cifs))
             Mocker.GetMock<IDiskProvider>()
                 .Verify(v => v.CopyFile(_sourcePath, _targetPath, false), Times.Never());
 
@@ -429,6 +384,7 @@ namespace NzbDrone.Common.Test.DiskTests
         [Test]
         [Retry(5)]
         public void CopyFolder_should_copy_folder()
+<<<<<<< HEAD
         {
             WithRealDiskProvider();
 
@@ -527,6 +483,8 @@ namespace NzbDrone.Common.Test.DiskTests
 
         [Test]
         public void MoveFolder_should_move_folder()
+=======
+>>>>>>> bb3c70620 (Fixed: Removed hardlink-based transactional file transfer logic (instead relying on explicit copy+delete for cifs))
         {
             WithRealDiskProvider();
 
@@ -751,6 +709,7 @@ namespace NzbDrone.Common.Test.DiskTests
         }
 
         [Test]
+<<<<<<< HEAD
         public void TransferFolder_should_not_use_movefolder_if_on_same_mount_but_target_already_exists()
         {
             WithEmulatedDiskProvider();
@@ -769,6 +728,8 @@ namespace NzbDrone.Common.Test.DiskTests
         }
 
         [Test]
+=======
+>>>>>>> bb3c70620 (Fixed: Removed hardlink-based transactional file transfer logic (instead relying on explicit copy+delete for cifs))
         public void TransferFolder_should_not_use_movefolder_if_on_different_mount()
         {
             WithEmulatedDiskProvider();

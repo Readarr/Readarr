@@ -27,21 +27,6 @@ namespace NzbDrone.Common.Disk
             _logger = logger;
         }
 
-        private string ResolveRealParentPath(string path)
-        {
-            var parentPath = path.GetParentPath();
-            if (!_diskProvider.FolderExists(parentPath))
-            {
-                return path;
-            }
-
-            var realParentPath = parentPath.GetActualCasing();
-
-            var partialChildPath = path.Substring(parentPath.Length);
-
-            return realParentPath + partialChildPath;
-        }
-
         public TransferMode TransferFolder(string sourcePath, string targetPath, TransferMode mode)
         {
             Ensure.That(sourcePath, () => sourcePath).IsValidPath();
@@ -59,33 +44,13 @@ namespace NzbDrone.Common.Disk
 
             if (mode == TransferMode.Move && sourcePath.PathEquals(targetPath, StringComparison.InvariantCultureIgnoreCase) && _diskProvider.FolderExists(targetPath))
             {
-                // Move folder out of the way to allow case-insensitive renames
-                var tempPath = sourcePath + ".backup~";
-                _logger.Trace("Rename Intermediate Directory [{0}] > [{1}]", sourcePath, tempPath);
-                _diskProvider.MoveFolder(sourcePath, tempPath);
-
-                if (!_diskProvider.FolderExists(targetPath))
-                {
-                    _logger.Trace("Rename Intermediate Directory [{0}] > [{1}]", tempPath, targetPath);
-                    _logger.Debug("Rename Directory [{0}] > [{1}]", sourcePath, targetPath);
-                    _diskProvider.MoveFolder(tempPath, targetPath);
-                    return mode;
-                }
-
-                // There were two separate folders, revert the intermediate rename and let the recursion deal with it
-                _logger.Trace("Rename Intermediate Directory [{0}] > [{1}]", tempPath, sourcePath);
-                _diskProvider.MoveFolder(tempPath, sourcePath);
-            }
-
-            if (mode == TransferMode.Move && !_diskProvider.FolderExists(targetPath))
-            {
                 var sourceMount = _diskProvider.GetMount(sourcePath);
                 var targetMount = _diskProvider.GetMount(targetPath);
 
                 // If we're on the same mount, do a simple folder move.
                 if (sourceMount != null && targetMount != null && sourceMount.RootDirectory == targetMount.RootDirectory)
                 {
-                    _logger.Debug("Rename Directory [{0}] > [{1}]", sourcePath, targetPath);
+                    _logger.Debug("Move Directory [{0}] > [{1}]", sourcePath, targetPath);
                     _diskProvider.MoveFolder(sourcePath, targetPath);
                     return mode;
                 }
@@ -332,71 +297,27 @@ namespace NzbDrone.Common.Disk
             }
 
             // Adjust the transfer mode depending on the filesystems
-            if (verificationMode == DiskTransferVerificationMode.TryTransactional)
-            {
-                var sourceMount = _diskProvider.GetMount(sourcePath);
-                var targetMount = _diskProvider.GetMount(targetPath);
+            var sourceMount = _diskProvider.GetMount(sourcePath);
+            var targetMount = _diskProvider.GetMount(targetPath);
 
-                var isSameMount = sourceMount != null && targetMount != null && sourceMount.RootDirectory == targetMount.RootDirectory;
+            var isSameMount = sourceMount != null && targetMount != null && sourceMount.RootDirectory == targetMount.RootDirectory;
 
-                var sourceDriveFormat = sourceMount?.DriveFormat ?? string.Empty;
-                var targetDriveFormat = targetMount?.DriveFormat ?? string.Empty;
+            var sourceDriveFormat = sourceMount?.DriveFormat ?? string.Empty;
+            var targetDriveFormat = targetMount?.DriveFormat ?? string.Empty;
 
-                if (isSameMount)
-                {
-                    // No transaction needed for operations on same mount, force VerifyOnly
-                    verificationMode = DiskTransferVerificationMode.VerifyOnly;
-                }
-                else if (sourceDriveFormat.Contains("mergerfs") || sourceDriveFormat.Contains("rclone") ||
-                         targetDriveFormat.Contains("mergerfs") || targetDriveFormat.Contains("rclone"))
-                {
-                    // Cloud storage filesystems don't need any Transactional stuff and it hurts performance, force VerifyOnly
-                    verificationMode = DiskTransferVerificationMode.VerifyOnly;
-                }
-                else if ((sourceDriveFormat == "cifs" || targetDriveFormat == "cifs") && OsInfo.IsNotWindows)
-                {
-                    // Force Transactional on a cifs mount due to the likeliness of move failures on certain scenario's on mono
-                    verificationMode = DiskTransferVerificationMode.Transactional;
-                }
-            }
+            var isCifs = targetDriveFormat == "cifs";
 
             if (mode.HasFlag(TransferMode.Copy))
             {
-                if (isBtrfs)
-                {
-                    if (_diskProvider.TryCreateRefLink(sourcePath, targetPath))
-                    {
-                        return TransferMode.Copy;
-                    }
-                }
-
                 TryCopyFileVerified(sourcePath, targetPath, originalSize);
                 return TransferMode.Copy;
             }
 
             if (mode.HasFlag(TransferMode.Move))
             {
-                if (isBtrfs)
-                {
-                    if (isSameMount && _diskProvider.TryRenameFile(sourcePath, targetPath))
-                    {
-                        _logger.Trace("Renamed [{0}] to [{1}].", sourcePath, targetPath);
-                        return TransferMode.Move;
-                    }
-
-                    if (_diskProvider.TryCreateRefLink(sourcePath, targetPath))
-                    {
-                        _logger.Trace("Reflink successful, deleting source [{0}].", sourcePath);
-                        _diskProvider.DeleteFile(sourcePath);
-                        return TransferMode.Move;
-                    }
-                }
-
                 if (isCifs && !isSameMount)
                 {
-                    _logger.Trace("On cifs mount. Starting verified copy [{0}] to [{1}].", sourcePath, targetPath);
                     TryCopyFileVerified(sourcePath, targetPath, originalSize);
-                    _logger.Trace("Copy successful, deleting source [{0}].", sourcePath);
                     _diskProvider.DeleteFile(sourcePath);
                     return TransferMode.Move;
                 }
