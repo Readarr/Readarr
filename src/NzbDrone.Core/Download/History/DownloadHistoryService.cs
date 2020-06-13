@@ -144,7 +144,8 @@ namespace NzbDrone.Core.Download.History
             var history = new DownloadHistory
             {
                 EventType = DownloadHistoryEventType.FileImported,
-                AuthorId = message.BookInfo.Author.Id,
+
+                AuthorId = message.ImportedBook.Author.Value.Id,
                 DownloadId = downloadId,
                 SourceTitle = message.BookInfo.Path,
                 Date = DateTime.UtcNow,
@@ -182,19 +183,21 @@ namespace NzbDrone.Core.Download.History
 
         public void Handle(DownloadCompletedEvent message)
         {
+            var downloadItem = message.TrackedDownload.DownloadItem;
+
             var history = new DownloadHistory
             {
                 EventType = DownloadHistoryEventType.DownloadImported,
                 AuthorId = message.AuthorId,
-                DownloadId = message.TrackedDownload.DownloadItem.DownloadId,
-                SourceTitle = message.TrackedDownload.DownloadItem.OutputPath.ToString(),
+                DownloadId = downloadItem.DownloadId,
+                SourceTitle = downloadItem.Title,
                 Date = DateTime.UtcNow,
                 Protocol = message.TrackedDownload.Protocol,
                 DownloadClientId = message.TrackedDownload.DownloadClient
             };
 
-            history.Data.Add("DownloadClient", message.TrackedDownload.DownloadItem.DownloadClientInfo.Type);
-            history.Data.Add("DownloadClientName", message.TrackedDownload.DownloadItem.DownloadClientInfo.Name);
+            history.Data.Add("DownloadClient", downloadItem.DownloadClientInfo.Type);
+            history.Data.Add("DownloadClientName", downloadItem.DownloadClientInfo.Name);
 
             _repository.Insert(history);
         }

@@ -61,6 +61,10 @@ namespace NzbDrone.Core.Test.Download.CompletedDownloadServiceTests
             Mocker.GetMock<IParsingService>()
                   .Setup(s => s.GetAuthor("Drone.S01E01.HDTV"))
                   .Returns(remoteBook.Author);
+
+            Mocker.GetMock<IHistoryService>()
+                .Setup(s => s.FindByDownloadId(It.IsAny<string>()))
+                .Returns(new List<EntityHistory>());
         }
 
         private Book CreateBook(int id)
@@ -82,7 +86,6 @@ namespace NzbDrone.Core.Test.Download.CompletedDownloadServiceTests
 
         private void GivenABadlyNamedDownload()
         {
-            _trackedDownload.RemoteBook.Author = null;
             _trackedDownload.DownloadItem.DownloadId = "1234";
             _trackedDownload.DownloadItem.Title = "Droned Pilot"; // Set a badly named download
             Mocker.GetMock<IHistoryService>()
