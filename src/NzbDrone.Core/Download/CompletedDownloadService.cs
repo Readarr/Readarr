@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using NLog;
+using NLog.Fluent;
 using NzbDrone.Common.EnvironmentInfo;
 using NzbDrone.Common.Extensions;
-using NzbDrone.Core.Books;
+using NzbDrone.Common.Instrumentation.Extensions;
 using NzbDrone.Core.Download.TrackedDownloads;
 using NzbDrone.Core.History;
 using NzbDrone.Core.MediaFiles;
@@ -27,7 +28,6 @@ namespace NzbDrone.Core.Download
         private readonly IEventAggregator _eventAggregator;
         private readonly IHistoryService _historyService;
         private readonly IDownloadedBooksImportService _downloadedTracksImportService;
-        private readonly IAuthorService _authorService;
         private readonly IProvideImportItemService _importItemService;
         private readonly ITrackedDownloadAlreadyImported _trackedDownloadAlreadyImported;
         private readonly Logger _logger;
@@ -36,7 +36,6 @@ namespace NzbDrone.Core.Download
                                         IHistoryService historyService,
                                         IProvideImportItemService importItemService,
                                         IDownloadedBooksImportService downloadedTracksImportService,
-                                        IAuthorService authorService,
                                         ITrackedDownloadAlreadyImported trackedDownloadAlreadyImported,
                                         Logger logger)
         {
@@ -44,7 +43,6 @@ namespace NzbDrone.Core.Download
             _historyService = historyService;
             _importItemService = importItemService;
             _downloadedTracksImportService = downloadedTracksImportService;
-            _authorService = authorService;
             _trackedDownloadAlreadyImported = trackedDownloadAlreadyImported;
             _logger = logger;
         }
@@ -151,15 +149,17 @@ namespace NzbDrone.Core.Download
             // and an episode is removed, but later comes back with a different ID then Sonarr will treat it as incomplete.
             // Since imports should be relatively fast and these types of data changes are infrequent this should be quite
             // safe, but commenting for future benefit.
-            if (importResults.Any(c => c.Result == ImportResultType.Imported))
+            var atLeastOneEpisodeImported = importResults.Any(c => c.Result == ImportResultType.Imported);
+
+            var historyItems = _historyService.FindByDownloadId(trackedDownload.DownloadItem.DownloadId)
+                                              .OrderByDescending(h => h.Date)
+                                              .ToList();
+
+            var allEpisodesImportedInHistory = _trackedDownloadAlreadyImported.IsImported(trackedDownload, historyItems);
+
+            if (allEpisodesImportedInHistory)
             {
-                var historyItems = _historyService.FindByDownloadId(trackedDownload.DownloadItem.DownloadId)
-                                                  .OrderByDescending(h => h.Date)
-                                                  .ToList();
-
-                var allEpisodesImportedInHistory = _trackedDownloadAlreadyImported.IsImported(trackedDownload, historyItems);
-
-                if (allEpisodesImportedInHistory)
+                if (atLeastOneEpisodeImported)
                 {
                     _logger.Debug("All books were imported in history for {0}", trackedDownload.DownloadItem.Title);
                     trackedDownload.State = TrackedDownloadState.Imported;
@@ -168,8 +168,18 @@ namespace NzbDrone.Core.Download
                         .Select(x => x.AuthorId)
                         .MostCommon();
                     _eventAggregator.PublishEvent(new DownloadCompletedEvent(trackedDownload, trackedDownload.RemoteBook?.Author.Id ?? importedAuthorId));
+
                     return true;
                 }
+
+                _logger.Debug()
+                       .Message("No Episodes were just imported, but all episodes were previously imported, possible issue with download history.")
+                       .Property("AuthorId", trackedDownload.RemoteBook.Author.Id)
+                       .Property("DownloadId", trackedDownload.DownloadItem.DownloadId)
+                       .Property("Title", trackedDownload.DownloadItem.Title)
+                       .Property("Path", trackedDownload.DownloadItem.OutputPath.ToString())
+                       .WriteSentryWarn("DownloadHistoryIncomplete")
+                       .Write();
             }
 
             _logger.Debug("Not all books have been imported for {0}", trackedDownload.DownloadItem.Title);
