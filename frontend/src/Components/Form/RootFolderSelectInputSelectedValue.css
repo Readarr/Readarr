@@ -14,11 +14,11 @@
 }
 
 .path {
-  @add-mixin truncate;
   flex: 0 1 auto;
 }
 
 .authorFolder {
+  @add-mixin truncate;
   flex: 0 1 auto;
   color: var(--disabledColor);
 }
