@@ -493,7 +493,6 @@ namespace NzbDrone.Mono.Disk
 
                 return false;
             }
-<<<<<<< HEAD
             catch (Exception ex)
             {
                 _logger.Debug(ex, "Hardlink '{0}' to '{1}' failed.", source, destination);
@@ -504,11 +503,6 @@ namespace NzbDrone.Mono.Disk
         public override bool TryCreateRefLink(string source, string destination)
         {
             return _createRefLink.TryCreateRefLink(source, destination);
-<<<<<<< HEAD
-=======
->>>>>>> 1734c77d9 (New: Removed chown and simplified chmod options for linux/osx)
-=======
->>>>>>> 727200baa (New: Fast copy using reflink on btrfs volumes)
         }
 
         private uint GetUserId(string user)
