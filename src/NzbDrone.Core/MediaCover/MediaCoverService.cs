@@ -143,6 +143,10 @@ namespace NzbDrone.Core.MediaCover
                         DownloadCover(author, cover, serverFileHeaders.LastModified ?? DateTime.Now);
                     }
                 }
+                catch (HttpException e)
+                {
+                    _logger.Warn("Couldn't download media cover for {0}. {1}", author, e.Message);
+                }
                 catch (WebException e)
                 {
                     _logger.Warn("Couldn't download media cover for {0}. {1}", author, e.Message);
@@ -192,6 +196,10 @@ namespace NzbDrone.Core.MediaCover
                     {
                         DownloadBookCover(book, cover, serverFileHeaders.LastModified ?? DateTime.Now);
                     }
+                }
+                catch (HttpException e)
+                {
+                    _logger.Warn("Couldn't download media cover for {0}. {1}", book, e.Message);
                 }
                 catch (WebException e)
                 {
