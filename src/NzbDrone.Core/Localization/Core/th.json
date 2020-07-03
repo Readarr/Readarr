@@ -73,6 +73,7 @@
     "ChownGroupHelpTextWarning": "สิ่งนี้ใช้ได้เฉพาะเมื่อผู้ใช้ที่เรียกใช้ Radarr เป็นเจ้าของไฟล์ เป็นการดีกว่าที่จะตรวจสอบให้แน่ใจว่าไคลเอนต์ดาวน์โหลดใช้กลุ่มเดียวกับ Radarr",
     "Clear": "ชัดเจน",
     "ClickToChangeQuality": "คลิกเพื่อเปลี่ยนคุณภาพ",
+    "CloneIndexer": "Clone Indexer",
     "ClientPriority": "ลำดับความสำคัญของลูกค้า",
     "CloneProfile": "โปรไฟล์โคลน",
     "Close": "ปิด",

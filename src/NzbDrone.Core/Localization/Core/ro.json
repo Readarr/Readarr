@@ -139,6 +139,7 @@
     "Clear": "Șterge",
     "ClickToChangeQuality": "Faceți clic pentru a schimba calitatea",
     "ClientPriority": "Prioritatea clientului",
+    "CloneIndexer": "Clonă Indexer",
     "CloneProfile": "Profil de clonare",
     "CopyUsingHardlinksHelpTextWarning": "Ocazional, blocarea fișierelor poate împiedica redenumirea fișierelor care sunt însămânțate. Puteți dezactiva temporar însămânțarea și puteți utiliza funcția de redenumire a lui Radarr ca soluție.",
     "CreateEmptyAuthorFoldersHelpText": "Creați directoare de film lipsă în timpul scanării discului",
