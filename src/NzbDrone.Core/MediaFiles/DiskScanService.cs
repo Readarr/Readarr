@@ -260,7 +260,7 @@ namespace NzbDrone.Core.MediaFiles
                 _logger.Trace("{0} files were found in {1}", filesOnDisk.Count(), path);
             }
 
-            var mediaFileList = filesOnDisk.Where(file => MediaFileExtensions.AllExtensions.Contains(file.Extension))
+            var mediaFileList = filesOnDisk.Where(file => MediaFileExtensions.TextExtensions.Contains(file.Extension))
                 .ToArray();
 
             _logger.Debug("{0} book files were found in {1}", mediaFileList.Length, path);
@@ -275,7 +275,7 @@ namespace NzbDrone.Core.MediaFiles
             var searchOption = allDirectories ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly;
             var filesOnDisk = _diskProvider.GetFiles(path, searchOption).ToList();
 
-            var mediaFileList = filesOnDisk.Where(file => !MediaFileExtensions.AllExtensions.Contains(Path.GetExtension(file)))
+            var mediaFileList = filesOnDisk.Where(file => !MediaFileExtensions.TextExtensions.Contains(Path.GetExtension(file)))
                                            .ToList();
 
             _logger.Trace("{0} files were found in {1}", filesOnDisk.Count, path);
