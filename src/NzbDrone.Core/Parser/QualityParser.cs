@@ -66,22 +66,46 @@ namespace NzbDrone.Core.Parser
                     result.Quality = Quality.AZW3;
                     break;
                 case Codec.FLAC:
-                case Codec.ALAC:
-                case Codec.WAVPACK:
                     result.Quality = Quality.FLAC;
                     break;
+                case Codec.ALAC:
+                    result.Quality = Quality.ALAC;
+                    break;
+                case Codec.WAVPACK:
+                    result.Quality = Quality.WAVPACK;
+                    break;
                 case Codec.MP1:
+                    result.Quality = Quality.MP1;
+                    break;
                 case Codec.MP2:
+                    result.Quality = Quality.MP2;
+                    break;
                 case Codec.MP3VBR:
+                    result.Quality = Quality.MP3VBR;
+                    break;
                 case Codec.MP3CBR:
+                    result.Quality = Quality.MP3CBR;
+                    break;
                 case Codec.APE:
+                    result.Quality = Quality.APE;
+                    break;
                 case Codec.WMA:
+                    result.Quality = Quality.WMA;
+                    break;
                 case Codec.WAV:
+                    result.Quality = Quality.WAV;
+                    break;
                 case Codec.AAC:
+                    result.Quality = Quality.AAC;
+                    break;
                 case Codec.AACVBR:
+                    result.Quality = Quality.AACVBR;
+                    break;
                 case Codec.OGG:
+                    result.Quality = Quality.OGG;
+                    break;
                 case Codec.OPUS:
-                    result.Quality = Quality.MP3_320;
+                    result.Quality = Quality.OPUS;
                     break;
                 case Codec.Unknown:
                 default:
@@ -214,19 +238,33 @@ namespace NzbDrone.Core.Parser
             switch (codec)
             {
                 case Codec.ALAC:
+                    return Quality.ALAC;
                 case Codec.FLAC:
-                case Codec.WAVPACK:
-                case Codec.WAV:
                     return Quality.FLAC;
+                case Codec.WAVPACK:
+                    return Quality.WAVPACK;
+                case Codec.WAV:
+                    return Quality.WAV;
                 case Codec.MP1:
+                    return Quality.MP1;
                 case Codec.MP2:
+                    return Quality.MP2;
                 case Codec.MP3VBR:
+                    return Quality.MP3VBR;
                 case Codec.MP3CBR:
+                    return Quality.MP3CBR;
                 case Codec.APE:
+                    return Quality.APE;
                 case Codec.WMA:
+                    return Quality.WMA;
                 case Codec.AAC:
+                    return Quality.AAC;
+                case Codec.AACVBR:
+                    return Quality.AACVBR;
                 case Codec.OGG:
+                    return Quality.OGG;
                 case Codec.OPUS:
+                    return Quality.OPUS;
                 default:
                     return Quality.MP3_320;
             }

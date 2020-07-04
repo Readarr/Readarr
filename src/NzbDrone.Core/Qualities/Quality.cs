@@ -70,13 +70,26 @@ namespace NzbDrone.Core.Qualities
             return !Equals(left, right);
         }
 
-        public static Quality Unknown => new Quality(0, "Unknown");
-        public static Quality PDF => new Quality(1, "PDF");
-        public static Quality MOBI => new Quality(2, "MOBI");
-        public static Quality EPUB => new Quality(3, "EPUB");
-        public static Quality AZW3 => new Quality(4, "AZW3");
-        public static Quality MP3_320 => new Quality(10, "MP3-320");
-        public static Quality FLAC => new Quality(11, "FLAC");
+        public static Quality Unknown => new Quality(0,     "Unknown");
+        public static Quality PDF => new Quality(1,         "PDF");
+        public static Quality MOBI => new Quality(2,        "MOBI");
+        public static Quality EPUB => new Quality(3,        "EPUB");
+        public static Quality AZW3 => new Quality(4,        "AZW3");
+        public static Quality MP3_320 => new Quality(10,    "MP3-320");
+        public static Quality FLAC => new Quality(11,       "FLAC");
+        public static Quality ALAC => new Quality(12,       "ALAC");
+        public static Quality MP1 => new Quality(13,        "MP1");
+        public static Quality MP2 => new Quality(14,        "MP2");
+        public static Quality MP3VBR => new Quality(15,     "MP3VBR");
+        public static Quality MP3CBR => new Quality(16,     "MP3CBR");
+        public static Quality APE => new Quality(17,        "APE");
+        public static Quality WMA => new Quality(18,        "WMA");
+        public static Quality WAV => new Quality(19,        "WAV");
+        public static Quality WAVPACK => new Quality(20,    "WAVPACK");
+        public static Quality AAC => new Quality(21,        "AAC");
+        public static Quality AACVBR => new Quality(22,     "AACVBR");
+        public static Quality OGG => new Quality(23,        "OGG");
+        public static Quality OPUS => new Quality(24,       "OPUS");
 
         static Quality()
         {
@@ -88,7 +101,20 @@ namespace NzbDrone.Core.Qualities
                 EPUB,
                 AZW3,
                 MP3_320,
-                FLAC
+                FLAC,
+                ALAC,
+                MP1,
+                MP2,
+                MP3VBR,
+                MP3CBR,
+                APE,
+                WMA,
+                WAV,
+                WAVPACK,
+                AAC,
+                AACVBR,
+                OGG,
+                OPUS
             };
 
             AllLookup = new Quality[All.Select(v => v.Id).Max() + 1];
