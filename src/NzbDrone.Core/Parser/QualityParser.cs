@@ -25,7 +25,7 @@ namespace NzbDrone.Core.Parser
         private static readonly Regex RealRegex = new Regex(@"\b(?<real>REAL)\b",
                                                                 RegexOptions.Compiled);
 
-        private static readonly Regex CodecRegex = new Regex(@"\b(?:(?<PDF>PDF)|(?<MOBI>MOBI)|(?<EPUB>EPUB)|(?<AZW3>AZW3?)|(?<MP1>MPEG Version \d(.5)? Audio, Layer 1|MP1)|(?<MP2>MPEG Version \d(.5)? Audio, Layer 2|MP2)|(?<MP3VBR>MP3.*VBR|MPEG Version \d(.5)? Audio, Layer 3 vbr)|(?<MP3CBR>MP3|MPEG Version \d(.5)? Audio, Layer 3)|(?<FLAC>flac)|(?<WAVPACK>wavpack|wv)|(?<ALAC>alac)|(?<WMA>WMA\d?)|(?<WAV>WAV|PCM)|(?<AAC>M4A|M4P|M4B|AAC|mp4a|MPEG-4 Audio(?!.*alac))|(?<OGG>OGG|OGA|Vorbis))\b|(?<APE>monkey's audio|[\[|\(].*\bape\b.*[\]|\)])|(?<OPUS>Opus Version \d(.5)? Audio|[\[|\(].*\bopus\b.*[\]|\)])",
+        private static readonly Regex CodecRegex = new Regex(@"\b(?:(?<PDF>PDF)|(?<MOBI>MOBI)|(?<EPUB>EPUB)|(?<AZW3>AZW3?)|(?<MP1>MPEG Version \d(.5)? Audio, Layer 1|MP1)|(?<MP2>MPEG Version \d(.5)? Audio, Layer 2|MP2)|(?<MP3VBR>MP3.*VBR|MPEG Version \d(.5)? Audio, Layer 3 vbr)|(?<MP3CBR>MP3.*CBR|MPEG Version \d(.5)? Audio, Layer 3 cbr)|(?<MP3>MP3|MP3 Version \d(.5)? Audio, Layer 3)|(?<FLAC>flac)|(?<WAVPACK>wavpack|wv)|(?<ALAC>alac)|(?<WMA>WMA\d?)|(?<WAV>WAV|PCM)|(?<AAC>M4A|M4P|M4B|AAC|mp4a|MPEG-4 Audio(?!.*alac))|(?<OGG>OGG|OGA|Vorbis))\b|(?<APE>monkey's audio|[\[|\(].*\bape\b.*[\]|\)])|(?<OPUS>Opus Version \d(.5)? Audio|[\[|\(].*\bopus\b.*[\]|\)])",
                                                              RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
         public static QualityModel ParseQuality(string name, string desc = null)
@@ -79,6 +79,9 @@ namespace NzbDrone.Core.Parser
                     break;
                 case Codec.MP2:
                     result.Quality = Quality.MP2;
+                    break;
+                case Codec.MP3_320:
+                    result.Quality = Quality.MP3_320;
                     break;
                 case Codec.MP3VBR:
                     result.Quality = Quality.MP3VBR;
@@ -210,6 +213,11 @@ namespace NzbDrone.Core.Parser
                 return Codec.MP2;
             }
 
+            if (match.Groups["MP3_320"].Success)
+            {
+                return Codec.MP3_320;
+            }
+
             if (match.Groups["MP3VBR"].Success)
             {
                 return Codec.MP3VBR;
@@ -249,6 +257,8 @@ namespace NzbDrone.Core.Parser
                     return Quality.MP1;
                 case Codec.MP2:
                     return Quality.MP2;
+                case Codec.MP3_320:
+                    return Quality.MP3_320;
                 case Codec.MP3VBR:
                     return Quality.MP3VBR;
                 case Codec.MP3CBR:
@@ -308,6 +318,7 @@ namespace NzbDrone.Core.Parser
     {
         MP1,
         MP2,
+        MP3_320,
         MP3CBR,
         MP3VBR,
         FLAC,

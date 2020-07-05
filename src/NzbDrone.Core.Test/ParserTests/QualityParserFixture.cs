@@ -33,13 +33,23 @@ namespace NzbDrone.Core.Test.ParserTests
         [TestCase("PJ Harvey - Let England Shake [mp3-256-2011][trfkad]")]
         [TestCase("Childish Gambino - Awaken, My Love Album 2016 mp3 320 Kbps")]
         [TestCase("Maluma – Felices Los 4 MP3 320 Kbps 2017 Download")]
-        [TestCase("Sia - This Is Acting (Standard Edition) [2016-Web-MP3-V0(VBR)]")]
-        [TestCase("Mount Eerie - A Crow Looked at Me (2017) [MP3 V0 VBR)]")]
         [TestCase("Queen - The Ultimate Best Of Queen(2011)[mp3]")]
         [TestCase("Maroon 5 Ft Kendrick Lamar -Dont Wanna Know MP3 2016")]
         public void should_parse_mp3_quality(string title)
         {
             ParseAndVerifyQuality(title, null, 0, Quality.MP3_320);
+        }
+
+        public void should_parse_mp3_cbr_quality(string title)
+        {
+            ParseAndVerifyQuality(title, null, 0, Quality.MP3CBR);
+        }
+
+        [TestCase("Sia - This Is Acting (Standard Edition) [2016-Web-MP3-V0(VBR)]")]
+        [TestCase("Mount Eerie - A Crow Looked at Me (2017) [MP3 V0 VBR)]")]
+        public void should_parse_mp3_vbr_quality(string title)
+        {
+            ParseAndVerifyQuality(title, null, 0, Quality.MP3VBR);
         }
 
         [TestCase("Kendrick Lamar - DAMN (2017) FLAC")]
