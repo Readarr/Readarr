@@ -17,12 +17,19 @@ ProgressEnd()
     echo "Finish '$1'"
 }
 
-UpdateVersionNumber()
+UpdateBackendVersionNumber()
 {
     if [ "$READARRVERSION" != "" ]; then
         echo "Updating Version Info"
         sed -i'' -e "s/<AssemblyVersion>[0-9.*]\+<\/AssemblyVersion>/<AssemblyVersion>$READARRVERSION<\/AssemblyVersion>/g" src/Directory.Build.props
         sed -i'' -e "s/<AssemblyConfiguration>[\$()A-Za-z-]\+<\/AssemblyConfiguration>/<AssemblyConfiguration>${BUILD_SOURCEBRANCHNAME}<\/AssemblyConfiguration>/g" src/Directory.Build.props
+    fi
+}
+
+UpdateMacAppVersionNumber()
+{
+    if [ "$READARRVERSION" != "" ]; then
+        echo "Updating Mac App Version Info"
         sed -i'' -e "s/<string>10.0.0.0<\/string>/<string>$READARRVERSION<\/string>/g" macOS/Readarr.app/Contents/Info.plist
     fi
 }
@@ -97,7 +104,7 @@ PackageFiles()
     cp -r $outputFolder/UI $folder
 
     echo "Adding LICENSE"
-    cp LICENSE.md $folder
+    # cp LICENSE.md $folder
 }
 
 PackageLinux()
@@ -315,7 +322,7 @@ set -- "${POSITIONAL[@]}" # restore positional parameters
 
 if [ "$BACKEND" = "YES" ];
 then
-    UpdateVersionNumber
+    UpdateBackendVersionNumber
     Build
     if [[ -z "$RID" || -z "$FRAMEWORK" ]];
     then
@@ -347,7 +354,7 @@ fi
 
 if [ "$PACKAGES" = "YES" ];
 then
-    UpdateVersionNumber
+    UpdateMacAppVersionNumber
 
     if [[ -z "$RID" || -z "$FRAMEWORK" ]];
     then

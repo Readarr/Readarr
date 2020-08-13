@@ -1,0 +1,10 @@
+parameters:
+  folder: ''
+  type: ''
+  rids: []
+
+steps:
+- ${{ each rid in parameters.rids }}:
+  - publish: '${{ parameters.folder }}/${{ rid.framework }}/${{ rid.rid }}/publish'
+    artifact: '${{ rid.framework }}-${{ rid.rid }}-${{ parameters.type }}'
+    displayName: 'Publish ${{ parameters.type }}: ${{ rid.framework }}/${{ rid.rid }}'
