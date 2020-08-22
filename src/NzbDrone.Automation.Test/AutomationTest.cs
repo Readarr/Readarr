@@ -9,7 +9,7 @@ using NzbDrone.Automation.Test.PageModel;
 using NzbDrone.Common.EnvironmentInfo;
 using NzbDrone.Test.Common;
 using OpenQA.Selenium;
-using OpenQA.Selenium.Firefox;
+using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Remote;
 
 namespace NzbDrone.Automation.Test
@@ -34,9 +34,9 @@ namespace NzbDrone.Automation.Test
         [OneTimeSetUp]
         public void SmokeTestSetup()
         {
-            var options = new FirefoxOptions();
+            var options = new ChromeOptions();
             options.AddArguments("--headless");
-            driver = new FirefoxDriver(options);
+            driver = new ChromeDriver(options);
 
             _runner = new NzbDroneRunner(LogManager.GetCurrentClassLogger());
             _runner.KillAll();

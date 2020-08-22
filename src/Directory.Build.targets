@@ -8,4 +8,11 @@
   <Import Project="Targets/FixBindingRedirects.targets" />
   <Import Project="Targets/MonoFacades.targets" Condition="'$(TargetFrameworkIdentifier)' == '.NETFramework' and !$(RuntimeIdentifier.StartsWith('win'))" />
   <Import Project="Targets/CopyRuntimes.targets" />
+
+  <Target Name="DisableAnalyzers" BeforeTargets="CoreCompile" Condition="'$(EnableAnalyzers)' == 'false'"> 
+    <!-- Disable analyzers via an MSBuild property settable on the command line. --> 
+    <ItemGroup> 
+      <Analyzer Remove="@(Analyzer)" /> 
+    </ItemGroup> 
+  </Target> 
 </Project>
