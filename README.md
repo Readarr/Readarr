@@ -2,6 +2,7 @@
 
 [![Build Status](https://dev.azure.com/Readarr/Readarr/_apis/build/status/Readarr.Readarr?branchName=develop)](https://dev.azure.com/Readarr/Readarr/_build/latest?definitionId=1&branchName=develop)
 [![Docker Pulls](https://img.shields.io/docker/pulls/hotio/readarr)](https://hub.docker.com/r/hotio/readarr)
+![Github Downloads](https://img.shields.io/github/downloads/readarr/readarr/total.svg)
 [![Backers on Open Collective](https://opencollective.com/readarr/backers/badge.svg)](#backers) [![Sponsors on Open Collective](https://opencollective.com/readarr/sponsors/badge.svg)](#sponsors)
 
 ### Readarr is in early stages of development, alpha/beta binary builds are not yet available. Use of any test builds isn't recommend, and may have detrimental effects on your library.
