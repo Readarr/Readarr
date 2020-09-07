@@ -96,17 +96,8 @@ namespace NzbDrone.Core.Test.MediaFiles.BookImport.Specifications
         [Test]
         public void should_be_accepted_if_file_cannot_be_fetched()
         {
-            _localTrack.Book = (Book)Builder<Book>.CreateListOfSize(1)
-                .TheFirst(1)
-                .With(e => e.Id = 1)
-                .With(e => e.BookFiles = new LazyLoaded<List<BookFile>>(
-                    new List<BookFile>
-                    {
-                        new BookFile
-                        {
-                            Path = null
-                        }
-                    }))
+            _localTrack.Book = Builder<Book>.CreateNew()
+                .With(e => e.BookFiles = new LazyLoaded<List<BookFile>>((List<BookFile>)null))
                 .Build();
 
             Subject.IsSatisfiedBy(_localTrack, null).Accepted.Should().BeTrue();
