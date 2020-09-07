@@ -48,7 +48,7 @@ namespace NzbDrone.Core.Test.DecisionEngineTests.RssSync
             _profile.Items = new List<QualityProfileQualityItem>();
             _profile.Items.Add(new QualityProfileQualityItem { Allowed = true, Quality = Quality.PDF });
             _profile.Items.Add(new QualityProfileQualityItem { Allowed = true, Quality = Quality.AZW3 });
-            _profile.Items.Add(new QualityProfileQualityItem { Allowed = true, Quality = Quality.MP3_320 });
+            _profile.Items.Add(new QualityProfileQualityItem { Allowed = true, Quality = Quality.FLAC });
 
             _profile.Cutoff = Quality.AZW3.Id;
 
