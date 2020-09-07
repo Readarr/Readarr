@@ -7,9 +7,11 @@ import FormInputGroup from 'Components/Form/FormInputGroup';
 import FormLabel from 'Components/Form/FormLabel';
 import LoadingIndicator from 'Components/Loading/LoadingIndicator';
 import PageContent from 'Components/Page/PageContent';
+import PageContentBody from 'Components/Page/PageContentBody';
 import PageContentBodyConnector from 'Components/Page/PageContentBodyConnector';
 import { inputTypes } from 'Helpers/Props';
 import SettingsToolbarConnector from 'Settings/SettingsToolbarConnector';
+import styles from './UISettings.css';
 
 export const firstDayOfWeekOptions = [
   { key: 0, value: 'Sunday' },

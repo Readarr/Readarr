@@ -1,7 +1,9 @@
+import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import React from 'react';
 import Icon from 'Components/Icon';
 import MenuButton from 'Components/Menu/MenuButton';
+import { icons } from 'Helpers/Props';
 import styles from './ToolbarMenuButton.css';
 
 function ToolbarMenuButton(props) {

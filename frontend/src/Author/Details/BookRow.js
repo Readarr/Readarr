@@ -9,6 +9,7 @@ import RelativeDateCellConnector from 'Components/Table/Cells/RelativeDateCellCo
 import TableRowCell from 'Components/Table/Cells/TableRowCell';
 import TableRow from 'Components/Table/TableRow';
 import { kinds, sizes } from 'Helpers/Props';
+import formatTimeSpan from 'Utilities/Date/formatTimeSpan';
 import styles from './BookRow.css';
 
 function getBookCountKind(monitored, bookFileCount, bookCount) {
