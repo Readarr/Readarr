@@ -96,7 +96,7 @@ namespace Readarr.Api.V1.Author
 
             foreach (var authorId in resource.AuthorIds)
             {
-                _authorService.DeleteAuthor(authorId, false);
+                _authorService.DeleteAuthor(authorId, resource.DeleteFiles);
             }
 
             return new object();
