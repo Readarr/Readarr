@@ -12,6 +12,9 @@ import ModalContent from 'Components/Modal/ModalContent';
 import ModalFooter from 'Components/Modal/ModalFooter';
 import ModalHeader from 'Components/Modal/ModalHeader';
 import { inputTypes, kinds } from 'Helpers/Props';
+import PrimaryTypeItems from './PrimaryTypeItems';
+import ReleaseStatusItems from './ReleaseStatusItems';
+import SecondaryTypeItems from './SecondaryTypeItems';
 import styles from './EditMetadataProfileModalContent.css';
 
 function EditMetadataProfileModalContent(props) {
