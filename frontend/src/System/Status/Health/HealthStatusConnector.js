@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
 import PageSidebarStatus from 'Components/Page/Sidebar/PageSidebarStatus';
 import { fetchHealth } from 'Store/Actions/systemActions';
+import createHealthCheckSelector from 'Store/Selectors/createHealthCheckSelector';
 
 function createMapStateToProps() {
   return createSelector(

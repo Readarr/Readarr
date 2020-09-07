@@ -9,7 +9,6 @@ import ModalContent from 'Components/Modal/ModalContent';
 import ModalFooter from 'Components/Modal/ModalFooter';
 import ModalHeader from 'Components/Modal/ModalHeader';
 import { kinds } from 'Helpers/Props';
-import stripHtml from 'Utilities/String/stripHtml';
 import AddAuthorOptionsForm from '../Common/AddAuthorOptionsForm.js';
 import styles from './AddNewBookModalContent.css';
 

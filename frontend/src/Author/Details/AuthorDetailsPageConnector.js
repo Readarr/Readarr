@@ -7,6 +7,7 @@ import { createSelector } from 'reselect';
 import LoadingIndicator from 'Components/Loading/LoadingIndicator';
 import NotFound from 'Components/NotFound';
 import PageContent from 'Components/Page/PageContent';
+import PageContentBody from 'Components/Page/PageContentBody';
 import PageContentBodyConnector from 'Components/Page/PageContentBodyConnector';
 import getErrorMessage from 'Utilities/Object/getErrorMessage';
 import AuthorDetailsConnector from './AuthorDetailsConnector';

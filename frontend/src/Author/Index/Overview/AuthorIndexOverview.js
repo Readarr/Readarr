@@ -11,7 +11,6 @@ import SpinnerIconButton from 'Components/Link/SpinnerIconButton';
 import { icons } from 'Helpers/Props';
 import dimensions from 'Styles/Variables/dimensions';
 import fonts from 'Styles/Variables/fonts';
-import stripHtml from 'Utilities/String/stripHtml';
 import AuthorIndexOverviewInfo from './AuthorIndexOverviewInfo';
 import styles from './AuthorIndexOverview.css';
 

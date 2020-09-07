@@ -10,7 +10,6 @@ import Link from 'Components/Link/Link';
 import { icons, sizes } from 'Helpers/Props';
 import dimensions from 'Styles/Variables/dimensions';
 import fonts from 'Styles/Variables/fonts';
-import stripHtml from 'Utilities/String/stripHtml';
 import AddNewBookModal from './AddNewBookModal';
 import styles from './AddNewBookSearchResult.css';
 

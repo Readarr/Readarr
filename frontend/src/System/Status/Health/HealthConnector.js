@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
 import { testAllDownloadClients, testAllIndexers } from 'Store/Actions/settingsActions';
 import { fetchHealth } from 'Store/Actions/systemActions';
+import createHealthCheckSelector from 'Store/Selectors/createHealthCheckSelector';
 import Health from './Health';
 
 function createMapStateToProps() {

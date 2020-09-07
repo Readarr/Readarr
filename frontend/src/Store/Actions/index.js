@@ -1,3 +1,6 @@
+import * as albums from './albumActions';
+import * as albumHistory from './albumHistoryActions';
+import * as albumStudio from './albumStudioActions';
 import * as app from './appActions';
 import * as author from './authorActions';
 import * as authorEditor from './authorEditorActions';
