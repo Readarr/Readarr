@@ -183,6 +183,12 @@ export const defaultState = {
       return statistics.bookCount || 0;
     },
 
+    sizeOnDisk: function(item) {
+      const { statistics = {} } = item;
+
+      return statistics.sizeOnDisk;
+    },
+
     ratings: function(item) {
       const { ratings = {} } = item;
 
