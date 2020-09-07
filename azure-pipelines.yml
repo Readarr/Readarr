@@ -780,6 +780,9 @@ stages:
 
     - job: Analyze_Backend
       displayName: Backend
+      dependsOn: Prepare
+      condition: and(succeeded(), eq(dependencies.Prepare.outputs['setVar.backendNotUpdated'], '0'))
+
       variables:
         disable.coverage.autogenerate: 'true'
       pool:
