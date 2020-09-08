@@ -159,27 +159,32 @@ namespace NzbDrone.Core.Download
 
             if (allEpisodesImportedInHistory)
             {
+                // Log different error messages depending on the circumstances, but treat both as fully imported, because that's the reality.
+                // The second message shouldn't be logged in most cases, but continued reporting would indicate an ongoing issue.
                 if (atLeastOneEpisodeImported)
                 {
                     _logger.Debug("All books were imported in history for {0}", trackedDownload.DownloadItem.Title);
-                    trackedDownload.State = TrackedDownloadState.Imported;
-
-                    var importedAuthorId = historyItems.Where(x => x.EventType == EntityHistoryEventType.BookFileImported)
-                        .Select(x => x.AuthorId)
-                        .MostCommon();
-                    _eventAggregator.PublishEvent(new DownloadCompletedEvent(trackedDownload, trackedDownload.RemoteBook?.Author.Id ?? importedAuthorId));
-
-                    return true;
+                }
+                else
+                {
+                    _logger.Debug()
+                           .Message("No books were just imported, but all books were previously imported, possible issue with download history.")
+                           .Property("AuthorId", trackedDownload.RemoteBook.Author.Id)
+                           .Property("DownloadId", trackedDownload.DownloadItem.DownloadId)
+                           .Property("Title", trackedDownload.DownloadItem.Title)
+                           .Property("Path", trackedDownload.DownloadItem.OutputPath.ToString())
+                           .WriteSentryWarn("DownloadHistoryIncomplete")
+                           .Write();
                 }
 
-                _logger.Debug()
-                       .Message("No Episodes were just imported, but all episodes were previously imported, possible issue with download history.")
-                       .Property("AuthorId", trackedDownload.RemoteBook.Author.Id)
-                       .Property("DownloadId", trackedDownload.DownloadItem.DownloadId)
-                       .Property("Title", trackedDownload.DownloadItem.Title)
-                       .Property("Path", trackedDownload.DownloadItem.OutputPath.ToString())
-                       .WriteSentryWarn("DownloadHistoryIncomplete")
-                       .Write();
+                trackedDownload.State = TrackedDownloadState.Imported;
+
+                var importedAuthorId = historyItems.Where(x => x.EventType == EntityHistoryEventType.BookFileImported)
+                    .Select(x => x.AuthorId)
+                    .MostCommon();
+                _eventAggregator.PublishEvent(new DownloadCompletedEvent(trackedDownload, trackedDownload.RemoteBook?.Author.Id ?? importedAuthorId));
+
+                return true;
             }
 
             _logger.Debug("Not all books have been imported for {0}", trackedDownload.DownloadItem.Title);
