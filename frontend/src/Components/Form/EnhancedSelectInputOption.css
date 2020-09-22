@@ -13,14 +13,12 @@
 
 .optionCheck {
   composes: container from '~./CheckInput.css';
-
   flex: 0 0 0;
 }
 
 .optionCheckInput {
   composes: input from '~./CheckInput.css';
-
-  margin-top: 0;
+  margin-top: 0px;
 }
 
 .isSelected {
