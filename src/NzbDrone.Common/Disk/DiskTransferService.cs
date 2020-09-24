@@ -27,6 +27,18 @@ namespace NzbDrone.Common.Disk
             _logger = logger;
         }
 
+        private string ResolveRealParentPath(string path)
+        {
+            var parentPath = path.GetParentPath();
+            if (!_diskProvider.FolderExists(path))
+            {
+                return path;
+            }
+
+            parentPath = parentPath.GetActualCasing();
+            return parentPath + Path.DirectorySeparatorChar + Path.GetFileName(path);
+        }
+
         public TransferMode TransferFolder(string sourcePath, string targetPath, TransferMode mode)
         {
             Ensure.That(sourcePath, () => sourcePath).IsValidPath();
@@ -44,13 +56,33 @@ namespace NzbDrone.Common.Disk
 
             if (mode == TransferMode.Move && sourcePath.PathEquals(targetPath, StringComparison.InvariantCultureIgnoreCase) && _diskProvider.FolderExists(targetPath))
             {
+                // Move folder out of the way to allow case-insensitive renames
+                var tempPath = sourcePath + ".backup~";
+                _logger.Trace("Rename Intermediate Directory [{0}] > [{1}]", sourcePath, tempPath);
+                _diskProvider.MoveFolder(sourcePath, tempPath);
+
+                if (!_diskProvider.FolderExists(targetPath))
+                {
+                    _logger.Trace("Rename Intermediate Directory [{0}] > [{1}]", tempPath, targetPath);
+                    _logger.Debug("Rename Directory [{0}] > [{1}]", sourcePath, targetPath);
+                    _diskProvider.MoveFolder(tempPath, targetPath);
+                    return mode;
+                }
+
+                // There were two separate folders, revert the intermediate rename and let the recursion deal with it
+                _logger.Trace("Rename Intermediate Directory [{0}] > [{1}]", tempPath, sourcePath);
+                _diskProvider.MoveFolder(tempPath, sourcePath);
+            }
+
+            if (mode == TransferMode.Move && !_diskProvider.FolderExists(targetPath))
+            {
                 var sourceMount = _diskProvider.GetMount(sourcePath);
                 var targetMount = _diskProvider.GetMount(targetPath);
 
                 // If we're on the same mount, do a simple folder move.
                 if (sourceMount != null && targetMount != null && sourceMount.RootDirectory == targetMount.RootDirectory)
                 {
-                    _logger.Debug("Move Directory [{0}] > [{1}]", sourcePath, targetPath);
+                    _logger.Debug("Rename Directory [{0}] > [{1}]", sourcePath, targetPath);
                     _diskProvider.MoveFolder(sourcePath, targetPath);
                     return mode;
                 }
