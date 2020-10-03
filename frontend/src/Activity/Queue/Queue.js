@@ -120,6 +120,7 @@ class Queue extends Component {
       isFetching,
       isPopulated,
       error,
+      items,
       isAuthorFetching,
       isAuthorPopulated,
       isBooksFetching,
@@ -139,8 +140,7 @@ class Queue extends Component {
       allUnselected,
       selectedState,
       isConfirmRemoveModalOpen,
-      isPendingSelected,
-      items
+      isPendingSelected
     } = this.state;
 
     const isRefreshing = isFetching || isAuthorFetching || isBooksFetching || isRefreshMonitoredDownloadsExecuting;
