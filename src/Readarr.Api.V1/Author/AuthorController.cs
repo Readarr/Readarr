@@ -129,6 +129,8 @@ namespace Readarr.Api.V1.Author
             LinkNextPreviousBooks(authorResources.ToArray());
             LinkAuthorStatistics(authorResources, authorStats);
 
+            authorResources.ForEach(LinkRootFolderPath);
+
             //PopulateAlternateTitles(seriesResources);
             return authorResources;
         }
