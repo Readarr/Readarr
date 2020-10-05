@@ -259,7 +259,14 @@ namespace NzbDrone.Core.Configuration
         {
             get { return GetValue("ChmodFolder", "755"); }
 
-            set { SetValue("FileChmod", value); }
+            set { SetValue("ChmodFolder", value); }
+        }
+
+        public string ChownGroup
+        {
+            get { return GetValue("ChownGroup", ""); }
+
+            set { SetValue("ChownGroup", value); }
         }
 
         public string MetadataSource
