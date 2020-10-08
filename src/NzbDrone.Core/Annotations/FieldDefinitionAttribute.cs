@@ -39,6 +39,15 @@ namespace NzbDrone.Core.Annotations
         public string Hint { get; set; }
     }
 
+    public class FieldSelectOption
+    {
+        public int Value { get; set; }
+        public string Name { get; set; }
+        public int Order { get; set; }
+        public string Hint { get; set; }
+        public int? ParentValue { get; set; }
+    }
+
     public enum FieldType
     {
         Textbox,
