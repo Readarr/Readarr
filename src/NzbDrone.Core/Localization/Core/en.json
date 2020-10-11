@@ -285,6 +285,7 @@
   "IncludeUnmonitored": "Include Unmonitored",
   "Indexer": "Indexer",
   "IndexerIdHelpText": "Specify what indexer the profile applies to",
+  "IndexerIdHelpTextWarning": "Using a specific indexer with preferred words can lead to duplicate releases being grabbed",
   "IndexerIdvalue0IncludeInPreferredWordsRenamingFormat": "Include in {Preferred Words} renaming format",
   "IndexerIdvalue0OnlySupportedWhenIndexerIsSetToAll": "Only supported when Indexer is set to (All)",
   "IndexerPriority": "Indexer Priority",

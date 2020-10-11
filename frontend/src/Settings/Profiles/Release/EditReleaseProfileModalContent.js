@@ -140,6 +140,7 @@ function EditReleaseProfileModalContent(props) {
               type={inputTypes.INDEXER_SELECT}
               name="indexerId"
               helpText={translate('IndexerIdHelpText')}
+              helpTextWarning={translate('IndexerIdHelpTextWarning')}
               {...indexerId}
               includeAny={true}
               onChange={onInputChange}
