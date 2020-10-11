@@ -18,7 +18,7 @@ function createMapStateToProps() {
 function createMapDispatchToProps(dispatch, props) {
   return {
     onRemovePress() {
-      dispatch(removeFromBlacklist({ id: props.id }));
+      dispatch(removeBlacklistItem({ id: props.id }));
     }
   };
 }
