@@ -44,8 +44,8 @@ Name: "english"; MessagesFile: "compiler:Default.isl"
 
 [Tasks]
 Name: "desktopIcon"; Description: "{cm:CreateDesktopIcon}"
-Name: "windowsService"; Description: "Install Windows Service (Starts when the computer starts as the LocalService user, you will need to change the user to access network shares)"; GroupDescription: "Start automatically"; Flags: exclusive unchecked
-Name: "startupShortcut"; Description: "Create shortcut in Startup folder (Starts when you log into Windows)"; GroupDescription: "Start automatically"; Flags: exclusive
+Name: "windowsService"; Description: "Install Windows Service (Starts when the computer starts as the LocalService user, you will need to change the user to access network shares)"; GroupDescription: "Start automatically"; Flags: exclusive
+Name: "startupShortcut"; Description: "Create shortcut in Startup folder (Starts when you log into Windows)"; GroupDescription: "Start automatically"; Flags: exclusive unchecked
 Name: "none"; Description: "Do not start automatically"; GroupDescription: "Start automatically"; Flags: exclusive unchecked
 
 [Dirs]
@@ -72,12 +72,13 @@ Filename: "{app}\bin\Readarr.exe"; Description: "Open Readarr Web UI"; Flags: po
 Filename: "{app}\bin\Readarr.exe"; Description: "Start Readarr"; Flags: postinstall skipifsilent nowait; Tasks: startupShortcut none;
 
 [UninstallRun]
-Filename: "{app}\bin\Readarr.Console.exe"; Parameters: "/u"; Flags: waituntilterminated skipifdoesntexist
+Filename: "{app}\bin\readarr.console.exe"; Parameters: "/u"; Flags: waituntilterminated skipifdoesntexist
 
 [Code]
 function PrepareToInstall(var NeedsRestart: Boolean): String;
 var
   ResultCode: Integer;
 begin
-  Exec(ExpandConstant('{commonappdata}\Readarr\bin\Readarr.Console.exe'), '/u', '', 0, ewWaitUntilTerminated, ResultCode)
+  Exec('net', 'stop readarr', '', 0, ewWaitUntilTerminated, ResultCode)
+  Exec('sc', 'delete readarr', '', 0, ewWaitUntilTerminated, ResultCode)
 end;
