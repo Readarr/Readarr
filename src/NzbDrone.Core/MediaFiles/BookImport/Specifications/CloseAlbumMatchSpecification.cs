@@ -8,7 +8,7 @@ namespace NzbDrone.Core.MediaFiles.BookImport.Specifications
 {
     public class CloseAlbumMatchSpecification : IImportDecisionEngineSpecification<LocalEdition>
     {
-        private const double _albumThreshold = 0.20;
+        private const double _albumThreshold = 0.30;
         private readonly Logger _logger;
 
         public CloseAlbumMatchSpecification(Logger logger)

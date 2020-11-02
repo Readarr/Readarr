@@ -10,6 +10,7 @@ using NzbDrone.Core.DecisionEngine;
 using NzbDrone.Core.Download;
 using NzbDrone.Core.MediaFiles.BookImport.Aggregation;
 using NzbDrone.Core.MediaFiles.BookImport.Identification;
+using NzbDrone.Core.Parser;
 using NzbDrone.Core.Parser.Model;
 using NzbDrone.Core.Profiles.Qualities;
 using NzbDrone.Core.RootFolders;
@@ -103,21 +104,42 @@ namespace NzbDrone.Core.MediaFiles.BookImport
                 downloadClientItemInfo = Parser.Parser.ParseBookTitle(downloadClientItem.Title);
             }
 
+            string[] audiobookQualities = new string[] { "MP3-320", "FLAC", "Unknown" };
+
             var i = 1;
             foreach (var file in files)
             {
+                LocalBook localTrack;
+                var quality = QualityParser.ParseQuality(file.Name);
                 _logger.ProgressInfo($"Reading file {i++}/{files.Count}");
-
-                var localTrack = new LocalBook
+                if (audiobookQualities.Contains(quality.Quality.Name) || quality.Quality.Id >= 10)
                 {
-                    DownloadClientAlbumInfo = downloadClientItemInfo,
-                    FolderTrackInfo = folderInfo,
-                    Path = file.FullName,
-                    Size = file.Length,
-                    Modified = file.LastWriteTimeUtc,
-                    FileTrackInfo = _eBookTagService.ReadTags(file),
-                    AdditionalFile = false
-                };
+                    _logger.Debug("Reading {0} audio file", quality.Quality.Name);
+                    localTrack = new LocalBook
+                    {
+                        DownloadClientAlbumInfo = downloadClientItemInfo,
+                        FolderTrackInfo = folderInfo,
+                        Path = file.FullName,
+                        Size = file.Length,
+                        Modified = file.LastWriteTimeUtc,
+                        FileTrackInfo = _audioTagService.ReadTags(file.FullName),
+                        AdditionalFile = false
+                    };
+                }
+                else
+                {
+                    _logger.Debug("Reading {0} ebook file", quality.Quality.Name);
+                    localTrack = new LocalBook
+                    {
+                        DownloadClientAlbumInfo = downloadClientItemInfo,
+                        FolderTrackInfo = folderInfo,
+                        Path = file.FullName,
+                        Size = file.Length,
+                        Modified = file.LastWriteTimeUtc,
+                        FileTrackInfo = _eBookTagService.ReadTags(file),
+                        AdditionalFile = false
+                    };
+                }
 
                 try
                 {

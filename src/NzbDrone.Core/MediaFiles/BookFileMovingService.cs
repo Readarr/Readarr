@@ -85,7 +85,7 @@ namespace NzbDrone.Core.MediaFiles
 
         public BookFile CopyBookFile(BookFile bookFile, LocalBook localBook)
         {
-            var newFileName = _buildFileNames.BuildBookFileName(localBook.Author, localBook.Edition, bookFile);
+            var newFileName = _buildFileNames.BuildBookFileName(localBook.Author, localBook.Edition, bookFile, null, null, localBook.FileTrackInfo.TrackNumbers.GetValue(0).ToString());
             var filePath = _buildFileNames.BuildBookFilePath(localBook.Author, localBook.Edition, newFileName, Path.GetExtension(localBook.Path));
 
             EnsureTrackFolder(bookFile, localBook, filePath);

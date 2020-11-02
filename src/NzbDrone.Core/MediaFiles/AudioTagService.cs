@@ -72,7 +72,9 @@ namespace NzbDrone.Core.MediaFiles
 
         public AudioTag GetTrackMetadata(BookFile trackfile)
         {
-            return new AudioTag();
+            //TODO do something to get track metadata, for now jsut return existing track metadata
+            //   return new AudioTag();
+            return ReadAudioTag(trackfile.Path);
         }
 
         private void UpdateTrackfileSizeAndModified(BookFile trackfile, string path)

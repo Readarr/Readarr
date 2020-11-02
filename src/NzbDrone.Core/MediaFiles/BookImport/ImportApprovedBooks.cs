@@ -148,8 +148,20 @@ namespace NzbDrone.Core.MediaFiles.BookImport
                     //check if already imported
                     if (importResults.Select(r => r.ImportDecision.Item.Book.Id).Contains(localTrack.Book.Id))
                     {
-                        importResults.Add(new ImportResult(importDecision, "Book has already been imported"));
-                        continue;
+                        if (!(localTrack.FileTrackInfo.TrackNumbers != null && localTrack.FileTrackInfo.TrackNumbers.Any()))
+                        {
+                            importResults.Add(new ImportResult(importDecision, "Book has already been imported"));
+                            continue;
+                        }
+                        else
+                        {
+                            var matchingImportResults = importResults.Where(r => r.ImportDecision.Item.Book.Id == localTrack.Book.Id);
+                            if (matchingImportResults.Select(r => r.ImportDecision.Item.FileTrackInfo.TrackNumbers).Contains(localTrack.FileTrackInfo.TrackNumbers))
+                            {
+                                importResults.Add(new ImportResult(importDecision, "Audiobook track has already been imported"));
+                                continue;
+                            }
+                        }
                     }
 
                     localTrack.Book.Author = localTrack.Author;

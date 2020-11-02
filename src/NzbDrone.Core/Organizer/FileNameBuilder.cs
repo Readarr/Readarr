@@ -17,7 +17,7 @@ namespace NzbDrone.Core.Organizer
 {
     public interface IBuildFileNames
     {
-        string BuildBookFileName(Author author, Edition edition, BookFile bookFile, NamingConfig namingConfig = null, List<string> preferredWords = null);
+        string BuildBookFileName(Author author, Edition edition, BookFile bookFile, NamingConfig namingConfig = null, List<string> preferredWords = null, string bookPart = null);
         string BuildBookFilePath(Author author, Edition edition, string fileName, string extension);
         string BuildBookPath(Author author);
         BasicNamingConfig GetBasicNamingConfig(NamingConfig nameSpec);
@@ -78,8 +78,23 @@ namespace NzbDrone.Core.Organizer
             _logger = logger;
         }
 
-        public string BuildBookFileName(Author author, Edition edition, BookFile bookFile, NamingConfig namingConfig = null, List<string> preferredWords = null)
+        public string BuildBookFileName(Author author, Edition edition, BookFile bookFile, NamingConfig namingConfig = null, List<string> preferredWords = null, string bookPart = null)
         {
+            if (author is null)
+            {
+                throw new ArgumentNullException(nameof(author));
+            }
+
+            if (edition is null)
+            {
+                throw new ArgumentNullException(nameof(edition));
+            }
+
+            if (bookFile is null)
+            {
+                throw new ArgumentNullException(nameof(bookFile));
+            }
+
             if (namingConfig == null)
             {
                 namingConfig = _namingConfigService.GetConfig();
@@ -112,6 +127,11 @@ namespace NzbDrone.Core.Organizer
             var fileName = ReplaceTokens(safePattern, tokenHandlers, namingConfig).Trim();
             fileName = FileNameCleanupRegex.Replace(fileName, match => match.Captures[0].Value[0].ToString());
             fileName = TrimSeparatorsRegex.Replace(fileName, string.Empty);
+
+            if (bookPart.IsNotNullOrWhiteSpace())
+            {
+                fileName = fileName + " (" + bookPart + ")";
+            }
 
             return fileName;
         }

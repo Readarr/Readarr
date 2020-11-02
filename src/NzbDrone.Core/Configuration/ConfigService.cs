@@ -137,6 +137,13 @@ namespace NzbDrone.Core.Configuration
             set { SetValue("EnableCompletedDownloadHandling", value); }
         }
 
+        public bool EnableFailedImportRetry
+        {
+            get { return GetValueBoolean("EnableFailedImportRetry", false); }
+
+            set { SetValue("EnableFailedImportRetry", value); }
+        }
+
         public bool RemoveCompletedDownloads
         {
             get { return GetValueBoolean("RemoveCompletedDownloads", false); }

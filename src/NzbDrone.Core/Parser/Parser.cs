@@ -505,9 +505,8 @@ namespace NzbDrone.Core.Parser
 
                     if (airMonth != "00" || airDay != "00")
                     {
-                        var fixedDate = string.Format("20{0}.{1}.{2}", airYear, airMonth, airDay);
-
-                        simpleTitle = simpleTitle.Replace(sixDigitAirDateMatch.Groups["airdate"].Value, fixedDate);
+                            var fixedDate = string.Format("20{0}.{1}.{2}", airYear, airMonth, airDay);
+                            simpleTitle = simpleTitle.Replace(sixDigitAirDateMatch.Groups["airdate"].Value, fixedDate);
                     }
                 }
 

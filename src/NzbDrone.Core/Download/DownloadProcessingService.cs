@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Linq;
 using NLog;
 using NzbDrone.Core.Configuration;
@@ -47,6 +47,7 @@ namespace NzbDrone.Core.Download
         public void Execute(ProcessMonitoredDownloadsCommand message)
         {
             var enableCompletedDownloadHandling = _configService.EnableCompletedDownloadHandling;
+            var enableFailedImportRetry = _configService.EnableFailedImportRetry;
             var removeCompletedDownloads = _configService.RemoveCompletedDownloads;
             var trackedDownloads = _trackedDownloadService.GetTrackedDownloads()
                                                           .Where(t => t.IsTrackable)
@@ -62,6 +63,11 @@ namespace NzbDrone.Core.Download
                     }
                     else if (enableCompletedDownloadHandling && trackedDownload.State == TrackedDownloadState.ImportPending)
                     {
+                        _completedDownloadService.Import(trackedDownload);
+                    }
+                    else if (enableCompletedDownloadHandling && enableFailedImportRetry && trackedDownload.State == TrackedDownloadState.ImportFailed)
+                    {
+                        _logger.Trace("Retrying import for failed import: {0}", trackedDownload.DownloadItem.Title);
                         _completedDownloadService.Import(trackedDownload);
                     }
                 }

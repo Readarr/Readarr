@@ -43,6 +43,8 @@ namespace NzbDrone.Core.MediaFiles.BookImport.Identification
         {
             var watch = System.Diagnostics.Stopwatch.StartNew();
 
+            _logger.Trace("Getting candidates from tags for {0}", localEdition);
+
             // Generally author, book and release are null.  But if they're not then limit candidates appropriately.
             // We've tried to make sure that tracks are all for a single release.
             List<CandidateEdition> candidateReleases;
@@ -113,6 +115,8 @@ namespace NzbDrone.Core.MediaFiles.BookImport.Identification
 
         private List<CandidateEdition> GetDbCandidatesByEdition(List<Edition> editions, bool includeExisting)
         {
+            _logger.Trace($"Getting candidates by edition for {0}", editions);
+
             // get the local tracks on disk for each album
             var bookFiles = editions.Select(x => x.BookId)
                 .Distinct()
@@ -127,6 +131,8 @@ namespace NzbDrone.Core.MediaFiles.BookImport.Identification
 
         private List<CandidateEdition> GetDbCandidatesByBook(Book book, bool includeExisting)
         {
+            _logger.Trace($"Getting candidates by book for {0}", book);
+
             // Sort by most voted so less likely to swap to a random release
             return GetDbCandidatesByEdition(_editionService.GetEditionsByBook(book.Id)
                                             .OrderByDescending(x => x.Ratings.Votes)
@@ -135,7 +141,7 @@ namespace NzbDrone.Core.MediaFiles.BookImport.Identification
 
         private List<CandidateEdition> GetDbCandidatesByAuthor(LocalEdition localEdition, Author author, bool includeExisting)
         {
-            _logger.Trace("Getting candidates for {0}", author);
+            _logger.Trace("Getting candidates by author for {0}", author);
             var candidateReleases = new List<CandidateEdition>();
 
             var albumTag = localEdition.LocalBooks.MostCommon(x => x.FileTrackInfo.AlbumTitle) ?? "";
@@ -153,6 +159,8 @@ namespace NzbDrone.Core.MediaFiles.BookImport.Identification
 
         private List<CandidateEdition> GetDbCandidates(LocalEdition localEdition, bool includeExisting)
         {
+            _logger.Trace($"Getting candidates for {0}", localEdition);
+
             // most general version, nothing has been specified.
             // get all plausible artists, then all plausible albums, then get releases for each of these.
             var candidateReleases = new List<CandidateEdition>();

@@ -405,23 +405,31 @@ namespace NzbDrone.Core.MediaFiles
                 output.Add("Title", Tuple.Create(Title, other.Title));
             }
 
-            if (!Performers.SequenceEqual(other.Performers))
+            if ((Performers != null && Performers.Any()) ^
+                (other.Performers != null && other.Performers.Any()) || (
+                other.Performers != null && other.Performers.Any() &&
+                Performers != null && Performers.Any() &&
+                !Performers.SequenceEqual(other.Performers)))
             {
-                var oldValue = Performers.Any() ? string.Join(" / ", Performers) : null;
-                var newValue = other.Performers.Any() ? string.Join(" / ", other.Performers) : null;
+                var oldValue = Performers != null && Performers.Any() ? string.Join(" / ", Performers) : null;
+                var newValue = other.Performers != null && other.Performers.Any() ? string.Join(" / ", other.Performers) : null;
 
                 output.Add("Artist", Tuple.Create(oldValue, newValue));
             }
 
-            if (Album != other.Album)
+            if (Album != other.Album && other.Album != null)
             {
                 output.Add("Album", Tuple.Create(Album, other.Album));
             }
 
-            if (!AlbumArtists.SequenceEqual(other.AlbumArtists))
+            if ((AlbumArtists != null && AlbumArtists.Any()) ^
+                (other.AlbumArtists != null && other.AlbumArtists.Any()) || (
+                other.AlbumArtists != null && other.AlbumArtists.Any() &&
+                AlbumArtists != null && AlbumArtists.Any() &&
+                !AlbumArtists.SequenceEqual(other.AlbumArtists)))
             {
-                var oldValue = AlbumArtists.Any() ? string.Join(" / ", AlbumArtists) : null;
-                var newValue = other.AlbumArtists.Any() ? string.Join(" / ", other.AlbumArtists) : null;
+                var oldValue = AlbumArtists != null && AlbumArtists.Any() ? string.Join(" / ", AlbumArtists) : null;
+                var newValue = other.AlbumArtists != null && other.AlbumArtists.Any() ? string.Join(" / ", other.AlbumArtists) : null;
 
                 output.Add("Album Artist", Tuple.Create(oldValue, newValue));
             }
@@ -483,9 +491,16 @@ namespace NzbDrone.Core.MediaFiles
                 output.Add("Label", Tuple.Create(Publisher, other.Publisher));
             }
 
-            if (!Genres.SequenceEqual(other.Genres))
+            if ((Genres != null && Genres.Any()) ^
+                (other.Genres != null && other.Genres.Any()) || (
+                other.Genres != null && other.Genres.Any() &&
+                Genres != null && Genres.Any() &&
+                !Genres.SequenceEqual(other.Genres)))
             {
-                output.Add("Genres", Tuple.Create(string.Join(" / ", Genres), string.Join(" / ", other.Genres)));
+                var oldValue = Genres != null && Genres.Any() ? string.Join(" / ", Genres) : null;
+                var newValue = other.Genres != null && other.Genres.Any() ? string.Join(" / ", other.Genres) : null;
+
+                output.Add("Genres", Tuple.Create(oldValue, newValue));
             }
 
             if (ImageSize != other.ImageSize)

@@ -19,7 +19,7 @@ namespace NzbDrone.Core.Configuration
         //Completed/Failed Download Handling (Download client)
         bool EnableCompletedDownloadHandling { get; set; }
         bool RemoveCompletedDownloads { get; set; }
-
+        bool EnableFailedImportRetry { get; set; }
         bool AutoRedownloadFailed { get; set; }
         bool RemoveFailedDownloads { get; set; }
 

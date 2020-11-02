@@ -35,8 +35,7 @@ namespace NzbDrone.Core.HealthCheck.Checks
             missingRootFolders.AddRange(_importListFactory.All()
                 .Select(s => s.RootFolderPath)
                 .Distinct()
-                .Where(s => !_diskProvider.FolderExists(s))
-                .ToList());
+                .Where(s => !_diskProvider.FolderExists(s)).ToList());
 
             missingRootFolders = missingRootFolders.Distinct().ToList();
 

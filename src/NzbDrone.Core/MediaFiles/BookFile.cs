@@ -21,6 +21,7 @@ namespace NzbDrone.Core.MediaFiles
         public MediaInfoModel MediaInfo { get; set; }
         public int EditionId { get; set; }
         public int CalibreId { get; set; }
+        public List<int> TrackNumbers { get; set; }
 
         // These are queried from the database
         public LazyLoaded<Author> Author { get; set; }
