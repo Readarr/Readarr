@@ -43,7 +43,7 @@ namespace NzbDrone.Core.Test.MediaFiles.TrackFileMovingServiceTests
                                                  .Build();
 
             Mocker.GetMock<IBuildFileNames>()
-                  .Setup(s => s.BuildBookFileName(It.IsAny<Author>(), It.IsAny<Edition>(), It.IsAny<BookFile>(), null, null))
+                  .Setup(s => s.BuildBookFileName(It.IsAny<Author>(), It.IsAny<Edition>(), It.IsAny<BookFile>(), null, null, null))
                   .Returns("File Name");
 
             Mocker.GetMock<IBuildFileNames>()
