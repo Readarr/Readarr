@@ -38,6 +38,7 @@ namespace NzbDrone.Mono.Test.DiskProviderTests
                 {
                     Syscall.chmod(_tempPath, FilePermissions.S_IRUSR | FilePermissions.S_IWUSR);
                 }
+
                 _tempPath = null;
             }
         }
