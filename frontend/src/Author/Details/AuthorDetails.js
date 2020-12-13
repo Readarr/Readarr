@@ -28,6 +28,7 @@ import AuthorDetailsHeaderConnector from './AuthorDetailsHeaderConnector';
 import AuthorDetailsSeasonConnector from './AuthorDetailsSeasonConnector';
 import AuthorDetailsSeriesConnector from './AuthorDetailsSeriesConnector';
 import styles from './AuthorDetails.css';
+import MonitoringOptionsModal from 'Author/MonitoringOptions/MonitoringOptionsModal';
 
 function getExpandedState(newState) {
   return {
@@ -50,7 +51,8 @@ class AuthorDetails extends Component {
       isRetagModalOpen: false,
       isEditAuthorModalOpen: false,
       isDeleteAuthorModalOpen: false,
-      isInteractiveImportModalOpen: false,
+      isInteractiveImportModalOpen: false,      
+      isMonitorOptionsModalOpen: false,
       allExpanded: false,
       allCollapsed: false,
       expandedState: {},
@@ -102,6 +104,14 @@ class AuthorDetails extends Component {
 
   onDeleteAuthorModalClose = () => {
     this.setState({ isDeleteAuthorModalOpen: false });
+  }
+
+  onMonitorOptionsPress = () => {
+    this.setState({ isMonitorOptionsModalOpen: true });
+  }
+
+  onMonitorOptionsClose = () => {
+    this.setState({ isMonitorOptionsModalOpen: false });
   }
 
   onExpandAllPress = () => {
@@ -163,6 +173,7 @@ class AuthorDetails extends Component {
       isEditAuthorModalOpen,
       isDeleteAuthorModalOpen,
       isInteractiveImportModalOpen,
+      isMonitorOptionsModalOpen,
       allExpanded,
       allCollapsed,
       expandedState,
@@ -222,6 +233,12 @@ class AuthorDetails extends Component {
             />
 
             <PageToolbarSeparator />
+
+            <PageToolbarButton
+              label={translate('BookMonitoring')}
+              iconName={icons.MONITORED}
+              onPress={this.onMonitorOptionsPress}
+            />
 
             <PageToolbarButton
               label={translate('Edit')}
@@ -408,10 +425,10 @@ class AuthorDetails extends Component {
           </div>
 
           <div className={styles.metadataMessage}>
-            Missing or too many books? Modify or create a new
-            <Link to='/settings/profiles'> Metadata Profile </Link>
+            {translate('TooManyBooks')}
+            <Link to='/settings/profiles'> {translate('MetadataProfile')} </Link>
             or manually
-            <Link to={`/add/search?term=${encodeURIComponent(authorName)}`}> Search </Link>
+            <Link to={`/add/search?term=${encodeURIComponent(authorName)}`}> {translate('Search')} </Link>
             for new items!
           </div>
 
@@ -448,6 +465,12 @@ class AuthorDetails extends Component {
             showFilterExistingFiles={true}
             showImportMode={false}
             onModalClose={this.onInteractiveImportModalClose}
+          />
+
+          <MonitoringOptionsModal
+            isOpen={isMonitorOptionsModalOpen}
+            authorId={id}
+            onModalClose={this.onMonitorOptionsClose}
           />
         </PageContentBody>
       </PageContent>
