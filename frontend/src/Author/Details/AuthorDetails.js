@@ -409,7 +409,7 @@ class AuthorDetails extends Component {
 
                     <span className={styles.sizeOnDisk}>
                       {
-                        formatBytes(sizeOnDisk)
+                        formatBytes(sizeOnDisk || 0)
                       }
                     </span>
                   </Label>
