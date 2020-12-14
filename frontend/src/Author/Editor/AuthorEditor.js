@@ -6,10 +6,13 @@ import FilterMenu from 'Components/Menu/FilterMenu';
 import PageContent from 'Components/Page/PageContent';
 import PageContentBodyConnector from 'Components/Page/PageContentBodyConnector';
 import PageToolbar from 'Components/Page/Toolbar/PageToolbar';
+import PageToolbarButton from 'Components/Page/Toolbar/PageToolbarButton';
 import PageToolbarSection from 'Components/Page/Toolbar/PageToolbarSection';
+import PageToolbarSeparator from 'Components/Page/Toolbar/PageToolbarSeparator';
 import Table from 'Components/Table/Table';
 import TableBody from 'Components/Table/TableBody';
-import { align, sortDirections } from 'Helpers/Props';
+import TableOptionsModalWrapper from 'Components/Table/TableOptions/TableOptionsModalWrapper';
+import { align, icons, sortDirections } from 'Helpers/Props';
 import getErrorMessage from 'Utilities/Object/getErrorMessage';
 import getSelectedIds from 'Utilities/Table/getSelectedIds';
 import selectAll from 'Utilities/Table/selectAll';
@@ -73,9 +76,14 @@ class AuthorEditor extends Component {
       allUnselected: false,
       lastToggled: null,
       selectedState: {},
+<<<<<<< HEAD:frontend/src/Author/Editor/AuthorEditor.js
       isOrganizingAuthorModalOpen: false,
       isRetaggingAuthorModalOpen: false,
       columns: getColumns(props.showMetadataProfile)
+=======
+      isOrganizingArtistModalOpen: false,
+      isRetaggingArtistModalOpen: false
+>>>>>>> Mass Editor size and options:frontend/src/Artist/Editor/ArtistEditor.js
     };
   }
 
@@ -155,6 +163,7 @@ class AuthorEditor extends Component {
       error,
       totalItems,
       items,
+      columns,
       selectedFilterKey,
       filters,
       customFilters,
@@ -164,9 +173,15 @@ class AuthorEditor extends Component {
       saveError,
       isDeleting,
       deleteError,
+<<<<<<< HEAD:frontend/src/Author/Editor/AuthorEditor.js
       isOrganizingAuthor,
       isRetaggingAuthor,
       showMetadataProfile,
+=======
+      isOrganizingArtist,
+      isRetaggingArtist,
+      onTableOptionChange,
+>>>>>>> Mass Editor size and options:frontend/src/Artist/Editor/ArtistEditor.js
       onSortPress,
       onFilterSelect
     } = this.props;
@@ -174,8 +189,7 @@ class AuthorEditor extends Component {
     const {
       allSelected,
       allUnselected,
-      selectedState,
-      columns
+      selectedState
     } = this.state;
 
     const selectedAuthorIds = this.getSelectedIds();
@@ -185,6 +199,18 @@ class AuthorEditor extends Component {
         <PageToolbar>
           <PageToolbarSection />
           <PageToolbarSection alignContent={align.RIGHT}>
+            <TableOptionsModalWrapper
+              columns={columns}
+              onTableOptionChange={onTableOptionChange}
+            >
+              <PageToolbarButton
+                label="Options"
+                iconName={icons.TABLE}
+              />
+            </TableOptionsModalWrapper>
+
+            <PageToolbarSeparator />
+
             <FilterMenu
               alignMenu={align.RIGHT}
               selectedFilterKey={selectedFilterKey}
@@ -252,9 +278,16 @@ class AuthorEditor extends Component {
           saveError={saveError}
           isDeleting={isDeleting}
           deleteError={deleteError}
+<<<<<<< HEAD:frontend/src/Author/Editor/AuthorEditor.js
           isOrganizingAuthor={isOrganizingAuthor}
           isRetaggingAuthor={isRetaggingAuthor}
           showMetadataProfile={showMetadataProfile}
+=======
+          isOrganizingArtist={isOrganizingArtist}
+          isRetaggingArtist={isRetaggingArtist}
+          columns={columns}
+          showMetadataProfile={columns.find((column) => column.name === 'metadataProfileId').isVisible}
+>>>>>>> Mass Editor size and options:frontend/src/Artist/Editor/ArtistEditor.js
           onSaveSelected={this.onSaveSelected}
           onOrganizeAuthorPress={this.onOrganizeAuthorPress}
           onRetagAuthorPress={this.onRetagAuthorPress}
@@ -283,6 +316,7 @@ AuthorEditor.propTypes = {
   error: PropTypes.object,
   totalItems: PropTypes.number.isRequired,
   items: PropTypes.arrayOf(PropTypes.object).isRequired,
+  columns: PropTypes.arrayOf(PropTypes.object).isRequired,
   sortKey: PropTypes.string,
   sortDirection: PropTypes.oneOf(sortDirections.all),
   selectedFilterKey: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
@@ -292,9 +326,15 @@ AuthorEditor.propTypes = {
   saveError: PropTypes.object,
   isDeleting: PropTypes.bool.isRequired,
   deleteError: PropTypes.object,
+<<<<<<< HEAD:frontend/src/Author/Editor/AuthorEditor.js
   isOrganizingAuthor: PropTypes.bool.isRequired,
   isRetaggingAuthor: PropTypes.bool.isRequired,
   showMetadataProfile: PropTypes.bool.isRequired,
+=======
+  isOrganizingArtist: PropTypes.bool.isRequired,
+  isRetaggingArtist: PropTypes.bool.isRequired,
+  onTableOptionChange: PropTypes.func.isRequired,
+>>>>>>> Mass Editor size and options:frontend/src/Artist/Editor/ArtistEditor.js
   onSortPress: PropTypes.func.isRequired,
   onFilterSelect: PropTypes.func.isRequired,
   onSaveSelected: PropTypes.func.isRequired

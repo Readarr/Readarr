@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import AuthorNameLink from 'Author/AuthorNameLink';
@@ -8,6 +7,7 @@ import TableRowCell from 'Components/Table/Cells/TableRowCell';
 import TableSelectCell from 'Components/Table/Cells/TableSelectCell';
 import TableRow from 'Components/Table/TableRow';
 import TagListConnector from 'Components/TagListConnector';
+import formatBytes from 'Utilities/Number/formatBytes';
 import styles from './AuthorEditorRow.css';
 
 class AuthorEditorRow extends Component {
@@ -34,6 +34,7 @@ class AuthorEditorRow extends Component {
       metadataProfile,
       qualityProfile,
       path,
+      statistics,
       tags,
       columns,
       isSelected,
@@ -48,39 +49,105 @@ class AuthorEditorRow extends Component {
           onSelectedChange={onSelectedChange}
         />
 
-        <AuthorStatusCell
-          authorType={authorType}
-          monitored={monitored}
-          status={status}
-        />
-
-        <TableRowCell>
-          <AuthorNameLink
-            titleSlug={titleSlug}
-            authorName={authorName}
-          />
-        </TableRowCell>
-
-        <TableRowCell>
-          {qualityProfile.name}
-        </TableRowCell>
-
         {
-          _.find(columns, { name: 'metadataProfileId' }).isVisible &&
-            <TableRowCell>
-              {metadataProfile.name}
-            </TableRowCell>
+          columns.map((column) => {
+            const {
+              name,
+              isVisible
+            } = column;
+
+            if (!isVisible) {
+              return null;
+            }
+
+            if (name === 'status') {
+              return (
+                <AuthorStatusCell
+                  key={name}
+                  authorType={authorType}
+                  monitored={monitored}
+                  status={status}
+                  isSaving={isSaving}
+                  onMonitoredPress={onAuthorMonitoredPress}
+                />
+              );
+            }
+
+            if (name === 'sortName') {
+              return (
+                <TableRowCell
+                  key={name}
+                  className={styles.title}
+                >
+                  <ArtistNameLink
+                    foreignAuthorId={foreignAuthorId}
+                    authorName={authorName}
+                  />
+                </TableRowCell>
+              );
+            }
+
+            if (name === 'qualityProfileId') {
+              return (
+                <TableRowCell key={name}>
+                  {qualityProfile.name}
+                </TableRowCell>
+              );
+            }
+
+            if (name === 'metadataProfileId') {
+              return (
+                <TableRowCell key={name}>
+                  {metadataProfile.name}
+                </TableRowCell>
+              );
+            }
+
+            if (name === 'bookFolder') {
+              return (
+                <TableRowCell
+                  key={name}
+                  className={styles.bookFolder}
+                >
+                  <CheckInput
+                    name="bookFolder"
+                    value={bookFolder}
+                    isDisabled={true}
+                    onChange={this.onBookFolderChange}
+                  />
+                </TableRowCell>
+              );
+            }
+
+            if (name === 'path') {
+              return (
+                <TableRowCell key={name}>
+                  {path}
+                </TableRowCell>
+              );
+            }
+
+            if (name === 'sizeOnDisk') {
+              return (
+                <TableRowCell key={name}>
+                  {formatBytes(statistics.sizeOnDisk)}
+                </TableRowCell>
+              );
+            }
+
+            if (name === 'tags') {
+              return (
+                <TableRowCell key={name}>
+                  <TagListConnector
+                    tags={tags}
+                  />
+                </TableRowCell>
+              );
+            }
+
+            return null;
+          })
         }
-
-        <TableRowCell>
-          {path}
-        </TableRowCell>
-
-        <TableRowCell>
-          <TagListConnector
-            tags={tags}
-          />
-        </TableRowCell>
       </TableRow>
     );
   }
@@ -96,6 +163,7 @@ AuthorEditorRow.propTypes = {
   metadataProfile: PropTypes.object.isRequired,
   qualityProfile: PropTypes.object.isRequired,
   path: PropTypes.string.isRequired,
+  statistics: PropTypes.object.isRequired,
   tags: PropTypes.arrayOf(PropTypes.number).isRequired,
   columns: PropTypes.arrayOf(PropTypes.object).isRequired,
   isSelected: PropTypes.bool,
