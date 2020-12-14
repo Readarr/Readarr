@@ -85,7 +85,7 @@ class AuthorEditorConnector extends Component {
   }
 }
 
-AuthorEditorConnector.propTypes = {
+ArtistEditorConnector.propTypes = {
   dispatchSetAuthorEditorSort: PropTypes.func.isRequired,
   dispatchSetAuthorEditorFilter: PropTypes.func.isRequired,
   dispatchSetAuthorEditorTableOption: PropTypes.func.isRequired,
