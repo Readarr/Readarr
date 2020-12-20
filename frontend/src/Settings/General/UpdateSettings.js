@@ -63,7 +63,7 @@ function UpdateSettings(props) {
           type={inputTypes.TEXT}
           name="branch"
           helpText={usingExternalUpdateMechanism ? 'Branch used by external update mechanism' : 'Branch to use to update Readarr'}
-          helpLink="https://github.com/Readarr/Readarr/wiki/Release-Branches"
+          helpLink="https://wiki.servarr.com/Readarr_FAQ#How_do_I_update_my_Readarr"
           {...branch}
           onChange={onInputChange}
           readOnly={usingExternalUpdateMechanism}
@@ -100,7 +100,7 @@ function UpdateSettings(props) {
                 name="updateMechanism"
                 values={updateOptions}
                 helpText="Use Readarr's built-in updater or a script"
-                helpLink="https://github.com/Readarr/Readarr/wiki/Updating"
+                helpLink="https://wiki.servarr.com/Readarr_FAQ#How_do_I_update_my_Readarr"
                 onChange={onInputChange}
                 {...updateMechanism}
               />

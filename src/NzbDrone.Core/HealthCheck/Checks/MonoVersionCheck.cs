@@ -35,7 +35,7 @@ namespace NzbDrone.Core.HealthCheck.Checks
             return new HealthCheck(GetType(),
                 HealthCheckResult.Error,
                 $"Currently installed Mono version {monoVersion} is old and unsupported. Please upgrade Mono to version {bestVersion}.",
-                "#currently-installed-mono-version-is-old-and-unsupported");
+                "#currently_installed_mono_version_is_old_and_unsupported");
         }
 
         public override bool CheckOnSchedule => false;
