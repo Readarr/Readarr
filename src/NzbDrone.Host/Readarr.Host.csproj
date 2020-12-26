@@ -7,6 +7,7 @@
     <PackageReference Include="Microsoft.Extensions.Hosting.WindowsServices" />
     <PackageReference Include="DryIoc.dll" />
     <PackageReference Include="DryIoc.Microsoft.DependencyInjection" />
+    <PackageReference Include="System.Text.Encoding.CodePages" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Readarr.Api.V1\Readarr.Api.V1.csproj" />
