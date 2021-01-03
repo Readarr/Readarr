@@ -23,46 +23,6 @@ import AuthorEditorFooter from './AuthorEditorFooter';
 import AuthorEditorRowConnector from './AuthorEditorRowConnector';
 import OrganizeAuthorModal from './Organize/OrganizeAuthorModal';
 
-function getColumns(showMetadataProfile) {
-  return [
-    {
-      name: 'status',
-      isSortable: true,
-      isVisible: true
-    },
-    {
-      name: 'sortName',
-      label: 'Name',
-      isSortable: true,
-      isVisible: true
-    },
-    {
-      name: 'qualityProfileId',
-      label: 'Quality Profile',
-      isSortable: true,
-      isVisible: true
-    },
-    {
-      name: 'metadataProfileId',
-      label: 'Metadata Profile',
-      isSortable: true,
-      isVisible: showMetadataProfile
-    },
-    {
-      name: 'path',
-      label: 'Path',
-      isSortable: true,
-      isVisible: true
-    },
-    {
-      name: 'tags',
-      label: 'Tags',
-      isSortable: false,
-      isVisible: true
-    }
-  ];
-}
-
 class AuthorEditor extends Component {
 
   //
