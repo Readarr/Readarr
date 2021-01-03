@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PageContent from 'Components/Page/PageContent';
-import PageContentBodyConnector from 'Components/Page/PageContentBodyConnector';
 import PageContentBody from 'Components/Page/PageContentBody';
+import PageContentBodyConnector from 'Components/Page/PageContentBodyConnector';
 import AboutConnector from './About/AboutConnector';
 import DiskSpaceConnector from './DiskSpace/DiskSpaceConnector';
 import HealthConnector from './Health/HealthConnector';
