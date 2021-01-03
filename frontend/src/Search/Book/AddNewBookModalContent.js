@@ -93,7 +93,7 @@ class AddNewBookModalContent extends Component {
                     <TextTruncate
                       truncateText="…"
                       line={8}
-                      text={stripHtml(overview)}
+                      text={overview}
                     />
                   </div> :
                   null

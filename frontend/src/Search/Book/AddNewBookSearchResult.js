@@ -175,7 +175,7 @@ class AddNewBookSearchResult extends Component {
               <TextTruncate
                 truncateText="…"
                 line={Math.floor(height / (defaultFontSize * lineHeight))}
-                text={stripHtml(overview)}
+                text={overview}
               />
             </div>
           </div>

@@ -515,7 +515,7 @@ class AuthorDetails extends Component {
                 <div className={styles.overview}>
                   <TextTruncate
                     line={Math.floor(125 / (defaultFontSize * lineHeight))}
-                    text={stripHtml(overview)}
+                    text={overview}
                   />
                 </div>
               </div>

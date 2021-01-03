@@ -29,7 +29,6 @@ import InteractiveSearchTable from 'InteractiveSearch/InteractiveSearchTable';
 import OrganizePreviewModalConnector from 'Organize/OrganizePreviewModalConnector';
 import fonts from 'Styles/Variables/fonts';
 import formatBytes from 'Utilities/Number/formatBytes';
-import stripHtml from 'Utilities/String/stripHtml';
 import BookDetailsLinks from './BookDetailsLinks';
 import styles from './BookDetails.css';
 
@@ -361,7 +360,7 @@ class BookDetails extends Component {
                 <div className={styles.overview}>
                   <TextTruncate
                     line={Math.floor(125 / (defaultFontSize * lineHeight))}
-                    text={stripHtml(overview)}
+                    text={overview}
                   />
                 </div>
               </div>
