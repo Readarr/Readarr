@@ -108,7 +108,6 @@ export const setSeriesSort = createAction(SET_SERIES_SORT);
 export const setSeriesTableOption = createAction(SET_SERIES_TABLE_OPTION);
 export const clearSeries = createAction(CLEAR_SERIES);
 
-
 //
 // Action Handlers
 
