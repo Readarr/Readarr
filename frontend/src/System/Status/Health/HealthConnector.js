@@ -9,6 +9,7 @@ import Health from './Health';
 
 function createMapStateToProps() {
   return createSelector(
+    createHealthCheckSelector(),
     (state) => state.system.health,
     (state) => state.settings.downloadClients.isTestingAll,
     (state) => state.settings.indexers.isTestingAll,
