@@ -6,6 +6,7 @@ import LoadingIndicator from 'Components/Loading/LoadingIndicator';
 import ConfirmModal from 'Components/Modal/ConfirmModal';
 import PageContent from 'Components/Page/PageContent';
 import PageContentBody from 'Components/Page/PageContentBody';
+import PageContentBodyConnector from 'Components/Page/PageContentBodyConnector';
 import { kinds } from 'Helpers/Props';
 import SettingsToolbarConnector from 'Settings/SettingsToolbarConnector';
 import AnalyticSettings from './AnalyticSettings';
