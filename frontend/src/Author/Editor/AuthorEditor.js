@@ -76,14 +76,8 @@ class AuthorEditor extends Component {
       allUnselected: false,
       lastToggled: null,
       selectedState: {},
-<<<<<<< HEAD:frontend/src/Author/Editor/AuthorEditor.js
       isOrganizingAuthorModalOpen: false,
-      isRetaggingAuthorModalOpen: false,
-      columns: getColumns(props.showMetadataProfile)
-=======
-      isOrganizingArtistModalOpen: false,
-      isRetaggingArtistModalOpen: false
->>>>>>> Mass Editor size and options:frontend/src/Artist/Editor/ArtistEditor.js
+      isRetaggingAuthorModalOpen: false
     };
   }
 
@@ -173,15 +167,9 @@ class AuthorEditor extends Component {
       saveError,
       isDeleting,
       deleteError,
-<<<<<<< HEAD:frontend/src/Author/Editor/AuthorEditor.js
       isOrganizingAuthor,
       isRetaggingAuthor,
-      showMetadataProfile,
-=======
-      isOrganizingArtist,
-      isRetaggingArtist,
       onTableOptionChange,
->>>>>>> Mass Editor size and options:frontend/src/Artist/Editor/ArtistEditor.js
       onSortPress,
       onFilterSelect
     } = this.props;
@@ -278,16 +266,10 @@ class AuthorEditor extends Component {
           saveError={saveError}
           isDeleting={isDeleting}
           deleteError={deleteError}
-<<<<<<< HEAD:frontend/src/Author/Editor/AuthorEditor.js
           isOrganizingAuthor={isOrganizingAuthor}
           isRetaggingAuthor={isRetaggingAuthor}
-          showMetadataProfile={showMetadataProfile}
-=======
-          isOrganizingArtist={isOrganizingArtist}
-          isRetaggingArtist={isRetaggingArtist}
           columns={columns}
           showMetadataProfile={columns.find((column) => column.name === 'metadataProfileId').isVisible}
->>>>>>> Mass Editor size and options:frontend/src/Artist/Editor/ArtistEditor.js
           onSaveSelected={this.onSaveSelected}
           onOrganizeAuthorPress={this.onOrganizeAuthorPress}
           onRetagAuthorPress={this.onRetagAuthorPress}
@@ -326,15 +308,9 @@ AuthorEditor.propTypes = {
   saveError: PropTypes.object,
   isDeleting: PropTypes.bool.isRequired,
   deleteError: PropTypes.object,
-<<<<<<< HEAD:frontend/src/Author/Editor/AuthorEditor.js
   isOrganizingAuthor: PropTypes.bool.isRequired,
   isRetaggingAuthor: PropTypes.bool.isRequired,
-  showMetadataProfile: PropTypes.bool.isRequired,
-=======
-  isOrganizingArtist: PropTypes.bool.isRequired,
-  isRetaggingArtist: PropTypes.bool.isRequired,
   onTableOptionChange: PropTypes.func.isRequired,
->>>>>>> Mass Editor size and options:frontend/src/Artist/Editor/ArtistEditor.js
   onSortPress: PropTypes.func.isRequired,
   onFilterSelect: PropTypes.func.isRequired,
   onSaveSelected: PropTypes.func.isRequired
