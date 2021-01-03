@@ -8,6 +8,7 @@ import createHealthCheckSelector from 'Store/Selectors/createHealthCheckSelector
 
 function createMapStateToProps() {
   return createSelector(
+    createHealthCheckSelector(),
     (state) => state.app,
     (state) => state.system.health,
     (app, health) => {
