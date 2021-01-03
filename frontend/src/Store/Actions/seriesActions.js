@@ -4,6 +4,7 @@ import { createThunk, handleThunks } from 'Store/thunks';
 import createFetchHandler from './Creators/createFetchHandler';
 import createHandleActions from './Creators/createHandleActions';
 import createSetClientSideCollectionSortReducer from './Creators/Reducers/createSetClientSideCollectionSortReducer';
+import createSetSettingValueReducer from './Creators/Reducers/createSetSettingValueReducer';
 import createSetTableOptionReducer from './Creators/Reducers/createSetTableOptionReducer';
 
 //
@@ -97,13 +98,16 @@ export const defaultState = {
 export const FETCH_SERIES = 'series/fetchSeries';
 export const SET_SERIES_SORT = 'books/setSeriesSort';
 export const CLEAR_SERIES = 'series/clearSeries';
+export const SET_SERIES_VALUE = 'albums/setAlbumValue';
 
 //
 // Action Creators
 
 export const fetchSeries = createThunk(FETCH_SERIES);
 export const setSeriesSort = createAction(SET_SERIES_SORT);
+export const setSeriesTableOption = createAction(SET_SERIES_TABLE_OPTION);
 export const clearSeries = createAction(CLEAR_SERIES);
+
 
 //
 // Action Handlers
@@ -118,6 +122,10 @@ export const actionHandlers = handleThunks({
 export const reducers = createHandleActions({
 
   [SET_SERIES_SORT]: createSetClientSideCollectionSortReducer(section),
+
+  [SET_SERIES_TABLE_OPTION]: createSetTableOptionReducer(section),
+
+  [SET_SERIES_VALUE]: createSetSettingValueReducer(section),
 
   [CLEAR_SERIES]: (state) => {
     return Object.assign({}, state, {
