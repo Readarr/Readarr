@@ -8,7 +8,6 @@ import LoadingIndicator from 'Components/Loading/LoadingIndicator';
 import NotFound from 'Components/NotFound';
 import PageContent from 'Components/Page/PageContent';
 import PageContentBody from 'Components/Page/PageContentBody';
-import PageContentBodyConnector from 'Components/Page/PageContentBodyConnector';
 import { clearBooks, fetchBooks } from 'Store/Actions/bookActions';
 import BookDetailsConnector from './BookDetailsConnector';
 
@@ -104,9 +103,9 @@ class BookDetailsPageConnector extends Component {
         (!isFetching && !isPopulated)) {
       return (
         <PageContent title='loading'>
-          <PageContentBodyConnector>
+          <PageContentBody>
             <LoadingIndicator />
-          </PageContentBodyConnector>
+          </PageContentBody>
         </PageContent>
       );
     }

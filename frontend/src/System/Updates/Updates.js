@@ -8,7 +8,6 @@ import LoadingIndicator from 'Components/Loading/LoadingIndicator';
 import InlineMarkdown from 'Components/Markdown/InlineMarkdown';
 import PageContent from 'Components/Page/PageContent';
 import PageContentBody from 'Components/Page/PageContentBody';
-import PageContentBodyConnector from 'Components/Page/PageContentBodyConnector';
 import { icons, kinds } from 'Helpers/Props';
 import formatDate from 'Utilities/Date/formatDate';
 import UpdateChanges from './UpdateChanges';
@@ -50,7 +49,7 @@ class Updates extends Component {
 
     return (
       <PageContent title="Updates">
-        <PageContentBodyConnector>
+        <PageContentBody>
           {
             !isPopulated && !hasError &&
               <LoadingIndicator />
@@ -199,7 +198,7 @@ class Updates extends Component {
                 Failed to update settings
               </div>
           }
-        </PageContentBodyConnector>
+        </PageContentBody>
       </PageContent>
     );
   }

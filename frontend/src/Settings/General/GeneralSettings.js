@@ -6,7 +6,6 @@ import LoadingIndicator from 'Components/Loading/LoadingIndicator';
 import ConfirmModal from 'Components/Modal/ConfirmModal';
 import PageContent from 'Components/Page/PageContent';
 import PageContentBody from 'Components/Page/PageContentBody';
-import PageContentBodyConnector from 'Components/Page/PageContentBodyConnector';
 import { kinds } from 'Helpers/Props';
 import SettingsToolbarConnector from 'Settings/SettingsToolbarConnector';
 import AnalyticSettings from './AnalyticSettings';
@@ -119,7 +118,7 @@ class GeneralSettings extends Component {
           {...otherProps}
         />
 
-        <PageContentBodyConnector>
+        <PageContentBody>
           {
             isFetching && !isPopulated &&
               <LoadingIndicator />
@@ -182,7 +181,7 @@ class GeneralSettings extends Component {
                 />
               </Form>
           }
-        </PageContentBodyConnector>
+        </PageContentBody>
 
         <ConfirmModal
           isOpen={this.state.isRestartRequiredModalOpen}
