@@ -13,7 +13,7 @@ namespace NzbDrone.Core.DecisionEngine.Specifications
         bool QualityCutoffNotMet(QualityProfile profile, QualityModel currentQuality, QualityModel newQuality = null);
         bool CutoffNotMet(QualityProfile profile, List<QualityModel> currentQualities, int currentScore, QualityModel newQuality = null, int newScore = 0);
         bool IsRevisionUpgrade(QualityModel currentQuality, QualityModel newQuality);
-        bool IsUpgradeAllowed(QualityProfile qualityProfile, List<QualityModel> currentQualities, QualityModel newQuality);
+        bool IsUpgradeAllowed(QualityProfile qualityProfile, QualityModel currentQuality, QualityModel newQuality);
     }
 
     public class UpgradableSpecification : IUpgradableSpecification
@@ -49,12 +49,13 @@ namespace NzbDrone.Core.DecisionEngine.Specifications
                     return ProfileComparisonResult.Equal;
                 }
 
-                // Quality Treated as Equal if Propers are not Prefered
-                if (_configService.DownloadPropersAndRepacks == ProperDownloadTypes.DoNotPrefer &&
-                    newQuality.Revision.CompareTo(currentQualities(q => q.Revision)) > 0)
-                {
-                    return ProfileComparisonResult.Equal;
-                }
+                // Accept unless the user doesn't want to prefer propers, optionally they can
+                // use preferred words to prefer propers/repacks over non-propers/repacks.
+                if (_configService.DownloadPropersAndRepacks != ProperDownloadTypes.DoNotPrefer &&
+                    newQuality?.Revision.CompareTo(currentQuality.Revision) > 0)
+                    {
+                        return ProfileComparisonResult.Upgrade;
+                    }
             }
 
             return ProfileComparisonResult.Upgrade;
@@ -144,9 +145,9 @@ namespace NzbDrone.Core.DecisionEngine.Specifications
             return false;
         }
 
-        public bool IsUpgradeAllowed(QualityProfile qualityProfile, List<QualityModel> currentQualities, QualityModel newQuality)
+        public bool IsUpgradeAllowed(QualityProfile qualityProfile, QualityModel currentQuality, QualityModel newQuality)
         {
-            var isQualityUpgrade = IsQualityUpgradable(qualityProfile, currentQualities, newQuality);
+            var isQualityUpgrade = IsQualityUpgradable(qualityProfile, currentQuality, newQuality);
 
             return CheckUpgradeAllowed(qualityProfile, isQualityUpgrade);
         }
