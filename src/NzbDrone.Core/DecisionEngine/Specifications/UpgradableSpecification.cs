@@ -9,7 +9,7 @@ namespace NzbDrone.Core.DecisionEngine.Specifications
 {
     public interface IUpgradableSpecification
     {
-        bool IsUpgradable(QualityProfile profile, List<QualityModel> currentQualities, int currentScore, QualityModel newQuality, int newScore);
+        bool IsUpgradable(QualityProfile profile, QualityModel currentQualities, int currentScore, QualityModel newQuality, int newScore);
         bool QualityCutoffNotMet(QualityProfile profile, QualityModel currentQuality, QualityModel newQuality = null);
         bool CutoffNotMet(QualityProfile profile, List<QualityModel> currentQualities, int currentScore, QualityModel newQuality = null, int newScore = 0);
         bool IsRevisionUpgrade(QualityModel currentQuality, QualityModel newQuality);
@@ -27,23 +27,20 @@ namespace NzbDrone.Core.DecisionEngine.Specifications
             _logger = logger;
         }
 
-        private ProfileComparisonResult IsQualityUpgradable(QualityProfile profile, List<QualityModel> currentQualities, QualityModel newQuality = null)
+        private ProfileComparisonResult IsQualityUpgradable(QualityProfile profile, QualityModel currentQuality, QualityModel newQuality = null)
         {
             if (newQuality != null)
             {
                 var totalCompare = 0;
 
-                foreach (var quality in currentQualities)
+                var compare = new QualityModelComparer(profile).Compare(newQuality, currentQuality);
+
+                totalCompare += compare;
+
+                if (compare < 0)
                 {
-                    var compare = new QualityModelComparer(profile).Compare(newQuality, quality);
-
-                    totalCompare += compare;
-
-                    if (compare < 0)
-                    {
-                        // Not upgradable if new quality is a downgrade for any current quality
-                        return ProfileComparisonResult.Downgrade;
-                    }
+                    // Not upgradable if new quality is a downgrade for any current quality
+                    return ProfileComparisonResult.Downgrade;
                 }
 
                 // Not upgradable if new quality is equal to all current qualities
@@ -54,7 +51,7 @@ namespace NzbDrone.Core.DecisionEngine.Specifications
 
                 // Quality Treated as Equal if Propers are not Prefered
                 if (_configService.DownloadPropersAndRepacks == ProperDownloadTypes.DoNotPrefer &&
-                    newQuality.Revision.CompareTo(currentQualities.Min(q => q.Revision)) > 0)
+                    newQuality.Revision.CompareTo(currentQualities(q => q.Revision)) > 0)
                 {
                     return ProfileComparisonResult.Equal;
                 }
@@ -70,7 +67,7 @@ namespace NzbDrone.Core.DecisionEngine.Specifications
             return newScore > currentScore;
         }
 
-        public bool IsUpgradable(QualityProfile qualityProfile, List<QualityModel> currentQualities, int currentScore, QualityModel newQuality, int newScore)
+        public bool IsUpgradable(QualityProfile qualityProfile, QualityModel currentQualities, int currentScore, QualityModel newQuality, int newScore)
         {
             var qualityUpgrade = IsQualityUpgradable(qualityProfile, currentQualities, newQuality);
 
