@@ -8,6 +8,7 @@ using Mono.Unix.Native;
 using NLog;
 using NzbDrone.Common.Disk;
 using NzbDrone.Common.EnsureThat;
+using NzbDrone.Common.EnvironmentInfo;
 using NzbDrone.Common.Extensions;
 using NzbDrone.Common.Instrumentation;
 
@@ -24,6 +25,7 @@ namespace NzbDrone.Mono.Disk
         private readonly IProcMountProvider _procMountProvider;
         private readonly ISymbolicLinkResolver _symLinkResolver;
         private readonly IRefLinkCreator _createRefLink;
+        private readonly Logger _logger;
 
         public DiskProvider(IProcMountProvider procMountProvider,
                             ISymbolicLinkResolver symLinkResolver,
