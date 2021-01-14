@@ -82,7 +82,7 @@ namespace NzbDrone.Core.Download
             }
             catch (DownloadClientRejectedReleaseException)
             {
-                _logger.Trace("Release {0} rejected by download client, possible duplicate.", remoteAlbum);
+                _logger.Trace("Release {0} rejected by download client, possible duplicate.", remoteBook);
                 throw;
             }
             catch (ReleaseDownloadException ex)

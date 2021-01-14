@@ -22,7 +22,7 @@ namespace NzbDrone.Core.Validation.Paths
                 return true;
             }
 
-            return !_artistService.GetAllAuthors().Any(s => context.PropertyValue.ToString().IsParentPath(s.Value));
+            return !_authorService.GetAllAuthors().Any(s => context.PropertyValue.ToString().IsParentPath(s.Value));
         }
     }
 }

@@ -104,11 +104,11 @@ namespace NzbDrone.Core.MediaFiles
             if (message.DeleteFiles)
             {
                 var author = message.Author;
-                var allArtists = _artistService.GetAllAuthors();
+                var allArtists = _authorService.AllAuthorPaths();
 
                 foreach (var s in allArtists)
                 {
-                    if (s.Key == artist.Id)
+                    if (s.Key == author.Id)
                     {
                         continue;
                     }

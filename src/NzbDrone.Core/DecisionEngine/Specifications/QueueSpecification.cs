@@ -68,7 +68,7 @@ namespace NzbDrone.Core.DecisionEngine.Specifications
                 _logger.Debug("Checking if release is higher quality than queued release. Queued: {0}", remoteBook.ParsedBookInfo.Quality);
 
                 if (!_upgradableSpecification.IsUpgradable(qualityProfile,
-                                                           new List<QualityModel> { remoteBook.ParsedBookInfo.Quality },
+                                                           remoteBook.ParsedBookInfo.Quality,
                                                            queuedItemPreferredWordScore,
                                                            subject.ParsedBookInfo.Quality,
                                                            subject.PreferredWordScore))
@@ -79,7 +79,7 @@ namespace NzbDrone.Core.DecisionEngine.Specifications
                 _logger.Debug("Checking if profiles allow upgrading. Queued: {0}", remoteBook.ParsedBookInfo.Quality);
 
                 if (!_upgradableSpecification.IsUpgradeAllowed(qualityProfile,
-                                                               new List<QualityModel> { remoteBook.ParsedBookInfo.Quality },
+                                                               remoteBook.ParsedBookInfo.Quality,
                                                                subject.ParsedBookInfo.Quality))
                 {
                     return Decision.Reject("Another release is queued and the Quality profile does not allow upgrades");
