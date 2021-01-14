@@ -73,7 +73,7 @@ namespace NzbDrone.Core.DecisionEngine.Specifications.RssSync
 
                     var upgradeable = _upgradableSpecification.IsUpgradable(
                         subject.Author.QualityProfile,
-                        new List<QualityModel> { mostRecent.Quality },
+                        mostRecent.Quality,
                         preferredWordScore,
                         subject.ParsedBookInfo.Quality,
                         subject.PreferredWordScore);

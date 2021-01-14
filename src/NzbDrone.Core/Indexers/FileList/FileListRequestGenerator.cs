@@ -19,20 +19,20 @@ namespace NzbDrone.Core.Indexers.FileList
             return pageableRequests;
         }
 
-        public IndexerPageableRequestChain GetSearchRequests(AlbumSearchCriteria searchCriteria)
+        public IndexerPageableRequestChain GetSearchRequests(BookSearchCriteria searchCriteria)
         {
             var pageableRequests = new IndexerPageableRequestChain();
 
-            pageableRequests.Add(GetRequest("search-torrents", Settings.Categories, string.Format(" & type=name&query={0}+{1}", Uri.EscapeDataString(searchCriteria.ArtistQuery.Trim()), Uri.EscapeDataString(searchCriteria.AlbumQuery.Trim()))));
+            pageableRequests.Add(GetRequest("search-torrents", Settings.Categories, string.Format(" & type=name&query={0}+{1}", Uri.EscapeDataString(searchCriteria.AuthorQuery.Trim()), Uri.EscapeDataString(searchCriteria.BookQuery.Trim()))));
 
             return pageableRequests;
         }
 
-        public IndexerPageableRequestChain GetSearchRequests(ArtistSearchCriteria searchCriteria)
+        public IndexerPageableRequestChain GetSearchRequests(AuthorSearchCriteria searchCriteria)
         {
             var pageableRequests = new IndexerPageableRequestChain();
 
-            pageableRequests.Add(GetRequest("search-torrents", Settings.Categories, string.Format(" & type=name&query={0}", Uri.EscapeDataString(searchCriteria.ArtistQuery.Trim()))));
+            pageableRequests.Add(GetRequest("search-torrents", Settings.Categories, string.Format(" & type=name&query={0}", Uri.EscapeDataString(searchCriteria.AuthorQuery.Trim()))));
 
             return pageableRequests;
         }
@@ -43,10 +43,7 @@ namespace NzbDrone.Core.Indexers.FileList
 
             var baseUrl = string.Format("{0}/api.php?action={1}&category={2}{3}", Settings.BaseUrl.TrimEnd('/'), searchType, categoriesQuery, parameters);
 
-            var request = new IndexerRequest(baseUrl, HttpAccept.Json);
-            request.HttpRequest.AddBasicAuthentication(Settings.Username.Trim(), Settings.Passkey.Trim());
-
-            yield return request;
+            yield return new IndexerRequest(baseUrl, HttpAccept.Json);
         }
     }
 }

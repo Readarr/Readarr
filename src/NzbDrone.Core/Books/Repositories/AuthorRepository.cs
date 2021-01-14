@@ -12,6 +12,7 @@ namespace NzbDrone.Core.Books
         bool AuthorPathExists(string path);
         Author FindByName(string cleanName);
         Author FindById(string foreignAuthorId);
+        Dictionary<int, string> AllAuthorPaths();
         Author GetAuthorByMetadataId(int authorMetadataId);
         List<Author> GetAuthorsByMetadataId(IEnumerable<int> authorMetadataId);
     }
@@ -58,6 +59,15 @@ namespace NzbDrone.Core.Books
         public Author GetAuthorByMetadataId(int authorMetadataId)
         {
             return Query(s => s.AuthorMetadataId == authorMetadataId).SingleOrDefault();
+        }
+
+        public Dictionary<int, string> AllAuthorPaths()
+        {
+            using (var conn = _database.OpenConnection())
+            {
+                var strSql = "SELECT Id AS [Key], Path AS [Value] FROM Authors";
+                return conn.Query<KeyValuePair<int, string>>(strSql).ToDictionary(x => x.Key, x => x.Value);
+            }
         }
 
         public List<Author> GetAuthorsByMetadataId(IEnumerable<int> authorMetadataIds)

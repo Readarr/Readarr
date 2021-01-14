@@ -25,7 +25,7 @@ namespace NzbDrone.Core.Validation.Paths
             dynamic instance = context.ParentContext.InstanceToValidate;
             var instanceId = (int)instance.Id;
 
-            return !_authorService.GetAllAuthors().Any(s => s.Value.PathEquals(context.PropertyValue.ToString()) && s.Key != instanceId);
+            return !_authorService.AllAuthorPaths().Any(s => s.Value.PathEquals(context.PropertyValue.ToString()) && s.Key != instanceId);
         }
     }
 }
