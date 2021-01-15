@@ -20,12 +20,12 @@ namespace NzbDrone.Core.Test.HealthCheck.Checks
     public class DeleteBadMediaCoversFixture : CoreTest<DeleteBadMediaCovers>
     {
         private List<MetadataFile> _metadata;
-        private List<Author> _artist;
+        private List<Author> _author;
 
         [SetUp]
         public void Setup()
         {
-            _artist = Builder<Author>.CreateListOfSize(1)
+            _author = Builder<Author>.CreateListOfSize(1)
                 .All()
                 .With(c => c.Path = "C:\\Music\\".AsOsAgnostic())
                 .Build().ToList();
@@ -33,12 +33,12 @@ namespace NzbDrone.Core.Test.HealthCheck.Checks
             _metadata = Builder<MetadataFile>.CreateListOfSize(1)
                .Build().ToList();
 
-            Mocker.GetMock<IArtistService>()
-                .Setup(c => c.AllArtistPaths())
-                .Returns(_artist.ToDictionary(x => x.Id, x => x.Path));
+            Mocker.GetMock<IAuthorService>()
+                .Setup(c => c.AllAuthorPaths())
+                .Returns(_author.ToDictionary(x => x.Id, x => x.Path));
 
             Mocker.GetMock<IMetadataFileService>()
-                .Setup(c => c.GetFilesByAuthor(_artist.First().Id))
+                .Setup(c => c.GetFilesByAuthor(_author.First().Id))
                 .Returns(_metadata);
 
             Mocker.GetMock<IConfigService>().SetupGet(c => c.CleanupMetadataImages).Returns(true);
@@ -73,7 +73,7 @@ namespace NzbDrone.Core.Test.HealthCheck.Checks
             Subject.Clean();
 
             Mocker.GetMock<IConfigService>().VerifySet(c => c.CleanupMetadataImages = true, Times.Never());
-            Mocker.GetMock<IArtistService>().Verify(c => c.GetAllAuthors(), Times.Never());
+            Mocker.GetMock<IAuthorService>().Verify(c => c.GetAllAuthors(), Times.Never());
 
             AssertImageWasNotRemoved();
         }
