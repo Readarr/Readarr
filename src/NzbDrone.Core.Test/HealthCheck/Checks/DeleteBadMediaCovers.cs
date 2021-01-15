@@ -73,7 +73,7 @@ namespace NzbDrone.Core.Test.HealthCheck.Checks
             Subject.Clean();
 
             Mocker.GetMock<IConfigService>().VerifySet(c => c.CleanupMetadataImages = true, Times.Never());
-            Mocker.GetMock<IArtistService>().Verify(c => c.GetAllAuthors(), Times.Never());
+            Mocker.GetMock<IAuthorService>().Verify(c => c.GetAllAuthors(), Times.Never());
 
             AssertImageWasNotRemoved();
         }
