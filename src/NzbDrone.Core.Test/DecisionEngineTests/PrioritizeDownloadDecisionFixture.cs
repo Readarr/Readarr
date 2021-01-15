@@ -73,15 +73,15 @@ namespace NzbDrone.Core.Test.DecisionEngineTests
         [Test]
         public void should_put_reals_before_non_reals()
         {
-            var remoteAlbum1 = GivenRemoteAlbum(new List<Album> { GivenAlbum(1) }, new QualityModel(Quality.MP3_256, new Revision(version: 1, real: 0)));
-            var remoteAlbum2 = GivenRemoteAlbum(new List<Album> { GivenAlbum(1) }, new QualityModel(Quality.MP3_256, new Revision(version: 1, real: 1)));
+            var remoteAlbum1 = GivenRemoteAlbum(new List<Book> { GivenAlbum(1) }, new QualityModel(Quality.MP3_320, new Revision(version: 1, real: 0)));
+            var remoteAlbum2 = GivenRemoteAlbum(new List<Book> { GivenAlbum(1) }, new QualityModel(Quality.MP3_320, new Revision(version: 1, real: 1)));
 
             var decisions = new List<DownloadDecision>();
             decisions.Add(new DownloadDecision(remoteAlbum1));
             decisions.Add(new DownloadDecision(remoteAlbum2));
 
             var qualifiedReports = Subject.PrioritizeDecisions(decisions);
-            qualifiedReports.First().RemoteAlbum.ParsedAlbumInfo.Quality.Revision.Real.Should().Be(1);
+            qualifiedReports.First().RemoteBook.ParsedBookInfo.Quality.Revision.Real.Should().Be(1);
         }
 
         [Test]
@@ -533,8 +533,8 @@ namespace NzbDrone.Core.Test.DecisionEngineTests
                   .Setup(s => s.DownloadPropersAndRepacks)
                   .Returns(ProperDownloadTypes.DoNotPrefer);
 
-            var remoteAlbum1 = GivenRemoteAlbum(new List<Album> { GivenAlbum(1) }, new QualityModel(Quality.FLAC, new Revision(1, 0)));
-            var remoteAlbum2 = GivenRemoteAlbum(new List<Album> { GivenAlbum(1) }, new QualityModel(Quality.FLAC, new Revision(1, 1)));
+            var remoteAlbum1 = GivenRemoteAlbum(new List<Book> { GivenAlbum(1) }, new QualityModel(Quality.FLAC, new Revision(1, 0)));
+            var remoteAlbum2 = GivenRemoteAlbum(new List<Book> { GivenAlbum(1) }, new QualityModel(Quality.FLAC, new Revision(1, 1)));
 
             remoteAlbum1.PreferredWordScore = 10;
             remoteAlbum2.PreferredWordScore = 0;
@@ -544,10 +544,10 @@ namespace NzbDrone.Core.Test.DecisionEngineTests
             decisions.Add(new DownloadDecision(remoteAlbum2));
 
             var qualifiedReports = Subject.PrioritizeDecisions(decisions);
-            qualifiedReports.First().RemoteAlbum.ParsedAlbumInfo.Quality.Quality.Should().Be(Quality.FLAC);
-            qualifiedReports.First().RemoteAlbum.ParsedAlbumInfo.Quality.Revision.Version.Should().Be(1);
-            qualifiedReports.First().RemoteAlbum.ParsedAlbumInfo.Quality.Revision.Real.Should().Be(0);
-            qualifiedReports.First().RemoteAlbum.PreferredWordScore.Should().Be(10);
+            qualifiedReports.First().RemoteBook.ParsedBookInfo.Quality.Quality.Should().Be(Quality.FLAC);
+            qualifiedReports.First().RemoteBook.ParsedBookInfo.Quality.Revision.Version.Should().Be(1);
+            qualifiedReports.First().RemoteBook.ParsedBookInfo.Quality.Revision.Real.Should().Be(0);
+            qualifiedReports.First().RemoteBook.PreferredWordScore.Should().Be(10);
         }
     }
 }

@@ -1,6 +1,7 @@
 using NzbDrone.Core.Blacklisting;
 using NzbDrone.Core.Datastore;
 using Readarr.Http;
+using Readarr.Http.Extensions;
 
 namespace Readarr.Api.V1.Blacklist
 {
@@ -31,9 +32,9 @@ namespace Readarr.Api.V1.Blacklist
 
         private object Remove()
         {
-            var resource = Request.Body.FromJson<BlacklistBulkResource>();
+            var resource = Request.Body.FromJson<BlacklistResource>();
 
-            _blacklistService.Delete(resource.Ids);
+            _blacklistService.Delete(resource.Id);
 
             return new object();
         }
