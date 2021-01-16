@@ -43,14 +43,26 @@ namespace NzbDrone.Core.IndexerSearch
 
         public List<DownloadDecision> BookSearch(int bookId, bool missingOnly, bool userInvokedSearch, bool interactiveSearch)
         {
+            var downloadDecisions = new List<DownloadDecision>();
+
             var book = _bookService.GetBook(bookId);
-            return BookSearch(book, missingOnly, userInvokedSearch, interactiveSearch);
+
+            var decisions = BookSearch(book, missingOnly, userInvokedSearch, interactiveSearch);
+            downloadDecisions.AddRange(decisions);
+
+            return DeDupeDecisions(downloadDecisions);
         }
 
         public List<DownloadDecision> AuthorSearch(int authorId, bool missingOnly, bool userInvokedSearch, bool interactiveSearch)
         {
+            var downloadDecisions = new List<DownloadDecision>();
+
             var author = _authorService.GetAuthor(authorId);
-            return AuthorSearch(author, missingOnly, userInvokedSearch, interactiveSearch);
+
+            var decisions = AuthorSearch(author, missingOnly, userInvokedSearch, interactiveSearch);
+            downloadDecisions.AddRange(decisions);
+
+            return DeDupeDecisions(downloadDecisions);
         }
 
         public List<DownloadDecision> AuthorSearch(Author author, bool missingOnly, bool userInvokedSearch, bool interactiveSearch)
@@ -149,6 +161,12 @@ namespace NzbDrone.Core.IndexerSearch
             _logger.Debug("Total of {0} reports were found for {1} from {2} indexers", reports.Count, criteriaBase, indexers.Count);
 
             return _makeDownloadDecision.GetSearchDecision(reports, criteriaBase).ToList();
+        }
+
+        private List<DownloadDecision> DeDupeDecisions(List<DownloadDecision> decisions)
+        {
+            // De-dupe reports by guid so duplicate results aren't returned. Pick the one with the least rejections.
+            return decisions.GroupBy(d => d.RemoteBook.Release.Guid).Select(d => d.OrderBy(v => v.Rejections.Count()).First()).ToList();
         }
     }
 }
