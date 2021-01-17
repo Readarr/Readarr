@@ -55,7 +55,7 @@ class AuthorEditorConnector extends Component {
   }
 
   onTableOptionChange = (payload) => {
-    this.props.dispatchSetArtistEditorTableOption(payload);
+    this.props.dispatchSetAuthorEditorTableOption(payload);
   }
 
   onSaveSelected = (payload) => {
@@ -85,7 +85,7 @@ class AuthorEditorConnector extends Component {
   }
 }
 
-ArtistEditorConnector.propTypes = {
+AuthorEditorConnector.propTypes = {
   dispatchSetAuthorEditorSort: PropTypes.func.isRequired,
   dispatchSetAuthorEditorFilter: PropTypes.func.isRequired,
   dispatchSetAuthorEditorTableOption: PropTypes.func.isRequired,

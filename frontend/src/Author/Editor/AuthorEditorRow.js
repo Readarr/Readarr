@@ -27,9 +27,10 @@ class AuthorEditorRow extends Component {
     const {
       id,
       status,
-      titleSlug,
+      foreignAuthorId,
       authorName,
       authorType,
+      bookFolder,
       monitored,
       metadataProfile,
       qualityProfile,
@@ -37,7 +38,9 @@ class AuthorEditorRow extends Component {
       statistics,
       tags,
       columns,
+      isSaving,
       isSelected,
+      onAuthorMonitoredPress,
       onSelectedChange
     } = this.props;
 
@@ -79,7 +82,7 @@ class AuthorEditorRow extends Component {
                   key={name}
                   className={styles.title}
                 >
-                  <ArtistNameLink
+                  <AuthorNameLink
                     foreignAuthorId={foreignAuthorId}
                     authorName={authorName}
                   />
@@ -156,9 +159,11 @@ class AuthorEditorRow extends Component {
 AuthorEditorRow.propTypes = {
   id: PropTypes.number.isRequired,
   status: PropTypes.string.isRequired,
+  foreignAuthorId: PropTypes.string.isRequired,
   titleSlug: PropTypes.string.isRequired,
   authorName: PropTypes.string.isRequired,
   authorType: PropTypes.string,
+  bookFolder: PropTypes.string,
   monitored: PropTypes.bool.isRequired,
   metadataProfile: PropTypes.object.isRequired,
   qualityProfile: PropTypes.object.isRequired,
@@ -166,7 +171,9 @@ AuthorEditorRow.propTypes = {
   statistics: PropTypes.object.isRequired,
   tags: PropTypes.arrayOf(PropTypes.number).isRequired,
   columns: PropTypes.arrayOf(PropTypes.object).isRequired,
+  isSaving: PropTypes.bool.isRequired,
   isSelected: PropTypes.bool,
+  onAuthorMonitoredPress: PropTypes.func.isRequired,
   onSelectedChange: PropTypes.func.isRequired
 };
 

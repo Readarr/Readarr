@@ -19,7 +19,6 @@ import NumberInput from './NumberInput';
 import OAuthInputConnector from './OAuthInputConnector';
 import PasswordInput from './PasswordInput';
 import PathInputConnector from './PathInputConnector';
-import PlaylistInputConnector from './PlaylistInputConnector';
 import QualityProfileSelectInputConnector from './QualityProfileSelectInputConnector';
 import RootFolderSelectInputConnector from './RootFolderSelectInputConnector';
 import SeriesTypeSelectInput from './SeriesTypeSelectInput';

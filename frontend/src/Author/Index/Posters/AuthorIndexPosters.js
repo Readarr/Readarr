@@ -152,6 +152,10 @@ class AuthorIndexPosters extends Component {
         });
       }
     }
+
+    if (this._grid && scrollTop !== 0) {
+      this._grid.scrollToPosition({ scrollTop });
+    }
   }
 
   //
@@ -316,6 +320,7 @@ AuthorIndexPosters.propTypes = {
   sortKey: PropTypes.string,
   posterOptions: PropTypes.object.isRequired,
   jumpToCharacter: PropTypes.string,
+  scrollTop: PropTypes.number.isRequired,
   scroller: PropTypes.instanceOf(Element).isRequired,
   showRelativeDates: PropTypes.bool.isRequired,
   shortDateFormat: PropTypes.string.isRequired,
