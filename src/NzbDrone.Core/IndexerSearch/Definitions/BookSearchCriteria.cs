@@ -1,5 +1,3 @@
-using NzbDrone.Common.Extensions;
-
 namespace NzbDrone.Core.IndexerSearch.Definitions
 {
     public class BookSearchCriteria : SearchCriteriaBase

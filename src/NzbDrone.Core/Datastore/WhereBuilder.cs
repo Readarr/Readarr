@@ -6,7 +6,6 @@ using System.Linq.Expressions;
 using System.Reflection;
 using System.Text;
 using Dapper;
-using NzbDrone.Common.Extensions;
 
 namespace NzbDrone.Core.Datastore
 {
