@@ -147,6 +147,7 @@ class AuthorEditorFooter extends Component {
       monitored,
       qualityProfileId,
       metadataProfileId,
+      bookFolder,
       rootFolderPath,
       savingTags,
       isTagsModalOpen,
@@ -159,6 +160,12 @@ class AuthorEditorFooter extends Component {
       { key: NO_CHANGE, value: 'No Change', disabled: true },
       { key: 'monitored', value: 'Monitored' },
       { key: 'unmonitored', value: 'Unmonitored' }
+    ];
+
+    const bookFolderOptions = [
+      { key: NO_CHANGE, value: 'No Change', disabled: true },
+      { key: 'yes', value: 'Yes' },
+      { key: 'no', value: 'No' }
     ];
 
     return (

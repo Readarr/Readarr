@@ -90,16 +90,33 @@ function InteractiveSearch(props) {
     error,
     totalReleasesCount,
     items,
+    selectedFilterKey,
+    filters,
+    customFilters,
     sortKey,
     sortDirection,
+    type,
     longDateFormat,
     timeFormat,
     onSortPress,
+    onFilterSelect,
     onGrabPress
   } = props;
 
   return (
     <div>
+      <div className={styles.filterMenuContainer}>
+        <FilterMenu
+          alignMenu={align.RIGHT}
+          selectedFilterKey={selectedFilterKey}
+          filters={filters}
+          customFilters={customFilters}
+          buttonComponent={PageMenuButton}
+          filterModalConnectorComponent={InteractiveSearchFilterModalConnector}
+          filterModalConnectorComponentProps={{ type }}
+          onFilterSelect={onFilterSelect}
+        />
+      </div>
       {
         isFetching ? <LoadingIndicator /> : null
       }
@@ -174,12 +191,16 @@ InteractiveSearch.propTypes = {
   error: PropTypes.object,
   totalReleasesCount: PropTypes.number.isRequired,
   items: PropTypes.arrayOf(PropTypes.object).isRequired,
+  selectedFilterKey: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+  filters: PropTypes.arrayOf(PropTypes.object).isRequired,
+  customFilters: PropTypes.arrayOf(PropTypes.object).isRequired,
   sortKey: PropTypes.string,
   sortDirection: PropTypes.string,
   type: PropTypes.string.isRequired,
   longDateFormat: PropTypes.string.isRequired,
   timeFormat: PropTypes.string.isRequired,
   onSortPress: PropTypes.func.isRequired,
+  onFilterSelect: PropTypes.func.isRequired,
   onGrabPress: PropTypes.func.isRequired
 };
 

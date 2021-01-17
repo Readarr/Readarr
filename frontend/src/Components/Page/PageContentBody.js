@@ -10,6 +10,14 @@ import styles from './PageContentBody.css';
 class PageContentBody extends Component {
 
   //
+  // Lifecyle
+
+  constructor(props, context) {
+    super(props, context);
+
+    this._isMobile = isMobileUtil();
+  }
+  //
   // Listeners
 
   onScroll = (props) => {
@@ -27,13 +35,12 @@ class PageContentBody extends Component {
     const {
       className,
       innerClassName,
-      isSmallScreen,
       children,
       dispatch,
       ...otherProps
     } = this.props;
 
-    const ScrollerComponent = isSmallScreen ? Scroller : OverlayScroller;
+    const ScrollerComponent = this._isMobile ? Scroller : OverlayScroller;
 
     return (
       <ScrollerComponent
@@ -53,7 +60,6 @@ class PageContentBody extends Component {
 PageContentBody.propTypes = {
   className: PropTypes.string,
   innerClassName: PropTypes.string,
-  isSmallScreen: PropTypes.bool.isRequired,
   children: PropTypes.node.isRequired,
   onScroll: PropTypes.func,
   dispatch: PropTypes.func

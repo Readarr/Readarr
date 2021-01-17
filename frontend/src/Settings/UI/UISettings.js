@@ -10,7 +10,6 @@ import PageContent from 'Components/Page/PageContent';
 import PageContentBody from 'Components/Page/PageContentBody';
 import { inputTypes } from 'Helpers/Props';
 import SettingsToolbarConnector from 'Settings/SettingsToolbarConnector';
-import styles from './UISettings.css';
 
 export const firstDayOfWeekOptions = [
   { key: 0, value: 'Sunday' },
