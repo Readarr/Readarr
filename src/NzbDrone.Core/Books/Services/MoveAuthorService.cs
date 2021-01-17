@@ -59,6 +59,9 @@ namespace NzbDrone.Core.Books
             {
                 _rootFolderWatchingService.ReportFileSystemChangeBeginning(sourcePath, destinationPath);
 
+                // Ensure the parent of the author folder exists, this will often just be the root folder, but
+                // in cases where people are using subfolders for first letter (etc) it may not yet exist.
+                _diskProvider.CreateFolder(new DirectoryInfo(destinationPath).Parent.FullName);
                 _diskTransferService.TransferFolder(sourcePath, destinationPath, TransferMode.Move);
 
                 _logger.ProgressInfo("{0} moved successfully to {1}", author.Name, author.Path);
