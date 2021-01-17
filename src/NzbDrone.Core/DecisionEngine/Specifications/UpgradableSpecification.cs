@@ -51,10 +51,10 @@ namespace NzbDrone.Core.DecisionEngine.Specifications
 
                 // Accept unless the user doesn't want to prefer propers, optionally they can
                 // use preferred words to prefer propers/repacks over non-propers/repacks.
-                if (_configService.DownloadPropersAndRepacks != ProperDownloadTypes.DoNotPrefer &&
+                if (_configService.DownloadPropersAndRepacks == ProperDownloadTypes.DoNotPrefer &&
                     newQuality?.Revision.CompareTo(currentQuality.Revision) > 0)
                     {
-                        return ProfileComparisonResult.Upgrade;
+                        return ProfileComparisonResult.Equal;
                     }
             }
 
