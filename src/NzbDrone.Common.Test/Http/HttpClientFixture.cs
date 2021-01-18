@@ -318,9 +318,8 @@ namespace NzbDrone.Common.Test.Http
             Assert.Throws<WebException>(() => Subject.DownloadFile("https://download.readarr.com/wrongpath", file));
 
             File.Exists(file).Should().BeFalse();
-            File.Exists(file + ".part").Should().BeFalse();
 
-            ExceptionVerification.ExpectedWarns(0);
+            ExceptionVerification.ExpectedWarns(1);
         }
 
         [Test]
