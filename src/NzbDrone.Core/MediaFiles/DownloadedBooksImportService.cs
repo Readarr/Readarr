@@ -149,7 +149,7 @@ namespace NzbDrone.Core.MediaFiles
         private List<ImportResult> ProcessFolder(IDirectoryInfo directoryInfo, ImportMode importMode, DownloadClientItem downloadClientItem)
         {
             var cleanedUpName = GetCleanedUpFolderName(directoryInfo.Name);
-            var author = _parsingService.GetArtist(cleanedUpName);
+            var author = _parsingService.GetAuthor(cleanedUpName);
 
             if (author == null)
             {
@@ -182,8 +182,8 @@ namespace NzbDrone.Core.MediaFiles
 
                 trackInfo = new ParsedTrackInfo
                 {
-                    AlbumTitle = folderInfo.BookTitle,
-                    ArtistTitle = folderInfo.AuthorName,
+                    BookTitle = folderInfo.BookTitle,
+                    AuthorTitle = folderInfo.AuthorName,
                     Quality = folderInfo.Quality,
                     ReleaseGroup = folderInfo.ReleaseGroup,
                     ReleaseHash = folderInfo.ReleaseHash,
@@ -249,7 +249,7 @@ namespace NzbDrone.Core.MediaFiles
 
         private List<ImportResult> ProcessFile(IFileInfo fileInfo, ImportMode importMode, DownloadClientItem downloadClientItem)
         {
-            var author = _parsingService.GetArtist(Path.GetFileNameWithoutExtension(fileInfo.Name));
+            var author = _parsingService.GetAuthor(Path.GetFileNameWithoutExtension(fileInfo.Name));
 
             if (author == null)
             {

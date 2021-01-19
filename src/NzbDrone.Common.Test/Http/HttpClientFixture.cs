@@ -283,7 +283,7 @@ namespace NzbDrone.Common.Test.Http
         {
             var file = GetTempFilePath();
 
-            var url = "https://readarr.com/img/slider/artistdetails.png";
+            var url = "https://readarr.com/img/slider/authordetails.png";
 
             Subject.DownloadFile(url, file);
 
@@ -298,7 +298,7 @@ namespace NzbDrone.Common.Test.Http
             var file = GetTempFilePath();
 
             var request = new HttpRequestBuilder($"https://{_httpBinHost}/redirect-to")
-                .AddQueryParam("url", $"https://readarr.com/img/slider/artistdetails.png")
+                .AddQueryParam("url", $"https://readarr.com/img/slider/authordetails.png")
                 .Build();
 
             Subject.DownloadFile(request.Url.FullUri, file);

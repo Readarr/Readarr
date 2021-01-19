@@ -97,7 +97,7 @@ export const defaultState = {
 export const FETCH_SERIES = 'series/fetchSeries';
 export const SET_SERIES_SORT = 'books/setSeriesSort';
 export const CLEAR_SERIES = 'series/clearSeries';
-export const SET_SERIES_VALUE = 'albums/setAlbumValue';
+export const SET_SERIES_VALUE = 'books/setBookValue';
 
 //
 // Action Creators

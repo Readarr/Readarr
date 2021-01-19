@@ -9,7 +9,7 @@ namespace NzbDrone.Core.Blacklisting
     {
         List<Blacklist> BlacklistedByTitle(int authorId, string sourceTitle);
         List<Blacklist> BlacklistedByTorrentInfoHash(int authorId, string torrentInfoHash);
-        List<Blacklist> BlacklistedByArtist(int authorId);
+        List<Blacklist> BlacklistedByAuthor(int authorId);
     }
 
     public class BlacklistRepository : BasicRepository<Blacklist>, IBlacklistRepository
@@ -29,7 +29,7 @@ namespace NzbDrone.Core.Blacklisting
             return Query(e => e.AuthorId == authorId && e.TorrentInfoHash.Contains(torrentInfoHash));
         }
 
-        public List<Blacklist> BlacklistedByArtist(int authorId)
+        public List<Blacklist> BlacklistedByAuthor(int authorId)
         {
             return Query(b => b.AuthorId == authorId);
         }

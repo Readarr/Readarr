@@ -81,7 +81,7 @@ namespace NzbDrone.Core.DecisionEngine
                         else
                         {
                             // try parsing fuzzy
-                            parsedBookInfo = _parsingService.ParseAlbumTitleFuzzy(report.Title);
+                            parsedBookInfo = _parsingService.ParseBookTitleFuzzy(report.Title);
                         }
                     }
 

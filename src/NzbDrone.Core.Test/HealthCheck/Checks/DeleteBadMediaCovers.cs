@@ -47,7 +47,7 @@ namespace NzbDrone.Core.Test.HealthCheck.Checks
         [Test]
         public void should_not_process_non_image_files()
         {
-            _metadata.First().RelativePath = "album\\file.xml".AsOsAgnostic();
+            _metadata.First().RelativePath = "book\\file.xml".AsOsAgnostic();
             _metadata.First().Type = MetadataType.BookMetadata;
 
             Subject.Clean();
@@ -91,9 +91,9 @@ namespace NzbDrone.Core.Test.HealthCheck.Checks
         [Test]
         public void should_delete_html_images()
         {
-            var imagePath = "C:\\Music\\Album\\image.jpg".AsOsAgnostic();
+            var imagePath = "C:\\Music\\Book\\image.jpg".AsOsAgnostic();
             _metadata.First().LastUpdated = new DateTime(2014, 12, 29);
-            _metadata.First().RelativePath = "Album\\image.jpg".AsOsAgnostic();
+            _metadata.First().RelativePath = "Book\\image.jpg".AsOsAgnostic();
             _metadata.First().Type = MetadataType.AuthorImage;
 
             Mocker.GetMock<IDiskProvider>()
@@ -109,10 +109,10 @@ namespace NzbDrone.Core.Test.HealthCheck.Checks
         [Test]
         public void should_delete_empty_images()
         {
-            var imagePath = "C:\\Music\\Album\\image.jpg".AsOsAgnostic();
+            var imagePath = "C:\\Music\\Book\\image.jpg".AsOsAgnostic();
             _metadata.First().LastUpdated = new DateTime(2014, 12, 29);
             _metadata.First().Type = MetadataType.BookImage;
-            _metadata.First().RelativePath = "Album\\image.jpg".AsOsAgnostic();
+            _metadata.First().RelativePath = "Book\\image.jpg".AsOsAgnostic();
 
             Mocker.GetMock<IDiskProvider>()
                 .Setup(c => c.OpenReadStream(imagePath))
@@ -127,9 +127,9 @@ namespace NzbDrone.Core.Test.HealthCheck.Checks
         [Test]
         public void should_not_delete_non_html_files()
         {
-            var imagePath = "C:\\Music\\Album\\image.jpg".AsOsAgnostic();
+            var imagePath = "C:\\Music\\Book\\image.jpg".AsOsAgnostic();
             _metadata.First().LastUpdated = new DateTime(2014, 12, 29);
-            _metadata.First().RelativePath = "Album\\image.jpg".AsOsAgnostic();
+            _metadata.First().RelativePath = "Book\\image.jpg".AsOsAgnostic();
 
             Mocker.GetMock<IDiskProvider>()
                 .Setup(c => c.OpenReadStream(imagePath))

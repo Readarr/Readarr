@@ -34,12 +34,12 @@ namespace NzbDrone.Core.DecisionEngine.Specifications
         public Decision IsSatisfiedBy(RemoteBook subject, SearchCriteriaBase searchCriteria)
         {
             var queue = _queueService.GetQueue();
-            var matchingAlbum = queue.Where(q => q.RemoteBook?.Author != null &&
+            var matchingBook = queue.Where(q => q.RemoteBook?.Author != null &&
                                                  q.RemoteBook.Author.Id == subject.Author.Id &&
                                                  q.RemoteBook.Books.Select(e => e.Id).Intersect(subject.Books.Select(e => e.Id)).Any())
                            .ToList();
 
-            foreach (var queueItem in matchingAlbum)
+            foreach (var queueItem in matchingBook)
             {
                 var remoteBook = queueItem.RemoteBook;
                 var qualityProfile = subject.Author.QualityProfile.Value;

@@ -100,16 +100,16 @@ namespace NzbDrone.Core.Download
                 throw;
             }
 
-            var albumGrabbedEvent = new BookGrabbedEvent(remoteBook);
-            albumGrabbedEvent.DownloadClient = downloadClient.Name;
+            var bookGrabbedEvent = new BookGrabbedEvent(remoteBook);
+            bookGrabbedEvent.DownloadClient = downloadClient.Name;
 
             if (!string.IsNullOrWhiteSpace(downloadClientId))
             {
-                albumGrabbedEvent.DownloadId = downloadClientId;
+                bookGrabbedEvent.DownloadId = downloadClientId;
             }
 
             _logger.ProgressInfo("Report sent to {0}. {1}", downloadClient.Definition.Name, downloadTitle);
-            _eventAggregator.PublishEvent(albumGrabbedEvent);
+            _eventAggregator.PublishEvent(bookGrabbedEvent);
         }
     }
 }

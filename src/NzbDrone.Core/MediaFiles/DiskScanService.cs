@@ -26,7 +26,7 @@ namespace NzbDrone.Core.MediaFiles
 {
     public interface IDiskScanService
     {
-        void Scan(List<string> folders = null, FilterFilesType filter = FilterFilesType.Known, bool addNewArtists = false, List<int> authorIds = null);
+        void Scan(List<string> folders = null, FilterFilesType filter = FilterFilesType.Known, bool addNewAuthors = false, List<int> authorIds = null);
         IFileInfo[] GetBookFiles(string path, bool allDirectories = true);
         string[] GetNonBookFiles(string path, bool allDirectories = true);
         List<IFileInfo> FilterFiles(string basePath, IEnumerable<IFileInfo> files);
@@ -78,7 +78,7 @@ namespace NzbDrone.Core.MediaFiles
             _logger = logger;
         }
 
-        public void Scan(List<string> folders = null, FilterFilesType filter = FilterFilesType.Known, bool addNewArtists = false, List<int> authorIds = null)
+        public void Scan(List<string> folders = null, FilterFilesType filter = FilterFilesType.Known, bool addNewAuthors = false, List<int> authorIds = null)
         {
             if (folders == null)
             {
@@ -110,8 +110,8 @@ namespace NzbDrone.Core.MediaFiles
                 {
                     _logger.Warn("Root folder {0} doesn't exist.", rootFolder.Path);
 
-                    var skippedArtists = _authorService.GetAuthors(authorIds);
-                    skippedArtists.ForEach(x => _eventAggregator.PublishEvent(new AuthorScanSkippedEvent(x, AuthorScanSkippedReason.RootFolderDoesNotExist)));
+                    var skippedAuthors = _authorService.GetAuthors(authorIds);
+                    skippedAuthors.ForEach(x => _eventAggregator.PublishEvent(new AuthorScanSkippedEvent(x, AuthorScanSkippedReason.RootFolderDoesNotExist)));
                     return;
                 }
 
@@ -119,8 +119,8 @@ namespace NzbDrone.Core.MediaFiles
                 {
                     _logger.Warn("Root folder {0} is empty.", rootFolder.Path);
 
-                    var skippedArtists = _authorService.GetAuthors(authorIds);
-                    skippedArtists.ForEach(x => _eventAggregator.PublishEvent(new AuthorScanSkippedEvent(x, AuthorScanSkippedReason.RootFolderIsEmpty)));
+                    var skippedAuthors = _authorService.GetAuthors(authorIds);
+                    skippedAuthors.ForEach(x => _eventAggregator.PublishEvent(new AuthorScanSkippedEvent(x, AuthorScanSkippedReason.RootFolderIsEmpty)));
                     return;
                 }
 
@@ -155,7 +155,7 @@ namespace NzbDrone.Core.MediaFiles
             {
                 Filter = filter,
                 IncludeExisting = true,
-                AddNewAuthors = addNewArtists
+                AddNewAuthors = addNewAuthors
             };
 
             var decisions = _importDecisionMaker.GetImportDecisions(mediaFileList, null, null, config);
@@ -216,8 +216,8 @@ namespace NzbDrone.Core.MediaFiles
 
             _logger.Debug($"Updated info for {updatedFiles.Count} known files");
 
-            var artists = _authorService.GetAuthors(authorIds);
-            foreach (var author in artists)
+            var authors = _authorService.GetAuthors(authorIds);
+            foreach (var author in authors)
             {
                 CompletedScanning(author);
             }
@@ -304,7 +304,7 @@ namespace NzbDrone.Core.MediaFiles
 
         public void Execute(RescanFoldersCommand message)
         {
-            Scan(message.Folders, message.Filter, message.AddNewArtists, message.AuthorIds);
+            Scan(message.Folders, message.Filter, message.AddNewAuthors, message.AuthorIds);
         }
     }
 }

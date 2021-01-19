@@ -29,7 +29,7 @@ namespace NzbDrone.Core.Notifications.Webhook
                 Author = new WebhookAuthor(message.Author),
                 Books = remoteBook.Books.ConvertAll(x => new WebhookBook(x)
                 {
-                    // TODO: Stop passing these parameters inside an album v3
+                    // TODO: Stop passing these parameters inside an book v3
                     Quality = quality.Quality.Name,
                     QualityVersion = quality.Revision.Version,
                     ReleaseGroup = remoteBook.ParsedBookInfo.ReleaseGroup

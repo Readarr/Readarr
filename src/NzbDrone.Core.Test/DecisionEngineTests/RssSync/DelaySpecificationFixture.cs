@@ -37,12 +37,12 @@ namespace NzbDrone.Core.Test.DecisionEngineTests.RssSync
                                       .With(d => d.PreferredProtocol = DownloadProtocol.Usenet)
                                       .Build();
 
-            var artist = Builder<Author>.CreateNew()
+            var author = Builder<Author>.CreateNew()
                                         .With(s => s.QualityProfile = _profile)
                                         .Build();
 
             _remoteBook = Builder<RemoteBook>.CreateNew()
-                                                   .With(r => r.Author = artist)
+                                                   .With(r => r.Author = author)
                                                    .Build();
 
             _profile.Items = new List<QualityProfileQualityItem>();
@@ -147,7 +147,7 @@ namespace NzbDrone.Core.Test.DecisionEngineTests.RssSync
         }
 
         [Test]
-        public void should_be_true_when_release_is_a_proper_for_existing_album()
+        public void should_be_true_when_release_is_a_proper_for_existing_book()
         {
             _remoteBook.ParsedBookInfo.Quality = new QualityModel(Quality.MP3_320, new Revision(version: 2));
             _remoteBook.Release.PublishDate = DateTime.UtcNow;
@@ -165,7 +165,7 @@ namespace NzbDrone.Core.Test.DecisionEngineTests.RssSync
         }
 
         [Test]
-        public void should_be_true_when_release_is_a_real_for_existing_album()
+        public void should_be_true_when_release_is_a_real_for_existing_book()
         {
             _remoteBook.ParsedBookInfo.Quality = new QualityModel(Quality.MP3_320, new Revision(real: 1));
             _remoteBook.Release.PublishDate = DateTime.UtcNow;
@@ -183,7 +183,7 @@ namespace NzbDrone.Core.Test.DecisionEngineTests.RssSync
         }
 
         [Test]
-        public void should_be_false_when_release_is_proper_for_existing_album_of_different_quality()
+        public void should_be_false_when_release_is_proper_for_existing_book_of_different_quality()
         {
             _remoteBook.ParsedBookInfo.Quality = new QualityModel(Quality.AZW3, new Revision(version: 2));
             _remoteBook.Release.PublishDate = DateTime.UtcNow;
