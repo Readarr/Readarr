@@ -12,7 +12,7 @@ function createHealthCheckSelector() {
           source: 'UI',
           type: 'warning',
           message: 'Could not connect to SignalR, UI won\'t update',
-          wikiUrl: 'https://github.com/Readarr/Readarr/wiki/Health-Checks#could-not-connect-to-signalr'
+          wikiUrl: 'https://wiki.servarr.com/Readarr_System#could_not_connect_to_signalr'
         });
       }
 
