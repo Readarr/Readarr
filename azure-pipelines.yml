@@ -697,6 +697,17 @@ stages:
           chmod a+x ${TESTSFOLDER}/test.sh
           ${TESTSFOLDER}/test.sh ${OSNAME} Automation Test
         displayName: Run Automation Tests
+      - task: CopyFiles@2	
+        displayName: 'Copy Screenshot to: $(Build.ArtifactStagingDirectory)'	
+        inputs:	
+          SourceFolder: '$(Build.SourcesDirectory)'	
+          Contents: |	
+            **/*_test_screenshot.png	
+          TargetFolder: '$(Build.ArtifactStagingDirectory)/screenshots'	
+      - publish: $(Build.ArtifactStagingDirectory)/screenshots	
+        artifact: '$(osName)AutomationScreenshots'	
+        condition: and(succeeded(), eq(variables['System.JobAttempt'], '1'))	
+        displayName: Publish Screenshot Bundle
       - task: PublishTestResults@2
         inputs:
           testResultsFormat: 'NUnit'
