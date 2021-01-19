@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace Lidarr.Api.V1.Blacklist
+namespace Readarr.Api.V1.Blacklist
 {
     public class BlacklistBulkResource
     {
