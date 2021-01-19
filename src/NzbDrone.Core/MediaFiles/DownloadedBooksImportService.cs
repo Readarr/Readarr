@@ -339,7 +339,7 @@ namespace NzbDrone.Core.MediaFiles
 
                 if (mount == null)
                 {
-                    _logger.Error("Import failed, path does not exist or is not accessible by Lidarr: {0}. Unable to find a volume mounted for the path. If you're using a mapped network drive see the FAQ for more info", path);
+                    _logger.Error("Import failed, path does not exist or is not accessible by Readarr: {0}. Unable to find a volume mounted for the path. If you're using a mapped network drive see the FAQ for more info", path);
                     return;
                 }
 

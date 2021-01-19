@@ -48,7 +48,7 @@ namespace NzbDrone.Core.HealthCheck.Checks
 
             return new HealthCheck(GetType(),
                                    HealthCheckResult.Warning,
-                                   "Please upgrade to the .NET Core version of Lidarr",
+                                   "Please upgrade to the .NET Core version of Readarr",
                                    "#update-to-net-core-version");
         }
 
