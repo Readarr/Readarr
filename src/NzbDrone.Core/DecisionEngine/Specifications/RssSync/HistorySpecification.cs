@@ -60,7 +60,7 @@ namespace NzbDrone.Core.DecisionEngine.Specifications.RssSync
                         continue;
                     }
 
-                    // The author will be the same as the one in history since it's the same book.	                    // The artist will be the same as the one in history since it's the same album.
+                    // The author will be the same as the one in history since it's the same book.
                     // Instead of fetching the author from the DB reuse the known author.
                     var preferredWordScore = _preferredWordServiceCalculator.Calculate(subject.Author, mostRecent.SourceTitle, subject.Release?.IndexerId ?? 0);
 

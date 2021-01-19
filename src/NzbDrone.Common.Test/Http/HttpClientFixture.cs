@@ -289,7 +289,7 @@ namespace NzbDrone.Common.Test.Http
 
             var fileInfo = new FileInfo(file);
             fileInfo.Exists.Should().BeTrue();
-            fileInfo.Length.Should().Be(146122);
+            fileInfo.Length.Should().Be(192367);
         }
 
         [Test]
@@ -307,7 +307,7 @@ namespace NzbDrone.Common.Test.Http
 
             var fileInfo = new FileInfo(file);
             fileInfo.Exists.Should().BeTrue();
-            fileInfo.Length.Should().Be(146122);
+            fileInfo.Length.Should().Be(192367);
         }
 
         [Test]
