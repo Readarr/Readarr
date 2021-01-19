@@ -10,7 +10,7 @@ namespace NzbDrone.Core.Indexers.Newznab
         public static List<FieldSelectOption> GetFieldSelectOptions(List<NewznabCategory> categories)
         {
             // Ignore categories not relevant for Readarr
-            var ignoreCategories = new[] { 1000, 2000, 4000, 5000, 6000, 7000 };
+            var ignoreCategories = new[] { 1000, 2000, 3000, 4000, 5000, 6000 };
 
             // And maybe relevant for specific users
             var unimportantCategories = new[] { 0 };
@@ -23,14 +23,23 @@ namespace NzbDrone.Core.Indexers.Newznab
                 categories = new List<NewznabCategory>();
                 categories.Add(new NewznabCategory
                 {
-                    Id = 3000,
-                    Name = "Music",
+                    Id = 7000,
+                    Name = "Books",
                     Subcategories = new List<NewznabCategory>
                     {
-                        new NewznabCategory { Id = 3040, Name = "Loseless" },
-                        new NewznabCategory { Id = 3010, Name = "MP3" },
-                        new NewznabCategory { Id = 3050, Name = "Other" },
-                        new NewznabCategory { Id = 3030, Name = "Audiobook" }
+                        new NewznabCategory { Id = 7020, Name = "Ebook" },
+                        new NewznabCategory { Id = 7030, Name = "Comics" },
+                        new NewznabCategory { Id = 7040, Name = "Magazines" }
+                    }
+                });
+                categories.Add(new NewznabCategory
+                {
+                    Id = 8000,
+                    Name = "Other",
+                    Subcategories = new List<NewznabCategory>
+                    {
+                        new NewznabCategory { Id = 5070, Name = "Anime" },
+                        new NewznabCategory { Id = 8010, Name = "Misc" }
                     }
                 });
             }

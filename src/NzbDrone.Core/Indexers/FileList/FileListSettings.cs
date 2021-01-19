@@ -28,8 +28,7 @@ namespace NzbDrone.Core.Indexers.FileList
 
             Categories = new int[]
             {
-                (int)FileListCategories.AUDIO,
-                (int)FileListCategories.FLAC
+                (int)FileListCategories.DOC
             };
         }
 
@@ -63,8 +62,6 @@ namespace NzbDrone.Core.Indexers.FileList
     public enum FileListCategories
     {
         [FieldOption]
-        AUDIO = 5,
-        [FieldOption]
-        FLAC = 11
+        DOC = 16
     }
 }
