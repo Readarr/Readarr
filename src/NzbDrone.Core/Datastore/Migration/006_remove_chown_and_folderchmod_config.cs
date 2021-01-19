@@ -6,7 +6,7 @@ using NzbDrone.Core.Datastore.Migration.Framework;
 
 namespace NzbDrone.Core.Datastore.Migration
 {
-    [Migration(045)]
+    [Migration(006)]
     public class remove_chown_and_folderchmod_config : NzbDroneMigrationBase
     {
         protected override void MainDbUpgrade()
