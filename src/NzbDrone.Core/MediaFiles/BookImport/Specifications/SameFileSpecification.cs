@@ -30,7 +30,7 @@ namespace NzbDrone.Core.MediaFiles.BookImport.Specifications
                 if (bookFile == null)
                 {
                     var book = localBook.Book;
-                    _logger.Trace("Unable to get book file details from the DB. BookId: {0} BookFileId: {1}", book.Id, bookFile.Id);
+                    _logger.Trace("Unable to get book file details from the DB. BookId: {0}", book.Id);
 
                     return Decision.Accept();
                 }
