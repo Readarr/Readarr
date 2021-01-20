@@ -9,6 +9,7 @@ import Link from 'Components/Link/Link';
 import { icons, kinds, sizes } from 'Helpers/Props';
 import dimensions from 'Styles/Variables/dimensions';
 import fonts from 'Styles/Variables/fonts';
+import stripHtml from 'Utilities/String/stripHtml';
 import AddNewAuthorModal from './AddNewAuthorModal';
 import styles from './AddNewAuthorSearchResult.css';
 
@@ -190,7 +191,7 @@ class AddNewAuthorSearchResult extends Component {
               <TextTruncate
                 truncateText="…"
                 line={Math.floor(height / (defaultFontSize * lineHeight))}
-                text={overview}
+                text={stripHtml(overview)}
               />
             </div>
           </div>

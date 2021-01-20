@@ -32,6 +32,7 @@ import QualityProfileNameConnector from 'Settings/Profiles/Quality/QualityProfil
 import fonts from 'Styles/Variables/fonts';
 import formatBytes from 'Utilities/Number/formatBytes';
 import selectAll from 'Utilities/Table/selectAll';
+import stripHtml from 'Utilities/String/stripHtml';
 import toggleSelected from 'Utilities/Table/toggleSelected';
 import InteractiveImportModal from '../../InteractiveImport/InteractiveImportModal';
 import AuthorAlternateTitles from './AuthorAlternateTitles';
@@ -517,7 +518,7 @@ class AuthorDetails extends Component {
                 <div className={styles.overview}>
                   <TextTruncate
                     line={Math.floor(125 / (defaultFontSize * lineHeight))}
-                    text={overview}
+                    text={stripHtml(overview)}
                   />
                 </div>
               </div>
