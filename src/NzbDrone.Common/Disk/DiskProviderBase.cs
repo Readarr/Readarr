@@ -528,8 +528,7 @@ namespace NzbDrone.Common.Disk
             }
         }
 
-
-        public virtual bool IsValidFilePermissionMask(string mask)
+        public virtual bool IsValidFolderPermissionMask(string mask)
         {
             throw new NotSupportedException();
         }

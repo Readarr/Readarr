@@ -157,10 +157,10 @@ namespace NzbDrone.Core.ImportLists
 
             _logger.Trace($"Mapped {report.EditionGoodreadsId} to {mappedBook}");
 
-            report.BookGoodreadsId = mappedAlbum.ForeignBookId;
-            report.Book = mappedAlbum.Title;
-            report.Author = mappedAlbum.AuthorMetadata?.Value?.Name;
-            report.AuthorGoodreadsId = mappedAlbum.AuthorMetadata?.Value?.ForeignAuthorId;
+            report.BookGoodreadsId = mappedBook.ForeignBookId;
+            report.Book = mappedBook.Title;
+            report.Author = mappedBook.AuthorMetadata?.Value?.Name;
+            report.AuthorGoodreadsId = mappedBook.AuthorMetadata?.Value?.ForeignAuthorId;
         }
 
         private void ProcessBookReport(ImportListDefinition importList, ImportListItemInfo report, List<ImportListExclusion> listExclusions, List<Book> booksToAdd)
@@ -177,32 +177,32 @@ namespace NzbDrone.Core.ImportLists
             var excludedBook = listExclusions.SingleOrDefault(s => s.ForeignId == report.BookGoodreadsId);
 
             // Check to see if author excluded
-            var excludedArtist = listExclusions.SingleOrDefault(s => s.ForeignId == report.AuthorGoodreadsId);
+            var excludedAuthor = listExclusions.SingleOrDefault(s => s.ForeignId == report.AuthorGoodreadsId);
 
-            if (excludedAlbum != null)
+            if (excludedBook != null)
             {
                 _logger.Debug("{0} [{1}] Rejected due to list exlcusion", report.EditionGoodreadsId, report.Book);
                 return;
             }
 
-            if (excludedArtist != null)
+            if (excludedAuthor != null)
             {
                 _logger.Debug("{0} [{1}] Rejected due to list exlcusion for parent author", report.EditionGoodreadsId, report.Book);
                 return;
             }
 
-            if (existingAlbum != null)
+            if (existingBook != null)
             {
                 _logger.Debug("{0} [{1}] Rejected, Book Exists in DB.  Ensuring Book and Author monitored.", report.EditionGoodreadsId, report.Book);
 
                 if (importList.ShouldMonitor != ImportListMonitorType.None)
                 {
-                    if (!existingAlbum.Monitored)
+                    if (!existingBook.Monitored)
                     {
-                        _bookService.SetBookMonitored(existingAlbum.Id, true);
+                        _bookService.SetBookMonitored(existingBook.Id, true);
                     }
 
-                    var existingAuthor = existingAlbum.Author.Value;
+                    var existingAuthor = existingBook.Author.Value;
                     if (importList.ShouldMonitor == ImportListMonitorType.EntireAuthor)
                     {
                         _bookService.SetMonitored(existingAuthor.Books.Value.Select(x => x.Id), true);
@@ -218,8 +218,8 @@ namespace NzbDrone.Core.ImportLists
                 return;
             }
 
-            // Append Album if not already in DB or already on add list
-            if (albumsToAdd.All(s => s.ForeignBookId != report.BookGoodreadsId))
+            // Append Book if not already in DB or already on add list
+            if (booksToAdd.All(s => s.ForeignBookId != report.BookGoodreadsId))
             {
                 var monitored = importList.ShouldMonitor != ImportListMonitorType.None;
 
@@ -291,14 +291,14 @@ namespace NzbDrone.Core.ImportLists
                 return;
             }
 
-            if (existingArtist != null)
+            if (existingAuthor != null)
             {
                 _logger.Debug("{0} [{1}] Rejected, Author Exists in DB.  Ensuring Author monitored", report.AuthorGoodreadsId, report.Author);
 
-                if (!existingArtist.Monitored)
+                if (!existingAuthor.Monitored)
                 {
-                    existingArtist.Monitored = true;
-                    _authorService.UpdateAuthor(existingArtist);
+                    existingAuthor.Monitored = true;
+                    _authorService.UpdateAuthor(existingAuthor);
                 }
 
                 return;
