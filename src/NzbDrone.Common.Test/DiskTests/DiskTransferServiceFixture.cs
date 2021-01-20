@@ -200,21 +200,12 @@ namespace NzbDrone.Common.Test.DiskTests
         {
             _sourceMount.DriveFormat = "cifs";
             _targetMount = _sourceMount;
-<<<<<<< HEAD
 
             var result = Subject.TransferFile(_sourcePath, _targetPath, TransferMode.Move);
 
             Mocker.GetMock<IDiskProvider>()
                 .Verify(v => v.MoveFile(_sourcePath, _targetPath, false), Times.Once());
 
-=======
-
-            var result = Subject.TransferFile(_sourcePath, _targetPath, TransferMode.Move);
-
-            Mocker.GetMock<IDiskProvider>()
-                .Verify(v => v.MoveFile(_sourcePath, _targetPath, false), Times.Once());
-
->>>>>>> bb3c70620 (Fixed: Removed hardlink-based transactional file transfer logic (instead relying on explicit copy+delete for cifs))
             Mocker.GetMock<IDiskProvider>()
                 .Verify(v => v.CopyFile(_sourcePath, _targetPath, false), Times.Never());
 
@@ -384,7 +375,6 @@ namespace NzbDrone.Common.Test.DiskTests
         [Test]
         [Retry(5)]
         public void CopyFolder_should_copy_folder()
-<<<<<<< HEAD
         {
             WithRealDiskProvider();
 
@@ -483,8 +473,6 @@ namespace NzbDrone.Common.Test.DiskTests
 
         [Test]
         public void MoveFolder_should_move_folder()
-=======
->>>>>>> bb3c70620 (Fixed: Removed hardlink-based transactional file transfer logic (instead relying on explicit copy+delete for cifs))
         {
             WithRealDiskProvider();
 
@@ -709,7 +697,6 @@ namespace NzbDrone.Common.Test.DiskTests
         }
 
         [Test]
-<<<<<<< HEAD
         public void TransferFolder_should_not_use_movefolder_if_on_same_mount_but_target_already_exists()
         {
             WithEmulatedDiskProvider();
@@ -728,8 +715,6 @@ namespace NzbDrone.Common.Test.DiskTests
         }
 
         [Test]
-=======
->>>>>>> bb3c70620 (Fixed: Removed hardlink-based transactional file transfer logic (instead relying on explicit copy+delete for cifs))
         public void TransferFolder_should_not_use_movefolder_if_on_different_mount()
         {
             WithEmulatedDiskProvider();
