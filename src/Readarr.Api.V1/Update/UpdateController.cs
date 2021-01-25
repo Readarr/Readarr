@@ -3,6 +3,7 @@ using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using NzbDrone.Common.EnvironmentInfo;
 using NzbDrone.Core.Update;
+using NzbDrone.Core.Update.History;
 using Readarr.Http;
 
 namespace Readarr.Api.V1.Update
@@ -11,10 +12,12 @@ namespace Readarr.Api.V1.Update
     public class UpdateController : Controller
     {
         private readonly IRecentUpdateProvider _recentUpdateProvider;
+        private readonly IUpdateHistoryService _updateHistoryService;
 
-        public UpdateController(IRecentUpdateProvider recentUpdateProvider)
+        public UpdateController(IRecentUpdateProvider recentUpdateProvider, IUpdateHistoryService updateHistoryService)
         {
             _recentUpdateProvider = recentUpdateProvider;
+            _updateHistoryService = updateHistoryService;
         }
 
         [HttpGet]
@@ -39,6 +42,18 @@ namespace Readarr.Api.V1.Update
                 if (installed != null)
                 {
                     installed.Installed = true;
+                }
+
+                var installDates = _updateHistoryService.InstalledSince(resources.Last().ReleaseDate)
+                                                        .DistinctBy(v => v.Version)
+                                                        .ToDictionary(v => v.Version);
+
+                foreach (var resource in resources)
+                {
+                    if (installDates.TryGetValue(resource.Version, out var installDate))
+                    {
+                        resource.InstalledOn = installDate.Date;
+                    }
                 }
             }
 
