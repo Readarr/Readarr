@@ -30,14 +30,14 @@ namespace NzbDrone.Core.Indexers.Gazelle
         public IndexerPageableRequestChain GetSearchRequests(BookSearchCriteria searchCriteria)
         {
             var pageableRequests = new IndexerPageableRequestChain();
-            pageableRequests.Add(GetRequest(string.Format("&authorname={0}&groupname={1}", searchCriteria.AuthorQuery, searchCriteria.BookQuery)));
+            pageableRequests.Add(GetRequest(string.Format("&authorname={0}&groupname={1}", searchCriteria.CleanAuthorQuery, searchCriteria.CleanBookQuery)));
             return pageableRequests;
         }
 
         public IndexerPageableRequestChain GetSearchRequests(AuthorSearchCriteria searchCriteria)
         {
             var pageableRequests = new IndexerPageableRequestChain();
-            pageableRequests.Add(GetRequest(string.Format("&authorname={0}", searchCriteria.AuthorQuery)));
+            pageableRequests.Add(GetRequest(string.Format("&authorname={0}", searchCriteria.CleanAuthorQuery)));
             return pageableRequests;
         }
 

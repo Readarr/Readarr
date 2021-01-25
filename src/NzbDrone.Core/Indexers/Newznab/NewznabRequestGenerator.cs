@@ -35,6 +35,26 @@ namespace NzbDrone.Core.Indexers.Newznab
 
         protected virtual bool SupportsBookSearch => false;
 
+        private string TextSearchEngine
+        {
+            get
+            {
+                var capabilities = _capabilitiesProvider.GetCapabilities(Settings);
+
+                return capabilities.TextSearchEngine;
+            }
+        }
+
+        private string BookTextSearchEngine
+        {
+            get
+            {
+                var capabilities = _capabilitiesProvider.GetCapabilities(Settings);
+
+                return capabilities.BookTextSearchEngine;
+            }
+        }
+
         public virtual IndexerPageableRequestChain GetRecentRequests()
         {
             var pageableRequests = new IndexerPageableRequestChain();
@@ -59,35 +79,41 @@ namespace NzbDrone.Core.Indexers.Newznab
 
             if (SupportsBookSearch)
             {
-                AddBookPageableRequests(pageableRequests,
-                    searchCriteria,
-                    $"&author={NewsnabifyTitle(searchCriteria.AuthorQuery)}&title={NewsnabifyTitle(searchCriteria.BookQuery)}");
+                var authorQuery = BookTextSearchEngine == "raw" ? searchCriteria.AuthorQuery : searchCriteria.CleanAuthorQuery;
+                var bookQuery = BookTextSearchEngine == "raw" ? searchCriteria.BookQuery : searchCriteria.CleanBookQuery;
 
                 AddBookPageableRequests(pageableRequests,
                     searchCriteria,
-                    $"&title={NewsnabifyTitle(searchCriteria.BookQuery)}");
+                    $"&author={NewsnabifyTitle(authorQuery)}&title={NewsnabifyTitle(bookQuery)}");
+
+                AddBookPageableRequests(pageableRequests,
+                    searchCriteria,
+                    $"&title={NewsnabifyTitle(bookQuery)}");
             }
 
             if (SupportsSearch)
             {
                 pageableRequests.AddTier();
 
-                pageableRequests.Add(GetPagedRequests(MaxPages,
-                    Settings.Categories,
-                    "search",
-                    $"&q={NewsnabifyTitle(searchCriteria.BookQuery)}+{NewsnabifyTitle(searchCriteria.AuthorQuery)}"));
+                var authorQuery = TextSearchEngine == "raw" ? searchCriteria.AuthorQuery : searchCriteria.CleanAuthorQuery;
+                var bookQuery = TextSearchEngine == "raw" ? searchCriteria.BookQuery : searchCriteria.CleanBookQuery;
 
                 pageableRequests.Add(GetPagedRequests(MaxPages,
                     Settings.Categories,
                     "search",
-                    $"&q={NewsnabifyTitle(searchCriteria.AuthorQuery)}+{NewsnabifyTitle(searchCriteria.BookQuery)}"));
+                    $"&q={NewsnabifyTitle(bookQuery)}+{NewsnabifyTitle(authorQuery)}"));
 
                 pageableRequests.AddTier();
 
                 pageableRequests.Add(GetPagedRequests(MaxPages,
                     Settings.Categories,
                     "search",
-                    $"&q={NewsnabifyTitle(searchCriteria.BookQuery)}"));
+                    $"&q={NewsnabifyTitle(authorQuery)}+{NewsnabifyTitle(bookQuery)}"));
+
+                pageableRequests.Add(GetPagedRequests(MaxPages,
+                    Settings.Categories,
+                    "search",
+                    $"&q={NewsnabifyTitle(bookQuery)}"));
             }
 
             return pageableRequests;
@@ -99,19 +125,23 @@ namespace NzbDrone.Core.Indexers.Newznab
 
             if (SupportsBookSearch)
             {
+                var authorQuery = BookTextSearchEngine == "raw" ? searchCriteria.AuthorQuery : searchCriteria.CleanAuthorQuery;
+
                 AddBookPageableRequests(pageableRequests,
                     searchCriteria,
-                    $"&author={NewsnabifyTitle(searchCriteria.AuthorQuery)}");
+                    $"&author={NewsnabifyTitle(authorQuery)}");
             }
 
             if (SupportsSearch)
             {
                 pageableRequests.AddTier();
 
+                var authorQuery = TextSearchEngine == "raw" ? searchCriteria.AuthorQuery : searchCriteria.CleanAuthorQuery;
+
                 pageableRequests.Add(GetPagedRequests(MaxPages,
                     Settings.Categories,
                     "search",
-                    $"&q={NewsnabifyTitle(searchCriteria.AuthorQuery)}"));
+                    $"&q={NewsnabifyTitle(authorQuery)}"));
             }
 
             return pageableRequests;

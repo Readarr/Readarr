@@ -118,30 +118,46 @@ namespace NzbDrone.Core.Indexers.Newznab
                 {
                     capabilities.SupportedSearchParameters = null;
                 }
-                else if (xmlBasicSearch.Attribute("supportedParams") != null)
+                else
                 {
-                    capabilities.SupportedSearchParameters = xmlBasicSearch.Attribute("supportedParams").Value.Split(',');
+                    if (xmlBasicSearch.Attribute("supportedParams") != null)
+                    {
+                        capabilities.SupportedSearchParameters = xmlBasicSearch.Attribute("supportedParams").Value.Split(',');
+                    }
+
+                    capabilities.TextSearchEngine = xmlBasicSearch.Attribute("searchEngine")?.Value ?? capabilities.TextSearchEngine;
                 }
 
-                var xmlTvSearch = xmlSearching.Element("tv-search");
-                if (xmlTvSearch == null || xmlTvSearch.Attribute("available").Value != "yes")
-                {
-                    capabilities.SupportedTvSearchParameters = null;
-                }
-                else if (xmlTvSearch.Attribute("supportedParams") != null)
-                {
-                    capabilities.SupportedTvSearchParameters = xmlTvSearch.Attribute("supportedParams").Value.Split(',');
-                    capabilities.SupportsAggregateIdSearch = true;
-                }
-
-                var xmlAudioSearch = xmlSearching.Element("book-search");
+                var xmlAudioSearch = xmlSearching.Element("audio-search");
                 if (xmlAudioSearch == null || xmlAudioSearch.Attribute("available").Value != "yes")
+                {
+                    capabilities.SupportedAudioSearchParameters = null;
+                }
+                else
+                {
+                    if (xmlAudioSearch.Attribute("supportedParams") != null)
+                    {
+                        capabilities.SupportedAudioSearchParameters = xmlAudioSearch.Attribute("supportedParams").Value.Split(',');
+                        capabilities.SupportsAggregateIdSearch = true;
+                    }
+
+                    capabilities.AudioTextSearchEngine = xmlAudioSearch.Attribute("searchEngine")?.Value ?? capabilities.AudioTextSearchEngine;
+                }
+
+                var xmlBookSearch = xmlSearching.Element("book-search");
+                if (xmlBookSearch == null || xmlBookSearch.Attribute("available").Value != "yes")
                 {
                     capabilities.SupportedBookSearchParameters = null;
                 }
-                else if (xmlAudioSearch.Attribute("supportedParams") != null)
+                else
                 {
-                    capabilities.SupportedBookSearchParameters = xmlAudioSearch.Attribute("supportedParams").Value.Split(',');
+                    if (xmlBookSearch.Attribute("supportedParams") != null)
+                    {
+                        capabilities.SupportedBookSearchParameters = xmlBookSearch.Attribute("supportedParams").Value.Split(',');
+                        capabilities.SupportsAggregateIdSearch = true;
+                    }
+
+                    capabilities.BookTextSearchEngine = xmlBookSearch.Attribute("searchEngine")?.Value ?? capabilities.BookTextSearchEngine;
                 }
             }
 

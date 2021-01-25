@@ -8,8 +8,9 @@ namespace NzbDrone.Core.IndexerSearch.Definitions
 {
     public abstract class SearchCriteriaBase
     {
-        private static readonly Regex NonWord = new Regex(@"[^\w`'’]", RegexOptions.IgnoreCase | RegexOptions.Compiled);
+        private static readonly Regex NonWord = new Regex(@"[^\w']+", RegexOptions.IgnoreCase | RegexOptions.Compiled);
         private static readonly Regex BeginningThe = new Regex(@"^the\s", RegexOptions.IgnoreCase | RegexOptions.Compiled);
+        private static readonly Regex StandardizeSingleQuotesRegex = new Regex(@"[\u0060\u00B4\u2018\u2019]", RegexOptions.IgnoreCase | RegexOptions.Compiled);
 
         public virtual bool MonitoredBooksOnly { get; set; }
         public virtual bool UserInvokedSearch { get; set; }
@@ -18,7 +19,8 @@ namespace NzbDrone.Core.IndexerSearch.Definitions
         public Author Author { get; set; }
         public List<Book> Books { get; set; }
 
-        public string AuthorQuery => GetQueryTitle(Author.Name);
+        public string AuthorQuery => Author?.Name;
+        public string CleanAuthorQuery => GetQueryTitle(AuthorQuery);
 
         public static string GetQueryTitle(string title)
         {
@@ -32,12 +34,10 @@ namespace NzbDrone.Core.IndexerSearch.Definitions
             }
 
             var cleanTitle = BeginningThe.Replace(title, string.Empty);
-
-            cleanTitle = cleanTitle.Replace(" & ", " ");
-            cleanTitle = cleanTitle.Replace(".", " ");
+            cleanTitle = StandardizeSingleQuotesRegex.Replace(cleanTitle, "'");
             cleanTitle = NonWord.Replace(cleanTitle, "+");
 
-            //remove any repeating +s
+            // remove any repeating +s
             cleanTitle = Regex.Replace(cleanTitle, @"\+{2,}", "+");
             cleanTitle = cleanTitle.RemoveAccent();
             cleanTitle = cleanTitle.Trim('+', ' ');

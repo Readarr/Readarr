@@ -2,6 +2,7 @@ using System.Linq;
 using FluentAssertions;
 using Moq;
 using NUnit.Framework;
+using NzbDrone.Core.Books;
 using NzbDrone.Core.Indexers.Newznab;
 using NzbDrone.Core.IndexerSearch.Definitions;
 using NzbDrone.Core.Test.Framework;
@@ -25,7 +26,7 @@ namespace NzbDrone.Core.Test.IndexerTests.NewznabTests
 
             _singleBookSearchCriteria = new BookSearchCriteria
             {
-                Author = new Books.Author { Name = "Alien Ant Farm" },
+                Author = new Author { Name = "Alien Ant Farm" },
                 BookTitle = "TruANT"
             };
 
@@ -64,38 +65,45 @@ namespace NzbDrone.Core.Test.IndexerTests.NewznabTests
         }
 
         [Test]
-        [Ignore("TODO: add raw search support")]
         public void should_encode_raw_title()
         {
             _capabilities.SupportedBookSearchParameters = new[] { "q", "author", "title" };
+            _capabilities.BookTextSearchEngine = "raw";
 
-            // _capabilities.BookTextSearchEngine = "raw";
-            _singleBookSearchCriteria.BookTitle = "Daisy Jones & The Six";
+            var bookRawSearchCriteria = new BookSearchCriteria
+            {
+                Author = new Author { Name = "Taylor Jenkins Reid" },
+                BookTitle = "Daisy Jones & The Six"
+            };
 
-            var results = Subject.GetSearchRequests(_singleBookSearchCriteria);
-            results.Tiers.Should().Be(1);
+            var results = Subject.GetSearchRequests(bookRawSearchCriteria);
+            results.Tiers.Should().Be(2);
 
             var pageTier = results.GetTier(0).First().First();
 
-            pageTier.Url.Query.Should().Contain("q=Daisy%20Jones%20%26%20The%20Six");
+            pageTier.Url.Query.Should().Contain("q=Daisy%20Jones%20The%20Six+Taylor%20Jenkins%20Reid");
             pageTier.Url.Query.Should().NotContain(" & ");
-            pageTier.Url.Query.Should().Contain("%26");
+            pageTier.Url.Query.Should().NotContain("%26");
         }
 
         [Test]
         public void should_use_clean_title_and_encode()
         {
             _capabilities.SupportedBookSearchParameters = new[] { "q", "author", "title" };
+            _capabilities.BookTextSearchEngine = "sphinx";
 
-            // _capabilities.BookTextSearchEngine = "sphinx";
-            _singleBookSearchCriteria.BookTitle = "Daisy Jones & The Six";
+            var bookRawSearchCriteria = new BookSearchCriteria
+            {
+                Author = new Author { Name = "Taylor Jenkins Reid" },
+                BookTitle = "Daisy Jones & The Six"
+            };
 
-            var results = Subject.GetSearchRequests(_singleBookSearchCriteria);
+            var results = Subject.GetSearchRequests(bookRawSearchCriteria);
             results.Tiers.Should().Be(2);
 
             var pageTier = results.GetTier(0).First().First();
 
-            pageTier.Url.Query.Should().Contain("q=Daisy%20Jones%20The%20Six");
+            pageTier.Url.Query.Should().Contain("q=Daisy%20Jones%20The%20Six+Taylor%20Jenkins%20Reid");
             pageTier.Url.Query.Should().NotContain("and");
             pageTier.Url.Query.Should().NotContain(" & ");
             pageTier.Url.Query.Should().NotContain("%26");

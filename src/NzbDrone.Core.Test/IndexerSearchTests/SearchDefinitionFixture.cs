@@ -13,7 +13,7 @@ namespace NzbDrone.Core.Test.IndexerSearchTests
         public void should_replace_some_special_characters_author(string author, string expected)
         {
             Subject.Author = new Author { Name = author };
-            Subject.AuthorQuery.Should().Be(expected);
+            Subject.CleanAuthorQuery.Should().Be(expected);
         }
 
         [TestCase("…and Justice for All", "and+Justice+for+All")]
@@ -26,7 +26,7 @@ namespace NzbDrone.Core.Test.IndexerSearchTests
         {
             Subject.Author = new Author { Name = "Author" };
             Subject.BookTitle = book;
-            Subject.BookQuery.Should().Be(expected);
+            Subject.CleanBookQuery.Should().Be(expected);
         }
 
         [TestCase("+", "+")]
@@ -34,7 +34,7 @@ namespace NzbDrone.Core.Test.IndexerSearchTests
         {
             Subject.Author = new Author { Name = "Author" };
             Subject.BookTitle = book;
-            Subject.BookQuery.Should().Be(expected);
+            Subject.CleanBookQuery.Should().Be(expected);
         }
     }
 }
