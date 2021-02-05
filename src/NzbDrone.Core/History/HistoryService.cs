@@ -230,8 +230,7 @@ namespace NzbDrone.Core.History
                 DownloadId = downloadId
             };
 
-            //Won't have a value since we publish this event before saving to DB.
-            //history.Data.Add("FileId", message.ImportedEpisode.Id.ToString());
+            history.Data.Add("FileId", message.ImportedBook.Id.ToString());
             history.Data.Add("DroppedPath", message.BookInfo.Path);
             history.Data.Add("ImportedPath", message.ImportedBook.Path);
             history.Data.Add("DownloadClient", message.DownloadClientInfo?.Type);
