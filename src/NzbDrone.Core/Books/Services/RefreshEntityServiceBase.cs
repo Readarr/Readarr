@@ -109,7 +109,7 @@ namespace NzbDrone.Core.Books
         {
         }
 
-        protected virtual void PublishChildrenUpdatedEvent(TEntity entity, List<TChild> newChildren, List<TChild> updateChildren)
+        protected virtual void PublishChildrenUpdatedEvent(TEntity entity, List<TChild> newChildren, List<TChild> updateChildren, List<TChild> deleteChildren)
         {
         }
 
@@ -290,7 +290,7 @@ namespace NzbDrone.Core.Books
             // now trigger updates
             var updated = RefreshChildren(sortedChildren, remoteChildren, remoteData, forceChildRefresh, forceUpdateFileTags, lastUpdate);
 
-            PublishChildrenUpdatedEvent(entity, sortedChildren.Added, sortedChildren.Updated);
+            PublishChildrenUpdatedEvent(entity, sortedChildren.Added, sortedChildren.Updated, sortedChildren.Deleted);
             return updated;
         }
     }

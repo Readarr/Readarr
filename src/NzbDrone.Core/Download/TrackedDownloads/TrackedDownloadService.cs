@@ -14,7 +14,7 @@ using NzbDrone.Core.Parser;
 
 namespace NzbDrone.Core.Download.TrackedDownloads
 {
-    public interface ITrackedDownloadService : IHandle<BookDeletedEvent>
+    public interface ITrackedDownloadService
     {
         TrackedDownload Find(string downloadId);
         void StopTracking(string downloadId);
@@ -24,7 +24,9 @@ namespace NzbDrone.Core.Download.TrackedDownloads
         void UpdateTrackable(List<TrackedDownload> trackedDownloads);
     }
 
-    public class TrackedDownloadService : ITrackedDownloadService
+    public class TrackedDownloadService : ITrackedDownloadService,
+                                          IHandle<BookInfoRefreshedEvent>,
+                                          IHandle<AuthorDeletedEvent>
     {
         private readonly IParsingService _parsingService;
         private readonly IHistoryService _historyService;
@@ -238,6 +240,13 @@ namespace NzbDrone.Core.Download.TrackedDownloads
             }
         }
 
+        private void UpdateCachedItem(TrackedDownload trackedDownload)
+        {
+            var parsedEpisodeInfo = Parser.Parser.ParseBookTitle(trackedDownload.DownloadItem.Title);
+
+            trackedDownload.RemoteBook = parsedEpisodeInfo == null ? null : _parsingService.Map(parsedEpisodeInfo, 0, new[] { 0 });
+        }
+
         private static TrackedDownloadState GetStateFromHistory(DownloadHistoryEventType eventType)
         {
             switch (eventType)
@@ -255,9 +264,44 @@ namespace NzbDrone.Core.Download.TrackedDownloads
             }
         }
 
-        public void Handle(BookDeletedEvent message)
+        public void Handle(BookInfoRefreshedEvent message)
         {
-            UpdateBookCache(message.Book.Id);
+            var needsToUpdate = false;
+
+            foreach (var episode in message.Removed)
+            {
+                var cachedItems = _cache.Values.Where(t =>
+                                            t.RemoteBook?.Books != null &&
+                                            t.RemoteBook.Books.Any(e => e.Id == episode.Id))
+                                        .ToList();
+
+                if (cachedItems.Any())
+                {
+                    needsToUpdate = true;
+                }
+
+                cachedItems.ForEach(UpdateCachedItem);
+            }
+
+            if (needsToUpdate)
+            {
+                _eventAggregator.PublishEvent(new TrackedDownloadRefreshedEvent(GetTrackedDownloads()));
+            }
+        }
+
+        public void Handle(AuthorDeletedEvent message)
+        {
+            var cachedItems = _cache.Values.Where(t =>
+                                        t.RemoteBook?.Author != null &&
+                                        t.RemoteBook.Author.Id == message.Author.Id)
+                                    .ToList();
+
+            if (cachedItems.Any())
+            {
+                cachedItems.ForEach(UpdateCachedItem);
+
+                _eventAggregator.PublishEvent(new TrackedDownloadRefreshedEvent(GetTrackedDownloads()));
+            }
         }
     }
 }
