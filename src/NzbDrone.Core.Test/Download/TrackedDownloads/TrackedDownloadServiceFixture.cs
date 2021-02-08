@@ -129,9 +129,121 @@ namespace NzbDrone.Core.Test.Download.TrackedDownloads
                 .Returns(default(RemoteBook));
 
             // handle deletion event
-            Subject.Handle(new BookDeletedEvent(remoteBook.Books.First(), false, false));
+            Subject.Handle(new BookInfoRefreshedEvent(remoteBook.Author, new List<Book>(), new List<Book>(), remoteBook.Books));
 
             // verify download has null remote book
+            var trackedDownloads = Subject.GetTrackedDownloads();
+            trackedDownloads.Should().HaveCount(1);
+            trackedDownloads.First().RemoteBook.Should().BeNull();
+        }
+
+        [Test]
+        public void should_not_throw_when_processing_deleted_episodes()
+        {
+            GivenDownloadHistory();
+
+            var remoteEpisode = new RemoteBook
+            {
+                Author = new Author() { Id = 5 },
+                Books = new List<Book> { new Book { Id = 4 } },
+                ParsedBookInfo = new ParsedBookInfo()
+                {
+                    BookTitle = "TV Series"
+                }
+            };
+
+            Mocker.GetMock<IParsingService>()
+                  .Setup(s => s.Map(It.IsAny<ParsedBookInfo>(), It.IsAny<int>(), It.IsAny<List<int>>()))
+                  .Returns(default(RemoteBook));
+
+            Mocker.GetMock<IHistoryService>()
+                  .Setup(s => s.FindByDownloadId(It.IsAny<string>()))
+                  .Returns(new List<EntityHistory>());
+
+            var client = new DownloadClientDefinition()
+            {
+                Id = 1,
+                Protocol = DownloadProtocol.Torrent
+            };
+
+            var item = new DownloadClientItem()
+            {
+                Title = "TV Series - S01E01",
+                DownloadId = "12345",
+                DownloadClientInfo = new DownloadClientItemClientInfo
+                {
+                    Id = 1,
+                    Type = "Blackhole",
+                    Name = "Blackhole Client",
+                    Protocol = DownloadProtocol.Torrent
+                }
+            };
+
+            Subject.TrackDownload(client, item);
+            Subject.GetTrackedDownloads().Should().HaveCount(1);
+
+            Mocker.GetMock<IParsingService>()
+                  .Setup(s => s.Map(It.IsAny<ParsedBookInfo>(), It.IsAny<int>(), It.IsAny<List<int>>()))
+                  .Returns(default(RemoteBook));
+
+            Subject.Handle(new BookInfoRefreshedEvent(remoteEpisode.Author, new List<Book>(), new List<Book>(), remoteEpisode.Books));
+
+            var trackedDownloads = Subject.GetTrackedDownloads();
+            trackedDownloads.Should().HaveCount(1);
+            trackedDownloads.First().RemoteBook.Should().BeNull();
+        }
+
+        [Test]
+        public void should_not_throw_when_processing_deleted_series()
+        {
+            GivenDownloadHistory();
+
+            var remoteEpisode = new RemoteBook
+            {
+                Author = new Author() { Id = 5 },
+                Books = new List<Book> { new Book { Id = 4 } },
+                ParsedBookInfo = new ParsedBookInfo()
+                {
+                    BookTitle = "TV Series",
+                }
+            };
+
+            Mocker.GetMock<IParsingService>()
+                  .Setup(s => s.Map(It.IsAny<ParsedBookInfo>(), It.IsAny<int>(), It.IsAny<List<int>>()))
+                  .Returns(default(RemoteBook));
+
+            Mocker.GetMock<IHistoryService>()
+                  .Setup(s => s.FindByDownloadId(It.IsAny<string>()))
+                  .Returns(new List<EntityHistory>());
+
+            var client = new DownloadClientDefinition()
+            {
+                Id = 1,
+                Protocol = DownloadProtocol.Torrent
+            };
+
+            var item = new DownloadClientItem()
+            {
+                Title = "TV Series - S01E01",
+                DownloadId = "12345",
+                DownloadClientInfo = new DownloadClientItemClientInfo
+                {
+                    Id = 1,
+                    Type = "Blackhole",
+                    Name = "Blackhole Client",
+                    Protocol = DownloadProtocol.Torrent
+                }
+            };
+
+            Subject.TrackDownload(client, item);
+            Subject.GetTrackedDownloads().Should().HaveCount(1);
+
+            Mocker.GetMock<IParsingService>()
+                  .Setup(s => s.Map(It.IsAny<ParsedBookInfo>(), It.IsAny<int>(), It.IsAny<List<int>>()))
+                  .Returns(default(RemoteBook));
+
+            Subject.Handle(new AuthorDeletedEvent(remoteEpisode.Author, true, true));
+
             var trackedDownloads = Subject.GetTrackedDownloads();
             trackedDownloads.Should().HaveCount(1);
             trackedDownloads.First().RemoteBook.Should().BeNull();

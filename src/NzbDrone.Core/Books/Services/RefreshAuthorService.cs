@@ -297,9 +297,9 @@ namespace NzbDrone.Core.Books
             _eventAggregator.PublishEvent(new AuthorRefreshCompleteEvent(entity));
         }
 
-        protected override void PublishChildrenUpdatedEvent(Author entity, List<Book> newChildren, List<Book> updateChildren)
+        protected override void PublishChildrenUpdatedEvent(Author entity, List<Book> newChildren, List<Book> updateChildren, List<Book> deleteChildren)
         {
-            _eventAggregator.PublishEvent(new BookInfoRefreshedEvent(entity, newChildren, updateChildren));
+            _eventAggregator.PublishEvent(new BookInfoRefreshedEvent(entity, newChildren, updateChildren, deleteChildren));
         }
 
         private void Rescan(List<int> authorIds, bool isNew, CommandTrigger trigger, bool infoUpdated)
