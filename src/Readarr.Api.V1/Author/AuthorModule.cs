@@ -16,6 +16,7 @@ using NzbDrone.Core.RootFolders;
 using NzbDrone.Core.Validation;
 using NzbDrone.Core.Validation.Paths;
 using NzbDrone.SignalR;
+using Readarr.Api.V1.Books;
 using Readarr.Http;
 using Readarr.Http.Extensions;
 
@@ -189,8 +190,8 @@ namespace Readarr.Api.V1.Author
 
             foreach (var authorResource in authors)
             {
-                authorResource.NextBook = nextBooks.FirstOrDefault(x => x.AuthorMetadataId == authorResource.AuthorMetadataId);
-                authorResource.LastBook = lastBooks.FirstOrDefault(x => x.AuthorMetadataId == authorResource.AuthorMetadataId);
+                authorResource.NextBook = nextBooks.FirstOrDefault(x => x.AuthorMetadataId == authorResource.AuthorMetadataId).ToResource();
+                authorResource.LastBook = lastBooks.FirstOrDefault(x => x.AuthorMetadataId == authorResource.AuthorMetadataId).ToResource();
             }
         }
 

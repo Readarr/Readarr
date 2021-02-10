@@ -5,6 +5,7 @@ using Newtonsoft.Json;
 using NzbDrone.Common.Extensions;
 using NzbDrone.Core.Books;
 using NzbDrone.Core.MediaCover;
+using Readarr.Api.V1.Books;
 using Readarr.Http.REST;
 
 namespace Readarr.Api.V1.Author
@@ -27,8 +28,8 @@ namespace Readarr.Api.V1.Author
         public string Disambiguation { get; set; }
         public List<Links> Links { get; set; }
 
-        public Book NextBook { get; set; }
-        public Book LastBook { get; set; }
+        public BookResource NextBook { get; set; }
+        public BookResource LastBook { get; set; }
 
         public List<MediaCover> Images { get; set; }
 
