@@ -25,11 +25,11 @@ namespace NzbDrone.Core.Test.UpdateTests
         }
 
         [Test]
-        [Ignore("Ignore until we actually release something on nightly")]
         public void finds_update_when_version_lower()
         {
+            NotBsd();
             UseRealHttp();
-            Subject.GetLatestUpdate("nightly", new Version(0, 2)).Should().NotBeNull();
+            Subject.GetLatestUpdate("nightly", new Version(0, 1)).Should().NotBeNull();
         }
 
         [Test]
@@ -41,12 +41,13 @@ namespace NzbDrone.Core.Test.UpdateTests
         }
 
         [Test]
-        [Ignore("Until merge readarr 0.1 pr")]
         public void should_get_recent_updates()
         {
+            NotBsd();
+
             const string branch = "nightly";
             UseRealHttp();
-            var recent = Subject.GetRecentUpdates(branch, new Version(0, 2));
+            var recent = Subject.GetRecentUpdates(branch, new Version(0, 1));
 
             recent.Should().NotBeEmpty();
             recent.Should().OnlyContain(c => c.Hash.IsNotNullOrWhiteSpace());
