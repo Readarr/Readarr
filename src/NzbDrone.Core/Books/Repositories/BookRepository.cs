@@ -94,6 +94,7 @@ namespace NzbDrone.Core.Books
             .Join<Book, Edition>((b, e) => b.Id == e.BookId)
             .LeftJoin<Edition, BookFile>((t, f) => t.Id == f.EditionId)
             .Where<BookFile>(f => f.Id == null)
+            .Where<Edition>(e => e.Monitored == true)
             .Where<Book>(a => a.ReleaseDate <= currentTime);
 #pragma warning restore CS0472
 
@@ -111,6 +112,7 @@ namespace NzbDrone.Core.Books
             .Join<Book, Author>((l, r) => l.AuthorMetadataId == r.AuthorMetadataId)
             .Join<Book, Edition>((b, e) => b.Id == e.BookId)
             .LeftJoin<Edition, BookFile>((t, f) => t.Id == f.EditionId)
+            .Where<Edition>(e => e.Monitored == true)
             .Where(BuildQualityCutoffWhereClause(qualitiesBelowCutoff));
 
         private string BuildQualityCutoffWhereClause(List<QualitiesBelowCutoff> qualitiesBelowCutoff)
@@ -198,7 +200,8 @@ namespace NzbDrone.Core.Books
             return Query(Builder()
                          .Join<Book, Edition>((b, e) => b.Id == e.BookId)
                          .Join<Edition, BookFile>((t, f) => t.Id == f.EditionId)
-                         .Where<Book>(x => x.AuthorMetadataId == author.AuthorMetadataId));
+                         .Where<Book>(x => x.AuthorMetadataId == author.AuthorMetadataId)
+                         .Where<Edition>(e => e.Monitored == true));
         }
     }
 }
