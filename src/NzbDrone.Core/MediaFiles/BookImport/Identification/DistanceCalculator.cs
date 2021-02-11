@@ -53,8 +53,11 @@ namespace NzbDrone.Core.MediaFiles.BookImport.Identification
             {
                 foreach (var l in edition.Book.Value.SeriesLinks.Value)
                 {
-                    titleOptions.Add($"{l.Series.Value.Title} {l.Position} {edition.Title}");
-                    titleOptions.Add($"{edition.Title} {l.Series.Value.Title} {l.Position}");
+                    if (l.Series?.Value?.Title?.IsNotNullOrWhiteSpace() ?? false)
+                    {
+                        titleOptions.Add($"{l.Series.Value.Title} {l.Position} {edition.Title}");
+                        titleOptions.Add($"{edition.Title} {l.Series.Value.Title} {l.Position}");
+                    }
                 }
             }
 
