@@ -31,7 +31,7 @@ namespace NzbDrone.Core.Test.MediaFiles.BookImport.Aggregation.Aggregators
         private void VerifyData(LocalBook track, string author, string title, int trackNum, int disc)
         {
             track.FileTrackInfo.AuthorTitle.Should().Be(author);
-            track.FileTrackInfo.Title.Should().Be(title);
+            track.FileTrackInfo.BookTitle.Should().Be(title);
             track.FileTrackInfo.TrackNumbers[0].Should().Be(trackNum);
             track.FileTrackInfo.DiscNumber.Should().Be(disc);
         }
@@ -172,21 +172,7 @@ namespace NzbDrone.Core.Test.MediaFiles.BookImport.Aggregation.Aggregators
 
                 if (tokens.Contains("title"))
                 {
-                    info.Title.Should().Be($"{(char)(96 + i)} track title {i}".Replace(" ", whitespace));
-                }
-
-                if (tokens.Contains("trackNum2") || tokens.Contains("trackNum3"))
-                {
-                    info.TrackNumbers[0].Should().Be(i);
-                }
-
-                if (tokens.Contains("trackNum3"))
-                {
-                    info.DiscNumber.Should().Be(1);
-                }
-                else
-                {
-                    info.DiscNumber.Should().Be(0);
+                    info.BookTitle.Should().Be($"{(char)(96 + i)} track title {i}".Replace(" ", whitespace));
                 }
             }
         }

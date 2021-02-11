@@ -58,9 +58,8 @@ namespace NzbDrone.Core.MediaFiles.BookImport.Aggregation.Aggregators
         public LocalEdition Aggregate(LocalEdition release, bool others)
         {
             var tracks = release.LocalBooks;
-            if (tracks.Count(x => x.FileTrackInfo.Title.IsNullOrWhiteSpace()) > 0
-                || tracks.Count(x => x.FileTrackInfo.TrackNumbers.First() == 0) > 0
-                || tracks.Count(x => x.FileTrackInfo.DiscNumber == 0) > 0)
+            if (tracks.Any(x => x.FileTrackInfo.BookTitle.IsNullOrWhiteSpace())
+                || tracks.Any(x => x.FileTrackInfo.AuthorTitle.IsNullOrWhiteSpace()))
             {
                 _logger.Debug("Missing data in tags, trying filename augmentation");
                 foreach (var charSep in CharsAndSeps)
@@ -163,11 +162,11 @@ namespace NzbDrone.Core.MediaFiles.BookImport.Aggregation.Aggregators
             // Apply the title and track
             foreach (var track in matches.Keys)
             {
-                if (track.FileTrackInfo.Title.IsNullOrWhiteSpace())
+                if (track.FileTrackInfo.BookTitle.IsNullOrWhiteSpace())
                 {
                     var title = matches[track].Groups[titleField].Value.Trim();
                     _logger.Debug("Got title from filename: {0}", title);
-                    track.FileTrackInfo.Title = title;
+                    track.FileTrackInfo.BookTitle = title;
                 }
 
                 var trackNums = track.FileTrackInfo.TrackNumbers;

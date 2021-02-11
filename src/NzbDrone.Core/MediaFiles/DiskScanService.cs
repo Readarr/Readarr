@@ -185,7 +185,8 @@ namespace NzbDrone.Core.MediaFiles
                     Modified = decision.Item.Modified,
                     DateAdded = DateTime.UtcNow,
                     Quality = decision.Item.Quality,
-                    MediaInfo = decision.Item.FileTrackInfo.MediaInfo
+                    MediaInfo = decision.Item.FileTrackInfo.MediaInfo,
+                    Edition = decision.Item.Edition
                 })
                 .ToList();
             _mediaFileService.AddMany(newFiles);
