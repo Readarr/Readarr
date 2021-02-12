@@ -140,7 +140,7 @@ namespace NzbDrone.Core.Test.ParserTests
 
         //[TestCase("ADELE 25 CD FLAC 2015 PERFECT", "Adele", "25")]
         [TestCase("A.I. - Sex & Robots [2007/MP3/V0(VBR)]", "A I", "Sex & Robots")]
-        [TestCase("Jay-Z - 4:44 (Deluxe Edition) (2017) 320", "Jay-Z", "444")]
+        [TestCase("Jay-Z - 4:44 (Deluxe Edition) (2017) 320", "Jay-Z", "4:44")]
 
         //[TestCase("Roberta Flack 2006 - The Very Best of", "Roberta Flack", "The Very Best of")]
         [TestCase("VA - NOW Thats What I Call Music 96 (2017) [Mp3~Kbps]", "VA", "NOW Thats What I Call Music 96")]
