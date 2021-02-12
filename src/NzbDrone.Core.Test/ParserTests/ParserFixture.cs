@@ -159,6 +159,13 @@ namespace NzbDrone.Core.Test.ParserTests
         [TestCase("Brother Ali-2007-The Undisputed Truth-FTD", "Brother Ali", "The Undisputed Truth")]
         [TestCase("Brother Ali-The Undisputed Truth-2007-FTD", "Brother Ali", "The Undisputed Truth")]
 
+        // MAM
+        [TestCase("City of Bones by Cassandra Clare [ENG / epub]", "Cassandra Clare", "City of Bones")]
+        [TestCase("The Ivory Tower and Harry Potter -​ Perspectives on a Literary Phenomenon by Lana E Whited [ENG /​ pdf]", "Lana E Whited", "The Ivory Tower and Harry Potter -​ Perspectives on a Literary Phenomenon")]
+        [TestCase("America by design by David Noble [eng]", "David Noble", "America by design")]
+        [TestCase("The Great Gatsby by F. Scott Fitzgerald [azw3]", "F  Scott Fitzgerald", "The Great Gatsby")]
+        [TestCase("Megabytes by Computer [pdf]", "Computer", "Megabytes")]
+
         // ruTracker
         [TestCase("(Eclectic Progressive Rock) [CD] Peter Hammill - From The Trees - 2017, FLAC (tracks + .cue), lossless", "Peter Hammill", "From The Trees")]
         [TestCase("(Folk Rock / Pop) Aztec Two-Step - Naked - 2017, MP3, 320 kbps", "Aztec Two-Step", "Naked")]

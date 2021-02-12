@@ -64,6 +64,10 @@ namespace NzbDrone.Core.Parser
             new Regex(@"^(?<author>.+?)\W*(?<discography>Discography|Discografia)",
                 RegexOptions.IgnoreCase | RegexOptions.Compiled),
 
+            //MyAnonaMouse - Title by Author [lang / pdf]
+            new Regex(@"^(?<book>.+)\bby\b(?<author>.+?)(?:\[|\()",
+                RegexOptions.IgnoreCase | RegexOptions.Compiled),
+
             //ruTracker - (Genre) [Source]? Author - Book - Year
             new Regex(@"^(?:\(.+?\))(?:\W*(?:\[(?<source>.+?)\]))?\W*(?<author>.+?)(?: - )(?<book>.+?)(?: - )(?<releaseyear>\d{4})",
                 RegexOptions.IgnoreCase | RegexOptions.Compiled),
