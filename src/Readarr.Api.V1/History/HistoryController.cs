@@ -99,8 +99,8 @@ namespace Readarr.Api.V1.History
             return _historyService.GetByAuthor(authorId, eventType).Select(h => MapToResource(h, includeAuthor, includeBook)).ToList();
         }
 
-        [HttpPost("failed")]
-        public object MarkAsFailed([FromBody] int id)
+        [HttpPost("failed/{id}")]
+        public object MarkAsFailed([FromRoute] int id)
         {
             _failedDownloadService.MarkAsFailed(id);
             return new { };
