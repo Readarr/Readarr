@@ -72,6 +72,16 @@ namespace NzbDrone.Common.Test.InstrumentationTests
             cleansedMessage.Should().NotContain("01233210");
         }
 
+        //GoodReads
+        [TestCase(@"{""signatureMethod"": ""hmacSha1"",""signatureTreatment"": ""escaped"",""type"": ""protectedResource"",""method"": ""GET"",""token"": ""mytoken"",""tokenSecret"": ""mytokensecret"",""requestUrl"": ""https://www.goodreads.com/review/list.xml"",""parameters"": {  ""_nc"": ""1"",  ""v"": ""2"",  ""id"": ""999999999"",  ""shelf"": ""currently-reading"",  ""per_page"": ""200"",  ""page"": ""1""}")]
+        public void should_cleanGoodRead_message(string message)
+        {
+            var cleansedMessage = CleanseLogMessage.Cleanse(message);
+
+            cleansedMessage.Should().NotContain("mytokensecret");
+            cleansedMessage.Should().NotContain("mytoken");
+        }
+
         [TestCase(@"Some message (from 32.2.3.5 user agent)")]
         [TestCase(@"Auth-Invalidated ip 32.2.3.5")]
         [TestCase(@"Auth-Success ip 32.2.3.5")]
