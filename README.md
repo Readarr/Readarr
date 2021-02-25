@@ -22,7 +22,7 @@ Readarr is a ebook (and maybe eventually magazine/audiobook) collection manager 
 
 ## Support
 
-[![Discord](https://img.shields.io/badge/discord-chat-7289DA.svg?maxAge=60)](https://discord.gg/rkEXY2Rbgn)
+[![Discord](https://img.shields.io/badge/discord-chat-7289DA.svg?maxAge=60)](https://readarr.com/discord)
 [![GitHub](https://img.shields.io/badge/github-issues-red.svg?maxAge=60)](https://github.com/Readarr/Readarr/issues)
 [![Wiki](https://img.shields.io/badge/servarr-wiki-181717.svg?maxAge=60)](https://wiki.servarr.com/Readarr)
 
