@@ -42,6 +42,7 @@
     <OutputPath Condition="'$(ReadarrOutputType)'=='Update'">$(ReadarrRootDir)_output\Readarr.Update\</OutputPath>
 
     <!-- Paths relative to project file for better readability -->
+	<EnableBaseIntermediateOutputPathMismatchWarning>false</EnableBaseIntermediateOutputPathMismatchWarning>
     <BaseIntermediateOutputPath>$([MSBuild]::MakeRelative('$(MSBuildProjectDirectory)', '$(BaseIntermediateOutputPath)'))</BaseIntermediateOutputPath>
     <IntermediateOutputPath>$([MSBuild]::MakeRelative('$(MSBuildProjectDirectory)', '$(IntermediateOutputPath)'))</IntermediateOutputPath>
     <OutputPath>$([MSBuild]::MakeRelative('$(MSBuildProjectDirectory)', '$(OutputPath)'))</OutputPath>
