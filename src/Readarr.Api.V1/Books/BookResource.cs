@@ -6,7 +6,6 @@ using NzbDrone.Common.Extensions;
 using NzbDrone.Core.Books;
 using NzbDrone.Core.MediaCover;
 using Readarr.Api.V1.Author;
-using Readarr.Api.V1.BookFiles;
 using Readarr.Http.REST;
 
 namespace Readarr.Api.V1.Books

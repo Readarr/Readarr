@@ -103,7 +103,7 @@ class SignalRConnector extends Component {
 
     this.connection = new signalR.HubConnectionBuilder()
       .configureLogging(new Logger(signalR.LogLevel.Information))
-      .withUrl(`${url}?access_token=${window.Readarr.apiKey}`)
+      .withUrl(url, { accessTokenFactory: () => window.Readarr.apiKey })
       .withAutomaticReconnect({
         nextRetryDelayInMilliseconds: (retryContext) => {
           if (retryContext.elapsedMilliseconds > 180000) {

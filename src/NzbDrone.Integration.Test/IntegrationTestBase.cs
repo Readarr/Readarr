@@ -4,14 +4,12 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using FluentAssertions;
 using Microsoft.AspNetCore.SignalR.Client;
 using NLog;
 using NLog.Config;
 using NLog.Targets;
 using NUnit.Framework;
 using NzbDrone.Common.EnvironmentInfo;
-using NzbDrone.Common.Processes;
 using NzbDrone.Core.MediaFiles.BookImport.Manual;
 using NzbDrone.Core.Qualities;
 using NzbDrone.Integration.Test.Client;
@@ -156,22 +154,6 @@ namespace NzbDrone.Integration.Test
                 catch
                 {
                 }
-            }
-        }
-
-        protected void IgnoreOnMonoVersions(params string[] version_strings)
-        {
-            if (!PlatformInfo.IsMono)
-            {
-                return;
-            }
-
-            var current = PlatformInfo.GetVersion();
-            var versions = version_strings.Select(x => new Version(x)).ToList();
-
-            if (versions.Any(x => x.Major == current.Major && x.Minor == current.Minor))
-            {
-                throw new IgnoreException($"Ignored on mono {PlatformInfo.GetVersion()}");
             }
         }
 

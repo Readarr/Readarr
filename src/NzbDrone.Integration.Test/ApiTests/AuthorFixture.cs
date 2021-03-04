@@ -34,8 +34,6 @@ namespace NzbDrone.Integration.Test.ApiTests
         [Order(0)]
         public void add_author_without_profileid_should_return_badrequest()
         {
-            IgnoreOnMonoVersions("5.12", "5.14");
-
             EnsureNoAuthor("14586394", "Andrew Hunter Murray");
 
             var author = Author.Lookup("readarr:43765115").Single();
@@ -49,8 +47,6 @@ namespace NzbDrone.Integration.Test.ApiTests
         [Order(0)]
         public void add_author_without_path_should_return_badrequest()
         {
-            IgnoreOnMonoVersions("5.12", "5.14");
-
             EnsureNoAuthor("14586394", "Andrew Hunter Murray");
 
             var author = Author.Lookup("readarr:43765115").Single();
@@ -109,8 +105,6 @@ namespace NzbDrone.Integration.Test.ApiTests
         [Test]
         public void get_author_by_unknown_id_should_return_404()
         {
-            IgnoreOnMonoVersions("5.12", "5.14");
-
             var result = Author.InvalidGet(1000000);
         }
 

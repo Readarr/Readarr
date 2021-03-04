@@ -1,4 +1,4 @@
-﻿using Nancy;
+using System.Net;
 using Readarr.Http.Exceptions;
 
 namespace Readarr.Http.REST

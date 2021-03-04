@@ -1,35 +1,32 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Nancy;
-using Nancy.Responses;
+using Microsoft.AspNetCore.Mvc;
 using NLog;
 using NzbDrone.Common.Disk;
 using NzbDrone.Core.Configuration;
-using Readarr.Http;
 
 namespace Readarr.Api.V1.Logs
 {
-    public abstract class LogFileModuleBase : ReadarrRestModule<LogFileResource>
+    public abstract class LogFileControllerBase : Controller
     {
         protected const string LOGFILE_ROUTE = @"/(?<filename>[-.a-zA-Z0-9]+?\.txt)";
+        protected string _resource;
 
         private readonly IDiskProvider _diskProvider;
         private readonly IConfigFileProvider _configFileProvider;
 
-        public LogFileModuleBase(IDiskProvider diskProvider,
+        public LogFileControllerBase(IDiskProvider diskProvider,
                                  IConfigFileProvider configFileProvider,
-                                 string route)
-            : base("log/file" + route)
+                                 string resource)
         {
             _diskProvider = diskProvider;
             _configFileProvider = configFileProvider;
-            GetResourceAll = GetLogFilesResponse;
-
-            Get(LOGFILE_ROUTE, options => GetLogFileResponse(options.filename));
+            _resource = resource;
         }
 
-        private List<LogFileResource> GetLogFilesResponse()
+        [HttpGet]
+        public List<LogFileResource> GetLogFilesResponse()
         {
             var result = new List<LogFileResource>();
 
@@ -45,7 +42,7 @@ namespace Readarr.Api.V1.Logs
                     Id = i + 1,
                     Filename = filename,
                     LastWriteTime = _diskProvider.FileGetLastWrite(file),
-                    ContentsUrl = string.Format("{0}/api/v1/{1}/{2}", _configFileProvider.UrlBase, Resource, filename),
+                    ContentsUrl = string.Format("{0}/api/v1/{1}/{2}", _configFileProvider.UrlBase, _resource, filename),
                     DownloadUrl = string.Format("{0}/{1}/{2}", _configFileProvider.UrlBase, DownloadUrlRoot, filename)
                 });
             }
@@ -53,7 +50,8 @@ namespace Readarr.Api.V1.Logs
             return result.OrderByDescending(l => l.LastWriteTime).ToList();
         }
 
-        private object GetLogFileResponse(string filename)
+        [HttpGet(@"{filename:regex([[-.a-zA-Z0-9]]+?\.txt)}")]
+        public IActionResult GetLogFileResponse(string filename)
         {
             LogManager.Flush();
 
@@ -61,12 +59,10 @@ namespace Readarr.Api.V1.Logs
 
             if (!_diskProvider.FileExists(filePath))
             {
-                return new NotFoundResponse();
+                return NotFound();
             }
 
-            var data = _diskProvider.ReadAllText(filePath);
-
-            return new TextResponse(data);
+            return PhysicalFile(filePath, "text/plain");
         }
 
         protected abstract IEnumerable<string> GetLogFiles();

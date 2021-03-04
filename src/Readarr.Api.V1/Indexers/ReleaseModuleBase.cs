@@ -1,11 +1,17 @@
+using System;
 using System.Collections.Generic;
 using NzbDrone.Core.DecisionEngine;
-using Readarr.Http;
+using Readarr.Http.REST;
 
 namespace Readarr.Api.V1.Indexers
 {
-    public abstract class ReleaseModuleBase : ReadarrRestModule<ReleaseResource>
+    public abstract class ReleaseControllerBase : RestController<ReleaseResource>
     {
+        public override ReleaseResource GetResourceById(int id)
+        {
+            throw new NotImplementedException();
+        }
+
         protected virtual List<ReleaseResource> MapDecisions(IEnumerable<DownloadDecision> decisions)
         {
             var result = new List<ReleaseResource>();
