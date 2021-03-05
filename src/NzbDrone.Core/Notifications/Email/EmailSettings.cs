@@ -1,4 +1,6 @@
+﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using FluentValidation;
 using NzbDrone.Core.Annotations;
 using NzbDrone.Core.ThingiProvider;
@@ -13,7 +15,14 @@ namespace NzbDrone.Core.Notifications.Email
             RuleFor(c => c.Server).NotEmpty();
             RuleFor(c => c.Port).InclusiveBetween(1, 65535);
             RuleFor(c => c.From).NotEmpty();
-            RuleFor(c => c.To).NotEmpty();
+            RuleForEach(c => c.To).EmailAddress();
+            RuleForEach(c => c.CC).EmailAddress();
+            RuleForEach(c => c.Bcc).EmailAddress();
+
+            // Only require one of three send fields to be set
+            RuleFor(c => c.To).NotEmpty().Unless(c => c.Bcc.Any() || c.CC.Any());
+            RuleFor(c => c.CC).NotEmpty().Unless(c => c.To.Any() || c.Bcc.Any());
+            RuleFor(c => c.Bcc).NotEmpty().Unless(c => c.To.Any() || c.CC.Any());
         }
     }
 
@@ -23,11 +32,12 @@ namespace NzbDrone.Core.Notifications.Email
 
         public EmailSettings()
         {
-            Port = 25;
+            Server = "smtp.gmail.com";
+            Port = 587;
 
-            To = new string[] { };
-            CC = new string[] { };
-            Bcc = new string[] { };
+            To = Array.Empty<string>();
+            CC = Array.Empty<string>();
+            Bcc = Array.Empty<string>();
         }
 
         [FieldDefinition(0, Label = "Server", HelpText = "Hostname or IP of Email server")]
@@ -36,8 +46,8 @@ namespace NzbDrone.Core.Notifications.Email
         [FieldDefinition(1, Label = "Port")]
         public int Port { get; set; }
 
-        [FieldDefinition(2, Label = "SSL", Type = FieldType.Checkbox)]
-        public bool Ssl { get; set; }
+        [FieldDefinition(2, Label = "Require Encryption", HelpText = "Require SSL (Port 465 only) or StartTLS (any other port)", Type = FieldType.Checkbox)]
+        public bool RequireEncryption { get; set; }
 
         [FieldDefinition(3, Label = "Username", Privacy = PrivacyLevel.UserName)]
         public string Username { get; set; }
@@ -48,13 +58,13 @@ namespace NzbDrone.Core.Notifications.Email
         [FieldDefinition(5, Label = "From Address")]
         public string From { get; set; }
 
-        [FieldDefinition(6, Label = "Recipient Address(es)", HelpText = "Comma separated list of email recipients")]
+        [FieldDefinition(6, Label = "Recipient Address(es)", HelpText = "Comma seperated list of email recipients")]
         public IEnumerable<string> To { get; set; }
 
-        [FieldDefinition(7, Label = "CC Address(es)", HelpText = "Comma separated list of email cc recipients", Advanced = true)]
+        [FieldDefinition(7, Label = "CC Address(es)", HelpText = "Comma seperated list of email cc recipients", Advanced = true)]
         public IEnumerable<string> CC { get; set; }
 
-        [FieldDefinition(8, Label = "BCC Address(es)", HelpText = "Comma separated list of email bcc recipients", Advanced = true)]
+        [FieldDefinition(8, Label = "BCC Address(es)", HelpText = "Comma seperated list of email bcc recipients", Advanced = true)]
         public IEnumerable<string> Bcc { get; set; }
 
         [FieldDefinition(9, Label = "Attach Books", HelpText = "Add books as an attachment on import", Type = FieldType.Checkbox)]
