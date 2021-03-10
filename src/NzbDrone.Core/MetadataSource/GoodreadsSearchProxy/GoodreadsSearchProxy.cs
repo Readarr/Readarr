@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Net;
 using NLog;
 using NzbDrone.Common.Http;
 using NzbDrone.Core.Http;
@@ -43,14 +44,20 @@ namespace NzbDrone.Core.MetadataSource.Goodreads
 
                 return response.Resource;
             }
-            catch (HttpException)
+            catch (HttpException ex)
             {
-                throw new GoodreadsException("Search for '{0}' failed. Unable to communicate with Goodreads.", query);
+                _logger.Warn(ex);
+                throw new GoodreadsException("Search for '{0}' failed. Unable to communicate with Goodreads.", ex, query);
+            }
+            catch (WebException ex)
+            {
+                _logger.Warn(ex);
+                throw new GoodreadsException("Search for '{0}' failed. Unable to communicate with Goodreads.", ex, query, ex.Message);
             }
             catch (Exception ex)
             {
-                _logger.Warn(ex, ex.Message);
-                throw new GoodreadsException("Search for '{0}' failed. Invalid response received from Goodreads.", query);
+                _logger.Warn(ex);
+                throw new GoodreadsException("Search for '{0}' failed. Invalid response received from Goodreads.", ex, query);
             }
         }
     }
