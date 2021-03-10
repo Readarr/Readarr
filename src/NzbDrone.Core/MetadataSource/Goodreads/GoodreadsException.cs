@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using System;
+using System.Net;
 using NzbDrone.Core.Exceptions;
 
 namespace NzbDrone.Core.MetadataSource.Goodreads
@@ -12,6 +13,11 @@ namespace NzbDrone.Core.MetadataSource.Goodreads
 
         public GoodreadsException(string message, params object[] args)
             : base(HttpStatusCode.ServiceUnavailable, message, args)
+        {
+        }
+
+        public GoodreadsException(string message, Exception innerException, params object[] args)
+            : base(HttpStatusCode.ServiceUnavailable, message, innerException, args)
         {
         }
     }
