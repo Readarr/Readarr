@@ -1,9 +1,7 @@
 using System.Collections.Generic;
-using Nancy.Bootstrapper;
 using NzbDrone.Common.Composition;
 using NzbDrone.Common.EnvironmentInfo;
 using NzbDrone.SignalR;
-using Readarr.Http;
 
 namespace NzbDrone.Host
 {
@@ -27,8 +25,6 @@ namespace NzbDrone.Host
             : base(args, assemblies)
         {
             AutoRegisterImplementations<MessageHub>();
-
-            Container.Register<INancyBootstrapper, ReadarrBootstrapper>();
 
             if (OsInfo.IsWindows)
             {
