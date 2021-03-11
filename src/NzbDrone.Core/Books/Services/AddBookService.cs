@@ -129,6 +129,9 @@ namespace NzbDrone.Core.Books
             newBook.Editions.Value.ForEach(x => x.Monitored = false);
             newBook.Editions.Value.Single(x => x.ForeignEditionId == editionId).Monitored = true;
 
+            var metadata = tuple.Item3.FirstOrDefault(x => x.ForeignAuthorId == tuple.Item1);
+            newBook.AuthorMetadata = metadata;
+
             return newBook;
         }
     }
