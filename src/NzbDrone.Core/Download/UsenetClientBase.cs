@@ -44,15 +44,16 @@ namespace NzbDrone.Core.Download
 
             try
             {
-                var nzbDataRequest = new HttpRequest(url);
+                var request = new HttpRequest(url);
+                request.RateLimitKey = remoteBook?.Release?.IndexerId.ToString();
 
                 // TODO: Look into moving download request handling to indexer
                 if (remoteBook.Release.BasicAuthString.IsNotNullOrWhiteSpace())
                 {
-                    nzbDataRequest.Headers.Set("Authorization", "Basic " + remoteBook.Release.BasicAuthString);
+                    request.Headers.Set("Authorization", "Basic " + remoteBook.Release.BasicAuthString);
                 }
 
-                nzbData = _httpClient.Get(nzbDataRequest).ResponseData;
+                nzbData = _httpClient.Get(request).ResponseData;
 
                 _logger.Debug("Downloaded nzb for release '{0}' finished ({1} bytes from {2})", remoteBook.Release.Title, nzbData.Length, url);
             }
