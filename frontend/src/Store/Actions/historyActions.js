@@ -261,7 +261,8 @@ export const actionHandlers = handleThunks({
       method: 'POST',
       data: {
         id
-      }
+      },
+      dataType: 'json'
     }).request;
 
     promise.done(() => {

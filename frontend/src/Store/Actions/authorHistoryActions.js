@@ -82,7 +82,8 @@ export const actionHandlers = handleThunks({
       method: 'POST',
       data: {
         id: historyId
-      }
+      },
+      dataType: 'json'
     }).request;
 
     promise.done(() => {
