@@ -4,7 +4,7 @@ using NLog;
 using NzbDrone.Common.Extensions;
 using NzbDrone.Core.Books;
 using NzbDrone.Core.MetadataSource;
-using NzbDrone.Core.MetadataSource.SkyHook;
+using NzbDrone.Core.MetadataSource.Goodreads;
 using NzbDrone.Core.Parser.Model;
 
 namespace NzbDrone.Core.MediaFiles.BookImport.Identification
@@ -258,9 +258,9 @@ namespace NzbDrone.Core.MediaFiles.BookImport.Identification
                     }
                 }
             }
-            catch (SkyHookException e)
+            catch (GoodreadsException e)
             {
-                _logger.Info(e, "Skipping book due to SkyHook error");
+                _logger.Info(e, "Skipping book due to Goodreads error");
                 remoteBooks = new List<Book>();
             }
 
