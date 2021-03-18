@@ -84,7 +84,7 @@ namespace NzbDrone.Core.Books.Calibre
             }
             catch (HttpException ex)
             {
-                throw new CalibreException("Unable to add file to calibre library: {0}", ex, ex.Message);
+                throw new CalibreException("Unable to add file to Calibre library: {0}", ex, ex.Message);
             }
         }
 
@@ -220,7 +220,7 @@ namespace NzbDrone.Core.Books.Calibre
             }
             catch (HttpException ex)
             {
-                throw new CalibreException("Unable to add file to calibre library: {0}", ex, ex.Message);
+                throw new CalibreException("Unable to add file to Calibre library: {0}", ex, ex.Message);
             }
         }
 
@@ -242,7 +242,7 @@ namespace NzbDrone.Core.Books.Calibre
             }
             catch (HttpException ex)
             {
-                throw new CalibreException("Unable to start calibre conversion: {0}", ex, ex.Message);
+                throw new CalibreException("Unable to start Calibre conversion: {0}", ex, ex.Message);
             }
         }
 
@@ -264,7 +264,7 @@ namespace NzbDrone.Core.Books.Calibre
             }
             catch (HttpException ex)
             {
-                throw new CalibreException("Unable to connect to calibre library: {0}", ex, ex.Message);
+                throw new CalibreException("Unable to connect to Calibre library: {0}", ex, ex.Message);
             }
         }
 
@@ -303,7 +303,7 @@ namespace NzbDrone.Core.Books.Calibre
                 }
                 catch (HttpException ex)
                 {
-                    throw new CalibreException("Unable to connect to calibre library: {0}", ex, ex.Message);
+                    throw new CalibreException("Unable to connect to Calibre library: {0}", ex, ex.Message);
                 }
 
                 offset += PAGE_SIZE;
@@ -349,7 +349,7 @@ namespace NzbDrone.Core.Books.Calibre
             }
             catch (HttpException ex)
             {
-                throw new CalibreException("Unable to connect to calibre library: {0}", ex, ex.Message);
+                throw new CalibreException("Unable to connect to Calibre library: {0}", ex, ex.Message);
             }
         }
 
@@ -421,6 +421,7 @@ namespace NzbDrone.Core.Books.Calibre
             var builder = GetBuilder("", settings);
             builder.Accept(HttpAccept.Html);
             builder.SuppressHttpError = true;
+            builder.AllowAutoRedirect = true;
 
             var request = builder.Build();
             request.LogResponseContent = false;
@@ -432,7 +433,7 @@ namespace NzbDrone.Core.Books.Calibre
             }
             catch (WebException ex)
             {
-                _logger.Error(ex, "Unable to connect to calibre");
+                _logger.Error(ex, "Unable to connect to Calibre");
                 if (ex.Status == WebExceptionStatus.ConnectFailure)
                 {
                     return new NzbDroneValidationFailure("Host", "Unable to connect")
@@ -451,12 +452,17 @@ namespace NzbDrone.Core.Books.Calibre
 
             if (response.Content.Contains(@"guac-login"))
             {
-                return new ValidationFailure("Port", "Bad port. This is the container's remote calibre GUI, not the calibre content server.  Try mapping port 8081.");
+                return new ValidationFailure("Port", "Bad port. This is the container's remote Calibre GUI, not the Calibre content server.  Try mapping port 8081.");
+            }
+
+            if (response.Content.Contains("Calibre-Web"))
+            {
+                return new ValidationFailure("Port", "This is a Calibre-Web server, not the required Calibre content server.  See https://manual.calibre-ebook.com/server.html");
             }
 
             if (!response.Content.Contains(@"<title>calibre</title>"))
             {
-                return new ValidationFailure("Port", "Not a valid calibre content server");
+                return new ValidationFailure("Port", "Not a valid Calibre content server.  See https://manual.calibre-ebook.com/server.html");
             }
 
             CalibreLibraryInfo libraryInfo;

@@ -103,14 +103,28 @@ function EditRootFolderModalContent(props) {
               </FormGroup>
 
               <FormGroup>
-                <FormLabel>Use Calibre</FormLabel>
+                <FormLabel>
+                  Use Calibre
+                  <Popover
+                    anchor={
+                      <Icon
+                        className={styles.labelIcon}
+                        name={icons.INFO}
+                      />
+                    }
+                    title="Calibre content server"
+                    body={'Using a Calibre content server allows Readarr to add books to your Calibre library and trigger conversions between formats'}
+                    position={tooltipPositions.RIGHT}
+                  />
+                </FormLabel>
 
                 <FormInputGroup
                   type={inputTypes.CHECK}
                   name="isCalibreLibrary"
-                  helpText="Use calibre content server to manipulate library"
+                  helpText="Use Calibre content server to manipulate library"
                   {...isCalibreLibrary}
                   onChange={onInputChange}
+                  helpLink={'https://manual.calibre-ebook.com/server.html'}
                 />
               </FormGroup>
 
@@ -150,7 +164,7 @@ function EditRootFolderModalContent(props) {
                       <FormInputGroup
                         type={inputTypes.TEXT}
                         name="urlBase"
-                        helpText="Adds a prefix to the calibre url, e.g. http://[host]:[port]/[urlBase]"
+                        helpText="Adds a prefix to the Calibre url, e.g. http://[host]:[port]/[urlBase]"
                         {...urlBase}
                         onChange={onInputChange}
                       />
@@ -211,7 +225,7 @@ function EditRootFolderModalContent(props) {
                       <FormInputGroup
                         type={inputTypes.TEXT}
                         name="outputFormat"
-                        helpText="Optionally ask calibre to convert to other formats on import. Comma separated list."
+                        helpText="Optionally ask Calibre to convert to other formats on import. Comma separated list."
                         {...outputFormat}
                         onChange={onInputChange}
                       />
@@ -228,7 +242,7 @@ function EditRootFolderModalContent(props) {
                             />
                           }
                           title="Calibre output profile"
-                          body={'Specify the output profile. The output profile tells the calibre conversion system how to optimize the created document for the specified device (such as by resizing images for the device screen size). In some cases, an output profile can be used to optimize the output for a particular device, but this is rarely necessary.'}
+                          body={'Specify the output profile. The output profile tells the Calibre conversion system how to optimize the created document for the specified device (such as by resizing images for the device screen size). In some cases, an output profile can be used to optimize the output for a particular device, but this is rarely necessary.'}
                           position={tooltipPositions.RIGHT}
                         />
                       </FormLabel>
@@ -249,7 +263,7 @@ function EditRootFolderModalContent(props) {
                       <FormInputGroup
                         type={inputTypes.CHECK}
                         name="useSsl"
-                        helpText="Use SSL to connect to calibre content server"
+                        helpText="Use SSL to connect to Calibre content server"
                         {...useSsl}
                         onChange={onInputChange}
                       />
