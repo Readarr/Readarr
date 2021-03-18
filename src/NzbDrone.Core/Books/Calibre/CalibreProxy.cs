@@ -22,6 +22,7 @@ namespace NzbDrone.Core.Books.Calibre
     public interface ICalibreProxy
     {
         CalibreImportJob AddBook(BookFile book, CalibreSettings settings);
+        void DeleteBook(BookFile book, CalibreSettings settings);
         void AddFormat(BookFile file, CalibreSettings settings);
         void RemoveFormats(int calibreId, IEnumerable<string> formats, CalibreSettings settings);
         void SetFields(BookFile file, CalibreSettings settings);
@@ -84,6 +85,20 @@ namespace NzbDrone.Core.Books.Calibre
             catch (HttpException ex)
             {
                 throw new CalibreException("Unable to add file to calibre library: {0}", ex, ex.Message);
+            }
+        }
+
+        public void DeleteBook(BookFile book, CalibreSettings settings)
+        {
+            try
+            {
+                var request = GetBuilder($"cdb/delete-books/{book.CalibreId}/{settings.Library}", settings).Build();
+                _httpClient.Post(request);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
             }
         }
 

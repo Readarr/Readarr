@@ -5,12 +5,14 @@ using NLog;
 using NzbDrone.Common.Disk;
 using NzbDrone.Common.Extensions;
 using NzbDrone.Core.Books;
+using NzbDrone.Core.Books.Calibre;
 using NzbDrone.Core.Books.Events;
 using NzbDrone.Core.Configuration;
 using NzbDrone.Core.Exceptions;
 using NzbDrone.Core.MediaFiles.Events;
 using NzbDrone.Core.Messaging;
 using NzbDrone.Core.Messaging.Events;
+using NzbDrone.Core.RootFolders;
 
 namespace NzbDrone.Core.MediaFiles
 {
@@ -30,6 +32,8 @@ namespace NzbDrone.Core.MediaFiles
         private readonly IMediaFileService _mediaFileService;
         private readonly IAuthorService _authorService;
         private readonly IConfigService _configService;
+        private readonly IRootFolderService _rootFolderService;
+        private readonly ICalibreProxy _calibre;
         private readonly Logger _logger;
 
         public MediaFileDeletionService(IDiskProvider diskProvider,
@@ -37,6 +41,8 @@ namespace NzbDrone.Core.MediaFiles
                                         IMediaFileService mediaFileService,
                                         IAuthorService authorService,
                                         IConfigService configService,
+                                        IRootFolderService rootFolderService,
+                                        ICalibreProxy calibre,
                                         Logger logger)
         {
             _diskProvider = diskProvider;
@@ -44,6 +50,8 @@ namespace NzbDrone.Core.MediaFiles
             _mediaFileService = mediaFileService;
             _authorService = authorService;
             _configService = configService;
+            _rootFolderService = rootFolderService;
+            _calibre = calibre;
             _logger = logger;
         }
 
@@ -83,20 +91,34 @@ namespace NzbDrone.Core.MediaFiles
             if (_diskProvider.FileExists(fullPath))
             {
                 _logger.Info("Deleting book file: {0}", fullPath);
-
-                try
-                {
-                    _recycleBinProvider.DeleteFile(fullPath, subfolder);
-                }
-                catch (Exception e)
-                {
-                    _logger.Error(e, "Unable to delete book file");
-                    throw new NzbDroneClientException(HttpStatusCode.InternalServerError, "Unable to delete book file");
-                }
+                DeleteFile(bookFile, subfolder);
             }
 
             // Delete the track file from the database to clean it up even if the file was already deleted
             _mediaFileService.Delete(bookFile, DeleteMediaFileReason.Manual);
+        }
+
+        private void DeleteFile(BookFile bookFile, string subfolder = "")
+        {
+            var rootFolder = _rootFolderService.GetBestRootFolder(bookFile.Path);
+            var isCalibre = rootFolder.IsCalibreLibrary && rootFolder.CalibreSettings != null;
+
+            try
+            {
+                if (!isCalibre)
+                {
+                    _recycleBinProvider.DeleteFile(bookFile.Path, subfolder);
+                }
+                else
+                {
+                    _calibre.DeleteBook(bookFile, rootFolder.CalibreSettings);
+                }
+            }
+            catch (Exception e)
+            {
+                _logger.Error(e, "Unable to delete book file");
+                throw new NzbDroneClientException(HttpStatusCode.InternalServerError, "Unable to delete book file");
+            }
         }
 
         public void HandleAsync(AuthorDeletedEvent message)
@@ -140,7 +162,7 @@ namespace NzbDrone.Core.MediaFiles
                 var files = _mediaFileService.GetFilesByBook(message.Book.Id);
                 foreach (var file in files)
                 {
-                    _recycleBinProvider.DeleteFile(file.Path);
+                    DeleteFile(file);
                 }
             }
         }
