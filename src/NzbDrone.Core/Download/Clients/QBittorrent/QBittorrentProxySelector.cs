@@ -15,6 +15,7 @@ namespace NzbDrone.Core.Download.Clients.QBittorrent
         string GetVersion(QBittorrentSettings settings);
         QBittorrentPreferences GetConfig(QBittorrentSettings settings);
         List<QBittorrentTorrent> GetTorrents(QBittorrentSettings settings);
+        bool IsTorrentLoaded(string hash, QBittorrentSettings settings);
         QBittorrentTorrentProperties GetTorrentProperties(string hash, QBittorrentSettings settings);
         List<QBittorrentTorrentFile> GetTorrentFiles(string hash, QBittorrentSettings settings);
 

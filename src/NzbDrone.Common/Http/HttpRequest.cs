@@ -16,6 +16,7 @@ namespace NzbDrone.Common.Http
             Headers = new HttpHeader();
             AllowAutoRedirect = true;
             StoreRequestCookie = true;
+            LogHttpError = true;
             Cookies = new Dictionary<string, string>();
 
             if (!RuntimeInfo.IsProduction)
@@ -36,10 +37,12 @@ namespace NzbDrone.Common.Http
         public string ContentSummary { get; set; }
         public ICredentials Credentials { get; set; }
         public bool SuppressHttpError { get; set; }
+        public IEnumerable<HttpStatusCode> SuppressHttpErrorStatusCodes { get; set; }
         public bool UseSimplifiedUserAgent { get; set; }
         public bool AllowAutoRedirect { get; set; }
         public bool ConnectionKeepAlive { get; set; }
         public bool LogResponseContent { get; set; }
+        public bool LogHttpError { get; set; }
         public Dictionary<string, string> Cookies { get; private set; }
         public bool StoreRequestCookie { get; set; }
         public bool StoreResponseCookie { get; set; }
