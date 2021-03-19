@@ -6,6 +6,7 @@ using NzbDrone.Common.Disk;
 using NzbDrone.Core.Books;
 using NzbDrone.Core.Exceptions;
 using NzbDrone.Core.MediaFiles;
+using NzbDrone.Core.RootFolders;
 using NzbDrone.Core.Test.Framework;
 using NzbDrone.Test.Common;
 
@@ -59,6 +60,13 @@ namespace NzbDrone.Core.Test.MediaFiles.MediaFileDeletionService
                   .Returns(true);
         }
 
+        private void GivenNonCalibreRootFolder()
+        {
+            Mocker.GetMock<IRootFolderService>()
+                .Setup(x => x.GetBestRootFolder(It.IsAny<string>()))
+                .Returns(new RootFolder());
+        }
+
         [Test]
         public void should_throw_if_root_folder_does_not_exist()
         {
@@ -102,6 +110,7 @@ namespace NzbDrone.Core.Test.MediaFiles.MediaFileDeletionService
         [Test]
         public void should_delete_from_disk_and_db_if_track_file_exists()
         {
+            GivenNonCalibreRootFolder();
             GivenRootFolderExists();
             GivenRootFolderHasFolders();
             GivenAuthorFolderExists();
@@ -119,6 +128,7 @@ namespace NzbDrone.Core.Test.MediaFiles.MediaFileDeletionService
         [Test]
         public void should_handle_error_deleting_track_file()
         {
+            GivenNonCalibreRootFolder();
             GivenRootFolderExists();
             GivenRootFolderHasFolders();
             GivenAuthorFolderExists();
