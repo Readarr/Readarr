@@ -3,6 +3,7 @@ using System.Linq;
 using NzbDrone.Core.Books;
 using NzbDrone.Core.Datastore;
 using NzbDrone.Core.ImportLists;
+using NzbDrone.Core.Indexers;
 using NzbDrone.Core.Messaging.Events;
 using NzbDrone.Core.Notifications;
 using NzbDrone.Core.Profiles.Delay;
@@ -32,6 +33,7 @@ namespace NzbDrone.Core.Tags
         private readonly INotificationFactory _notificationFactory;
         private readonly IReleaseProfileService _releaseProfileService;
         private readonly IAuthorService _authorService;
+        private readonly IIndexerFactory _indexerService;
         private readonly IRootFolderService _rootFolderService;
 
         public TagService(ITagRepository repo,
@@ -41,6 +43,7 @@ namespace NzbDrone.Core.Tags
                           INotificationFactory notificationFactory,
                           IReleaseProfileService releaseProfileService,
                           IAuthorService authorService,
+                          IIndexerFactory indexerService,
                           IRootFolderService rootFolderService)
         {
             _repo = repo;
@@ -50,6 +53,7 @@ namespace NzbDrone.Core.Tags
             _notificationFactory = notificationFactory;
             _releaseProfileService = releaseProfileService;
             _authorService = authorService;
+            _indexerService = indexerService;
             _rootFolderService = rootFolderService;
         }
 
@@ -78,6 +82,7 @@ namespace NzbDrone.Core.Tags
             var notifications = _notificationFactory.AllForTag(tagId);
             var restrictions = _releaseProfileService.AllForTag(tagId);
             var author = _authorService.AllForTag(tagId);
+            var indexers = _indexerService.AllForTag(tagId);
             var rootFolders = _rootFolderService.AllForTag(tagId);
 
             return new TagDetails
@@ -89,6 +94,7 @@ namespace NzbDrone.Core.Tags
                 NotificationIds = notifications.Select(c => c.Id).ToList(),
                 RestrictionIds = restrictions.Select(c => c.Id).ToList(),
                 AuthorIds = author.Select(c => c.Id).ToList(),
+                IndexerIds = indexers.Select(c => c.Id).ToList(),
                 RootFolderIds = rootFolders.Select(c => c.Id).ToList()
             };
         }
@@ -101,6 +107,7 @@ namespace NzbDrone.Core.Tags
             var notifications = _notificationFactory.All();
             var restrictions = _releaseProfileService.All();
             var authors = _authorService.GetAllAuthors();
+            var indexers = _indexerService.All();
             var rootFolders = _rootFolderService.All();
 
             var details = new List<TagDetails>();
@@ -116,6 +123,7 @@ namespace NzbDrone.Core.Tags
                     NotificationIds = notifications.Where(c => c.Tags.Contains(tag.Id)).Select(c => c.Id).ToList(),
                     RestrictionIds = restrictions.Where(c => c.Tags.Contains(tag.Id)).Select(c => c.Id).ToList(),
                     AuthorIds = authors.Where(c => c.Tags.Contains(tag.Id)).Select(c => c.Id).ToList(),
+                    IndexerIds = indexers.Where(c => c.Tags.Contains(tag.Id)).Select(c => c.Id).ToList(),
                     RootFolderIds = rootFolders.Where(c => c.DefaultTags.Contains(tag.Id)).Select(c => c.Id).ToList()
                 });
             }
