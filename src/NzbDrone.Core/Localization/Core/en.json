@@ -375,6 +375,7 @@
   "IndexerSettings": "Indexer Settings",
   "IndexerStatusCheckAllClientMessage": "All indexers are unavailable due to failures",
   "IndexerStatusCheckSingleClientMessage": "Indexers unavailable due to failures: {0}",
+  "IndexerTagsHelpText": "Only use this indexer for authors with at least one matching tag. Leave blank to use with all authors.",
   "Indexers": "Indexers",
   "IndexersSettingsSummary": "Indexers and release restrictions",
   "InstanceName": "Instance Name",

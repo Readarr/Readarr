@@ -12,6 +12,7 @@ namespace Readarr.Api.V1.Tags
         public List<int> ImportListIds { get; set; }
         public List<int> NotificationIds { get; set; }
         public List<int> RestrictionIds { get; set; }
+        public List<int> IndexerIds { get; set; }
         public List<int> AuthorIds { get; set; }
     }
 
@@ -32,6 +33,7 @@ namespace Readarr.Api.V1.Tags
                 ImportListIds = model.ImportListIds,
                 NotificationIds = model.NotificationIds,
                 RestrictionIds = model.RestrictionIds,
+                IndexerIds = model.IndexerIds,
                 AuthorIds = model.AuthorIds
             };
         }

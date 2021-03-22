@@ -43,6 +43,7 @@ function EditIndexerModalContent(props) {
     enableInteractiveSearch,
     supportsRss,
     supportsSearch,
+    tags,
     fields,
     priority
   } = item;
@@ -144,6 +145,7 @@ function EditIndexerModalContent(props) {
                   );
                 })
               }
+
               <FormGroup
                 advancedSettings={advancedSettings}
                 isAdvanced={true}
@@ -159,6 +161,20 @@ function EditIndexerModalContent(props) {
                   min={1}
                   max={50}
                   {...priority}
+                  onChange={onInputChange}
+                />
+              </FormGroup>
+
+              <FormGroup>
+                <FormLabel>
+                  {translate('Tags')}
+                </FormLabel>
+
+                <FormInputGroup
+                  type={inputTypes.TAG}
+                  name="tags"
+                  helpText={translate('IndexerTagsHelpText')}
+                  {...tags}
                   onChange={onInputChange}
                 />
               </FormGroup>
