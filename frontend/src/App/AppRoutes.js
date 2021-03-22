@@ -13,6 +13,7 @@ import CalendarPageConnector from 'Calendar/CalendarPageConnector';
 import NotFound from 'Components/NotFound';
 import Switch from 'Components/Router/Switch';
 import AddNewItemConnector from 'Search/AddNewItemConnector';
+import DevelopmentSettingsConnector from 'Settings/Development/DevelopmentSettingsConnector';
 import DownloadClientSettingsConnector from 'Settings/DownloadClients/DownloadClientSettingsConnector';
 import GeneralSettingsConnector from 'Settings/General/GeneralSettingsConnector';
 import ImportListSettingsConnector from 'Settings/ImportLists/ImportListSettingsConnector';
@@ -205,6 +206,11 @@ function AppRoutes(props) {
       <Route
         path="/settings/ui"
         component={UISettingsConnector}
+      />
+
+      <Route
+        path="/settings/development"
+        component={DevelopmentSettingsConnector}
       />
 
       {/*

@@ -2,6 +2,7 @@ import { createAction } from 'redux-actions';
 import { handleThunks } from 'Store/thunks';
 import createHandleActions from './Creators/createHandleActions';
 import delayProfiles from './Settings/delayProfiles';
+import development from './Settings/development';
 import downloadClientOptions from './Settings/downloadClientOptions';
 import downloadClients from './Settings/downloadClients';
 import general from './Settings/general';
@@ -43,6 +44,7 @@ export * from './Settings/qualityProfiles';
 export * from './Settings/releaseProfiles';
 export * from './Settings/remotePathMappings';
 export * from './Settings/rootFolders';
+export * from './Settings/development';
 export * from './Settings/ui';
 
 //
@@ -76,6 +78,7 @@ export const defaultState = {
   releaseProfiles: releaseProfiles.defaultState,
   remotePathMappings: remotePathMappings.defaultState,
   rootFolders: rootFolders.defaultState,
+  development: development.defaultState,
   ui: ui.defaultState
 };
 
@@ -117,6 +120,7 @@ export const actionHandlers = handleThunks({
   ...releaseProfiles.actionHandlers,
   ...remotePathMappings.actionHandlers,
   ...rootFolders.actionHandlers,
+  ...development.actionHandlers,
   ...ui.actionHandlers
 });
 
@@ -149,6 +153,7 @@ export const reducers = createHandleActions({
   ...releaseProfiles.reducers,
   ...remotePathMappings.reducers,
   ...rootFolders.reducers,
+  ...development.reducers,
   ...ui.reducers
 
 }, defaultState, section);
