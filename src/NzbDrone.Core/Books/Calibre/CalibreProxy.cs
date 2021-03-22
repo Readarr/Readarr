@@ -59,7 +59,7 @@ namespace NzbDrone.Core.Books.Calibre
         public CalibreImportJob AddBook(BookFile book, CalibreSettings settings)
         {
             var jobid = (int)(DateTime.UtcNow.Ticks % 1000000000);
-            var addDuplicates = false;
+            var addDuplicates = true;
             var path = book.Path;
             var filename = $"$dummy{Path.GetExtension(path)}";
             var body = File.ReadAllBytes(path);
