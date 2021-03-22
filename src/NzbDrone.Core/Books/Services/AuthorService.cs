@@ -101,6 +101,7 @@ namespace NzbDrone.Core.Books
             {
                 tc((a, t) => a.CleanName.FuzzyMatch(t), cleanTitle),
                 tc((a, t) => a.Name.FuzzyMatch(t), title),
+                tc((a, t) => a.Name.ToSortName().FuzzyMatch(t), title),
                 tc((a, t) => a.Metadata.Value.Aliases.Concat(new List<string> { a.Name }).Max(x => x.CleanAuthorName().FuzzyMatch(t)), cleanTitle),
             };
 
@@ -151,7 +152,8 @@ namespace NzbDrone.Core.Books
             var scoringFunctions = new List<Tuple<Func<Author, string, double>, string>>
             {
                 tc((a, t) => t.FuzzyContains(a.CleanName), cleanReportTitle),
-                tc((a, t) => t.FuzzyContains(a.Metadata.Value.Name), reportTitle)
+                tc((a, t) => t.FuzzyContains(a.Metadata.Value.Name), reportTitle),
+                tc((a, t) => t.FuzzyContains(a.Metadata.Value.Name.ToSortName()), reportTitle)
             };
 
             return scoringFunctions;
@@ -162,7 +164,7 @@ namespace NzbDrone.Core.Books
             var authors = GetAllAuthors();
             var output = new List<Author>();
 
-            foreach (var func in AuthorScoringFunctions(reportTitle, reportTitle.CleanAuthorName()))
+            foreach (var func in ReportAuthorScoringFunctions(reportTitle, reportTitle.CleanAuthorName()))
             {
                 output.AddRange(FindByStringInexact(authors, func.Item1, func.Item2));
             }

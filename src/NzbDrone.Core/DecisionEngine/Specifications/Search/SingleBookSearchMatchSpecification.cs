@@ -30,12 +30,6 @@ namespace NzbDrone.Core.DecisionEngine.Specifications.Search
                 return Decision.Accept();
             }
 
-            if (Parser.Parser.CleanAuthorName(singleBookSpec.BookTitle) != Parser.Parser.CleanAuthorName(remoteBook.ParsedBookInfo.BookTitle))
-            {
-                _logger.Debug("Book does not match searched book title, skipping.");
-                return Decision.Reject("Wrong book");
-            }
-
             if (!remoteBook.ParsedBookInfo.BookTitle.Any())
             {
                 _logger.Debug("Full discography result during single book search, skipping.");

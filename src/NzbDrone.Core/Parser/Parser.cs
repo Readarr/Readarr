@@ -356,6 +356,12 @@ namespace NzbDrone.Core.Parser
                 var bestBook = books.OrderByDescending(x => simpleTitle.FuzzyContains(x.Title)).First();
 
                 var foundAuthor = GetTitleFuzzy(simpleTitle, authorName, out var remainder);
+
+                if (foundAuthor == null)
+                {
+                    foundAuthor = GetTitleFuzzy(simpleTitle, authorName.ToSortName(), out remainder);
+                }
+
                 var foundBook = GetTitleFuzzy(remainder, bestBook.Title, out _);
 
                 Logger.Trace($"Found {foundAuthor} - {foundBook} with fuzzy parser");
@@ -405,14 +411,21 @@ namespace NzbDrone.Core.Parser
             remainder = report;
 
             Logger.Trace($"Finding '{name}' in '{report}'");
-            var loc = report.ToLowerInvariant().FuzzyFind(name.ToLowerInvariant(), 0.6);
 
-            if (loc == -1)
+            var (locStart, score) = report.ToLowerInvariant().FuzzyMatch(name.ToLowerInvariant(), 0.6);
+
+            if (locStart == -1)
             {
                 return null;
             }
 
-            Logger.Trace($"start '{loc}'");
+            var diff = (int)Math.Round((1.0 - score) * name.Length, 0);
+            var length = Math.Min(name.Length + diff, report.Length - locStart);
+
+            var reportReversed = new string(report.Substring(locStart, length).ToLowerInvariant().Reverse().ToArray());
+            var nameReversed = new string(name.ToLowerInvariant().Reverse().ToArray());
+
+            var locEnd = locStart + reportReversed.Length - reportReversed.FuzzyFind(nameReversed, 0.6);
 
             var boundaries = WordDelimiterRegex.Matches(report);
 
@@ -454,11 +467,8 @@ namespace NzbDrone.Core.Parser
                 finishes.Add(report.Length - 1);
             }
 
-            Logger.Trace(starts.ConcatToString(x => x.ToString()));
-            Logger.Trace(finishes.ConcatToString(x => x.ToString()));
-
-            var wordStart = starts.OrderBy(x => Math.Abs(x - loc)).First();
-            var wordEnd = finishes.OrderBy(x => Math.Abs(x - (loc + name.Length))).First();
+            var wordStart = starts.OrderBy(x => Math.Abs(x - locStart)).First();
+            var wordEnd = finishes.OrderBy(x => Math.Abs(x - locEnd)).First();
 
             var found = report.Substring(wordStart, wordEnd - wordStart + 1);
 
@@ -575,6 +585,11 @@ namespace NzbDrone.Core.Parser
 
             Logger.Debug("Unable to parse {0}", title);
             return null;
+        }
+
+        public static string ToSortName(this string name)
+        {
+            return name.Split(' ', 2).Reverse().ConcatToString(", ");
         }
 
         public static string CleanAuthorName(this string name)

@@ -150,7 +150,8 @@ namespace NzbDrone.Core.Parser
 
             if (searchCriteria != null)
             {
-                bookInfo = searchCriteria.Books.ExclusiveOrDefault(e => e.Title == bookTitle);
+                var cleanTitle = Parser.CleanAuthorName(parsedBookInfo.BookTitle);
+                bookInfo = searchCriteria.Books.ExclusiveOrDefault(e => e.Title == bookTitle || e.CleanTitle == cleanTitle);
             }
 
             if (bookInfo == null)
