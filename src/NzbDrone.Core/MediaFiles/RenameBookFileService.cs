@@ -71,7 +71,8 @@ namespace NzbDrone.Core.MediaFiles
 
         private IEnumerable<RenameBookFilePreview> GetPreviews(Author author, List<BookFile> files)
         {
-            foreach (var f in files)
+            // Don't rename Calibre files
+            foreach (var f in files.Where(x => x.CalibreId == 0))
             {
                 var file = f;
                 var book = file.Edition.Value;
@@ -109,7 +110,8 @@ namespace NzbDrone.Core.MediaFiles
         {
             var renamed = new List<BookFile>();
 
-            foreach (var bookFile in bookFiles)
+            // Don't rename Calibre files
+            foreach (var bookFile in bookFiles.Where(x => x.CalibreId == 0))
             {
                 var bookFilePath = bookFile.Path;
 
