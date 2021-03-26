@@ -54,9 +54,6 @@ namespace NzbDrone.Common.Test.InstrumentationTests
         [TestCase(@"getTorrents(""mySecret"", [asdfasdf], 100, 0)")]
         [TestCase(@"""DownloadURL"":""https:\/\/broadcasthe.net\/torrents.php?action=download&id=123&authkey=mySecret&torrent_pass=mySecret""")]
 
-        // Spotify Refresh
-        [TestCase(@"https://auth.servarr.com/renew?refresh_token=mySecret")]
-
         // Plex
         [TestCase(@" http://localhost:32400/library/metadata/12345/refresh?X-Plex-Client-Identifier=1234530f-422f-4aac-b6b3-01233210aaaa&X-Plex-Product=Sonarr&X-Plex-Platform=Windows&X-Plex-Platform-Version=7&X-Plex-Device-Name=Sonarr&X-Plex-Version=3.0.3.833&X-Plex-Token=mySecret")]
 
@@ -64,6 +61,17 @@ namespace NzbDrone.Common.Test.InstrumentationTests
         [TestCase(@"OutputPath=/home/mySecret/Downloads")]
         [TestCase("Hardlinking episode file: /home/mySecret/Downloads to /media/abc.mkv")]
         [TestCase("Hardlink '/home/mySecret/Downloads/abs.mkv' to '/media/abc.mkv' failed.")]
+        [TestCase("https://discordnotifier.com/notifier.php: api=1234530f-422f-4aac-b6b3-01233210aaaa&radarr_health_issue_message=Download")]
+
+        // Announce URLs (passkeys) Magnet & Tracker
+        [TestCase(@"magnet_uri"":""magnet:?xt=urn:btih:9pr04sgkillroyimaveql2tyu8xyui&dn=&tr=https%3a%2f%2fxxx.yyy%2f9pr04sg601233210imaveql2tyu8xyui%2fannounce""}")]
+        [TestCase(@"magnet_uri"":""magnet:?xt=urn:btih:9pr04sgkillroyimaveql2tyu8xyui&dn=&tr=https%3a%2f%2fxxx.yyy%2ftracker.php%2f9pr04sg601233210imaveql2tyu8xyui%2fannounce""}")]
+        [TestCase(@"magnet_uri"":""magnet:?xt=urn:btih:9pr04sgkillroyimaveql2tyu8xyui&dn=&tr=https%3a%2f%2fxxx.yyy%2fannounce%2f9pr04sg601233210imaveql2tyu8xyui""}")]
+        [TestCase(@"magnet_uri"":""magnet:?xt=urn:btih:9pr04sgkillroyimaveql2tyu8xyui&dn=&tr=https%3a%2f%2fxxx.yyy%2fannounce.php%3fpasskey%3d9pr04sg601233210imaveql2tyu8xyui""}")]
+        [TestCase(@"tracker"":""https://xxx.yyy/9pr04sg601233210imaveql2tyu8xyui/announce""}")]
+        [TestCase(@"tracker"":""https://xxx.yyy/tracker.php/9pr04sg601233210imaveql2tyu8xyui/announce""}")]
+        [TestCase(@"tracker"":""https://xxx.yyy/announce/9pr04sg601233210imaveql2tyu8xyui""}")]
+        [TestCase(@"tracker"":""https://xxx.yyy/announce.php?passkey=9pr04sg601233210imaveql2tyu8xyui""}")]
         public void should_clean_message(string message)
         {
             var cleansedMessage = CleanseLogMessage.Cleanse(message);
@@ -73,7 +81,7 @@ namespace NzbDrone.Common.Test.InstrumentationTests
         }
 
         //GoodReads
-        [TestCase(@"{""signatureMethod"": ""hmacSha1"",""signatureTreatment"": ""escaped"",""type"": ""protectedResource"",""method"": ""GET"",""token"": ""mytoken"",""tokenSecret"": ""mytokensecret"",""requestUrl"": ""https://www.goodreads.com/review/list.xml"",""parameters"": {  ""_nc"": ""1"",  ""v"": ""2"",  ""id"": ""999999999"",  ""shelf"": ""currently-reading"",  ""per_page"": ""200"",  ""page"": ""1""}")]
+        [TestCase(@"{""signatureMethod"": ""hmacSha1"",""signatureTreatment"": ""escaped"",""type"": ""protectedResource"",""method"": ""GET"",""token"": ""mytoken"",""tokenSecret"": ""mytokensecret"",""requestUrl"": ""https://www.goodreads.com/review/list.xml"",""parameters"": {  ""_nc"": ""1"",  ""v"": ""2"",  ""id"": ""999999999"",  ""shelf"": ""currently-reading"",  ""per_page"": ""200"",  ""page"": ""1""}")]      
         public void should_cleanGoodRead_message(string message)
         {
             var cleansedMessage = CleanseLogMessage.Cleanse(message);
