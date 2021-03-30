@@ -28,8 +28,8 @@ namespace Readarr.Api.V1.Author
         public string Disambiguation { get; set; }
         public List<Links> Links { get; set; }
 
-        public BookResource NextBook { get; set; }
-        public BookResource LastBook { get; set; }
+        public Book NextBook { get; set; }
+        public Book LastBook { get; set; }
 
         public List<MediaCover> Images { get; set; }
 
