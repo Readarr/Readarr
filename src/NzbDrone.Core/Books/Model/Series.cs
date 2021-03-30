@@ -20,6 +20,9 @@ namespace NzbDrone.Core.Books
         [MemberwiseEqualityIgnore]
         public LazyLoaded<List<Book>> Books { get; set; }
 
+        // A placeholder used in refresh only
+        public string ForeignAuthorId { get; set; }
+
         public override string ToString()
         {
             return string.Format("[{0}][{1}]", ForeignSeriesId.NullSafe(), Title.NullSafe());

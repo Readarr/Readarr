@@ -105,6 +105,7 @@ namespace NzbDrone.Core.Datastore
                 .LazyLoad(a => a.Books, (db, a) => db.Query<Book>(new SqlBuilder().Where<Book>(rg => rg.AuthorMetadataId == a.Id)).ToList(), a => a.Id > 0);
 
             Mapper.Entity<Series>("Series").RegisterModel()
+                .Ignore(s => s.ForeignAuthorId)
                 .LazyLoad(s => s.LinkItems,
                           (db, series) => db.Query<SeriesBookLink>(new SqlBuilder().Where<SeriesBookLink>(s => s.SeriesId == series.Id)).ToList(),
                           s => s.Id > 0)
