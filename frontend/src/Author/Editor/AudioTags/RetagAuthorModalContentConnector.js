@@ -36,10 +36,12 @@ class RetagAuthorModalContentConnector extends Component {
   //
   // Listeners
 
-  onRetagAuthorPress = () => {
+  onRetagAuthorPress = (updateCovers, embedMetadata) => {
     this.props.executeCommand({
       name: commandNames.RETAG_AUTHOR,
-      authorIds: this.props.authorIds
+      authorIds: this.props.authorIds,
+      updateCovers,
+      embedMetadata
     });
 
     this.props.onModalClose(true);

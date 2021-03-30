@@ -258,12 +258,12 @@ class AuthorDetails extends Component {
               onPress={this.onOrganizePress}
             />
 
-            {/* <PageToolbarButton */}
-            {/*   label="Preview Retag" */}
-            {/*   iconName={icons.RETAG} */}
-            {/*   isDisabled={!hasBookFiles} */}
-            {/*   onPress={this.onRetagPress} */}
-            {/* /> */}
+            <PageToolbarButton
+              label="Preview Retag"
+              iconName={icons.RETAG}
+              isDisabled={!hasBookFiles}
+              onPress={this.onRetagPress}
+            />
 
             <PageToolbarButton
               label="Manual Import"

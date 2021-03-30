@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import Alert from 'Components/Alert';
 import CheckInput from 'Components/Form/CheckInput';
 import Button from 'Components/Link/Button';
 import LoadingIndicator from 'Components/Loading/LoadingIndicator';
@@ -37,7 +36,9 @@ class RetagPreviewModalContent extends Component {
       allSelected: false,
       allUnselected: false,
       lastToggled: null,
-      selectedState: {}
+      selectedState: {},
+      updateCovers: false,
+      embedMetadata: false
     };
   }
 
@@ -61,8 +62,12 @@ class RetagPreviewModalContent extends Component {
     });
   }
 
+  onCheckInputChange = ({ name, value }) => {
+    this.setState({ [name]: value });
+  }
+
   onRetagPress = () => {
-    this.props.onRetagPress(this.getSelectedIds());
+    this.props.onRetagPress(this.getSelectedIds(), this.state.updateCovers, this.state.embedMetadata);
   }
 
   //
@@ -110,12 +115,6 @@ class RetagPreviewModalContent extends Component {
           {
             !isFetching && isPopulated && !!items.length &&
               <div>
-                <Alert>
-                  <div>
-                    MusicBrainz identifiers will also be added to the files; these are not shown below.
-                  </div>
-                </Alert>
-
                 <div className={styles.previews}>
                   {
                     items.map((item) => {
@@ -147,6 +146,34 @@ class RetagPreviewModalContent extends Component {
                 onChange={this.onSelectAllChange}
               />
           }
+
+          <label className={styles.searchForNewBookLabelContainer}>
+            <span className={styles.searchForNewBookLabel}>
+              Update Covers
+            </span>
+
+            <CheckInput
+              containerClassName={styles.searchForNewBookContainer}
+              className={styles.searchForNewBookInput}
+              name="updateCovers"
+              value={this.state.updateCovers}
+              onChange={this.onCheckInputChange}
+            />
+          </label>
+
+          <label className={styles.searchForNewBookLabelContainer}>
+            <span className={styles.searchForNewBookLabel}>
+              Embed Metadata
+            </span>
+
+            <CheckInput
+              containerClassName={styles.searchForNewBookContainer}
+              className={styles.searchForNewBookInput}
+              name="embedMetadata"
+              value={this.state.embedMetadata}
+              onChange={this.onCheckInputChange}
+            />
+          </label>
 
           <Button
             onPress={onModalClose}

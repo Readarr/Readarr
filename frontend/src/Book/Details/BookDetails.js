@@ -7,7 +7,6 @@ import TextTruncate from 'react-text-truncate';
 import AuthorHistoryTable from 'Author/History/AuthorHistoryTable';
 import BookCover from 'Book/BookCover';
 import DeleteBookModal from 'Book/Delete/DeleteBookModal';
-// import RetagPreviewModalConnector from 'Retag/RetagPreviewModalConnector';
 import EditBookModalConnector from 'Book/Edit/EditBookModalConnector';
 import BookFileEditorTable from 'BookFile/Editor/BookFileEditorTable';
 import HeartRating from 'Components/HeartRating';
@@ -27,6 +26,7 @@ import { icons, kinds, sizes, tooltipPositions } from 'Helpers/Props';
 import InteractiveSearchFilterMenuConnector from 'InteractiveSearch/InteractiveSearchFilterMenuConnector';
 import InteractiveSearchTable from 'InteractiveSearch/InteractiveSearchTable';
 import OrganizePreviewModalConnector from 'Organize/OrganizePreviewModalConnector';
+import RetagPreviewModalConnector from 'Retag/RetagPreviewModalConnector';
 import fonts from 'Styles/Variables/fonts';
 import formatBytes from 'Utilities/Number/formatBytes';
 import stripHtml from 'Utilities/String/stripHtml';
@@ -138,7 +138,7 @@ class BookDetails extends Component {
 
     const {
       isOrganizeModalOpen,
-      // isRetagModalOpen,
+      isRetagModalOpen,
       isEditBookModalOpen,
       isDeleteBookModalOpen,
       selectedTabIndex
@@ -445,12 +445,12 @@ class BookDetails extends Component {
             onModalClose={this.onOrganizeModalClose}
           />
 
-          {/* <RetagPreviewModalConnector */}
-          {/*   isOpen={isRetagModalOpen} */}
-          {/*   authorId={author.id} */}
-          {/*   bookId={id} */}
-          {/*   onModalClose={this.onRetagModalClose} */}
-          {/* /> */}
+          <RetagPreviewModalConnector
+            isOpen={isRetagModalOpen}
+            authorId={author.id}
+            bookId={id}
+            onModalClose={this.onRetagModalClose}
+          />
 
           <EditBookModalConnector
             isOpen={isEditBookModalOpen}

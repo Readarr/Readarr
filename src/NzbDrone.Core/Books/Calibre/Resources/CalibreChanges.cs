@@ -23,6 +23,7 @@ namespace NzbDrone.Core.Books.Calibre
         public string Comments { get; set; }
         public decimal Rating { get; set; }
         public Dictionary<string, string> Identifiers { get; set; }
+        [JsonProperty(NullValueHandling = NullValueHandling.Include)]
         public string Series { get; set; }
         [JsonProperty("series_index")]
         public double? SeriesIndex { get; set; }

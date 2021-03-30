@@ -25,11 +25,12 @@ namespace NzbDrone.Core.Books.Calibre
         void DeleteBook(BookFile book, CalibreSettings settings);
         void AddFormat(BookFile file, CalibreSettings settings);
         void RemoveFormats(int calibreId, IEnumerable<string> formats, CalibreSettings settings);
-        void SetFields(BookFile file, CalibreSettings settings);
+        void SetFields(BookFile file, CalibreSettings settings, bool updateCover = true, bool embed = false);
         CalibreBookData GetBookData(int calibreId, CalibreSettings settings);
         long ConvertBook(int calibreId, CalibreConversionOptions options, CalibreSettings settings);
         List<string> GetAllBookFilePaths(CalibreSettings settings);
         CalibreBook GetBook(int calibreId, CalibreSettings settings);
+        List<CalibreBook> GetBooks(List<int> calibreId, CalibreSettings settings);
         void Test(CalibreSettings settings);
     }
 
@@ -41,7 +42,6 @@ namespace NzbDrone.Core.Books.Calibre
         private readonly IMapCoversToLocal _mediaCoverService;
         private readonly IRemotePathMappingService _pathMapper;
         private readonly Logger _logger;
-        private readonly ICached<CalibreBook> _bookCache;
 
         public CalibreProxy(IHttpClient httpClient,
                             IMapCoversToLocal mediaCoverService,
@@ -52,7 +52,6 @@ namespace NzbDrone.Core.Books.Calibre
             _httpClient = httpClient;
             _mediaCoverService = mediaCoverService;
             _pathMapper = pathMapper;
-            _bookCache = cacheManager.GetCache<CalibreBook>(GetType());
             _logger = logger;
         }
 
@@ -140,11 +139,11 @@ namespace NzbDrone.Core.Books.Calibre
             ExecuteSetFields(calibreId, payload, settings);
         }
 
-        public void SetFields(BookFile file, CalibreSettings settings)
+        public void SetFields(BookFile file, CalibreSettings settings, bool updateCover = true, bool embed = false)
         {
             var edition = file.Edition.Value;
             var book = edition.Book.Value;
-            var serieslink = book.SeriesLinks.Value.FirstOrDefault();
+            var serieslink = book.SeriesLinks.Value.FirstOrDefault(x => x.Series.Value.Title.IsNotNullOrWhiteSpace());
 
             var series = serieslink?.Series.Value;
             double? seriesIndex = null;
@@ -176,12 +175,12 @@ namespace NzbDrone.Core.Books.Calibre
                 {
                     Title = edition.Title,
                     Authors = new List<string> { file.Author.Value.Name },
-                    Cover = image,
+                    Cover = updateCover ? image : null,
                     PubDate = book.ReleaseDate,
                     Publisher = edition.Publisher,
-                    Languages = edition.Language,
+                    Languages = edition.Language.CanonicalizeLanguage(),
                     Comments = edition.Overview,
-                    Rating = edition.Ratings.Value * 2,
+                    Rating = (int)(edition.Ratings.Value * 2),
                     Identifiers = new Dictionary<string, string>
                     {
                         { "isbn", edition.Isbn13 },
@@ -194,6 +193,11 @@ namespace NzbDrone.Core.Books.Calibre
             };
 
             ExecuteSetFields(file.CalibreId, payload, settings);
+
+            if (embed)
+            {
+                EmbedMetadata(file.CalibreId, settings);
+            }
         }
 
         private void ExecuteSetFields(int id, CalibreChangesPayload payload, CalibreSettings settings)
@@ -205,6 +209,18 @@ namespace NzbDrone.Core.Books.Calibre
             var request = builder.Build();
             request.SetContent(payload.ToJson());
 
+            _httpClient.Execute(request);
+        }
+
+        private void EmbedMetadata(int id, CalibreSettings settings)
+        {
+            var request = GetBuilder($"cdb/cmd/embed_metadata", settings)
+                .AddQueryParam("library_id", settings.Library)
+                .Post()
+                .SetHeader("Content-Type", "application/json")
+                .Build();
+
+            request.SetContent($"[{id}, null]");
             _httpClient.Execute(request);
         }
 
@@ -268,10 +284,37 @@ namespace NzbDrone.Core.Books.Calibre
             }
         }
 
+        public List<CalibreBook> GetBooks(List<int> calibreIds, CalibreSettings settings)
+        {
+            var builder = GetBuilder($"ajax/books/{settings.Library}", settings);
+            builder.LogResponseContent = false;
+            builder.AddQueryParam("ids", calibreIds.ConcatToString(","));
+
+            var request = builder.Build();
+
+            try
+            {
+                var response = _httpClient.Get<Dictionary<int, CalibreBook>>(request);
+                var result = response.Resource.Values.ToList();
+
+                foreach (var book in result)
+                {
+                    foreach (var format in book.Formats.Values)
+                    {
+                        format.Path = _pathMapper.RemapRemoteToLocal(settings.Host, new OsPath(format.Path)).FullPath;
+                    }
+                }
+
+                return result;
+            }
+            catch (HttpException ex)
+            {
+                throw new CalibreException("Unable to connect to Calibre library: {0}", ex, ex.Message);
+            }
+        }
+
         public List<string> GetAllBookFilePaths(CalibreSettings settings)
         {
-            _bookCache.Clear();
-
             var ids = GetAllBookIds(settings);
             var result = new List<string>();
 
@@ -297,8 +340,6 @@ namespace NzbDrone.Core.Books.Calibre
 
                         var localPath = _pathMapper.RemapRemoteToLocal(settings.Host, new OsPath(remotePath)).FullPath;
                         result.Add(localPath);
-
-                        _bookCache.Set(localPath, book, TimeSpan.FromMinutes(5));
                     }
                 }
                 catch (HttpException ex)
