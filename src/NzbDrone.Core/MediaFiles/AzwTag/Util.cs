@@ -2,24 +2,12 @@ using System;
 
 namespace NzbDrone.Core.MediaFiles.Azw
 {
-    public class Util
+    public static class Util
     {
         public static byte[] SubArray(byte[] src, ulong start, ulong length)
         {
             var r = new byte[length];
             for (ulong i = 0; i < length; i++)
-            {
-                r[i] = src[start + i];
-            }
-
-            return r;
-        }
-
-        public static byte[] SubArray(byte[] src, int start, int length)
-        {
-            var r = new byte[length];
-
-            for (var i = 0; i < length; i++)
             {
                 r[i] = src[start + i];
             }
@@ -68,21 +56,6 @@ namespace NzbDrone.Core.MediaFiles.Azw
         public static byte GetUInt8(byte[] src, ulong start)
         {
             return src[start];
-        }
-    }
-
-    [Serializable]
-    public class AzwTagException : Exception
-    {
-        public AzwTagException(string message)
-        : base(message)
-        {
-        }
-
-        protected AzwTagException(System.Runtime.Serialization.SerializationInfo info,
-                                  System.Runtime.Serialization.StreamingContext context)
-        : base(info, context)
-        {
         }
     }
 }

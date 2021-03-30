@@ -739,9 +739,9 @@ namespace NzbDrone.Core.Parser
 
             authorName = authorName.Trim(' ');
 
-            ParsedTrackInfo result = new ParsedTrackInfo();
+            var result = new ParsedTrackInfo();
 
-            result.AuthorTitle = authorName;
+            result.Authors = new List<string> { authorName };
 
             Logger.Debug("Track Parsed. {0}", result);
             return result;

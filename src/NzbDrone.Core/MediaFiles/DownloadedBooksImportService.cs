@@ -183,7 +183,7 @@ namespace NzbDrone.Core.MediaFiles
                 trackInfo = new ParsedTrackInfo
                 {
                     BookTitle = folderInfo.BookTitle,
-                    AuthorTitle = folderInfo.AuthorName,
+                    Authors = new List<string> { folderInfo.AuthorName },
                     Quality = folderInfo.Quality,
                     ReleaseGroup = folderInfo.ReleaseGroup,
                     ReleaseHash = folderInfo.ReleaseHash,

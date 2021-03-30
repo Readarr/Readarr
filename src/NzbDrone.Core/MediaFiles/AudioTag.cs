@@ -523,7 +523,7 @@ namespace NzbDrone.Core.MediaFiles
             return new ParsedTrackInfo
             {
                 BookTitle = tag.Book,
-                AuthorTitle = author,
+                Authors = new List<string> { author },
                 DiscNumber = (int)tag.Disc,
                 DiscCount = (int)tag.DiscCount,
                 Year = tag.Year,

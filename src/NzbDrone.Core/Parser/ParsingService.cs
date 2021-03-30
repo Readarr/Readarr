@@ -14,7 +14,6 @@ namespace NzbDrone.Core.Parser
     public interface IParsingService
     {
         Author GetAuthor(string title);
-        Author GetAuthorFromTag(string file);
         RemoteBook Map(ParsedBookInfo parsedBookInfo, SearchCriteriaBase searchCriteria = null);
         RemoteBook Map(ParsedBookInfo parsedBookInfo, int authorId, IEnumerable<int> bookIds);
         List<Book> GetBooks(ParsedBookInfo parsedBookInfo, Author author, SearchCriteriaBase searchCriteria = null);
@@ -61,38 +60,6 @@ namespace NzbDrone.Core.Parser
             }
 
             return authorInfo;
-        }
-
-        public Author GetAuthorFromTag(string file)
-        {
-            var parsedTrackInfo = Parser.ParseMusicPath(file);
-
-            var author = new Author();
-
-            if (parsedTrackInfo.AuthorMBId.IsNotNullOrWhiteSpace())
-            {
-                author = _authorService.FindById(parsedTrackInfo.AuthorMBId);
-
-                if (author != null)
-                {
-                    return author;
-                }
-            }
-
-            if (parsedTrackInfo == null || parsedTrackInfo.AuthorTitle.IsNullOrWhiteSpace())
-            {
-                return null;
-            }
-
-            author = _authorService.FindByName(parsedTrackInfo.AuthorTitle);
-
-            if (author == null)
-            {
-                _logger.Debug("Trying inexact author match for {0}", parsedTrackInfo.AuthorTitle);
-                author = _authorService.FindByNameInexact(parsedTrackInfo.AuthorTitle);
-            }
-
-            return author;
         }
 
         public RemoteBook Map(ParsedBookInfo parsedBookInfo, SearchCriteriaBase searchCriteria = null)

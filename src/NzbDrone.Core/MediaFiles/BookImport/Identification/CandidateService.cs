@@ -167,13 +167,16 @@ namespace NzbDrone.Core.MediaFiles.BookImport.Identification
                 }
             }
 
-            var authorTag = localEdition.LocalBooks.MostCommon(x => x.FileTrackInfo.AuthorTitle) ?? "";
-            if (authorTag.IsNotNullOrWhiteSpace())
+            var authorTags = localEdition.LocalBooks.MostCommon(x => x.FileTrackInfo.Authors) ?? new List<string>();
+            if (authorTags.Any())
             {
-                var possibleAuthors = _authorService.GetCandidates(authorTag);
-                foreach (var author in possibleAuthors)
+                foreach (var authorTag in authorTags)
                 {
-                    candidateReleases.AddRange(GetDbCandidatesByAuthor(localEdition, author, includeExisting));
+                    var possibleAuthors = _authorService.GetCandidates(authorTag);
+                    foreach (var author in possibleAuthors)
+                    {
+                        candidateReleases.AddRange(GetDbCandidatesByAuthor(localEdition, author, includeExisting));
+                    }
                 }
             }
 
@@ -230,30 +233,37 @@ namespace NzbDrone.Core.MediaFiles.BookImport.Identification
                 if (remoteBooks == null || !remoteBooks.Any())
                 {
                     // fall back to author / book name search
-                    string authorTag;
+                    List<string> authorTags = new List<string>();
 
                     if (TrackGroupingService.IsVariousAuthors(localEdition.LocalBooks))
                     {
-                        authorTag = "Various Authors";
+                        authorTags.Add("Various Authors");
                     }
                     else
                     {
-                        authorTag = localEdition.LocalBooks.MostCommon(x => x.FileTrackInfo.AuthorTitle) ?? "";
+                        authorTags.AddRange(localEdition.LocalBooks.MostCommon(x => x.FileTrackInfo.Authors));
                     }
 
                     var bookTag = localEdition.LocalBooks.MostCommon(x => x.FileTrackInfo.BookTitle) ?? "";
 
-                    if (authorTag.IsNullOrWhiteSpace() || bookTag.IsNullOrWhiteSpace())
+                    if (!authorTags.Any() || bookTag.IsNullOrWhiteSpace())
                     {
                         return candidates;
                     }
 
-                    remoteBooks = _bookSearchService.SearchForNewBook(bookTag, authorTag);
+                    foreach (var authorTag in authorTags)
+                    {
+                        remoteBooks = _bookSearchService.SearchForNewBook(bookTag, authorTag);
+                        if (remoteBooks.Any())
+                        {
+                            break;
+                        }
+                    }
 
                     if (!remoteBooks.Any())
                     {
                         var bookSearch = _bookSearchService.SearchForNewBook(bookTag, null);
-                        var authorSearch = _bookSearchService.SearchForNewBook(authorTag, null);
+                        var authorSearch = authorTags.SelectMany(a => _bookSearchService.SearchForNewBook(a, null));
 
                         remoteBooks = bookSearch.Concat(authorSearch).DistinctBy(x => x.ForeignBookId).ToList();
                     }

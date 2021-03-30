@@ -1,58 +1,8 @@
 using System.Collections.Generic;
-using System.IO;
-using System.Text;
 
 namespace NzbDrone.Core.MediaFiles.Azw
 {
-    public struct SectionInfo
-    {
-        public ulong Start_addr;
-        public ulong End_addr;
-
-        public ulong Length => End_addr - Start_addr;
-    }
-
-    public class AzwFile
-    {
-        public byte[] Raw_data;
-        public ushort Section_count;
-        public SectionInfo[] Section_info;
-        public string Ident;
-
-        protected AzwFile(string path)
-        {
-            Raw_data = File.ReadAllBytes(path);
-            GetSectionInfo();
-
-            if (Ident != "BOOKMOBI" || Section_count == 0)
-            {
-                throw new AzwTagException("Invalid mobi header");
-            }
-        }
-
-        protected void GetSectionInfo()
-        {
-            Ident = Encoding.ASCII.GetString(Raw_data, 0x3c, 8);
-            Section_count = Util.GetUInt16(Raw_data, 76);
-            Section_info = new SectionInfo[Section_count];
-
-            Section_info[0].Start_addr = Util.GetUInt32(Raw_data, 78);
-            for (uint i = 1; i < Section_count; i++)
-            {
-                Section_info[i].Start_addr = Util.GetUInt32(Raw_data, 78 + (i * 8));
-                Section_info[i - 1].End_addr = Section_info[i].Start_addr;
-            }
-
-            Section_info[Section_count - 1].End_addr = (ulong)Raw_data.Length;
-        }
-
-        protected byte[] GetSectionData(uint i)
-        {
-            return Util.SubArray(Raw_data, Section_info[i].Start_addr, Section_info[i].Length);
-        }
-    }
-
-    public class IdMapping
+    public static class IdMapping
     {
         public static Dictionary<uint, string> Id_map_strings = new Dictionary<uint, string>
         {
