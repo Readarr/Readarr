@@ -7,6 +7,8 @@ namespace NzbDrone.Core.Http
     public interface ICachedHttpResponseService
     {
         HttpResponse Get(HttpRequest request, bool useCache, TimeSpan ttl);
+        HttpResponse<T> Get<T>(HttpRequest request, bool useCache, TimeSpan ttl)
+            where T : new();
     }
 
     public class CachedHttpResponseService : ICachedHttpResponseService
@@ -53,6 +55,13 @@ namespace NzbDrone.Core.Http
             }
 
             return result;
+        }
+
+        public HttpResponse<T> Get<T>(HttpRequest request, bool useCache, TimeSpan ttl)
+            where T : new()
+        {
+            var response = Get(request, useCache, ttl);
+            return new HttpResponse<T>(response);
         }
     }
 }

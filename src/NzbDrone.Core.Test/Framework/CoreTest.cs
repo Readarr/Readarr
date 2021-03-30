@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Moq;
 using NUnit.Framework;
 using NzbDrone.Common.Cache;
@@ -33,7 +33,7 @@ namespace NzbDrone.Core.Test.Framework
             var httpClient = Mocker.Resolve<IHttpClient>();
             Mocker.GetMock<ICachedHttpResponseService>()
                 .Setup(x => x.Get(It.IsAny<HttpRequest>(), It.IsAny<bool>(), It.IsAny<TimeSpan>()))
-                .Returns((HttpRequest request, bool useCavhe, TimeSpan ttl) => httpClient.Get(request));
+                .Returns((HttpRequest request, bool useCache, TimeSpan ttl) => httpClient.Get(request));
         }
     }
 

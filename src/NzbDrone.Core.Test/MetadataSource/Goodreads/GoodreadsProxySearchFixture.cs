@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using FluentAssertions;
 using Moq;
 using NUnit.Framework;
+using NzbDrone.Common.Http;
 using NzbDrone.Core.Books;
+using NzbDrone.Core.Http;
 using NzbDrone.Core.MetadataSource.Goodreads;
 using NzbDrone.Core.Profiles.Metadata;
 using NzbDrone.Core.Test.Framework;
@@ -18,6 +20,11 @@ namespace NzbDrone.Core.Test.MetadataSource.Goodreads
         public void Setup()
         {
             UseRealHttp();
+
+            var httpClient = Mocker.Resolve<IHttpClient>();
+            Mocker.GetMock<ICachedHttpResponseService>()
+                .Setup(x => x.Get<List<SearchJsonResource>>(It.IsAny<HttpRequest>(), It.IsAny<bool>(), It.IsAny<TimeSpan>()))
+                .Returns((HttpRequest request, bool useCache, TimeSpan ttl) => httpClient.Get<List<SearchJsonResource>>(request));
 
             var metadataProfile = new MetadataProfile();
 
