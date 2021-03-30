@@ -274,6 +274,7 @@ namespace NzbDrone.Integration.Test
 
             if (changed)
             {
+                result.NextBook = result.LastBook = null;
                 Author.Put(result);
             }
 
