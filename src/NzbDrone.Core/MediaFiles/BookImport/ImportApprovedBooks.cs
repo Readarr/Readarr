@@ -156,6 +156,7 @@ namespace NzbDrone.Core.MediaFiles.BookImport
                     var bookFile = new BookFile
                     {
                         Path = localTrack.Path.CleanFilePath(),
+                        CalibreId = localTrack.CalibreId,
                         Size = localTrack.Size,
                         Modified = localTrack.Modified,
                         DateAdded = DateTime.UtcNow,
@@ -197,12 +198,6 @@ namespace NzbDrone.Core.MediaFiles.BookImport
                         if (previousFile != null)
                         {
                             _mediaFileService.Delete(previousFile, DeleteMediaFileReason.ManualOverride);
-                        }
-
-                        var rootFolder = _rootFolderService.GetBestRootFolder(localTrack.Path);
-                        if (rootFolder.IsCalibreLibrary)
-                        {
-                            bookFile.CalibreId = bookFile.Path.ParseCalibreId();
                         }
 
                         _audioTagService.WriteTags(bookFile, false);

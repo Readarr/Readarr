@@ -41,17 +41,22 @@ namespace NzbDrone.Core.Books.Calibre
         private readonly IHttpClient _httpClient;
         private readonly IMapCoversToLocal _mediaCoverService;
         private readonly IRemotePathMappingService _pathMapper;
+        private readonly IRootFolderWatchingService _rootFolderWatchingService;
         private readonly Logger _logger;
+        private readonly ICached<CalibreBook> _bookCache;
 
         public CalibreProxy(IHttpClient httpClient,
                             IMapCoversToLocal mediaCoverService,
                             IRemotePathMappingService pathMapper,
+                            IRootFolderWatchingService rootFolderWatchingService,
                             ICacheManager cacheManager,
                             Logger logger)
         {
             _httpClient = httpClient;
             _mediaCoverService = mediaCoverService;
             _pathMapper = pathMapper;
+            _rootFolderWatchingService = rootFolderWatchingService;
+            _bookCache = cacheManager.GetCache<CalibreBook>(GetType());
             _logger = logger;
         }
 
@@ -196,6 +201,7 @@ namespace NzbDrone.Core.Books.Calibre
 
             if (embed)
             {
+                _rootFolderWatchingService.ReportFileSystemChangeBeginning(file.Path);
                 EmbedMetadata(file.CalibreId, settings);
             }
         }
@@ -340,6 +346,8 @@ namespace NzbDrone.Core.Books.Calibre
 
                         var localPath = _pathMapper.RemapRemoteToLocal(settings.Host, new OsPath(remotePath)).FullPath;
                         result.Add(localPath);
+
+                        _bookCache.Set(localPath, book);
                     }
                 }
                 catch (HttpException ex)

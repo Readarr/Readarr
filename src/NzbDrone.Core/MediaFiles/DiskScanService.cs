@@ -180,7 +180,7 @@ namespace NzbDrone.Core.MediaFiles
                 .Select(decision => new BookFile
                 {
                     Path = decision.Item.Path,
-                    CalibreId = decision.Item.Path.ParseCalibreId(),
+                    CalibreId = decision.Item.CalibreId,
                     Size = decision.Item.Size,
                     Modified = decision.Item.Modified,
                     DateAdded = DateTime.UtcNow,
