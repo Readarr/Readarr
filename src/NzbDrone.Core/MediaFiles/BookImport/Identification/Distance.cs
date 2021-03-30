@@ -13,6 +13,8 @@ namespace NzbDrone.Core.MediaFiles.BookImport.Identification
             { "source", 2.0 },
             { "author", 3.0 },
             { "book", 3.0 },
+            { "isbn", 10.0 },
+            { "asin", 10.0 },
             { "media_count", 1.0 },
             { "media_format", 1.0 },
             { "year", 1.0 },

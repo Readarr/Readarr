@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using NLog;
@@ -12,7 +13,7 @@ namespace NzbDrone.Core.MediaFiles.BookImport.Identification
     public interface ICandidateService
     {
         List<CandidateEdition> GetDbCandidatesFromTags(LocalEdition localEdition, IdentificationOverrides idOverrides, bool includeExisting);
-        List<CandidateEdition> GetRemoteCandidates(LocalEdition localEdition);
+        IEnumerable<CandidateEdition> GetRemoteCandidates(LocalEdition localEdition);
     }
 
     public class CandidateService : ICandidateService
@@ -183,115 +184,193 @@ namespace NzbDrone.Core.MediaFiles.BookImport.Identification
             return candidateReleases;
         }
 
-        public List<CandidateEdition> GetRemoteCandidates(LocalEdition localEdition)
+        public IEnumerable<CandidateEdition> GetRemoteCandidates(LocalEdition localEdition)
         {
             // Gets candidate book releases from the metadata server.
             // Will eventually need adding locally if we find a match
-            var watch = System.Diagnostics.Stopwatch.StartNew();
-
-            List<Book> remoteBooks = null;
-            var candidates = new List<CandidateEdition>();
+            List<Book> remoteBooks;
+            var seenCandidates = new HashSet<string>();
 
             var isbns = localEdition.LocalBooks.Select(x => x.FileTrackInfo.Isbn).Distinct().ToList();
             var asins = localEdition.LocalBooks.Select(x => x.FileTrackInfo.Asin).Distinct().ToList();
             var goodreads = localEdition.LocalBooks.Select(x => x.FileTrackInfo.GoodreadsId).Distinct().ToList();
 
-            try
+            // grab possibilities for all the IDs present
+            if (isbns.Count == 1 && isbns[0].IsNotNullOrWhiteSpace())
             {
-                if (isbns.Count == 1 && isbns[0].IsNotNullOrWhiteSpace())
-                {
-                    _logger.Trace($"Searching by isbn {isbns[0]}");
+                _logger.Trace($"Searching by isbn {isbns[0]}");
 
+                try
+                {
                     remoteBooks = _bookSearchService.SearchByIsbn(isbns[0]);
                 }
-
-                // Calibre puts junk asins into books it creates so check for sensible length
-                if ((remoteBooks == null || !remoteBooks.Any()) &&
-                    asins.Count == 1 &&
-                    asins[0].IsNotNullOrWhiteSpace() &&
-                    asins[0].Length == 10)
+                catch (GoodreadsException e)
                 {
-                    _logger.Trace($"Searching by asin {asins[0]}");
+                    _logger.Info(e, "Skipping ISBN search due to Goodreads Error");
+                    remoteBooks = new List<Book>();
+                }
 
+                foreach (var candidate in ToCandidates(remoteBooks, seenCandidates))
+                {
+                    yield return candidate;
+                }
+            }
+
+            if (asins.Count == 1 &&
+                asins[0].IsNotNullOrWhiteSpace() &&
+                asins[0].Length == 10)
+            {
+                _logger.Trace($"Searching by asin {asins[0]}");
+
+                try
+                {
                     remoteBooks = _bookSearchService.SearchByAsin(asins[0]);
                 }
-
-                // if we don't have an independent ID, try a goodreads ID, but may have been matched to the wrong edition by calibre
-                if ((remoteBooks == null || !remoteBooks.Any()) &&
-                    goodreads.Count == 1 &&
-                    goodreads[0].IsNotNullOrWhiteSpace())
+                catch (GoodreadsException e)
                 {
-                    if (int.TryParse(goodreads[0], out var id))
-                    {
-                        _logger.Trace($"Searching by goodreads id {id}");
+                    _logger.Info(e, "Skipping ASIN search due to Goodreads Error");
+                    remoteBooks = new List<Book>();
+                }
 
+                foreach (var candidate in ToCandidates(remoteBooks, seenCandidates))
+                {
+                    yield return candidate;
+                }
+            }
+
+            if (goodreads.Count == 1 &&
+                goodreads[0].IsNotNullOrWhiteSpace())
+            {
+                if (int.TryParse(goodreads[0], out var id))
+                {
+                    _logger.Trace($"Searching by goodreads id {id}");
+
+                    try
+                    {
                         remoteBooks = _bookSearchService.SearchByGoodreadsId(id);
                     }
-                }
+                    catch (GoodreadsException e)
+                    {
+                        _logger.Info(e, "Skipping Goodreads ID search due to Goodreads Error");
+                        remoteBooks = new List<Book>();
+                    }
 
-                // if no asin/isbn or no result, fall back to text search
-                if (remoteBooks == null || !remoteBooks.Any())
+                    foreach (var candidate in ToCandidates(remoteBooks, seenCandidates))
+                    {
+                        yield return candidate;
+                    }
+                }
+            }
+
+            // If we got an id result, stop
+            if (seenCandidates.Any())
+            {
+                yield break;
+            }
+
+            // fall back to author / book name search
+            var authorTags = new List<string>();
+
+            if (TrackGroupingService.IsVariousAuthors(localEdition.LocalBooks))
+            {
+                authorTags.Add("Various Authors");
+            }
+            else
+            {
+                authorTags.AddRange(localEdition.LocalBooks.MostCommon(x => x.FileTrackInfo.Authors));
+            }
+
+            var bookTag = localEdition.LocalBooks.MostCommon(x => x.FileTrackInfo.BookTitle) ?? "";
+
+            // If no valid author or book tags, stop
+            if (!authorTags.Any() || bookTag.IsNullOrWhiteSpace())
+            {
+                yield break;
+            }
+
+            // Search by author+book
+            foreach (var authorTag in authorTags)
+            {
+                try
                 {
-                    // fall back to author / book name search
-                    List<string> authorTags = new List<string>();
-
-                    if (TrackGroupingService.IsVariousAuthors(localEdition.LocalBooks))
-                    {
-                        authorTags.Add("Various Authors");
-                    }
-                    else
-                    {
-                        authorTags.AddRange(localEdition.LocalBooks.MostCommon(x => x.FileTrackInfo.Authors));
-                    }
-
-                    var bookTag = localEdition.LocalBooks.MostCommon(x => x.FileTrackInfo.BookTitle) ?? "";
-
-                    if (!authorTags.Any() || bookTag.IsNullOrWhiteSpace())
-                    {
-                        return candidates;
-                    }
-
-                    foreach (var authorTag in authorTags)
-                    {
-                        remoteBooks = _bookSearchService.SearchForNewBook(bookTag, authorTag);
-                        if (remoteBooks.Any())
-                        {
-                            break;
-                        }
-                    }
-
-                    if (!remoteBooks.Any())
-                    {
-                        var bookSearch = _bookSearchService.SearchForNewBook(bookTag, null);
-                        var authorSearch = authorTags.SelectMany(a => _bookSearchService.SearchForNewBook(a, null));
-
-                        remoteBooks = bookSearch.Concat(authorSearch).DistinctBy(x => x.ForeignBookId).ToList();
-                    }
+                    remoteBooks = _bookSearchService.SearchForNewBook(bookTag, authorTag);
                 }
+                catch (GoodreadsException e)
+                {
+                    _logger.Info(e, "Skipping author/title search due to Goodreads Error");
+                    remoteBooks = new List<Book>();
+                }
+
+                foreach (var candidate in ToCandidates(remoteBooks, seenCandidates))
+                {
+                    yield return candidate;
+                }
+            }
+
+            // If we got an author/book search result, stop
+            if (seenCandidates.Any())
+            {
+                yield break;
+            }
+
+            // Search by just book title
+            try
+            {
+                remoteBooks = _bookSearchService.SearchForNewBook(bookTag, null);
             }
             catch (GoodreadsException e)
             {
-                _logger.Info(e, "Skipping book due to Goodreads error");
+                _logger.Info(e, "Skipping book title search due to Goodreads Error");
                 remoteBooks = new List<Book>();
             }
 
-            foreach (var book in remoteBooks)
+            foreach (var candidate in ToCandidates(remoteBooks, seenCandidates))
+            {
+                yield return candidate;
+            }
+
+            // Search by just author
+            foreach (var a in authorTags)
+            {
+                try
+                {
+                    remoteBooks = _bookSearchService.SearchForNewBook(a, null);
+                }
+                catch (GoodreadsException e)
+                {
+                    _logger.Info(e, "Skipping author search due to Goodreads Error");
+                    remoteBooks = new List<Book>();
+                }
+
+                foreach (var candidate in ToCandidates(remoteBooks, seenCandidates))
+                {
+                    yield return candidate;
+                }
+            }
+        }
+
+        private List<CandidateEdition> ToCandidates(IEnumerable<Book> books, HashSet<string> seenCandidates)
+        {
+            var candidates = new List<CandidateEdition>();
+
+            foreach (var book in books)
             {
                 // We have to make sure various bits and pieces are populated that are normally handled
                 // by a database lazy load
                 foreach (var edition in book.Editions.Value)
                 {
-                    edition.Book = book;
-                    candidates.Add(new CandidateEdition
+                    if (!seenCandidates.Contains(edition.ForeignEditionId))
                     {
-                        Edition = edition,
-                        ExistingFiles = new List<BookFile>()
-                    });
+                        seenCandidates.Add(edition.ForeignEditionId);
+                        edition.Book = book;
+                        candidates.Add(new CandidateEdition
+                        {
+                            Edition = edition,
+                            ExistingFiles = new List<BookFile>()
+                        });
+                    }
                 }
             }
-
-            watch.Stop();
-            _logger.Debug($"Getting {candidates.Count} remote candidates from tags for {localEdition.LocalBooks.Count} tracks took {watch.ElapsedMilliseconds}ms");
 
             return candidates;
         }
