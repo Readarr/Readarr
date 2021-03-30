@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using NLog;
 using NzbDrone.Common.Extensions;
-using NzbDrone.Common.Serializer;
 
 namespace NzbDrone.Core.Books
 {
@@ -73,7 +72,15 @@ namespace NzbDrone.Core.Books
 
         protected override void DeleteEntity(Series local, bool deleteFiles)
         {
-            _seriesService.Delete(local.Id);
+            _logger.Trace($"Removing links for series {local} author {local.ForeignAuthorId}");
+            var children = GetLocalChildren(local, null);
+            _linkService.DeleteMany(children);
+
+            if (!_linkService.GetLinksBySeries(local.Id).Any())
+            {
+                _logger.Trace($"Series {local} has no links remaining, removing");
+                _seriesService.Delete(local.Id);
+            }
         }
 
         protected override List<SeriesBookLink> GetRemoteChildren(Series local, Series remote)
@@ -83,7 +90,7 @@ namespace NzbDrone.Core.Books
 
         protected override List<SeriesBookLink> GetLocalChildren(Series entity, List<SeriesBookLink> remoteChildren)
         {
-            return _linkService.GetLinksBySeries(entity.Id);
+            return _linkService.GetLinksBySeriesAndAuthor(entity.Id, entity.ForeignAuthorId);
         }
 
         protected override Tuple<SeriesBookLink, List<SeriesBookLink>> GetMatchingExistingChildren(List<SeriesBookLink> existingChildren, SeriesBookLink remote)
@@ -155,6 +162,7 @@ namespace NzbDrone.Core.Books
 
             foreach (var item in all)
             {
+                item.ForeignAuthorId = remoteData.ForeignAuthorId;
                 updated |= RefreshEntityInfo(item, remoteSeries, remoteData, true, forceUpdateFileTags, null);
             }
 

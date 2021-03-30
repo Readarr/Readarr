@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Linq;
 using NzbDrone.Core.Datastore;
 using NzbDrone.Core.Messaging.Events;
@@ -8,6 +8,7 @@ namespace NzbDrone.Core.Books
     public interface ISeriesBookLinkRepository : IBasicRepository<SeriesBookLink>
     {
         List<SeriesBookLink> GetLinksBySeries(int seriesId);
+        List<SeriesBookLink> GetLinksBySeriesAndAuthor(int seriesId, string foreignAuthorId);
         List<SeriesBookLink> GetLinksByBook(List<int> bookIds);
     }
 
@@ -21,6 +22,17 @@ namespace NzbDrone.Core.Books
         public List<SeriesBookLink> GetLinksBySeries(int seriesId)
         {
             return Query(x => x.SeriesId == seriesId);
+        }
+
+        public List<SeriesBookLink> GetLinksBySeriesAndAuthor(int seriesId, string foreignAuthorId)
+        {
+            return _database.Query<SeriesBookLink>(
+                Builder()
+                    .Join<SeriesBookLink, Book>((l, b) => l.BookId == b.Id)
+                    .Join<Book, AuthorMetadata>((b, a) => b.AuthorMetadataId == a.Id)
+                    .Where<SeriesBookLink>(x => x.SeriesId == seriesId)
+                    .Where<AuthorMetadata>(a => a.ForeignAuthorId == foreignAuthorId))
+                .ToList();
         }
 
         public List<SeriesBookLink> GetLinksByBook(List<int> bookIds)
