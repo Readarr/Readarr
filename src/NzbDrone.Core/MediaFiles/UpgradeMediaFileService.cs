@@ -5,6 +5,7 @@ using NLog;
 using NzbDrone.Common.Disk;
 using NzbDrone.Common.Extensions;
 using NzbDrone.Core.Books.Calibre;
+using NzbDrone.Core.Configuration;
 using NzbDrone.Core.MediaFiles.BookImport;
 using NzbDrone.Core.Parser.Model;
 using NzbDrone.Core.RootFolders;
@@ -18,6 +19,7 @@ namespace NzbDrone.Core.MediaFiles
 
     public class UpgradeMediaFileService : IUpgradeMediaFiles
     {
+        private readonly IConfigService _configService;
         private readonly IRecycleBinProvider _recycleBinProvider;
         private readonly IMediaFileService _mediaFileService;
         private readonly IAudioTagService _audioTagService;
@@ -28,7 +30,8 @@ namespace NzbDrone.Core.MediaFiles
         private readonly ICalibreProxy _calibre;
         private readonly Logger _logger;
 
-        public UpgradeMediaFileService(IRecycleBinProvider recycleBinProvider,
+        public UpgradeMediaFileService(IConfigService configService,
+                                       IRecycleBinProvider recycleBinProvider,
                                        IMediaFileService mediaFileService,
                                        IAudioTagService audioTagService,
                                        IMoveBookFiles bookFileMover,
@@ -38,6 +41,7 @@ namespace NzbDrone.Core.MediaFiles
                                        ICalibreProxy calibre,
                                        Logger logger)
         {
+            _configService = configService;
             _recycleBinProvider = recycleBinProvider;
             _mediaFileService = mediaFileService;
             _audioTagService = audioTagService;
@@ -136,14 +140,14 @@ namespace NzbDrone.Core.MediaFiles
                 _calibre.AddFormat(file, settings);
             }
 
-            _calibre.SetFields(file, settings);
+            _rootFolderWatchingService.ReportFileSystemChangeBeginning(file.Path);
+
+            _calibre.SetFields(file, settings, true, _configService.EmbedMetadata);
 
             var updated = _calibre.GetBook(file.CalibreId, settings);
             var path = updated.Formats.Values.OrderByDescending(x => x.LastModified).First().Path;
 
             file.Path = path;
-
-            _rootFolderWatchingService.ReportFileSystemChangeBeginning(file.Path);
 
             if (settings.OutputFormat.IsNotNullOrWhiteSpace())
             {

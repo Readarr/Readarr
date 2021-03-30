@@ -14,7 +14,6 @@ using NzbDrone.Core.Extras;
 using NzbDrone.Core.MediaFiles.Events;
 using NzbDrone.Core.Messaging.Commands;
 using NzbDrone.Core.Messaging.Events;
-using NzbDrone.Core.Parser;
 using NzbDrone.Core.Parser.Model;
 using NzbDrone.Core.Qualities;
 using NzbDrone.Core.RootFolders;
@@ -31,9 +30,9 @@ namespace NzbDrone.Core.MediaFiles.BookImport
         private readonly IUpgradeMediaFiles _bookFileUpgrader;
         private readonly IMediaFileService _mediaFileService;
         private readonly IAudioTagService _audioTagService;
+        private readonly IEBookTagService _eBookTagService;
         private readonly IAuthorService _authorService;
         private readonly IAddAuthorService _addAuthorService;
-        private readonly IRefreshAuthorService _refreshAuthorService;
         private readonly IBookService _bookService;
         private readonly IEditionService _editionService;
         private readonly IRootFolderService _rootFolderService;
@@ -47,9 +46,9 @@ namespace NzbDrone.Core.MediaFiles.BookImport
         public ImportApprovedBooks(IUpgradeMediaFiles bookFileUpgrader,
                                    IMediaFileService mediaFileService,
                                    IAudioTagService audioTagService,
+                                   IEBookTagService eBookTagService,
                                    IAuthorService authorService,
                                    IAddAuthorService addAuthorService,
-                                   IRefreshAuthorService refreshAuthorService,
                                    IBookService bookService,
                                    IEditionService editionService,
                                    IRootFolderService rootFolderService,
@@ -63,9 +62,9 @@ namespace NzbDrone.Core.MediaFiles.BookImport
             _bookFileUpgrader = bookFileUpgrader;
             _mediaFileService = mediaFileService;
             _audioTagService = audioTagService;
+            _eBookTagService = eBookTagService;
             _authorService = authorService;
             _addAuthorService = addAuthorService;
-            _refreshAuthorService = refreshAuthorService;
             _bookService = bookService;
             _editionService = editionService;
             _rootFolderService = rootFolderService;
@@ -207,6 +206,7 @@ namespace NzbDrone.Core.MediaFiles.BookImport
                         }
 
                         _audioTagService.WriteTags(bookFile, false);
+                        _eBookTagService.WriteTags(bookFile, false);
                     }
 
                     filesToAdd.Add(bookFile);

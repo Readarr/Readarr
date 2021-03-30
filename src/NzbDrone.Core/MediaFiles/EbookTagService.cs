@@ -10,6 +10,7 @@ using NzbDrone.Common.Instrumentation.Extensions;
 using NzbDrone.Common.Serializer;
 using NzbDrone.Core.Books;
 using NzbDrone.Core.Books.Calibre;
+using NzbDrone.Core.Configuration;
 using NzbDrone.Core.MediaFiles.Azw;
 using NzbDrone.Core.MediaFiles.Commands;
 using NzbDrone.Core.Messaging.Commands;
@@ -25,6 +26,8 @@ namespace NzbDrone.Core.MediaFiles
     public interface IEBookTagService
     {
         ParsedTrackInfo ReadTags(IFileInfo file);
+        void WriteTags(BookFile trackfile, bool newDownload, bool force = false);
+        void SyncTags(List<Edition> books);
         List<RetagBookFilePreview> GetRetagPreviewsByAuthor(int authorId);
         List<RetagBookFilePreview> GetRetagPreviewsByBook(int authorId);
     }
@@ -36,18 +39,21 @@ namespace NzbDrone.Core.MediaFiles
         private readonly IAuthorService _authorService;
         private readonly IMediaFileService _mediaFileService;
         private readonly IRootFolderService _rootFolderService;
+        private readonly IConfigService _configService;
         private readonly ICalibreProxy _calibre;
         private readonly Logger _logger;
 
         public EBookTagService(IAuthorService authorService,
             IMediaFileService mediaFileService,
             IRootFolderService rootFolderService,
+            IConfigService configService,
             ICalibreProxy calibre,
             Logger logger)
         {
             _authorService = authorService;
             _mediaFileService = mediaFileService;
             _rootFolderService = rootFolderService;
+            _configService = configService;
             _calibre = calibre;
 
             _logger = logger;
@@ -69,6 +75,48 @@ namespace NzbDrone.Core.MediaFiles
                     return ReadAzw3(file.FullName);
                 default:
                     return Parser.Parser.ParseTitle(file.FullName);
+            }
+        }
+
+        public void WriteTags(BookFile bookFile, bool newDownload, bool force = false)
+        {
+            if (!force)
+            {
+                if (_configService.WriteBookTags == WriteBookTagsType.NewFiles && !newDownload)
+                {
+                    return;
+                }
+            }
+
+            _logger.Debug($"Writing tags for {bookFile}");
+
+            var rootFolder = _rootFolderService.GetBestRootFolder(bookFile.Path);
+            _calibre.SetFields(bookFile, rootFolder.CalibreSettings, _configService.UpdateCovers, _configService.EmbedMetadata);
+        }
+
+        public void SyncTags(List<Edition> editions)
+        {
+            if (_configService.WriteBookTags != WriteBookTagsType.Sync)
+            {
+                return;
+            }
+
+            // get the tracks to update
+            foreach (var edition in editions)
+            {
+                var bookFiles = edition.BookFiles.Value;
+
+                _logger.Debug($"Syncing ebook tags for {edition}");
+
+                foreach (var file in bookFiles)
+                {
+                    // populate tracks (which should also have release/book/author set) because
+                    // not all of the updates will have been committed to the database yet
+                    file.Edition = edition;
+
+                    var rootFolder = _rootFolderService.GetBestRootFolder(file.Path);
+                    _calibre.SetFields(file, rootFolder.CalibreSettings, _configService.UpdateCovers, _configService.EmbedMetadata);
+                }
             }
         }
 
