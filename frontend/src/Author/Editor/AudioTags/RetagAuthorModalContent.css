@@ -6,3 +6,25 @@
   margin-top: 20px;
   margin-bottom: 10px;
 }
+
+.searchForNewBookLabelContainer {
+  display: flex;
+  margin-top: 2px;
+}
+
+.searchForNewBookLabel {
+  margin-right: 8px;
+  font-weight: normal;
+}
+
+.searchForNewBookContainer {
+  composes: container from '~Components/Form/CheckInput.css';
+
+  flex: 0 1 0;
+}
+
+.searchForNewBookInput {
+  composes: input from '~Components/Form/CheckInput.css';
+
+  margin-top: 0;
+}

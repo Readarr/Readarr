@@ -7,7 +7,7 @@ namespace NzbDrone.Core.MediaFiles
     {
         public int AuthorId { get; set; }
         public int BookId { get; set; }
-        public List<int> TrackNumbers { get; set; }
+        public List<int> TrackNumbers { get; set; } = new List<int>();
         public int BookFileId { get; set; }
         public string Path { get; set; }
         public Dictionary<string, Tuple<string, string>> Changes { get; set; }

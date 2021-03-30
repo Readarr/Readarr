@@ -10,11 +10,11 @@ namespace Readarr.Api.V1.Books
     [V1ApiController("retag")]
     public class RetagBookController : Controller
     {
-        private readonly IAudioTagService _audioTagService;
+        private readonly IEBookTagService _eBookTagService;
 
-        public RetagBookController(IAudioTagService audioTagService)
+        public RetagBookController(IEBookTagService eBookTagService)
         {
-            _audioTagService = audioTagService;
+            _eBookTagService = eBookTagService;
         }
 
         [HttpGet]
@@ -22,11 +22,11 @@ namespace Readarr.Api.V1.Books
         {
             if (bookId.HasValue)
             {
-                return _audioTagService.GetRetagPreviewsByBook(bookId.Value).Where(x => x.Changes.Any()).ToResource();
+                return _eBookTagService.GetRetagPreviewsByBook(bookId.Value).Where(x => x.Changes.Any()).ToResource();
             }
             else if (authorId.HasValue)
             {
-                return _audioTagService.GetRetagPreviewsByAuthor(authorId.Value).Where(x => x.Changes.Any()).ToResource();
+                return _eBookTagService.GetRetagPreviewsByAuthor(authorId.Value).Where(x => x.Changes.Any()).ToResource();
             }
             else
             {

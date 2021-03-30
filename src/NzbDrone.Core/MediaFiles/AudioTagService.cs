@@ -237,7 +237,7 @@ namespace NzbDrone.Core.MediaFiles
             foreach (var author in authorToRename)
             {
                 var bookFiles = _mediaFileService.GetFilesByAuthor(author.Id);
-                _logger.ProgressInfo("Re-tagging all files in author: {0}", author.Name);
+                _logger.ProgressInfo("Re-tagging all files for author: {0}", author.Name);
                 foreach (var file in bookFiles)
                 {
                     WriteTags(file, false, force: true);
