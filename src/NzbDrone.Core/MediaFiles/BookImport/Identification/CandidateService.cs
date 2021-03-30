@@ -189,25 +189,13 @@ namespace NzbDrone.Core.MediaFiles.BookImport.Identification
             List<Book> remoteBooks = null;
             var candidates = new List<CandidateEdition>();
 
-            var goodreads = localEdition.LocalBooks.Select(x => x.FileTrackInfo.GoodreadsId).Distinct().ToList();
             var isbns = localEdition.LocalBooks.Select(x => x.FileTrackInfo.Isbn).Distinct().ToList();
             var asins = localEdition.LocalBooks.Select(x => x.FileTrackInfo.Asin).Distinct().ToList();
+            var goodreads = localEdition.LocalBooks.Select(x => x.FileTrackInfo.GoodreadsId).Distinct().ToList();
 
             try
             {
-                if (goodreads.Count == 1 && goodreads[0].IsNotNullOrWhiteSpace())
-                {
-                    if (int.TryParse(goodreads[0], out var id))
-                    {
-                        _logger.Trace($"Searching by goodreads id {id}");
-
-                        remoteBooks = _bookSearchService.SearchByGoodreadsId(id);
-                    }
-                }
-
-                if ((remoteBooks == null || !remoteBooks.Any()) &&
-                    isbns.Count == 1 &&
-                    isbns[0].IsNotNullOrWhiteSpace())
+                if (isbns.Count == 1 && isbns[0].IsNotNullOrWhiteSpace())
                 {
                     _logger.Trace($"Searching by isbn {isbns[0]}");
 
@@ -223,6 +211,19 @@ namespace NzbDrone.Core.MediaFiles.BookImport.Identification
                     _logger.Trace($"Searching by asin {asins[0]}");
 
                     remoteBooks = _bookSearchService.SearchByAsin(asins[0]);
+                }
+
+                // if we don't have an independent ID, try a goodreads ID, but may have been matched to the wrong edition by calibre
+                if ((remoteBooks == null || !remoteBooks.Any()) &&
+                    goodreads.Count == 1 &&
+                    goodreads[0].IsNotNullOrWhiteSpace())
+                {
+                    if (int.TryParse(goodreads[0], out var id))
+                    {
+                        _logger.Trace($"Searching by goodreads id {id}");
+
+                        remoteBooks = _bookSearchService.SearchByGoodreadsId(id);
+                    }
                 }
 
                 // if no asin/isbn or no result, fall back to text search
