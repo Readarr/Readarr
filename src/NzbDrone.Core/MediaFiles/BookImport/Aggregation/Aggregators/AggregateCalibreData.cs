@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using NLog;
 using NzbDrone.Common.Cache;
-using NzbDrone.Common.Extensions;
 using NzbDrone.Common.Serializer;
 using NzbDrone.Core.Books.Calibre;
 using NzbDrone.Core.Parser.Model;
@@ -18,8 +17,6 @@ namespace NzbDrone.Core.MediaFiles.BookImport.Aggregation.Aggregators
         {
             _logger = logger;
             _bookCache = cacheManager.GetCache<CalibreBook>(typeof(CalibreProxy));
-
-            _logger.Trace("Started calibre aug");
         }
 
         public LocalBook Aggregate(LocalBook localTrack, bool others)
@@ -31,8 +28,10 @@ namespace NzbDrone.Core.MediaFiles.BookImport.Aggregation.Aggregators
             {
                 _logger.Trace($"Using calibre data for {localTrack.Path}:\n{book.ToJson()}");
 
+                localTrack.CalibreId = book.Id;
+
                 var parsed = localTrack.FileTrackInfo;
-                parsed.Asin = book.Identifiers.GetValueOrDefault("mobi-asin");
+                parsed.Asin = book.Identifiers.GetValueOrDefault("mobi-asin") ?? book.Identifiers.GetValueOrDefault("asin");
                 parsed.Isbn = book.Identifiers.GetValueOrDefault("isbn");
                 parsed.GoodreadsId = book.Identifiers.GetValueOrDefault("goodreads");
                 parsed.AuthorTitle = book.AuthorSort;

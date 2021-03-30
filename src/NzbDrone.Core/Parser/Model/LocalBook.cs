@@ -9,6 +9,7 @@ namespace NzbDrone.Core.Parser.Model
     public class LocalBook
     {
         public string Path { get; set; }
+        public int CalibreId { get; set; }
         public long Size { get; set; }
         public DateTime Modified { get; set; }
         public ParsedTrackInfo FileTrackInfo { get; set; }
