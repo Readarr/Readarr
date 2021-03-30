@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.IO.Abstractions;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using NLog;
 using NzbDrone.Common.Extensions;
 using NzbDrone.Common.Instrumentation.Extensions;
@@ -256,7 +255,7 @@ namespace NzbDrone.Core.MediaFiles
             {
                 using (var bookRef = EpubReader.OpenBook(file))
                 {
-                    result.AuthorTitle = bookRef.AuthorList.FirstOrDefault();
+                    result.Authors = bookRef.AuthorList;
                     result.BookTitle = bookRef.Title;
 
                     var meta = bookRef.Schema.Package.Metadata;
@@ -292,7 +291,7 @@ namespace NzbDrone.Core.MediaFiles
             try
             {
                 var book = new Azw3File(file);
-                result.AuthorTitle = book.Author;
+                result.Authors = book.Authors;
                 result.BookTitle = book.Title;
                 result.Isbn = StripIsbn(book.Isbn);
                 result.Asin = book.Asin;
@@ -339,7 +338,7 @@ namespace NzbDrone.Core.MediaFiles
             try
             {
                 var book = PdfReader.Open(file, PdfDocumentOpenMode.InformationOnly);
-                result.AuthorTitle = book.Info.Author;
+                result.Authors = new List<string> { book.Info.Author };
                 result.BookTitle = book.Info.Title;
 
                 _logger.Trace(book.Info.ToJson());

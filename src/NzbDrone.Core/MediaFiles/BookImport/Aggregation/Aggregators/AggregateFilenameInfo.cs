@@ -149,7 +149,7 @@ namespace NzbDrone.Core.MediaFiles.BookImport.Aggregation.Aggregators
                 {
                     if (track.FileTrackInfo.AuthorTitle.IsNullOrWhiteSpace())
                     {
-                        track.FileTrackInfo.AuthorTitle = author;
+                        track.FileTrackInfo.Authors = new List<string> { author };
                     }
                 }
             }

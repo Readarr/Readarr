@@ -16,14 +16,6 @@ namespace NzbDrone.Core.MediaFiles.BookImport.Identification
         private static readonly Logger Logger = NzbDroneLogger.GetLogger(typeof(DistanceCalculator));
 
         public static readonly List<string> VariousAuthorIds = new List<string> { "89ad4ac3-39f7-470e-963a-56509c546377" };
-        private static readonly List<string> VariousAuthorNames = new List<string> { "various authors", "various", "va", "unknown" };
-        private static readonly List<IsoCountry> PreferredCountries = new List<string>
-        {
-            "United States",
-            "United Kingdom",
-            "Europe",
-            "[Worldwide]"
-        }.Select(x => IsoCountries.Find(x)).ToList();
 
         private static readonly RegexReplace StripSeriesRegex = new RegexReplace(@"\([^\)].+?\)$", string.Empty, RegexOptions.Compiled);
 
@@ -31,12 +23,20 @@ namespace NzbDrone.Core.MediaFiles.BookImport.Identification
         {
             var dist = new Distance();
 
-            var authors = new List<string> { localTracks.MostCommon(x => x.FileTrackInfo.AuthorTitle) ?? "" };
+            var authors = new List<string>();
 
-            // Add version based on un-reversed
-            if (authors[0].Contains(','))
+            var fileAuthors = localTracks.MostCommon(x => x.FileTrackInfo.Authors);
+            if (fileAuthors?.Any() ?? false)
             {
-                authors.Add(authors[0].Split(',').Select(x => x.Trim()).Reverse().ConcatToString(" "));
+                authors.AddRange(fileAuthors);
+
+                foreach (var author in fileAuthors)
+                {
+                    if (author.Contains(','))
+                    {
+                        authors.Add(authors[0].Split(',', 2).Select(x => x.Trim()).Reverse().ConcatToString(" "));
+                    }
+                }
             }
 
             dist.AddString("author", authors, edition.Book.Value.AuthorMetadata.Value.Name);

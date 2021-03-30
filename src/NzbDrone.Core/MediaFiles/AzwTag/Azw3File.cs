@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace NzbDrone.Core.MediaFiles.Azw
 {
     public class Azw3File : AzwFile
@@ -9,6 +11,7 @@ namespace NzbDrone.Core.MediaFiles.Azw
         }
 
         public string Title => MobiHeader.Title;
+        public List<string> Authors => MobiHeader.ExtMeta.StringList(100);
         public string Author => MobiHeader.ExtMeta.StringOrNull(100);
         public string Isbn => MobiHeader.ExtMeta.StringOrNull(104);
         public string Asin => MobiHeader.ExtMeta.StringOrNull(113);

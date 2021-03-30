@@ -28,7 +28,7 @@ namespace NzbDrone.Core.Test.MediaFiles.BookImport.Identification
                     {
                         FileTrackInfo = new ParsedTrackInfo
                         {
-                            AuthorTitle = "Author",
+                            Authors = new List<string> { "Author" },
                             BookTitle = "Book"
                         }
                     }
