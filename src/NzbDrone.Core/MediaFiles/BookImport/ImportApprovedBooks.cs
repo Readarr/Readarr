@@ -109,6 +109,14 @@ namespace NzbDrone.Core.MediaFiles.BookImport
                     continue;
                 }
 
+                var edition = EnsureEditionAdded(decisionList);
+
+                if (edition == null)
+                {
+                    // failed to add the edition, carry on with next one
+                    continue;
+                }
+
                 // if (replaceExisting)
                 // {
                 //     RemoveExistingTrackFiles(author, book);
@@ -394,9 +402,52 @@ namespace NzbDrone.Core.MediaFiles.BookImport
                     decision.Item.Book = dbBook;
                     decision.Item.Edition = edition;
                 }
+
+                book = dbBook;
             }
 
             return book;
+        }
+
+        private Edition EnsureEditionAdded(List<ImportDecision<LocalBook>> decisions)
+        {
+            var book = decisions.First().Item.Book;
+            var edition = decisions.First().Item.Edition;
+
+            if (edition.Id == 0)
+            {
+                var dbEdition = _editionService.GetEditionByForeignEditionId(edition.ForeignEditionId);
+
+                if (dbEdition == null)
+                {
+                    _logger.Debug($"Adding remote edition {edition}");
+                    try
+                    {
+                        edition.BookId = book.Id;
+                        edition.Monitored = false;
+                        _editionService.InsertMany(new List<Edition> { edition });
+
+                        dbEdition = _editionService.GetEditionByForeignEditionId(edition.ForeignEditionId);
+                    }
+                    catch (Exception e)
+                    {
+                        _logger.Error(e, "Failed to add edition {0}", edition);
+                        RejectBook(decisions);
+
+                        return null;
+                    }
+
+                    // Populate the new DB book
+                    foreach (var decision in decisions)
+                    {
+                        decision.Item.Edition = dbEdition;
+                    }
+
+                    edition = dbEdition;
+                }
+            }
+
+            return edition;
         }
 
         private void RejectBook(List<ImportDecision<LocalBook>> decisions)
