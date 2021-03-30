@@ -116,14 +116,22 @@ namespace NzbDrone.Core.MediaFiles.BookImport.Identification
         {
             var watch = System.Diagnostics.Stopwatch.StartNew();
 
-            var candidateReleases = _candidateService.GetDbCandidatesFromTags(localBookRelease, idOverrides, config.IncludeExisting);
+            IEnumerable<CandidateEdition> candidateReleases = _candidateService.GetDbCandidatesFromTags(localBookRelease, idOverrides, config.IncludeExisting);
 
-            if (candidateReleases.Count == 0 && config.AddNewAuthors)
+            // convert all the TrackFiles that represent extra files to List<LocalTrack>
+            // local candidates are actually a list so this is fine to enumerate
+            var allLocalTracks = ToLocalTrack(candidateReleases
+                .SelectMany(x => x.ExistingFiles)
+                .DistinctBy(x => x.Path), localBookRelease);
+
+            _logger.Debug($"Retrieved {allLocalTracks.Count} possible tracks in {watch.ElapsedMilliseconds}ms");
+
+            if (!candidateReleases.Any() && config.AddNewAuthors)
             {
                 candidateReleases = _candidateService.GetRemoteCandidates(localBookRelease);
             }
 
-            if (candidateReleases.Count == 0)
+            if (!candidateReleases.Any())
             {
                 // can't find any candidates even after fingerprinting
                 // populate the overrides and return
@@ -137,15 +145,6 @@ namespace NzbDrone.Core.MediaFiles.BookImport.Identification
                 return;
             }
 
-            _logger.Debug($"Got {candidateReleases.Count} candidates for {localBookRelease.LocalBooks.Count} tracks in {watch.ElapsedMilliseconds}ms");
-
-            // convert all the TrackFiles that represent extra files to List<LocalTrack>
-            var allLocalTracks = ToLocalTrack(candidateReleases
-                                              .SelectMany(x => x.ExistingFiles)
-                                              .DistinctBy(x => x.Path), localBookRelease);
-
-            _logger.Debug($"Retrieved {allLocalTracks.Count} possible tracks in {watch.ElapsedMilliseconds}ms");
-
             GetBestRelease(localBookRelease, candidateReleases, allLocalTracks);
 
             _logger.Debug($"Best release found in {watch.ElapsedMilliseconds}ms");
@@ -155,11 +154,11 @@ namespace NzbDrone.Core.MediaFiles.BookImport.Identification
             _logger.Debug($"IdentifyRelease done in {watch.ElapsedMilliseconds}ms");
         }
 
-        private void GetBestRelease(LocalEdition localBookRelease, List<CandidateEdition> candidateReleases, List<LocalBook> extraTracksOnDisk)
+        private void GetBestRelease(LocalEdition localBookRelease, IEnumerable<CandidateEdition> candidateReleases, List<LocalBook> extraTracksOnDisk)
         {
             var watch = System.Diagnostics.Stopwatch.StartNew();
 
-            _logger.Debug("Matching {0} track files against {1} candidates", localBookRelease.TrackCount, candidateReleases.Count);
+            _logger.Debug("Matching {0} track files against candidates", localBookRelease.TrackCount);
             _logger.Trace("Processing files:\n{0}", string.Join("\n", localBookRelease.LocalBooks.Select(x => x.Path)));
 
             double bestDistance = 1.0;

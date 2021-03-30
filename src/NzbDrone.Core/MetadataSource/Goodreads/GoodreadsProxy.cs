@@ -418,12 +418,30 @@ namespace NzbDrone.Core.MetadataSource.Goodreads
 
         public List<Book> SearchByIsbn(string isbn)
         {
-            return SearchByField("isbn", isbn);
+            var result = SearchByField("isbn", isbn);
+
+            // we don't get isbn back in search result, but if only one result assume the query was correct
+            // and add in the searched isbn
+            if (result.Count == 1 && result[0].Editions.Value.Count == 1)
+            {
+                result[0].Editions.Value[0].Isbn13 = isbn;
+            }
+
+            return result;
         }
 
         public List<Book> SearchByAsin(string asin)
         {
-            return SearchByField("isbn", asin);
+            var result = SearchByField("asin", asin);
+
+            // we don't get isbn back in search result, but if only one result assume the query was correct
+            // and add in the searched isbn
+            if (result.Count == 1 && result[0].Editions.Value.Count == 1)
+            {
+                result[0].Editions.Value[0].Asin = asin;
+            }
+
+            return result;
         }
 
         public List<Book> SearchByGoodreadsId(int id)

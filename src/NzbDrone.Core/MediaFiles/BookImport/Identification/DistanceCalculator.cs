@@ -64,6 +64,20 @@ namespace NzbDrone.Core.MediaFiles.BookImport.Identification
             dist.AddString("book", title, titleOptions);
             Logger.Trace("book: '{0}' vs '{1}'; {2}", title, titleOptions.ConcatToString("' or '"), dist.NormalizedDistance());
 
+            var isbn = localTracks.MostCommon(x => x.FileTrackInfo.Isbn);
+            if (isbn.IsNotNullOrWhiteSpace() && edition.Isbn13.IsNotNullOrWhiteSpace())
+            {
+                dist.AddBool("isbn", isbn != edition.Isbn13);
+                Logger.Trace("isbn: '{0}' vs '{1}'; {2}", isbn, edition.Isbn13, dist.NormalizedDistance());
+            }
+
+            var asin = localTracks.MostCommon(x => x.FileTrackInfo.Asin);
+            if (asin.IsNotNullOrWhiteSpace() && edition.Asin.IsNotNullOrWhiteSpace())
+            {
+                dist.AddBool("asin", asin != edition.Asin);
+                Logger.Trace("asin: '{0}' vs '{1}'; {2}", asin, edition.Asin, dist.NormalizedDistance());
+            }
+
             // Year
             var localYear = localTracks.MostCommon(x => x.FileTrackInfo.Year);
             if (localYear > 0 && edition.ReleaseDate.HasValue)
