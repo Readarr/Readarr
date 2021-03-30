@@ -87,6 +87,13 @@ namespace NzbDrone.Core.Books
                 newbook.AuthorMetadataId = book.AuthorMetadataId;
                 newbook.AuthorMetadata.Value.Id = book.AuthorMetadataId;
 
+                // make sure to grab editions data for any other existing editions
+                foreach (var edition in book.Editions.Value.Skip(1))
+                {
+                    tuple = _bookInfo.GetBookInfo(edition.ForeignEditionId, false);
+                    newbook.Editions.Value.AddRange(tuple.Item2.Editions.Value);
+                }
+
                 author.Books = new List<Book> { newbook };
                 return author;
             }
