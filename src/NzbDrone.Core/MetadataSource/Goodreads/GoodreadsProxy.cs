@@ -28,7 +28,6 @@ namespace NzbDrone.Core.MetadataSource.Goodreads
         private static readonly Regex NoPhotoRegex = new Regex(@"/nophoto/(book|user)/",
                                                                RegexOptions.IgnoreCase | RegexOptions.Compiled);
 
-        private readonly IHttpClient _httpClient;
         private readonly ICachedHttpResponseService _cachedHttpClient;
         private readonly Logger _logger;
         private readonly IAuthorService _authorService;
@@ -38,15 +37,13 @@ namespace NzbDrone.Core.MetadataSource.Goodreads
         private readonly IHttpRequestBuilderFactory _searchBuilder;
         private readonly ICached<HashSet<string>> _cache;
 
-        public GoodreadsProxy(IHttpClient httpClient,
-                              ICachedHttpResponseService cachedHttpClient,
+        public GoodreadsProxy(ICachedHttpResponseService cachedHttpClient,
                               IAuthorService authorService,
                               IBookService bookService,
                               IEditionService editionService,
                               Logger logger,
                               ICacheManager cacheManager)
         {
-            _httpClient = httpClient;
             _cachedHttpClient = cachedHttpClient;
             _authorService = authorService;
             _bookService = bookService;
@@ -482,7 +479,7 @@ namespace NzbDrone.Core.MetadataSource.Goodreads
                     .AddQueryParam("q", query)
                     .Build();
 
-                var result = _httpClient.Get<List<SearchJsonResource>>(httpRequest);
+                var result = _cachedHttpClient.Get<List<SearchJsonResource>>(httpRequest, true, TimeSpan.FromDays(5));
 
                 return result.Resource.SelectList(MapJsonSearchResult);
             }
