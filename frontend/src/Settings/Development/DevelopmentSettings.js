@@ -59,6 +59,21 @@ class DevelopmentSettings extends Component {
                 id="developmentSettings"
                 {...otherProps}
               >
+                <FieldSet legend="Metadata Provider Source">
+                  <FormGroup>
+                    <FormLabel>Metadata Source</FormLabel>
+
+                    <FormInputGroup
+                      type={inputTypes.TEXT}
+                      name="metadataSource"
+                      helpText="Alternative Metadata Source (Leave blank for default)"
+                      helpLink="https://wiki.servarr.com/Readarr_Settings#Metadata"
+                      onChange={onInputChange}
+                      {...settings.metadataSource}
+                    />
+                  </FormGroup>
+                </FieldSet>
+
                 <FieldSet legend="Logging">
                   <FormGroup>
                     <FormLabel>Log Rotation</FormLabel>

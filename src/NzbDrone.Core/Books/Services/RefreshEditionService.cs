@@ -15,14 +15,17 @@ namespace NzbDrone.Core.Books
     {
         private readonly IEditionService _editionService;
         private readonly IAudioTagService _audioTagService;
+        private readonly IEBookTagService _eBookTagService;
         private readonly Logger _logger;
 
         public RefreshEditionService(IEditionService editionService,
                                    IAudioTagService audioTagService,
+                                   IEBookTagService eBookTagService,
                                    Logger logger)
         {
             _editionService = editionService;
             _audioTagService = audioTagService;
+            _eBookTagService = eBookTagService;
             _logger = logger;
         }
 
@@ -52,6 +55,7 @@ namespace NzbDrone.Core.Books
             }
 
             _audioTagService.SyncTags(tagsToUpdate);
+            _eBookTagService.SyncTags(tagsToUpdate);
 
             return add.Any() || delete.Any() || updateList.Any() || merge.Any();
         }

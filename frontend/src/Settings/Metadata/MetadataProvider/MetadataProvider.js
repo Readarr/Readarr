@@ -8,16 +8,14 @@ import FormLabel from 'Components/Form/FormLabel';
 import LoadingIndicator from 'Components/Loading/LoadingIndicator';
 import { inputTypes } from 'Helpers/Props';
 
-const writeAudioTagOptions = [
-  { key: 'sync', value: 'All files; keep in sync with MusicBrainz' },
+const writeBookTagOptions = [
+  { key: 'sync', value: 'All files; keep in sync with Goodreads' },
   { key: 'allFiles', value: 'All files; initial import only' },
-  { key: 'newFiles', value: 'For new downloads only' },
-  { key: 'no', value: 'Never' }
+  { key: 'newFiles', value: 'For new downloads only' }
 ];
 
 function MetadataProvider(props) {
   const {
-    advancedSettings,
     isFetching,
     error,
     settings,
@@ -41,51 +39,42 @@ function MetadataProvider(props) {
       {
         hasSettings && !isFetching && !error &&
           <Form>
-            {
-              advancedSettings &&
-                <FieldSet legend="Metadata Provider Source">
-                  <FormGroup
-                    advancedSettings={advancedSettings}
-                    isAdvanced={true}
-                  >
-                    <FormLabel>Metadata Source</FormLabel>
-
-                    <FormInputGroup
-                      type={inputTypes.TEXT}
-                      name="metadataSource"
-                      helpText="Alternative Metadata Source (Leave blank for default)"
-                      helpLink="https://wiki.servarr.com/Readarr_Settings#Metadata"
-                      onChange={onInputChange}
-                      {...settings.metadataSource}
-                    />
-                  </FormGroup>
-                </FieldSet>
-            }
-
-            <FieldSet legend="Write Metadata to Audio Files">
+            <FieldSet legend="Calibre Metadata">
               <FormGroup>
-                <FormLabel>Tag Audio Files with Metadata</FormLabel>
+                <FormLabel>Send Metadata to Calibre</FormLabel>
 
                 <FormInputGroup
                   type={inputTypes.SELECT}
-                  name="writeAudioTags"
+                  name="writeBookTags"
                   helpTextWarning="Selecting 'All files' will alter existing files when they are imported."
-                  helpLink="https://wiki.servarr.com/Readarr_Settings#Write_Metadata_to_Audio_Files"
-                  values={writeAudioTagOptions}
+                  helpLink="https://wiki.servarr.com/Readarr_Settings#Write_Metadata_to_Book_Files"
+                  values={writeBookTagOptions}
                   onChange={onInputChange}
-                  {...settings.writeAudioTags}
+                  {...settings.writeBookTags}
                 />
               </FormGroup>
 
               <FormGroup>
-                <FormLabel>Scrub Existing Tags</FormLabel>
+                <FormLabel>Update Covers</FormLabel>
 
                 <FormInputGroup
                   type={inputTypes.CHECK}
-                  name="scrubAudioTags"
-                  helpText="Remove existing tags from files, leaving only those added by Readarr."
+                  name="updateCovers"
+                  helpText="Set book covers in Calibre to match those in Readarr"
                   onChange={onInputChange}
-                  {...settings.scrubAudioTags}
+                  {...settings.updateCovers}
+                />
+              </FormGroup>
+
+              <FormGroup>
+                <FormLabel>Embed Metadata in Book Files</FormLabel>
+
+                <FormInputGroup
+                  type={inputTypes.CHECK}
+                  name="embedMetadata"
+                  helpText="Tell Calibre to write metadata into the actual book file"
+                  onChange={onInputChange}
+                  {...settings.embedMetadata}
                 />
               </FormGroup>
 
@@ -98,7 +87,6 @@ function MetadataProvider(props) {
 }
 
 MetadataProvider.propTypes = {
-  advancedSettings: PropTypes.bool.isRequired,
   isFetching: PropTypes.bool.isRequired,
   error: PropTypes.object,
   settings: PropTypes.object.isRequired,
