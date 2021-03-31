@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using FizzWare.NBuilder;
 using FluentAssertions;
 using Moq;
@@ -146,7 +146,7 @@ namespace NzbDrone.Core.Test.Download.CompletedDownloadServiceTests
         }
 
         [Test]
-        public void should_not_process_if_the_download_cannot_be_tracked_using_the_source_title_as_it_was_initiated_externally()
+        public void should_process_if_the_download_cannot_be_tracked_using_the_source_title_as_it_was_initiated_externally()
         {
             GivenABadlyNamedDownload();
             _trackedDownload.RemoteBook.Author = null;
@@ -156,11 +156,11 @@ namespace NzbDrone.Core.Test.Download.CompletedDownloadServiceTests
 
             Subject.Check(_trackedDownload);
 
-            AssertNotReadyToImport();
+            AssertReadyToImport();
         }
 
         [Test]
-        public void should_not_process_when_there_is_a_title_mismatch()
+        public void should_process_when_there_is_a_title_mismatch()
         {
             _trackedDownload.RemoteBook.Author = null;
             Mocker.GetMock<IParsingService>()
@@ -169,7 +169,7 @@ namespace NzbDrone.Core.Test.Download.CompletedDownloadServiceTests
 
             Subject.Check(_trackedDownload);
 
-            AssertNotReadyToImport();
+            AssertReadyToImport();
         }
 
         private void AssertNotReadyToImport()

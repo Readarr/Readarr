@@ -46,8 +46,7 @@ namespace NzbDrone.Core.Download
 
         public void Check(TrackedDownload trackedDownload)
         {
-            if (trackedDownload.DownloadItem.Status != DownloadItemStatus.Completed ||
-                trackedDownload.RemoteBook == null)
+            if (trackedDownload.DownloadItem.Status != DownloadItemStatus.Completed)
             {
                 return;
             }
@@ -83,22 +82,6 @@ namespace NzbDrone.Core.Download
                 return;
             }
 
-            var author = trackedDownload.RemoteBook.Author;
-
-            if (author == null)
-            {
-                if (historyItem != null)
-                {
-                    author = _authorService.GetAuthor(historyItem.AuthorId);
-                }
-
-                if (author == null)
-                {
-                    trackedDownload.Warn("Author name mismatch, automatic import is not possible.");
-                    return;
-                }
-            }
-
             trackedDownload.State = TrackedDownloadState.ImportPending;
         }
 
@@ -107,7 +90,7 @@ namespace NzbDrone.Core.Download
             trackedDownload.State = TrackedDownloadState.Importing;
 
             var outputPath = trackedDownload.ImportItem.OutputPath.FullPath;
-            var importResults = _downloadedTracksImportService.ProcessPath(outputPath, ImportMode.Auto, trackedDownload.RemoteBook.Author, trackedDownload.DownloadItem);
+            var importResults = _downloadedTracksImportService.ProcessPath(outputPath, ImportMode.Auto, trackedDownload.RemoteBook?.Author, trackedDownload.DownloadItem);
 
             if (importResults.Empty())
             {
@@ -142,7 +125,7 @@ namespace NzbDrone.Core.Download
         {
             var allItemsImported = importResults.Where(c => c.Result == ImportResultType.Imported)
                                                    .Select(c => c.ImportDecision.Item.Book)
-                                                   .Count() >= Math.Max(1, trackedDownload.RemoteBook.Books.Count);
+                                                   .Count() >= Math.Max(1, trackedDownload.RemoteBook?.Books.Count ?? 1);
 
             if (allItemsImported)
             {

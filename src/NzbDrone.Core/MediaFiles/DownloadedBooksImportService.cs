@@ -151,16 +151,6 @@ namespace NzbDrone.Core.MediaFiles
             var cleanedUpName = GetCleanedUpFolderName(directoryInfo.Name);
             var author = _parsingService.GetAuthor(cleanedUpName);
 
-            if (author == null)
-            {
-                _logger.Debug("Unknown Author {0}", cleanedUpName);
-
-                return new List<ImportResult>
-                       {
-                           UnknownAuthorResult("Unknown Author")
-                       };
-            }
-
             return ProcessFolder(directoryInfo, importMode, author, downloadClientItem);
         }
 

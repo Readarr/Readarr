@@ -194,7 +194,6 @@ namespace NzbDrone.Core.Download.TrackedDownloads
                 if (trackedDownload.RemoteBook == null)
                 {
                     _logger.Trace("No Book found for download '{0}'", trackedDownload.DownloadItem.Title);
-                    trackedDownload.Warn("No Book found for download '{0}'", trackedDownload.DownloadItem.Title);
                 }
             }
             catch (Exception e)
