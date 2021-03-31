@@ -115,6 +115,7 @@ namespace NzbDrone.Core.MediaFiles.BookImport.Identification
         private void IdentifyRelease(LocalEdition localBookRelease, IdentificationOverrides idOverrides, ImportDecisionMakerConfig config)
         {
             var watch = System.Diagnostics.Stopwatch.StartNew();
+            bool usedRemote = false;
 
             IEnumerable<CandidateEdition> candidateReleases = _candidateService.GetDbCandidatesFromTags(localBookRelease, idOverrides, config.IncludeExisting);
 
@@ -126,14 +127,20 @@ namespace NzbDrone.Core.MediaFiles.BookImport.Identification
 
             _logger.Debug($"Retrieved {allLocalTracks.Count} possible tracks in {watch.ElapsedMilliseconds}ms");
 
-            if (!candidateReleases.Any() && config.AddNewAuthors)
+            if (!candidateReleases.Any())
             {
-                candidateReleases = _candidateService.GetRemoteCandidates(localBookRelease);
+                candidateReleases = _candidateService.GetRemoteCandidates(localBookRelease, idOverrides);
+                if (!config.AddNewAuthors)
+                {
+                    candidateReleases = candidateReleases.Where(x => x.Edition.Book.Value.Id > 0);
+                }
+
+                usedRemote = true;
             }
 
             if (!candidateReleases.Any())
             {
-                // can't find any candidates even after fingerprinting
+                // can't find any candidates even after using remote search
                 // populate the overrides and return
                 foreach (var localTrack in localBookRelease.LocalBooks)
                 {
@@ -146,6 +153,21 @@ namespace NzbDrone.Core.MediaFiles.BookImport.Identification
             }
 
             GetBestRelease(localBookRelease, candidateReleases, allLocalTracks);
+
+            // If the result isn't great and we haven't tried remote candidates, try looking for remote candidates
+            // Goodreads may have a better edition of a local book
+            if (localBookRelease.Distance.NormalizedDistance() > 0.15 && !usedRemote)
+            {
+                _logger.Debug("Match not good enough, trying remote candidates");
+                candidateReleases = _candidateService.GetRemoteCandidates(localBookRelease, idOverrides);
+
+                if (!config.AddNewAuthors)
+                {
+                    candidateReleases = candidateReleases.Where(x => x.Edition.Book.Value.Id > 0);
+                }
+
+                GetBestRelease(localBookRelease, candidateReleases, allLocalTracks);
+            }
 
             _logger.Debug($"Best release found in {watch.ElapsedMilliseconds}ms");
 

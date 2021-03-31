@@ -13,7 +13,7 @@ class SelectEditionRow extends Component {
   // Listeners
 
   onInputChange = ({ name, value }) => {
-    this.props.onEditionSelect(parseInt(name), parseInt(value));
+    this.props.onEditionSelect(parseInt(name), value);
   }
 
   //
@@ -49,6 +49,9 @@ class SelectEditionRow extends Component {
       if (bookEdition.isbn13) {
         extras.push(bookEdition.isbn13);
       }
+      if (bookEdition.asin) {
+        extras.push(bookEdition.asin);
+      }
       if (bookEdition.format) {
         extras.push(bookEdition.format);
       }
@@ -61,7 +64,7 @@ class SelectEditionRow extends Component {
       }
 
       return {
-        key: bookEdition.id,
+        key: bookEdition.foreignEditionId,
         value
       };
     });
@@ -114,9 +117,9 @@ class SelectEditionRow extends Component {
 
 SelectEditionRow.propTypes = {
   id: PropTypes.number.isRequired,
-  matchedEditionId: PropTypes.number.isRequired,
+  matchedEditionId: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
-  disambiguation: PropTypes.string.isRequired,
+  disambiguation: PropTypes.string,
   editions: PropTypes.arrayOf(PropTypes.object).isRequired,
   onEditionSelect: PropTypes.func.isRequired,
   columns: PropTypes.arrayOf(PropTypes.object).isRequired

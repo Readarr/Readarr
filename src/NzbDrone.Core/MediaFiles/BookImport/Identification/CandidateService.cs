@@ -13,7 +13,7 @@ namespace NzbDrone.Core.MediaFiles.BookImport.Identification
     public interface ICandidateService
     {
         List<CandidateEdition> GetDbCandidatesFromTags(LocalEdition localEdition, IdentificationOverrides idOverrides, bool includeExisting);
-        IEnumerable<CandidateEdition> GetRemoteCandidates(LocalEdition localEdition);
+        IEnumerable<CandidateEdition> GetRemoteCandidates(LocalEdition localEdition, IdentificationOverrides idOverrides);
     }
 
     public class CandidateService : ICandidateService
@@ -184,8 +184,10 @@ namespace NzbDrone.Core.MediaFiles.BookImport.Identification
             return candidateReleases;
         }
 
-        public IEnumerable<CandidateEdition> GetRemoteCandidates(LocalEdition localEdition)
+        public IEnumerable<CandidateEdition> GetRemoteCandidates(LocalEdition localEdition, IdentificationOverrides idOverrides)
         {
+            // TODO handle edition override
+
             // Gets candidate book releases from the metadata server.
             // Will eventually need adding locally if we find a match
             List<Book> remoteBooks;
@@ -210,7 +212,7 @@ namespace NzbDrone.Core.MediaFiles.BookImport.Identification
                     remoteBooks = new List<Book>();
                 }
 
-                foreach (var candidate in ToCandidates(remoteBooks, seenCandidates))
+                foreach (var candidate in ToCandidates(remoteBooks, seenCandidates, idOverrides))
                 {
                     yield return candidate;
                 }
@@ -232,7 +234,7 @@ namespace NzbDrone.Core.MediaFiles.BookImport.Identification
                     remoteBooks = new List<Book>();
                 }
 
-                foreach (var candidate in ToCandidates(remoteBooks, seenCandidates))
+                foreach (var candidate in ToCandidates(remoteBooks, seenCandidates, idOverrides))
                 {
                     yield return candidate;
                 }
@@ -255,15 +257,18 @@ namespace NzbDrone.Core.MediaFiles.BookImport.Identification
                         remoteBooks = new List<Book>();
                     }
 
-                    foreach (var candidate in ToCandidates(remoteBooks, seenCandidates))
+                    foreach (var candidate in ToCandidates(remoteBooks, seenCandidates, idOverrides))
                     {
                         yield return candidate;
                     }
                 }
             }
 
-            // If we got an id result, stop
-            if (seenCandidates.Any())
+            // If we got an id result, or any overrides are set, stop
+            if (seenCandidates.Any() ||
+                idOverrides?.Edition != null ||
+                idOverrides?.Book != null ||
+                idOverrides?.Author != null)
             {
                 yield break;
             }
@@ -301,7 +306,7 @@ namespace NzbDrone.Core.MediaFiles.BookImport.Identification
                     remoteBooks = new List<Book>();
                 }
 
-                foreach (var candidate in ToCandidates(remoteBooks, seenCandidates))
+                foreach (var candidate in ToCandidates(remoteBooks, seenCandidates, idOverrides))
                 {
                     yield return candidate;
                 }
@@ -324,7 +329,7 @@ namespace NzbDrone.Core.MediaFiles.BookImport.Identification
                 remoteBooks = new List<Book>();
             }
 
-            foreach (var candidate in ToCandidates(remoteBooks, seenCandidates))
+            foreach (var candidate in ToCandidates(remoteBooks, seenCandidates, idOverrides))
             {
                 yield return candidate;
             }
@@ -342,14 +347,14 @@ namespace NzbDrone.Core.MediaFiles.BookImport.Identification
                     remoteBooks = new List<Book>();
                 }
 
-                foreach (var candidate in ToCandidates(remoteBooks, seenCandidates))
+                foreach (var candidate in ToCandidates(remoteBooks, seenCandidates, idOverrides))
                 {
                     yield return candidate;
                 }
             }
         }
 
-        private List<CandidateEdition> ToCandidates(IEnumerable<Book> books, HashSet<string> seenCandidates)
+        private List<CandidateEdition> ToCandidates(IEnumerable<Book> books, HashSet<string> seenCandidates, IdentificationOverrides idOverrides)
         {
             var candidates = new List<CandidateEdition>();
 
@@ -359,10 +364,11 @@ namespace NzbDrone.Core.MediaFiles.BookImport.Identification
                 // by a database lazy load
                 foreach (var edition in book.Editions.Value)
                 {
-                    if (!seenCandidates.Contains(edition.ForeignEditionId))
+                    edition.Book = book;
+
+                    if (!seenCandidates.Contains(edition.ForeignEditionId) && SatisfiesOverride(edition, idOverrides))
                     {
                         seenCandidates.Add(edition.ForeignEditionId);
-                        edition.Book = book;
                         candidates.Add(new CandidateEdition
                         {
                             Edition = edition,
@@ -373,6 +379,26 @@ namespace NzbDrone.Core.MediaFiles.BookImport.Identification
             }
 
             return candidates;
+        }
+
+        private bool SatisfiesOverride(Edition edition, IdentificationOverrides idOverride)
+        {
+            if (idOverride?.Edition != null)
+            {
+                return edition.ForeignEditionId == idOverride.Edition.ForeignEditionId;
+            }
+
+            if (idOverride?.Book != null)
+            {
+                return edition.Book.Value.ForeignBookId == idOverride.Book.ForeignBookId;
+            }
+
+            if (idOverride?.Author != null)
+            {
+                return edition.Book.Value.Author.Value.ForeignAuthorId == idOverride.Author.ForeignAuthorId;
+            }
+
+            return true;
         }
     }
 }

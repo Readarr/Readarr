@@ -64,7 +64,7 @@ namespace NzbDrone.Integration.Test.ApiTests
         {
             EnsureProfileCutoff(1, Quality.AZW3);
             var author = EnsureAuthor("14586394", "43765115", "Andrew Hunter Murray", true);
-            EnsureBookFile(author, 1, 1, Quality.MOBI);
+            EnsureBookFile(author, 1, "43765115", Quality.MOBI);
 
             var result = WantedCutoffUnmet.GetPaged(0, 15, "releaseDate", "desc");
 
@@ -88,7 +88,7 @@ namespace NzbDrone.Integration.Test.ApiTests
         {
             EnsureProfileCutoff(1, Quality.AZW3);
             var author = EnsureAuthor("14586394", "43765115", "Andrew Hunter Murray", false);
-            EnsureBookFile(author, 1, 1, Quality.MOBI);
+            EnsureBookFile(author, 1, "43765115", Quality.MOBI);
 
             var result = WantedCutoffUnmet.GetPaged(0, 15, "releaseDate", "desc");
 
@@ -101,7 +101,7 @@ namespace NzbDrone.Integration.Test.ApiTests
         {
             EnsureProfileCutoff(1, Quality.AZW3);
             var author = EnsureAuthor("14586394", "43765115", "Andrew Hunter Murray", true);
-            EnsureBookFile(author, 1, 1, Quality.MOBI);
+            EnsureBookFile(author, 1, "43765115", Quality.MOBI);
 
             var result = WantedCutoffUnmet.GetPaged(0, 15, "releaseDate", "desc");
 
@@ -126,7 +126,7 @@ namespace NzbDrone.Integration.Test.ApiTests
         {
             EnsureProfileCutoff(1, Quality.AZW3);
             var author = EnsureAuthor("14586394", "43765115", "Andrew Hunter Murray", false);
-            EnsureBookFile(author, 1, 1, Quality.MOBI);
+            EnsureBookFile(author, 1, "43765115", Quality.MOBI);
 
             var result = WantedCutoffUnmet.GetPaged(0, 15, "releaseDate", "desc", "monitored", "false");
 

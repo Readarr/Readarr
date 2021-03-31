@@ -34,8 +34,6 @@ class SelectBookRow extends Component {
   render() {
     const {
       title,
-      disambiguation,
-      bookType,
       releaseDate,
       statistics,
       monitored,
@@ -47,8 +45,6 @@ class SelectBookRow extends Component {
       bookFileCount,
       totalBookCount
     } = statistics;
-
-    const extendedTitle = disambiguation ? `${title} (${disambiguation})` : title;
 
     return (
       <TableRow
@@ -69,15 +65,7 @@ class SelectBookRow extends Component {
             if (name === 'title') {
               return (
                 <TableRowCell key={name}>
-                  {extendedTitle}
-                </TableRowCell>
-              );
-            }
-
-            if (name === 'bookType') {
-              return (
-                <TableRowCell key={name}>
-                  {bookType}
+                  {title}
                 </TableRowCell>
               );
             }
@@ -121,8 +109,6 @@ class SelectBookRow extends Component {
 SelectBookRow.propTypes = {
   id: PropTypes.number.isRequired,
   title: PropTypes.string.isRequired,
-  disambiguation: PropTypes.string.isRequired,
-  bookType: PropTypes.string.isRequired,
   releaseDate: PropTypes.string.isRequired,
   onBookSelect: PropTypes.func.isRequired,
   statistics: PropTypes.object.isRequired,

@@ -127,7 +127,7 @@ class InteractiveImportModalContentConnector extends Component {
         const {
           author,
           book,
-          editionId,
+          foreignEditionId,
           quality,
           disableReleaseSwitching
         } = item;
@@ -151,7 +151,7 @@ class InteractiveImportModalContentConnector extends Component {
           path: item.path,
           authorId: author.id,
           bookId: book.id,
-          editionId,
+          foreignEditionId,
           quality,
           downloadId: this.props.downloadId,
           disableReleaseSwitching

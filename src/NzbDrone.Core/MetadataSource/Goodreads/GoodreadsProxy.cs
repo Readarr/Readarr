@@ -421,30 +421,12 @@ namespace NzbDrone.Core.MetadataSource.Goodreads
 
         public List<Book> SearchByIsbn(string isbn)
         {
-            var result = SearchByField("isbn", isbn);
-
-            // we don't get isbn back in search result, but if only one result assume the query was correct
-            // and add in the searched isbn
-            if (result.Count == 1 && result[0].Editions.Value.Count == 1)
-            {
-                result[0].Editions.Value[0].Isbn13 = isbn;
-            }
-
-            return result;
+            return SearchByField("isbn", isbn, e => e.Isbn13 = isbn);
         }
 
         public List<Book> SearchByAsin(string asin)
         {
-            var result = SearchByField("asin", asin);
-
-            // we don't get isbn back in search result, but if only one result assume the query was correct
-            // and add in the searched isbn
-            if (result.Count == 1 && result[0].Editions.Value.Count == 1)
-            {
-                result[0].Editions.Value[0].Asin = asin;
-            }
-
-            return result;
+            return SearchByField("asin", asin, e => e.Asin = asin);
         }
 
         public List<Book> SearchByGoodreadsId(int id)
@@ -492,7 +474,7 @@ namespace NzbDrone.Core.MetadataSource.Goodreads
             }
         }
 
-        public List<Book> SearchByField(string field, string query)
+        public List<Book> SearchByField(string field, string query, Action<Edition> applyData = null)
         {
             try
             {
@@ -500,9 +482,9 @@ namespace NzbDrone.Core.MetadataSource.Goodreads
                     .AddQueryParam("q", query)
                     .Build();
 
-                var result = _cachedHttpClient.Get<List<SearchJsonResource>>(httpRequest, true, TimeSpan.FromDays(5));
+                var response = _cachedHttpClient.Get<List<SearchJsonResource>>(httpRequest, true, TimeSpan.FromDays(5));
 
-                return result.Resource.SelectList(MapJsonSearchResult);
+                return response.Resource.SelectList(x => MapJsonSearchResult(x, response.Resource.Count == 1 ? applyData : null));
             }
             catch (HttpException)
             {
@@ -735,7 +717,7 @@ namespace NzbDrone.Core.MetadataSource.Goodreads
             return book;
         }
 
-        private Book MapJsonSearchResult(SearchJsonResource resource)
+        private Book MapJsonSearchResult(SearchJsonResource resource, Action<Edition> applyData = null)
         {
             var book = _bookService.FindById(resource.WorkId.ToString());
             var edition = _editionService.GetEditionByForeignEditionId(resource.BookId.ToString());
@@ -751,6 +733,11 @@ namespace NzbDrone.Core.MetadataSource.Goodreads
                     PageCount = resource.PageCount,
                     Overview = resource.Description?.Html ?? string.Empty
                 };
+
+                if (applyData != null)
+                {
+                    applyData(edition);
+                }
             }
 
             edition.Monitored = true;
@@ -777,7 +764,19 @@ namespace NzbDrone.Core.MetadataSource.Goodreads
                 };
             }
 
-            book.Editions = new List<Edition> { edition };
+            if (book.Editions != null)
+            {
+                if (book.Editions.Value.Any())
+                {
+                    edition.Monitored = false;
+                }
+
+                book.Editions.Value.Add(edition);
+            }
+            else
+            {
+                book.Editions = new List<Edition> { edition };
+            }
 
             var authorId = resource.Author.Id.ToString();
             var author = _authorService.FindById(authorId);
