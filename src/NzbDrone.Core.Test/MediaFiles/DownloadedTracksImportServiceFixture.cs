@@ -123,7 +123,7 @@ namespace NzbDrone.Core.Test.MediaFiles
         }
 
         [Test]
-        public void should_skip_if_no_author_found()
+        public void should_not_skip_if_no_author_found()
         {
             Mocker.GetMock<IParsingService>().Setup(c => c.GetAuthor("foldername")).Returns((Author)null);
 
@@ -131,9 +131,9 @@ namespace NzbDrone.Core.Test.MediaFiles
 
             Mocker.GetMock<IMakeImportDecision>()
                   .Verify(c => c.GetImportDecisions(It.IsAny<List<IFileInfo>>(), It.IsAny<IdentificationOverrides>(), It.IsAny<ImportDecisionMakerInfo>(), It.IsAny<ImportDecisionMakerConfig>()),
-                          Times.Never());
+                          Times.Once());
 
-            VerifyNoImport();
+            VerifyImport();
         }
 
         [Test]
