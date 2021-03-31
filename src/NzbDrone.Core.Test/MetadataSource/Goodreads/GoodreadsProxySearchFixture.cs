@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using FluentAssertions;
 using Moq;
 using NUnit.Framework;
@@ -103,6 +104,17 @@ namespace NzbDrone.Core.Test.MetadataSource.Goodreads
                 cast.Should().NotBeNull();
                 cast.Title.Should().Be(expected);
             }
+        }
+
+        [TestCase("B01N390U59", "The Book of Dust", "1")]
+        [TestCase("B0191WS1EE", "October Daye", "9.3")]
+        public void should_parse_series_from_title(string query, string series, string position)
+        {
+            var result = Subject.SearchByField("field", query);
+
+            var link = result.First().SeriesLinks.Value.First();
+            link.Series.Value.Title.Should().Be(series);
+            link.Position.Should().Be(position);
         }
     }
 }

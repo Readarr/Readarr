@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using FluentAssertions;
 using Moq;
 using NUnit.Framework;
@@ -52,6 +53,17 @@ namespace NzbDrone.Core.Test.MetadataSource.Goodreads
             ValidateBooks(new List<Book> { details.Item2 });
 
             details.Item2.Title.Should().Be(name);
+        }
+
+        [TestCase("54837483", "The Book of Dust", "1")]
+        [TestCase("28360360", "October Daye", "9.3")]
+        public void should_parse_series_from_title(string id, string series, string position)
+        {
+            var result = Subject.GetBookInfo(id);
+
+            var link = result.Item2.SeriesLinks.Value.First();
+            link.Series.Value.Title.Should().Be(series);
+            link.Position.Should().Be(position);
         }
 
         [Test]
