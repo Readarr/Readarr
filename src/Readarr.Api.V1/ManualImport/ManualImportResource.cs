@@ -17,7 +17,7 @@ namespace Readarr.Api.V1.ManualImport
         public long Size { get; set; }
         public AuthorResource Author { get; set; }
         public BookResource Book { get; set; }
-        public int EditionId { get; set; }
+        public string ForeignEditionId { get; set; }
         public QualityModel Quality { get; set; }
         public int QualityWeight { get; set; }
         public string DownloadId { get; set; }
@@ -45,7 +45,7 @@ namespace Readarr.Api.V1.ManualImport
                 Size = model.Size,
                 Author = model.Author.ToResource(),
                 Book = model.Book.ToResource(),
-                EditionId = model.Edition?.Id ?? 0,
+                ForeignEditionId = model.Edition?.ForeignEditionId,
                 Quality = model.Quality,
 
                 //QualityWeight

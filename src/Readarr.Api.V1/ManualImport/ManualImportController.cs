@@ -78,7 +78,7 @@ namespace Readarr.Api.V1.ManualImport
                     Size = resource.Size,
                     Author = resource.Author == null ? null : _authorService.GetAuthor(resource.Author.Id),
                     Book = resource.Book == null ? null : _bookService.GetBook(resource.Book.Id),
-                    Edition = resource.EditionId == 0 ? null : _editionService.GetEdition(resource.EditionId),
+                    Edition = resource.ForeignEditionId == null ? null : _editionService.GetEditionByForeignEditionId(resource.ForeignEditionId),
                     Quality = resource.Quality,
                     DownloadId = resource.DownloadId,
                     AdditionalFile = resource.AdditionalFile,

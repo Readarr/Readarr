@@ -35,7 +35,7 @@ namespace NzbDrone.Core.Test.MediaFiles.BookImport.Identification
                 }
             };
 
-            Subject.GetRemoteCandidates(edition).Should().BeEmpty();
+            Subject.GetRemoteCandidates(edition, null).Should().BeEmpty();
         }
     }
 }

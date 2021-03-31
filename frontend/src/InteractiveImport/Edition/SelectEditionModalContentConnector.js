@@ -20,13 +20,14 @@ class SelectEditionModalContentConnector extends Component {
   //
   // Listeners
 
-  onEditionSelect = (bookId, editionId) => {
+  onEditionSelect = (bookId, foreignEditionId) => {
+    console.log(`book: ${bookId} id: ${foreignEditionId} ${typeof foreignEditionId}`);
     const ids = this.props.importIdsByBook[bookId];
 
     ids.forEach((id) => {
       this.props.updateInteractiveImportItem({
         id,
-        editionId,
+        foreignEditionId,
         disableReleaseSwitching: true,
         tracks: [],
         rejections: []

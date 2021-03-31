@@ -115,9 +115,9 @@ class InteractiveImportModalContent extends Component {
     const selectedItems = _.filter(this.props.items, (x) => _.includes(selectedIds, x.id));
 
     const inconsistent = _(selectedItems)
-      .map((x) => ({ bookId: x.book ? x.book.id : 0, releaseId: x.EditionId }))
+      .map((x) => ({ bookId: x.book ? x.book.id : 0, foreignEditionId: x.ForeignEditionId }))
       .groupBy('bookId')
-      .mapValues((book) => _(book).groupBy((x) => x.releaseId).values().value().length)
+      .mapValues((book) => _(book).groupBy((x) => x.foreignEditionId).values().value().length)
       .values()
       .some((x) => x !== undefined && x > 1);
 
@@ -271,6 +271,8 @@ class InteractiveImportModalContent extends Component {
 
     const selectedIds = this.getSelectedIds();
     const selectedItem = selectedIds.length ? _.find(items, { id: selectedIds[0] }) : null;
+    const importIdsByBook = _.chain(items).filter((x) => x.book).groupBy((x) => x.book.id).mapValues((x) => x.map((y) => y.id)).value();
+    const editions = _.chain(items).filter((x) => x.book).keyBy((x) => x.book.id).mapValues((x) => ({ matchedEditionId: x.foreignEditionId, book: x.book })).values().value();
     const errorMessage = getErrorMessage(error, 'Unable to load manual import items');
 
     const bulkSelectOptions = [
@@ -475,8 +477,8 @@ class InteractiveImportModalContent extends Component {
 
         <SelectEditionModal
           isOpen={selectModalOpen === EDITION}
-          importIdsByBook={_.chain(items).filter((x) => x.book).groupBy((x) => x.book.id).mapValues((x) => x.map((y) => y.id)).value()}
-          books={_.chain(items).filter((x) => x.book).keyBy((x) => x.book.id).mapValues((x) => ({ matchedEditionId: x.editionId, book: x.book })).values().value()}
+          importIdsByBook={importIdsByBook}
+          books={editions}
           onModalClose={this.onSelectModalClose}
         />
 

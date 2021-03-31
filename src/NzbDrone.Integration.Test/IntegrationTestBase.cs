@@ -234,13 +234,13 @@ namespace NzbDrone.Integration.Test
             Assert.Fail("Timed on wait");
         }
 
-        public AuthorResource EnsureAuthor(string authorId, string goodreadsBookId, string authorName, bool? monitored = null)
+        public AuthorResource EnsureAuthor(string authorId, string goodreadsEditionId, string authorName, bool? monitored = null)
         {
             var result = Author.All().FirstOrDefault(v => v.ForeignAuthorId == authorId);
 
             if (result == null)
             {
-                var lookup = Author.Lookup("readarr:" + goodreadsBookId);
+                var lookup = Author.Lookup("readarr:" + goodreadsEditionId);
                 var author = lookup.First();
                 author.QualityProfileId = 1;
                 author.MetadataProfileId = 1;
@@ -291,9 +291,9 @@ namespace NzbDrone.Integration.Test
             }
         }
 
-        public void EnsureBookFile(AuthorResource author, int bookId, int editionId, Quality quality)
+        public void EnsureBookFile(AuthorResource author, int bookId, string foreignEditionId, Quality quality)
         {
-            var result = Books.GetBooksInAuthor(author.Id).Single(v => v.Id == editionId);
+            var result = Books.GetBooksInAuthor(author.Id).Single(v => v.Id == bookId);
 
             // if (result.BookFile == null)
             if (true)
@@ -312,14 +312,14 @@ namespace NzbDrone.Integration.Test
                                 Path = path,
                                 AuthorId = author.Id,
                                 BookId = bookId,
-                                EditionId = editionId,
+                                ForeignEditionId = foreignEditionId,
                                 Quality = new QualityModel(quality)
                             }
                     }
                 });
                 Commands.WaitAll();
 
-                var track = Books.GetBooksInAuthor(author.Id).Single(x => x.Id == editionId);
+                var track = Books.GetBooksInAuthor(author.Id).Single(x => x.Id == bookId);
 
                 // track.BookFileId.Should().NotBe(0);
             }

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.IO;
 using System.IO.Abstractions;
 using System.Linq;
@@ -15,6 +16,7 @@ using NzbDrone.Core.Download;
 using NzbDrone.Core.Download.TrackedDownloads;
 using NzbDrone.Core.Messaging.Commands;
 using NzbDrone.Core.Messaging.Events;
+using NzbDrone.Core.MetadataSource;
 using NzbDrone.Core.Parser;
 using NzbDrone.Core.Parser.Model;
 using NzbDrone.Core.RootFolders;
@@ -37,6 +39,7 @@ namespace NzbDrone.Core.MediaFiles.BookImport.Manual
         private readonly IAuthorService _authorService;
         private readonly IBookService _bookService;
         private readonly IEditionService _editionService;
+        private readonly IProvideBookInfo _bookInfo;
         private readonly IAudioTagService _audioTagService;
         private readonly IImportApprovedBooks _importApprovedBooks;
         private readonly ITrackedDownloadService _trackedDownloadService;
@@ -53,6 +56,7 @@ namespace NzbDrone.Core.MediaFiles.BookImport.Manual
                                    IAuthorService authorService,
                                    IBookService bookService,
                                    IEditionService editionService,
+                                   IProvideBookInfo bookInfo,
                                    IAudioTagService audioTagService,
                                    IImportApprovedBooks importApprovedBooks,
                                    ITrackedDownloadService trackedDownloadService,
@@ -69,6 +73,7 @@ namespace NzbDrone.Core.MediaFiles.BookImport.Manual
             _authorService = authorService;
             _bookService = bookService;
             _editionService = editionService;
+            _bookInfo = bookInfo;
             _audioTagService = audioTagService;
             _importApprovedBooks = importApprovedBooks;
             _trackedDownloadService = trackedDownloadService;
@@ -299,7 +304,14 @@ namespace NzbDrone.Core.MediaFiles.BookImport.Manual
 
                     var author = _authorService.GetAuthor(file.AuthorId);
                     var book = _bookService.GetBook(file.BookId);
-                    var edition = _editionService.GetEdition(file.EditionId);
+
+                    var edition = _editionService.GetEditionByForeignEditionId(file.ForeignEditionId);
+                    if (edition == null)
+                    {
+                        var tuple = _bookInfo.GetBookInfo(file.ForeignEditionId);
+                        edition = tuple.Item2.Editions.Value.SingleOrDefault(x => x.ForeignEditionId == file.ForeignEditionId);
+                    }
+
                     var fileTrackInfo = _audioTagService.ReadTags(file.Path) ?? new ParsedTrackInfo();
                     var fileInfo = _diskProvider.GetFileInfo(file.Path);
 
@@ -355,20 +367,23 @@ namespace NzbDrone.Core.MediaFiles.BookImport.Manual
             foreach (var groupedTrackedDownload in importedTrackedDownload.GroupBy(i => i.TrackedDownload.DownloadItem.DownloadId).ToList())
             {
                 var trackedDownload = groupedTrackedDownload.First().TrackedDownload;
-
                 var outputPath = trackedDownload.ImportItem.OutputPath.FullPath;
 
                 if (_diskProvider.FolderExists(outputPath))
                 {
-                    if (_downloadedTracksImportService.ShouldDeleteFolder(
-                            _diskProvider.GetDirectoryInfo(outputPath),
-                            trackedDownload.RemoteBook.Author) && trackedDownload.DownloadItem.CanMoveFiles)
+                    if (_downloadedTracksImportService.ShouldDeleteFolder(_diskProvider.GetDirectoryInfo(outputPath)) &&
+                        trackedDownload.DownloadItem.CanMoveFiles)
                     {
                         _diskProvider.DeleteFolder(outputPath, true);
                     }
                 }
 
-                if (groupedTrackedDownload.Select(c => c.ImportResult).Count(c => c.Result == ImportResultType.Imported) >= Math.Max(1, trackedDownload.RemoteBook.Books.Count))
+                var importedCount = groupedTrackedDownload.Select(c => c.ImportResult)
+                    .Count(c => c.Result == ImportResultType.Imported);
+                var downloadItemCount = Math.Max(1, trackedDownload.RemoteBook?.Books.Count ?? 1);
+                var allItemsImported = importedCount >= downloadItemCount;
+
+                if (allItemsImported)
                 {
                     trackedDownload.State = TrackedDownloadState.Imported;
                     _eventAggregator.PublishEvent(new DownloadCompletedEvent(trackedDownload));

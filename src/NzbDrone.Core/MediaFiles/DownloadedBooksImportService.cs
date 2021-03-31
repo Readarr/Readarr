@@ -21,7 +21,7 @@ namespace NzbDrone.Core.MediaFiles
     {
         List<ImportResult> ProcessRootFolder(IDirectoryInfo directoryInfo);
         List<ImportResult> ProcessPath(string path, ImportMode importMode = ImportMode.Auto, Author author = null, DownloadClientItem downloadClientItem = null);
-        bool ShouldDeleteFolder(IDirectoryInfo directoryInfo, Author author);
+        bool ShouldDeleteFolder(IDirectoryInfo directoryInfo);
     }
 
     public class DownloadedBooksImportService : IDownloadedBooksImportService
@@ -110,7 +110,7 @@ namespace NzbDrone.Core.MediaFiles
             return new List<ImportResult>();
         }
 
-        public bool ShouldDeleteFolder(IDirectoryInfo directoryInfo, Author author)
+        public bool ShouldDeleteFolder(IDirectoryInfo directoryInfo)
         {
             try
             {
@@ -238,7 +238,7 @@ namespace NzbDrone.Core.MediaFiles
 
             if (importMode == ImportMode.Move &&
                 importResults.Any(i => i.Result == ImportResultType.Imported) &&
-                ShouldDeleteFolder(directoryInfo, author))
+                ShouldDeleteFolder(directoryInfo))
             {
                 _logger.Debug("Deleting folder after importing valid files");
                 _diskProvider.DeleteFolder(directoryInfo.FullName, true);

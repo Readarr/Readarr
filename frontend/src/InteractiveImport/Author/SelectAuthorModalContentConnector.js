@@ -48,7 +48,7 @@ class SelectAuthorModalContentConnector extends Component {
         id,
         author,
         book: undefined,
-        bookReleaseId: undefined,
+        foreignEditionId: undefined,
         rejections: []
       });
     });
