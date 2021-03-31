@@ -7,9 +7,12 @@ using NLog;
 using NzbDrone.Common;
 using NzbDrone.Common.Disk;
 using NzbDrone.Common.Extensions;
+using NzbDrone.Core.Datastore.Events;
 using NzbDrone.Core.MediaFiles;
 using NzbDrone.Core.MediaFiles.Commands;
 using NzbDrone.Core.Messaging.Commands;
+using NzbDrone.Core.Messaging.Events;
+using NzbDrone.Core.RemotePathMappings;
 
 namespace NzbDrone.Core.RootFolders
 {
@@ -26,7 +29,7 @@ namespace NzbDrone.Core.RootFolders
         string GetBestRootFolderPath(string path);
     }
 
-    public class RootFolderService : IRootFolderService
+    public class RootFolderService : IRootFolderService, IHandle<ModelEvent<RemotePathMapping>>
     {
         private readonly IRootFolderRepository _rootFolderRepository;
         private readonly IDiskProvider _diskProvider;
@@ -170,6 +173,21 @@ namespace NzbDrone.Core.RootFolders
                     rootFolder.TotalSpace = _diskProvider.GetTotalSize(rootFolder.Path);
                 }
             }).Wait(5000);
+        }
+
+        public void Handle(ModelEvent<RemotePathMapping> message)
+        {
+            var commands = All()
+                .Where(x => x.IsCalibreLibrary &&
+                       x.CalibreSettings.Host == message.Model.Host &&
+                       x.Path.StartsWith(message.Model.LocalPath))
+                .Select(x => new RescanFoldersCommand(new List<string> { x.Path }, FilterFilesType.None, true, null))
+                .ToList();
+
+            if (commands.Any())
+            {
+                _commandQueueManager.PushMany(commands);
+            }
         }
     }
 }
