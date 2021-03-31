@@ -28,6 +28,9 @@ namespace NzbDrone.Core.MetadataSource.Goodreads
         private static readonly Regex NoPhotoRegex = new Regex(@"/nophoto/(book|user)/",
                                                                RegexOptions.IgnoreCase | RegexOptions.Compiled);
 
+        private static readonly Regex SeriesRegex = new Regex(@"\((?<series>[^,]+),\s+#(?<position>[\w\d\.]+)\)$",
+            RegexOptions.Compiled);
+
         private readonly ICachedHttpResponseService _cachedHttpClient;
         private readonly Logger _logger;
         private readonly IAuthorService _authorService;
@@ -657,6 +660,8 @@ namespace NzbDrone.Core.MetadataSource.Goodreads
 
             Debug.Assert(!book.Editions.Value.Any() || book.Editions.Value.Count(x => x.Monitored) == 1, "one edition monitored");
 
+            book.SeriesLinks = MapSearchSeries(resource.Title, resource.TitleWithoutSeries);
+
             return book;
         }
 
@@ -794,8 +799,40 @@ namespace NzbDrone.Core.MetadataSource.Goodreads
             book.Author = author;
             book.AuthorMetadata = book.Author.Value.Metadata.Value;
             book.CleanTitle = book.Title.CleanAuthorName();
+            book.SeriesLinks = MapSearchSeries(resource.Title, resource.BookTitleBare);
 
             return book;
+        }
+
+        private static List<SeriesBookLink> MapSearchSeries(string title, string titleWithoutSeries)
+        {
+            if (title != titleWithoutSeries &&
+                title.Substring(0, titleWithoutSeries.Length) == titleWithoutSeries)
+            {
+                var seriesText = title.Substring(titleWithoutSeries.Length);
+
+                var match = SeriesRegex.Match(seriesText);
+
+                if (match.Success)
+                {
+                    var series = match.Groups["series"].Value;
+                    var position = match.Groups["position"].Value;
+
+                    return new List<SeriesBookLink>
+                    {
+                        new SeriesBookLink
+                        {
+                            Series = new Series
+                            {
+                                Title = series
+                            },
+                            Position = position
+                        }
+                    };
+                }
+            }
+
+            return null;
         }
     }
 }
