@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using System.IO;
+using System.IO.Abstractions;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using NzbDrone.Core.Books;
@@ -24,7 +26,7 @@ namespace Readarr.Api.V1.BookFiles
     {
         private readonly IMediaFileService _mediaFileService;
         private readonly IDeleteMediaFiles _mediaFileDeletionService;
-        private readonly IAudioTagService _audioTagService;
+        private readonly IEBookTagService _eBookTagService;
         private readonly IAuthorService _authorService;
         private readonly IBookService _bookService;
         private readonly IUpgradableSpecification _upgradableSpecification;
@@ -32,7 +34,7 @@ namespace Readarr.Api.V1.BookFiles
         public BookFileController(IBroadcastSignalRMessage signalRBroadcaster,
                                IMediaFileService mediaFileService,
                                IDeleteMediaFiles mediaFileDeletionService,
-                               IAudioTagService audioTagService,
+                               IEBookTagService eBookTagService,
                                IAuthorService authorService,
                                IBookService bookService,
                                IUpgradableSpecification upgradableSpecification)
@@ -40,7 +42,7 @@ namespace Readarr.Api.V1.BookFiles
         {
             _mediaFileService = mediaFileService;
             _mediaFileDeletionService = mediaFileDeletionService;
-            _audioTagService = audioTagService;
+            _eBookTagService = eBookTagService;
             _authorService = authorService;
             _bookService = bookService;
             _upgradableSpecification = upgradableSpecification;
@@ -61,7 +63,7 @@ namespace Readarr.Api.V1.BookFiles
         public override BookFileResource GetResourceById(int id)
         {
             var resource = MapToResource(_mediaFileService.Get(id));
-            resource.AudioTags = _audioTagService.ReadTags(resource.Path);
+            resource.AudioTags = _eBookTagService.ReadTags((FileInfoBase)new FileInfo(resource.Path));
             return resource;
         }
 

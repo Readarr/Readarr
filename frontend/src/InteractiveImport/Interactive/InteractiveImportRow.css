@@ -2,6 +2,7 @@
   composes: cell from '~Components/Table/Cells/TableRowCell.css';
 
   word-break: break-all;
+  cursor: pointer;
 }
 
 .quality {

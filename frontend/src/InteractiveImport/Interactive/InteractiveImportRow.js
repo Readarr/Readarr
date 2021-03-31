@@ -1,14 +1,16 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import BookQuality from 'Book/BookQuality';
+import FileDetails from 'BookFile/FileDetails';
 import Icon from 'Components/Icon';
+import ConfirmModal from 'Components/Modal/ConfirmModal';
 import TableRowCell from 'Components/Table/Cells/TableRowCell';
 import TableRowCellButton from 'Components/Table/Cells/TableRowCellButton';
 import TableSelectCell from 'Components/Table/Cells/TableSelectCell';
 import TableRow from 'Components/Table/TableRow';
 import Popover from 'Components/Tooltip/Popover';
 import Tooltip from 'Components/Tooltip/Tooltip';
-import { icons, kinds, tooltipPositions } from 'Helpers/Props';
+import { icons, kinds, sizes, tooltipPositions } from 'Helpers/Props';
 import SelectAuthorModal from 'InteractiveImport/Author/SelectAuthorModal';
 import SelectBookModal from 'InteractiveImport/Book/SelectBookModal';
 import SelectQualityModal from 'InteractiveImport/Quality/SelectQualityModal';
@@ -25,6 +27,7 @@ class InteractiveImportRow extends Component {
     super(props, context);
 
     this.state = {
+      isDetailsModalOpen: false,
       isSelectAuthorModalOpen: false,
       isSelectBookModalOpen: false,
       isSelectQualityModalOpen: false
@@ -97,6 +100,14 @@ class InteractiveImportRow extends Component {
   //
   // Listeners
 
+  onDetailsPress = () => {
+    this.setState({ isDetailsModalOpen: true });
+  }
+
+  onDetailsModalClose = () => {
+    this.setState({ isDetailsModalOpen: false });
+  }
+
   onSelectAuthorPress = () => {
     this.setState({ isSelectAuthorModalOpen: true });
   }
@@ -139,10 +150,12 @@ class InteractiveImportRow extends Component {
       rejections,
       additionalFile,
       isSelected,
-      onSelectedChange
+      onSelectedChange,
+      audioTags
     } = this.props;
 
     const {
+      isDetailsModalOpen,
       isSelectAuthorModalOpen,
       isSelectBookModalOpen,
       isSelectQualityModalOpen
@@ -159,7 +172,7 @@ class InteractiveImportRow extends Component {
     const showQualityPlaceholder = isSelected && !quality;
 
     const pathCellContents = (
-      <div>
+      <div onClick={this.onDetailsPress}>
         {path}
       </div>
     );
@@ -171,6 +184,13 @@ class InteractiveImportRow extends Component {
         position={tooltipPositions.TOP}
       />
     ) : pathCellContents;
+
+    const fileDetails = (
+      <FileDetails
+        audioTags={audioTags}
+        filename={path}
+      />
+    );
 
     return (
       <TableRow
@@ -261,6 +281,18 @@ class InteractiveImportRow extends Component {
               null
           }
         </TableRowCell>
+
+        <ConfirmModal
+          isOpen={isDetailsModalOpen}
+          title="File Details"
+          message={fileDetails}
+          size={sizes.LARGE}
+          kind={kinds.DEFAULT}
+          hideCancelButton={true}
+          confirmLabel="Close"
+          onConfirm={this.onDetailsModalClose}
+          onCancel={this.onDetailsModalClose}
+        />
 
         <SelectAuthorModal
           isOpen={isSelectAuthorModalOpen}
