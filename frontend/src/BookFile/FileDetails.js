@@ -6,7 +6,7 @@ import DescriptionListItem from 'Components/DescriptionList/DescriptionListItem'
 import DescriptionListItemDescription from 'Components/DescriptionList/DescriptionListItemDescription';
 import DescriptionListItemTitle from 'Components/DescriptionList/DescriptionListItemTitle';
 import Link from 'Components/Link/Link';
-import formatTimeSpan from 'Utilities/Date/formatTimeSpan';
+import stripHtml from 'Utilities/String/stripHtml';
 import styles from './FileDetails.css';
 
 function renderRejections(rejections) {
@@ -91,10 +91,31 @@ function FileDetails(props) {
               />
           }
           {
+            audioTags.seriesTitle !== undefined &&
+              <DescriptionListItem
+                title="Series"
+                data={audioTags.seriesTitle}
+              />
+          }
+          {
+            audioTags.seriesIndex !== undefined &&
+              <DescriptionListItem
+                title="Series Number"
+                data={audioTags.seriesIndex}
+              />
+          }
+          {
             audioTags.country !== undefined &&
               <DescriptionListItem
                 title="Country"
                 data={audioTags.country.name}
+              />
+          }
+          {
+            audioTags.language !== undefined && audioTags.language !== 'UND' &&
+              <DescriptionListItem
+                title="Language"
+                data={audioTags.language}
               />
           }
           {
@@ -112,6 +133,13 @@ function FileDetails(props) {
               />
           }
           {
+            audioTags.publisher !== undefined &&
+              <DescriptionListItem
+                title="Publisher"
+                data={audioTags.publisher}
+              />
+          }
+          {
             audioTags.catalogNumber !== undefined &&
               <DescriptionListItem
                 title="Catalog Number"
@@ -121,18 +149,24 @@ function FileDetails(props) {
           {
             audioTags.disambiguation !== undefined &&
               <DescriptionListItem
-                title="Disambiguation"
-                data={audioTags.disambiguation}
+                title="Overview"
+                data={stripHtml(audioTags.disambiguation)}
               />
           }
           {
-            audioTags.duration !== undefined &&
+            audioTags.isbn !== undefined &&
               <DescriptionListItem
-                title="Duration"
-                data={formatTimeSpan(audioTags.duration)}
+                title="ISBN"
+                data={audioTags.isbn}
               />
           }
           {
+            audioTags.asin !== undefined &&
+              <DescriptionListItem
+                title="ASIN"
+                data={audioTags.asin}
+              />
+          }       {
             audioTags.authorMBId !== undefined &&
               <Link
                 to={`https://musicbrainz.org/author/${audioTags.authorMBId}`}
