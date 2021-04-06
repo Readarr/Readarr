@@ -338,7 +338,11 @@ namespace NzbDrone.Core.Books.Calibre
                     var response = _httpClient.Get<Dictionary<int, CalibreBook>>(request);
                     foreach (var book in response.Resource.Values)
                     {
-                        var remotePath = book?.Formats.Values.OrderBy(f => f.LastModified).FirstOrDefault()?.Path;
+                        var remotePath = book?.Formats
+                            .Where(x => MediaFileExtensions.TextExtensions.Contains("." + x.Key))
+                            .OrderBy(f => f.Value.LastModified)
+                            .FirstOrDefault().Value?.Path;
+
                         if (remotePath == null)
                         {
                             continue;
