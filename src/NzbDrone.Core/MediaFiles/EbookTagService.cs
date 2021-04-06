@@ -68,6 +68,7 @@ namespace NzbDrone.Core.MediaFiles
                 case ".pdf":
                     return ReadPdf(file.FullName);
                 case ".epub":
+                case ".kepub":
                     return ReadEpub(file.FullName);
                 case ".azw3":
                 case ".mobi":
