@@ -15,6 +15,7 @@ namespace NzbDrone.Core.MediaFiles
             _textExtensions = new Dictionary<string, Quality>(StringComparer.OrdinalIgnoreCase)
             {
                 { ".epub", Quality.EPUB },
+                { ".kepub", Quality.EPUB },
                 { ".mobi", Quality.MOBI },
                 { ".azw3", Quality.AZW3 },
                 { ".pdf", Quality.PDF },
