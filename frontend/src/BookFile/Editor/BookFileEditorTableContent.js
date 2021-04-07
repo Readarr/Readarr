@@ -26,6 +26,11 @@ const columns = [
     name: 'quality',
     label: 'Quality',
     isVisible: true
+  },
+  {
+    name: 'actions',
+    columnLabel: 'Actions',
+    isVisible: true
   }
 ];
 
@@ -117,7 +122,8 @@ class BookFileEditorTableContent extends Component {
       isPopulated,
       error,
       items,
-      qualities
+      qualities,
+      dispatchDeleteBookFile
     } = this.props;
 
     const {
@@ -178,6 +184,7 @@ class BookFileEditorTableContent extends Component {
                         isSelected={selectedState[item.id]}
                         {...item}
                         onSelectedChange={this.onSelectedChange}
+                        deleteBookFile={dispatchDeleteBookFile}
                       />
                     );
                   })
@@ -230,7 +237,8 @@ BookFileEditorTableContent.propTypes = {
   items: PropTypes.arrayOf(PropTypes.object).isRequired,
   qualities: PropTypes.arrayOf(PropTypes.object).isRequired,
   onDeletePress: PropTypes.func.isRequired,
-  onQualityChange: PropTypes.func.isRequired
+  onQualityChange: PropTypes.func.isRequired,
+  dispatchDeleteBookFile: PropTypes.func.isRequired
 };
 
 export default BookFileEditorTableContent;
