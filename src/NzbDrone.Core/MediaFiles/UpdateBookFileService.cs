@@ -17,7 +17,7 @@ namespace NzbDrone.Core.MediaFiles
         void ChangeFileDateForFile(BookFile bookFile, Author author, Book book);
     }
 
-    public class UpdateTrackFileService : IUpdateBookFileService,
+    public class UpdateBookFileService : IUpdateBookFileService,
                                             IHandle<AuthorScannedEvent>
     {
         private readonly IDiskProvider _diskProvider;
@@ -26,7 +26,7 @@ namespace NzbDrone.Core.MediaFiles
         private readonly Logger _logger;
         private static readonly DateTime EpochTime = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
 
-        public UpdateTrackFileService(IDiskProvider diskProvider,
+        public UpdateBookFileService(IDiskProvider diskProvider,
                                       IConfigService configService,
                                       IBookService bookService,
                                       Logger logger)

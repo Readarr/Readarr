@@ -68,7 +68,7 @@ namespace NzbDrone.Core.MediaFiles
 
             _logger.Debug("Renaming book file: {0} to {1}", bookFile, filePath);
 
-            return TransferFile(bookFile, author, null, filePath, TransferMode.Move);
+            return TransferFile(bookFile, author, bookFile.Edition.Value.Book.Value, filePath, TransferMode.Move);
         }
 
         public BookFile MoveBookFile(BookFile bookFile, LocalBook localBook)
@@ -80,7 +80,7 @@ namespace NzbDrone.Core.MediaFiles
 
             _logger.Debug("Moving book file: {0} to {1}", bookFile.Path, filePath);
 
-            return TransferFile(bookFile, localBook.Author, null, filePath, TransferMode.Move);
+            return TransferFile(bookFile, localBook.Author, localBook.Book, filePath, TransferMode.Move);
         }
 
         public BookFile CopyBookFile(BookFile bookFile, LocalBook localBook)
