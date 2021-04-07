@@ -154,7 +154,10 @@ class BookRow extends Component {
 
             if (name === 'rating') {
               return (
-                <TableRowCell key={name}>
+                <TableRowCell
+                  key={name}
+                  className={styles.rating}
+                >
                   {
                     <StarRating
                       rating={ratings.value}
@@ -168,6 +171,7 @@ class BookRow extends Component {
             if (name === 'releaseDate') {
               return (
                 <RelativeDateCellConnector
+                  className={styles.releaseDate}
                   key={name}
                   date={releaseDate}
                 />
@@ -178,6 +182,7 @@ class BookRow extends Component {
               return (
                 <TableRowCell
                   key={name}
+                  className={styles.pageCount}
                 >
                   {pageCount || ''}
                 </TableRowCell>
