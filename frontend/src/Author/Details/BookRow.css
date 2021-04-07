@@ -1,7 +1,5 @@
 .title {
   composes: cell from '~Components/Table/Cells/TableRowCell.css';
-
-  white-space: nowrap;
 }
 
 .monitored {
@@ -14,4 +12,22 @@
   composes: cell from '~Components/Table/Cells/TableRowCell.css';
 
   width: 100px;
+}
+
+.rating {
+  composes: cell from '~Components/Table/Cells/TableRowCell.css';
+
+  width: 100px;
+}
+
+.releaseDate {
+  composes: cell from '~Components/Table/Cells/TableRowCell.css';
+
+  width: 120px;
+}
+
+.pageCount {
+  composes: cell from '~Components/Table/Cells/TableRowCell.css';
+
+  width: 80px;
 }

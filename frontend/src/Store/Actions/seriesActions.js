@@ -38,10 +38,10 @@ export const defaultState = {
       isVisible: true
     },
     {
-      name: 'position',
-      label: 'Number',
+      name: 'series',
+      label: 'Series',
       isSortable: true,
-      isVisible: true
+      isVisible: false
     },
     {
       name: 'releaseDate',
@@ -50,26 +50,10 @@ export const defaultState = {
       isVisible: true
     },
     {
-      name: 'secondaryTypes',
-      label: 'Secondary Types',
+      name: 'pageCount',
+      label: 'Pages',
       isSortable: true,
-      isVisible: false
-    },
-    {
-      name: 'mediumCount',
-      label: 'Media Count',
-      isVisible: false
-    },
-    {
-      name: 'bookCount',
-      label: 'Book Count',
-      isVisible: false
-    },
-    {
-      name: 'duration',
-      label: 'Duration',
-      isSortable: true,
-      isVisible: false
+      isVisible: true
     },
     {
       name: 'rating',
