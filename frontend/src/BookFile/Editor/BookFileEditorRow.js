@@ -4,6 +4,7 @@ import BookQuality from 'Book/BookQuality';
 import TableRowCell from 'Components/Table/Cells/TableRowCell';
 import TableSelectCell from 'Components/Table/Cells/TableSelectCell';
 import TableRow from 'Components/Table/TableRow';
+import BookFileActionsCell from './BookFileActionsCell';
 
 function BookFileEditorRow(props) {
   const {
@@ -12,7 +13,8 @@ function BookFileEditorRow(props) {
     quality,
     qualityCutoffNotMet,
     isSelected,
-    onSelectedChange
+    onSelectedChange,
+    deleteBookFile
   } = props;
 
   return (
@@ -32,6 +34,12 @@ function BookFileEditorRow(props) {
           isCutoffNotMet={qualityCutoffNotMet}
         />
       </TableRowCell>
+
+      <BookFileActionsCell
+        id={id}
+        path={path}
+        deleteBookFile={deleteBookFile}
+      />
     </TableRow>
   );
 }
@@ -42,7 +50,8 @@ BookFileEditorRow.propTypes = {
   quality: PropTypes.object.isRequired,
   qualityCutoffNotMet: PropTypes.bool.isRequired,
   isSelected: PropTypes.bool,
-  onSelectedChange: PropTypes.func.isRequired
+  onSelectedChange: PropTypes.func.isRequired,
+  deleteBookFile: PropTypes.func.isRequired
 };
 
 export default BookFileEditorRow;
