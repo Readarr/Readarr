@@ -14,6 +14,8 @@ import Label from 'Components/Label';
 import IconButton from 'Components/Link/IconButton';
 import Link from 'Components/Link/Link';
 import LoadingIndicator from 'Components/Loading/LoadingIndicator';
+import Marquee from 'Components/Marquee';
+import Measure from 'Components/Measure';
 import MonitorToggleButton from 'Components/MonitorToggleButton';
 import PageContent from 'Components/Page/PageContent';
 import PageContentBody from 'Components/Page/PageContentBody';
@@ -78,7 +80,9 @@ class AuthorDetails extends Component {
       allExpanded: false,
       allCollapsed: false,
       expandedState: {},
-      selectedTabIndex: 0
+      selectedTabIndex: 0,
+      titleWidth: 0,
+      overviewHeight: 0
     };
   }
 
@@ -155,6 +159,14 @@ class AuthorDetails extends Component {
     this.setState({ selectedTabIndex: index });
   }
 
+  onTitleMeasure = ({ width }) => {
+    this.setState({ titleWidth: width });
+  }
+
+  onOverviewMeasure = ({ height }) => {
+    this.setState({ overviewHeight: height });
+  }
+
   //
   // Render
 
@@ -206,8 +218,12 @@ class AuthorDetails extends Component {
       allExpanded,
       allCollapsed,
       expandedState,
-      selectedTabIndex
+      selectedTabIndex,
+      titleWidth,
+      overviewHeight
     } = this.state;
+
+    const marqueeWidth = (titleWidth - 170);
 
     const continuing = status === 'continuing';
 
@@ -315,7 +331,10 @@ class AuthorDetails extends Component {
               />
 
               <div className={styles.info}>
-                <div className={styles.titleRow}>
+                <Measure
+                  onMeasure={this.onTitleMeasure}
+                  className={styles.titleRow}
+                >
                   <div className={styles.titleContainer}>
                     <div className={styles.toggleMonitoredContainer}>
                       <MonitorToggleButton
@@ -327,8 +346,8 @@ class AuthorDetails extends Component {
                       />
                     </div>
 
-                    <div className={styles.title}>
-                      {authorName}
+                    <div className={styles.title} style={{ width: marqueeWidth }}>
+                      <Marquee text={authorName} />
                     </div>
 
                     {
@@ -374,7 +393,7 @@ class AuthorDetails extends Component {
                       to={`/author/${nextAuthor.titleSlug}`}
                     />
                   </div>
-                </div>
+                </Measure>
 
                 <div className={styles.details}>
                   <div>
@@ -515,12 +534,15 @@ class AuthorDetails extends Component {
 
                   }
                 </div>
-                <div className={styles.overview}>
+                <Measure
+                  onMeasure={this.onOverviewMeasure}
+                  className={styles.overview}
+                >
                   <TextTruncate
-                    line={Math.floor(125 / (defaultFontSize * lineHeight))}
+                    line={Math.floor(overviewHeight / (defaultFontSize * lineHeight))}
                     text={stripHtml(overview)}
                   />
-                </div>
+                </Measure>
               </div>
             </div>
           </div>

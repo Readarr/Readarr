@@ -16,23 +16,46 @@ class Measure extends Component {
   // Listeners
 
   onMeasure = _.debounce((payload) => {
-    this.props.onMeasure(payload);
-  }, 250, { leading: true, trailing: false })
+    this.props.onMeasure(payload.bounds);
+  }, 250, { leading: true, trailing: true })
 
   //
   // Render
 
   render() {
+    const {
+      className,
+      style,
+      onMeasure,
+      children,
+      ...otherProps
+    } = this.props;
+
     return (
       <ReactMeasure
-        {...this.props}
-      />
+        bounds={true}
+        onResize={this.onMeasure}
+        {...otherProps}
+      >
+        {({ measureRef }) => (
+          <div
+            ref={measureRef}
+            className={className}
+            style={style}
+          >
+            {children}
+          </div>
+        )}
+      </ReactMeasure>
     );
   }
 }
 
 Measure.propTypes = {
-  onMeasure: PropTypes.func.isRequired
+  className: PropTypes.string,
+  style: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
+  onMeasure: PropTypes.func.isRequired,
+  children: PropTypes.node
 };
 
 export default Measure;

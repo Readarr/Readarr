@@ -121,40 +121,36 @@ class QualityProfileItems extends Component {
           </Button>
 
           <Measure
-            whitelist={['height']}
             includeMargin={false}
             onMeasure={this.onMeasure}
+            className={styles.qualities}
+            style={{ minHeight: `${minHeight}px` }}
           >
-            <div
-              className={styles.qualities}
-              style={{ minHeight: `${minHeight}px` }}
-            >
-              {
-                qualityProfileItems.map(({ id, name, allowed, quality, items }, index) => {
-                  const identifier = quality ? quality.id : id;
+            {
+              qualityProfileItems.map(({ id, name, allowed, quality, items }, index) => {
+                const identifier = quality ? quality.id : id;
 
-                  return (
-                    <QualityProfileItemDragSource
-                      key={identifier}
-                      editGroups={editGroups}
-                      groupId={id}
-                      qualityId={quality && quality.id}
-                      name={quality ? quality.name : name}
-                      allowed={allowed}
-                      items={items}
-                      qualityIndex={`${index + 1}`}
-                      isInGroup={false}
-                      isDragging={isDragging}
-                      isDraggingUp={isDraggingUp}
-                      isDraggingDown={isDraggingDown}
-                      {...otherProps}
-                    />
-                  );
-                }).reverse()
-              }
+                return (
+                  <QualityProfileItemDragSource
+                    key={identifier}
+                    editGroups={editGroups}
+                    groupId={id}
+                    qualityId={quality && quality.id}
+                    name={quality ? quality.name : name}
+                    allowed={allowed}
+                    items={items}
+                    qualityIndex={`${index + 1}`}
+                    isInGroup={false}
+                    isDragging={isDragging}
+                    isDraggingUp={isDraggingUp}
+                    isDraggingDown={isDraggingDown}
+                    {...otherProps}
+                  />
+                );
+              }).reverse()
+            }
 
-              <QualityProfileItemDragPreview />
-            </div>
+            <QualityProfileItemDragPreview />
           </Measure>
         </div>
       </FormGroup>

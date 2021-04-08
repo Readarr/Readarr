@@ -123,22 +123,20 @@ class PageJumpBar extends Component {
     return (
       <div className={styles.jumpBar}>
         <Measure
-          whitelist={['height']}
+          className={styles.jumpBarItems}
           onMeasure={this.onMeasure}
         >
-          <div className={styles.jumpBarItems}>
-            {
-              visibleItems.map((item) => {
-                return (
-                  <PageJumpBarItem
-                    key={item}
-                    label={item}
-                    onItemPress={onItemPress}
-                  />
-                );
-              })
-            }
-          </div>
+          {
+            visibleItems.map((item) => {
+              return (
+                <PageJumpBarItem
+                  key={item}
+                  label={item}
+                  onItemPress={onItemPress}
+                />
+              );
+            })
+          }
         </Measure>
       </div>
     );

@@ -133,73 +133,69 @@ class PageToolbarSection extends Component {
 
     return (
       <Measure
-        whitelist={['width']}
         onMeasure={this.onMeasure}
+        className={styles.sectionContainer}
+        style={{
+          flexGrow: buttonCount
+        }}
       >
-        <div
-          className={styles.sectionContainer}
-          style={{
-            flexGrow: buttonCount
-          }}
-        >
-          {
-            isMeasured ?
-              <div className={classNames(
-                styles.section,
-                styles[alignContent]
-              )}
-              >
-                {
-                  buttons.map((button) => {
-                    return button;
-                  })
-                }
+        {
+          isMeasured ?
+            <div className={classNames(
+              styles.section,
+              styles[alignContent]
+            )}
+            >
+              {
+                buttons.map((button) => {
+                  return button;
+                })
+              }
 
-                {
-                  !!overflowItems.length &&
-                    <Menu>
-                      <ToolbarMenuButton
-                        className={styles.overflowMenuButton}
-                        iconName={icons.OVERFLOW}
-                        text="More"
-                      />
+              {
+                !!overflowItems.length &&
+                  <Menu>
+                    <ToolbarMenuButton
+                      className={styles.overflowMenuButton}
+                      iconName={icons.OVERFLOW}
+                      text="More"
+                    />
 
-                      <MenuContent>
-                        {
-                          overflowItems.map((item) => {
-                            const {
-                              iconName,
-                              spinningName,
-                              label,
-                              isDisabled,
-                              isSpinning,
-                              ...otherProps
-                            } = item;
+                    <MenuContent>
+                      {
+                        overflowItems.map((item) => {
+                          const {
+                            iconName,
+                            spinningName,
+                            label,
+                            isDisabled,
+                            isSpinning,
+                            ...otherProps
+                          } = item;
 
-                            return (
-                              <MenuItem
-                                key={label}
-                                isDisabled={isDisabled || isSpinning}
-                                {...otherProps}
-                              >
-                                <SpinnerIcon
-                                  className={styles.overflowMenuItemIcon}
-                                  name={iconName}
-                                  spinningName={spinningName}
-                                  isSpinning={isSpinning}
-                                />
-                                {label}
-                              </MenuItem>
-                            );
-                          })
-                        }
-                      </MenuContent>
-                    </Menu>
-                }
-              </div> :
-              null
-          }
-        </div>
+                          return (
+                            <MenuItem
+                              key={label}
+                              isDisabled={isDisabled || isSpinning}
+                              {...otherProps}
+                            >
+                              <SpinnerIcon
+                                className={styles.overflowMenuItemIcon}
+                                name={iconName}
+                                spinningName={spinningName}
+                                isSpinning={isSpinning}
+                              />
+                              {label}
+                            </MenuItem>
+                          );
+                        })
+                      }
+                    </MenuContent>
+                  </Menu>
+              }
+            </div> :
+            null
+        }
       </Measure>
     );
   }

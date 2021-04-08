@@ -270,7 +270,6 @@ class AuthorIndexPosters extends Component {
 
     return (
       <Measure
-        whitelist={['width']}
         onMeasure={this.onMeasure}
       >
         <WindowScroller
