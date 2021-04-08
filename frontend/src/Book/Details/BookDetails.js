@@ -60,7 +60,8 @@ class BookDetails extends Component {
       isEditBookModalOpen: false,
       isDeleteBookModalOpen: false,
       selectedTabIndex: 0,
-      titleWidth: 0
+      titleWidth: 0,
+      overviewHeight: 0
     };
   }
 
@@ -110,6 +111,10 @@ class BookDetails extends Component {
     this.setState({ titleWidth: width });
   }
 
+  onOverviewMeasure = ({ height }) => {
+    this.setState({ overviewHeight: height });
+  }
+
   //
   // Render
 
@@ -149,10 +154,11 @@ class BookDetails extends Component {
       isEditBookModalOpen,
       isDeleteBookModalOpen,
       selectedTabIndex,
-      titleWidth
+      titleWidth,
+      overviewHeight
     } = this.state;
 
-    const marqueeWidth = (titleWidth - 150);
+    const marqueeWidth = (titleWidth - 170);
 
     return (
       <PageContent title={title}>
@@ -227,51 +233,52 @@ class BookDetails extends Component {
               />
 
               <div className={styles.info}>
-                <Measure onMeasure={this.onTitleMeasure}>
-                  <div className={styles.titleRow}>
-                    <div className={styles.titleContainer}>
+                <Measure
+                  onMeasure={this.onTitleMeasure}
+                  className={styles.titleRow}
+                >
+                  <div className={styles.titleContainer}>
 
-                      <div className={styles.toggleMonitoredContainer}>
-                        <MonitorToggleButton
-                          className={styles.monitorToggleButton}
-                          monitored={monitored}
-                          isSaving={isSaving}
-                          size={40}
-                          onPress={onMonitorTogglePress}
-                        />
-                      </div>
-
-                      <div className={styles.title} style={{ width: marqueeWidth }}>
-                        <Marquee text={title} />
-                      </div>
-
-                    </div>
-
-                    <div className={styles.bookNavigationButtons}>
-                      <IconButton
-                        className={styles.bookNavigationButton}
-                        name={icons.ARROW_LEFT}
-                        size={30}
-                        title={`Go to ${previousBook.title}`}
-                        to={`/book/${previousBook.titleSlug}`}
-                      />
-
-                      <IconButton
-                        className={styles.bookNavigationButton}
-                        name={icons.ARROW_UP}
-                        size={30}
-                        title={`Go to ${author.authorName}`}
-                        to={`/author/${author.titleSlug}`}
-                      />
-
-                      <IconButton
-                        className={styles.bookNavigationButton}
-                        name={icons.ARROW_RIGHT}
-                        size={30}
-                        title={`Go to ${nextBook.title}`}
-                        to={`/book/${nextBook.titleSlug}`}
+                    <div className={styles.toggleMonitoredContainer}>
+                      <MonitorToggleButton
+                        className={styles.monitorToggleButton}
+                        monitored={monitored}
+                        isSaving={isSaving}
+                        size={40}
+                        onPress={onMonitorTogglePress}
                       />
                     </div>
+
+                    <div className={styles.title} style={{ width: marqueeWidth }}>
+                      <Marquee text={title} />
+                    </div>
+
+                  </div>
+
+                  <div className={styles.bookNavigationButtons}>
+                    <IconButton
+                      className={styles.bookNavigationButton}
+                      name={icons.ARROW_LEFT}
+                      size={30}
+                      title={`Go to ${previousBook.title}`}
+                      to={`/book/${previousBook.titleSlug}`}
+                    />
+
+                    <IconButton
+                      className={styles.bookNavigationButton}
+                      name={icons.ARROW_UP}
+                      size={30}
+                      title={`Go to ${author.authorName}`}
+                      to={`/author/${author.titleSlug}`}
+                    />
+
+                    <IconButton
+                      className={styles.bookNavigationButton}
+                      name={icons.ARROW_RIGHT}
+                      size={30}
+                      title={`Go to ${nextBook.title}`}
+                      to={`/book/${nextBook.titleSlug}`}
+                    />
                   </div>
                 </Measure>
 
@@ -370,12 +377,15 @@ class BookDetails extends Component {
                   />
 
                 </div>
-                <div className={styles.overview}>
+                <Measure
+                  onMeasure={this.onOverviewMeasure}
+                  className={styles.overview}
+                >
                   <TextTruncate
-                    line={Math.floor(125 / (defaultFontSize * lineHeight))}
+                    line={Math.floor(overviewHeight / (defaultFontSize * lineHeight))}
                     text={stripHtml(overview)}
                   />
-                </div>
+                </Measure>
               </div>
             </div>
           </div>
@@ -509,7 +519,6 @@ BookDetails.propTypes = {
   author: PropTypes.object,
   previousBook: PropTypes.object,
   nextBook: PropTypes.object,
-  isSmallScreen: PropTypes.bool.isRequired,
   onMonitorTogglePress: PropTypes.func.isRequired,
   onRefreshPress: PropTypes.func,
   onSearchPress: PropTypes.func.isRequired

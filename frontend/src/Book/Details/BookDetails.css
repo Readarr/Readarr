@@ -54,13 +54,13 @@
 
 .titleContainer {
   display: flex;
-  margin-bottom: 5px;
+  margin-top: -5px
 }
 
 .title {
   font-weight: 300;
   font-size: 50px;
-  line-height: 50px;
+  line-height: 60px;
 }
 
 .toggleMonitoredContainer {
@@ -128,8 +128,8 @@
 }
 
 .overview {
-  flex: 1 0 auto;
-  margin-top: 8px;
+  flex: 1 1 auto;
+  margin-top: 4px;
   min-height: 0;
   font-size: $intermediateFontSize;
 }

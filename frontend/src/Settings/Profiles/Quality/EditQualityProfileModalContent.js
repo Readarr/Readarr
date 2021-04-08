@@ -113,8 +113,6 @@ class EditQualityProfileModalContent extends Component {
     return (
       <ModalContent onModalClose={onModalClose}>
         <Measure
-          whitelist={['height']}
-          includeMargin={false}
           onMeasure={this.onHeaderMeasure}
         >
           <ModalHeader>
@@ -124,91 +122,86 @@ class EditQualityProfileModalContent extends Component {
 
         <ModalBody>
           <Measure
-            whitelist={['height']}
             onMeasure={this.onBodyMeasure}
           >
-            <div>
-              {
-                isFetching &&
-                  <LoadingIndicator />
-              }
+            {
+              isFetching &&
+                <LoadingIndicator />
+            }
 
-              {
-                !isFetching && !!error &&
-                  <div>Unable to add a new quality profile, please try again.</div>
-              }
+            {
+              !isFetching && !!error &&
+                <div>Unable to add a new quality profile, please try again.</div>
+            }
 
-              {
-                !isFetching && !error &&
-                  <Form {...otherProps}>
-                    <div className={styles.formGroupsContainer}>
-                      <div className={styles.formGroupWrapper}>
-                        <FormGroup size={sizes.EXTRA_SMALL}>
-                          <FormLabel size={sizes.SMALL}>
-                            Name
-                          </FormLabel>
+            {
+              !isFetching && !error &&
+                <Form {...otherProps}>
+                  <div className={styles.formGroupsContainer}>
+                    <div className={styles.formGroupWrapper}>
+                      <FormGroup size={sizes.EXTRA_SMALL}>
+                        <FormLabel size={sizes.SMALL}>
+                          Name
+                        </FormLabel>
 
-                          <FormInputGroup
-                            type={inputTypes.TEXT}
-                            name="name"
-                            {...name}
-                            onChange={onInputChange}
-                          />
-                        </FormGroup>
-
-                        <FormGroup size={sizes.EXTRA_SMALL}>
-                          <FormLabel size={sizes.SMALL}>
-                            Upgrades Allowed
-                          </FormLabel>
-
-                          <FormInputGroup
-                            type={inputTypes.CHECK}
-                            name="upgradeAllowed"
-                            {...upgradeAllowed}
-                            helpText="If disabled qualities will not be upgraded"
-                            onChange={onInputChange}
-                          />
-                        </FormGroup>
-
-                        {
-                          upgradeAllowed.value &&
-                            <FormGroup size={sizes.EXTRA_SMALL}>
-                              <FormLabel size={sizes.SMALL}>
-                                Upgrade Until
-                              </FormLabel>
-
-                              <FormInputGroup
-                                type={inputTypes.SELECT}
-                                name="cutoff"
-                                {...cutoff}
-                                values={qualities}
-                                helpText="Once this quality is reached Readarr will no longer download books"
-                                onChange={onCutoffChange}
-                              />
-                            </FormGroup>
-                        }
-                      </div>
-
-                      <div className={styles.formGroupWrapper}>
-                        <QualityProfileItems
-                          editGroups={editGroups}
-                          qualityProfileItems={items.value}
-                          errors={items.errors}
-                          warnings={items.warnings}
-                          {...otherProps}
+                        <FormInputGroup
+                          type={inputTypes.TEXT}
+                          name="name"
+                          {...name}
+                          onChange={onInputChange}
                         />
-                      </div>
-                    </div>
-                  </Form>
+                      </FormGroup>
 
-              }
-            </div>
+                      <FormGroup size={sizes.EXTRA_SMALL}>
+                        <FormLabel size={sizes.SMALL}>
+                          Upgrades Allowed
+                        </FormLabel>
+
+                        <FormInputGroup
+                          type={inputTypes.CHECK}
+                          name="upgradeAllowed"
+                          {...upgradeAllowed}
+                          helpText="If disabled qualities will not be upgraded"
+                          onChange={onInputChange}
+                        />
+                      </FormGroup>
+
+                      {
+                        upgradeAllowed.value &&
+                          <FormGroup size={sizes.EXTRA_SMALL}>
+                            <FormLabel size={sizes.SMALL}>
+                              Upgrade Until
+                            </FormLabel>
+
+                            <FormInputGroup
+                              type={inputTypes.SELECT}
+                              name="cutoff"
+                              {...cutoff}
+                              values={qualities}
+                              helpText="Once this quality is reached Readarr will no longer download books"
+                              onChange={onCutoffChange}
+                            />
+                          </FormGroup>
+                      }
+                    </div>
+
+                    <div className={styles.formGroupWrapper}>
+                      <QualityProfileItems
+                        editGroups={editGroups}
+                        qualityProfileItems={items.value}
+                        errors={items.errors}
+                        warnings={items.warnings}
+                        {...otherProps}
+                      />
+                    </div>
+                  </div>
+                </Form>
+
+            }
           </Measure>
         </ModalBody>
 
         <Measure
-          whitelist={['height']}
-          includeMargin={false}
           onMeasure={this.onFooterMeasure}
         >
           <ModalFooter>

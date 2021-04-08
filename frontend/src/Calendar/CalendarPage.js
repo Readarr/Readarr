@@ -149,7 +149,6 @@ class CalendarPage extends Component {
           {
             !authorError && authorIsPopulated && hasAuthor &&
               <Measure
-                whitelist={['width']}
                 onMeasure={this.onMeasure}
               >
                 {
