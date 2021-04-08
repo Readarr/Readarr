@@ -233,7 +233,7 @@ BookRow.propTypes = {
   releaseDate: PropTypes.string,
   title: PropTypes.string.isRequired,
   seriesTitle: PropTypes.string.isRequired,
-  position: PropTypes.number,
+  position: PropTypes.string,
   pageCount: PropTypes.number,
   ratings: PropTypes.object.isRequired,
   titleSlug: PropTypes.string.isRequired,
