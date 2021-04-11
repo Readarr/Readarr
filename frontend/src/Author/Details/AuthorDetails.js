@@ -223,7 +223,7 @@ class AuthorDetails extends Component {
       overviewHeight
     } = this.state;
 
-    const marqueeWidth = (titleWidth - 170);
+    const marqueeWidth = (titleWidth - 165);
 
     const continuing = status === 'continuing';
 
