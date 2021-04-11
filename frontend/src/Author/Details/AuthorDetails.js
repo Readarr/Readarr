@@ -1,59 +1,32 @@
-import _ from 'lodash';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { Tab, TabList, TabPanel, Tabs } from 'react-tabs';
-import TextTruncate from 'react-text-truncate';
-import AuthorPoster from 'Author/AuthorPoster';
 import DeleteAuthorModal from 'Author/Delete/DeleteAuthorModal';
 import EditAuthorModalConnector from 'Author/Edit/EditAuthorModalConnector';
 import AuthorHistoryTable from 'Author/History/AuthorHistoryTable';
 import BookFileEditorTable from 'BookFile/Editor/BookFileEditorTable';
-import HeartRating from 'Components/HeartRating';
-import Icon from 'Components/Icon';
-import Label from 'Components/Label';
 import IconButton from 'Components/Link/IconButton';
 import Link from 'Components/Link/Link';
 import LoadingIndicator from 'Components/Loading/LoadingIndicator';
-import Marquee from 'Components/Marquee';
-import Measure from 'Components/Measure';
-import MonitorToggleButton from 'Components/MonitorToggleButton';
 import PageContent from 'Components/Page/PageContent';
 import PageContentBody from 'Components/Page/PageContentBody';
 import PageToolbar from 'Components/Page/Toolbar/PageToolbar';
 import PageToolbarButton from 'Components/Page/Toolbar/PageToolbarButton';
 import PageToolbarSection from 'Components/Page/Toolbar/PageToolbarSection';
 import PageToolbarSeparator from 'Components/Page/Toolbar/PageToolbarSeparator';
-import Popover from 'Components/Tooltip/Popover';
-import Tooltip from 'Components/Tooltip/Tooltip';
-import { align, icons, kinds, sizes, tooltipPositions } from 'Helpers/Props';
+import SwipeHeaderConnector from 'Components/Swipe/SwipeHeaderConnector';
+import { align, icons } from 'Helpers/Props';
 import InteractiveSearchFilterMenuConnector from 'InteractiveSearch/InteractiveSearchFilterMenuConnector';
 import InteractiveSearchTable from 'InteractiveSearch/InteractiveSearchTable';
 import OrganizePreviewModalConnector from 'Organize/OrganizePreviewModalConnector';
 import RetagPreviewModalConnector from 'Retag/RetagPreviewModalConnector';
-import QualityProfileNameConnector from 'Settings/Profiles/Quality/QualityProfileNameConnector';
-import fonts from 'Styles/Variables/fonts';
-import formatBytes from 'Utilities/Number/formatBytes';
-import stripHtml from 'Utilities/String/stripHtml';
 import selectAll from 'Utilities/Table/selectAll';
 import toggleSelected from 'Utilities/Table/toggleSelected';
 import InteractiveImportModal from '../../InteractiveImport/InteractiveImportModal';
-import AuthorAlternateTitles from './AuthorAlternateTitles';
-import AuthorDetailsLinks from './AuthorDetailsLinks';
+import AuthorDetailsHeaderConnector from './AuthorDetailsHeaderConnector';
 import AuthorDetailsSeasonConnector from './AuthorDetailsSeasonConnector';
 import AuthorDetailsSeriesConnector from './AuthorDetailsSeriesConnector';
-import AuthorTagsConnector from './AuthorTagsConnector';
 import styles from './AuthorDetails.css';
-
-const defaultFontSize = parseInt(fonts.defaultFontSize);
-const lineHeight = parseFloat(fonts.lineHeight);
-
-function getFanartUrl(images) {
-  const fanartImage = _.find(images, { coverType: 'fanart' });
-  if (fanartImage) {
-    // Remove protocol
-    return fanartImage.url.replace(/^https?:/, '');
-  }
-}
 
 function getExpandedState(newState) {
   return {
@@ -80,9 +53,7 @@ class AuthorDetails extends Component {
       allExpanded: false,
       allCollapsed: false,
       expandedState: {},
-      selectedTabIndex: 0,
-      titleWidth: 0,
-      overviewHeight: 0
+      selectedTabIndex: 0
     };
   }
 
@@ -159,14 +130,6 @@ class AuthorDetails extends Component {
     this.setState({ selectedTabIndex: index });
   }
 
-  onTitleMeasure = ({ width }) => {
-    this.setState({ titleWidth: width });
-  }
-
-  onOverviewMeasure = ({ height }) => {
-    this.setState({ overviewHeight: height });
-  }
-
   //
   // Render
 
@@ -174,18 +137,8 @@ class AuthorDetails extends Component {
     const {
       id,
       authorName,
-      ratings,
       path,
-      statistics,
-      qualityProfileId,
       monitored,
-      status,
-      overview,
-      links,
-      images,
-      alternateTitles,
-      tags,
-      isSaving,
       isRefreshing,
       isSearching,
       isFetching,
@@ -199,15 +152,9 @@ class AuthorDetails extends Component {
       hasBookFiles,
       previousAuthor,
       nextAuthor,
-      onMonitorTogglePress,
       onRefreshPress,
       onSearchPress
     } = this.props;
-
-    const {
-      bookFileCount,
-      sizeOnDisk
-    } = statistics;
 
     const {
       isOrganizeModalOpen,
@@ -218,22 +165,8 @@ class AuthorDetails extends Component {
       allExpanded,
       allCollapsed,
       expandedState,
-      selectedTabIndex,
-      titleWidth,
-      overviewHeight
+      selectedTabIndex
     } = this.state;
-
-    const marqueeWidth = (titleWidth - 165);
-
-    const continuing = status === 'continuing';
-
-    let bookFilesCountMessage = 'No book files';
-
-    if (bookFileCount === 1) {
-      bookFilesCountMessage = '1 book file';
-    } else if (bookFileCount > 1) {
-      bookFilesCountMessage = `${bookFileCount} book files`;
-    }
 
     let expandIcon = icons.EXPAND_INDETERMINATE;
 
@@ -312,240 +245,40 @@ class AuthorDetails extends Component {
         </PageToolbar>
 
         <PageContentBody innerClassName={styles.innerContentBody}>
-          <div className={styles.header}>
-            <div
-              className={styles.backdrop}
-              style={{
-                backgroundImage: `url(${getFanartUrl(images)})`
-              }}
-            >
-              <div className={styles.backdropOverlay} />
-            </div>
-
-            <div className={styles.headerContent}>
-              <AuthorPoster
-                className={styles.poster}
-                images={images}
-                size={250}
-                lazy={false}
+          <SwipeHeaderConnector
+            className={styles.header}
+            nextLink={`/author/${nextAuthor.titleSlug}`}
+            nextComponent={(width) => <AuthorDetailsHeaderConnector authorId={nextAuthor.id} width={width} />}
+            prevLink={`/author/${previousAuthor.titleSlug}`}
+            prevComponent={(width) => <AuthorDetailsHeaderConnector authorId={previousAuthor.id} width={width} />}
+            currentComponent={(width) => <AuthorDetailsHeaderConnector authorId={id} width={width} />}
+          >
+            <div className={styles.authorNavigationButtons}>
+              <IconButton
+                className={styles.authorNavigationButton}
+                name={icons.ARROW_LEFT}
+                size={30}
+                title={`Go to ${previousAuthor.authorName}`}
+                to={`/author/${previousAuthor.titleSlug}`}
               />
 
-              <div className={styles.info}>
-                <Measure
-                  onMeasure={this.onTitleMeasure}
-                  className={styles.titleRow}
-                >
-                  <div className={styles.titleContainer}>
-                    <div className={styles.toggleMonitoredContainer}>
-                      <MonitorToggleButton
-                        className={styles.monitorToggleButton}
-                        monitored={monitored}
-                        isSaving={isSaving}
-                        size={40}
-                        onPress={onMonitorTogglePress}
-                      />
-                    </div>
+              <IconButton
+                className={styles.authorUpButton}
+                name={icons.ARROW_UP}
+                size={30}
+                title={'Go to author listing'}
+                to={'/'}
+              />
 
-                    <div className={styles.title} style={{ width: marqueeWidth }}>
-                      <Marquee text={authorName} />
-                    </div>
-
-                    {
-                      !!alternateTitles.length &&
-                        <div className={styles.alternateTitlesIconContainer}>
-                          <Popover
-                            anchor={
-                              <Icon
-                                name={icons.ALTERNATE_TITLES}
-                                size={20}
-                              />
-                            }
-                            title="Alternate Titles"
-                            body={<AuthorAlternateTitles alternateTitles={alternateTitles} />}
-                            position={tooltipPositions.BOTTOM}
-                          />
-                        </div>
-                    }
-                  </div>
-
-                  <div className={styles.authorNavigationButtons}>
-                    <IconButton
-                      className={styles.authorNavigationButton}
-                      name={icons.ARROW_LEFT}
-                      size={30}
-                      title={`Go to ${previousAuthor.authorName}`}
-                      to={`/author/${previousAuthor.titleSlug}`}
-                    />
-
-                    <IconButton
-                      className={styles.authorNavigationButton}
-                      name={icons.ARROW_UP}
-                      size={30}
-                      title={'Go to author listing'}
-                      to={'/'}
-                    />
-
-                    <IconButton
-                      className={styles.authorNavigationButton}
-                      name={icons.ARROW_RIGHT}
-                      size={30}
-                      title={`Go to ${nextAuthor.authorName}`}
-                      to={`/author/${nextAuthor.titleSlug}`}
-                    />
-                  </div>
-                </Measure>
-
-                <div className={styles.details}>
-                  <div>
-                    <HeartRating
-                      rating={ratings.value}
-                      iconSize={20}
-                    />
-                  </div>
-                </div>
-
-                <div className={styles.detailsLabels}>
-                  <Label
-                    className={styles.detailsLabel}
-                    size={sizes.LARGE}
-                  >
-                    <Icon
-                      name={icons.FOLDER}
-                      size={17}
-                    />
-
-                    <span className={styles.path}>
-                      {path}
-                    </span>
-                  </Label>
-
-                  <Label
-                    className={styles.detailsLabel}
-                    title={bookFilesCountMessage}
-                    size={sizes.LARGE}
-                  >
-                    <Icon
-                      name={icons.DRIVE}
-                      size={17}
-                    />
-
-                    <span className={styles.sizeOnDisk}>
-                      {
-                        formatBytes(sizeOnDisk || 0)
-                      }
-                    </span>
-                  </Label>
-
-                  <Label
-                    className={styles.detailsLabel}
-                    title="Quality Profile"
-                    size={sizes.LARGE}
-                  >
-                    <Icon
-                      name={icons.PROFILE}
-                      size={17}
-                    />
-
-                    <span className={styles.qualityProfileName}>
-                      {
-                        <QualityProfileNameConnector
-                          qualityProfileId={qualityProfileId}
-                        />
-                      }
-                    </span>
-                  </Label>
-
-                  <Label
-                    className={styles.detailsLabel}
-                    size={sizes.LARGE}
-                  >
-                    <Icon
-                      name={monitored ? icons.MONITORED : icons.UNMONITORED}
-                      size={17}
-                    />
-
-                    <span className={styles.qualityProfileName}>
-                      {monitored ? 'Monitored' : 'Unmonitored'}
-                    </span>
-                  </Label>
-
-                  <Label
-                    className={styles.detailsLabel}
-                    title={continuing ? 'More books are expected' : 'No additional books are expected'}
-                    size={sizes.LARGE}
-                  >
-                    <Icon
-                      name={continuing ? icons.AUTHOR_CONTINUING : icons.AUTHOR_ENDED}
-                      size={17}
-                    />
-
-                    <span className={styles.qualityProfileName}>
-                      {continuing ? 'Continuing' : 'Deceased'}
-                    </span>
-                  </Label>
-
-                  <Tooltip
-                    anchor={
-                      <Label
-                        className={styles.detailsLabel}
-                        size={sizes.LARGE}
-                      >
-                        <Icon
-                          name={icons.EXTERNAL_LINK}
-                          size={17}
-                        />
-
-                        <span className={styles.links}>
-                          Links
-                        </span>
-                      </Label>
-                    }
-                    tooltip={
-                      <AuthorDetailsLinks
-                        links={links}
-                      />
-                    }
-                    kind={kinds.INVERSE}
-                    position={tooltipPositions.BOTTOM}
-                  />
-
-                  {
-                    !!tags.length &&
-                      <Tooltip
-                        anchor={
-                          <Label
-                            className={styles.detailsLabel}
-                            size={sizes.LARGE}
-                          >
-                            <Icon
-                              name={icons.TAGS}
-                              size={17}
-                            />
-
-                            <span className={styles.tags}>
-                              Tags
-                            </span>
-                          </Label>
-                        }
-                        tooltip={<AuthorTagsConnector authorId={id} />}
-                        kind={kinds.INVERSE}
-                        position={tooltipPositions.BOTTOM}
-                      />
-
-                  }
-                </div>
-                <Measure
-                  onMeasure={this.onOverviewMeasure}
-                  className={styles.overview}
-                >
-                  <TextTruncate
-                    line={Math.floor(overviewHeight / (defaultFontSize * lineHeight))}
-                    text={stripHtml(overview)}
-                  />
-                </Measure>
-              </div>
+              <IconButton
+                className={styles.authorNavigationButton}
+                name={icons.ARROW_RIGHT}
+                size={30}
+                title={`Go to ${nextAuthor.authorName}`}
+                to={`/author/${nextAuthor.titleSlug}`}
+              />
             </div>
-          </div>
+          </SwipeHeaderConnector>
 
           <div className={styles.contentContainer}>
             {
@@ -742,6 +475,7 @@ AuthorDetails.propTypes = {
   hasBookFiles: PropTypes.bool.isRequired,
   previousAuthor: PropTypes.object.isRequired,
   nextAuthor: PropTypes.object.isRequired,
+  isSmallScreen: PropTypes.bool.isRequired,
   onMonitorTogglePress: PropTypes.func.isRequired,
   onRefreshPress: PropTypes.func.isRequired,
   onSearchPress: PropTypes.func.isRequired

@@ -1,50 +1,26 @@
-import _ from 'lodash';
-import moment from 'moment';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { Tab, TabList, TabPanel, Tabs } from 'react-tabs';
-import TextTruncate from 'react-text-truncate';
 import AuthorHistoryTable from 'Author/History/AuthorHistoryTable';
-import BookCover from 'Book/BookCover';
 import DeleteBookModal from 'Book/Delete/DeleteBookModal';
 import EditBookModalConnector from 'Book/Edit/EditBookModalConnector';
 import BookFileEditorTable from 'BookFile/Editor/BookFileEditorTable';
-import HeartRating from 'Components/HeartRating';
-import Icon from 'Components/Icon';
-import Label from 'Components/Label';
 import IconButton from 'Components/Link/IconButton';
 import LoadingIndicator from 'Components/Loading/LoadingIndicator';
-import Marquee from 'Components/Marquee';
-import Measure from 'Components/Measure';
-import MonitorToggleButton from 'Components/MonitorToggleButton';
 import PageContent from 'Components/Page/PageContent';
 import PageContentBody from 'Components/Page/PageContentBody';
 import PageToolbar from 'Components/Page/Toolbar/PageToolbar';
 import PageToolbarButton from 'Components/Page/Toolbar/PageToolbarButton';
 import PageToolbarSection from 'Components/Page/Toolbar/PageToolbarSection';
 import PageToolbarSeparator from 'Components/Page/Toolbar/PageToolbarSeparator';
-import Tooltip from 'Components/Tooltip/Tooltip';
-import { icons, kinds, sizes, tooltipPositions } from 'Helpers/Props';
+import SwipeHeaderConnector from 'Components/Swipe/SwipeHeaderConnector';
+import { icons } from 'Helpers/Props';
 import InteractiveSearchFilterMenuConnector from 'InteractiveSearch/InteractiveSearchFilterMenuConnector';
 import InteractiveSearchTable from 'InteractiveSearch/InteractiveSearchTable';
 import OrganizePreviewModalConnector from 'Organize/OrganizePreviewModalConnector';
 import RetagPreviewModalConnector from 'Retag/RetagPreviewModalConnector';
-import fonts from 'Styles/Variables/fonts';
-import formatBytes from 'Utilities/Number/formatBytes';
-import stripHtml from 'Utilities/String/stripHtml';
-import BookDetailsLinks from './BookDetailsLinks';
+import BookDetailsHeaderConnector from './BookDetailsHeaderConnector';
 import styles from './BookDetails.css';
-
-const defaultFontSize = parseInt(fonts.defaultFontSize);
-const lineHeight = parseFloat(fonts.lineHeight);
-
-function getFanartUrl(images) {
-  const fanartImage = _.find(images, { coverType: 'fanart' });
-  if (fanartImage) {
-    // Remove protocol
-    return fanartImage.url.replace(/^https?:/, '');
-  }
-}
 
 class BookDetails extends Component {
 
@@ -59,9 +35,7 @@ class BookDetails extends Component {
       isRetagModalOpen: false,
       isEditBookModalOpen: false,
       isDeleteBookModalOpen: false,
-      selectedTabIndex: 0,
-      titleWidth: 0,
-      overviewHeight: 0
+      selectedTabIndex: 0
     };
   }
 
@@ -107,43 +81,22 @@ class BookDetails extends Component {
     this.setState({ selectedTabIndex: index });
   }
 
-  onTitleMeasure = ({ width }) => {
-    this.setState({ titleWidth: width });
-  }
-
-  onOverviewMeasure = ({ height }) => {
-    this.setState({ overviewHeight: height });
-  }
-
   //
   // Render
 
   render() {
     const {
       id,
-      titleSlug,
       title,
-      seriesTitle,
-      pageCount,
-      overview,
-      statistics = {},
-      monitored,
-      releaseDate,
-      ratings,
-      images,
-      links,
-      isSaving,
       isRefreshing,
       isFetching,
       isPopulated,
       bookFilesError,
       hasBookFiles,
-      shortDateFormat,
       author,
       previousBook,
       nextBook,
       isSearching,
-      onMonitorTogglePress,
       onRefreshPress,
       onSearchPress
     } = this.props;
@@ -153,12 +106,8 @@ class BookDetails extends Component {
       isRetagModalOpen,
       isEditBookModalOpen,
       isDeleteBookModalOpen,
-      selectedTabIndex,
-      titleWidth,
-      overviewHeight
+      selectedTabIndex
     } = this.state;
-
-    const marqueeWidth = (titleWidth - 165);
 
     return (
       <PageContent title={title}>
@@ -214,181 +163,58 @@ class BookDetails extends Component {
         </PageToolbar>
 
         <PageContentBody innerClassName={styles.innerContentBody}>
-          <div className={styles.header}>
-            <div
-              className={styles.backdrop}
-              style={{
-                backgroundImage: `url(${getFanartUrl(author.images)})`
-              }}
-            >
-              <div className={styles.backdropOverlay} />
-            </div>
-
-            <div className={styles.headerContent}>
-              <BookCover
-                className={styles.cover}
-                images={images}
-                size={250}
-                lazy={false}
+          <SwipeHeaderConnector
+            className={styles.header}
+            nextLink={`/book/${nextBook.titleSlug}`}
+            nextComponent={(width) => (
+              <BookDetailsHeaderConnector
+                bookId={nextBook.id}
+                author={author}
+                width={width}
+              />
+            )}
+            prevLink={`/book/${previousBook.titleSlug}`}
+            prevComponent={(width) => (
+              <BookDetailsHeaderConnector
+                bookId={previousBook.id}
+                author={author}
+                width={width}
+              />
+            )}
+            currentComponent={(width) => (
+              <BookDetailsHeaderConnector
+                bookId={id}
+                author={author}
+                width={width}
+              />
+            )}
+          >
+            <div className={styles.bookNavigationButtons}>
+              <IconButton
+                className={styles.bookNavigationButton}
+                name={icons.ARROW_LEFT}
+                size={30}
+                title={`Go to ${previousBook.title}`}
+                to={`/book/${previousBook.titleSlug}`}
               />
 
-              <div className={styles.info}>
-                <Measure
-                  onMeasure={this.onTitleMeasure}
-                  className={styles.titleRow}
-                >
-                  <div className={styles.titleContainer}>
+              <IconButton
+                className={styles.bookUpButton}
+                name={icons.ARROW_UP}
+                size={30}
+                title={`Go to ${author.authorName}`}
+                to={`/author/${author.titleSlug}`}
+              />
 
-                    <div className={styles.toggleMonitoredContainer}>
-                      <MonitorToggleButton
-                        className={styles.monitorToggleButton}
-                        monitored={monitored}
-                        isSaving={isSaving}
-                        size={40}
-                        onPress={onMonitorTogglePress}
-                      />
-                    </div>
-
-                    <div className={styles.title} style={{ width: marqueeWidth }}>
-                      <Marquee text={title} />
-                    </div>
-
-                  </div>
-
-                  <div className={styles.bookNavigationButtons}>
-                    <IconButton
-                      className={styles.bookNavigationButton}
-                      name={icons.ARROW_LEFT}
-                      size={30}
-                      title={`Go to ${previousBook.title}`}
-                      to={`/book/${previousBook.titleSlug}`}
-                    />
-
-                    <IconButton
-                      className={styles.bookNavigationButton}
-                      name={icons.ARROW_UP}
-                      size={30}
-                      title={`Go to ${author.authorName}`}
-                      to={`/author/${author.titleSlug}`}
-                    />
-
-                    <IconButton
-                      className={styles.bookNavigationButton}
-                      name={icons.ARROW_RIGHT}
-                      size={30}
-                      title={`Go to ${nextBook.title}`}
-                      to={`/book/${nextBook.titleSlug}`}
-                    />
-                  </div>
-                </Measure>
-
-                <div className={styles.details}>
-                  <div>
-                    {seriesTitle}
-                  </div>
-
-                  <div>
-                    {
-                      !!pageCount &&
-                        <span className={styles.duration}>
-                          {`${pageCount} pages`}
-                        </span>
-                    }
-
-                    <HeartRating
-                      rating={ratings.value}
-                      iconSize={20}
-                    />
-                  </div>
-                </div>
-
-                <div className={styles.detailsLabels}>
-
-                  <Label
-                    className={styles.detailsLabel}
-                    size={sizes.LARGE}
-                  >
-                    <Icon
-                      name={icons.CALENDAR}
-                      size={17}
-                    />
-
-                    <span className={styles.sizeOnDisk}>
-                      {
-                        moment(releaseDate).format(shortDateFormat)
-                      }
-                    </span>
-                  </Label>
-
-                  <Label
-                    className={styles.detailsLabel}
-                    size={sizes.LARGE}
-                  >
-                    <Icon
-                      name={icons.DRIVE}
-                      size={17}
-                    />
-
-                    <span className={styles.sizeOnDisk}>
-                      {
-                        formatBytes(statistics.sizeOnDisk)
-                      }
-                    </span>
-                  </Label>
-
-                  <Label
-                    className={styles.detailsLabel}
-                    size={sizes.LARGE}
-                  >
-                    <Icon
-                      name={monitored ? icons.MONITORED : icons.UNMONITORED}
-                      size={17}
-                    />
-
-                    <span className={styles.qualityProfileName}>
-                      {monitored ? 'Monitored' : 'Unmonitored'}
-                    </span>
-                  </Label>
-
-                  <Tooltip
-                    anchor={
-                      <Label
-                        className={styles.detailsLabel}
-                        size={sizes.LARGE}
-                      >
-                        <Icon
-                          name={icons.EXTERNAL_LINK}
-                          size={17}
-                        />
-
-                        <span className={styles.links}>
-                          Links
-                        </span>
-                      </Label>
-                    }
-                    tooltip={
-                      <BookDetailsLinks
-                        titleSlug={titleSlug}
-                        links={links}
-                      />
-                    }
-                    kind={kinds.INVERSE}
-                    position={tooltipPositions.BOTTOM}
-                  />
-
-                </div>
-                <Measure
-                  onMeasure={this.onOverviewMeasure}
-                  className={styles.overview}
-                >
-                  <TextTruncate
-                    line={Math.floor(overviewHeight / (defaultFontSize * lineHeight))}
-                    text={stripHtml(overview)}
-                  />
-                </Measure>
-              </div>
+              <IconButton
+                className={styles.bookNavigationButton}
+                name={icons.ARROW_RIGHT}
+                size={30}
+                title={`Go to ${nextBook.title}`}
+                to={`/book/${nextBook.titleSlug}`}
+              />
             </div>
-          </div>
+          </SwipeHeaderConnector>
 
           <div className={styles.contentContainer}>
             {
@@ -502,7 +328,6 @@ BookDetails.propTypes = {
   seriesTitle: PropTypes.string.isRequired,
   pageCount: PropTypes.number,
   overview: PropTypes.string,
-  statistics: PropTypes.object.isRequired,
   releaseDate: PropTypes.string.isRequired,
   ratings: PropTypes.object.isRequired,
   images: PropTypes.arrayOf(PropTypes.object).isRequired,
@@ -519,6 +344,7 @@ BookDetails.propTypes = {
   author: PropTypes.object,
   previousBook: PropTypes.object,
   nextBook: PropTypes.object,
+  isSmallScreen: PropTypes.bool.isRequired,
   onMonitorTogglePress: PropTypes.func.isRequired,
   onRefreshPress: PropTypes.func,
   onSearchPress: PropTypes.func.isRequired
