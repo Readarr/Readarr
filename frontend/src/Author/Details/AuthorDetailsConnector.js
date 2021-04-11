@@ -14,6 +14,7 @@ import { cancelFetchReleases, clearReleases } from 'Store/Actions/releaseActions
 import { clearSeries, fetchSeries } from 'Store/Actions/seriesActions';
 import createAllAuthorSelector from 'Store/Selectors/createAllAuthorsSelector';
 import createCommandsSelector from 'Store/Selectors/createCommandsSelector';
+import createDimensionsSelector from 'Store/Selectors/createDimensionsSelector';
 import createSortedSectionSelector from 'Store/Selectors/createSortedSectionSelector';
 import { findCommand, isCommandExecuting } from 'Utilities/Command';
 import { registerPagePopulator, unregisterPagePopulator } from 'Utilities/pagePopulator';
@@ -94,7 +95,8 @@ function createMapStateToProps() {
     selectBookFiles,
     createAllAuthorSelector(),
     createCommandsSelector(),
-    (titleSlug, books, series, bookFiles, allAuthors, commands) => {
+    createDimensionsSelector(),
+    (titleSlug, books, series, bookFiles, allAuthors, commands, dimensions) => {
       const sortedAuthor = _.orderBy(allAuthors, 'sortName');
       const authorIndex = _.findIndex(sortedAuthor, { titleSlug });
       const author = sortedAuthor[authorIndex];
@@ -176,7 +178,8 @@ function createMapStateToProps() {
         series: seriesItems,
         hasBookFiles,
         previousAuthor,
-        nextAuthor
+        nextAuthor,
+        isSmallScreen: dimensions.isSmallScreen
       };
     }
   );

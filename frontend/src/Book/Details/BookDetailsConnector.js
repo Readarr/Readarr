@@ -11,6 +11,7 @@ import { executeCommand } from 'Store/Actions/commandActions';
 import { cancelFetchReleases, clearReleases } from 'Store/Actions/releaseActions';
 import createAllAuthorSelector from 'Store/Selectors/createAllAuthorsSelector';
 import createCommandsSelector from 'Store/Selectors/createCommandsSelector';
+import createDimensionsSelector from 'Store/Selectors/createDimensionsSelector';
 import createUISettingsSelector from 'Store/Selectors/createUISettingsSelector';
 import { findCommand, isCommandExecuting } from 'Utilities/Command';
 import { registerPagePopulator, unregisterPagePopulator } from 'Utilities/pagePopulator';
@@ -45,7 +46,8 @@ function createMapStateToProps() {
     createAllAuthorSelector(),
     createCommandsSelector(),
     createUISettingsSelector(),
-    (titleSlug, bookFiles, books, authors, commands, uiSettings) => {
+    createDimensionsSelector(),
+    (titleSlug, bookFiles, books, authors, commands, uiSettings, dimensions) => {
       const sortedBooks = _.orderBy(books.items, 'releaseDate');
       const bookIndex = _.findIndex(sortedBooks, { titleSlug });
       const book = sortedBooks[bookIndex];
@@ -90,7 +92,8 @@ function createMapStateToProps() {
         bookFilesError,
         hasBookFiles,
         previousBook,
-        nextBook
+        nextBook,
+        isSmallScreen: dimensions.isSmallScreen
       };
     }
   );

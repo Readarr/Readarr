@@ -98,10 +98,13 @@
 .authorNavigationButtons {
   position: absolute;
   right: 0;
+  z-index: 1;
   margin-top: 10px;
+  padding: 30px;
   white-space: nowrap;
 }
 
+.authorUpButton,
 .authorNavigationButton {
   composes: button from '~Components/Link/IconButton.css';
 
@@ -182,8 +185,22 @@
     padding: 20px 0;
   }
 
+  .authorNavigationButtons,
   .headerContent {
     padding: 15px;
+  }
+
+  .authorNavigationButtons {
+    margin-top: 5px;
+  }
+
+  .authorNavigationButton {
+    display: none;
+  }
+
+  .title {
+    font-size: 30px;
+    line-height: 50px;
   }
 }
 
