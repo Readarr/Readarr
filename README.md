@@ -6,13 +6,13 @@
 
 ### Readarr is in early stages of development, alpha/beta binary builds are not yet available. Use of any test builds isn't recommend, and may have detrimental effects on your library.
 
-Readarr is a ebook (and maybe eventually magazine/audiobook) collection manager for Usenet and BitTorrent users. It can monitor multiple RSS feeds for new books from your favorite authors and will grab, sort and rename them.
+Readarr is an ebook (and maybe eventually magazine/audiobook) collection manager for Usenet and BitTorrent users. It can monitor multiple RSS feeds for new books from your favorite authors and will grab, sort and rename them.
 
 ## Major Features Include:
 
 * Support for major platforms: Windows, Linux, macOS, Raspberry Pi, etc.
-* Automatically detects new books.
-* Can scan your existing library and download any missing books.
+* Automatically detects new books
+* Can scan your existing library and download any missing books
 * Automatic failed download handling will try another release if one fails
 * Manual search so you can pick any release or to see why a release was not downloaded automatically
 * Fully configurable book renaming
