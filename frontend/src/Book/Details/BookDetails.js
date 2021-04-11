@@ -158,7 +158,7 @@ class BookDetails extends Component {
       overviewHeight
     } = this.state;
 
-    const marqueeWidth = (titleWidth - 170);
+    const marqueeWidth = (titleWidth - 165);
 
     return (
       <PageContent title={title}>
