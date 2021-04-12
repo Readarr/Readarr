@@ -194,9 +194,6 @@ class SwipeHeader extends Component {
       '--transition': useTransition ? `transform ${transitionDuration}ms ease-out` : undefined
     };
 
-    console.log(`stage: ${stage} translate: ${translate} width: ${containerWidth}`);
-    console.log(style);
-
     return (
       <Measure
         className={className}

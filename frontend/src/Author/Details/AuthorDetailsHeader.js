@@ -18,7 +18,7 @@ import stripHtml from 'Utilities/String/stripHtml';
 import AuthorAlternateTitles from './AuthorAlternateTitles';
 import AuthorDetailsLinks from './AuthorDetailsLinks';
 import AuthorTagsConnector from './AuthorTagsConnector';
-import styles from './AuthorDetails.css';
+import styles from './AuthorDetailsHeader.css';
 
 const defaultFontSize = parseInt(fonts.defaultFontSize);
 const lineHeight = parseFloat(fonts.lineHeight);
@@ -41,7 +41,8 @@ class AuthorDetailsHeader extends Component {
     super(props);
 
     this.state = {
-      overviewHeight: 0
+      overviewHeight: 0,
+      titleWidth: 0
     };
   }
 
@@ -49,9 +50,13 @@ class AuthorDetailsHeader extends Component {
   // Listeners
 
   onOverviewMeasure = ({ height }) => {
-    console.log(`overview measure ${height}`);
     this.setState({ overviewHeight: height });
   }
+
+  onTitleMeasure = ({ width }) => {
+    this.setState({ titleWidth: width });
+  }
+
   //
   // Render
 
@@ -82,10 +87,11 @@ class AuthorDetailsHeader extends Component {
     } = statistics;
 
     const {
-      overviewHeight
+      overviewHeight,
+      titleWidth
     } = this.state;
 
-    const marqueeWidth = width - (isSmallScreen ? 115 : 225);
+    const marqueeWidth = titleWidth - (isSmallScreen ? 85 : 160);
 
     const continuing = status === 'continuing';
 
@@ -98,7 +104,7 @@ class AuthorDetailsHeader extends Component {
     }
 
     return (
-      <div className={styles.header}>
+      <div className={styles.header} style={{ width }} >
         <div
           className={styles.backdrop}
           style={{
@@ -117,7 +123,10 @@ class AuthorDetailsHeader extends Component {
           />
 
           <div className={styles.info}>
-            <div className={styles.titleRow}>
+            <Measure
+              className={styles.titleRow}
+              onMeasure={this.onTitleMeasure}
+            >
               <div className={styles.titleContainer}>
                 <div className={styles.toggleMonitoredContainer}>
                   <MonitorToggleButton
@@ -150,7 +159,7 @@ class AuthorDetailsHeader extends Component {
                     </div>
                 }
               </div>
-            </div>
+            </Measure>
 
             <div className={styles.details}>
               <div>

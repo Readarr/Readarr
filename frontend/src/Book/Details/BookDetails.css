@@ -2,141 +2,6 @@
   padding: 0;
 }
 
-.header {
-  position: relative;
-  width: 100%;
-  height: 310px;
-}
-
-.backdrop {
-  position: absolute;
-  z-index: -1;
-  width: 100%;
-  height: 100%;
-  background-size: cover;
-}
-
-.backdropOverlay {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background: $black;
-  opacity: 0.7;
-}
-
-.headerContent {
-  display: flex;
-  padding: 30px;
-  width: 100%;
-  height: 100%;
-  color: $white;
-}
-
-.cover {
-  flex-shrink: 0;
-  margin-right: 35px;
-  height: 250px;
-}
-
-.info {
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
-  overflow: hidden;
-}
-
-.titleRow {
-  position: relative;
-  display: flex;
-  justify-content: space-between;
-  flex: 0 0 auto;
-}
-
-.titleContainer {
-  display: flex;
-  margin-top: -5px;
-}
-
-.title {
-  font-weight: 300;
-  font-size: 50px;
-  line-height: 60px;
-}
-
-.toggleMonitoredContainer {
-  align-self: center;
-}
-
-.monitorToggleButton {
-  composes: toggleButton from '~Components/MonitorToggleButton.css';
-
-  width: 40px;
-
-  &:hover {
-    color: $iconButtonHoverLightColor;
-  }
-}
-
-.alternateTitlesIconContainer {
-  align-self: flex-end;
-  margin-left: 20px;
-}
-
-.bookNavigationButtons {
-  position: absolute;
-  right: 0;
-  z-index: 1;
-  margin-top: 10px;
-  padding: 30px;
-  white-space: nowrap;
-}
-
-.bookUpButton,
-.bookNavigationButton {
-  composes: button from '~Components/Link/IconButton.css';
-
-  margin-left: 5px;
-  width: 30px;
-  color: #e1e2e3;
-  white-space: nowrap;
-
-  &:hover {
-    color: $iconButtonHoverLightColor;
-  }
-}
-
-.details {
-  margin-bottom: 8px;
-  font-weight: 300;
-  font-size: 20px;
-}
-
-.duration {
-  margin-right: 15px;
-}
-
-.detailsLabel {
-  composes: label from '~Components/Label.css';
-
-  margin: 5px 10px 5px 0;
-}
-
-.sizeOnDisk,
-.qualityProfileName,
-.links,
-.tags {
-  margin-left: 8px;
-  font-weight: 300;
-  font-size: 17px;
-}
-
-.overview {
-  flex: 1 1 auto;
-  margin-top: 4px;
-  min-height: 0;
-  font-size: $intermediateFontSize;
-}
-
 .contentContainer {
   padding: 20px;
 }
@@ -170,13 +35,35 @@
   float: right;
 }
 
+.bookNavigationButtons {
+  position: absolute;
+  right: 0;
+  z-index: 1;
+  margin-top: 10px;
+  padding: 30px;
+  white-space: nowrap;
+}
+
+.bookUpButton,
+.bookNavigationButton {
+  composes: button from '~Components/Link/IconButton.css';
+
+  margin-left: 5px;
+  width: 30px;
+  color: #e1e2e3;
+  white-space: nowrap;
+
+  &:hover {
+    color: $iconButtonHoverLightColor;
+  }
+}
+
 @media only screen and (max-width: $breakpointSmall) {
   .contentContainer {
     padding: 20px 0;
   }
 
-  .bookNavigationButtons,
-  .headerContent {
+  .bookNavigationButtons {
     padding: 15px;
   }
 
@@ -185,17 +72,6 @@
   }
 
   .bookNavigationButton {
-    display: none;
-  }
-
-  .title {
-    font-size: 30px;
-    line-height: 50px;
-  }
-}
-
-@media only screen and (max-width: $breakpointLarge) {
-  .cover {
     display: none;
   }
 }

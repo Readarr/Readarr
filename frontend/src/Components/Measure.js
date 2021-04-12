@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import ReactMeasure from 'react-measure';
@@ -6,18 +5,11 @@ import ReactMeasure from 'react-measure';
 class Measure extends Component {
 
   //
-  // Lifecycle
-
-  componentWillUnmount() {
-    this.onMeasure.cancel();
-  }
-
-  //
   // Listeners
 
-  onMeasure = _.debounce((payload) => {
+  onMeasure = (payload) => {
     this.props.onMeasure(payload.bounds);
-  }, 250, { leading: true, trailing: true })
+  }
 
   //
   // Render

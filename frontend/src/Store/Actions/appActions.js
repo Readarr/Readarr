@@ -10,7 +10,7 @@ function getDimensions(width, height) {
     height,
     isExtraSmallScreen: width <= 480,
     isSmallScreen: width <= 768,
-    isMediumScreen: width <= 992,
+    isMediumScreen: width <= 1310,
     isLargeScreen: width <= 1200
   };
 
@@ -132,4 +132,3 @@ export const reducers = createHandleActions({
   }
 
 }, defaultState, section);
-
