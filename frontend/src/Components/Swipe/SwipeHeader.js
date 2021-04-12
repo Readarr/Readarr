@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import Measure from 'Components/Measure';
+import { isMobile as isMobileUtil } from 'Utilities/mobile';
 import styles from './SwipeHeader.css';
 
 function cursorPosition(event) {
@@ -14,6 +15,8 @@ class SwipeHeader extends Component {
 
   constructor(props) {
     super(props);
+
+    this._isMobile = isMobileUtil();
 
     this.state = {
       containerWidth: 0,
@@ -32,7 +35,7 @@ class SwipeHeader extends Component {
   // Listeners
 
   onMouseDown = (e) => {
-    if (!this.props.isSmallScreen || this.state.touching) {
+    if (!this.props.isSmallScreen || !this._isMobile || this.state.touching) {
       return;
     }
 
@@ -177,7 +180,8 @@ class SwipeHeader extends Component {
       children,
       prevComponent,
       currentComponent,
-      nextComponent
+      nextComponent,
+      isSmallScreen
     } = this.props;
 
     const {
@@ -187,12 +191,20 @@ class SwipeHeader extends Component {
       stage
     } = this.state;
 
+    const allowSwipe = isSmallScreen && this._isMobile;
+
     const useTransition = !touching && stage !== 'navigated' && stage !== 'init';
 
     const style = {
-      '--translate': `${translate - containerWidth}px`,
-      '--transition': useTransition ? `transform ${transitionDuration}ms ease-out` : undefined
+      width: '100%',
+      '--translate': 0
     };
+
+    if (allowSwipe) {
+      style.width = '300%';
+      style['--translate'] = `${translate - containerWidth}px`;
+      style['--transition'] = useTransition ? `transform ${transitionDuration}ms ease-out` : undefined;
+    }
 
     return (
       <Measure
@@ -208,9 +220,9 @@ class SwipeHeader extends Component {
           onTouchStart={this.onMouseDown}
           onTransitionEnd={this.onTransitionEnd}
         >
-          {prevComponent(containerWidth)}
+          {allowSwipe ? prevComponent(containerWidth) : null}
           {currentComponent(containerWidth)}
-          {nextComponent(containerWidth)}
+          {allowSwipe ? nextComponent(containerWidth) : null}
         </div>
       </Measure>
     );

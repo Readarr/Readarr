@@ -7,7 +7,6 @@
 .content {
   position: relative;
   display: flex;
-  width: 300%;
   height: 100%;
   transition: var(--transition);
   transform: translateX(var(--translate));
