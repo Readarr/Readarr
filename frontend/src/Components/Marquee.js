@@ -112,8 +112,6 @@ class Marquee extends Component {
         key={key}
         className={styles.container}
         onMeasure={this.onContainerMeasure}
-        onMouseEnter={this.onHandleMouseEnter}
-        onTouchStart={this.onHandleMouseEnter}
       >
         <div
           className={classNames(
@@ -122,6 +120,8 @@ class Marquee extends Component {
           )}
           style={style}
           onTransitionEnd={this.onTransitionEnd}
+          onMouseEnter={this.onHandleMouseEnter}
+          onTouchStart={this.onHandleMouseEnter}
         >
           <span
             ref={(el) => {
