@@ -8,6 +8,7 @@ import ModalFooter from 'Components/Modal/ModalFooter';
 import ModalHeader from 'Components/Modal/ModalHeader';
 import Scroller from 'Components/Scroller/Scroller';
 import { scrollDirections } from 'Helpers/Props';
+import translate from 'Utilities/String/translate';
 import SelectAuthorRow from './SelectAuthorRow';
 import styles from './SelectAuthorModalContent.css';
 
@@ -55,7 +56,7 @@ class SelectAuthorModalContent extends Component {
         >
           <TextInput
             className={styles.filterInput}
-            placeholder="Filter author"
+            placeholder={translate('FilterPlaceHolder')}
             name="filter"
             value={filter}
             autoFocus={true}

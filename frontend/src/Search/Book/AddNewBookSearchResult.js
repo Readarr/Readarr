@@ -11,6 +11,7 @@ import { icons, sizes } from 'Helpers/Props';
 import dimensions from 'Styles/Variables/dimensions';
 import fonts from 'Styles/Variables/fonts';
 import stripHtml from 'Utilities/String/stripHtml';
+import translate from 'Utilities/String/translate';
 import AddNewBookModal from './AddNewBookModal';
 import styles from './AddNewBookSearchResult.css';
 
@@ -131,7 +132,7 @@ class AddNewBookSearchResult extends Component {
                       className={styles.alreadyExistsIcon}
                       name={icons.CHECK_CIRCLE}
                       size={36}
-                      title="Already in your library"
+                      title={translate('AlreadyInYourLibrary')}
                     /> :
                     null
                 }

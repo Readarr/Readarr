@@ -4,6 +4,7 @@ import FormGroup from 'Components/Form/FormGroup';
 import FormInputGroup from 'Components/Form/FormInputGroup';
 import FormLabel from 'Components/Form/FormLabel';
 import { inputTypes } from 'Helpers/Props';
+import translate from 'Utilities/String/translate';
 
 class QueueOptions extends Component {
 
@@ -54,13 +55,15 @@ class QueueOptions extends Component {
     return (
       <Fragment>
         <FormGroup>
-          <FormLabel>Show Unknown Author Items</FormLabel>
+          <FormLabel>
+            {translate('ShowUnknownAuthorItems')}
+          </FormLabel>
 
           <FormInputGroup
             type={inputTypes.CHECK}
             name="includeUnknownAuthorItems"
             value={includeUnknownAuthorItems}
-            helpText="Show items without a author in the queue, this could include removed authors, movies or anything else in Readarr's category"
+            helpText={translate('IncludeUnknownAuthorItemsHelpText')}
             onChange={this.onOptionChange}
           />
         </FormGroup>

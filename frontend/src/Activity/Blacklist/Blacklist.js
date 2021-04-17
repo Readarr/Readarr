@@ -14,6 +14,7 @@ import TablePager from 'Components/Table/TablePager';
 import { align, icons, kinds } from 'Helpers/Props';
 import getRemovedItems from 'Utilities/Object/getRemovedItems';
 import hasDifferentItems from 'Utilities/Object/hasDifferentItems';
+import translate from 'Utilities/String/translate';
 import getSelectedIds from 'Utilities/Table/getSelectedIds';
 import removeOldSelectedState from 'Utilities/Table/removeOldSelectedState';
 import selectAll from 'Utilities/Table/selectAll';
@@ -120,11 +121,11 @@ class Blacklist extends Component {
     const selectedIds = this.getSelectedIds();
 
     return (
-      <PageContent title="Blacklist">
+      <PageContent title={translate('Blacklist')}>
         <PageToolbar>
           <PageToolbarSection>
             <PageToolbarButton
-              label="Remove Selected"
+              label={translate('RemoveSelected')}
               iconName={icons.REMOVE}
               isDisabled={!selectedIds.length}
               isSpinning={isRemoving}
@@ -132,7 +133,7 @@ class Blacklist extends Component {
             />
 
             <PageToolbarButton
-              label="Clear"
+              label={translate('Clear')}
               iconName={icons.CLEAR}
               isSpinning={isClearingBlacklistExecuting}
               onPress={onClearBlacklistPress}
@@ -145,7 +146,7 @@ class Blacklist extends Component {
               columns={columns}
             >
               <PageToolbarButton
-                label="Options"
+                label={translate('Options')}
                 iconName={icons.TABLE}
               />
             </TableOptionsModalWrapper>
@@ -160,7 +161,9 @@ class Blacklist extends Component {
 
           {
             !isAnyFetching && !!error &&
-              <div>Unable to load blacklist</div>
+              <div>
+                {translate('UnableToLoadBlacklist')}
+              </div>
           }
 
           {
@@ -210,9 +213,9 @@ class Blacklist extends Component {
         <ConfirmModal
           isOpen={isConfirmRemoveModalOpen}
           kind={kinds.DANGER}
-          title="Remove Selected"
-          message={'Are you sure you want to remove the selected items from the blacklist?'}
-          confirmLabel="Remove Selected"
+          title={translate('RemoveSelected')}
+          message={translate('RemoveSelectedMessageText')}
+          confirmLabel={translate('RemoveSelected')}
           onConfirm={this.onRemoveSelectedConfirmed}
           onCancel={this.onConfirmRemoveModalClose}
         />

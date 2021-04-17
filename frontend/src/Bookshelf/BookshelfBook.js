@@ -2,6 +2,7 @@ import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import MonitorToggleButton from 'Components/MonitorToggleButton';
+import translate from 'Utilities/String/translate';
 import styles from './BookshelfBook.css';
 
 class BookshelfBook extends Component {
@@ -58,7 +59,7 @@ class BookshelfBook extends Component {
             percentOfBooks < 100 && monitored && styles.missingWanted,
             percentOfBooks === 100 && styles.allBooks
           )}
-          title={`${bookFileCount}/${totalBookCount} books downloaded`}
+          title={translate('BookFileCounttotalBookCountBooksDownloadedInterp', [bookFileCount, totalBookCount])}
         >
           {
             totalBookCount === 0 ? '0/0' : `${bookFileCount}/${totalBookCount}`

@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import LoadingIndicator from 'Components/Loading/LoadingIndicator';
 import Table from 'Components/Table/Table';
 import TableBody from 'Components/Table/TableBody';
+import translate from 'Utilities/String/translate';
 import AuthorHistoryRowConnector from './AuthorHistoryRowConnector';
 
 const columns = [
@@ -69,12 +70,16 @@ class AuthorHistoryTableContent extends Component {
 
         {
           !isFetching && !!error &&
-            <div>Unable to load history.</div>
+            <div>
+              {translate('UnableToLoadHistory')}
+            </div>
         }
 
         {
           isPopulated && !hasItems && !error &&
-            <div>No history.</div>
+            <div>
+              {translate('NoHistory')}
+            </div>
         }
 
         {

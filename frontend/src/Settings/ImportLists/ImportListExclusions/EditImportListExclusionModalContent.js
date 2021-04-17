@@ -13,6 +13,7 @@ import ModalFooter from 'Components/Modal/ModalFooter';
 import ModalHeader from 'Components/Modal/ModalHeader';
 import { inputTypes, kinds } from 'Helpers/Props';
 import { stringSettingShape } from 'Helpers/Props/Shapes/settingShape';
+import translate from 'Utilities/String/translate';
 import styles from './EditImportListExclusionModalContent.css';
 
 function EditImportListExclusionModalContent(props) {
@@ -49,7 +50,9 @@ function EditImportListExclusionModalContent(props) {
 
         {
           !isFetching && !!error &&
-            <div>Unable to add a new import list exclusion, please try again.</div>
+            <div>
+              {translate('UnableToAddANewImportListExclusionPleaseTryAgain')}
+            </div>
         }
 
         {
@@ -58,24 +61,28 @@ function EditImportListExclusionModalContent(props) {
               {...otherProps}
             >
               <FormGroup>
-                <FormLabel>Entity Name</FormLabel>
+                <FormLabel>
+                  {translate('EntityName')}
+                </FormLabel>
 
                 <FormInputGroup
                   type={inputTypes.TEXT}
                   name="authorName"
-                  helpText="The name of the author/book to exclude (can be anything meaningful)"
+                  helpText={translate('AuthorNameHelpText')}
                   {...authorName}
                   onChange={onInputChange}
                 />
               </FormGroup>
 
               <FormGroup>
-                <FormLabel>Musicbrainz Id</FormLabel>
+                <FormLabel>
+                  {translate('MusicbrainzId')}
+                </FormLabel>
 
                 <FormInputGroup
                   type={inputTypes.TEXT}
                   name="foreignId"
-                  helpText="The Musicbrainz Id of the author/book to exclude"
+                  helpText={translate('ForeignIdHelpText')}
                   {...foreignId}
                   onChange={onInputChange}
                 />

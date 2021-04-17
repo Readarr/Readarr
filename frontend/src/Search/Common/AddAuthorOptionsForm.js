@@ -9,6 +9,7 @@ import FormLabel from 'Components/Form/FormLabel';
 import Icon from 'Components/Icon';
 import Popover from 'Components/Tooltip/Popover';
 import { icons, inputTypes, tooltipPositions } from 'Helpers/Props';
+import translate from 'Utilities/String/translate';
 import styles from './AddAuthorOptionsForm.css';
 
 class AddAuthorOptionsForm extends Component {
@@ -43,7 +44,9 @@ class AddAuthorOptionsForm extends Component {
     return (
       <Form {...otherProps}>
         <FormGroup>
-          <FormLabel>Root Folder</FormLabel>
+          <FormLabel>
+            {translate('RootFolder')}
+          </FormLabel>
 
           <FormInputGroup
             type={inputTypes.ROOT_FOLDER_SELECT}
@@ -64,7 +67,7 @@ class AddAuthorOptionsForm extends Component {
                   name={icons.INFO}
                 />
               }
-              title="Monitoring Options"
+              title={translate('MonitoringOptions')}
               body={<AuthorMonitoringOptionsPopoverContent />}
               position={tooltipPositions.RIGHT}
             />
@@ -79,7 +82,9 @@ class AddAuthorOptionsForm extends Component {
         </FormGroup>
 
         <FormGroup>
-          <FormLabel>Quality Profile</FormLabel>
+          <FormLabel>
+            {translate('QualityProfile')}
+          </FormLabel>
 
           <FormInputGroup
             type={inputTypes.QUALITY_PROFILE_SELECT}
@@ -102,7 +107,7 @@ class AddAuthorOptionsForm extends Component {
                       name={icons.INFO}
                     />
                   }
-                  title="Metadata Profile"
+                  title={translate('MetadataProfile')}
                   body={<AuthorMetadataProfilePopoverContent />}
                   position={tooltipPositions.RIGHT}
                 />
@@ -119,7 +124,9 @@ class AddAuthorOptionsForm extends Component {
         </FormGroup>
 
         <FormGroup>
-          <FormLabel>Tags</FormLabel>
+          <FormLabel>
+            {translate('Tags')}
+          </FormLabel>
 
           <FormInputGroup
             type={inputTypes.TAG}

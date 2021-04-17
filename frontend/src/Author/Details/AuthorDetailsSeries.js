@@ -8,6 +8,7 @@ import MonitorToggleButton from 'Components/MonitorToggleButton';
 import Table from 'Components/Table/Table';
 import TableBody from 'Components/Table/TableBody';
 import { icons, sortDirections } from 'Helpers/Props';
+import translate from 'Utilities/String/translate';
 import getToggledRange from 'Utilities/Table/getToggledRange';
 import BookRowConnector from './BookRowConnector';
 import styles from './AuthorDetailsSeries.css';
@@ -152,7 +153,7 @@ class AuthorDetailsSeries extends Component {
               <Icon
                 className={styles.expandButtonIcon}
                 name={isExpanded ? icons.COLLAPSE : icons.EXPAND}
-                title={isExpanded ? 'Hide books' : 'Show books'}
+                title={isExpanded ? translate('IsExpandedHideBooks') : translate('IsExpandedShowBooks')}
                 size={24}
               />
 
@@ -198,7 +199,7 @@ class AuthorDetailsSeries extends Component {
                     iconClassName={styles.collapseButtonIcon}
                     name={icons.COLLAPSE}
                     size={20}
-                    title="Hide books"
+                    title={translate('HideBooks')}
                     onPress={this.onExpandPress}
                   />
                 </div>

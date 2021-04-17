@@ -11,6 +11,7 @@ import PageToolbarButton from 'Components/Page/Toolbar/PageToolbarButton';
 import PageToolbarSection from 'Components/Page/Toolbar/PageToolbarSection';
 import { align, icons } from 'Helpers/Props';
 import getErrorMessage from 'Utilities/Object/getErrorMessage';
+import translate from 'Utilities/String/translate';
 import CalendarConnector from './CalendarConnector';
 import CalendarLinkModal from './iCal/CalendarLinkModal';
 import LegendConnector from './Legend/LegendConnector';
@@ -94,17 +95,17 @@ class CalendarPage extends Component {
     const isMeasured = this.state.width > 0;
 
     return (
-      <PageContent title="Calendar">
+      <PageContent title={translate('Calendar')}>
         <PageToolbar>
           <PageToolbarSection>
             <PageToolbarButton
-              label="iCal Link"
+              label={translate('ICalLink')}
               iconName={icons.CALENDAR}
               onPress={this.onGetCalendarLinkPress}
             />
 
             <PageToolbarButton
-              label="Search for Missing"
+              label={translate('SearchForMissing')}
               iconName={icons.SEARCH}
               isDisabled={!missingBookIds.length}
               isSpinning={isSearchingForMissing}
@@ -114,7 +115,7 @@ class CalendarPage extends Component {
 
           <PageToolbarSection alignContent={align.RIGHT}>
             <PageToolbarButton
-              label="Options"
+              label={translate('Options')}
               iconName={icons.POSTER}
               onPress={this.onOptionsPress}
             />

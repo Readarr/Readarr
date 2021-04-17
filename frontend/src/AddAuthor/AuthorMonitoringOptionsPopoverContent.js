@@ -1,42 +1,43 @@
 import React from 'react';
 import DescriptionList from 'Components/DescriptionList/DescriptionList';
 import DescriptionListItem from 'Components/DescriptionList/DescriptionListItem';
+import translate from 'Utilities/String/translate';
 
 function AuthorMonitoringOptionsPopoverContent() {
   return (
     <DescriptionList>
       <DescriptionListItem
-        title="All Books"
+        title={translate('AllBooks')}
         data="Monitor all books"
       />
 
       <DescriptionListItem
-        title="Future Books"
+        title={translate('FutureBooks')}
         data="Monitor books that have not released yet"
       />
 
       <DescriptionListItem
-        title="Missing Books"
+        title={translate('MissingBooks')}
         data="Monitor books that do not have files or have not released yet"
       />
 
       <DescriptionListItem
-        title="Existing Books"
+        title={translate('ExistingBooks')}
         data="Monitor books that have files or have not released yet"
       />
 
       <DescriptionListItem
-        title="First Book"
+        title={translate('FirstBook')}
         data="Monitor the first book. All other books will be ignored"
       />
 
       <DescriptionListItem
-        title="Latest Book"
+        title={translate('LatestBook')}
         data="Monitor the latest book and future books"
       />
 
       <DescriptionListItem
-        title="None"
+        title={translate('None')}
         data="No books will be monitored"
       />
     </DescriptionList>

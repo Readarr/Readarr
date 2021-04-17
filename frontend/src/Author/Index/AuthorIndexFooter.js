@@ -5,6 +5,7 @@ import { ColorImpairedConsumer } from 'App/ColorImpairedContext';
 import DescriptionList from 'Components/DescriptionList/DescriptionList';
 import DescriptionListItem from 'Components/DescriptionList/DescriptionListItem';
 import formatBytes from 'Utilities/Number/formatBytes';
+import translate from 'Utilities/String/translate';
 import styles from './AuthorIndexFooter.css';
 
 class AuthorIndexFooter extends PureComponent {
@@ -60,7 +61,9 @@ class AuthorIndexFooter extends PureComponent {
                       enableColorImpairedMode && 'colorImpaired'
                     )}
                   />
-                  <div>Continuing (All books downloaded)</div>
+                  <div>
+                    {translate('ContinuingAllBooksDownloaded')}
+                  </div>
                 </div>
 
                 <div className={styles.legendItem}>
@@ -70,7 +73,9 @@ class AuthorIndexFooter extends PureComponent {
                       enableColorImpairedMode && 'colorImpaired'
                     )}
                   />
-                  <div>Ended (All books downloaded)</div>
+                  <div>
+                    {translate('EndedAllBooksDownloaded')}
+                  </div>
                 </div>
 
                 <div className={styles.legendItem}>
@@ -80,7 +85,9 @@ class AuthorIndexFooter extends PureComponent {
                       enableColorImpairedMode && 'colorImpaired'
                     )}
                   />
-                  <div>Missing Books (Author monitored)</div>
+                  <div>
+                    {translate('MissingBooksAuthorMonitored')}
+                  </div>
                 </div>
 
                 <div className={styles.legendItem}>
@@ -90,55 +97,57 @@ class AuthorIndexFooter extends PureComponent {
                       enableColorImpairedMode && 'colorImpaired'
                     )}
                   />
-                  <div>Missing Books (Author not monitored)</div>
+                  <div>
+                    {translate('MissingBooksAuthorNotMonitored')}
+                  </div>
                 </div>
               </div>
 
               <div className={styles.statistics}>
                 <DescriptionList>
                   <DescriptionListItem
-                    title="Authors"
+                    title={translate('Authors')}
                     data={count}
                   />
 
                   <DescriptionListItem
-                    title="Ended"
+                    title={translate('Ended')}
                     data={ended}
                   />
 
                   <DescriptionListItem
-                    title="Continuing"
+                    title={translate('Continuing')}
                     data={continuing}
                   />
                 </DescriptionList>
 
                 <DescriptionList>
                   <DescriptionListItem
-                    title="Monitored"
+                    title={translate('Monitored')}
                     data={monitored}
                   />
 
                   <DescriptionListItem
-                    title="Unmonitored"
+                    title={translate('Unmonitored')}
                     data={count - monitored}
                   />
                 </DescriptionList>
 
                 <DescriptionList>
                   <DescriptionListItem
-                    title="Books"
+                    title={translate('Books')}
                     data={books}
                   />
 
                   <DescriptionListItem
-                    title="Files"
+                    title={translate('Files')}
                     data={bookFiles}
                   />
                 </DescriptionList>
 
                 <DescriptionList>
                   <DescriptionListItem
-                    title="Total File Size"
+                    title={translate('TotalFileSize')}
                     data={formatBytes(totalFileSize)}
                   />
                 </DescriptionList>

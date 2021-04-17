@@ -11,6 +11,7 @@ import ModalContent from 'Components/Modal/ModalContent';
 import ModalFooter from 'Components/Modal/ModalFooter';
 import ModalHeader from 'Components/Modal/ModalHeader';
 import { inputTypes } from 'Helpers/Props';
+import translate from 'Utilities/String/translate';
 
 class EditBookModalContent extends Component {
 
@@ -60,36 +61,42 @@ class EditBookModalContent extends Component {
             {...otherProps}
           >
             <FormGroup>
-              <FormLabel>Monitored</FormLabel>
+              <FormLabel>
+                {translate('Monitored')}
+              </FormLabel>
 
               <FormInputGroup
                 type={inputTypes.CHECK}
                 name="monitored"
-                helpText="Readarr will search for and download book"
+                helpText={translate('MonitoredHelpText')}
                 {...monitored}
                 onChange={onInputChange}
               />
             </FormGroup>
 
             <FormGroup>
-              <FormLabel>Automatically Switch Edition</FormLabel>
+              <FormLabel>
+                {translate('AutomaticallySwitchEdition')}
+              </FormLabel>
 
               <FormInputGroup
                 type={inputTypes.CHECK}
                 name="anyEditionOk"
-                helpText="Readarr will automatically switch to the edition best matching downloaded files"
+                helpText={translate('AnyEditionOkHelpText')}
                 {...anyEditionOk}
                 onChange={onInputChange}
               />
             </FormGroup>
 
             <FormGroup>
-              <FormLabel>Edition</FormLabel>
+              <FormLabel>
+                {translate('Edition')}
+              </FormLabel>
 
               <FormInputGroup
                 type={inputTypes.BOOK_EDITION_SELECT}
                 name="editions"
-                helpText="Change edition for this book"
+                helpText={translate('EditionsHelpText')}
                 isDisabled={anyEditionOk.value && hasFile}
                 bookEditions={editions}
                 onChange={onInputChange}

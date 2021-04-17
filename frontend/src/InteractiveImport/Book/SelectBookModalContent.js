@@ -11,6 +11,7 @@ import Scroller from 'Components/Scroller/Scroller';
 import Table from 'Components/Table/Table';
 import TableBody from 'Components/Table/TableBody';
 import { scrollDirections } from 'Helpers/Props';
+import translate from 'Utilities/String/translate';
 import SelectBookRow from './SelectBookRow';
 import styles from './SelectBookModalContent.css';
 
@@ -84,7 +85,7 @@ class SelectBookModalContent extends Component {
           }
           <TextInput
             className={styles.filterInput}
-            placeholder="Filter book"
+            placeholder={translate('FilterPlaceHolder')}
             name="filter"
             value={filter}
             autoFocus={true}

@@ -10,6 +10,7 @@ import PageContent from 'Components/Page/PageContent';
 import PageContentBody from 'Components/Page/PageContentBody';
 import { inputTypes } from 'Helpers/Props';
 import SettingsToolbarConnector from 'Settings/SettingsToolbarConnector';
+import translate from 'Utilities/String/translate';
 
 const logLevelOptions = [
   { key: 'info', value: 'Info' },
@@ -34,7 +35,7 @@ class DevelopmentSettings extends Component {
     } = this.props;
 
     return (
-      <PageContent title="Development">
+      <PageContent title={translate('Development')}>
         <SettingsToolbarConnector
           {...otherProps}
           onSavePress={onSavePress}
@@ -59,14 +60,16 @@ class DevelopmentSettings extends Component {
                 id="developmentSettings"
                 {...otherProps}
               >
-                <FieldSet legend="Metadata Provider Source">
+                <FieldSet legend={translate('MetadataProviderSource')}>
                   <FormGroup>
-                    <FormLabel>Metadata Source</FormLabel>
+                    <FormLabel>
+                      {translate('MetadataSource')}
+                    </FormLabel>
 
                     <FormInputGroup
                       type={inputTypes.TEXT}
                       name="metadataSource"
-                      helpText="Alternative Metadata Source (Leave blank for default)"
+                      helpText={translate('MetadataSourceHelpText')}
                       helpLink="https://wiki.servarr.com/Readarr_Settings#Metadata"
                       onChange={onInputChange}
                       {...settings.metadataSource}
@@ -74,21 +77,25 @@ class DevelopmentSettings extends Component {
                   </FormGroup>
                 </FieldSet>
 
-                <FieldSet legend="Logging">
+                <FieldSet legend={translate('Logging')}>
                   <FormGroup>
-                    <FormLabel>Log Rotation</FormLabel>
+                    <FormLabel>
+                      {translate('LogRotation')}
+                    </FormLabel>
 
                     <FormInputGroup
                       type={inputTypes.NUMBER}
                       name="logRotate"
-                      helpText="Max number of log files to keep saved in logs folder"
+                      helpText={translate('LogRotateHelpText')}
                       onChange={onInputChange}
                       {...settings.logRotate}
                     />
                   </FormGroup>
 
                   <FormGroup>
-                    <FormLabel>Console Log Level</FormLabel>
+                    <FormLabel>
+                      {translate('ConsoleLogLevel')}
+                    </FormLabel>
                     <FormInputGroup
                       type={inputTypes.SELECT}
                       name="consoleLogLevel"
@@ -99,26 +106,30 @@ class DevelopmentSettings extends Component {
                   </FormGroup>
 
                   <FormGroup>
-                    <FormLabel>Log SQL</FormLabel>
+                    <FormLabel>
+                      {translate('LogSQL')}
+                    </FormLabel>
 
                     <FormInputGroup
                       type={inputTypes.CHECK}
                       name="logSql"
-                      helpText="Log all SQL queries from Readarr"
+                      helpText={translate('LogSqlHelpText')}
                       onChange={onInputChange}
                       {...settings.logSql}
                     />
                   </FormGroup>
                 </FieldSet>
 
-                <FieldSet legend="Analytics">
+                <FieldSet legend={translate('Analytics')}>
                   <FormGroup>
-                    <FormLabel>Filter Analytics Events</FormLabel>
+                    <FormLabel>
+                      {translate('FilterAnalyticsEvents')}
+                    </FormLabel>
 
                     <FormInputGroup
                       type={inputTypes.CHECK}
                       name="filterSentryEvents"
-                      helpText="Filter known user error events from being sent as Analytics"
+                      helpText={translate('FilterSentryEventsHelpText')}
                       onChange={onInputChange}
                       {...settings.filterSentryEvents}
                     />

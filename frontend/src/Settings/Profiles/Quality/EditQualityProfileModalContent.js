@@ -14,6 +14,7 @@ import ModalFooter from 'Components/Modal/ModalFooter';
 import ModalHeader from 'Components/Modal/ModalHeader';
 import { inputTypes, kinds, sizes } from 'Helpers/Props';
 import dimensions from 'Styles/Variables/dimensions';
+import translate from 'Utilities/String/translate';
 import QualityProfileItems from './QualityProfileItems';
 import styles from './EditQualityProfileModalContent.css';
 
@@ -131,7 +132,9 @@ class EditQualityProfileModalContent extends Component {
 
             {
               !isFetching && !!error &&
-                <div>Unable to add a new quality profile, please try again.</div>
+                <div>
+                  {translate('UnableToAddANewQualityProfilePleaseTryAgain')}
+                </div>
             }
 
             {
@@ -161,7 +164,7 @@ class EditQualityProfileModalContent extends Component {
                           type={inputTypes.CHECK}
                           name="upgradeAllowed"
                           {...upgradeAllowed}
-                          helpText="If disabled qualities will not be upgraded"
+                          helpText={translate('UpgradeAllowedHelpText')}
                           onChange={onInputChange}
                         />
                       </FormGroup>
@@ -178,7 +181,7 @@ class EditQualityProfileModalContent extends Component {
                               name="cutoff"
                               {...cutoff}
                               values={qualities}
-                              helpText="Once this quality is reached Readarr will no longer download books"
+                              helpText={translate('CutoffHelpText')}
                               onChange={onCutoffChange}
                             />
                           </FormGroup>
@@ -209,7 +212,7 @@ class EditQualityProfileModalContent extends Component {
               id &&
                 <div
                   className={styles.deleteButtonContainer}
-                  title={isInUse ? 'Can\'t delete a quality profile that is attached to an author or import list' : undefined}
+                  title={isInUse ? translate('IsInUseCantDeleteAQualityProfileThatIsAttachedToAnAuthorOrImportList') : undefined}
                 >
                   <Button
                     kind={kinds.DANGER}

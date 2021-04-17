@@ -8,6 +8,7 @@ import FormInputGroup from 'Components/Form/FormInputGroup';
 import FormLabel from 'Components/Form/FormLabel';
 import LoadingIndicator from 'Components/Loading/LoadingIndicator';
 import { inputTypes, sizes } from 'Helpers/Props';
+import translate from 'Utilities/String/translate';
 import NamingModal from './NamingModal';
 import styles from './Naming.css';
 
@@ -94,7 +95,7 @@ class Naming extends Component {
     }
 
     return (
-      <FieldSet legend="Book Naming">
+      <FieldSet legend={translate('BookNaming')}>
         {
           isFetching &&
             <LoadingIndicator />
@@ -102,31 +103,37 @@ class Naming extends Component {
 
         {
           !isFetching && error &&
-            <div>Unable to load Naming settings</div>
+            <div>
+              {translate('UnableToLoadNamingSettings')}
+            </div>
         }
 
         {
           hasSettings && !isFetching && !error &&
             <Form>
               <FormGroup size={sizes.MEDIUM}>
-                <FormLabel>Rename Books</FormLabel>
+                <FormLabel>
+                  {translate('RenameBooks')}
+                </FormLabel>
 
                 <FormInputGroup
                   type={inputTypes.CHECK}
                   name="renameBooks"
-                  helpText="Readarr will use the existing file name if renaming is disabled"
+                  helpText={translate('RenameBooksHelpText')}
                   onChange={onInputChange}
                   {...settings.renameBooks}
                 />
               </FormGroup>
 
               <FormGroup size={sizes.MEDIUM}>
-                <FormLabel>Replace Illegal Characters</FormLabel>
+                <FormLabel>
+                  {translate('ReplaceIllegalCharacters')}
+                </FormLabel>
 
                 <FormInputGroup
                   type={inputTypes.CHECK}
                   name="replaceIllegalCharacters"
-                  helpText="Replace or Remove illegal characters"
+                  helpText={translate('ReplaceIllegalCharactersHelpText')}
                   onChange={onInputChange}
                   {...settings.replaceIllegalCharacters}
                 />
@@ -136,7 +143,9 @@ class Naming extends Component {
                 renameBooks &&
                   <div>
                     <FormGroup size={sizes.LARGE}>
-                      <FormLabel>Standard Book Format</FormLabel>
+                      <FormLabel>
+                        {translate('StandardBookFormat')}
+                      </FormLabel>
 
                       <FormInputGroup
                         inputClassName={styles.namingInput}
@@ -156,7 +165,9 @@ class Naming extends Component {
                 advancedSettings={advancedSettings}
                 isAdvanced={true}
               >
-                <FormLabel>Author Folder Format</FormLabel>
+                <FormLabel>
+                  {translate('AuthorFolderFormat')}
+                </FormLabel>
 
                 <FormInputGroup
                   inputClassName={styles.namingInput}

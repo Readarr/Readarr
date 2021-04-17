@@ -9,6 +9,7 @@ import Table from 'Components/Table/Table';
 import TableBody from 'Components/Table/TableBody';
 import { kinds } from 'Helpers/Props';
 import hasDifferentItems from 'Utilities/Object/hasDifferentItems';
+import translate from 'Utilities/String/translate';
 import getSelectedIds from 'Utilities/Table/getSelectedIds';
 import removeOldSelectedState from 'Utilities/Table/removeOldSelectedState';
 import selectAll from 'Utilities/Table/selectAll';
@@ -218,9 +219,9 @@ class BookFileEditorTableContent extends Component {
         <ConfirmModal
           isOpen={isConfirmDeleteModalOpen}
           kind={kinds.DANGER}
-          title="Delete Selected Book Files"
-          message={'Are you sure you want to delete the selected book files?'}
-          confirmLabel="Delete"
+          title={translate('DeleteSelectedBookFiles')}
+          message={translate('DeleteSelectedBookFilesMessageText')}
+          confirmLabel={translate('Delete')}
           onConfirm={this.onConfirmDelete}
           onCancel={this.onConfirmDeleteModalClose}
         />

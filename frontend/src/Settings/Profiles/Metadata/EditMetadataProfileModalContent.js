@@ -12,6 +12,7 @@ import ModalContent from 'Components/Modal/ModalContent';
 import ModalFooter from 'Components/Modal/ModalFooter';
 import ModalHeader from 'Components/Modal/ModalHeader';
 import { inputTypes, kinds } from 'Helpers/Props';
+import translate from 'Utilities/String/translate';
 import styles from './EditMetadataProfileModalContent.css';
 
 function EditMetadataProfileModalContent(props) {
@@ -54,14 +55,18 @@ function EditMetadataProfileModalContent(props) {
 
         {
           !isFetching && !!error &&
-            <div>Unable to add a new metadata profile, please try again.</div>
+            <div>
+              {translate('UnableToAddANewMetadataProfilePleaseTryAgain')}
+            </div>
         }
 
         {
           !isFetching && !error &&
             <Form {...otherProps}>
               <FormGroup>
-                <FormLabel>Name</FormLabel>
+                <FormLabel>
+                  {translate('Name')}
+                </FormLabel>
 
                 <FormInputGroup
                   type={inputTypes.TEXT}
@@ -72,13 +77,15 @@ function EditMetadataProfileModalContent(props) {
               </FormGroup>
 
               <FormGroup>
-                <FormLabel>Minimum Popularity</FormLabel>
+                <FormLabel>
+                  {translate('MinimumPopularity')}
+                </FormLabel>
 
                 <FormInputGroup
                   type={inputTypes.NUMBER}
                   name="minPopularity"
                   {...minPopularity}
-                  helpText="Popularity is average rating * number of votes"
+                  helpText={translate('MinPopularityHelpText')}
                   isFloat={true}
                   min={0}
                   onChange={onInputChange}
@@ -86,7 +93,9 @@ function EditMetadataProfileModalContent(props) {
               </FormGroup>
 
               <FormGroup>
-                <FormLabel>Skip books with missing release date</FormLabel>
+                <FormLabel>
+                  {translate('SkipBooksWithMissingReleaseDate')}
+                </FormLabel>
 
                 <FormInputGroup
                   type={inputTypes.CHECK}
@@ -97,7 +106,9 @@ function EditMetadataProfileModalContent(props) {
               </FormGroup>
 
               <FormGroup>
-                <FormLabel>Skip books with no ISBN or ASIN</FormLabel>
+                <FormLabel>
+                  {translate('SkipBooksWithNoISBNOrASIN')}
+                </FormLabel>
 
                 <FormInputGroup
                   type={inputTypes.CHECK}
@@ -108,7 +119,9 @@ function EditMetadataProfileModalContent(props) {
               </FormGroup>
 
               <FormGroup>
-                <FormLabel>Skip part books and sets</FormLabel>
+                <FormLabel>
+                  {translate('SkipPartBooksAndSets')}
+                </FormLabel>
 
                 <FormInputGroup
                   type={inputTypes.CHECK}
@@ -119,7 +132,9 @@ function EditMetadataProfileModalContent(props) {
               </FormGroup>
 
               <FormGroup>
-                <FormLabel>Skip secondary series books</FormLabel>
+                <FormLabel>
+                  {translate('SkipSecondarySeriesBooks')}
+                </FormLabel>
 
                 <FormInputGroup
                   type={inputTypes.CHECK}
@@ -130,7 +145,9 @@ function EditMetadataProfileModalContent(props) {
               </FormGroup>
 
               <FormGroup>
-                <FormLabel>Allowed Languages</FormLabel>
+                <FormLabel>
+                  {translate('AllowedLanguages')}
+                </FormLabel>
 
                 <FormInputGroup
                   type={inputTypes.TEXT}
@@ -148,7 +165,7 @@ function EditMetadataProfileModalContent(props) {
           id &&
             <div
               className={styles.deleteButtonContainer}
-              title={isInUse ? 'Can\'t delete a metadata profile that is attached to an author or import list' : undefined}
+              title={isInUse ? translate('IsInUseCantDeleteAMetadataProfileThatIsAttachedToAnAuthorOrImportList') : undefined}
             >
               <Button
                 kind={kinds.DANGER}

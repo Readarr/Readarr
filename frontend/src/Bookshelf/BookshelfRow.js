@@ -6,6 +6,7 @@ import MonitorToggleButton from 'Components/MonitorToggleButton';
 import VirtualTableRowCell from 'Components/Table/Cells/VirtualTableRowCell';
 import VirtualTableSelectCell from 'Components/Table/Cells/VirtualTableSelectCell';
 import { icons } from 'Helpers/Props';
+import translate from 'Utilities/String/translate';
 import BookshelfBook from './BookshelfBook';
 import styles from './BookshelfRow.css';
 
@@ -52,7 +53,7 @@ class BookshelfRow extends Component {
           <Icon
             className={styles.statusIcon}
             name={status === 'ended' ? icons.AUTHOR_ENDED : icons.AUTHOR_CONTINUING}
-            title={status === 'ended' ? 'Ended' : 'Continuing'}
+            title={status === 'ended' ? translate('StatusEndedEnded') : translate('StatusEndedContinuing')}
           />
         </VirtualTableRowCell>
 

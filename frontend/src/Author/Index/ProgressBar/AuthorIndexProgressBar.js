@@ -3,6 +3,7 @@ import React from 'react';
 import ProgressBar from 'Components/ProgressBar';
 import { sizes } from 'Helpers/Props';
 import getProgressBarKind from 'Utilities/Author/getProgressBarKind';
+import translate from 'Utilities/String/translate';
 import styles from './AuthorIndexProgressBar.css';
 
 function AuthorIndexProgressBar(props) {
@@ -28,7 +29,7 @@ function AuthorIndexProgressBar(props) {
       size={detailedProgressBar ? sizes.MEDIUM : sizes.SMALL}
       showText={detailedProgressBar}
       text={text}
-      title={`${bookFileCount} / ${bookCount} (Total: ${totalBookCount})`}
+      title={translate('BookFileCountBookCountTotalTotalBookCountInterp', [bookFileCount, bookCount, totalBookCount])}
       width={posterWidth}
     />
   );

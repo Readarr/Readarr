@@ -15,6 +15,7 @@ import SelectAuthorModal from 'InteractiveImport/Author/SelectAuthorModal';
 import SelectBookModal from 'InteractiveImport/Book/SelectBookModal';
 import SelectQualityModal from 'InteractiveImport/Quality/SelectQualityModal';
 import formatBytes from 'Utilities/Number/formatBytes';
+import translate from 'Utilities/String/translate';
 import InteractiveImportRowCellPlaceholder from './InteractiveImportRowCellPlaceholder';
 import styles from './InteractiveImportRow.css';
 
@@ -211,7 +212,7 @@ class InteractiveImportRow extends Component {
 
         <TableRowCellButton
           isDisabled={!allowAuthorChange}
-          title={allowAuthorChange ? 'Click to change author' : undefined}
+          title={allowAuthorChange ? translate('AllowAuthorChangeClickToChangeAuthor') : undefined}
           onPress={this.onSelectAuthorPress}
         >
           {
@@ -221,7 +222,7 @@ class InteractiveImportRow extends Component {
 
         <TableRowCellButton
           isDisabled={!author}
-          title={author ? 'Click to change book' : undefined}
+          title={author ? translate('AuthorClickToChangeBook') : undefined}
           onPress={this.onSelectBookPress}
         >
           {
@@ -231,7 +232,7 @@ class InteractiveImportRow extends Component {
 
         <TableRowCellButton
           className={styles.quality}
-          title="Click to change quality"
+          title={translate('ClickToChangeQuality')}
           onPress={this.onSelectQualityPress}
         >
           {
@@ -262,7 +263,7 @@ class InteractiveImportRow extends Component {
                     kind={kinds.DANGER}
                   />
                 }
-                title="Release Rejected"
+                title={translate('ReleaseRejected')}
                 body={
                   <ul>
                     {
@@ -284,12 +285,12 @@ class InteractiveImportRow extends Component {
 
         <ConfirmModal
           isOpen={isDetailsModalOpen}
-          title="File Details"
+          title={translate('FileDetails')}
           message={fileDetails}
           size={sizes.LARGE}
           kind={kinds.DEFAULT}
           hideCancelButton={true}
-          confirmLabel="Close"
+          confirmLabel={translate('Close')}
           onConfirm={this.onDetailsModalClose}
           onCancel={this.onDetailsModalClose}
         />
