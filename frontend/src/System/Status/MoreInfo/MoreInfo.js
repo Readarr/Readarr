@@ -34,16 +34,6 @@ class MoreInfo extends Component {
             <Link to="https://readarr.com/discord">Readarr on Discord</Link>
           </DescriptionListItemDescription>
 
-          <DescriptionListItemTitle>Donations</DescriptionListItemTitle>
-          <DescriptionListItemDescription>
-            <Link to="https://opencollective.com/readarr">Donate to Readarr</Link>
-          </DescriptionListItemDescription>
-
-          <DescriptionListItemTitle>Sonarr Donations</DescriptionListItemTitle>
-          <DescriptionListItemDescription>
-            <Link to="https://sonarr.tv/donate">Donate to Sonarr</Link>
-          </DescriptionListItemDescription>
-
           <DescriptionListItemTitle>Source</DescriptionListItemTitle>
           <DescriptionListItemDescription>
             <Link to="https://github.com/readarr/Readarr/">github.com/Readarr/Readarr</Link>
