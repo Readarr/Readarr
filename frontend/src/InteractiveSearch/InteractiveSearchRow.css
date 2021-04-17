@@ -1,29 +1,35 @@
-.protocol {
+.cell {
   composes: cell from '~Components/Table/Cells/TableRowCell.css';
+}
+
+.protocol {
+  composes: cell;
 
   width: 80px;
 }
 
 .title {
-  composes: cell from '~Components/Table/Cells/TableRowCell.css';
+  composes: cell;
+}
 
-  word-break: break-all;
+.title div {
+  overflow-wrap: break-word;
 }
 
 .indexer {
-  composes: cell from '~Components/Table/Cells/TableRowCell.css';
+  composes: cell;
 
   width: 85px;
 }
 
 .quality {
-  composes: cell from '~Components/Table/Cells/TableRowCell.css';
+  composes: cell;
 
   text-align: center;
 }
 
 .preferredWordScore {
-  composes: cell from '~Components/Table/Cells/TableRowCell.css';
+  composes: cell;
 
   width: 55px;
   font-weight: bold;
@@ -32,20 +38,20 @@
 
 .rejected,
 .download {
-  composes: cell from '~Components/Table/Cells/TableRowCell.css';
+  composes: cell;
 
   width: 50px;
 }
 
 .age,
 .size {
-  composes: cell from '~Components/Table/Cells/TableRowCell.css';
+  composes: cell;
 
   white-space: nowrap;
 }
 
 .peers {
-  composes: cell from '~Components/Table/Cells/TableRowCell.css';
+  composes: cell;
 
   width: 75px;
 }
