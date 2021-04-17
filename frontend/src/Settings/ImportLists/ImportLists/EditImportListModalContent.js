@@ -17,23 +17,24 @@ import ModalFooter from 'Components/Modal/ModalFooter';
 import ModalHeader from 'Components/Modal/ModalHeader';
 import Popover from 'Components/Tooltip/Popover';
 import { icons, inputTypes, kinds, tooltipPositions } from 'Helpers/Props';
+import translate from 'Utilities/String/translate';
 import styles from './EditImportListModalContent.css';
 
 function ImportListMonitoringOptionsPopoverContent() {
   return (
     <DescriptionList>
       <DescriptionListItem
-        title="None"
+        title={translate('None')}
         data="Do not monitor authors or books"
       />
 
       <DescriptionListItem
-        title="Specific Book"
+        title={translate('SpecificBook')}
         data="Monitor authors but only monitor books explicitly included in the list"
       />
 
       <DescriptionListItem
-        title="All Author Books"
+        title={translate('AllAuthorBooks')}
         data="Monitor authors and all books for each author included on the import list"
       />
     </DescriptionList>
@@ -93,14 +94,18 @@ function EditImportListModalContent(props) {
 
         {
           !isFetching && !!error &&
-            <div>Unable to add a new list, please try again.</div>
+            <div>
+              {translate('UnableToAddANewListPleaseTryAgain')}
+            </div>
         }
 
         {
           !isFetching && !error &&
             <Form {...otherProps}>
               <FormGroup>
-                <FormLabel>Name</FormLabel>
+                <FormLabel>
+                  {translate('Name')}
+                </FormLabel>
 
                 <FormInputGroup
                   type={inputTypes.TEXT}
@@ -111,12 +116,14 @@ function EditImportListModalContent(props) {
               </FormGroup>
 
               <FormGroup>
-                <FormLabel>Enable Automatic Add</FormLabel>
+                <FormLabel>
+                  {translate('EnableAutomaticAdd')}
+                </FormLabel>
 
                 <FormInputGroup
                   type={inputTypes.CHECK}
                   name="enableAutomaticAdd"
-                  helpText={'Add author/books to Readarr when syncs are performed via the UI or by Readarr'}
+                  helpText={translate('EnableAutomaticAddHelpText')}
                   {...enableAutomaticAdd}
                   onChange={onInputChange}
                 />
@@ -133,7 +140,7 @@ function EditImportListModalContent(props) {
                         name={icons.INFO}
                       />
                     }
-                    title="Monitoring Options"
+                    title={translate('MonitoringOptions')}
                     body={<ImportListMonitoringOptionsPopoverContent />}
                     position={tooltipPositions.RIGHT}
                   />
@@ -143,55 +150,63 @@ function EditImportListModalContent(props) {
                   type={inputTypes.SELECT}
                   name="shouldMonitor"
                   values={monitorOptions}
-                  helpText={'Monitor authors and books added from this list'}
+                  helpText={translate('ShouldMonitorHelpText')}
                   {...shouldMonitor}
                   onChange={onInputChange}
                 />
               </FormGroup>
 
               <FormGroup>
-                <FormLabel>Search for New Items</FormLabel>
+                <FormLabel>
+                  {translate('SearchForNewItems')}
+                </FormLabel>
 
                 <FormInputGroup
                   type={inputTypes.CHECK}
                   name="shouldSearch"
-                  helpText={'Search indexers for newly added items.  Use with caution for large lists.'}
+                  helpText={translate('ShouldSearchHelpText')}
                   {...shouldSearch}
                   onChange={onInputChange}
                 />
               </FormGroup>
 
               <FormGroup>
-                <FormLabel>Root Folder</FormLabel>
+                <FormLabel>
+                  {translate('RootFolder')}
+                </FormLabel>
 
                 <FormInputGroup
                   type={inputTypes.ROOT_FOLDER_SELECT}
                   name="rootFolderPath"
-                  helpText={'Root Folder list items will be added to'}
+                  helpText={translate('RootFolderPathHelpText')}
                   {...rootFolderPath}
                   onChange={onInputChange}
                 />
               </FormGroup>
 
               <FormGroup>
-                <FormLabel>Quality Profile</FormLabel>
+                <FormLabel>
+                  {translate('QualityProfile')}
+                </FormLabel>
 
                 <FormInputGroup
                   type={inputTypes.QUALITY_PROFILE_SELECT}
                   name="qualityProfileId"
-                  helpText={'Quality Profile list items should be added with'}
+                  helpText={translate('QualityProfileIdHelpText')}
                   {...qualityProfileId}
                   onChange={onInputChange}
                 />
               </FormGroup>
 
               <FormGroup className={showMetadataProfile ? undefined : styles.hideMetadataProfile}>
-                <FormLabel>Metadata Profile</FormLabel>
+                <FormLabel>
+                  {translate('MetadataProfile')}
+                </FormLabel>
 
                 <FormInputGroup
                   type={inputTypes.METADATA_PROFILE_SELECT}
                   name="metadataProfileId"
-                  helpText={'Metadata Profile list items should be added with'}
+                  helpText={translate('MetadataProfileIdHelpText')}
                   {...metadataProfileId}
                   includeNone={true}
                   onChange={onInputChange}
@@ -199,12 +214,14 @@ function EditImportListModalContent(props) {
               </FormGroup>
 
               <FormGroup>
-                <FormLabel>Readarr Tags</FormLabel>
+                <FormLabel>
+                  {translate('ReadarrTags')}
+                </FormLabel>
 
                 <FormInputGroup
                   type={inputTypes.TAG}
                   name="tags"
-                  helpText="Add authors from this list with these tags"
+                  helpText={translate('TagsHelpText')}
                   {...tags}
                   onChange={onInputChange}
                 />

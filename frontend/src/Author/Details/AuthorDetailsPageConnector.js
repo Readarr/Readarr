@@ -9,6 +9,7 @@ import NotFound from 'Components/NotFound';
 import PageContent from 'Components/Page/PageContent';
 import PageContentBody from 'Components/Page/PageContentBody';
 import getErrorMessage from 'Utilities/Object/getErrorMessage';
+import translate from 'Utilities/String/translate';
 import AuthorDetailsConnector from './AuthorDetailsConnector';
 import styles from './AuthorDetails.css';
 
@@ -92,7 +93,7 @@ class AuthorDetailsPageConnector extends Component {
     if (!titleSlug) {
       return (
         <NotFound
-          message="Sorry, that author cannot be found."
+          message={translate('SorryThatAuthorCannotBeFound')}
         />
       );
     }

@@ -7,6 +7,7 @@ import DescriptionListItemDescription from 'Components/DescriptionList/Descripti
 import DescriptionListItemTitle from 'Components/DescriptionList/DescriptionListItemTitle';
 import Link from 'Components/Link/Link';
 import stripHtml from 'Utilities/String/stripHtml';
+import translate from 'Utilities/String/translate';
 import styles from './FileDetails.css';
 
 function renderRejections(rejections) {
@@ -43,7 +44,7 @@ function FileDetails(props) {
           {
             filename &&
               <DescriptionListItem
-                title="Filename"
+                title={translate('Filename')}
                 data={filename}
                 descriptionClassName={styles.filename}
               />
@@ -51,119 +52,119 @@ function FileDetails(props) {
           {
             audioTags.title !== undefined &&
               <DescriptionListItem
-                title="Track Title"
+                title={translate('TrackTitle')}
                 data={audioTags.title}
               />
           }
           {
             audioTags.trackNumbers[0] > 0 &&
               <DescriptionListItem
-                title="Track Number"
+                title={translate('TrackNumber')}
                 data={audioTags.trackNumbers[0]}
               />
           }
           {
             audioTags.discNumber > 0 &&
               <DescriptionListItem
-                title="Disc Number"
+                title={translate('DiscNumber')}
                 data={audioTags.discNumber}
               />
           }
           {
             audioTags.discCount > 0 &&
               <DescriptionListItem
-                title="Disc Count"
+                title={translate('DiscCount')}
                 data={audioTags.discCount}
               />
           }
           {
             audioTags.bookTitle !== undefined &&
               <DescriptionListItem
-                title="Book"
+                title={translate('Book')}
                 data={audioTags.bookTitle}
               />
           }
           {
             audioTags.authorTitle !== undefined &&
               <DescriptionListItem
-                title="Author"
+                title={translate('Author')}
                 data={audioTags.authorTitle}
               />
           }
           {
             audioTags.seriesTitle !== undefined &&
               <DescriptionListItem
-                title="Series"
+                title={translate('Series')}
                 data={audioTags.seriesTitle}
               />
           }
           {
             audioTags.seriesIndex !== undefined &&
               <DescriptionListItem
-                title="Series Number"
+                title={translate('SeriesNumber')}
                 data={audioTags.seriesIndex}
               />
           }
           {
             audioTags.country !== undefined &&
               <DescriptionListItem
-                title="Country"
+                title={translate('Country')}
                 data={audioTags.country.name}
               />
           }
           {
             audioTags.language !== undefined && audioTags.language !== 'UND' &&
               <DescriptionListItem
-                title="Language"
+                title={translate('Language')}
                 data={audioTags.language}
               />
           }
           {
             audioTags.year > 0 &&
               <DescriptionListItem
-                title="Year"
+                title={translate('Year')}
                 data={audioTags.year}
               />
           }
           {
             audioTags.label !== undefined &&
               <DescriptionListItem
-                title="Label"
+                title={translate('Label')}
                 data={audioTags.label}
               />
           }
           {
             audioTags.publisher !== undefined &&
               <DescriptionListItem
-                title="Publisher"
+                title={translate('Publisher')}
                 data={audioTags.publisher}
               />
           }
           {
             audioTags.catalogNumber !== undefined &&
               <DescriptionListItem
-                title="Catalog Number"
+                title={translate('CatalogNumber')}
                 data={audioTags.catalogNumber}
               />
           }
           {
             audioTags.disambiguation !== undefined &&
               <DescriptionListItem
-                title="Overview"
+                title={translate('Overview')}
                 data={stripHtml(audioTags.disambiguation)}
               />
           }
           {
             audioTags.isbn !== undefined &&
               <DescriptionListItem
-                title="ISBN"
+                title={translate('ISBN')}
                 data={audioTags.isbn}
               />
           }
           {
             audioTags.asin !== undefined &&
               <DescriptionListItem
-                title="ASIN"
+                title={translate('ASIN')}
                 data={audioTags.asin}
               />
           }       {
@@ -172,7 +173,7 @@ function FileDetails(props) {
                 to={`https://musicbrainz.org/author/${audioTags.authorMBId}`}
               >
                 <DescriptionListItem
-                  title="MusicBrainz Author ID"
+                  title={translate('MusicBrainzAuthorID')}
                   data={audioTags.authorMBId}
                 />
               </Link>
@@ -183,7 +184,7 @@ function FileDetails(props) {
                 to={`https://musicbrainz.org/release-group/${audioTags.bookMBId}`}
               >
                 <DescriptionListItem
-                  title="MusicBrainz Book ID"
+                  title={translate('MusicBrainzBookID')}
                   data={audioTags.bookMBId}
                 />
               </Link>
@@ -194,7 +195,7 @@ function FileDetails(props) {
                 to={`https://musicbrainz.org/release/${audioTags.releaseMBId}`}
               >
                 <DescriptionListItem
-                  title="MusicBrainz Release ID"
+                  title={translate('MusicBrainzReleaseID')}
                   data={audioTags.releaseMBId}
                 />
               </Link>
@@ -205,7 +206,7 @@ function FileDetails(props) {
                 to={`https://musicbrainz.org/recording/${audioTags.recordingMBId}`}
               >
                 <DescriptionListItem
-                  title="MusicBrainz Recording ID"
+                  title={translate('MusicBrainzRecordingID')}
                   data={audioTags.recordingMBId}
                 />
               </Link>
@@ -216,7 +217,7 @@ function FileDetails(props) {
                 to={`https://musicbrainz.org/track/${audioTags.trackMBId}`}
               >
                 <DescriptionListItem
-                  title="MusicBrainz Track ID"
+                  title={translate('MusicBrainzTrackID')}
                   data={audioTags.trackMBId}
                 />
               </Link>

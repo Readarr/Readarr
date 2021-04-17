@@ -15,6 +15,7 @@ import TableRow from 'Components/Table/TableRow';
 import Popover from 'Components/Tooltip/Popover';
 import { icons, kinds, tooltipPositions } from 'Helpers/Props';
 import InteractiveImportModal from 'InteractiveImport/InteractiveImportModal';
+import translate from 'Utilities/String/translate';
 import QueueStatusCell from './QueueStatusCell';
 import RemoveQueueItemModal from './RemoveQueueItemModal';
 import TimeleftCell from './TimeleftCell';
@@ -285,7 +286,7 @@ class QueueRow extends Component {
                             kind={kinds.DANGER}
                           />
                         }
-                        title="Manual Download"
+                        title={translate('ManualDownload')}
                         body="This release failed parsing checks and was manually downloaded from an interactive search.  Import is likely to fail."
                         position={tooltipPositions.LEFT}
                       />
@@ -310,7 +311,7 @@ class QueueRow extends Component {
                   }
 
                   <SpinnerIconButton
-                    title="Remove from queue"
+                    title={translate('RemoveFromQueue')}
                     name={icons.REMOVE}
                     isSpinning={isRemoving}
                     onPress={this.onRemoveQueueItemPress}

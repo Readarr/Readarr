@@ -7,6 +7,7 @@ import FormInputGroup from 'Components/Form/FormInputGroup';
 import FormLabel from 'Components/Form/FormLabel';
 import LoadingIndicator from 'Components/Loading/LoadingIndicator';
 import { inputTypes } from 'Helpers/Props';
+import translate from 'Utilities/String/translate';
 
 const writeBookTagOptions = [
   { key: 'sync', value: 'All files; keep in sync with Goodreads' },
@@ -33,20 +34,24 @@ function MetadataProvider(props) {
 
       {
         !isFetching && error &&
-          <div>Unable to load Metadata Provider settings</div>
+          <div>
+            {translate('UnableToLoadMetadataProviderSettings')}
+          </div>
       }
 
       {
         hasSettings && !isFetching && !error &&
           <Form>
-            <FieldSet legend="Calibre Metadata">
+            <FieldSet legend={translate('CalibreMetadata')}>
               <FormGroup>
-                <FormLabel>Send Metadata to Calibre</FormLabel>
+                <FormLabel>
+                  {translate('SendMetadataToCalibre')}
+                </FormLabel>
 
                 <FormInputGroup
                   type={inputTypes.SELECT}
                   name="writeBookTags"
-                  helpTextWarning="Selecting 'All files' will alter existing files when they are imported."
+                  helpTextWarning={translate('WriteBookTagsHelpTextWarning')}
                   helpLink="https://wiki.servarr.com/Readarr_Settings#Write_Metadata_to_Book_Files"
                   values={writeBookTagOptions}
                   onChange={onInputChange}
@@ -55,24 +60,28 @@ function MetadataProvider(props) {
               </FormGroup>
 
               <FormGroup>
-                <FormLabel>Update Covers</FormLabel>
+                <FormLabel>
+                  {translate('UpdateCovers')}
+                </FormLabel>
 
                 <FormInputGroup
                   type={inputTypes.CHECK}
                   name="updateCovers"
-                  helpText="Set book covers in Calibre to match those in Readarr"
+                  helpText={translate('UpdateCoversHelpText')}
                   onChange={onInputChange}
                   {...settings.updateCovers}
                 />
               </FormGroup>
 
               <FormGroup>
-                <FormLabel>Embed Metadata in Book Files</FormLabel>
+                <FormLabel>
+                  {translate('EmbedMetadataInBookFiles')}
+                </FormLabel>
 
                 <FormInputGroup
                   type={inputTypes.CHECK}
                   name="embedMetadata"
-                  helpText="Tell Calibre to write metadata into the actual book file"
+                  helpText={translate('EmbedMetadataHelpText')}
                   onChange={onInputChange}
                   {...settings.embedMetadata}
                 />

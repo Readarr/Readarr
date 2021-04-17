@@ -20,6 +20,7 @@ import InteractiveSearchFilterMenuConnector from 'InteractiveSearch/InteractiveS
 import InteractiveSearchTable from 'InteractiveSearch/InteractiveSearchTable';
 import OrganizePreviewModalConnector from 'Organize/OrganizePreviewModalConnector';
 import RetagPreviewModalConnector from 'Retag/RetagPreviewModalConnector';
+import translate from 'Utilities/String/translate';
 import selectAll from 'Utilities/Table/selectAll';
 import toggleSelected from 'Utilities/Table/toggleSelected';
 import InteractiveImportModal from '../../InteractiveImport/InteractiveImportModal';
@@ -181,41 +182,41 @@ class AuthorDetails extends Component {
         <PageToolbar>
           <PageToolbarSection>
             <PageToolbarButton
-              label="Refresh & Scan"
+              label={translate('RefreshScan')}
               iconName={icons.REFRESH}
               spinningName={icons.REFRESH}
-              title="Refresh information and scan disk"
+              title={translate('RefreshInformationAndScanDisk')}
               isSpinning={isRefreshing}
               onPress={onRefreshPress}
             />
 
             <PageToolbarButton
-              label="Search Monitored"
+              label={translate('SearchMonitored')}
               iconName={icons.SEARCH}
               isDisabled={!monitored || !hasMonitoredBooks || !hasBooks}
               isSpinning={isSearching}
-              title={hasMonitoredBooks ? undefined : 'No monitored books for this author'}
+              title={hasMonitoredBooks ? undefined : translate('HasMonitoredBooksNoMonitoredBooksForThisAuthor')}
               onPress={onSearchPress}
             />
 
             <PageToolbarSeparator />
 
             <PageToolbarButton
-              label="Preview Rename"
+              label={translate('PreviewRename')}
               iconName={icons.ORGANIZE}
               isDisabled={!hasBookFiles}
               onPress={this.onOrganizePress}
             />
 
             <PageToolbarButton
-              label="Preview Retag"
+              label={translate('PreviewRetag')}
               iconName={icons.RETAG}
               isDisabled={!hasBookFiles}
               onPress={this.onRetagPress}
             />
 
             <PageToolbarButton
-              label="Manual Import"
+              label={translate('ManualImport')}
               iconName={icons.INTERACTIVE}
               onPress={this.onInteractiveImportPress}
             />
@@ -223,13 +224,13 @@ class AuthorDetails extends Component {
             <PageToolbarSeparator />
 
             <PageToolbarButton
-              label="Edit"
+              label={translate('Edit')}
               iconName={icons.EDIT}
               onPress={this.onEditAuthorPress}
             />
 
             <PageToolbarButton
-              label="Delete"
+              label={translate('Delete')}
               iconName={icons.DELETE}
               onPress={this.onDeleteAuthorPress}
             />
@@ -237,7 +238,7 @@ class AuthorDetails extends Component {
 
           <PageToolbarSection alignContent={align.RIGHT}>
             <PageToolbarButton
-              label={allExpanded ? 'Collapse All' : 'Expand All'}
+              label={allExpanded ? translate('AllExpandedCollapseAll') : translate('AllExpandedExpandAll')}
               iconName={expandIcon}
               onPress={this.onExpandAllPress}
             />
@@ -258,7 +259,7 @@ class AuthorDetails extends Component {
                 className={styles.authorNavigationButton}
                 name={icons.ARROW_LEFT}
                 size={30}
-                title={`Go to ${previousAuthor.authorName}`}
+                title={translate('GoToInterp', [previousAuthor.authorName])}
                 to={`/author/${previousAuthor.titleSlug}`}
               />
 
@@ -266,7 +267,7 @@ class AuthorDetails extends Component {
                 className={styles.authorUpButton}
                 name={icons.ARROW_UP}
                 size={30}
-                title={'Go to author listing'}
+                title={translate('GoToAuthorListing')}
                 to={'/'}
               />
 
@@ -274,7 +275,7 @@ class AuthorDetails extends Component {
                 className={styles.authorNavigationButton}
                 name={icons.ARROW_RIGHT}
                 size={30}
-                title={`Go to ${nextAuthor.authorName}`}
+                title={translate('GoToInterp', [nextAuthor.authorName])}
                 to={`/author/${nextAuthor.titleSlug}`}
               />
             </div>
@@ -288,12 +289,16 @@ class AuthorDetails extends Component {
 
             {
               !isFetching && booksError &&
-                <div>Loading books failed</div>
+                <div>
+                  {translate('LoadingBooksFailed')}
+                </div>
             }
 
             {
               !isFetching && bookFilesError &&
-                <div>Loading book files failed</div>
+                <div>
+                  {translate('LoadingBookFilesFailed')}
+                </div>
             }
 
             {

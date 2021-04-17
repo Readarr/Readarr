@@ -11,6 +11,7 @@ import ModalFooter from 'Components/Modal/ModalFooter';
 import ModalHeader from 'Components/Modal/ModalHeader';
 import { icons, inputTypes, kinds } from 'Helpers/Props';
 import formatBytes from 'Utilities/Number/formatBytes';
+import translate from 'Utilities/String/translate';
 import styles from './DeleteAuthorModalContent.css';
 
 class DeleteAuthorModalContent extends Component {
@@ -67,7 +68,7 @@ class DeleteAuthorModalContent extends Component {
     const addImportListExclusion = this.state.addImportListExclusion;
 
     let deleteFilesLabel = `Delete ${bookFileCount} Book Files`;
-    let deleteFilesHelpText = 'Delete the book files and author folder';
+    let deleteFilesHelpText = translate('DeleteFilesHelpText');
 
     if (bookFileCount === 0) {
       deleteFilesLabel = 'Delete Author Folder';
@@ -106,13 +107,15 @@ class DeleteAuthorModalContent extends Component {
           </FormGroup>
 
           <FormGroup>
-            <FormLabel>Add List Exclusion</FormLabel>
+            <FormLabel>
+              {translate('AddListExclusion')}
+            </FormLabel>
 
             <FormInputGroup
               type={inputTypes.CHECK}
               name="addImportListExclusion"
               value={addImportListExclusion}
-              helpText="Prevent author from being added to Readarr by Import lists"
+              helpText={translate('AddImportListExclusionHelpText')}
               kind={kinds.DANGER}
               onChange={this.onAddImportListExclusionChange}
             />
@@ -121,7 +124,9 @@ class DeleteAuthorModalContent extends Component {
           {
             deleteFiles &&
               <div className={styles.deleteFilesMessage}>
-                <div>The author folder <strong>{path}</strong> and all of its content will be deleted.</div>
+                <div>
+                  {translate('TheAuthorFolderStrongpathstrongAndAllOfItsContentWillBeDeleted')}
+                </div>
 
                 {
                   !!bookFileCount &&

@@ -12,6 +12,7 @@ import { icons } from 'Helpers/Props';
 import dimensions from 'Styles/Variables/dimensions';
 import fonts from 'Styles/Variables/fonts';
 import stripHtml from 'Utilities/String/stripHtml';
+import translate from 'Utilities/String/translate';
 import AuthorIndexOverviewInfo from './AuthorIndexOverviewInfo';
 import styles from './AuthorIndexOverview.css';
 
@@ -130,7 +131,7 @@ class AuthorIndexOverview extends Component {
                 status === 'ended' &&
                   <div
                     className={styles.ended}
-                    title="Ended"
+                    title={translate('Ended')}
                   />
               }
 
@@ -173,7 +174,7 @@ class AuthorIndexOverview extends Component {
               <div className={styles.actions}>
                 <SpinnerIconButton
                   name={icons.REFRESH}
-                  title="Refresh Author"
+                  title={translate('RefreshAuthor')}
                   isSpinning={isRefreshingAuthor}
                   onPress={onRefreshAuthorPress}
                 />
@@ -183,7 +184,7 @@ class AuthorIndexOverview extends Component {
                     <SpinnerIconButton
                       className={styles.action}
                       name={icons.SEARCH}
-                      title="Search for monitored books"
+                      title={translate('SearchForMonitoredBooks')}
                       isSpinning={isSearchingAuthor}
                       onPress={onSearchPress}
                     />
@@ -191,7 +192,7 @@ class AuthorIndexOverview extends Component {
 
                 <IconButton
                   name={icons.EDIT}
-                  title="Edit Author"
+                  title={translate('EditAuthor')}
                   onPress={this.onEditAuthorPress}
                 />
               </div>

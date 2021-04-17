@@ -4,6 +4,7 @@ import Card from 'Components/Card';
 import IconButton from 'Components/Link/IconButton';
 import ConfirmModal from 'Components/Modal/ConfirmModal';
 import { icons, kinds } from 'Helpers/Props';
+import translate from 'Utilities/String/translate';
 import EditMetadataProfileModalConnector from './EditMetadataProfileModalConnector';
 import styles from './MetadataProfile.css';
 
@@ -79,7 +80,7 @@ class MetadataProfile extends Component {
 
           <IconButton
             className={styles.cloneButton}
-            title="Clone Profile"
+            title={translate('CloneProfile')}
             name={icons.CLONE}
             onPress={this.onCloneMetadataProfilePress}
           />
@@ -95,9 +96,9 @@ class MetadataProfile extends Component {
         <ConfirmModal
           isOpen={this.state.isDeleteMetadataProfileModalOpen}
           kind={kinds.DANGER}
-          title="Delete Metadata Profile"
-          message={`Are you sure you want to delete the metadata profile '${name}'?`}
-          confirmLabel="Delete"
+          title={translate('DeleteMetadataProfile')}
+          message={translate('DeleteMetadataProfileMessageText', [name])}
+          confirmLabel={translate('Delete')}
           isSpinning={isDeleting}
           onConfirm={this.onConfirmDeleteMetadataProfile}
           onCancel={this.onDeleteMetadataProfileModalClose}

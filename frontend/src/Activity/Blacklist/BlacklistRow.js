@@ -8,6 +8,7 @@ import TableRowCell from 'Components/Table/Cells/TableRowCell';
 import TableSelectCell from 'Components/Table/Cells/TableSelectCell';
 import TableRow from 'Components/Table/TableRow';
 import { icons, kinds } from 'Helpers/Props';
+import translate from 'Utilities/String/translate';
 import BlacklistDetailsModal from './BlacklistDetailsModal';
 import styles from './BlacklistRow.css';
 
@@ -141,7 +142,7 @@ class BlacklistRow extends Component {
                   />
 
                   <IconButton
-                    title="Remove from blacklist"
+                    title={translate('RemoveFromBlacklist')}
                     name={icons.REMOVE}
                     kind={kinds.DANGER}
                     onPress={onRemovePress}

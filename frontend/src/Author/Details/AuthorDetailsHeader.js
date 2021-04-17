@@ -15,6 +15,7 @@ import QualityProfileNameConnector from 'Settings/Profiles/Quality/QualityProfil
 import fonts from 'Styles/Variables/fonts';
 import formatBytes from 'Utilities/Number/formatBytes';
 import stripHtml from 'Utilities/String/stripHtml';
+import translate from 'Utilities/String/translate';
 import AuthorAlternateTitles from './AuthorAlternateTitles';
 import AuthorDetailsLinks from './AuthorDetailsLinks';
 import AuthorTagsConnector from './AuthorTagsConnector';
@@ -95,7 +96,7 @@ class AuthorDetailsHeader extends Component {
 
     const continuing = status === 'continuing';
 
-    let bookFilesCountMessage = 'No book files';
+    let bookFilesCountMessage = translate('BookFilesCountMessage');
 
     if (bookFileCount === 1) {
       bookFilesCountMessage = '1 book file';
@@ -152,7 +153,7 @@ class AuthorDetailsHeader extends Component {
                             size={20}
                           />
                         }
-                        title="Alternate Titles"
+                        title={translate('AlternateTitles')}
                         body={<AuthorAlternateTitles alternateTitles={alternateTitles} />}
                         position={tooltipPositions.BOTTOM}
                       />
@@ -204,7 +205,7 @@ class AuthorDetailsHeader extends Component {
 
               <Label
                 className={styles.detailsLabel}
-                title="Quality Profile"
+                title={translate('QualityProfile')}
                 size={sizes.LARGE}
               >
                 <Icon
@@ -237,7 +238,7 @@ class AuthorDetailsHeader extends Component {
 
               <Label
                 className={styles.detailsLabel}
-                title={continuing ? 'More books are expected' : 'No additional books are expected'}
+                title={continuing ? translate('ContinuingMoreBooksAreExpected') : translate('ContinuingNoAdditionalBooksAreExpected')}
                 size={sizes.LARGE}
               >
                 <Icon

@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import Link from 'Components/Link/Link';
 import { inputTypes } from 'Helpers/Props';
+// import translate from 'Utilities/String/translate';
 import AutoCompleteInput from './AutoCompleteInput';
 import BookEditionSelectInputConnector from './BookEditionSelectInputConnector';
 import BookshelfInputConnector from './BookshelfInputConnector';
@@ -172,7 +173,7 @@ function FormInputGroup(props) {
           <Icon
           name={icons.UNSAVED_SETTING}
           className={styles.pendingChangesIcon}
-          title="Change has not been saved yet"
+          title={translate('ChangeHasNotBeenSavedYet')}
           />
           }
         </div> */}

@@ -19,6 +19,7 @@ import InteractiveSearchFilterMenuConnector from 'InteractiveSearch/InteractiveS
 import InteractiveSearchTable from 'InteractiveSearch/InteractiveSearchTable';
 import OrganizePreviewModalConnector from 'Organize/OrganizePreviewModalConnector';
 import RetagPreviewModalConnector from 'Retag/RetagPreviewModalConnector';
+import translate from 'Utilities/String/translate';
 import BookDetailsHeaderConnector from './BookDetailsHeaderConnector';
 import styles from './BookDetails.css';
 
@@ -114,16 +115,16 @@ class BookDetails extends Component {
         <PageToolbar>
           <PageToolbarSection>
             <PageToolbarButton
-              label="Refresh"
+              label={translate('Refresh')}
               iconName={icons.REFRESH}
               spinningName={icons.REFRESH}
-              title="Refresh information"
+              title={translate('RefreshInformation')}
               isSpinning={isRefreshing}
               onPress={onRefreshPress}
             />
 
             <PageToolbarButton
-              label="Search Book"
+              label={translate('SearchBook')}
               iconName={icons.SEARCH}
               isSpinning={isSearching}
               onPress={onSearchPress}
@@ -132,14 +133,14 @@ class BookDetails extends Component {
             <PageToolbarSeparator />
 
             <PageToolbarButton
-              label="Preview Rename"
+              label={translate('PreviewRename')}
               iconName={icons.ORGANIZE}
               isDisabled={!hasBookFiles}
               onPress={this.onOrganizePress}
             />
 
             <PageToolbarButton
-              label="Preview Retag"
+              label={translate('PreviewRetag')}
               iconName={icons.RETAG}
               isDisabled={!hasBookFiles}
               onPress={this.onRetagPress}
@@ -148,13 +149,13 @@ class BookDetails extends Component {
             <PageToolbarSeparator />
 
             <PageToolbarButton
-              label="Edit"
+              label={translate('Edit')}
               iconName={icons.EDIT}
               onPress={this.onEditBookPress}
             />
 
             <PageToolbarButton
-              label="Delete"
+              label={translate('Delete')}
               iconName={icons.DELETE}
               onPress={this.onDeleteBookPress}
             />
@@ -194,7 +195,7 @@ class BookDetails extends Component {
                 className={styles.bookNavigationButton}
                 name={icons.ARROW_LEFT}
                 size={30}
-                title={`Go to ${previousBook.title}`}
+                title={translate('GoToInterp', [previousBook.title])}
                 to={`/book/${previousBook.titleSlug}`}
               />
 
@@ -202,7 +203,7 @@ class BookDetails extends Component {
                 className={styles.bookUpButton}
                 name={icons.ARROW_UP}
                 size={30}
-                title={`Go to ${author.authorName}`}
+                title={translate('GoToInterp', [author.authorName])}
                 to={`/author/${author.titleSlug}`}
               />
 
@@ -210,7 +211,7 @@ class BookDetails extends Component {
                 className={styles.bookNavigationButton}
                 name={icons.ARROW_RIGHT}
                 size={30}
-                title={`Go to ${nextBook.title}`}
+                title={translate('GoToInterp', [nextBook.title])}
                 to={`/book/${nextBook.titleSlug}`}
               />
             </div>
@@ -224,7 +225,9 @@ class BookDetails extends Component {
 
             {
               !isFetching && bookFilesError &&
-                <div>Loading book files failed</div>
+                <div>
+                  {translate('LoadingBookFilesFailed')}
+                </div>
             }
 
             <Tabs selectedIndex={this.state.tabIndex} onSelect={this.onTabSelect}>

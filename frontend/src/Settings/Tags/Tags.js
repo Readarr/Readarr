@@ -3,6 +3,7 @@ import React from 'react';
 import FieldSet from 'Components/FieldSet';
 import Link from 'Components/Link/Link';
 import PageSectionContent from 'Components/Page/PageSectionContent';
+import translate from 'Utilities/String/translate';
 import TagConnector from './TagConnector';
 import styles from './Tags.css';
 
@@ -13,17 +14,20 @@ function Tags(props) {
   } = props;
 
   if (!items.length) {
+    const wikiLink = <Link to='https://wiki.servarr.com/Readarr_Settings#Tags'>here</Link>;
     return (
-      <div>No tags have been added yet. Add tags to link authors with delay profiles, restrictions, or notifications. Click <Link to='https://wiki.servarr.com/Readarr_Settings#Tags'>here</Link> to find out more about tags in Readarr.</div>
+      <div>
+        {translate('NoTagsHaveBeenAddedYet', [wikiLink])}
+      </div>
     );
   }
 
   return (
     <FieldSet
-      legend="Tags"
+      legend={translate('Tags')}
     >
       <PageSectionContent
-        errorMessage="Unable to load Tags"
+        errorMessage={translate('UnableToLoadTags')}
         {...otherProps}
       >
         <div className={styles.tags}>

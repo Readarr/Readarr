@@ -10,6 +10,7 @@ import ModalFooter from 'Components/Modal/ModalFooter';
 import ModalHeader from 'Components/Modal/ModalHeader';
 import { inputTypes, kinds } from 'Helpers/Props';
 import formatBytes from 'Utilities/Number/formatBytes';
+import translate from 'Utilities/String/translate';
 import styles from './DeleteBookModalContent.css';
 
 class DeleteBookModalContent extends Component {
@@ -91,13 +92,15 @@ class DeleteBookModalContent extends Component {
           </FormGroup>
 
           <FormGroup>
-            <FormLabel>Add List Exclusion</FormLabel>
+            <FormLabel>
+              {translate('AddListExclusion')}
+            </FormLabel>
 
             <FormInputGroup
               type={inputTypes.CHECK}
               name="addImportListExclusion"
               value={addImportListExclusion}
-              helpText="Prevent book from being added to Readarr by Import Lists or Author Refresh"
+              helpText={translate('AddImportListExclusionHelpText')}
               kind={kinds.DANGER}
               onChange={this.onAddImportListExclusionChange}
             />
@@ -106,14 +109,18 @@ class DeleteBookModalContent extends Component {
           {
             !addImportListExclusion &&
               <div className={styles.deleteFilesMessage}>
-                <div>If you don't add an import list exclusion and the author has a metadata profile other than 'None' then this book may be re-added during the next author refresh.</div>
+                <div>
+                  {translate('IfYouDontAddAnImportListExclusionAndTheAuthorHasAMetadataProfileOtherThanNoneThenThisBookMayBeReaddedDuringTheNextAuthorRefresh')}
+                </div>
               </div>
           }
 
           {
             deleteFiles &&
               <div className={styles.deleteFilesMessage}>
-                <div>The book's files will be deleted.</div>
+                <div>
+                  {translate('TheBooksFilesWillBeDeleted')}
+                </div>
 
                 {
                   !!bookFileCount &&

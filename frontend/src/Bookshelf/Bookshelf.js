@@ -15,6 +15,7 @@ import VirtualTableRow from 'Components/Table/VirtualTableRow';
 import { align, sortDirections } from 'Helpers/Props';
 import getIndexOfFirstCharacter from 'Utilities/Array/getIndexOfFirstCharacter';
 import getErrorMessage from 'Utilities/Object/getErrorMessage';
+import translate from 'Utilities/String/translate';
 import getSelectedIds from 'Utilities/Table/getSelectedIds';
 import selectAll from 'Utilities/Table/selectAll';
 import toggleSelected from 'Utilities/Table/toggleSelected';
@@ -347,7 +348,7 @@ class Bookshelf extends Component {
     } = this.state;
 
     return (
-      <PageContent title="Book Studio">
+      <PageContent title={translate('BookStudio')}>
         <PageToolbar>
           <PageToolbarSection />
           <PageToolbarSection alignContent={align.RIGHT}>

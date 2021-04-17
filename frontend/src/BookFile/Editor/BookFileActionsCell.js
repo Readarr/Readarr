@@ -5,6 +5,7 @@ import IconButton from 'Components/Link/IconButton';
 import ConfirmModal from 'Components/Modal/ConfirmModal';
 import TableRowCell from 'Components/Table/Cells/TableRowCell';
 import { icons, kinds } from 'Helpers/Props';
+import translate from 'Utilities/String/translate';
 import styles from './BookFileActionsCell.css';
 
 class BookFileActionsCell extends Component {
@@ -86,9 +87,9 @@ class BookFileActionsCell extends Component {
         <ConfirmModal
           isOpen={isConfirmDeleteModalOpen}
           kind={kinds.DANGER}
-          title="Delete Book File"
-          message={`Are you sure you want to delete ${path}?`}
-          confirmLabel="Delete"
+          title={translate('DeleteBookFile')}
+          message={translate('DeleteBookFileMessageText', [path])}
+          confirmLabel={translate('Delete')}
           onConfirm={this.onConfirmDelete}
           onCancel={this.onConfirmDeleteModalClose}
         />

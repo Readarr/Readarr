@@ -5,6 +5,7 @@ import Icon from 'Components/Icon';
 import ProgressBar from 'Components/ProgressBar';
 import { icons, kinds, sizes } from 'Helpers/Props';
 import isBefore from 'Utilities/Date/isBefore';
+import translate from 'Utilities/String/translate';
 import BookQuality from './BookQuality';
 import styles from './EpisodeStatus.css';
 
@@ -35,7 +36,7 @@ function EpisodeStatus(props) {
           {...queueItem}
           progressBar={
             <ProgressBar
-              title={`Book is downloading - ${progress.toFixed(1)}% ${queueItem.title}`}
+              title={translate('BookIsDownloadingInterp', [progress.toFixed(1), queueItem.title])}
               progress={progress}
               kind={kinds.PURPLE}
               size={sizes.MEDIUM}
@@ -51,7 +52,7 @@ function EpisodeStatus(props) {
       <div className={styles.center}>
         <Icon
           name={icons.DOWNLOADING}
-          title="Book is downloading"
+          title={translate('BookIsDownloading')}
         />
       </div>
     );
@@ -67,7 +68,7 @@ function EpisodeStatus(props) {
           quality={quality}
           size={bookFile.size}
           isCutoffNotMet={isCutoffNotMet}
-          title="Book Downloaded"
+          title={translate('BookDownloaded')}
         />
       </div>
     );
@@ -78,7 +79,7 @@ function EpisodeStatus(props) {
       <div className={styles.center}>
         <Icon
           name={icons.TBA}
-          title="TBA"
+          title={translate('TBA')}
         />
       </div>
     );
@@ -89,7 +90,7 @@ function EpisodeStatus(props) {
       <div className={styles.center}>
         <Icon
           name={icons.UNMONITORED}
-          title="Book is not monitored"
+          title={translate('BookIsNotMonitored')}
         />
       </div>
     );
@@ -100,7 +101,7 @@ function EpisodeStatus(props) {
       <div className={styles.center}>
         <Icon
           name={icons.MISSING}
-          title="Book missing from disk"
+          title={translate('BookMissingFromDisk')}
         />
       </div>
     );
@@ -110,7 +111,7 @@ function EpisodeStatus(props) {
     <div className={styles.center}>
       <Icon
         name={icons.NOT_AIRED}
-        title="Book has not aired"
+        title={translate('BookHasNotAired')}
       />
     </div>
   );

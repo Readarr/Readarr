@@ -5,6 +5,7 @@ import RelativeDateCellConnector from 'Components/Table/Cells/RelativeDateCellCo
 import TableRowCell from 'Components/Table/Cells/TableRowCell';
 import TableRow from 'Components/Table/TableRow';
 import { kinds, sizes } from 'Helpers/Props';
+import translate from 'Utilities/String/translate';
 import styles from './SelectBookRow.css';
 
 function getBookCountKind(monitored, bookFileCount, bookCount) {
@@ -85,7 +86,7 @@ class SelectBookRow extends Component {
                   key={name}
                 >
                   <Label
-                    title={`${totalBookCount} books total. ${bookFileCount} books with files.`}
+                    title={translate('TotalBookCountBooksTotalBookFileCountBooksWithFilesInterp', [totalBookCount, bookFileCount])}
                     kind={getBookCountKind(monitored, bookFileCount, bookCount)}
                     size={sizes.MEDIUM}
                   >

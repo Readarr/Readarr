@@ -16,6 +16,7 @@ import ModalFooter from 'Components/Modal/ModalFooter';
 import ModalHeader from 'Components/Modal/ModalHeader';
 import Popover from 'Components/Tooltip/Popover';
 import { calibreProfiles, icons, inputTypes, kinds, tooltipPositions } from 'Helpers/Props';
+import translate from 'Utilities/String/translate';
 import styles from './EditRootFolderModalContent.css';
 
 function EditRootFolderModalContent(props) {
@@ -71,14 +72,18 @@ function EditRootFolderModalContent(props) {
 
         {
           !isFetching && !!error &&
-            <div>Unable to add a new root folder, please try again.</div>
+            <div>
+              {translate('UnableToAddANewRootFolderPleaseTryAgain')}
+            </div>
         }
 
         {
           !isFetching && !error &&
             <Form {...otherProps}>
               <FormGroup>
-                <FormLabel>Name</FormLabel>
+                <FormLabel>
+                  {translate('Name')}
+                </FormLabel>
 
                 <FormInputGroup
                   type={inputTypes.TEXT}
@@ -89,14 +94,16 @@ function EditRootFolderModalContent(props) {
               </FormGroup>
 
               <FormGroup>
-                <FormLabel>Path</FormLabel>
+                <FormLabel>
+                  {translate('Path')}
+                </FormLabel>
 
                 <FormInputGroup
                   type={id ? inputTypes.TEXT : inputTypes.PATH}
                   readOnly={!!id}
                   name="path"
-                  helpText="Root Folder containing your book library"
-                  helpTextWarning="This must be different to the directory where your download client puts files"
+                  helpText={translate('PathHelpText')}
+                  helpTextWarning={translate('PathHelpTextWarning')}
                   {...path}
                   onChange={onInputChange}
                 />
@@ -112,7 +119,7 @@ function EditRootFolderModalContent(props) {
                         name={icons.INFO}
                       />
                     }
-                    title="Calibre content server"
+                    title={translate('CalibreContentServer')}
                     body={'Using a Calibre content server allows Readarr to add books to your Calibre library and trigger conversions between formats'}
                     position={tooltipPositions.RIGHT}
                   />
@@ -121,7 +128,7 @@ function EditRootFolderModalContent(props) {
                 <FormInputGroup
                   type={inputTypes.CHECK}
                   name="isCalibreLibrary"
-                  helpText="Use Calibre content server to manipulate library"
+                  helpText={translate('IsCalibreLibraryHelpText')}
                   {...isCalibreLibrary}
                   onChange={onInputChange}
                   helpLink={'https://manual.calibre-ebook.com/server.html'}
@@ -132,24 +139,28 @@ function EditRootFolderModalContent(props) {
                 isCalibreLibrary !== undefined && isCalibreLibrary.value &&
                   <div>
                     <FormGroup>
-                      <FormLabel>Calibre Host</FormLabel>
+                      <FormLabel>
+                        {translate('CalibreHost')}
+                      </FormLabel>
 
                       <FormInputGroup
                         type={inputTypes.TEXT}
                         name="host"
-                        helpText="Calibre content server host"
+                        helpText={translate('HostHelpText')}
                         {...host}
                         onChange={onInputChange}
                       />
                     </FormGroup>
 
                     <FormGroup>
-                      <FormLabel>Calibre Port</FormLabel>
+                      <FormLabel>
+                        {translate('CalibrePort')}
+                      </FormLabel>
 
                       <FormInputGroup
                         type={inputTypes.NUMBER}
                         name="port"
-                        helpText="Calibre content server port"
+                        helpText={translate('PortHelpText')}
                         {...port}
                         onChange={onInputChange}
                       />
@@ -159,48 +170,56 @@ function EditRootFolderModalContent(props) {
                       advancedSettings={advancedSettings}
                       isAdvanced={true}
                     >
-                      <FormLabel>Calibre Url Base</FormLabel>
+                      <FormLabel>
+                        {translate('CalibreUrlBase')}
+                      </FormLabel>
 
                       <FormInputGroup
                         type={inputTypes.TEXT}
                         name="urlBase"
-                        helpText="Adds a prefix to the Calibre url, e.g. http://[host]:[port]/[urlBase]"
+                        helpText={translate('UrlBaseHelpText')}
                         {...urlBase}
                         onChange={onInputChange}
                       />
                     </FormGroup>
 
                     <FormGroup>
-                      <FormLabel>Calibre Username</FormLabel>
+                      <FormLabel>
+                        {translate('CalibreUsername')}
+                      </FormLabel>
 
                       <FormInputGroup
                         type={inputTypes.TEXT}
                         name="username"
-                        helpText="Calibre content server username"
+                        helpText={translate('UsernameHelpText')}
                         {...username}
                         onChange={onInputChange}
                       />
                     </FormGroup>
 
                     <FormGroup>
-                      <FormLabel>Calibre Password</FormLabel>
+                      <FormLabel>
+                        {translate('CalibrePassword')}
+                      </FormLabel>
 
                       <FormInputGroup
                         type={inputTypes.PASSWORD}
                         name="password"
-                        helpText="Calibre content server password"
+                        helpText={translate('PasswordHelpText')}
                         {...password}
                         onChange={onInputChange}
                       />
                     </FormGroup>
 
                     <FormGroup>
-                      <FormLabel>Calibre Library</FormLabel>
+                      <FormLabel>
+                        {translate('CalibreLibrary')}
+                      </FormLabel>
 
                       <FormInputGroup
                         type={inputTypes.TEXT}
                         name="library"
-                        helpText="Calibre content server library name.  Leave blank for default."
+                        helpText={translate('LibraryHelpText')}
                         {...library}
                         onChange={onInputChange}
                       />
@@ -216,7 +235,7 @@ function EditRootFolderModalContent(props) {
                               name={icons.INFO}
                             />
                           }
-                          title="Calibre output format"
+                          title={translate('CalibreOutputFormat')}
                           body={'Specify the output format.  Options are: MOBI, EPUB, AZW3, DOCX, FB2, HTMLZ, LIT, LRF, PDB, PDF, PMLZ, RB, RTF, SNB, TCR, TXT, TXTZ, ZIP'}
                           position={tooltipPositions.RIGHT}
                         />
@@ -225,7 +244,7 @@ function EditRootFolderModalContent(props) {
                       <FormInputGroup
                         type={inputTypes.TEXT}
                         name="outputFormat"
-                        helpText="Optionally ask Calibre to convert to other formats on import. Comma separated list."
+                        helpText={translate('OutputFormatHelpText')}
                         {...outputFormat}
                         onChange={onInputChange}
                       />
@@ -241,7 +260,7 @@ function EditRootFolderModalContent(props) {
                               name={icons.INFO}
                             />
                           }
-                          title="Calibre output profile"
+                          title={translate('CalibreOutputProfile')}
                           body={'Specify the output profile. The output profile tells the Calibre conversion system how to optimize the created document for the specified device (such as by resizing images for the device screen size). In some cases, an output profile can be used to optimize the output for a particular device, but this is rarely necessary.'}
                           position={tooltipPositions.RIGHT}
                         />
@@ -258,12 +277,14 @@ function EditRootFolderModalContent(props) {
                     </FormGroup>
 
                     <FormGroup>
-                      <FormLabel>Use SSL</FormLabel>
+                      <FormLabel>
+                        {translate('UseSSL')}
+                      </FormLabel>
 
                       <FormInputGroup
                         type={inputTypes.CHECK}
                         name="useSsl"
-                        helpText="Use SSL to connect to Calibre content server"
+                        helpText={translate('UseSslHelpText')}
                         {...useSsl}
                         onChange={onInputChange}
                       />
@@ -282,7 +303,7 @@ function EditRootFolderModalContent(props) {
                         name={icons.INFO}
                       />
                     }
-                    title="Monitoring Options"
+                    title={translate('MonitoringOptions')}
                     body={<AuthorMonitoringOptionsPopoverContent />}
                     position={tooltipPositions.RIGHT}
                   />
@@ -293,18 +314,20 @@ function EditRootFolderModalContent(props) {
                   name="defaultMonitorOption"
                   onChange={onInputChange}
                   {...defaultMonitorOption}
-                  helpText="Default Monitoring Options for books by authors detected in this folder"
+                  helpText={translate('DefaultMonitorOptionHelpText')}
                 />
 
               </FormGroup>
 
               <FormGroup>
-                <FormLabel>Quality Profile</FormLabel>
+                <FormLabel>
+                  {translate('QualityProfile')}
+                </FormLabel>
 
                 <FormInputGroup
                   type={inputTypes.QUALITY_PROFILE_SELECT}
                   name="defaultQualityProfileId"
-                  helpText="Default Quality Profile for authors detected in this folder"
+                  helpText={translate('DefaultQualityProfileIdHelpText')}
                   {...defaultQualityProfileId}
                   onChange={onInputChange}
                 />
@@ -320,7 +343,7 @@ function EditRootFolderModalContent(props) {
                         name={icons.INFO}
                       />
                     }
-                    title="Metadata Profile"
+                    title={translate('MetadataProfile')}
                     body={<AuthorMetadataProfilePopoverContent />}
                     position={tooltipPositions.RIGHT}
                   />
@@ -329,7 +352,7 @@ function EditRootFolderModalContent(props) {
                 <FormInputGroup
                   type={inputTypes.METADATA_PROFILE_SELECT}
                   name="defaultMetadataProfileId"
-                  helpText="Default Metadata Profile for authors detected in this folder"
+                  helpText={translate('DefaultMetadataProfileIdHelpText')}
                   {...defaultMetadataProfileId}
                   includeNone={true}
                   onChange={onInputChange}
@@ -337,12 +360,14 @@ function EditRootFolderModalContent(props) {
               </FormGroup>
 
               <FormGroup>
-                <FormLabel>Default Readarr Tags</FormLabel>
+                <FormLabel>
+                  {translate('DefaultReadarrTags')}
+                </FormLabel>
 
                 <FormInputGroup
                   type={inputTypes.TAG}
                   name="defaultTags"
-                  helpText="Default Readarr Tags for authors detected in this folder"
+                  helpText={translate('DefaultTagsHelpText')}
                   {...defaultTags}
                   onChange={onInputChange}
                 />

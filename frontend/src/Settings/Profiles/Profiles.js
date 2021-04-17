@@ -4,6 +4,7 @@ import { HTML5Backend } from 'react-dnd-html5-backend';
 import PageContent from 'Components/Page/PageContent';
 import PageContentBody from 'Components/Page/PageContentBody';
 import SettingsToolbarConnector from 'Settings/SettingsToolbarConnector';
+import translate from 'Utilities/String/translate';
 import DelayProfilesConnector from './Delay/DelayProfilesConnector';
 import MetadataProfilesConnector from './Metadata/MetadataProfilesConnector';
 import QualityProfilesConnector from './Quality/QualityProfilesConnector';
@@ -19,7 +20,7 @@ class Profiles extends Component {
 
   render() {
     return (
-      <PageContent title="Profiles">
+      <PageContent title={translate('Profiles')}>
         <SettingsToolbarConnector
           showSave={false}
         />

@@ -10,6 +10,7 @@ import ModalContent from 'Components/Modal/ModalContent';
 import ModalFooter from 'Components/Modal/ModalFooter';
 import ModalHeader from 'Components/Modal/ModalHeader';
 import { sizes } from 'Helpers/Props';
+import translate from 'Utilities/String/translate';
 import NamingOption from './NamingOption';
 import styles from './NamingModal.css';
 
@@ -207,7 +208,7 @@ class NamingModal extends Component {
 
             {
               !advancedSettings &&
-                <FieldSet legend="File Names">
+                <FieldSet legend={translate('FileNames')}>
                   <div className={styles.groups}>
                     {
                       fileNameTokens.map(({ token, example }) => {
@@ -232,7 +233,7 @@ class NamingModal extends Component {
                 </FieldSet>
             }
 
-            <FieldSet legend="Author">
+            <FieldSet legend={translate('Author')}>
               <div className={styles.groups}>
                 {
                   authorTokens.map(({ token, example }) => {
@@ -257,7 +258,7 @@ class NamingModal extends Component {
             {
               book &&
                 <div>
-                  <FieldSet legend="Book">
+                  <FieldSet legend={translate('Book')}>
                     <div className={styles.groups}>
                       {
                         bookTokens.map(({ token, example }) => {
@@ -279,7 +280,7 @@ class NamingModal extends Component {
                     </div>
                   </FieldSet>
 
-                  <FieldSet legend="Release Date">
+                  <FieldSet legend={translate('ReleaseDate')}>
                     <div className={styles.groups}>
                       {
                         releaseDateTokens.map(({ token, example }) => {
@@ -306,7 +307,7 @@ class NamingModal extends Component {
             {
               book &&
                 <div>
-                  <FieldSet legend="Medium">
+                  <FieldSet legend={translate('Medium')}>
                     <div className={styles.groups}>
                       {
                         mediumTokens.map(({ token, example }) => {
@@ -328,7 +329,7 @@ class NamingModal extends Component {
                     </div>
                   </FieldSet>
 
-                  <FieldSet legend="Medium Format">
+                  <FieldSet legend={translate('MediumFormat')}>
                     <div className={styles.groups}>
                       {
                         mediumFormatTokens.map(({ token, example }) => {
@@ -356,7 +357,7 @@ class NamingModal extends Component {
             {
               additional &&
                 <div>
-                  <FieldSet legend="Quality">
+                  <FieldSet legend={translate('Quality')}>
                     <div className={styles.groups}>
                       {
                         qualityTokens.map(({ token, example }) => {
@@ -378,7 +379,7 @@ class NamingModal extends Component {
                     </div>
                   </FieldSet>
 
-                  <FieldSet legend="Media Info">
+                  <FieldSet legend={translate('MediaInfo')}>
                     <div className={styles.groups}>
                       {
                         mediaInfoTokens.map(({ token, example }) => {
@@ -400,7 +401,7 @@ class NamingModal extends Component {
                     </div>
                   </FieldSet>
 
-                  <FieldSet legend="Other">
+                  <FieldSet legend={translate('Other')}>
                     <div className={styles.groups}>
                       {
                         otherTokens.map(({ token, example }) => {
@@ -422,7 +423,7 @@ class NamingModal extends Component {
                     </div>
                   </FieldSet>
 
-                  <FieldSet legend="Original">
+                  <FieldSet legend={translate('Original')}>
                     <div className={styles.groups}>
                       {
                         originalTokens.map(({ token, example }) => {

@@ -9,6 +9,7 @@ import NotFound from 'Components/NotFound';
 import PageContent from 'Components/Page/PageContent';
 import PageContentBody from 'Components/Page/PageContentBody';
 import { clearBooks, fetchBooks } from 'Store/Actions/bookActions';
+import translate from 'Utilities/String/translate';
 import BookDetailsConnector from './BookDetailsConnector';
 
 function createMapStateToProps() {
@@ -94,7 +95,7 @@ class BookDetailsPageConnector extends Component {
     if (!titleSlug) {
       return (
         <NotFound
-          message="Sorry, that book cannot be found."
+          message={translate('SorryThatBookCannotBeFound')}
         />
       );
     }

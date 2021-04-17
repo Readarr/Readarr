@@ -9,6 +9,7 @@ import VirtualTableRowCell from 'Components/Table/Cells/VirtualTableRowCell';
 import { icons, kinds } from 'Helpers/Props';
 import InteractiveImportModal from 'InteractiveImport/InteractiveImportModal';
 import formatBytes from 'Utilities/Number/formatBytes';
+import translate from 'Utilities/String/translate';
 import styles from './UnmappedFilesTableRow.css';
 
 class UnmappedFilesTableRow extends Component {
@@ -187,9 +188,9 @@ class UnmappedFilesTableRow extends Component {
         <ConfirmModal
           isOpen={isConfirmDeleteModalOpen}
           kind={kinds.DANGER}
-          title="Delete Book File"
-          message={`Are you sure you want to delete ${path}?`}
-          confirmLabel="Delete"
+          title={translate('DeleteBookFile')}
+          message={translate('DeleteBookFileMessageText', [path])}
+          confirmLabel={translate('Delete')}
           onConfirm={this.onConfirmDelete}
           onCancel={this.onConfirmDeleteModalClose}
         />
