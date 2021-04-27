@@ -24,6 +24,7 @@ using Readarr.Api.V1.DownloadClient;
 using Readarr.Api.V1.History;
 using Readarr.Api.V1.Profiles.Quality;
 using Readarr.Api.V1.RootFolders;
+using Readarr.Api.V1.System.Tasks;
 using Readarr.Api.V1.Tags;
 using RestSharp;
 using RestSharp.Serializers.SystemTextJson;
@@ -37,6 +38,7 @@ namespace NzbDrone.Integration.Test
 
         public ClientBase<BlacklistResource> Blacklist;
         public CommandClient Commands;
+        public ClientBase<TaskResource> Tasks;
         public DownloadClientClient DownloadClients;
         public BookClient Books;
         public ClientBase<HistoryResource> History;
@@ -101,6 +103,7 @@ namespace NzbDrone.Integration.Test
 
             Blacklist = new ClientBase<BlacklistResource>(RestClient, ApiKey);
             Commands = new CommandClient(RestClient, ApiKey);
+            Tasks = new ClientBase<TaskResource>(RestClient, ApiKey, "system/task");
             DownloadClients = new DownloadClientClient(RestClient, ApiKey);
             Books = new BookClient(RestClient, ApiKey);
             History = new ClientBase<HistoryResource>(RestClient, ApiKey);

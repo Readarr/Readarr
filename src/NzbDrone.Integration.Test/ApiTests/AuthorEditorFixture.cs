@@ -11,6 +11,8 @@ namespace NzbDrone.Integration.Test.ApiTests
     {
         private void GivenExistingAuthor()
         {
+            WaitForCompletion(() => Profiles.All().Count > 0);
+
             foreach (var name in new[] { "Alien Ant Farm", "Kiss" })
             {
                 var newAuthor = Author.Lookup(name).First();
