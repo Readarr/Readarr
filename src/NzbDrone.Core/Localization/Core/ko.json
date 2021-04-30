@@ -453,5 +453,13 @@
     "UsingExternalUpdateMechanismBranchUsedByExternalUpdateMechanism": "외부 업데이트 메커니즘에서 사용하는 분기",
     "Version": "버전",
     "WeekColumnHeader": "주 열 헤더",
-    "YesCancel": "예, 취소합니다"
+    "YesCancel": "예, 취소합니다",
+    "ApiKeyHelpTextWarning": "적용하려면 다시 시작해야합니다.",
+    "AnalyticsEnabledHelpTextWarning": "적용하려면 다시 시작해야합니다.",
+    "DeleteRootFolderMessageText": "인덱서 '{0}'을 (를) 삭제 하시겠습니까?",
+    "LoadingBooksFailed": "영화 파일을로드하지 못했습니다.",
+    "ProxyPasswordHelpText": "필요한 경우 사용자 이름과 암호 만 입력하면됩니다. 그렇지 않으면 공백으로 두십시오.",
+    "SslCertPathHelpTextWarning": "적용하려면 다시 시작해야합니다.",
+    "SslCertPasswordHelpTextWarning": "적용하려면 다시 시작해야합니다.",
+    "UnableToLoadMetadataProfiles": "지연 프로필을로드 할 수 없습니다."
 }
