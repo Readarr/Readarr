@@ -602,5 +602,13 @@
     "MusicBrainzReleaseID": "MusicBrainz kiadási azonosító",
     "MusicBrainzTrackID": "MusicBrainz zeneszám azonosítója",
     "MusicbrainzId": "MusicBrainz azonosító",
-    "NETCore": ".NET Mag"
+    "NETCore": ".NET Mag",
+    "ApiKeyHelpTextWarning": "Újraindítás szükséges a hatálybalépéshez",
+    "AnalyticsEnabledHelpTextWarning": "Újraindítás szükséges a hatálybalépéshez",
+    "DeleteRootFolderMessageText": "Biztosan törlöd a(z) „{0}” indexert?",
+    "LoadingBooksFailed": "A film fájljainak betöltése sikertelen",
+    "ProxyPasswordHelpText": "Csak akkor kell megadnod felhasználónevet és jelszót, ha szükséges. Egyébként hagyd üresen.",
+    "SslCertPathHelpTextWarning": "Újraindítás szükséges a hatálybalépéshez",
+    "SslCertPasswordHelpTextWarning": "Újraindítás szükséges a hatálybalépéshez",
+    "UnableToLoadMetadataProfiles": "Nem lehet betölteni a késleltetési profilokat"
 }
