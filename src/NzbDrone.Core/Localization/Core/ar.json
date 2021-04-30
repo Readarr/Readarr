@@ -455,5 +455,11 @@
     "HasPendingChangesSaveChanges": "حفظ التغييرات",
     "HasPendingChangesNoChanges": "لا تغيرات",
     "Group": "مجموعة",
-    "GrabSelected": "انتزاع المحدد"
+    "GrabSelected": "انتزاع المحدد",
+    "ApiKeyHelpTextWarning": "يتطلب إعادة التشغيل ليصبح ساري المفعول",
+    "DeleteRootFolderMessageText": "هل أنت متأكد أنك تريد حذف المفهرس \"{0}\"؟",
+    "LoadingBooksFailed": "فشل تحميل ملفات الفيلم",
+    "ProxyUsernameHelpText": "ما عليك سوى إدخال اسم مستخدم وكلمة مرور إذا كان أحدهما مطلوبًا. اتركها فارغة وإلا.",
+    "UnableToLoadMetadataProfiles": "تعذر تحميل ملفات تعريف التأخير",
+    "UrlBaseHelpTextWarning": "يتطلب إعادة التشغيل ليصبح ساري المفعول"
 }
