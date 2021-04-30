@@ -462,5 +462,5 @@
     "ProxyUsernameHelpText": "ما عليك سوى إدخال اسم مستخدم وكلمة مرور إذا كان أحدهما مطلوبًا. اتركها فارغة وإلا.",
     "UnableToLoadMetadataProfiles": "تعذر تحميل ملفات تعريف التأخير",
     "UrlBaseHelpTextWarning": "يتطلب إعادة التشغيل ليصبح ساري المفعول",
-    "SslPortHelpTextWarning": ""
+    "SslPortHelpTextWarning": "يتطلب إعادة التشغيل ليصبح ساري المفعول"
 }
