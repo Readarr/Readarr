@@ -450,5 +450,14 @@
     "UpdateAutomaticallyHelpText": "Download e installazione automatica degli aggiornamenti. Sarai comunque in grado in installarli dal menu Sistema: Aggiornamenti",
     "UpdateMechanismHelpText": "Usa il programma di aggiornamento incorporato in Radarr o uno script",
     "UpdateScriptPathHelpText": "Percorso verso uno script che prende un pacchetto di aggiornamento estratto e gestisce il resto del processo di aggiornamento",
-    "Updates": "Aggiornamenti"
+    "Updates": "Aggiornamenti",
+    "UrlBaseHelpTextWarning": "Richiede il riavvio per avere effetti",
+    "AnalyticsEnabledHelpTextWarning": "Richiede il riavvio per avere effetti",
+    "ApiKeyHelpTextWarning": "Richiede il riavvio per avere effetti",
+    "DeleteRootFolderMessageText": "Sei sicuro di voler eliminare l'indexer '{0}'?",
+    "LoadingBooksFailed": "Caricamento dei file del Film fallito",
+    "ProxyPasswordHelpText": "Devi inserire nome utente e password solo se richiesto. Altrimenti lascia vuoto.",
+    "SslCertPathHelpTextWarning": "Richiede il riavvio per avere effetti",
+    "SslCertPasswordHelpTextWarning": "Richiede il riavvio per avere effetti",
+    "UnableToLoadMetadataProfiles": "Non riesco a caricare i profili di ritardo"
 }
