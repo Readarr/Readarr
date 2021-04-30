@@ -1,1 +1,9 @@
-{}
+{
+    "ApiKeyHelpTextWarning": "Requiere reiniciar para que surta efecto",
+    "DeleteRootFolderMessageText": "Seguro que quieres eliminar el indexer '{0}'?",
+    "LoadingBooksFailed": "La carga de los archivos ha fallado",
+    "ProxyUsernameHelpText": "Tienes que introducir tu nombre de usuario y contraseña sólo si son requeridos. Si no, déjalos vacios.",
+    "SslPortHelpTextWarning": "Requiere reiniciar para que surta efecto",
+    "SslCertPathHelpTextWarning": "Requiere reiniciar para que surta efecto",
+    "UnableToLoadMetadataProfiles": "No se pueden cargar los Perfiles de Retraso"
+}
