@@ -1,6 +1,6 @@
 ---
 name: Feature request
-about: Suggest an idea for Readarr
+about: Suggest an idea for this Readarr
 title: ''
 labels: feature request
 assignees: ''
