@@ -6,6 +6,7 @@ using NzbDrone.Common.Disk;
 using NzbDrone.Core.Download;
 using NzbDrone.Core.Download.Clients;
 using NzbDrone.Core.HealthCheck.Checks;
+using NzbDrone.Core.Localization;
 using NzbDrone.Core.RootFolders;
 using NzbDrone.Core.Test.Framework;
 using NzbDrone.Test.Common;
@@ -42,6 +43,10 @@ namespace NzbDrone.Core.Test.HealthCheck.Checks
 
             _downloadClient.Setup(s => s.GetStatus())
                 .Returns(_clientStatus);
+
+            Mocker.GetMock<ILocalizationService>()
+                  .Setup(s => s.GetLocalizedString(It.IsAny<string>()))
+                  .Returns("Some Warning Message");
 
             Mocker.GetMock<IProvideDownloadClient>()
                   .Setup(s => s.GetDownloadClients())

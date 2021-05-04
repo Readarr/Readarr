@@ -1,5 +1,6 @@
 using NzbDrone.Common.Extensions;
 using NzbDrone.Core.Indexers;
+using NzbDrone.Core.Localization;
 using NzbDrone.Core.ThingiProvider.Events;
 
 namespace NzbDrone.Core.HealthCheck.Checks
@@ -12,7 +13,8 @@ namespace NzbDrone.Core.HealthCheck.Checks
     {
         private readonly IIndexerFactory _indexerFactory;
 
-        public IndexerSearchCheck(IIndexerFactory indexerFactory)
+        public IndexerSearchCheck(IIndexerFactory indexerFactory, ILocalizationService localizationService)
+            : base(localizationService)
         {
             _indexerFactory = indexerFactory;
         }

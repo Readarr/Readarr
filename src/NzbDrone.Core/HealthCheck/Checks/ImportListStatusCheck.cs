@@ -1,6 +1,7 @@
 using System.Linq;
 using NzbDrone.Common.Extensions;
 using NzbDrone.Core.ImportLists;
+using NzbDrone.Core.Localization;
 using NzbDrone.Core.ThingiProvider.Events;
 
 namespace NzbDrone.Core.HealthCheck.Checks
@@ -13,7 +14,8 @@ namespace NzbDrone.Core.HealthCheck.Checks
         private readonly IImportListFactory _providerFactory;
         private readonly IImportListStatusService _providerStatusService;
 
-        public ImportListStatusCheck(IImportListFactory providerFactory, IImportListStatusService providerStatusService)
+        public ImportListStatusCheck(IImportListFactory providerFactory, IImportListStatusService providerStatusService, ILocalizationService localizationService)
+            : base(localizationService)
         {
             _providerFactory = providerFactory;
             _providerStatusService = providerStatusService;

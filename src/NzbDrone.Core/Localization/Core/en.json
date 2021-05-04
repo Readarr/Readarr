@@ -176,6 +176,7 @@
   "DiskSpace": "Disk Space",
   "Docker": "Docker",
   "DownloadClient": "Download Client",
+  "DownloadClientCheckDownloadingToRoot": "Download client {0} places downloads in the root folder {1}. You should not download to a root folder.",
   "DownloadClientSettings": "Download Client Settings",
   "DownloadClients": "Download Clients",
   "DownloadFailedCheckDownloadClientForMoreDetails": "Download failed: check download client for more details",

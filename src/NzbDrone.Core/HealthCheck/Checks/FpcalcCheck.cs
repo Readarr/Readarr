@@ -1,6 +1,7 @@
 using System;
 using NzbDrone.Core.Configuration;
 using NzbDrone.Core.Configuration.Events;
+using NzbDrone.Core.Localization;
 using NzbDrone.Core.Parser;
 
 namespace NzbDrone.Core.HealthCheck.Checks
@@ -12,7 +13,9 @@ namespace NzbDrone.Core.HealthCheck.Checks
         private readonly IConfigService _configService;
 
         public FpcalcCheck(IFingerprintingService fingerprintingService,
-                           IConfigService configService)
+                           IConfigService configService,
+                           ILocalizationService localizationService)
+            : base(localizationService)
         {
             _fingerprintingService = fingerprintingService;
             _configService = configService;

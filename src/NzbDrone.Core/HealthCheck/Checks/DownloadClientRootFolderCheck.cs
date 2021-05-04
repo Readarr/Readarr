@@ -5,6 +5,7 @@ using NzbDrone.Common.Extensions;
 using NzbDrone.Core.Datastore.Events;
 using NzbDrone.Core.Download;
 using NzbDrone.Core.Download.Clients;
+using NzbDrone.Core.Localization;
 using NzbDrone.Core.RemotePathMappings;
 using NzbDrone.Core.RootFolders;
 using NzbDrone.Core.ThingiProvider.Events;
@@ -25,7 +26,9 @@ namespace NzbDrone.Core.HealthCheck.Checks
 
         public DownloadClientRootFolderCheck(IProvideDownloadClient downloadClientProvider,
                                       IRootFolderService rootFolderService,
-                                      Logger logger)
+                                      Logger logger,
+                                      ILocalizationService localizationService)
+            : base(localizationService)
         {
             _downloadClientProvider = downloadClientProvider;
             _rootFolderService = rootFolderService;
@@ -47,7 +50,7 @@ namespace NzbDrone.Core.HealthCheck.Checks
                     {
                         if (rootFolders.Any(r => r.Path.PathEquals(folder.FullPath)))
                         {
-                            return new HealthCheck(GetType(), HealthCheckResult.Warning, $"Download client {client.Definition.Name} places downloads in the root folder {folder.FullPath}. You should not download to a root folder.", "#downloads_in_root_folder");
+                            return new HealthCheck(GetType(), HealthCheckResult.Warning, string.Format(_localizationService.GetLocalizedString("DownloadClientCheckDownloadingToRoot"), client.Definition.Name, folder.FullPath), "#downloads_in_root_folder");
                         }
                     }
                 }

@@ -5,6 +5,7 @@ using NzbDrone.Common.EnvironmentInfo;
 using NzbDrone.Common.Extensions;
 using NzbDrone.Core.Configuration;
 using NzbDrone.Core.Configuration.Events;
+using NzbDrone.Core.Localization;
 using NzbDrone.Core.Update;
 
 namespace NzbDrone.Core.HealthCheck.Checks
@@ -22,7 +23,9 @@ namespace NzbDrone.Core.HealthCheck.Checks
                            IAppFolderInfo appFolderInfo,
                            ICheckUpdateService checkUpdateService,
                            IConfigFileProvider configFileProvider,
-                           IOsInfo osInfo)
+                           IOsInfo osInfo,
+                           ILocalizationService localizationService)
+            : base(localizationService)
         {
             _diskProvider = diskProvider;
             _appFolderInfo = appFolderInfo;

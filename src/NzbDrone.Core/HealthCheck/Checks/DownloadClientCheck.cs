@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using NLog;
 using NzbDrone.Core.Download;
+using NzbDrone.Core.Localization;
 using NzbDrone.Core.ThingiProvider.Events;
 
 namespace NzbDrone.Core.HealthCheck.Checks
@@ -15,7 +16,8 @@ namespace NzbDrone.Core.HealthCheck.Checks
         private readonly IProvideDownloadClient _downloadClientProvider;
         private readonly Logger _logger;
 
-        public DownloadClientCheck(IProvideDownloadClient downloadClientProvider, Logger logger)
+        public DownloadClientCheck(IProvideDownloadClient downloadClientProvider, Logger logger, ILocalizationService localizationService)
+            : base(localizationService)
         {
             _downloadClientProvider = downloadClientProvider;
             _logger = logger;

@@ -1,6 +1,7 @@
 using NzbDrone.Core.Configuration;
 using NzbDrone.Core.Configuration.Events;
 using NzbDrone.Core.Download;
+using NzbDrone.Core.Localization;
 using NzbDrone.Core.ThingiProvider.Events;
 
 namespace NzbDrone.Core.HealthCheck.Checks
@@ -12,7 +13,8 @@ namespace NzbDrone.Core.HealthCheck.Checks
     {
         private readonly IConfigService _configService;
 
-        public ImportMechanismCheck(IConfigService configService)
+        public ImportMechanismCheck(IConfigService configService, ILocalizationService localizationService)
+            : base(localizationService)
         {
             _configService = configService;
         }

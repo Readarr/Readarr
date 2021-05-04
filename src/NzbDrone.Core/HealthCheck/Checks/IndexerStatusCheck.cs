@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using NzbDrone.Common.Extensions;
 using NzbDrone.Core.Indexers;
+using NzbDrone.Core.Localization;
 using NzbDrone.Core.ThingiProvider.Events;
 
 namespace NzbDrone.Core.HealthCheck.Checks
@@ -14,7 +15,8 @@ namespace NzbDrone.Core.HealthCheck.Checks
         private readonly IIndexerFactory _providerFactory;
         private readonly IIndexerStatusService _providerStatusService;
 
-        public IndexerStatusCheck(IIndexerFactory providerFactory, IIndexerStatusService providerStatusService)
+        public IndexerStatusCheck(IIndexerFactory providerFactory, IIndexerStatusService providerStatusService, ILocalizationService localizationService)
+            : base(localizationService)
         {
             _providerFactory = providerFactory;
             _providerStatusService = providerStatusService;

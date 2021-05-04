@@ -1,6 +1,7 @@
 using System.Linq;
 using NzbDrone.Common.Extensions;
 using NzbDrone.Core.Download;
+using NzbDrone.Core.Localization;
 using NzbDrone.Core.ThingiProvider.Events;
 
 namespace NzbDrone.Core.HealthCheck.Checks
@@ -13,7 +14,8 @@ namespace NzbDrone.Core.HealthCheck.Checks
         private readonly IDownloadClientFactory _providerFactory;
         private readonly IDownloadClientStatusService _providerStatusService;
 
-        public DownloadClientStatusCheck(IDownloadClientFactory providerFactory, IDownloadClientStatusService providerStatusService)
+        public DownloadClientStatusCheck(IDownloadClientFactory providerFactory, IDownloadClientStatusService providerStatusService, ILocalizationService localizationService)
+            : base(localizationService)
         {
             _providerFactory = providerFactory;
             _providerStatusService = providerStatusService;
