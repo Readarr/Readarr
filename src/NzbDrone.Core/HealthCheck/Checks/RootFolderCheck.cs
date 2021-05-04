@@ -3,6 +3,7 @@ using NzbDrone.Common.Disk;
 using NzbDrone.Core.Books;
 using NzbDrone.Core.Books.Events;
 using NzbDrone.Core.ImportLists;
+using NzbDrone.Core.Localization;
 using NzbDrone.Core.MediaFiles.Events;
 using NzbDrone.Core.RootFolders;
 
@@ -19,7 +20,8 @@ namespace NzbDrone.Core.HealthCheck.Checks
         private readonly IDiskProvider _diskProvider;
         private readonly IRootFolderService _rootFolderService;
 
-        public RootFolderCheck(IAuthorService authorService, IImportListFactory importListFactory, IDiskProvider diskProvider, IRootFolderService rootFolderService)
+        public RootFolderCheck(IAuthorService authorService, IImportListFactory importListFactory, IDiskProvider diskProvider, IRootFolderService rootFolderService, ILocalizationService localizationService)
+            : base(localizationService)
         {
             _authorService = authorService;
             _importListFactory = importListFactory;

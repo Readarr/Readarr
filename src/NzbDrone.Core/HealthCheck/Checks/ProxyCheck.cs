@@ -6,6 +6,7 @@ using NzbDrone.Common.Cloud;
 using NzbDrone.Common.Http;
 using NzbDrone.Core.Configuration;
 using NzbDrone.Core.Configuration.Events;
+using NzbDrone.Core.Localization;
 
 namespace NzbDrone.Core.HealthCheck.Checks
 {
@@ -18,7 +19,8 @@ namespace NzbDrone.Core.HealthCheck.Checks
 
         private readonly IHttpRequestBuilderFactory _cloudRequestBuilder;
 
-        public ProxyCheck(IReadarrCloudRequestBuilder cloudRequestBuilder, IConfigService configService, IHttpClient client, Logger logger)
+        public ProxyCheck(IReadarrCloudRequestBuilder cloudRequestBuilder, IConfigService configService, IHttpClient client, Logger logger, ILocalizationService localizationService)
+            : base(localizationService)
         {
             _configService = configService;
             _client = client;

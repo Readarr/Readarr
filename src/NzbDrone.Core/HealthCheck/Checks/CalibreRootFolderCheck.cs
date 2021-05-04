@@ -8,6 +8,7 @@ using NzbDrone.Common.Extensions;
 using NzbDrone.Core.Books.Calibre;
 using NzbDrone.Core.Datastore.Events;
 using NzbDrone.Core.Download.Clients;
+using NzbDrone.Core.Localization;
 using NzbDrone.Core.RemotePathMappings;
 using NzbDrone.Core.RootFolders;
 
@@ -27,7 +28,9 @@ namespace NzbDrone.Core.HealthCheck.Checks
                                       IRootFolderService rootFolderService,
                                       ICalibreProxy calibreProxy,
                                       IOsInfo osInfo,
-                                      Logger logger)
+                                      Logger logger,
+                                      ILocalizationService localizationService)
+            : base(localizationService)
         {
             _diskProvider = diskProvider;
             _rootFolderService = rootFolderService;

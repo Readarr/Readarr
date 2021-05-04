@@ -3,6 +3,7 @@ using NLog;
 using NzbDrone.Common.Cloud;
 using NzbDrone.Common.Http;
 using NzbDrone.Common.Serializer;
+using NzbDrone.Core.Localization;
 
 namespace NzbDrone.Core.HealthCheck.Checks
 {
@@ -12,7 +13,8 @@ namespace NzbDrone.Core.HealthCheck.Checks
         private readonly IHttpRequestBuilderFactory _cloudRequestBuilder;
         private readonly Logger _logger;
 
-        public SystemTimeCheck(IHttpClient client, IReadarrCloudRequestBuilder cloudRequestBuilder, Logger logger)
+        public SystemTimeCheck(IHttpClient client, IReadarrCloudRequestBuilder cloudRequestBuilder, Logger logger, ILocalizationService localizationService)
+            : base(localizationService)
         {
             _client = client;
             _cloudRequestBuilder = cloudRequestBuilder.Services;

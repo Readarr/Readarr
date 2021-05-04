@@ -9,6 +9,7 @@ using NzbDrone.Core.Configuration;
 using NzbDrone.Core.Datastore.Events;
 using NzbDrone.Core.Download;
 using NzbDrone.Core.Download.Clients;
+using NzbDrone.Core.Localization;
 using NzbDrone.Core.MediaFiles.Events;
 using NzbDrone.Core.RemotePathMappings;
 using NzbDrone.Core.ThingiProvider.Events;
@@ -33,7 +34,9 @@ namespace NzbDrone.Core.HealthCheck.Checks
                                       IProvideDownloadClient downloadClientProvider,
                                       IConfigService configService,
                                       IOsInfo osInfo,
-                                      Logger logger)
+                                      Logger logger,
+                                      ILocalizationService localizationService)
+            : base(localizationService)
         {
             _diskProvider = diskProvider;
             _downloadClientProvider = downloadClientProvider;

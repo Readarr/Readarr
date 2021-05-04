@@ -1,5 +1,6 @@
 using NzbDrone.Common.EnvironmentInfo;
 using NzbDrone.Common.Extensions;
+using NzbDrone.Core.Localization;
 
 namespace NzbDrone.Core.HealthCheck.Checks
 {
@@ -7,7 +8,8 @@ namespace NzbDrone.Core.HealthCheck.Checks
     {
         private readonly IAppFolderInfo _appFolderInfo;
 
-        public AppDataLocationCheck(IAppFolderInfo appFolderInfo)
+        public AppDataLocationCheck(IAppFolderInfo appFolderInfo, ILocalizationService localizationService)
+            : base(localizationService)
         {
             _appFolderInfo = appFolderInfo;
         }
