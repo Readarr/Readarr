@@ -69,7 +69,7 @@ namespace Readarr.Api.V1.Queue
             }
         }
 
-        [HttpDelete]
+        [HttpDelete("bulk")]
         public object RemoveMany([FromBody] QueueBulkResource resource, [FromQuery] bool removeFromClient = true, [FromQuery] bool blacklist = false, [FromQuery] bool skipReDownload = false)
         {
             var trackedDownloadIds = new List<string>();
