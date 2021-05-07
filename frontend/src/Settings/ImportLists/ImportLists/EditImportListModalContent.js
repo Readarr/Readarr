@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import Alert from 'Components/Alert';
 import DescriptionList from 'Components/DescriptionList/DescriptionList';
 import DescriptionListItem from 'Components/DescriptionList/DescriptionListItem';
 import Form from 'Components/Form/Form';
@@ -77,7 +78,8 @@ function EditImportListModalContent(props) {
     qualityProfileId,
     metadataProfileId,
     tags,
-    fields
+    fields,
+    message
   } = item;
 
   return (
@@ -102,6 +104,15 @@ function EditImportListModalContent(props) {
         {
           !isFetching && !error &&
             <Form {...otherProps}>
+              {
+                !!message &&
+                  <Alert
+                    className={styles.message}
+                    kind={message.value.type}
+                  >
+                    {message.value.message}
+                  </Alert>
+              }
               <FormGroup>
                 <FormLabel>
                   {translate('Name')}
