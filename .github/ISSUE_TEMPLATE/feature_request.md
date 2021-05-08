@@ -2,7 +2,7 @@
 name: Feature request
 about: Suggest an idea for Readarr
 title: ''
-labels: feature request
+labels: 'Type: Feature Request'
 assignees: ''
 
 ---
