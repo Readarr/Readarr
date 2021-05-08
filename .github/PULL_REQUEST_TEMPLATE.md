@@ -4,6 +4,8 @@ YES | NO
 #### Description
 A few sentences describing the overall goals of the pull request's commits.
 
+#### Screenshot (if UI related)
+
 #### Todos
 - [ ] Tests
 - [ ] Wiki Updates
@@ -11,4 +13,4 @@ A few sentences describing the overall goals of the pull request's commits.
 
 #### Issues Fixed or Closed by this PR
 
-* 
+* Fixes #XXXX
