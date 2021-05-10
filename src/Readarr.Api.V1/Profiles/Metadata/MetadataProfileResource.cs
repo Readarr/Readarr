@@ -14,6 +14,8 @@ namespace Readarr.Api.V1.Profiles.Metadata
         public bool SkipPartsAndSets { get; set; }
         public bool SkipSeriesSecondary { get; set; }
         public string AllowedLanguages { get; set; }
+        public int MinPages { get; set; }
+        public string Ignored { get; set; }
     }
 
     public static class MetadataProfileResourceMapper
@@ -34,7 +36,9 @@ namespace Readarr.Api.V1.Profiles.Metadata
                 SkipMissingIsbn = model.SkipMissingIsbn,
                 SkipPartsAndSets = model.SkipPartsAndSets,
                 SkipSeriesSecondary = model.SkipSeriesSecondary,
-                AllowedLanguages = model.AllowedLanguages
+                AllowedLanguages = model.AllowedLanguages,
+                MinPages = model.MinPages,
+                Ignored = model.Ignored
             };
         }
 
@@ -54,7 +58,9 @@ namespace Readarr.Api.V1.Profiles.Metadata
                 SkipMissingIsbn = resource.SkipMissingIsbn,
                 SkipPartsAndSets = resource.SkipPartsAndSets,
                 SkipSeriesSecondary = resource.SkipSeriesSecondary,
-                AllowedLanguages = resource.AllowedLanguages
+                AllowedLanguages = resource.AllowedLanguages,
+                MinPages = resource.MinPages,
+                Ignored = resource.Ignored
             };
         }
 

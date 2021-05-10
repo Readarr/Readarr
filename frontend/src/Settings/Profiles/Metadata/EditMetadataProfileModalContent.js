@@ -15,6 +15,9 @@ import { inputTypes, kinds } from 'Helpers/Props';
 import translate from 'Utilities/String/translate';
 import styles from './EditMetadataProfileModalContent.css';
 
+// Tab, enter, and comma
+const tagInputDelimiters = [9, 13, 188];
+
 function EditMetadataProfileModalContent(props) {
   const {
     isFetching,
@@ -38,7 +41,9 @@ function EditMetadataProfileModalContent(props) {
     skipMissingIsbn,
     skipPartsAndSets,
     skipSeriesSecondary,
-    allowedLanguages
+    allowedLanguages,
+    ignored,
+    minPages
   } = item;
 
   return (
@@ -87,6 +92,21 @@ function EditMetadataProfileModalContent(props) {
                   {...minPopularity}
                   helpText={translate('MinPopularityHelpText')}
                   isFloat={true}
+                  min={0}
+                  onChange={onInputChange}
+                />
+              </FormGroup>
+
+              <FormGroup>
+                <FormLabel>
+                  {translate('MinimumPages')}
+                </FormLabel>
+
+                <FormInputGroup
+                  type={inputTypes.NUMBER}
+                  name="minPages"
+                  {...minPages}
+                  helpText={translate('MinPagesHelpText')}
                   min={0}
                   onChange={onInputChange}
                 />
@@ -153,6 +173,23 @@ function EditMetadataProfileModalContent(props) {
                   type={inputTypes.TEXT}
                   name="allowedLanguages"
                   {...allowedLanguages}
+                  onChange={onInputChange}
+                />
+              </FormGroup>
+
+              <FormGroup>
+                <FormLabel>
+                  {translate('MustNotContain')}
+                </FormLabel>
+
+                <FormInputGroup
+                  type={inputTypes.TEXT_TAG}
+                  name="ignored"
+                  helpText={translate('IgnoredHelpText')}
+                  kind={kinds.DANGER}
+                  placeholder={translate('IgnoredPlaceHolder')}
+                  delimiters={tagInputDelimiters}
+                  {...ignored}
                   onChange={onInputChange}
                 />
               </FormGroup>

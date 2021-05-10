@@ -349,6 +349,8 @@
   "MinimumFreeSpace": "Minimum Free Space",
   "MinimumFreeSpaceWhenImportingHelpText": "Prevent import if it would leave less than this amount of disk space available",
   "MinimumLimits": "Minimum Limits",
+  "MinimumPages": "Minimum Pages",
+  "MinPagesHelpText": "Ignore books with fewer pages than this", 
   "MinimumPopularity": "Minimum Popularity",
   "Missing": "Missing",
   "MissingBooks": "Missing Books",

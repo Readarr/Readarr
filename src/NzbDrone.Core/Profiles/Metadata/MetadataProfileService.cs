@@ -9,6 +9,7 @@ using NzbDrone.Core.ImportLists;
 using NzbDrone.Core.Lifecycle;
 using NzbDrone.Core.MediaFiles;
 using NzbDrone.Core.Messaging.Events;
+using NzbDrone.Core.Profiles.Releases;
 using NzbDrone.Core.RootFolders;
 
 namespace NzbDrone.Core.Profiles.Metadata
@@ -36,6 +37,7 @@ namespace NzbDrone.Core.Profiles.Metadata
         private readonly IMediaFileService _mediaFileService;
         private readonly IImportListFactory _importListFactory;
         private readonly IRootFolderService _rootFolderService;
+        private readonly ITermMatcherService _termMatcherService;
         private readonly Logger _logger;
 
         public MetadataProfileService(IMetadataProfileRepository profileRepository,
@@ -44,6 +46,7 @@ namespace NzbDrone.Core.Profiles.Metadata
                                       IMediaFileService mediaFileService,
                                       IImportListFactory importListFactory,
                                       IRootFolderService rootFolderService,
+                                      ITermMatcherService termMatcherService,
                                       Logger logger)
         {
             _profileRepository = profileRepository;
@@ -52,6 +55,7 @@ namespace NzbDrone.Core.Profiles.Metadata
             _mediaFileService = mediaFileService;
             _importListFactory = importListFactory;
             _rootFolderService = rootFolderService;
+            _termMatcherService = termMatcherService;
             _logger = logger;
         }
 
@@ -129,6 +133,8 @@ namespace NzbDrone.Core.Profiles.Metadata
             FilterByPredicate(hash, x => x.ForeignBookId, localHash, profile, (x, p) => !p.SkipMissingDate || x.ReleaseDate.HasValue, "release date is missing");
             FilterByPredicate(hash, x => x.ForeignBookId, localHash, profile, (x, p) => !p.SkipPartsAndSets || !IsPartOrSet(x, seriesLinks.GetValueOrDefault(x), titles), "book is part of set");
             FilterByPredicate(hash, x => x.ForeignBookId, localHash, profile, (x, p) => !p.SkipSeriesSecondary || !seriesLinks.ContainsKey(x) || seriesLinks[x].Any(y => y.IsPrimary), "book is a secondary series item");
+            FilterByPredicate(hash, x => x.ForeignBookId, localHash, profile, (x, p) => x.Editions.Value.Any(e => e.PageCount > p.MinPages) || x.Editions.Value.All(e => e.PageCount == 0), "minimum page count not met");
+            FilterByPredicate(hash, x => x.ForeignBookId, localHash, profile, (x, p) => !MatchesTerms(x.Title, p.Ignored), "contains ignored terms");
 
             foreach (var book in hash)
             {
@@ -137,7 +143,7 @@ namespace NzbDrone.Core.Profiles.Metadata
                 book.Editions = FilterEditions(book.Editions.Value, localEditions, localFiles, profile);
             }
 
-            FilterByPredicate(hash, x => x.ForeignBookId, localHash, profile, (x, p) => x.Editions.Value.Any(), "all editions filterd out");
+            FilterByPredicate(hash, x => x.ForeignBookId, localHash, profile, (x, p) => x.Editions.Value.Any(), "all editions filtered out");
 
             return hash.ToList();
         }
@@ -153,6 +159,7 @@ namespace NzbDrone.Core.Profiles.Metadata
 
             FilterByPredicate(hash, x => x.ForeignEditionId, localHash, profile, (x, p) => !allowedLanguages.Any() || allowedLanguages.Contains(x.Language?.ToLower() ?? "null"), "edition language not allowed");
             FilterByPredicate(hash, x => x.ForeignEditionId, localHash, profile, (x, p) => !p.SkipMissingIsbn || x.Isbn13.IsNotNullOrWhiteSpace() || x.Asin.IsNotNullOrWhiteSpace(), "isbn and asin is missing");
+            FilterByPredicate(hash, x => x.ForeignEditionId, localHash, profile, (x, p) => !MatchesTerms(x.Title, p.Ignored), "contains ignored terms");
 
             return hash.ToList();
         }
@@ -193,6 +200,24 @@ namespace NzbDrone.Core.Profiles.Metadata
             }
 
             return false;
+        }
+
+        private bool MatchesTerms(string value, string terms)
+        {
+            if (terms.IsNullOrWhiteSpace() || value.IsNullOrWhiteSpace())
+            {
+                return false;
+            }
+
+            var split = terms.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries).ToList();
+            var foundTerms = ContainsAny(split, value);
+
+            return foundTerms.Any();
+        }
+
+        private List<string> ContainsAny(List<string> terms, string title)
+        {
+            return terms.Where(t => _termMatcherService.IsMatch(t, title)).ToList();
         }
 
         public void Handle(ApplicationStartedEvent message)
