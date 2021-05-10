@@ -441,7 +441,7 @@
     "UpdateMechanismHelpText": "Brug Radarrs indbyggede opdatering eller et script",
     "UpdateScriptPathHelpText": "Sti til et brugerdefineret script, der tager en udpakket opdateringspakke og håndterer resten af opdateringsprocessen",
     "Updates": "Opdateringer",
-    "UpgradeAllowedHelpText": "Hvis handicappede kvaliteter ikke vil blive opgraderet",
+    "UpgradeAllowedHelpText": "Hvis deaktiveret, vil kvalitet ikke vil blive opgraderet",
     "Uptime": "Oppetid",
     "UrlBaseHelpTextWarning": "Kræver genstart for at træde i kraft",
     "UseHardlinksInsteadOfCopy": "Brug hardlinks i stedet for Copy",
