@@ -3,7 +3,7 @@
     <TargetFrameworks>net5.0</TargetFrameworks>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Mono.Posix.NETStandard" Version="5.20.1-servarr1" />
+    <PackageReference Include="Mono.Posix.NETStandard" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\NzbDrone.Common.Test\Readarr.Common.Test.csproj" />

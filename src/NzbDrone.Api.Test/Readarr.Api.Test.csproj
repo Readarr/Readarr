@@ -3,7 +3,7 @@
     <TargetFrameworks>net5.0</TargetFrameworks>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="NBuilder" Version="6.1.0" />
+    <PackageReference Include="NBuilder" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\NzbDrone.Core\Readarr.Core.csproj" />

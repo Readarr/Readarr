@@ -15,6 +15,7 @@ variables:
   sentryUrl: 'https://sentry.servarr.com'
   dotnetVersion: '5.0.201'
   yarnCacheFolder: $(Pipeline.Workspace)/.yarn
+  nugetCacheFolder: $(Pipeline.Workspace)/.nuget/packages
 
 trigger:
   branches:
@@ -93,15 +94,18 @@ stages:
             sed -i.ORI 's/osx-x64/osx-x64;freebsd-x64/' $BUNDLEDVERSIONS
           fi
         displayName: Enable FreeBSD Support
+      - task: Cache@2
+        inputs:
+          key: 'nuget | "$(Agent.OS)" | $(Build.SourcesDirectory)/src/Directory.Packages.props'
+          restoreKeys: |
+            nuget | "$(Agent.OS)"
+            nuget
+          path: $(nugetCacheFolder)
+        displayName: Cache NuGet packages
       - bash: ./build.sh --backend --enable-bsd
         displayName: Build Readarr Backend
-      - bash: |
-          find ${OUTPUTFOLDER} -type f ! -path "*/publish/*" -exec rm -rf {} \;
-          find ${OUTPUTFOLDER} -depth -empty -type d -exec rm -r "{}" \;
-          find ${TESTSFOLDER} -type f ! -path "*/publish/*" -exec rm -rf {} \;
-          find ${TESTSFOLDER} -depth -empty -type d -exec rm -r "{}" \;
-        displayName: Clean up intermediate output
-        condition: and(succeeded(), ne(variables['osName'], 'Windows'))
+        env:
+          NUGET_PACKAGES: $(nugetCacheFolder)
       - publish: $(outputFolder)
         artifact: '$(osName)Backend'
         displayName: Publish Backend
@@ -835,6 +839,15 @@ stages:
           version: $(dotnetVersion)
       - checkout: self # Need history for Sonar analysis
         submodules: true
+      - task: Cache@2
+        inputs:
+          key: 'nuget | "$(Agent.OS)" | $(Build.SourcesDirectory)/src/Directory.Packages.props'
+          restoreKeys: |
+            nuget | "$(Agent.OS)"
+            nuget
+          path: $(nugetCacheFolder)
+        displayName: Cache NuGet packages
+
       - task: SonarCloudPrepare@1
         condition: eq(variables['System.PullRequest.IsFork'], 'False')
         inputs:
@@ -853,6 +866,8 @@ stages:
           ./build.sh --backend -f net5.0 -r linux-x64
           TEST_DIR=_tests/net5.0/linux-x64/publish/ ./test.sh Linux Unit Coverage
         displayName: Coverage Unit Tests
+        env:
+          NUGET_PACKAGES: $(nugetCacheFolder)
       - task: SonarCloudAnalyze@1
         condition: eq(variables['System.PullRequest.IsFork'], 'False')
         displayName: Publish SonarCloud Results

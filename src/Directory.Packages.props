@@ -1,0 +1,61 @@
+<Project>
+  <ItemGroup>
+    <PackageVersion Include="AutoFixture" Version="4.12.0" />
+    <PackageVersion Include="coverlet.collector" Version="1.2.1" PrivateAssets="all" />
+    <PackageVersion Include="Dapper" Version="2.0.78" />
+    <PackageVersion Include="DotNet4.SocksProxy" Version="1.4.0.1" />
+    <PackageVersion Include="DryIoc.dll" Version="4.7.4" />
+    <PackageVersion Include="DryIoc.Microsoft.DependencyInjection" Version="5.1.0" />
+    <PackageVersion Include="Equ" Version="2.3.0" />
+    <PackageVersion Include="FluentAssertions" Version="5.10.3" />
+    <PackageVersion Include="FluentMigrator.Runner.SQLite" Version="4.0.0-alpha.289" />
+    <PackageVersion Include="FluentMigrator.Runner" Version="4.0.0-alpha.289" />
+    <PackageVersion Include="FluentValidation" Version="8.6.2" />
+    <PackageVersion Include="Ical.Net" Version="4.1.11" />
+    <PackageVersion Include="ImpromptuInterface" Version="7.0.1" />
+    <PackageVersion Include="Kveer.XmlRPC" Version="1.1.1" />
+    <PackageVersion Include="Microsoft.AspNetCore.SignalR.Client" Version="5.0.4" />
+    <PackageVersion Include="Microsoft.Extensions.Configuration" Version="5.0.0" />
+    <PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="5.0.1" />
+    <PackageVersion Include="Microsoft.Extensions.Hosting.WindowsServices" Version="5.0.1" />
+    <PackageVersion Include="Microsoft.Extensions.Logging" Version="5.0.0" />
+    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="16.9.1" />
+    <PackageVersion Include="Microsoft.Win32.Registry" Version="5.0.0" />
+    <PackageVersion Include="Mono.Posix.NETStandard" Version="5.20.1-servarr1" />
+    <PackageVersion Include="MonoTorrent" Version="1.0.29" />
+    <PackageVersion Include="Moq" Version="4.16.1" />
+    <PackageVersion Include="NBuilder" Version="6.1.0" />
+    <PackageVersion Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageVersion Include="NLog.Extensions.Logging" Version="1.7.1" />
+    <PackageVersion Include="NLog" Version="4.7.8" />
+    <PackageVersion Include="NUnit3TestAdapter" Version="3.17.0" />
+    <PackageVersion Include="NUnit" Version="3.13.1" />
+    <PackageVersion Include="NunitXml.TestLogger" Version="3.0.97" />
+    <PackageVersion Include="PdfSharpCore" Version="1.2.15" />
+    <PackageVersion Include="RestSharp.Serializers.SystemTextJson" Version="106.11.7" />
+    <PackageVersion Include="RestSharp" Version="106.11.7" />
+    <PackageVersion Include="Selenium.Support" Version="3.141.0" />
+    <PackageVersion Include="Selenium.WebDriver.ChromeDriver" Version="89.0.4389.2300" />
+    <PackageVersion Include="Sentry" Version="2.1.4" />
+    <PackageVersion Include="SharpZipLib" Version="1.3.1" />
+    <PackageVersion Include="SixLabors.ImageSharp" Version="1.0.3" />
+    <PackageVersion Include="StyleCop.Analyzers" Version="1.1.118" />
+    <PackageVersion Include="System.Buffers" Version="4.5.1" />
+    <PackageVersion Include="System.Configuration.ConfigurationManager" Version="5.0.0" />
+    <PackageVersion Include="System.Data.SQLite.Core.Servarr" Version="1.0.113.0-0" />
+    <PackageVersion Include="System.IO.Abstractions.TestingHelpers" Version="12.0.4" />
+    <PackageVersion Include="System.IO.Abstractions" Version="12.0.4" />
+    <PackageVersion Include="System.IO.FileSystem.AccessControl" Version="5.0.0" />
+    <PackageVersion Include="System.Memory" Version="4.5.4" />
+    <PackageVersion Include="System.Reflection.TypeExtensions" Version="4.7.0" />
+    <PackageVersion Include="System.Resources.Extensions" Version="5.0.0" />
+    <PackageVersion Include="System.Runtime.Loader" Version="4.3.0" />
+    <PackageVersion Include="System.Security.Principal.Windows" Version="5.0.0" />
+    <PackageVersion Include="System.ServiceProcess.ServiceController" Version="5.0.0" />
+    <PackageVersion Include="System.Text.Encoding.CodePages" Version="5.0.0" />
+    <PackageVersion Include="System.Text.Json" Version="5.0.1" />
+    <PackageVersion Include="System.ValueTuple" Version="4.5.0" />
+    <PackageVersion Include="TagLibSharp-Lidarr" Version="2.2.0.19" />
+    <PackageVersion Include="Unity" Version="5.11.10" />
+  </ItemGroup>
+</Project>

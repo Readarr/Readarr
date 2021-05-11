@@ -5,22 +5,22 @@
     <DefineConstants Condition="'$(RuntimeIdentifier)' == 'linux-musl-x64' or '$(RuntimeIdentifier)' == 'linux-musl-arm64'">ISMUSL</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="DotNet4.SocksProxy" Version="1.4.0.1" />
-    <PackageReference Include="DryIoc.dll" Version="4.7.4" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="5.0.1" />
-    <PackageReference Include="NLog.Extensions.Logging" Version="1.7.1" />
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
-    <PackageReference Include="NLog" Version="4.7.8" />
-    <PackageReference Include="Sentry" Version="2.1.4" />
-    <PackageReference Include="SharpZipLib" Version="1.3.1" />
-    <PackageReference Include="System.IO.Abstractions" Version="12.0.4" />
-    <PackageReference Include="System.Text.Json" Version="5.0.1" />
-    <PackageReference Include="System.ValueTuple" Version="4.5.0" />
-    <PackageReference Include="System.Data.SQLite.Core.Servarr" Version="1.0.113.0-0" />
-    <PackageReference Include="System.Runtime.Loader" Version="4.3.0" />
-    <PackageReference Include="System.Configuration.ConfigurationManager" Version="5.0.0" />
-    <PackageReference Include="System.ServiceProcess.ServiceController" Version="5.0.0" />
-    <PackageReference Include="Microsoft.Win32.Registry" Version="5.0.0" />
+    <PackageReference Include="DotNet4.SocksProxy" />
+    <PackageReference Include="DryIoc.dll" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" />
+    <PackageReference Include="NLog.Extensions.Logging" />
+    <PackageReference Include="Newtonsoft.Json" />
+    <PackageReference Include="NLog" />
+    <PackageReference Include="Sentry" />
+    <PackageReference Include="SharpZipLib" />
+    <PackageReference Include="System.IO.Abstractions" />
+    <PackageReference Include="System.Text.Json" />
+    <PackageReference Include="System.ValueTuple" />
+    <PackageReference Include="System.Data.SQLite.Core.Servarr" />
+    <PackageReference Include="System.Runtime.Loader" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" />
+    <PackageReference Include="System.ServiceProcess.ServiceController" />
+    <PackageReference Include="Microsoft.Win32.Registry" />
   </ItemGroup>
   <ItemGroup>
     <Compile Update="EnsureThat\Resources\ExceptionMessages.Designer.cs">

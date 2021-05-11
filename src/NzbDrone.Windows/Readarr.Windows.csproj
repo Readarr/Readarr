@@ -3,8 +3,8 @@
     <TargetFrameworks>net5.0</TargetFrameworks>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="NLog" Version="4.7.8" />
-    <PackageReference Include="System.IO.FileSystem.AccessControl" Version="5.0.0" />
+    <PackageReference Include="NLog" />
+    <PackageReference Include="System.IO.FileSystem.AccessControl" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\NzbDrone.Common\Readarr.Common.csproj" />

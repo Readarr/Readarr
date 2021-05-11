@@ -9,10 +9,10 @@
     <ProjectReference Include="..\NzbDrone.SignalR\Readarr.SignalR.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="System.Reflection.TypeExtensions" Version="4.7.0" />
-    <PackageReference Include="FluentValidation" Version="8.6.2" />
-    <PackageReference Include="Ical.Net" Version="4.1.11" />
-    <PackageReference Include="NLog" Version="4.7.8" />
-    <PackageReference Include="System.IO.Abstractions" Version="12.0.4" />
+    <PackageReference Include="System.Reflection.TypeExtensions" />
+    <PackageReference Include="FluentValidation" />
+    <PackageReference Include="Ical.Net" />
+    <PackageReference Include="NLog" />
+    <PackageReference Include="System.IO.Abstractions" />
   </ItemGroup>
 </Project>

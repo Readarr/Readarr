@@ -3,26 +3,26 @@
     <TargetFrameworks>net5.0</TargetFrameworks>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Dapper" Version="2.0.78" />
-    <PackageReference Include="System.Text.Json" Version="5.0.1" />
-    <PackageReference Include="System.Text.Encoding.CodePages" Version="5.0.0" />
-    <PackageReference Include="System.Memory" Version="4.5.4" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="5.0.1" />
-    <PackageReference Include="Microsoft.Extensions.Logging" Version="5.0.0" />
-    <PackageReference Include="Microsoft.Extensions.Configuration" Version="5.0.0" />
-    <PackageReference Include="FluentMigrator.Runner" Version="4.0.0-alpha.289" />
-    <PackageReference Include="FluentMigrator.Runner.SQLite" Version="4.0.0-alpha.289" />
-    <PackageReference Include="FluentValidation" Version="8.6.2" />
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
-    <PackageReference Include="NLog" Version="4.7.8" />
-    <PackageReference Include="RestSharp" Version="106.11.7" />
-    <PackageReference Include="System.IO.Abstractions" Version="12.0.4" />
-    <PackageReference Include="TagLibSharp-Lidarr" Version="2.2.0.19" />
-    <PackageReference Include="Kveer.XmlRPC" Version="1.1.1" />
-    <PackageReference Include="SixLabors.ImageSharp" Version="1.0.3" />
-    <PackageReference Include="Equ" Version="2.3.0" />
-    <PackageReference Include="MonoTorrent" Version="1.0.29" />
-    <PackageReference Include="PdfSharpCore" Version="1.2.15" />
+    <PackageReference Include="Dapper" />
+    <PackageReference Include="System.Text.Json" />
+    <PackageReference Include="System.Text.Encoding.CodePages" />
+    <PackageReference Include="System.Memory" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" />
+    <PackageReference Include="Microsoft.Extensions.Logging" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" />
+    <PackageReference Include="FluentMigrator.Runner" />
+    <PackageReference Include="FluentMigrator.Runner.SQLite" />
+    <PackageReference Include="FluentValidation" />
+    <PackageReference Include="Newtonsoft.Json" />
+    <PackageReference Include="NLog" />
+    <PackageReference Include="RestSharp" />
+    <PackageReference Include="System.IO.Abstractions" />
+    <PackageReference Include="TagLibSharp-Lidarr" />
+    <PackageReference Include="Kveer.XmlRPC" />
+    <PackageReference Include="SixLabors.ImageSharp" />
+    <PackageReference Include="Equ" />
+    <PackageReference Include="MonoTorrent" />
+    <PackageReference Include="PdfSharpCore" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\NzbDrone.Common\Readarr.Common.csproj" />
