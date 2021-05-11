@@ -3,16 +3,16 @@
     <TargetFrameworks>net5.0</TargetFrameworks>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="FluentAssertions" Version="5.10.3" />
-    <PackageReference Include="FluentValidation" Version="8.6.2" />
-    <PackageReference Include="Moq" Version="4.16.1" />
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
-    <PackageReference Include="NLog" Version="4.7.8" />
-    <PackageReference Include="NUnit" Version="3.13.1" />
-    <PackageReference Include="RestSharp" Version="106.11.7" />
-    <PackageReference Include="RestSharp.Serializers.SystemTextJson" Version="106.11.7" />
-    <PackageReference Include="System.IO.Abstractions" Version="12.0.4" />
-    <PackageReference Include="Unity" Version="5.11.10" />
+    <PackageReference Include="FluentAssertions" />
+    <PackageReference Include="FluentValidation" />
+    <PackageReference Include="Moq" />
+    <PackageReference Include="Newtonsoft.Json" />
+    <PackageReference Include="NLog" />
+    <PackageReference Include="NUnit" />
+    <PackageReference Include="RestSharp" />
+    <PackageReference Include="RestSharp.Serializers.SystemTextJson" />
+    <PackageReference Include="System.IO.Abstractions" />
+    <PackageReference Include="Unity" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\NzbDrone.Common\Readarr.Common.csproj" />
