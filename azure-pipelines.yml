@@ -822,17 +822,19 @@ stages:
       variables:
         disable.coverage.autogenerate: 'true'
       pool:
-        vmImage: windows-2019
+        vmImage: ubuntu-18.04
 
       steps:
       - task: UseDotNet@2
-        displayName: 'Install .net core'
+        displayName: 'Install .net core 2.1'
+        inputs:
+          version: 2.1.815
+      - task: UseDotNet@2
+        displayName: 'Install .net core 5.0'
         inputs:
           version: $(dotnetVersion)
       - checkout: self # Need history for Sonar analysis
         submodules: true
-      - powershell: Set-Service SCardSvr -StartupType Manual
-        displayName: Enable Windows Test Service
       - task: SonarCloudPrepare@1
         condition: eq(variables['System.PullRequest.IsFork'], 'False')
         inputs:
@@ -843,13 +845,13 @@ stages:
           projectName: 'Readarr'
           projectVersion: '$(readarrVersion)'
           extraProperties: |
-            sonar.exclusions=**/obj/**,**/*.dll,**/NzbDrone.Core.Test/Files/**/*,./frontend/**,**/ExternalModules/**,./src/Libraries/**
-            sonar.coverage.exclusions=**/Readarr.Api.V1/**/*,**/MonoTorrent/**/*,**/Marr.Data/**/*
+            sonar.exclusions=**/obj/**,**/*.dll,**/NzbDrone.Core.Test/Files/**/*,./frontend/**,./src/Libraries/**
+            sonar.coverage.exclusions=**/Readarr.Api.V1/**/*
             sonar.cs.opencover.reportsPaths=$(Build.SourcesDirectory)/CoverageResults/**/coverage.opencover.xml
             sonar.cs.nunit.reportsPaths=$(Build.SourcesDirectory)/TestResult.xml
       - bash: |
-          ./build.sh --backend -f net5.0 -r win-x64
-          TEST_DIR=_tests/net5.0/win-x64/publish/ ./test.sh Windows Unit Coverage
+          ./build.sh --backend -f net5.0 -r linux-x64
+          TEST_DIR=_tests/net5.0/linux-x64/publish/ ./test.sh Linux Unit Coverage
         displayName: Coverage Unit Tests
       - task: SonarCloudAnalyze@1
         condition: eq(variables['System.PullRequest.IsFork'], 'False')
