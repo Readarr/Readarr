@@ -27,33 +27,10 @@ pr:
 - develop
 
 stages:
-  - stage: Setup
-    displayName: Setup
-    jobs:
-    - job:
-      displayName: Build Variables
-      pool:
-        vmImage: 'ubuntu-18.04'
-      steps:
-      # Set the build name properly.  The 'name' property won't recursively expand so hack here:
-      - bash: echo "##vso[build.updatebuildnumber]$READARRVERSION"
-        displayName: Set Build Name
-      - bash: |
-          if [[ $BUILD_REASON == "PullRequest" ]]; then
-          git diff origin/develop...HEAD  --name-only | grep -E "^(src/|azure-pipelines.yml)"
-          echo $? > not_backend_update
-          else
-          echo 0 > not_backend_update
-          fi
-          cat not_backend_update
-        displayName: Check for Backend File Changes
-      - publish: not_backend_update
-        artifact: not_backend_update
-        displayName: Publish update type
 
   - stage: Build_Backend_Windows
     displayName: Build Backend
-    dependsOn: Setup
+    dependsOn: []
     jobs:
     - job: Backend
       strategy:
@@ -69,6 +46,9 @@ stages:
         # Disable stylecop here - linting errors get caught by the analyze task
         EnableAnalyzers: $(enableAnalysis)
       steps:
+      # Set the build name properly.  The 'name' property won't recursively expand so hack here:
+      - bash: echo "##vso[build.updatebuildnumber]$READARRVERSION"
+        displayName: Set Build Name
       - checkout: self
         submodules: true
         fetchDepth: 1
@@ -127,7 +107,7 @@ stages:
 
   - stage: Build_Backend_Other
     displayName: Build Backend (Other OS)
-    dependsOn: Setup
+    dependsOn: []
     jobs:
     - job: Backend
       strategy:
@@ -180,7 +160,7 @@ stages:
 
   - stage: Build_Frontend
     displayName: Frontend
-    dependsOn: Setup
+    dependsOn: []
     jobs:
     - job: Build
       strategy:
@@ -400,23 +380,8 @@ stages:
     dependsOn: Build_Backend_Windows
     condition: succeeded()
     jobs:
-    - job: Prepare
-      pool:
-        vmImage: 'ubuntu-18.04'
-      steps:
-      - checkout: none
-      - task: DownloadPipelineArtifact@2
-        inputs:
-          buildType: 'current'
-          artifactName: 'not_backend_update'
-          targetPath: '.'
-      - bash: echo "##vso[task.setvariable variable=backendNotUpdated;isOutput=true]$(cat not_backend_update)"
-        name: setVar
-
     - job: Unit
       displayName: Unit Native
-      dependsOn: Prepare
-      condition: and(succeeded(), eq(dependencies.Prepare.outputs['setVar.backendNotUpdated'], '0'))
       workspace:
         clean: all
 
@@ -486,8 +451,6 @@ stages:
 
     - job: Unit_Docker
       displayName: Unit Docker
-      dependsOn: Prepare
-      condition: and(succeeded(), eq(dependencies.Prepare.outputs['setVar.backendNotUpdated'], '0'))
       strategy:
         matrix:
           alpine:
@@ -534,23 +497,8 @@ stages:
     displayName: Integration
     dependsOn: Packages
     jobs:
-    - job: Prepare
-      pool:
-        vmImage: 'ubuntu-18.04'
-      steps:
-      - checkout: none
-      - task: DownloadPipelineArtifact@2
-        inputs:
-          buildType: 'current'
-          artifactName: 'not_backend_update'
-          targetPath: '.'
-      - bash: echo "##vso[task.setvariable variable=backendNotUpdated;isOutput=true]$(cat not_backend_update)"
-        name: setVar
-
     - job: Integration_Native
       displayName: Integration Native
-      dependsOn: Prepare
-      condition: and(succeeded(), eq(dependencies.Prepare.outputs['setVar.backendNotUpdated'], '0'))
       strategy:
         matrix:
           MacCore:
@@ -614,8 +562,6 @@ stages:
 
     - job: Integration_FreeBSD
       displayName: Integration Native FreeBSD
-      dependsOn: Prepare
-      condition: and(succeeded(), eq(dependencies.Prepare.outputs['setVar.backendNotUpdated'], '0'))
       workspace:
         clean: all
       variables:
@@ -660,8 +606,6 @@ stages:
 
     - job: Integration_Docker
       displayName: Integration Docker
-      dependsOn: Prepare
-      condition: and(succeeded(), eq(dependencies.Prepare.outputs['setVar.backendNotUpdated'], '0'))
       strategy:
         matrix:
           alpine:
@@ -793,23 +737,9 @@ stages:
         displayName: Publish Test Results
 
   - stage: Analyze
-    dependsOn:
-    - Setup
+    dependsOn: []
     displayName: Analyze
     jobs:
-    - job: Prepare
-      pool:
-        vmImage: 'ubuntu-18.04'
-      steps:
-      - checkout: none
-      - task: DownloadPipelineArtifact@2
-        inputs:
-          buildType: 'current'
-          artifactName: 'not_backend_update'
-          targetPath: '.'
-      - bash: echo "##vso[task.setvariable variable=backendNotUpdated;isOutput=true]$(cat not_backend_update)"
-        name: setVar
-
     - job: Lint_Frontend
       displayName: Lint Frontend
       strategy:
@@ -867,8 +797,6 @@ stages:
 
     - job: Analyze_Backend
       displayName: Backend
-      dependsOn: Prepare
-      condition: and(succeeded(), eq(dependencies.Prepare.outputs['setVar.backendNotUpdated'], '0'))
 
       variables:
         disable.coverage.autogenerate: 'true'
