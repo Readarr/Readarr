@@ -50,21 +50,14 @@ stages:
       - publish: not_backend_update
         artifact: not_backend_update
         displayName: Publish update type
-  - stage: Build_Backend
+
+  - stage: Build_Backend_Windows
     displayName: Build Backend
     dependsOn: Setup
     jobs:
     - job: Backend
       strategy:
         matrix:
-          Linux:
-            osName: 'Linux'
-            imageName: 'ubuntu-18.04'
-            enableAnalysis: 'true'
-          Mac:
-            osName: 'Mac'
-            imageName: 'macos-10.14'
-            enableAnalysis: 'false'
           Windows:
             osName: 'Windows'
             imageName: 'windows-2019'
@@ -106,30 +99,84 @@ stages:
         displayName: Build Readarr Backend
         env:
           NUGET_PACKAGES: $(nugetCacheFolder)
-      - publish: $(outputFolder)
-        artifact: '$(osName)Backend'
+      - powershell: Get-ChildItem _output\net5.0*,_output\*.Update\* -Recurse | Where { $_.Fullname -notlike "*\publish\*" -and $_.attributes -notlike "*directory*" } | Remove-Item
+        displayName: Clean up intermediate output
+      - task: PublishPipelineArtifact@1
+        inputs:
+          path: $(outputFolder)
+          artifact: '$(osName)Backend'
+          artifactType: 'pipeline'
+          parallel: true
+          parallelCount: 100
         displayName: Publish Backend
-        condition: and(succeeded(), eq(variables['osName'], 'Windows'))
       - publish: '$(testsFolder)/net5.0/win-x64/publish'
         artifact: WindowsCoreTests
         displayName: Publish Windows Test Package
-        condition: and(succeeded(), eq(variables['osName'], 'Windows'))
       - publish: '$(testsFolder)/net5.0/linux-x64/publish'
         artifact: LinuxCoreTests
         displayName: Publish Linux Test Package
-        condition: and(succeeded(), eq(variables['osName'], 'Windows'))
       - publish: '$(testsFolder)/net5.0/linux-musl-x64/publish'
         artifact: LinuxMuslCoreTests
         displayName: Publish Linux Musl Test Package
-        condition: and(succeeded(), eq(variables['osName'], 'Windows'))
       - publish: '$(testsFolder)/net5.0/freebsd-x64/publish'
         artifact: FreebsdCoreTests
         displayName: Publish FreeBSD Test Package
-        condition: and(succeeded(), eq(variables['osName'], 'Windows'))
       - publish: '$(testsFolder)/net5.0/osx-x64/publish'
         artifact: MacCoreTests
         displayName: Publish MacOS Test Package
-        condition: and(succeeded(), eq(variables['osName'], 'Windows'))
+
+  - stage: Build_Backend_Other
+    displayName: Build Backend (Other OS)
+    dependsOn: Setup
+    jobs:
+    - job: Backend
+      strategy:
+        matrix:
+          Linux:
+            osName: 'Linux'
+            imageName: 'ubuntu-18.04'
+            enableAnalysis: 'true'
+          Mac:
+            osName: 'Mac'
+            imageName: 'macos-10.14'
+            enableAnalysis: 'false'
+
+      pool:
+        vmImage: $(imageName)
+      variables:
+        # Disable stylecop here - linting errors get caught by the analyze task
+        EnableAnalyzers: $(enableAnalysis)
+      steps:
+      - checkout: self
+        submodules: true
+        fetchDepth: 1
+      - task: UseDotNet@2
+        displayName: 'Install .net core'
+        inputs:
+          version: $(dotnetVersion)
+      - bash: |
+          BUNDLEDVERSIONS=${AGENT_TOOLSDIRECTORY}/dotnet/sdk/${DOTNETVERSION}/Microsoft.NETCoreSdk.BundledVersions.props
+          echo $BUNDLEDVERSIONS
+          grep osx-x64 $BUNDLEDVERSIONS
+          if grep -q freebsd-x64 $BUNDLEDVERSIONS; then
+            echo "BSD already enabled"
+          else
+            echo "Enabling BSD support"
+            sed -i.ORI 's/osx-x64/osx-x64;freebsd-x64/' $BUNDLEDVERSIONS
+          fi
+        displayName: Enable FreeBSD Support
+      - task: Cache@2
+        inputs:
+          key: 'nuget | "$(Agent.OS)" | $(Build.SourcesDirectory)/src/Directory.Packages.props'
+          restoreKeys: |
+            nuget | "$(Agent.OS)"
+            nuget
+          path: $(nugetCacheFolder)
+        displayName: Cache NuGet packages
+      - bash: ./build.sh --backend --enable-bsd
+        displayName: Build Readarr Backend
+        env:
+          NUGET_PACKAGES: $(nugetCacheFolder)
 
   - stage: Build_Frontend
     displayName: Frontend
@@ -177,7 +224,7 @@ stages:
         
   - stage: Installer
     dependsOn:
-    - Build_Backend
+    - Build_Backend_Windows
     - Build_Frontend
     jobs:
     - job: Windows_Installer
@@ -215,7 +262,7 @@ stages:
 
   - stage: Packages
     dependsOn:
-    - Build_Backend
+    - Build_Backend_Windows
     - Build_Frontend
     jobs:
     - job: Other_Packages
@@ -350,7 +397,7 @@ stages:
     
   - stage: Unit_Test
     displayName: Unit Tests
-    dependsOn: Build_Backend
+    dependsOn: Build_Backend_Windows
     condition: succeeded()
     jobs:
     - job: Prepare
@@ -890,6 +937,7 @@ stages:
     - Unit_Test
     - Integration
     - Automation
+    - Build_Backend_Other
     condition: eq(variables['system.pullrequest.isfork'], false)
     displayName: Build Status Report
     jobs:
