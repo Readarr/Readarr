@@ -69,9 +69,6 @@ Build()
         platform=Posix
     fi
 
-    dotnet clean $slnFile -c Debug
-    dotnet clean $slnFile -c Release
-
     if [[ -z "$RID" || -z "$FRAMEWORK" ]];
     then
         dotnet msbuild -restore $slnFile -p:Configuration=Release -p:Platform=$platform -t:PublishAllRids
