@@ -315,9 +315,11 @@ namespace NzbDrone.Core.MediaFiles.BookImport.Manual
                     var fileTrackInfo = _audioTagService.ReadTags(file.Path) ?? new ParsedTrackInfo();
                     var fileInfo = _diskProvider.GetFileInfo(file.Path);
 
+                    var fileRootFolder = _rootFolderService.GetBestRootFolder(file.Path);
+
                     var localTrack = new LocalBook
                     {
-                        ExistingFile = author.Path.IsParentPath(file.Path),
+                        ExistingFile = fileRootFolder != null,
                         FileTrackInfo = fileTrackInfo,
                         Path = file.Path,
                         Size = fileInfo.Length,
