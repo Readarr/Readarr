@@ -60,6 +60,14 @@ namespace NzbDrone.Core.Books.Calibre
             _logger = logger;
         }
 
+        public static string GetOriginalFormat(Dictionary<string, CalibreBookFormat> formats)
+        {
+            return formats
+                .Where(x => MediaFileExtensions.TextExtensions.Contains("." + x.Key))
+                .OrderBy(f => f.Value.LastModified)
+                .FirstOrDefault().Value?.Path;
+        }
+
         public CalibreImportJob AddBook(BookFile book, CalibreSettings settings)
         {
             var jobid = (int)(DateTime.UtcNow.Ticks % 1000000000);
@@ -338,10 +346,7 @@ namespace NzbDrone.Core.Books.Calibre
                     var response = _httpClient.Get<Dictionary<int, CalibreBook>>(request);
                     foreach (var book in response.Resource.Values)
                     {
-                        var remotePath = book?.Formats
-                            .Where(x => MediaFileExtensions.TextExtensions.Contains("." + x.Key))
-                            .OrderBy(f => f.Value.LastModified)
-                            .FirstOrDefault().Value?.Path;
+                        var remotePath = GetOriginalFormat(book?.Formats);
 
                         if (remotePath == null)
                         {
