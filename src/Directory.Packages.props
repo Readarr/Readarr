@@ -1,7 +1,7 @@
 <Project>
   <ItemGroup>
     <PackageVersion Include="AutoFixture" Version="4.17.0" />
-    <PackageVersion Include="coverlet.collector" Version="3.0.3" PrivateAssets="all" />
+    <PackageVersion Include="coverlet.collector" Version="3.0.4-preview.27.ge7cb7c3b40" PrivateAssets="all" />
     <PackageVersion Include="Dapper" Version="2.0.90" />
     <PackageVersion Include="DotNet4.SocksProxy" Version="1.4.0.1" />
     <PackageVersion Include="DryIoc.dll" Version="4.7.7" />
