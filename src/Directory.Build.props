@@ -94,7 +94,7 @@
     <PackageReference Include="NUnit" />
     <PackageReference Include="NUnit3TestAdapter" />
     <PackageReference Include="NunitXml.TestLogger" />
-    <PackageReference Include="coverlet.collector" PrivateAssets="all" />
+    <PackageReference Include="coverlet.collector" />
   </ItemGroup>
 
   <!-- Set up stylecop -->
