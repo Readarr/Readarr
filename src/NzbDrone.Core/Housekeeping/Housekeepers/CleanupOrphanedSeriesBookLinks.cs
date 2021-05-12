@@ -16,18 +16,18 @@ namespace NzbDrone.Core.Housekeeping.Housekeepers
         {
             using (var mapper = _database.OpenConnection())
             {
-                mapper.Execute(@"DELETE FROM SeriesBookLinks
+                mapper.Execute(@"DELETE FROM SeriesBookLink
                                      WHERE Id IN (
-                                     SELECT SeriesBookLinks.Id FROM SeriesBookLinks
+                                     SELECT SeriesBookLink.Id FROM SeriesBookLink
                                      LEFT OUTER JOIN Books
-                                     ON SeriesBookLinks.BookId = Books.Id
+                                     ON SeriesBookLink.BookId = Books.Id
                                      WHERE Books.Id IS NULL)");
 
-                mapper.Execute(@"DELETE FROM SeriesBookLinks
+                mapper.Execute(@"DELETE FROM SeriesBookLink
                                      WHERE Id IN (
-                                     SELECT SeriesBookLinks.Id FROM SeriesBookLinks
+                                     SELECT SeriesBookLink.Id FROM SeriesBookLink
                                      LEFT OUTER JOIN Series
-                                     ON SeriesBookLinks.SeriesId = Series.Id
+                                     ON SeriesBookLink.SeriesId = Series.Id
                                      WHERE Series.Id IS NULL)");
             }
         }
