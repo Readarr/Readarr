@@ -41,7 +41,6 @@ namespace NzbDrone.Core.Test.UpdateTests
         }
 
         [Test]
-        [Ignore("Temporary - no commits with changelog recently")]
         public void should_get_recent_updates()
         {
             NotBsd();
