@@ -77,7 +77,7 @@
     "DeleteImportListMessageText": "Biztosan törlöd a(z) „{0}” listát?",
     "DeleteIndexer": "Indexer Törlése",
     "DeleteIndexerMessageText": "Biztosan törlöd a(z) „{0}” indexert?",
-    "DeleteMetadataProfileMessageText": "Biztosan törli a {0} minőségi profilt",
+    "DeleteMetadataProfileMessageText": "Biztosan törli a {0} minőségi profilt?",
     "DeleteNotification": "Értesítés Törlése",
     "DeleteNotificationMessageText": "Biztosan törlöd a(z) „{0}” értesítést?",
     "DeleteQualityProfile": "Minőségi Profil Törlése",
@@ -400,7 +400,7 @@
     "UnableToLoadDownloadClientOptions": "Nem sikerült betölteni a letöltőkliens beállításait",
     "UnableToLoadDownloadClients": "Nem sikerült betölteni a letöltőkliens(eke)t",
     "UnableToLoadGeneralSettings": "Nem sikerült betölteni az általános beállításokat",
-    "UnableToLoadHistory": "Nem sikerült betölteni az előzményeket",
+    "UnableToLoadHistory": "Nem sikerült betölteni az előzményeket.",
     "UnableToLoadImportListExclusions": "Nem lehet betölteni a listakizárásokat",
     "UnableToLoadIndexerOptions": "Nem lehet betölteni az indexer beállításait",
     "UnableToLoadIndexers": "Nem lehet betölteni az indexereket",
@@ -529,7 +529,7 @@
     "EmbedMetadataHelpText": "Mondja meg Calibre-nek, hogyan írja be a metaadatokat a tényleges könyvfájlba",
     "EmbedMetadataInBookFiles": "Metaadatok beágyazása a könyvfájlokba",
     "EnableProfile": "Profil engedélyezése",
-    "EnabledHelpText": "Jelölje be a kiadási profil engedélyezéséhez",
+    "EnabledHelpText": "Engedélyezze ezt a lista használatát a Radarr alkalmazásban",
     "EndedAllBooksDownloaded": "Vége (az összes könyv letöltve)",
     "EntityName": "Entitás neve",
     "Episode": "Epizód",
@@ -690,5 +690,7 @@
     "OnBookRetagHelpText": "Könyv átcímkézés esetén",
     "OnDownloadFailureHelpText": "Letöltési hiba esetén",
     "OnImportFailureHelpText": "Importálási hiba esetén",
-    "EnableAutomaticAddHelpText": "Írj szerzőket/könyveket a Readarr-ba, ha a szinkronizálást a kezelőfelületen vagy a Readarr-ban szeretnéd elvégezni"
+    "EnableAutomaticAddHelpText": "Írj szerzőket/könyveket a Readarr-ba, ha a szinkronizálást a kezelőfelületen vagy a Readarr-ban szeretnéd elvégezni",
+    "MinPagesHelpText": "Az ennél kevesebb oldalas könyvek figyelmen kívül hagyása",
+    "MinimumPages": "Minimális oldalak"
 }
