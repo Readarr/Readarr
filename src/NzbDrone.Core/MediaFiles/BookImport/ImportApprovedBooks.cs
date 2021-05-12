@@ -206,6 +206,11 @@ namespace NzbDrone.Core.MediaFiles.BookImport
                         if (previousFile != null)
                         {
                             _mediaFileService.Delete(previousFile, DeleteMediaFileReason.ManualOverride);
+
+                            if (bookFile.CalibreId == 0 && previousFile.CalibreId != 0)
+                            {
+                                bookFile.CalibreId = previousFile.CalibreId;
+                            }
                         }
 
                         _audioTagService.WriteTags(bookFile, false);
