@@ -90,8 +90,7 @@ namespace NzbDrone.Core.MediaFiles
 
             _logger.Debug($"Writing tags for {bookFile}");
 
-            var rootFolder = _rootFolderService.GetBestRootFolder(bookFile.Path);
-            _calibre.SetFields(bookFile, rootFolder.CalibreSettings, _configService.UpdateCovers, _configService.EmbedMetadata);
+            WriteTagsInternal(bookFile, _configService.UpdateCovers, _configService.EmbedMetadata);
         }
 
         public void SyncTags(List<Edition> editions)
@@ -114,8 +113,7 @@ namespace NzbDrone.Core.MediaFiles
                     // not all of the updates will have been committed to the database yet
                     file.Edition = edition;
 
-                    var rootFolder = _rootFolderService.GetBestRootFolder(file.Path);
-                    _calibre.SetFields(file, rootFolder.CalibreSettings, _configService.UpdateCovers, _configService.EmbedMetadata);
+                    WriteTagsInternal(file, _configService.UpdateCovers, _configService.EmbedMetadata);
                 }
             }
         }
@@ -143,8 +141,7 @@ namespace NzbDrone.Core.MediaFiles
 
             foreach (var file in files.Where(x => x.CalibreId != 0))
             {
-                var rootFolder = _rootFolderService.GetBestRootFolder(file.Path);
-                _calibre.SetFields(file, rootFolder.CalibreSettings, message.UpdateCovers, message.EmbedMetadata);
+                WriteTagsInternal(file, message.UpdateCovers, message.EmbedMetadata);
             }
 
             _logger.ProgressInfo("Selected files re-tagged for {0}", author.Name);
@@ -163,11 +160,31 @@ namespace NzbDrone.Core.MediaFiles
 
                 foreach (var file in files.Where(x => x.CalibreId != 0))
                 {
-                    var rootFolder = _rootFolderService.GetBestRootFolder(file.Path);
-                    _calibre.SetFields(file, rootFolder.CalibreSettings, message.UpdateCovers, message.EmbedMetadata);
+                    WriteTagsInternal(file, message.UpdateCovers, message.EmbedMetadata);
                 }
 
                 _logger.ProgressInfo("All files re-tagged for {0}", author.Name);
+            }
+        }
+
+        private void WriteTagsInternal(BookFile file, bool updateCover, bool embedMetadata)
+        {
+            var rootFolder = _rootFolderService.GetBestRootFolder(file.Path);
+            _calibre.SetFields(file, rootFolder.CalibreSettings, updateCover, embedMetadata);
+
+            // updating the calibre metadata may have renamed the file, so track that
+            var updated = _calibre.GetBook(file.CalibreId, rootFolder.CalibreSettings);
+
+            var updatedPath = CalibreProxy.GetOriginalFormat(updated.Formats);
+
+            if (updatedPath != file.Path)
+            {
+                file.Path = updatedPath;
+
+                if (file.Id > 0)
+                {
+                    _mediaFileService.Update(file);
+                }
             }
         }
 
