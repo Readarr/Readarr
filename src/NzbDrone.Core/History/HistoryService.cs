@@ -181,6 +181,11 @@ namespace NzbDrone.Core.History
 
         public void Handle(BookImportIncompleteEvent message)
         {
+            if (message.TrackedDownload.RemoteBook == null)
+            {
+                return;
+            }
+
             foreach (var book in message.TrackedDownload.RemoteBook.Books)
             {
                 var history = new History
