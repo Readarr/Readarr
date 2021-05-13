@@ -36,7 +36,7 @@ namespace NzbDrone.Core.Books.Calibre
 
     public class CalibreProxy : ICalibreProxy
     {
-        private const int PAGE_SIZE = 1000;
+        private const int PAGE_SIZE = 750;
 
         private readonly IHttpClient _httpClient;
         private readonly IMapCoversToLocal _mediaCoverService;
