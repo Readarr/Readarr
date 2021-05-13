@@ -71,7 +71,8 @@ class AuthorIndexOverviews extends Component {
       items,
       sortKey,
       overviewOptions,
-      jumpToCharacter
+      jumpToCharacter,
+      scrollTop
     } = this.props;
 
     const {
@@ -102,6 +103,10 @@ class AuthorIndexOverviews extends Component {
           columnIndex: 0
         });
       }
+    }
+
+    if (this._grid && scrollTop !== 0) {
+      this._grid.scrollToPosition({ scrollTop });
     }
   }
 

@@ -268,7 +268,10 @@ class AuthorDetails extends Component {
                 name={icons.ARROW_UP}
                 size={30}
                 title={translate('GoToAuthorListing')}
-                to={'/'}
+                to={{
+                  pathname: '/',
+                  state: { restoreScrollPosition: true }
+                }}
               />
 
               <IconButton
