@@ -4,6 +4,7 @@ using System.Linq;
 using FluentAssertions;
 using Moq;
 using NUnit.Framework;
+using NzbDrone.Common.Extensions;
 using NzbDrone.Core.Books;
 using NzbDrone.Core.Exceptions;
 using NzbDrone.Core.MetadataSource.Goodreads;
@@ -83,7 +84,6 @@ namespace NzbDrone.Core.Test.MetadataSource.Goodreads
             author.Should().NotBeNull();
             author.Name.Should().NotBeNullOrWhiteSpace();
             author.CleanName.Should().Be(Parser.Parser.CleanAuthorName(author.Name));
-            author.SortName.Should().Be(Parser.Parser.NormalizeTitle(author.Name));
             author.Metadata.Value.TitleSlug.Should().NotBeNullOrWhiteSpace();
             author.Metadata.Value.Overview.Should().NotBeNullOrWhiteSpace();
             author.Metadata.Value.Images.Should().NotBeEmpty();

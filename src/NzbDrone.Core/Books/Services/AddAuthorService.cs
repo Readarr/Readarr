@@ -146,7 +146,6 @@ namespace NzbDrone.Core.Books
 
             newAuthor.Path = path;
             newAuthor.CleanName = newAuthor.Metadata.Value.Name.CleanAuthorName();
-            newAuthor.SortName = Parser.Parser.NormalizeTitle(newAuthor.Metadata.Value.Name).ToLower();
             newAuthor.Added = DateTime.UtcNow;
 
             if (newAuthor.AddOptions != null && newAuthor.AddOptions.Monitor == MonitorTypes.None)

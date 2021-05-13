@@ -45,7 +45,7 @@ function MissingRow(props) {
             return null;
           }
 
-          if (name === 'authors.sortName') {
+          if (name === 'authorMetadata.sortName') {
             return (
               <TableRowCell key={name}>
                 <AuthorNameLink

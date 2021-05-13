@@ -138,7 +138,7 @@ class QueueRow extends Component {
               );
             }
 
-            if (name === 'authors.sortName') {
+            if (name === 'authorMetadata.sortName') {
               return (
                 <TableRowCell key={name}>
                   {

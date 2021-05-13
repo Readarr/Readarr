@@ -63,7 +63,7 @@ export const defaultState = {
         isModifiable: false
       },
       {
-        name: 'authors.sortName',
+        name: 'authorMetadata.sortName',
         label: 'Author',
         isSortable: true,
         isVisible: true

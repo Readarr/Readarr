@@ -19,7 +19,6 @@ namespace NzbDrone.Core.Books
         // These correspond to columns in the Authors table
         public int AuthorMetadataId { get; set; }
         public string CleanName { get; set; }
-        public string SortName { get; set; }
         public bool Monitored { get; set; }
         public DateTime? LastInfoSync { get; set; }
         public string Path { get; set; }
@@ -64,7 +63,6 @@ namespace NzbDrone.Core.Books
         public override void UseMetadataFrom(Author other)
         {
             CleanName = other.CleanName;
-            SortName = other.SortName;
         }
 
         public override void UseDbFieldsFrom(Author other)

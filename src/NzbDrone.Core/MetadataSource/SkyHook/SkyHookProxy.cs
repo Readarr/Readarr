@@ -276,7 +276,6 @@ namespace NzbDrone.Core.MetadataSource.SkyHook
             {
                 Metadata = metadata,
                 CleanName = Parser.Parser.CleanAuthorName(metadata.Name),
-                SortName = Parser.Parser.NormalizeTitle(metadata.Name),
                 Books = books,
                 Series = series
             };
@@ -315,6 +314,8 @@ namespace NzbDrone.Core.MetadataSource.SkyHook
                 Overview = resource.Description,
                 Ratings = new Ratings { Votes = resource.RatingsCount, Value = (decimal)resource.AverageRating }
             };
+
+            author.SortName = author.Name.ToSortName().ToLower();
 
             if (resource.ImageUrl.IsNotNullOrWhiteSpace())
             {
