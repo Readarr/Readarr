@@ -109,7 +109,6 @@ namespace NzbDrone.Core.MetadataSource.Goodreads
                 Metadata = MapAuthor(resource)
             };
             author.CleanName = Parser.Parser.CleanAuthorName(author.Metadata.Value.Name);
-            author.SortName = Parser.Parser.NormalizeTitle(author.Metadata.Value.Name);
 
             // we can only get a rating from the author list page...
             var listResource = GetAuthorBooksPageResource(foreignAuthorId, 10, 1);
@@ -532,6 +531,8 @@ namespace NzbDrone.Core.MetadataSource.Goodreads
                 Status = resource.DiedOnDate < DateTime.UtcNow ? AuthorStatusType.Ended : AuthorStatusType.Continuing
             };
 
+            author.SortName = author.Name.ToSortName().ToLower();
+
             if (!NoPhotoRegex.IsMatch(resource.LargeImageUrl))
             {
                 author.Images.Add(new MediaCover.MediaCover
@@ -554,6 +555,8 @@ namespace NzbDrone.Core.MetadataSource.Goodreads
                 Name = resource.Name.CleanSpaces(),
                 TitleSlug = resource.Id.ToString()
             };
+
+            author.SortName = author.Name.ToSortName().ToLower();
 
             if (resource.RatingsCount.HasValue)
             {
@@ -704,6 +707,7 @@ namespace NzbDrone.Core.MetadataSource.Goodreads
                         {
                             ForeignAuthorId = resource.BestBook.AuthorId.ToString(),
                             Name = resource.BestBook.AuthorName,
+                            SortName = resource.BestBook.AuthorName.ToSortName().ToLower(),
                             TitleSlug = resource.BestBook.AuthorId.ToString()
                         }
                     };

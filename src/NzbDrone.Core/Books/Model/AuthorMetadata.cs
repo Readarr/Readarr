@@ -19,6 +19,7 @@ namespace NzbDrone.Core.Books
         public string ForeignAuthorId { get; set; }
         public string TitleSlug { get; set; }
         public string Name { get; set; }
+        public string SortName { get; set; }
         public List<string> Aliases { get; set; }
         public string Overview { get; set; }
         public string Disambiguation { get; set; }
@@ -42,6 +43,7 @@ namespace NzbDrone.Core.Books
             ForeignAuthorId = other.ForeignAuthorId;
             TitleSlug = other.TitleSlug;
             Name = other.Name;
+            SortName = other.SortName;
             Aliases = other.Aliases;
             Overview = other.Overview.IsNullOrWhiteSpace() ? Overview : other.Overview;
             Disambiguation = other.Disambiguation;

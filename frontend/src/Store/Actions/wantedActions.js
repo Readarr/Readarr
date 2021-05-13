@@ -28,7 +28,7 @@ export const defaultState = {
 
     columns: [
       {
-        name: 'authors.sortName',
+        name: 'authorMetadata.sortName',
         label: 'Author',
         isSortable: true,
         isVisible: true
@@ -91,7 +91,7 @@ export const defaultState = {
 
     columns: [
       {
-        name: 'authors.sortName',
+        name: 'authorMetadata.sortName',
         label: 'Author',
         isSortable: true,
         isVisible: true

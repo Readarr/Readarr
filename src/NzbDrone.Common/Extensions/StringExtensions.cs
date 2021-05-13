@@ -210,5 +210,150 @@ namespace NzbDrone.Common.Extensions
         {
             return 1.0 - ((double)a.LevenshteinDistance(b) / Math.Max(a.Length, b.Length));
         }
+
+        private static readonly HashSet<string> Copywords = new HashSet<string>
+        {
+            "agency", "corporation", "company", "co.", "council",
+            "committee", "inc.", "institute", "national",
+            "society", "club", "team"
+        };
+
+        private static readonly HashSet<string> SurnamePrefixes = new HashSet<string>
+        {
+            "da", "de", "di", "la", "le", "van", "von"
+        };
+
+        private static readonly HashSet<string> Prefixes = new HashSet<string>
+        {
+            "mr", "mr.", "mrs", "mrs.", "ms", "ms.", "dr", "dr.", "prof", "prof."
+        };
+
+        private static readonly HashSet<string> Suffixes = new HashSet<string>
+        {
+            "jr", "sr", "inc", "ph.d", "phd",
+            "md", "m.d", "i", "ii", "iii", "iv",
+            "junior", "senior"
+        };
+
+        private static readonly Dictionary<char, char> Brackets = new Dictionary<char, char>
+        {
+            { '(', ')' },
+            { '[', ']' },
+            { '{', '}' }
+        };
+
+        private static readonly Dictionary<char, char> RMap = Brackets.ToDictionary(x => x.Value, x => x.Key);
+
+        public static string RemoveBracketedText(this string input)
+        {
+            var counts = Brackets.ToDictionary(x => x.Key, y => 0);
+            var total = 0;
+            var buf = new List<char>(input.Length);
+
+            foreach (var c in input)
+            {
+                if (Brackets.ContainsKey(c))
+                {
+                    counts[c] += 1;
+                    total += 1;
+                }
+                else if (RMap.ContainsKey(c))
+                {
+                    var idx = RMap[c];
+                    if (counts[idx] > 0)
+                    {
+                        counts[idx] -= 1;
+                        total -= 1;
+                    }
+                }
+                else if (total < 1)
+                {
+                    buf.Add(c);
+                }
+            }
+
+            return new string(buf.ToArray());
+        }
+
+        public static string ToSortName(this string author)
+        {
+            // ported from https://github.com/kovidgoyal/calibre/blob/master/src/calibre/ebooks/metadata/__init__.py
+            if (author == null)
+            {
+                return null;
+            }
+
+            var sauthor = author.RemoveBracketedText().Trim();
+
+            var tokens = sauthor.Split();
+
+            if (tokens.Length < 2)
+            {
+                return author;
+            }
+
+            var ltoks = tokens.Select(x => x.ToLowerInvariant()).ToHashSet();
+
+            if (ltoks.Intersect(Copywords).Any())
+            {
+                return author;
+            }
+
+            if (tokens.Length == 2 && SurnamePrefixes.Contains(tokens[0].ToLowerInvariant()))
+            {
+                return author;
+            }
+
+            int first;
+            for (first = 0; first < tokens.Length; first++)
+            {
+                if (!Prefixes.Contains(tokens[first].ToLowerInvariant()))
+                {
+                    break;
+                }
+            }
+
+            if (first == tokens.Length)
+            {
+                return author;
+            }
+
+            int last;
+            for (last = tokens.Length - 1; last >= first; last--)
+            {
+                if (!Suffixes.Contains(tokens[last].ToLowerInvariant()))
+                {
+                    break;
+                }
+            }
+
+            if (last < first)
+            {
+                return author;
+            }
+
+            var suffix = tokens.TakeLast(tokens.Length - last - 1).ConcatToString(" ");
+
+            if (last > first && SurnamePrefixes.Contains(tokens[last - 1].ToLowerInvariant()))
+            {
+                tokens[last - 1] += ' ' + tokens[last];
+                last -= 1;
+            }
+
+            var atokens = new[] { tokens[last] }.Concat(tokens.Skip(first).Take(last - first)).ToList();
+            var addComma = atokens.Count > 1;
+
+            if (suffix.IsNotNullOrWhiteSpace())
+            {
+                atokens.Add(suffix);
+            }
+
+            if (addComma)
+            {
+                atokens[0] += ',';
+            }
+
+            return atokens.ConcatToString(" ");
+        }
     }
 }

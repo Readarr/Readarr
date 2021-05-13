@@ -576,11 +576,6 @@ namespace NzbDrone.Core.Parser
             return null;
         }
 
-        public static string ToSortName(this string name)
-        {
-            return name.Split(' ', 2).Reverse().ConcatToString(", ");
-        }
-
         public static string CleanAuthorName(this string name)
         {
             // If Title only contains numbers return it as is.

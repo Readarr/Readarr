@@ -72,7 +72,7 @@ namespace Readarr.Api.V1.Author
                 AuthorName = model.Name,
 
                 //AlternateTitles
-                SortName = model.SortName,
+                SortName = model.Metadata.Value.SortName,
 
                 Status = model.Metadata.Value.Status,
                 Overview = model.Metadata.Value.Overview,
@@ -119,6 +119,7 @@ namespace Readarr.Api.V1.Author
                     ForeignAuthorId = resource.ForeignAuthorId,
                     TitleSlug = resource.TitleSlug,
                     Name = resource.AuthorName,
+                    SortName = resource.SortName,
                     Status = resource.Status,
                     Overview = resource.Overview,
                     Links = resource.Links,
@@ -128,7 +129,6 @@ namespace Readarr.Api.V1.Author
                 },
 
                 //AlternateTitles
-                SortName = resource.SortName,
                 Path = resource.Path,
                 QualityProfileId = resource.QualityProfileId,
                 MetadataProfileId = resource.MetadataProfileId,

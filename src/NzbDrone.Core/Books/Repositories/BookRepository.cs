@@ -91,6 +91,7 @@ namespace NzbDrone.Core.Books
 #pragma warning disable CS0472
         private SqlBuilder BooksWithoutFilesBuilder(DateTime currentTime) => Builder()
             .Join<Book, Author>((l, r) => l.AuthorMetadataId == r.AuthorMetadataId)
+            .Join<Author, AuthorMetadata>((l, r) => l.AuthorMetadataId == r.Id)
             .Join<Book, Edition>((b, e) => b.Id == e.BookId)
             .LeftJoin<Edition, BookFile>((t, f) => t.Id == f.EditionId)
             .Where<BookFile>(f => f.Id == null)
@@ -110,6 +111,7 @@ namespace NzbDrone.Core.Books
 
         private SqlBuilder BooksWhereCutoffUnmetBuilder(List<QualitiesBelowCutoff> qualitiesBelowCutoff) => Builder()
             .Join<Book, Author>((l, r) => l.AuthorMetadataId == r.AuthorMetadataId)
+            .Join<Author, AuthorMetadata>((l, r) => l.AuthorMetadataId == r.Id)
             .Join<Book, Edition>((b, e) => b.Id == e.BookId)
             .LeftJoin<Edition, BookFile>((t, f) => t.Id == f.EditionId)
             .Where<Edition>(e => e.Monitored == true)

@@ -104,11 +104,13 @@ namespace NzbDrone.Core.History
 
         protected override SqlBuilder PagedBuilder() => new SqlBuilder()
             .Join<History, Author>((h, a) => h.AuthorId == a.Id)
+            .Join<Author, AuthorMetadata>((l, r) => l.AuthorMetadataId == r.Id)
             .Join<History, Book>((h, a) => h.BookId == a.Id);
 
         protected override IEnumerable<History> PagedQuery(SqlBuilder builder) =>
-            _database.QueryJoined<History, Author, Book>(builder, (history, author, book) =>
+            _database.QueryJoined<History, Author, AuthorMetadata, Book>(builder, (history, author, metadata, book) =>
                     {
+                        author.Metadata = metadata;
                         history.Author = author;
                         history.Book = book;
                         return history;

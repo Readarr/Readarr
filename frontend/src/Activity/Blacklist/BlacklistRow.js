@@ -78,7 +78,7 @@ class BlacklistRow extends Component {
               return null;
             }
 
-            if (name === 'authors.sortName') {
+            if (name === 'authorMetadata.sortName') {
               return (
                 <TableRowCell key={name}>
                   <AuthorNameLink
