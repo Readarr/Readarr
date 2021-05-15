@@ -462,5 +462,19 @@
     "ProxyUsernameHelpText": "Nur wenn ein Benutzername und Passwort erforderlich ist, muss es eingegeben werden. Ansonsten leer lassen.",
     "SslPortHelpTextWarning": "Erfordert einen Neustart",
     "UnableToLoadMetadataProfiles": "Verzögerungsprofile konnten nicht geladen werden",
-    "ApiKeyHelpTextWarning": "Erfordert einen Neustart"
+    "ApiKeyHelpTextWarning": "Erfordert einen Neustart",
+    "Book": "Buch",
+    "Authors": "Autoren",
+    "AuthorFolderFormat": "Autor Orderformat",
+    "AllowedLanguages": "Erlaubte Sprachen",
+    "AllowFingerprinting": "Fingerprinting erlauben",
+    "AllowAuthorChangeClickToChangeAuthor": "Klicken um Autor zu ändern",
+    "AllExpandedExpandAll": "Alle ausklappen",
+    "AllExpandedCollapseAll": "Alle einklappen",
+    "AllBooks": "Alle Bücher",
+    "AllAuthorBooks": "Alle Autor Bücher",
+    "AddNewItem": "Neues Item hinzufügen",
+    "AddMissing": "Fehlendes hinzufügen",
+    "Absolute": "Absolut",
+    "ASIN": "ASIN"
 }
