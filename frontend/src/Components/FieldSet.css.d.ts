@@ -3,6 +3,7 @@
 interface CssExports {
   'fieldSet': string;
   'legend': string;
+  'small': string;
 }
 export const cssExports: CssExports;
 export default cssExports;
