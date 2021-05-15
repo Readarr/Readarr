@@ -171,8 +171,7 @@ namespace Readarr.Http.ClientSchema
                     {
                         Value = value,
                         Name = name,
-                        Order = value,
-                        Hint = $"({value})"
+                        Order = value
                     };
                 }
             });
