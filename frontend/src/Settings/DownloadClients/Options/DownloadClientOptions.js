@@ -35,14 +35,16 @@ function DownloadClientOptions(props) {
       }
 
       {
-        hasSettings && !isFetching && !error &&
+        hasSettings && !isFetching && !error && advancedSettings &&
           <div>
             <FieldSet legend={translate('CompletedDownloadHandling')}>
               <Form>
-                <FormGroup size={sizes.MEDIUM}>
-                  <FormLabel>
-                    {translate('Enable')}
-                  </FormLabel>
+                <FormGroup
+                  advancedSettings={advancedSettings}
+                  isAdvanced={true}
+                  size={sizes.MEDIUM}
+                >
+                  <FormLabel>{translate('Enable')}</FormLabel>
 
                   <FormInputGroup
                     type={inputTypes.CHECK}
@@ -50,24 +52,6 @@ function DownloadClientOptions(props) {
                     helpText={translate('EnableCompletedDownloadHandlingHelpText')}
                     onChange={onInputChange}
                     {...settings.enableCompletedDownloadHandling}
-                  />
-                </FormGroup>
-
-                <FormGroup
-                  advancedSettings={advancedSettings}
-                  isAdvanced={true}
-                  size={sizes.MEDIUM}
-                >
-                  <FormLabel>
-                    {translate('Remove')}
-                  </FormLabel>
-
-                  <FormInputGroup
-                    type={inputTypes.CHECK}
-                    name="removeCompletedDownloads"
-                    helpText={translate('RemoveCompletedDownloadsHelpText')}
-                    onChange={onInputChange}
-                    {...settings.removeCompletedDownloads}
                   />
                 </FormGroup>
               </Form>
@@ -78,9 +62,7 @@ function DownloadClientOptions(props) {
             >
               <Form>
                 <FormGroup size={sizes.MEDIUM}>
-                  <FormLabel>
-                    {translate('Redownload')}
-                  </FormLabel>
+                  <FormLabel>{translate('RedownloadFailed')}</FormLabel>
 
                   <FormInputGroup
                     type={inputTypes.CHECK}
@@ -90,25 +72,10 @@ function DownloadClientOptions(props) {
                     {...settings.autoRedownloadFailed}
                   />
                 </FormGroup>
-
-                <FormGroup
-                  advancedSettings={advancedSettings}
-                  isAdvanced={true}
-                  size={sizes.MEDIUM}
-                >
-                  <FormLabel>
-                    {translate('Remove')}
-                  </FormLabel>
-
-                  <FormInputGroup
-                    type={inputTypes.CHECK}
-                    name="removeFailedDownloads"
-                    helpText={translate('RemoveFailedDownloadsHelpText')}
-                    onChange={onInputChange}
-                    {...settings.removeFailedDownloads}
-                  />
-                </FormGroup>
               </Form>
+              <Alert kind={kinds.INFO}>
+                {translate('RemoveDownloadsAlert')}
+              </Alert>
             </FieldSet>
           </div>
       }

@@ -1,4 +1,5 @@
-﻿using FluentMigrator;
+using System.Data;
+using FluentMigrator;
 using FluentMigrator.Builders.Create;
 using FluentMigrator.Builders.Create.Table;
 using FluentMigrator.Runner;
@@ -16,7 +17,16 @@ namespace NzbDrone.Core.Datastore.Migration.Framework
             return expressionRoot.Table(name).WithColumn("Id").AsInt32().PrimaryKey().Identity();
         }
 
-        public static void AddParameter(this System.Data.IDbCommand command, object value)
+        public static IDbCommand CreateCommand(this IDbConnection conn, IDbTransaction tran, string query)
+        {
+            var command = conn.CreateCommand();
+            command.Transaction = tran;
+            command.CommandText = query;
+
+            return command;
+        }
+
+        public static void AddParameter(this IDbCommand command, object value)
         {
             var parameter = command.CreateParameter();
             parameter.Value = value;
