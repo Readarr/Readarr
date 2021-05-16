@@ -64,6 +64,8 @@ namespace Readarr.Api.V1.Commands
             command.SuppressMessages = !command.SendUpdatesToClient;
             command.SendUpdatesToClient = true;
 
+            command.ClientUserAgent = Request.Headers.UserAgent;
+
             var trackedCommand = _commandQueueManager.Push(command, CommandPriority.Normal, CommandTrigger.Manual);
             return Created(trackedCommand.Id);
         }
