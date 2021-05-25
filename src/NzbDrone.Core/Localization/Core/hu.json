@@ -692,5 +692,6 @@
     "OnImportFailureHelpText": "Importálási hiba esetén",
     "EnableAutomaticAddHelpText": "Írj szerzőket/könyveket a Readarr-ba, ha a szinkronizálást a kezelőfelületen vagy a Readarr-ban szeretnéd elvégezni",
     "MinPagesHelpText": "Az ennél kevesebb oldalas könyvek figyelmen kívül hagyása",
-    "MinimumPages": "Minimális oldalak"
+    "MinimumPages": "Minimális oldalak",
+    "DownloadClientCheckDownloadingToRoot": "A Letöltőkliens {0} a letöltéseket a gyökérmappába helyezi {1}. Nem szabad letölteni egy gyökérmappába."
 }
