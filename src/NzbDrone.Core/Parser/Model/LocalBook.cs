@@ -10,6 +10,8 @@ namespace NzbDrone.Core.Parser.Model
     {
         public string Path { get; set; }
         public int CalibreId { get; set; }
+        public int Part { get; set; }
+        public int PartCount { get; set; }
         public long Size { get; set; }
         public DateTime Modified { get; set; }
         public ParsedTrackInfo FileTrackInfo { get; set; }

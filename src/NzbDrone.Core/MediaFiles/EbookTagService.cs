@@ -28,12 +28,12 @@ namespace NzbDrone.Core.MediaFiles
         void WriteTags(BookFile trackfile, bool newDownload, bool force = false);
         void SyncTags(List<Edition> books);
         List<RetagBookFilePreview> GetRetagPreviewsByAuthor(int authorId);
-        List<RetagBookFilePreview> GetRetagPreviewsByBook(int authorId);
+        List<RetagBookFilePreview> GetRetagPreviewsByBook(int bookId);
+        void RetagFiles(RetagFilesCommand message);
+        void RetagAuthor(RetagAuthorCommand message);
     }
 
-    public class EBookTagService : IEBookTagService,
-        IExecute<RetagFilesCommand>,
-        IExecute<RetagAuthorCommand>
+    public class EBookTagService : IEBookTagService
     {
         private readonly IAuthorService _authorService;
         private readonly IMediaFileService _mediaFileService;
@@ -132,38 +132,38 @@ namespace NzbDrone.Core.MediaFiles
             return GetPreviews(files).ToList();
         }
 
-        public void Execute(RetagFilesCommand message)
+        public void RetagFiles(RetagFilesCommand message)
         {
             var author = _authorService.GetAuthor(message.AuthorId);
             var files = _mediaFileService.Get(message.Files);
 
-            _logger.ProgressInfo("Re-tagging {0} files for {1}", files.Count, author.Name);
+            _logger.ProgressInfo("Re-tagging {0} ebook files for {1}", files.Count, author.Name);
 
             foreach (var file in files.Where(x => x.CalibreId != 0))
             {
                 WriteTagsInternal(file, message.UpdateCovers, message.EmbedMetadata);
             }
 
-            _logger.ProgressInfo("Selected files re-tagged for {0}", author.Name);
+            _logger.ProgressInfo("Selected ebook files re-tagged for {0}", author.Name);
         }
 
-        public void Execute(RetagAuthorCommand message)
+        public void RetagAuthor(RetagAuthorCommand message)
         {
-            _logger.Debug("Re-tagging all files for selected authors");
+            _logger.Debug("Re-tagging all ebook files for selected authors");
             var authorsToRename = _authorService.GetAuthors(message.AuthorIds);
 
             foreach (var author in authorsToRename)
             {
                 var files = _mediaFileService.GetFilesByAuthor(author.Id);
 
-                _logger.ProgressInfo("Re-tagging all files for author: {0}", author.Name);
+                _logger.ProgressInfo("Re-tagging all ebook files for author: {0}", author.Name);
 
                 foreach (var file in files.Where(x => x.CalibreId != 0))
                 {
                     WriteTagsInternal(file, message.UpdateCovers, message.EmbedMetadata);
                 }
 
-                _logger.ProgressInfo("All files re-tagged for {0}", author.Name);
+                _logger.ProgressInfo("All ebook files re-tagged for {0}", author.Name);
             }
         }
 

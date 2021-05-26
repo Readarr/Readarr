@@ -153,7 +153,7 @@ namespace NzbDrone.Core.MediaFiles.BookImport
                 try
                 {
                     //check if already imported
-                    if (importResults.Select(r => r.ImportDecision.Item.Book.Id).Contains(localTrack.Book.Id))
+                    if (importResults.Where(r => r.ImportDecision.Item.Book.Id == localTrack.Book.Id).Any(r => r.ImportDecision.Item.Part == localTrack.Part))
                     {
                         importResults.Add(new ImportResult(importDecision, "Book has already been imported"));
                         continue;
@@ -165,6 +165,8 @@ namespace NzbDrone.Core.MediaFiles.BookImport
                     {
                         Path = localTrack.Path.CleanFilePath(),
                         CalibreId = localTrack.CalibreId,
+                        Part = localTrack.Part,
+                        PartCount = localTrack.PartCount,
                         Size = localTrack.Size,
                         Modified = localTrack.Modified,
                         DateAdded = DateTime.UtcNow,

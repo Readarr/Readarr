@@ -83,11 +83,11 @@ namespace NzbDrone.Core.Test.ProviderTests.DiskScanProviderTests
         }
 
         [Test]
-        public void should_return_audio_files_only()
+        public void should_return_book_files_only()
         {
             GivenFiles(GetFiles(_path));
 
-            Subject.GetBookFiles(_path).Should().HaveCount(3);
+            Subject.GetBookFiles(_path).Should().HaveCount(5);
         }
 
         [TestCase("Extras")]

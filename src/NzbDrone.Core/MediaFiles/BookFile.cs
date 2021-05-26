@@ -21,10 +21,14 @@ namespace NzbDrone.Core.MediaFiles
         public MediaInfoModel MediaInfo { get; set; }
         public int EditionId { get; set; }
         public int CalibreId { get; set; }
+        public int Part { get; set; }
 
         // These are queried from the database
         public LazyLoaded<Author> Author { get; set; }
         public LazyLoaded<Edition> Edition { get; set; }
+
+        // Calculated manually
+        public int PartCount { get; set; }
 
         public override string ToString()
         {

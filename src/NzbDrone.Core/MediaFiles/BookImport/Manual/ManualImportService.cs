@@ -40,7 +40,7 @@ namespace NzbDrone.Core.MediaFiles.BookImport.Manual
         private readonly IBookService _bookService;
         private readonly IEditionService _editionService;
         private readonly IProvideBookInfo _bookInfo;
-        private readonly IAudioTagService _audioTagService;
+        private readonly IMetadataTagService _metadataTagService;
         private readonly IImportApprovedBooks _importApprovedBooks;
         private readonly ITrackedDownloadService _trackedDownloadService;
         private readonly IDownloadedBooksImportService _downloadedTracksImportService;
@@ -57,7 +57,7 @@ namespace NzbDrone.Core.MediaFiles.BookImport.Manual
                                    IBookService bookService,
                                    IEditionService editionService,
                                    IProvideBookInfo bookInfo,
-                                   IAudioTagService audioTagService,
+                                   IMetadataTagService metadataTagService,
                                    IImportApprovedBooks importApprovedBooks,
                                    ITrackedDownloadService trackedDownloadService,
                                    IDownloadedBooksImportService downloadedTracksImportService,
@@ -74,7 +74,7 @@ namespace NzbDrone.Core.MediaFiles.BookImport.Manual
             _bookService = bookService;
             _editionService = editionService;
             _bookInfo = bookInfo;
-            _audioTagService = audioTagService;
+            _metadataTagService = metadataTagService;
             _importApprovedBooks = importApprovedBooks;
             _trackedDownloadService = trackedDownloadService;
             _downloadedTracksImportService = downloadedTracksImportService;
@@ -312,16 +312,17 @@ namespace NzbDrone.Core.MediaFiles.BookImport.Manual
                         edition = tuple.Item2.Editions.Value.SingleOrDefault(x => x.ForeignEditionId == file.ForeignEditionId);
                     }
 
-                    var fileTrackInfo = _audioTagService.ReadTags(file.Path) ?? new ParsedTrackInfo();
-                    var fileInfo = _diskProvider.GetFileInfo(file.Path);
-
                     var fileRootFolder = _rootFolderService.GetBestRootFolder(file.Path);
+                    var fileInfo = _diskProvider.GetFileInfo(file.Path);
+                    var fileTrackInfo = _metadataTagService.ReadTags(fileInfo) ?? new ParsedTrackInfo();
 
                     var localTrack = new LocalBook
                     {
                         ExistingFile = fileRootFolder != null,
                         FileTrackInfo = fileTrackInfo,
                         Path = file.Path,
+                        Part = fileTrackInfo.TrackNumbers.Any() ? fileTrackInfo.TrackNumbers.First() : 1,
+                        PartCount = importBookId.Count(),
                         Size = fileInfo.Length,
                         Modified = fileInfo.LastWriteTimeUtc,
                         Quality = file.Quality,
