@@ -46,7 +46,7 @@ namespace NzbDrone.Core.Test.DecisionEngineTests
 
             _firstFile = new BookFile { Quality = new QualityModel(Quality.FLAC, new Revision(version: 2)), DateAdded = DateTime.Now };
 
-            _mp3 = new QualityModel(Quality.MP3_320, new Revision(version: 1));
+            _mp3 = new QualityModel(Quality.MP3, new Revision(version: 1));
             _flac = new QualityModel(Quality.FLAC, new Revision(version: 1));
 
             _remoteBook = new RemoteBook

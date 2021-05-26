@@ -63,7 +63,7 @@ namespace NzbDrone.Core.Test.MusicTests.AuthorRepositoryTests
         {
             var profile = new QualityProfile
             {
-                Items = Qualities.QualityFixture.GetDefaultQualities(Quality.FLAC, Quality.MP3_320, Quality.MP3_320),
+                Items = Qualities.QualityFixture.GetDefaultQualities(Quality.FLAC, Quality.MP3, Quality.MP3),
 
                 Cutoff = Quality.FLAC.Id,
                 Name = "TestProfile"

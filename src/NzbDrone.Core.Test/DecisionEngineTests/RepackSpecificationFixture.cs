@@ -91,7 +91,7 @@ namespace NzbDrone.Core.Test.DecisionEngineTests
             }).ToList();
             _trackFiles.Select(c =>
             {
-                c.Quality = new QualityModel(Quality.MP3_320);
+                c.Quality = new QualityModel(Quality.MP3);
                 return c;
             }).ToList();
 

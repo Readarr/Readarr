@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Linq;
 using FizzWare.NBuilder;
 using FluentAssertions;
@@ -43,7 +43,7 @@ namespace NzbDrone.Core.Test.AuthorStatsTests
                 .With(e => e.Author = _author)
                 .With(e => e.Edition = _edition)
                 .With(e => e.EditionId == _edition.Id)
-                .With(e => e.Quality = new QualityModel(Quality.MP3_320))
+                .With(e => e.Quality = new QualityModel(Quality.MP3))
                 .BuildNew();
         }
 

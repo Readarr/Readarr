@@ -86,7 +86,7 @@ namespace NzbDrone.Core.Parser
                 case Codec.AACVBR:
                 case Codec.OGG:
                 case Codec.OPUS:
-                    result.Quality = Quality.MP3_320;
+                    result.Quality = Quality.MP3;
                     break;
                 case Codec.Unknown:
                 default:
@@ -236,7 +236,7 @@ namespace NzbDrone.Core.Parser
                 case Codec.AAC:
                     return Quality.M4B;
                 default:
-                    return Quality.MP3_320;
+                    return Quality.MP3;
             }
         }
 

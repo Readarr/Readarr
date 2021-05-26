@@ -63,14 +63,14 @@ namespace NzbDrone.Core.Test.DecisionEngineTests.RssSync
             _parseResultMulti = new RemoteBook
             {
                 Author = fakeAuthor,
-                ParsedBookInfo = new ParsedBookInfo { Quality = new QualityModel(Quality.MP3_320, new Revision(version: 2)) },
+                ParsedBookInfo = new ParsedBookInfo { Quality = new QualityModel(Quality.MP3, new Revision(version: 2)) },
                 Books = doubleBookList
             };
 
             _parseResultSingle = new RemoteBook
             {
                 Author = fakeAuthor,
-                ParsedBookInfo = new ParsedBookInfo { Quality = new QualityModel(Quality.MP3_320, new Revision(version: 2)) },
+                ParsedBookInfo = new ParsedBookInfo { Quality = new QualityModel(Quality.MP3, new Revision(version: 2)) },
                 Books = singleBookList
             };
 

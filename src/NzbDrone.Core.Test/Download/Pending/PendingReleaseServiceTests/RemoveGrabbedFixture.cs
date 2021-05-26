@@ -41,11 +41,11 @@ namespace NzbDrone.Core.Test.Download.Pending.PendingReleaseServiceTests
             _profile = new QualityProfile
             {
                 Name = "Test",
-                Cutoff = Quality.MP3_320.Id,
+                Cutoff = Quality.MP3.Id,
                 Items = new List<QualityProfileQualityItem>
                                    {
-                                       new QualityProfileQualityItem { Allowed = true, Quality = Quality.MP3_320 },
-                                       new QualityProfileQualityItem { Allowed = true, Quality = Quality.MP3_320 },
+                                       new QualityProfileQualityItem { Allowed = true, Quality = Quality.MP3 },
+                                       new QualityProfileQualityItem { Allowed = true, Quality = Quality.MP3 },
                                        new QualityProfileQualityItem { Allowed = true, Quality = Quality.FLAC }
                                    },
             };
@@ -55,7 +55,7 @@ namespace NzbDrone.Core.Test.Download.Pending.PendingReleaseServiceTests
             _release = Builder<ReleaseInfo>.CreateNew().Build();
 
             _parsedBookInfo = Builder<ParsedBookInfo>.CreateNew().Build();
-            _parsedBookInfo.Quality = new QualityModel(Quality.MP3_320);
+            _parsedBookInfo.Quality = new QualityModel(Quality.MP3);
 
             _remoteBook = new RemoteBook();
             _remoteBook.Books = new List<Book> { _book };
@@ -120,7 +120,7 @@ namespace NzbDrone.Core.Test.Download.Pending.PendingReleaseServiceTests
         [Test]
         public void should_delete_if_the_grabbed_quality_is_the_higher()
         {
-            GivenHeldRelease(new QualityModel(Quality.MP3_320));
+            GivenHeldRelease(new QualityModel(Quality.MP3));
 
             Subject.Handle(new BookGrabbedEvent(_remoteBook));
 

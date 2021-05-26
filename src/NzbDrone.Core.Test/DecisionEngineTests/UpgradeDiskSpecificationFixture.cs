@@ -39,7 +39,7 @@ namespace NzbDrone.Core.Test.DecisionEngineTests
                          .With(c => c.QualityProfile = new QualityProfile
                          {
                              UpgradeAllowed = true,
-                             Cutoff = Quality.MP3_320.Id,
+                             Cutoff = Quality.MP3.Id,
                              Items = Qualities.QualityFixture.GetDefaultQualities()
                          })
                          .Build();
@@ -51,26 +51,26 @@ namespace NzbDrone.Core.Test.DecisionEngineTests
             _parseResultMulti = new RemoteBook
             {
                 Author = fakeAuthor,
-                ParsedBookInfo = new ParsedBookInfo { Quality = new QualityModel(Quality.MP3_320, new Revision(version: 2)) },
+                ParsedBookInfo = new ParsedBookInfo { Quality = new QualityModel(Quality.MP3, new Revision(version: 2)) },
                 Books = doubleBookList
             };
 
             _parseResultSingle = new RemoteBook
             {
                 Author = fakeAuthor,
-                ParsedBookInfo = new ParsedBookInfo { Quality = new QualityModel(Quality.MP3_320, new Revision(version: 2)) },
+                ParsedBookInfo = new ParsedBookInfo { Quality = new QualityModel(Quality.MP3, new Revision(version: 2)) },
                 Books = singleBookList
             };
         }
 
         private void WithFirstFileUpgradable()
         {
-            _firstFile.Quality = new QualityModel(Quality.MP3_320);
+            _firstFile.Quality = new QualityModel(Quality.MP3);
         }
 
         private void WithSecondFileUpgradable()
         {
-            _secondFile.Quality = new QualityModel(Quality.MP3_320);
+            _secondFile.Quality = new QualityModel(Quality.MP3);
         }
 
         [Test]
@@ -113,9 +113,9 @@ namespace NzbDrone.Core.Test.DecisionEngineTests
         [Test]
         public void should_not_be_upgradable_if_qualities_are_the_same()
         {
-            _firstFile.Quality = new QualityModel(Quality.MP3_320);
-            _secondFile.Quality = new QualityModel(Quality.MP3_320);
-            _parseResultSingle.ParsedBookInfo.Quality = new QualityModel(Quality.MP3_320);
+            _firstFile.Quality = new QualityModel(Quality.MP3);
+            _secondFile.Quality = new QualityModel(Quality.MP3);
+            _parseResultSingle.ParsedBookInfo.Quality = new QualityModel(Quality.MP3);
             Subject.IsSatisfiedBy(_parseResultSingle, null).Accepted.Should().BeFalse();
         }
 
@@ -137,7 +137,7 @@ namespace NzbDrone.Core.Test.DecisionEngineTests
         public void should_be_false_if_some_tracks_are_upgradable_and_some_are_downgrades()
         {
             WithFirstFileUpgradable();
-            _parseResultSingle.ParsedBookInfo.Quality = new QualityModel(Quality.MP3_320);
+            _parseResultSingle.ParsedBookInfo.Quality = new QualityModel(Quality.MP3);
             Subject.IsSatisfiedBy(_parseResultSingle, null).Accepted.Should().BeFalse();
         }
     }

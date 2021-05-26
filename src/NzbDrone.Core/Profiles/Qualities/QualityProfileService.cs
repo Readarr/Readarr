@@ -97,14 +97,14 @@ namespace NzbDrone.Core.Profiles.Qualities
                               Quality.EPUB,
                               Quality.AZW3,
                               Quality.UnknownAudio,
-                              Quality.MP3_320,
+                              Quality.MP3,
                               Quality.M4B,
                               Quality.FLAC);
 
             AddDefaultProfile("Audio",
-                              Quality.MP3_320,
+                              Quality.MP3,
                               Quality.UnknownAudio,
-                              Quality.MP3_320,
+                              Quality.MP3,
                               Quality.M4B,
                               Quality.FLAC);
 

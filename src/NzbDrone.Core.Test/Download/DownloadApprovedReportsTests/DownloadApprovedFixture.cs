@@ -61,7 +61,7 @@ namespace NzbDrone.Core.Test.Download.DownloadApprovedReportsTests
         public void should_download_report_if_book_was_not_already_downloaded()
         {
             var books = new List<Book> { GetBook(1) };
-            var remoteBook = GetRemoteBook(books, new QualityModel(Quality.MP3_320));
+            var remoteBook = GetRemoteBook(books, new QualityModel(Quality.MP3));
 
             var decisions = new List<DownloadDecision>();
             decisions.Add(new DownloadDecision(remoteBook));
@@ -74,7 +74,7 @@ namespace NzbDrone.Core.Test.Download.DownloadApprovedReportsTests
         public void should_only_download_book_once()
         {
             var books = new List<Book> { GetBook(1) };
-            var remoteBook = GetRemoteBook(books, new QualityModel(Quality.MP3_320));
+            var remoteBook = GetRemoteBook(books, new QualityModel(Quality.MP3));
 
             var decisions = new List<DownloadDecision>();
             decisions.Add(new DownloadDecision(remoteBook));
@@ -89,11 +89,11 @@ namespace NzbDrone.Core.Test.Download.DownloadApprovedReportsTests
         {
             var remoteBook1 = GetRemoteBook(
                                                     new List<Book> { GetBook(1) },
-                                                    new QualityModel(Quality.MP3_320));
+                                                    new QualityModel(Quality.MP3));
 
             var remoteBook2 = GetRemoteBook(
                                                     new List<Book> { GetBook(1), GetBook(2) },
-                                                    new QualityModel(Quality.MP3_320));
+                                                    new QualityModel(Quality.MP3));
 
             var decisions = new List<DownloadDecision>();
             decisions.Add(new DownloadDecision(remoteBook1));
@@ -107,7 +107,7 @@ namespace NzbDrone.Core.Test.Download.DownloadApprovedReportsTests
         public void should_return_downloaded_reports()
         {
             var books = new List<Book> { GetBook(1) };
-            var remoteBook = GetRemoteBook(books, new QualityModel(Quality.MP3_320));
+            var remoteBook = GetRemoteBook(books, new QualityModel(Quality.MP3));
 
             var decisions = new List<DownloadDecision>();
             decisions.Add(new DownloadDecision(remoteBook));
@@ -120,11 +120,11 @@ namespace NzbDrone.Core.Test.Download.DownloadApprovedReportsTests
         {
             var remoteBook1 = GetRemoteBook(
                                                     new List<Book> { GetBook(1) },
-                                                    new QualityModel(Quality.MP3_320));
+                                                    new QualityModel(Quality.MP3));
 
             var remoteBook2 = GetRemoteBook(
                                                     new List<Book> { GetBook(2) },
-                                                    new QualityModel(Quality.MP3_320));
+                                                    new QualityModel(Quality.MP3));
 
             var decisions = new List<DownloadDecision>();
             decisions.Add(new DownloadDecision(remoteBook1));
@@ -138,15 +138,15 @@ namespace NzbDrone.Core.Test.Download.DownloadApprovedReportsTests
         {
             var remoteBook1 = GetRemoteBook(
                                                     new List<Book> { GetBook(1) },
-                                                    new QualityModel(Quality.MP3_320));
+                                                    new QualityModel(Quality.MP3));
 
             var remoteBook2 = GetRemoteBook(
                                                     new List<Book> { GetBook(2) },
-                                                    new QualityModel(Quality.MP3_320));
+                                                    new QualityModel(Quality.MP3));
 
             var remoteBook3 = GetRemoteBook(
                                                     new List<Book> { GetBook(2) },
-                                                    new QualityModel(Quality.MP3_320));
+                                                    new QualityModel(Quality.MP3));
 
             var decisions = new List<DownloadDecision>();
             decisions.Add(new DownloadDecision(remoteBook1));
@@ -160,7 +160,7 @@ namespace NzbDrone.Core.Test.Download.DownloadApprovedReportsTests
         public void should_not_add_to_downloaded_list_when_download_fails()
         {
             var books = new List<Book> { GetBook(1) };
-            var remoteBook = GetRemoteBook(books, new QualityModel(Quality.MP3_320));
+            var remoteBook = GetRemoteBook(books, new QualityModel(Quality.MP3));
 
             var decisions = new List<DownloadDecision>();
             decisions.Add(new DownloadDecision(remoteBook));
@@ -184,7 +184,7 @@ namespace NzbDrone.Core.Test.Download.DownloadApprovedReportsTests
         public void should_not_grab_if_pending()
         {
             var books = new List<Book> { GetBook(1) };
-            var remoteBook = GetRemoteBook(books, new QualityModel(Quality.MP3_320));
+            var remoteBook = GetRemoteBook(books, new QualityModel(Quality.MP3));
 
             var decisions = new List<DownloadDecision>();
             decisions.Add(new DownloadDecision(remoteBook, new Rejection("Failure!", RejectionType.Temporary)));
@@ -197,7 +197,7 @@ namespace NzbDrone.Core.Test.Download.DownloadApprovedReportsTests
         public void should_not_add_to_pending_if_book_was_grabbed()
         {
             var books = new List<Book> { GetBook(1) };
-            var remoteBook = GetRemoteBook(books, new QualityModel(Quality.MP3_320));
+            var remoteBook = GetRemoteBook(books, new QualityModel(Quality.MP3));
 
             var decisions = new List<DownloadDecision>();
             decisions.Add(new DownloadDecision(remoteBook));
@@ -211,7 +211,7 @@ namespace NzbDrone.Core.Test.Download.DownloadApprovedReportsTests
         public void should_add_to_pending_even_if_already_added_to_pending()
         {
             var books = new List<Book> { GetBook(1) };
-            var remoteBook = GetRemoteBook(books, new QualityModel(Quality.MP3_320));
+            var remoteBook = GetRemoteBook(books, new QualityModel(Quality.MP3));
 
             var decisions = new List<DownloadDecision>();
             decisions.Add(new DownloadDecision(remoteBook, new Rejection("Failure!", RejectionType.Temporary)));
@@ -225,7 +225,7 @@ namespace NzbDrone.Core.Test.Download.DownloadApprovedReportsTests
         public void should_add_to_failed_if_already_failed_for_that_protocol()
         {
             var books = new List<Book> { GetBook(1) };
-            var remoteBook = GetRemoteBook(books, new QualityModel(Quality.MP3_320));
+            var remoteBook = GetRemoteBook(books, new QualityModel(Quality.MP3));
 
             var decisions = new List<DownloadDecision>();
             decisions.Add(new DownloadDecision(remoteBook));
@@ -242,8 +242,8 @@ namespace NzbDrone.Core.Test.Download.DownloadApprovedReportsTests
         public void should_not_add_to_failed_if_failed_for_a_different_protocol()
         {
             var books = new List<Book> { GetBook(1) };
-            var remoteBook = GetRemoteBook(books, new QualityModel(Quality.MP3_320), DownloadProtocol.Usenet);
-            var remoteBook2 = GetRemoteBook(books, new QualityModel(Quality.MP3_320), DownloadProtocol.Torrent);
+            var remoteBook = GetRemoteBook(books, new QualityModel(Quality.MP3), DownloadProtocol.Usenet);
+            var remoteBook2 = GetRemoteBook(books, new QualityModel(Quality.MP3), DownloadProtocol.Torrent);
 
             var decisions = new List<DownloadDecision>();
             decisions.Add(new DownloadDecision(remoteBook));
@@ -261,7 +261,7 @@ namespace NzbDrone.Core.Test.Download.DownloadApprovedReportsTests
         public void should_add_to_rejected_if_release_unavailable_on_indexer()
         {
             var books = new List<Book> { GetBook(1) };
-            var remoteBook = GetRemoteBook(books, new QualityModel(Quality.MP3_320));
+            var remoteBook = GetRemoteBook(books, new QualityModel(Quality.MP3));
 
             var decisions = new List<DownloadDecision>();
             decisions.Add(new DownloadDecision(remoteBook));

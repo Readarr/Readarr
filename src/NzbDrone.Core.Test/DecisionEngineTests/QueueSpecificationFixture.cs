@@ -58,7 +58,7 @@ namespace NzbDrone.Core.Test.DecisionEngineTests
             _remoteBook = Builder<RemoteBook>.CreateNew()
                                                    .With(r => r.Author = _author)
                                                    .With(r => r.Books = new List<Book> { _book })
-                                                   .With(r => r.ParsedBookInfo = new ParsedBookInfo { Quality = new QualityModel(Quality.MP3_320) })
+                                                   .With(r => r.ParsedBookInfo = new ParsedBookInfo { Quality = new QualityModel(Quality.MP3) })
                                                    .With(r => r.PreferredWordScore = 0)
                                                    .Build();
         }
@@ -113,7 +113,7 @@ namespace NzbDrone.Core.Test.DecisionEngineTests
                 .With(r => r.Books = new List<Book> { _book })
                 .With(r => r.ParsedBookInfo = new ParsedBookInfo
                 {
-                    Quality = new QualityModel(Quality.MP3_320)
+                    Quality = new QualityModel(Quality.MP3)
                 })
                 .With(r => r.Release = _releaseInfo)
                 .Build();
@@ -126,7 +126,7 @@ namespace NzbDrone.Core.Test.DecisionEngineTests
         [Test]
         public void should_return_true_when_quality_in_queue_is_lower()
         {
-            _author.QualityProfile.Value.Cutoff = Quality.MP3_320.Id;
+            _author.QualityProfile.Value.Cutoff = Quality.MP3.Id;
 
             var remoteBook = Builder<RemoteBook>.CreateNew()
                                                       .With(r => r.Author = _author)
@@ -150,7 +150,7 @@ namespace NzbDrone.Core.Test.DecisionEngineTests
                                                       .With(r => r.Books = new List<Book> { _otherBook })
                                                       .With(r => r.ParsedBookInfo = new ParsedBookInfo
                                                       {
-                                                          Quality = new QualityModel(Quality.MP3_320)
+                                                          Quality = new QualityModel(Quality.MP3)
                                                       })
                                                       .With(r => r.Release = _releaseInfo)
                                                       .Build();
@@ -169,7 +169,7 @@ namespace NzbDrone.Core.Test.DecisionEngineTests
                 .With(r => r.Books = new List<Book> { _book })
                 .With(r => r.ParsedBookInfo = new ParsedBookInfo
                 {
-                    Quality = new QualityModel(Quality.MP3_320)
+                    Quality = new QualityModel(Quality.MP3)
                 })
                 .With(r => r.Release = _releaseInfo)
                 .Build();
@@ -186,7 +186,7 @@ namespace NzbDrone.Core.Test.DecisionEngineTests
                                                       .With(r => r.Books = new List<Book> { _book })
                                                       .With(r => r.ParsedBookInfo = new ParsedBookInfo
                                                       {
-                                                          Quality = new QualityModel(Quality.MP3_320)
+                                                          Quality = new QualityModel(Quality.MP3)
                                                       })
                                                       .With(r => r.Release = _releaseInfo)
                                                       .Build();
@@ -205,7 +205,7 @@ namespace NzbDrone.Core.Test.DecisionEngineTests
                                                       .With(r => r.Books = new List<Book> { _book })
                                                       .With(r => r.ParsedBookInfo = new ParsedBookInfo
                                                       {
-                                                          Quality = new QualityModel(Quality.MP3_320)
+                                                          Quality = new QualityModel(Quality.MP3)
                                                       })
                                                       .With(r => r.Release = _releaseInfo)
                                                       .Build();
@@ -222,7 +222,7 @@ namespace NzbDrone.Core.Test.DecisionEngineTests
                                                       .With(r => r.Books = new List<Book> { _book, _otherBook })
                                                       .With(r => r.ParsedBookInfo = new ParsedBookInfo
                                                       {
-                                                          Quality = new QualityModel(Quality.MP3_320)
+                                                          Quality = new QualityModel(Quality.MP3)
                                                       })
                                                       .With(r => r.Release = _releaseInfo)
                                                       .Build();
@@ -239,7 +239,7 @@ namespace NzbDrone.Core.Test.DecisionEngineTests
                                                       .With(r => r.Books = new List<Book> { _book })
                                                       .With(r => r.ParsedBookInfo = new ParsedBookInfo
                                                       {
-                                                          Quality = new QualityModel(Quality.MP3_320)
+                                                          Quality = new QualityModel(Quality.MP3)
                                                       })
                                                       .With(r => r.Release = _releaseInfo)
                                                       .Build();
@@ -258,7 +258,7 @@ namespace NzbDrone.Core.Test.DecisionEngineTests
                                                       .With(r => r.Books = new List<Book> { _book, _otherBook })
                                                       .With(r => r.ParsedBookInfo = new ParsedBookInfo
                                                       {
-                                                          Quality = new QualityModel(Quality.MP3_320)
+                                                          Quality = new QualityModel(Quality.MP3)
                                                       })
                                                       .With(r => r.Release = _releaseInfo)
                                                       .Build();
@@ -277,7 +277,7 @@ namespace NzbDrone.Core.Test.DecisionEngineTests
                                                        .With(r => r.Author = _author)
                                                        .With(r => r.ParsedBookInfo = new ParsedBookInfo
                                                        {
-                                                           Quality = new QualityModel(Quality.MP3_320)
+                                                           Quality = new QualityModel(Quality.MP3)
                                                        })
                                                        .With(r => r.Release = _releaseInfo)
                                                        .TheFirst(1)
@@ -321,7 +321,7 @@ namespace NzbDrone.Core.Test.DecisionEngineTests
                 .With(r => r.Books = new List<Book> { _book })
                 .With(r => r.ParsedBookInfo = new ParsedBookInfo
                 {
-                    Quality = new QualityModel(Quality.MP3_320)
+                    Quality = new QualityModel(Quality.MP3)
                 })
                 .With(r => r.Release = _releaseInfo)
                 .Build();

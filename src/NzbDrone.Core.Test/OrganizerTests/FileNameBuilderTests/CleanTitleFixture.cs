@@ -39,7 +39,7 @@ namespace NzbDrone.Core.Test.OrganizerTests.FileNameBuilderTests
                 .With(s => s.Book = _book)
                 .Build();
 
-            _trackFile = new BookFile { Quality = new QualityModel(Quality.MP3_320), ReleaseGroup = "ReadarrTest" };
+            _trackFile = new BookFile { Quality = new QualityModel(Quality.MP3), ReleaseGroup = "ReadarrTest" };
 
             _namingConfig = NamingConfig.Default;
             _namingConfig.RenameBooks = true;

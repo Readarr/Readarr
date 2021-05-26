@@ -64,7 +64,7 @@ namespace NzbDrone.Core.Test.MediaFiles
                                            Book = book,
                                            Edition = edition,
                                            Path = Path.Combine(author.Path, "Alien Ant Farm - 01 - Pilot.mp3"),
-                                           Quality = new QualityModel(Quality.MP3_320),
+                                           Quality = new QualityModel(Quality.MP3),
                                            FileTrackInfo = new ParsedTrackInfo
                                            {
                                                ReleaseGroup = "DRONE"
@@ -170,7 +170,7 @@ namespace NzbDrone.Core.Test.MediaFiles
                     Book = fileDecision.Item.Book,
                     Edition = fileDecision.Item.Edition,
                     Path = @"C:\Test\Music\Alien Ant Farm\Alien Ant Farm - 01 - Pilot.mp3".AsOsAgnostic(),
-                    Quality = new QualityModel(Quality.MP3_320),
+                    Quality = new QualityModel(Quality.MP3),
                     Size = 80.Megabytes()
                 });
 

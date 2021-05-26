@@ -18,7 +18,7 @@ namespace NzbDrone.Core.Test.Qualities
                         new object[] { 2, Quality.MOBI },
                         new object[] { 3, Quality.EPUB },
                         new object[] { 4, Quality.AZW3 },
-                        new object[] { 10, Quality.MP3_320 },
+                        new object[] { 10, Quality.MP3 },
                         new object[] { 11, Quality.FLAC },
                 };
 
@@ -29,7 +29,7 @@ namespace NzbDrone.Core.Test.Qualities
                         new object[] { Quality.MOBI, 2 },
                         new object[] { Quality.EPUB, 3 },
                         new object[] { Quality.AZW3, 4 },
-                        new object[] { Quality.MP3_320, 10 },
+                        new object[] { Quality.MP3, 10 },
                         new object[] { Quality.FLAC, 11 },
                 };
 
@@ -57,7 +57,7 @@ namespace NzbDrone.Core.Test.Qualities
                 Quality.MOBI,
                 Quality.EPUB,
                 Quality.AZW3,
-                Quality.MP3_320,
+                Quality.MP3,
                 Quality.FLAC
             };
 
