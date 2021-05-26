@@ -89,30 +89,18 @@ namespace NzbDrone.Core.Profiles.Qualities
 
             _logger.Info("Setting up default quality profiles");
 
-            AddDefaultProfile("Any",
-                              Quality.Unknown,
-                              Quality.Unknown,
-                              Quality.PDF,
-                              Quality.MOBI,
-                              Quality.EPUB,
-                              Quality.AZW3,
-                              Quality.UnknownAudio,
-                              Quality.MP3,
-                              Quality.M4B,
-                              Quality.FLAC);
+            AddDefaultProfile("eBook",
+                Quality.MOBI,
+                Quality.MOBI,
+                Quality.EPUB,
+                Quality.AZW3);
 
-            AddDefaultProfile("Audio",
+            AddDefaultProfile("Spoken",
                               Quality.MP3,
                               Quality.UnknownAudio,
                               Quality.MP3,
                               Quality.M4B,
                               Quality.FLAC);
-
-            AddDefaultProfile("Text",
-                              Quality.MOBI,
-                              Quality.MOBI,
-                              Quality.EPUB,
-                              Quality.AZW3);
         }
 
         public QualityProfile GetDefaultProfile(string name, Quality cutoff = null, params Quality[] allowed)
