@@ -96,16 +96,17 @@ namespace NzbDrone.Core.Profiles.Qualities
                               Quality.MOBI,
                               Quality.EPUB,
                               Quality.AZW3,
+                              Quality.UnknownAudio,
                               Quality.MP3_320,
+                              Quality.M4B,
                               Quality.FLAC);
 
-            AddDefaultProfile("Lossless Audio",
-                              Quality.FLAC,
-                              Quality.FLAC);
-
-            AddDefaultProfile("Standard Audio",
+            AddDefaultProfile("Audio",
                               Quality.MP3_320,
-                              Quality.MP3_320);
+                              Quality.UnknownAudio,
+                              Quality.MP3_320,
+                              Quality.M4B,
+                              Quality.FLAC);
 
             AddDefaultProfile("Text",
                               Quality.MOBI,
