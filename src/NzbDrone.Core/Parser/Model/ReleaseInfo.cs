@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Text;
 using NzbDrone.Core.Indexers;
 
@@ -25,7 +26,7 @@ namespace NzbDrone.Core.Parser.Model
         public string Source { get; set; }
         public string Container { get; set; }
         public string Codec { get; set; }
-        public string Resolution { get; set; }
+        public List<int> Categories { get; set; }
 
         public int Age
         {
