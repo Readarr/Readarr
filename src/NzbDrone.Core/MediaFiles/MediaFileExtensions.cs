@@ -33,7 +33,7 @@ namespace NzbDrone.Core.MediaFiles
                 { ".wma", Quality.MP3_320 },
                 { ".m4a", Quality.MP3_320 },
                 { ".m4p", Quality.MP3_320 },
-                { ".m4b", Quality.MP3_320 },
+                { ".m4b", Quality.M4B },
                 { ".aac", Quality.MP3_320 },
                 { ".mp4a", Quality.MP3_320 },
                 { ".ogg", Quality.MP3_320 },

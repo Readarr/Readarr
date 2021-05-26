@@ -71,6 +71,9 @@ namespace NzbDrone.Core.Parser
                 case Codec.WAVPACK:
                     result.Quality = Quality.FLAC;
                     break;
+                case Codec.AAC:
+                    result.Quality = Quality.M4B;
+                    break;
                 case Codec.MP1:
                 case Codec.MP2:
                 case Codec.MP3VBR:
@@ -78,7 +81,6 @@ namespace NzbDrone.Core.Parser
                 case Codec.APE:
                 case Codec.WMA:
                 case Codec.WAV:
-                case Codec.AAC:
                 case Codec.AACVBR:
                 case Codec.OGG:
                 case Codec.OPUS:
@@ -219,15 +221,8 @@ namespace NzbDrone.Core.Parser
                 case Codec.WAVPACK:
                 case Codec.WAV:
                     return Quality.FLAC;
-                case Codec.MP1:
-                case Codec.MP2:
-                case Codec.MP3VBR:
-                case Codec.MP3CBR:
-                case Codec.APE:
-                case Codec.WMA:
                 case Codec.AAC:
-                case Codec.OGG:
-                case Codec.OPUS:
+                    return Quality.M4B;
                 default:
                     return Quality.MP3_320;
             }
