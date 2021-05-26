@@ -16,11 +16,11 @@ namespace NzbDrone.Core.Test.DecisionEngineTests
         public static object[] IsUpgradeTestCases =
         {
             new object[] { Quality.AZW3, 1, Quality.AZW3, 2, Quality.AZW3, true },
-            new object[] { Quality.MP3_320, 1, Quality.MP3_320, 2, Quality.MP3_320, true },
-            new object[] { Quality.MP3_320, 1, Quality.MP3_320, 1, Quality.MP3_320, false },
-            new object[] { Quality.MP3_320, 1, Quality.AZW3, 2, Quality.MP3_320, false },
-            new object[] { Quality.MP3_320, 1, Quality.AZW3, 2, Quality.MP3_320, false },
-            new object[] { Quality.MP3_320, 1, Quality.MP3_320, 1, Quality.MP3_320, false }
+            new object[] { Quality.MP3, 1, Quality.MP3, 2, Quality.MP3, true },
+            new object[] { Quality.MP3, 1, Quality.MP3, 1, Quality.MP3, false },
+            new object[] { Quality.MP3, 1, Quality.AZW3, 2, Quality.MP3, false },
+            new object[] { Quality.MP3, 1, Quality.AZW3, 2, Quality.MP3, false },
+            new object[] { Quality.MP3, 1, Quality.MP3, 1, Quality.MP3, false }
         };
 
         private static readonly int NoPreferredWordScore = 0;
@@ -65,9 +65,9 @@ namespace NzbDrone.Core.Test.DecisionEngineTests
 
             Subject.IsUpgradable(
                         profile,
-                        new QualityModel(Quality.MP3_320, new Revision(version: 1)),
+                        new QualityModel(Quality.MP3, new Revision(version: 1)),
                         NoPreferredWordScore,
-                        new QualityModel(Quality.MP3_320, new Revision(version: 2)),
+                        new QualityModel(Quality.MP3, new Revision(version: 2)),
                         NoPreferredWordScore)
                     .Should().BeTrue();
         }
@@ -84,9 +84,9 @@ namespace NzbDrone.Core.Test.DecisionEngineTests
 
             Subject.IsUpgradable(
                         profile,
-                        new QualityModel(Quality.MP3_320, new Revision(version: 1)),
+                        new QualityModel(Quality.MP3, new Revision(version: 1)),
                         NoPreferredWordScore,
-                        new QualityModel(Quality.MP3_320, new Revision(version: 2)),
+                        new QualityModel(Quality.MP3, new Revision(version: 2)),
                         NoPreferredWordScore)
                     .Should().BeFalse();
         }

@@ -56,7 +56,7 @@ namespace NzbDrone.Core.Test.OrganizerTests.FileNameBuilderTests
             _trackFile = Builder<BookFile>.CreateNew()
                 .With(e => e.Part = 1)
                 .With(e => e.PartCount = 1)
-                .With(e => e.Quality = new QualityModel(Quality.MP3_320))
+                .With(e => e.Quality = new QualityModel(Quality.MP3))
                 .With(e => e.ReleaseGroup = "ReadarrTest")
                 .With(e => e.MediaInfo = new Parser.Model.MediaInfoModel
                 {
@@ -252,7 +252,7 @@ namespace NzbDrone.Core.Test.OrganizerTests.FileNameBuilderTests
             _namingConfig.StandardBookFormat = "{Quality Title}";
 
             Subject.BuildBookFileName(_author, _edition, _trackFile)
-                   .Should().Be("MP3-320");
+                   .Should().Be("MP3");
         }
 
         [Test]
@@ -306,7 +306,7 @@ namespace NzbDrone.Core.Test.OrganizerTests.FileNameBuilderTests
             _namingConfig.StandardBookFormat = "{Author Name} - {Book Title} - [{Quality Title}]";
 
             Subject.BuildBookFileName(_author, _edition, _trackFile)
-                   .Should().Be("Linkin Park - Hybrid Theory - [MP3-320]");
+                   .Should().Be("Linkin Park - Hybrid Theory - [MP3]");
         }
 
         [Test]
@@ -386,7 +386,7 @@ namespace NzbDrone.Core.Test.OrganizerTests.FileNameBuilderTests
             _namingConfig.StandardBookFormat = "{Author.Name}{_Book.Title_}{Quality.Title}";
 
             Subject.BuildBookFileName(_author, _edition, _trackFile)
-                   .Should().Be("Linkin.Park_Hybrid.Theory_MP3-320");
+                   .Should().Be("Linkin.Park_Hybrid.Theory_MP3");
         }
 
         [Test]
@@ -440,7 +440,7 @@ namespace NzbDrone.Core.Test.OrganizerTests.FileNameBuilderTests
             _namingConfig.StandardBookFormat = "{Quality Title} {Quality Proper}";
 
             Subject.BuildBookFileName(_author, _edition, _trackFile)
-                   .Should().Be("MP3-320");
+                   .Should().Be("MP3");
         }
 
         [Test]
@@ -449,7 +449,7 @@ namespace NzbDrone.Core.Test.OrganizerTests.FileNameBuilderTests
             _namingConfig.StandardBookFormat = "{Author Name} - {Book Title} [{Quality Title}] {[Quality Proper]}";
 
             Subject.BuildBookFileName(_author, _edition, _trackFile)
-                   .Should().Be("Linkin Park - Hybrid Theory [MP3-320]");
+                   .Should().Be("Linkin Park - Hybrid Theory [MP3]");
         }
 
         [Test]
@@ -458,7 +458,7 @@ namespace NzbDrone.Core.Test.OrganizerTests.FileNameBuilderTests
             _namingConfig.StandardBookFormat = "{Author Name} - {Book Title} [{Quality Full}]";
 
             Subject.BuildBookFileName(_author, _edition, _trackFile)
-                   .Should().Be("Linkin Park - Hybrid Theory [MP3-320]");
+                   .Should().Be("Linkin Park - Hybrid Theory [MP3]");
         }
 
         [TestCase(' ')]
@@ -470,7 +470,7 @@ namespace NzbDrone.Core.Test.OrganizerTests.FileNameBuilderTests
             _namingConfig.StandardBookFormat = string.Format("{{Quality{0}Title}}{0}{{Quality{0}Proper}}", separator);
 
             Subject.BuildBookFileName(_author, _edition, _trackFile)
-                   .Should().Be("MP3-320");
+                   .Should().Be("MP3");
         }
 
         [TestCase(' ')]
@@ -482,7 +482,7 @@ namespace NzbDrone.Core.Test.OrganizerTests.FileNameBuilderTests
             _namingConfig.StandardBookFormat = string.Format("{{Quality{0}Title}}{0}{{Quality{0}Proper}}{0}{{Book{0}Title}}", separator);
 
             Subject.BuildBookFileName(_author, _edition, _trackFile)
-                   .Should().Be(string.Format("MP3-320{0}Hybrid{0}Theory", separator));
+                   .Should().Be(string.Format("MP3{0}Hybrid{0}Theory", separator));
         }
 
         [Test]

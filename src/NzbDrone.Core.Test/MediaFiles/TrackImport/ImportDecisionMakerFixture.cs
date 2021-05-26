@@ -98,7 +98,7 @@ namespace NzbDrone.Core.Test.MediaFiles.BookImport
                 .With(x => x.Book = _book)
                 .Build();
 
-            _quality = new QualityModel(Quality.MP3_320);
+            _quality = new QualityModel(Quality.MP3);
 
             _localTrack = new LocalBook
             {

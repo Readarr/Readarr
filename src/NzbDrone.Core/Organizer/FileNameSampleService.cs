@@ -61,7 +61,7 @@ namespace NzbDrone.Core.Organizer
 
             _singleTrackFile = new BookFile
             {
-                Quality = new QualityModel(Quality.MP3_320, new Revision(2)),
+                Quality = new QualityModel(Quality.MP3, new Revision(2)),
                 Path = "/music/Author.Name.Book.Name.TrackNum.Track.Title.MP3256.mp3",
                 SceneName = "Author.Name.Book.Name.TrackNum.Track.Title.MP3256",
                 ReleaseGroup = "RlsGrp",

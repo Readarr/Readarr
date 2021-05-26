@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using Moq;
 using NUnit.Framework;
@@ -21,7 +21,7 @@ namespace NzbDrone.Core.Test.Blacklisting
             {
                 AuthorId = 12345,
                 BookIds = new List<int> { 1 },
-                Quality = new QualityModel(Quality.MP3_320),
+                Quality = new QualityModel(Quality.MP3),
                 SourceTitle = "author.name.book.title",
                 DownloadClient = "SabnzbdClient",
                 DownloadId = "Sabnzbd_nzo_2dfh73k"

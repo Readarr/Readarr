@@ -12,7 +12,7 @@ namespace NzbDrone.Core.Test.ParserTests
     {
         public static object[] SelfQualityParserCases =
         {
-            new object[] { Quality.MP3_320 },
+            new object[] { Quality.MP3 },
             new object[] { Quality.FLAC },
             new object[] { Quality.EPUB },
             new object[] { Quality.MOBI },
@@ -39,7 +39,7 @@ namespace NzbDrone.Core.Test.ParserTests
         [TestCase("Maroon 5 Ft Kendrick Lamar -Dont Wanna Know MP3 2016")]
         public void should_parse_mp3_quality(string title)
         {
-            ParseAndVerifyQuality(title, null, 0, Quality.MP3_320);
+            ParseAndVerifyQuality(title, null, 0, Quality.MP3);
         }
 
         [TestCase("Kendrick Lamar - DAMN (2017) FLAC")]
