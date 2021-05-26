@@ -181,6 +181,8 @@ namespace NzbDrone.Core.MediaFiles
                 {
                     Path = decision.Item.Path,
                     CalibreId = decision.Item.CalibreId,
+                    Part = decision.Item.Part,
+                    PartCount = decision.Item.PartCount,
                     Size = decision.Item.Size,
                     Modified = decision.Item.Modified,
                     DateAdded = DateTime.UtcNow,

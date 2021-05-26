@@ -23,6 +23,22 @@ namespace NzbDrone.Core.MediaFiles
 
             _audioExtensions = new Dictionary<string, Quality>(StringComparer.OrdinalIgnoreCase)
             {
+                { ".flac", Quality.FLAC },
+                { ".ape", Quality.FLAC },
+                { ".wavpack", Quality.FLAC },
+                { ".wav", Quality.FLAC },
+                { ".alac", Quality.FLAC },
+                { ".mp2", Quality.MP3_320 },
+                { ".mp3", Quality.MP3_320 },
+                { ".wma", Quality.MP3_320 },
+                { ".m4a", Quality.MP3_320 },
+                { ".m4p", Quality.MP3_320 },
+                { ".m4b", Quality.MP3_320 },
+                { ".aac", Quality.MP3_320 },
+                { ".mp4a", Quality.MP3_320 },
+                { ".ogg", Quality.MP3_320 },
+                { ".oga", Quality.MP3_320 },
+                { ".vorbis", Quality.MP3_320 },
             };
         }
 

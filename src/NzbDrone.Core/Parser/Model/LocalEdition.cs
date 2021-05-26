@@ -45,6 +45,7 @@ namespace NzbDrone.Core.Parser.Model
                     localTrack.Edition = Edition;
                     localTrack.Book = Edition.Book.Value;
                     localTrack.Author = Edition.Book.Value.Author.Value;
+                    localTrack.PartCount = LocalBooks.Count;
                 }
             }
         }

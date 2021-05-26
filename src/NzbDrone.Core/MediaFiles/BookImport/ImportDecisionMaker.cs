@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.IO.Abstractions;
 using System.Linq;
 using NLog;
@@ -48,8 +49,7 @@ namespace NzbDrone.Core.MediaFiles.BookImport
         private readonly IEnumerable<IImportDecisionEngineSpecification<LocalBook>> _trackSpecifications;
         private readonly IEnumerable<IImportDecisionEngineSpecification<LocalEdition>> _bookSpecifications;
         private readonly IMediaFileService _mediaFileService;
-        private readonly IEBookTagService _eBookTagService;
-        private readonly IAudioTagService _audioTagService;
+        private readonly IMetadataTagService _metadataTagService;
         private readonly IAugmentingService _augmentingService;
         private readonly IIdentificationService _identificationService;
         private readonly IRootFolderService _rootFolderService;
@@ -59,8 +59,7 @@ namespace NzbDrone.Core.MediaFiles.BookImport
         public ImportDecisionMaker(IEnumerable<IImportDecisionEngineSpecification<LocalBook>> trackSpecifications,
                                    IEnumerable<IImportDecisionEngineSpecification<LocalEdition>> bookSpecifications,
                                    IMediaFileService mediaFileService,
-                                   IEBookTagService eBookTagService,
-                                   IAudioTagService audioTagService,
+                                   IMetadataTagService metadataTagService,
                                    IAugmentingService augmentingService,
                                    IIdentificationService identificationService,
                                    IRootFolderService rootFolderService,
@@ -70,8 +69,7 @@ namespace NzbDrone.Core.MediaFiles.BookImport
             _trackSpecifications = trackSpecifications;
             _bookSpecifications = bookSpecifications;
             _mediaFileService = mediaFileService;
-            _eBookTagService = eBookTagService;
-            _audioTagService = audioTagService;
+            _metadataTagService = metadataTagService;
             _augmentingService = augmentingService;
             _identificationService = identificationService;
             _rootFolderService = rootFolderService;
@@ -108,14 +106,17 @@ namespace NzbDrone.Core.MediaFiles.BookImport
             {
                 _logger.ProgressInfo($"Reading file {i++}/{files.Count}");
 
+                var fileTrackInfo = _metadataTagService.ReadTags(file);
+
                 var localTrack = new LocalBook
                 {
                     DownloadClientBookInfo = downloadClientItemInfo,
                     FolderTrackInfo = folderInfo,
                     Path = file.FullName,
+                    Part = fileTrackInfo.TrackNumbers.Any() ? fileTrackInfo.TrackNumbers.First() : 1,
                     Size = file.Length,
                     Modified = file.LastWriteTimeUtc,
-                    FileTrackInfo = _eBookTagService.ReadTags(file),
+                    FileTrackInfo = fileTrackInfo,
                     AdditionalFile = false
                 };
 

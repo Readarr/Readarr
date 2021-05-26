@@ -10,7 +10,7 @@ namespace NzbDrone.Core.Indexers.Newznab
         public static List<FieldSelectOption> GetFieldSelectOptions(List<NewznabCategory> categories)
         {
             // Ignore categories not relevant for Readarr
-            var ignoreCategories = new[] { 1000, 2000, 3000, 4000, 5000, 6000 };
+            var ignoreCategories = new[] { 1000, 2000, 4000, 5000, 6000 };
 
             // And maybe relevant for specific users
             var unimportantCategories = new[] { 0, 8000 };
@@ -21,6 +21,15 @@ namespace NzbDrone.Core.Indexers.Newznab
             {
                 // Fetching categories failed, use default Newznab categories
                 categories = new List<NewznabCategory>();
+                categories.Add(new NewznabCategory
+                {
+                    Id = 3000,
+                    Name = "Audio",
+                    Subcategories = new List<NewznabCategory>
+                    {
+                        new NewznabCategory { Id = 3030, Name = "Audiobook" }
+                    }
+                });
                 categories.Add(new NewznabCategory
                 {
                     Id = 7000,

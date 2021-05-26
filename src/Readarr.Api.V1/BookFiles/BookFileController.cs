@@ -26,7 +26,7 @@ namespace Readarr.Api.V1.BookFiles
     {
         private readonly IMediaFileService _mediaFileService;
         private readonly IDeleteMediaFiles _mediaFileDeletionService;
-        private readonly IEBookTagService _eBookTagService;
+        private readonly IMetadataTagService _metadataTagService;
         private readonly IAuthorService _authorService;
         private readonly IBookService _bookService;
         private readonly IUpgradableSpecification _upgradableSpecification;
@@ -34,7 +34,7 @@ namespace Readarr.Api.V1.BookFiles
         public BookFileController(IBroadcastSignalRMessage signalRBroadcaster,
                                IMediaFileService mediaFileService,
                                IDeleteMediaFiles mediaFileDeletionService,
-                               IEBookTagService eBookTagService,
+                               IMetadataTagService metadataTagService,
                                IAuthorService authorService,
                                IBookService bookService,
                                IUpgradableSpecification upgradableSpecification)
@@ -42,7 +42,7 @@ namespace Readarr.Api.V1.BookFiles
         {
             _mediaFileService = mediaFileService;
             _mediaFileDeletionService = mediaFileDeletionService;
-            _eBookTagService = eBookTagService;
+            _metadataTagService = metadataTagService;
             _authorService = authorService;
             _bookService = bookService;
             _upgradableSpecification = upgradableSpecification;
@@ -63,7 +63,7 @@ namespace Readarr.Api.V1.BookFiles
         public override BookFileResource GetResourceById(int id)
         {
             var resource = MapToResource(_mediaFileService.Get(id));
-            resource.AudioTags = _eBookTagService.ReadTags((FileInfoBase)new FileInfo(resource.Path));
+            resource.AudioTags = _metadataTagService.ReadTags((FileInfoBase)new FileInfo(resource.Path));
             return resource;
         }
 

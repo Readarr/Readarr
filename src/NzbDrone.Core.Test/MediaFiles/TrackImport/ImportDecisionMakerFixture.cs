@@ -130,6 +130,10 @@ namespace NzbDrone.Core.Test.MediaFiles.BookImport
                 .Setup(c => c.FilterUnchangedFiles(It.IsAny<List<IFileInfo>>(), It.IsAny<FilterFilesType>()))
                 .Returns((List<IFileInfo> files, FilterFilesType filter) => files);
 
+            Mocker.GetMock<IMetadataTagService>()
+                .Setup(s => s.ReadTags(It.IsAny<IFileInfo>()))
+                .Returns(new ParsedTrackInfo());
+
             GivenSpecifications(_bookpass1);
         }
 

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using NLog;
 using NLog.Fluent;
@@ -24,12 +25,12 @@ namespace NzbDrone.Core.MediaFiles
         void WriteTags(BookFile trackfile, bool newDownload, bool force = false);
         void SyncTags(List<Edition> tracks);
         List<RetagBookFilePreview> GetRetagPreviewsByAuthor(int authorId);
-        List<RetagBookFilePreview> GetRetagPreviewsByBook(int authorId);
+        List<RetagBookFilePreview> GetRetagPreviewsByBook(int bookId);
+        void RetagFiles(RetagFilesCommand message);
+        void RetagAuthor(RetagAuthorCommand message);
     }
 
-    public class AudioTagService : IAudioTagService,
-        IExecute<RetagAuthorCommand>,
-        IExecute<RetagFilesCommand>
+    public class AudioTagService : IAudioTagService
     {
         private readonly IConfigService _configService;
         private readonly IMediaFileService _mediaFileService;
@@ -71,7 +72,52 @@ namespace NzbDrone.Core.MediaFiles
 
         public AudioTag GetTrackMetadata(BookFile trackfile)
         {
-            return new AudioTag();
+            var edition = trackfile.Edition.Value;
+            var book = edition.Book.Value;
+            var author = book.Author.Value;
+
+            var fileTags = ReadAudioTag(trackfile.Path);
+
+            var cover = edition.Images.FirstOrDefault(x => x.CoverType == MediaCoverTypes.Cover);
+            string imageFile = null;
+            long imageSize = 0;
+            if (cover != null)
+            {
+                imageFile = _mediaCoverService.GetCoverPath(book.Id, MediaCoverEntity.Book, cover.CoverType, cover.Extension, null);
+                _logger.Trace($"Embedding: {imageFile}");
+                var fileInfo = _diskProvider.GetFileInfo(imageFile);
+                if (fileInfo.Exists)
+                {
+                    imageSize = fileInfo.Length;
+                }
+                else
+                {
+                    imageFile = null;
+                }
+            }
+
+            return new AudioTag
+            {
+                Title = edition.Title,
+                Performers = new[] { author.Name },
+                BookAuthors = new[] { author.Name },
+                Track = fileTags.Track,
+                TrackCount = fileTags.TrackCount,
+                Book = book.Title,
+                Disc = fileTags.Disc,
+                DiscCount = fileTags.DiscCount,
+
+                // We may have omitted media so index in the list isn't the same as medium number
+                Media = fileTags.Media,
+                Date = edition.ReleaseDate,
+                Year = (uint)edition.ReleaseDate?.Year,
+                OriginalReleaseDate = book.ReleaseDate,
+                OriginalYear = (uint)book.ReleaseDate?.Year,
+                Publisher = edition.Publisher,
+                Genres = new string[0],
+                ImageFile = imageFile,
+                ImageSize = imageSize,
+            };
         }
 
         private void UpdateTrackfileSizeAndModified(BookFile trackfile, string path)
@@ -187,7 +233,7 @@ namespace NzbDrone.Core.MediaFiles
 
         private IEnumerable<RetagBookFilePreview> GetPreviews(List<BookFile> files)
         {
-            foreach (var f in files.OrderBy(x => x.Edition.Value.Title))
+            foreach (var f in files.Where(x => MediaFileExtensions.AudioExtensions.Contains(Path.GetExtension(x.Path))).OrderBy(x => x.Edition.Value.Title))
             {
                 var file = f;
 
@@ -215,35 +261,38 @@ namespace NzbDrone.Core.MediaFiles
             }
         }
 
-        public void Execute(RetagFilesCommand message)
+        public void RetagFiles(RetagFilesCommand message)
         {
             var author = _authorService.GetAuthor(message.AuthorId);
             var bookFiles = _mediaFileService.Get(message.Files);
+            var audioFiles = bookFiles.Where(x => MediaFileExtensions.AudioExtensions.Contains(Path.GetExtension(x.Path))).ToList();
 
-            _logger.ProgressInfo("Re-tagging {0} files for {1}", bookFiles.Count, author.Name);
-            foreach (var file in bookFiles)
+            _logger.ProgressInfo("Re-tagging {0} audio files for {1}", audioFiles.Count, author.Name);
+            foreach (var file in audioFiles)
             {
                 WriteTags(file, false, force: true);
             }
 
-            _logger.ProgressInfo("Selected track files re-tagged for {0}", author.Name);
+            _logger.ProgressInfo("Selected audio files re-tagged for {0}", author.Name);
         }
 
-        public void Execute(RetagAuthorCommand message)
+        public void RetagAuthor(RetagAuthorCommand message)
         {
-            _logger.Debug("Re-tagging all files for selected authors");
+            _logger.Debug("Re-tagging all audio files for selected authors");
             var authorToRename = _authorService.GetAuthors(message.AuthorIds);
 
             foreach (var author in authorToRename)
             {
                 var bookFiles = _mediaFileService.GetFilesByAuthor(author.Id);
-                _logger.ProgressInfo("Re-tagging all files for author: {0}", author.Name);
-                foreach (var file in bookFiles)
+                var audioFiles = bookFiles.Where(x => MediaFileExtensions.AudioExtensions.Contains(Path.GetExtension(x.Path))).ToList();
+
+                _logger.ProgressInfo("Re-tagging all audio files for author: {0}", author.Name);
+                foreach (var file in audioFiles)
                 {
                     WriteTags(file, false, force: true);
                 }
 
-                _logger.ProgressInfo("All track files re-tagged for {0}", author.Name);
+                _logger.ProgressInfo("All audio files re-tagged for {0}", author.Name);
             }
         }
     }

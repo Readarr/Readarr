@@ -9,10 +9,17 @@ import LoadingIndicator from 'Components/Loading/LoadingIndicator';
 import { inputTypes } from 'Helpers/Props';
 import translate from 'Utilities/String/translate';
 
+const writeAudioTagOptions = [
+  { key: 'no', value: translate('WriteTagsNo') },
+  { key: 'sync', value: translate('WriteTagsSync') },
+  { key: 'allFiles', value: translate('WriteTagsAll') },
+  { key: 'newFiles', value: translate('WriteTagsNew') }
+];
+
 const writeBookTagOptions = [
-  { key: 'sync', value: 'All files; keep in sync with Goodreads' },
-  { key: 'allFiles', value: 'All files; initial import only' },
-  { key: 'newFiles', value: 'For new downloads only' }
+  { key: 'sync', value: translate('WriteTagsSync') },
+  { key: 'allFiles', value: translate('WriteTagsAll') },
+  { key: 'newFiles', value: translate('WriteTagsNew') }
 ];
 
 function MetadataProvider(props) {
@@ -84,6 +91,35 @@ function MetadataProvider(props) {
                   helpText={translate('EmbedMetadataHelpText')}
                   onChange={onInputChange}
                   {...settings.embedMetadata}
+                />
+              </FormGroup>
+
+            </FieldSet>
+
+            <FieldSet legend={translate('AudioFileMetadata')}>
+              <FormGroup>
+                <FormLabel>{translate('WriteAudioTags')}</FormLabel>
+
+                <FormInputGroup
+                  type={inputTypes.SELECT}
+                  name="writeAudioTags"
+                  helpTextWarning={translate('WriteBookTagsHelpTextWarning')}
+                  helpLink="https://wiki.servarr.com/Lidarr_Settings#Write_Metadata_to_Audio_Files"
+                  values={writeAudioTagOptions}
+                  onChange={onInputChange}
+                  {...settings.writeAudioTags}
+                />
+              </FormGroup>
+
+              <FormGroup>
+                <FormLabel>{translate('WriteAudioTagsScrub')}</FormLabel>
+
+                <FormInputGroup
+                  type={inputTypes.CHECK}
+                  name="scrubAudioTags"
+                  helpTextWarning={translate('WriteAudioTagsScrubHelp')}
+                  onChange={onInputChange}
+                  {...settings.scrubAudioTags}
                 />
               </FormGroup>
 

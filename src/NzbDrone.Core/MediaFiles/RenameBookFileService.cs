@@ -57,6 +57,7 @@ namespace NzbDrone.Core.MediaFiles
 
             return GetPreviews(author, files)
                 .OrderByDescending(e => e.BookId)
+                .ThenBy(e => e.ExistingPath)
                 .ToList();
         }
 
@@ -66,15 +67,19 @@ namespace NzbDrone.Core.MediaFiles
             var files = _mediaFileService.GetFilesByBook(bookId);
 
             return GetPreviews(author, files)
-                .OrderByDescending(e => e.TrackNumbers.First()).ToList();
+                .OrderBy(e => e.ExistingPath).ToList();
         }
 
         private IEnumerable<RenameBookFilePreview> GetPreviews(Author author, List<BookFile> files)
         {
+            var counts = files.GroupBy(x => x.EditionId).ToDictionary(g => g.Key, g => g.Count());
+
             // Don't rename Calibre files
             foreach (var f in files.Where(x => x.CalibreId == 0))
             {
                 var file = f;
+                file.PartCount = counts[file.EditionId];
+
                 var book = file.Edition.Value;
                 var bookFilePath = file.Path;
 

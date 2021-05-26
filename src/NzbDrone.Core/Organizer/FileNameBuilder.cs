@@ -113,6 +113,11 @@ namespace NzbDrone.Core.Organizer
             fileName = FileNameCleanupRegex.Replace(fileName, match => match.Captures[0].Value[0].ToString());
             fileName = TrimSeparatorsRegex.Replace(fileName, string.Empty);
 
+            if (bookFile.PartCount > 1)
+            {
+                fileName = fileName + " (" + bookFile.Part + ")";
+            }
+
             return fileName;
         }
 
