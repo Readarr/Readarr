@@ -121,6 +121,25 @@ namespace NzbDrone.Core.Indexers.Newznab
             return base.GetPublishDate(item);
         }
 
+        protected override List<int> GetCategories(XElement item)
+        {
+            var values = item.Elements(ns + "attr")
+                .Where(e => e.Attribute("name").Value.Equals("category", StringComparison.OrdinalIgnoreCase) &&
+                            e.Attribute("value")?.Value != null)
+                .Select(e => e.Attribute("value").Value);
+
+            var cats = new List<int>();
+            foreach (var value in values)
+            {
+                if (int.TryParse(value, out var cat))
+                {
+                    cats.Add(cat);
+                }
+            }
+
+            return cats;
+        }
+
         protected virtual string GetAuthor(XElement item)
         {
             var authorString = TryGetNewznabAttribute(item, "author");

@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text.RegularExpressions;
 using NLog;
 using NzbDrone.Common.Disk;
@@ -29,7 +31,7 @@ namespace NzbDrone.Core.Parser
         private static readonly Regex CodecRegex = new Regex(@"\b(?:(?<PDF>PDF)|(?<MOBI>MOBI)|(?<EPUB>EPUB)|(?<AZW3>AZW3?)|(?<MP1>MPEG Version \d(.5)? Audio, Layer 1|MP1)|(?<MP2>MPEG Version \d(.5)? Audio, Layer 2|MP2)|(?<MP3VBR>MP3.*VBR|MPEG Version \d(.5)? Audio, Layer 3 vbr)|(?<MP3CBR>MP3|MPEG Version \d(.5)? Audio, Layer 3)|(?<FLAC>flac)|(?<WAVPACK>wavpack|wv)|(?<ALAC>alac)|(?<WMA>WMA\d?)|(?<WAV>WAV|PCM)|(?<AAC>M4A|M4P|M4B|AAC|mp4a|MPEG-4 Audio(?!.*alac))|(?<OGG>OGG|OGA|Vorbis))\b|(?<APE>monkey's audio|[\[|\(].*\bape\b.*[\]|\)])|(?<OPUS>Opus Version \d(.5)? Audio|[\[|\(].*\bopus\b.*[\]|\)])",
                                                              RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
-        public static QualityModel ParseQuality(string name, string desc = null)
+        public static QualityModel ParseQuality(string name, string desc = null, List<int> categories = null)
         {
             Logger.Debug("Trying to parse quality for {0}", name);
 
@@ -104,6 +106,16 @@ namespace NzbDrone.Core.Parser
                 {
                     //Swallow exception for cases where string contains illegal
                     //path characters.
+                }
+            }
+
+            //Based on category
+            if (result.Quality == Quality.Unknown && categories != null)
+            {
+                if (categories.Any(x => x >= 3000 && x < 4000))
+                {
+                    result.Quality = Quality.UnknownAudio;
+                    result.QualityDetectionSource = QualityDetectionSource.Category;
                 }
             }
 

@@ -10,6 +10,7 @@ using NzbDrone.Core.Download.Aggregation;
 using NzbDrone.Core.IndexerSearch.Definitions;
 using NzbDrone.Core.Parser;
 using NzbDrone.Core.Parser.Model;
+using NzbDrone.Core.Qualities;
 
 namespace NzbDrone.Core.DecisionEngine
 {
@@ -105,6 +106,12 @@ namespace NzbDrone.Core.DecisionEngine
 
                         remoteBook.Release = report;
 
+                        // parse quality again with title and category if unknown
+                        if (remoteBook.ParsedBookInfo.Quality.Quality == Quality.Unknown)
+                        {
+                            remoteBook.ParsedBookInfo.Quality = QualityParser.ParseQuality(report.Title, null, report.Categories);
+                        }
+
                         if (remoteBook.Author == null)
                         {
                             decision = new DownloadDecision(remoteBook, new Rejection("Unknown Author"));
@@ -138,7 +145,7 @@ namespace NzbDrone.Core.DecisionEngine
                         {
                             parsedBookInfo = new ParsedBookInfo
                             {
-                                Quality = QualityParser.ParseQuality(report.Title)
+                                Quality = QualityParser.ParseQuality(report.Title, null, report.Categories)
                             };
                         }
 
@@ -160,7 +167,7 @@ namespace NzbDrone.Core.DecisionEngine
                         {
                             parsedBookInfo = new ParsedBookInfo
                             {
-                                Quality = QualityParser.ParseQuality(report.Title, null)
+                                Quality = QualityParser.ParseQuality(report.Title, null, report.Categories)
                             };
                         }
 

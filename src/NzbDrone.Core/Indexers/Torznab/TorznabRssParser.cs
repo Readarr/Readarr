@@ -91,9 +91,23 @@ namespace NzbDrone.Core.Indexers.Torznab
             return size;
         }
 
-        protected override DateTime GetPublishDate(XElement item)
+        protected override List<int> GetCategories(XElement item)
         {
-            return base.GetPublishDate(item);
+            var values = item.Elements(ns + "attr")
+                .Where(e => e.Attribute("name").Value.Equals("category", StringComparison.OrdinalIgnoreCase) &&
+                            e.Attribute("value")?.Value != null)
+                .Select(e => e.Attribute("value").Value);
+
+            var cats = new List<int>();
+            foreach (var value in values)
+            {
+                if (int.TryParse(value, out var cat))
+                {
+                    cats.Add(cat);
+                }
+            }
+
+            return cats;
         }
 
         protected override string GetDownloadUrl(XElement item)

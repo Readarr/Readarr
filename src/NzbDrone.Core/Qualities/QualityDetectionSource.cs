@@ -1,9 +1,10 @@
-﻿namespace NzbDrone.Core.Qualities
+namespace NzbDrone.Core.Qualities
 {
     public enum QualityDetectionSource
     {
         Name,
         Extension,
-        TagLib
+        TagLib,
+        Category
     }
 }

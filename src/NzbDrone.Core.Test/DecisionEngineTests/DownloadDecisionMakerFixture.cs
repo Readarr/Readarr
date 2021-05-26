@@ -11,6 +11,7 @@ using NzbDrone.Core.DecisionEngine.Specifications;
 using NzbDrone.Core.IndexerSearch.Definitions;
 using NzbDrone.Core.Parser;
 using NzbDrone.Core.Parser.Model;
+using NzbDrone.Core.Qualities;
 using NzbDrone.Core.Test.Framework;
 using NzbDrone.Test.Common;
 
@@ -60,7 +61,8 @@ namespace NzbDrone.Core.Test.DecisionEngineTests
             _remoteBook = new RemoteBook
             {
                 Author = new Author(),
-                Books = new List<Book> { new Book() }
+                Books = new List<Book> { new Book() },
+                ParsedBookInfo = Builder<ParsedBookInfo>.CreateNew().With(x => x.Quality = new QualityModel(Quality.FLAC)).Build()
             };
 
             Mocker.GetMock<IParsingService>()

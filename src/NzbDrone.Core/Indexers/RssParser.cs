@@ -159,6 +159,7 @@ namespace NzbDrone.Core.Indexers
             releaseInfo.BasicAuthString = GetBasicAuth();
             releaseInfo.InfoUrl = GetInfoUrl(item);
             releaseInfo.CommentUrl = GetCommentUrl(item);
+            releaseInfo.Categories = GetCategories(item);
 
             try
             {
@@ -228,6 +229,11 @@ namespace NzbDrone.Core.Indexers
         protected virtual string GetCommentUrl(XElement item)
         {
             return ParseUrl((string)item.Element("comments"));
+        }
+
+        protected virtual List<int> GetCategories(XElement item)
+        {
+            return new List<int>();
         }
 
         protected virtual long GetSize(XElement item)
