@@ -29,7 +29,8 @@ namespace NzbDrone.Core.Profiles.Metadata
     {
         public const string NONE_PROFILE_NAME = "None";
 
-        private static readonly Regex PartOrSetRegex = new Regex(@"(?:\d+ of \d+|\d+/\d+|(?<from>\d+)-(?<to>\d+))");
+        private static readonly Regex PartOrSetRegex = new Regex(@"(?<from>\d+) of (?<to>\d+)|(?<from>\d+)\s?/\s?(?<to>\d+)|(?<from>\d+)\s?-\s?(?<to>\d+)",
+            RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
         private readonly IMetadataProfileRepository _profileRepository;
         private readonly IAuthorService _authorService;
@@ -185,10 +186,14 @@ namespace NzbDrone.Core.Profiles.Metadata
             }
 
             // Skip things of form Title1 / Title2 when Title1 and Title2 are already in the list
-            var split = book.Title.Split('/').Select(x => x.Trim()).ToList();
-            if (split.Count > 1 && split.All(x => titles.Contains(x)))
+            var bookTitles = new[] { book.Title }.Concat(book.Editions.Value.Select(x => x.Title)).ToList();
+            foreach (var title in bookTitles)
             {
-                return true;
+                var split = title.Split('/').Select(x => x.Trim()).ToList();
+                if (split.Count > 1 && split.All(x => titles.Contains(x)))
+                {
+                    return true;
+                }
             }
 
             var match = PartOrSetRegex.Match(book.Title);
@@ -196,7 +201,7 @@ namespace NzbDrone.Core.Profiles.Metadata
             if (match.Groups["from"].Success)
             {
                 var from = int.Parse(match.Groups["from"].Value);
-                return from >= 1800 && from <= DateTime.UtcNow.Year ? false : true;
+                return from <= 1800 || from > DateTime.UtcNow.Year;
             }
 
             return false;
