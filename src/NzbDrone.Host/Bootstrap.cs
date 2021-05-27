@@ -107,7 +107,7 @@ namespace NzbDrone.Host
 
             var bindAddress = config.GetValue(nameof(ConfigFileProvider.BindAddress), "*");
             var port = config.GetValue(nameof(ConfigFileProvider.Port), 8787);
-            var sslPort = config.GetValue(nameof(ConfigFileProvider.SslPort), 6868);
+            var sslPort = config.GetValue(nameof(ConfigFileProvider.SslPort), 7879);
             var enableSsl = config.GetValue(nameof(ConfigFileProvider.EnableSsl), false);
             var sslCertPath = config.GetValue<string>(nameof(ConfigFileProvider.SslCertPath));
             var sslCertPassword = config.GetValue<string>(nameof(ConfigFileProvider.SslCertPassword));
