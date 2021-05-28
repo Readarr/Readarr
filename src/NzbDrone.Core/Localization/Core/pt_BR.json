@@ -693,5 +693,13 @@
     "Absolute": "Absoluto",
     "ASIN": "ASIN",
     "ISBN": "ISBN",
-    "BookStudio": "Book Studio"
+    "BookStudio": "Book Studio",
+    "WriteTagsSync": "Todos os arquivos; sincronizar com Goodreads",
+    "WriteTagsNo": "Nunca",
+    "WriteTagsNew": "Apenas para novos downloads",
+    "WriteTagsAll": "Todos os arquivos; apenas importação inicial",
+    "WriteAudioTagsScrubHelp": "Remover tags existentes dos arquivos, deixando apenas as adicionadas pelo Readarr.",
+    "WriteAudioTagsScrub": "Limpar tags existentes",
+    "WriteAudioTags": "Marcar arquivos de áudio com metadados",
+    "AudioFileMetadata": "Gravar metadados em arquivos de áudio"
 }
