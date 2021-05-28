@@ -693,5 +693,13 @@
     "EnableAutomaticAddHelpText": "Írj szerzőket/könyveket a Readarr-ba, ha a szinkronizálást a kezelőfelületen vagy a Readarr-ban szeretnéd elvégezni",
     "MinPagesHelpText": "Az ennél kevesebb oldalas könyvek figyelmen kívül hagyása",
     "MinimumPages": "Minimális oldalak",
-    "DownloadClientCheckDownloadingToRoot": "A Letöltőkliens {0} a letöltéseket a gyökérmappába helyezi {1}. Nem szabad letölteni egy gyökérmappába."
+    "DownloadClientCheckDownloadingToRoot": "A Letöltőkliens {0} a letöltéseket a gyökérmappába helyezi {1}. Nem szabad letölteni egy gyökérmappába.",
+    "WriteTagsSync": "Minden fájl; szinkronba tartva a Goodreads-al",
+    "WriteTagsNo": "Soha",
+    "WriteTagsNew": "Csak új letöltésekhez",
+    "WriteTagsAll": "Minden fájl; csak a kezdeti import",
+    "WriteAudioTagsScrubHelp": "Távolítsa el a meglévő címkéket a fájlokból, és csak azokat hagyja meg, amelyeket a Readarr adott hozzá.",
+    "WriteAudioTagsScrub": "Meglévő címkék törlése",
+    "WriteAudioTags": "Audiófájlok címkézése metaadatokkal",
+    "AudioFileMetadata": "Metaadatok írása az Audió fájl(ok)ba"
 }
