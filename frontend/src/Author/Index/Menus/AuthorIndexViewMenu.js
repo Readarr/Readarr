@@ -35,14 +35,6 @@ function AuthorIndexViewMenu(props) {
         </ViewMenuItem>
 
         <ViewMenuItem
-          name="banners"
-          selectedView={view}
-          onPress={onViewSelect}
-        >
-          Banners
-        </ViewMenuItem>
-
-        <ViewMenuItem
           name="overview"
           selectedView={view}
           onPress={onViewSelect}
