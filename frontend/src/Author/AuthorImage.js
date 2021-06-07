@@ -122,8 +122,16 @@ class AuthorImage extends Component {
       placeholder,
       size,
       lazy,
-      overflow
+      overflow,
+      blurBackground
     } = this.props;
+
+    const blurStyle = {
+      ...style,
+      objectFit: 'fill',
+      filter: 'blur(8px)',
+      WebkitFilter: 'blur(8px)'
+    };
 
     const {
       url,
@@ -168,13 +176,26 @@ class AuthorImage extends Component {
     }
 
     return (
-      <img
-        className={className}
-        style={style}
-        src={isLoaded ? url : placeholder}
-        onError={this.onError}
-        onLoad={this.onLoad}
-      />
+      <>
+        {
+          blurBackground ?
+            <img
+              style={blurStyle}
+              src={isLoaded ? url : placeholder}
+              onError={this.onError}
+              onLoad={this.onLoad}
+            /> :
+            null
+        }
+
+        <img
+          className={className}
+          style={style}
+          src={isLoaded ? url : placeholder}
+          onError={this.onError}
+          onLoad={this.onLoad}
+        />
+      </>
     );
   }
 }
@@ -188,6 +209,7 @@ AuthorImage.propTypes = {
   size: PropTypes.number.isRequired,
   lazy: PropTypes.bool.isRequired,
   overflow: PropTypes.bool.isRequired,
+  blurBackground: PropTypes.bool.isRequired,
   onError: PropTypes.func,
   onLoad: PropTypes.func
 };
@@ -195,7 +217,8 @@ AuthorImage.propTypes = {
 AuthorImage.defaultProps = {
   size: 250,
   lazy: true,
-  overflow: false
+  overflow: false,
+  blurBackground: false
 };
 
 export default AuthorImage;

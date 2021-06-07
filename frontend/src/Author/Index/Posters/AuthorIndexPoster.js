@@ -167,6 +167,7 @@ class AuthorIndexPoster extends Component {
                 size={250}
                 lazy={false}
                 overflow={true}
+                blurBackground={true}
                 onError={this.onPosterLoadError}
                 onLoad={this.onPosterLoad}
               />
