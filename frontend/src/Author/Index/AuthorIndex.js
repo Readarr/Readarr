@@ -16,8 +16,6 @@ import getErrorMessage from 'Utilities/Object/getErrorMessage';
 import hasDifferentItemsOrOrder from 'Utilities/Object/hasDifferentItemsOrOrder';
 import translate from 'Utilities/String/translate';
 import AuthorIndexFooterConnector from './AuthorIndexFooterConnector';
-import AuthorIndexBannersConnector from './Banners/AuthorIndexBannersConnector';
-import AuthorIndexBannerOptionsModal from './Banners/Options/AuthorIndexBannerOptionsModal';
 import AuthorIndexFilterMenu from './Menus/AuthorIndexFilterMenu';
 import AuthorIndexSortMenu from './Menus/AuthorIndexSortMenu';
 import AuthorIndexViewMenu from './Menus/AuthorIndexViewMenu';
@@ -32,10 +30,6 @@ import styles from './AuthorIndex.css';
 function getViewComponent(view) {
   if (view === 'posters') {
     return AuthorIndexPostersConnector;
-  }
-
-  if (view === 'banners') {
-    return AuthorIndexBannersConnector;
   }
 
   if (view === 'overview') {
@@ -58,7 +52,6 @@ class AuthorIndex extends Component {
       jumpBarItems: { order: [] },
       jumpToCharacter: null,
       isPosterOptionsModalOpen: false,
-      isBannerOptionsModalOpen: false,
       isOverviewOptionsModalOpen: false
     };
   }
@@ -148,14 +141,6 @@ class AuthorIndex extends Component {
     this.setState({ isPosterOptionsModalOpen: false });
   }
 
-  onBannerOptionsPress = () => {
-    this.setState({ isBannerOptionsModalOpen: true });
-  }
-
-  onBannerOptionsModalClose = () => {
-    this.setState({ isBannerOptionsModalOpen: false });
-  }
-
   onOverviewOptionsPress = () => {
     this.setState({ isOverviewOptionsModalOpen: true });
   }
@@ -201,7 +186,6 @@ class AuthorIndex extends Component {
       jumpBarItems,
       jumpToCharacter,
       isPosterOptionsModalOpen,
-      isBannerOptionsModalOpen,
       isOverviewOptionsModalOpen
     } = this.state;
 
@@ -257,17 +241,6 @@ class AuthorIndex extends Component {
                   iconName={icons.POSTER}
                   isDisabled={hasNoAuthor}
                   onPress={this.onPosterOptionsPress}
-                /> :
-                null
-            }
-
-            {
-              view === 'banners' ?
-                <PageToolbarButton
-                  label={translate('Options')}
-                  iconName={icons.POSTER}
-                  isDisabled={hasNoAuthor}
-                  onPress={this.onBannerOptionsPress}
                 /> :
                 null
             }
@@ -362,12 +335,6 @@ class AuthorIndex extends Component {
         <AuthorIndexPosterOptionsModal
           isOpen={isPosterOptionsModalOpen}
           onModalClose={this.onPosterOptionsModalClose}
-        />
-
-        <AuthorIndexBannerOptionsModal
-          isOpen={isBannerOptionsModalOpen}
-          onModalClose={this.onBannerOptionsModalClose}
-
         />
 
         <AuthorIndexOverviewOptionsModal
