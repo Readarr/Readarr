@@ -125,31 +125,30 @@ class AuthorIndexOverview extends Component {
     return (
       <div className={styles.container}>
         <div className={styles.content}>
-          <div className={styles.poster}>
-            <div className={styles.posterContainer}>
-              {
-                status === 'ended' &&
-                  <div
-                    className={styles.ended}
-                    title={translate('Ended')}
-                  />
-              }
-
-              <Link
-                className={styles.link}
-                style={elementStyle}
-                to={link}
-              >
-                <AuthorPoster
-                  className={styles.poster}
-                  style={elementStyle}
-                  images={images}
-                  size={250}
-                  lazy={false}
-                  overflow={true}
+          <div className={styles.posterContainer}>
+            {
+              status === 'ended' &&
+                <div
+                  className={styles.ended}
+                  title={translate('Ended')}
                 />
-              </Link>
-            </div>
+            }
+
+            <Link
+              className={styles.link}
+              style={elementStyle}
+              to={link}
+            >
+              <AuthorPoster
+                className={styles.poster}
+                style={elementStyle}
+                images={images}
+                size={250}
+                lazy={false}
+                overflow={true}
+                blurBackground={true}
+              />
+            </Link>
 
             <AuthorIndexProgressBar
               monitored={monitored}

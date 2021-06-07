@@ -17,6 +17,13 @@ $hoverScale: 1.05;
 
 .posterContainer {
   position: relative;
+  overflow: hidden;
+}
+
+.poster {
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
 .link {

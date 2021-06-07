@@ -14,11 +14,14 @@ $hoverScale: 1.05;
 }
 
 .poster {
-  position: relative;
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
 .posterContainer {
   position: relative;
+  overflow: hidden;
 }
 
 .link {
