@@ -49,6 +49,18 @@ namespace NzbDrone.Core.MediaFiles.BookImport.Identification
                 titleOptions.Add(StripSeriesRegex.Replace(titleOptions[0]));
             }
 
+            var (maintitle, _) = edition.Book.Value.Title.SplitBookTitle(edition.Book.Value.AuthorMetadata.Value.Name);
+            if (!titleOptions.Contains(maintitle))
+            {
+                titleOptions.Add(maintitle);
+            }
+
+            (maintitle, _) = edition.Title.SplitBookTitle(edition.Book.Value.AuthorMetadata.Value.Name);
+            if (!titleOptions.Contains(maintitle))
+            {
+                titleOptions.Add(maintitle);
+            }
+
             if (edition.Book.Value.SeriesLinks?.Value?.Any() ?? false)
             {
                 foreach (var l in edition.Book.Value.SeriesLinks.Value)

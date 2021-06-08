@@ -1,4 +1,5 @@
 using NzbDrone.Common.Extensions;
+using NzbDrone.Core.Parser;
 
 namespace NzbDrone.Core.IndexerSearch.Definitions
 {
@@ -9,11 +10,11 @@ namespace NzbDrone.Core.IndexerSearch.Definitions
         public string BookIsbn { get; set; }
         public string Disambiguation { get; set; }
 
-        public string BookQuery => GetQueryTitle($"{BookTitle}");
+        public string BookQuery => GetQueryTitle(BookTitle.SplitBookTitle(Author.Name).Item1);
 
         public override string ToString()
         {
-            return $"[{Author.Name} - {BookTitle} ({BookYear})]";
+            return $"[{Author.Name} - {BookTitle}]";
         }
     }
 }
