@@ -272,5 +272,17 @@ namespace NzbDrone.Core.Test.ParserTests
             parseResult.AuthorName.Should().Be("Michael Buble");
             parseResult.BookTitle.Should().Be("Christmas");
         }
+
+        [TestCase("Tom Clancy", "Tom Clancy: Ghost Protocol", "Ghost Protocol", "")]
+        [TestCase("Andrew Steele", "Ageless: The New Science of Getting Older Without Getting Old", "Ageless", "The New Science of Getting Older Without Getting Old")]
+        [TestCase("Author", "Title (Subtitle with spaces)", "Title", "Subtitle with spaces")]
+        [TestCase("Author", "Title (Unabridged)", "Title (Unabridged)", "")]
+        public void should_split_title_correctly(string author, string book, string expectedTitle, string expectedSubtitle)
+        {
+            var (title, subtitle) = book.SplitBookTitle(author);
+
+            title.Should().Be(expectedTitle);
+            subtitle.Should().Be(expectedSubtitle);
+        }
     }
 }

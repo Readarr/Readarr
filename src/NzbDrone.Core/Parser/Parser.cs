@@ -362,6 +362,11 @@ namespace NzbDrone.Core.Parser
 
                 var foundBook = GetTitleFuzzy(remainder, bestBook.Title, out _);
 
+                if (foundBook == null)
+                {
+                    foundBook = GetTitleFuzzy(remainder, bestBook.Title.SplitBookTitle(authorName).Item1, out _);
+                }
+
                 Logger.Trace($"Found {foundAuthor} - {foundBook} with fuzzy parser");
 
                 if (foundAuthor == null || foundBook == null)
@@ -574,6 +579,58 @@ namespace NzbDrone.Core.Parser
 
             Logger.Debug("Unable to parse {0}", title);
             return null;
+        }
+
+        public static (string, string) SplitBookTitle(this string book, string author)
+        {
+            // Strip author from title, eg Tom Clancy: Ghost Protocol
+            if (book.StartsWith($"{author}:"))
+            {
+                book = book.Split(':', 2)[1].Trim();
+            }
+
+            var parenthesis = book.IndexOf('(');
+            var colon = book.IndexOf(':');
+
+            string[] parts = null;
+
+            if (parenthesis > -1)
+            {
+                var endParenthesis = book.IndexOf(')');
+                if (endParenthesis > -1 && !book.Substring(parenthesis + 1, endParenthesis - parenthesis).Contains(' '))
+                {
+                    parenthesis = -1;
+                }
+            }
+
+            if (colon > -1 && parenthesis > -1)
+            {
+                if (colon < parenthesis)
+                {
+                    parts = book.Split(':', 2);
+                }
+                else
+                {
+                    parts = book.Split('(', 2);
+                    parts[1] = parts[1].TrimEnd(')');
+                }
+            }
+            else if (colon > -1)
+            {
+                parts = book.Split(':', 2);
+            }
+            else if (parenthesis > -1)
+            {
+                parts = book.Split('(');
+                parts[1] = parts[1].TrimEnd(')');
+            }
+
+            if (parts != null)
+            {
+                return (parts[0].Trim(), parts[1].TrimEnd(':').Trim());
+            }
+
+            return (book, string.Empty);
         }
 
         public static string CleanAuthorName(this string name)

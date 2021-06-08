@@ -17,13 +17,14 @@ namespace NzbDrone.Core.Test.IndexerSearchTests
         }
 
         [TestCase("…and Justice for All", "and+Justice+for+All")]
-        [TestCase("American III: Solitary Man", "American+III+Solitary+Man")]
+        [TestCase("American III: Solitary Man", "American+III")]
         [TestCase("Sad Clowns & Hillbillies", "Sad+Clowns+Hillbillies")]
         [TestCase("¿Quién sabe?", "Quien+sabe")]
         [TestCase("Seal the Deal & Let’s Boogie", "Seal+the+Deal+Let’s+Boogie")]
         [TestCase("Section.80", "Section+80")]
         public void should_replace_some_special_characters(string book, string expected)
         {
+            Subject.Author = new Author { Name = "Author" };
             Subject.BookTitle = book;
             Subject.BookQuery.Should().Be(expected);
         }
@@ -31,6 +32,7 @@ namespace NzbDrone.Core.Test.IndexerSearchTests
         [TestCase("+", "+")]
         public void should_not_replace_some_special_characters_if_result_empty_string(string book, string expected)
         {
+            Subject.Author = new Author { Name = "Author" };
             Subject.BookTitle = book;
             Subject.BookQuery.Should().Be(expected);
         }

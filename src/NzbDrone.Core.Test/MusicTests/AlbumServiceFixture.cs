@@ -20,12 +20,20 @@ namespace NzbDrone.Core.Test.MusicTests.BookRepositoryTests
             {
                 Title = "ANThology",
                 CleanTitle = "anthology",
+                AuthorMetadata = new AuthorMetadata
+                {
+                    Name = "Author"
+                }
             });
 
             _books.Add(new Book
             {
                 Title = "+",
                 CleanTitle = "",
+                AuthorMetadata = new AuthorMetadata
+                {
+                    Name = "Author"
+                }
             });
 
             Mocker.GetMock<IBookRepository>()
@@ -39,6 +47,10 @@ namespace NzbDrone.Core.Test.MusicTests.BookRepositoryTests
             {
                 Title = "ANThology2",
                 CleanTitle = "anthology2",
+                AuthorMetadata = new AuthorMetadata
+                {
+                    Name = "Author"
+                }
             });
         }
 
