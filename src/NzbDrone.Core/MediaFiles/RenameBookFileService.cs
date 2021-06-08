@@ -113,12 +113,15 @@ namespace NzbDrone.Core.MediaFiles
 
         private void RenameFiles(List<BookFile> bookFiles, Author author)
         {
+            var allFiles = _mediaFileService.GetFilesByAuthor(author.Id);
+            var counts = allFiles.GroupBy(x => x.EditionId).ToDictionary(g => g.Key, g => g.Count());
             var renamed = new List<BookFile>();
 
             // Don't rename Calibre files
             foreach (var bookFile in bookFiles.Where(x => x.CalibreId == 0))
             {
                 var bookFilePath = bookFile.Path;
+                bookFile.PartCount = counts[bookFile.EditionId];
 
                 try
                 {

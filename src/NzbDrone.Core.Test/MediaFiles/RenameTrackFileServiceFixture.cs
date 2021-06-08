@@ -33,6 +33,10 @@ namespace NzbDrone.Core.Test.MediaFiles
             Mocker.GetMock<IAuthorService>()
                   .Setup(s => s.GetAuthor(_author.Id))
                   .Returns(_author);
+
+            Mocker.GetMock<IMediaFileService>()
+                .Setup(s => s.GetFilesByAuthor(_author.Id))
+                .Returns(_trackFiles);
         }
 
         private void GivenNoTrackFiles()
