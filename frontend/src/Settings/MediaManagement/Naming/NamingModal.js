@@ -30,11 +30,11 @@ const caseOptions = [
 const fileNameTokens = [
   {
     token: '{Author Name} - {Book Title} - {Quality Full}',
-    example: 'Author Name - Book Title - MP3-320 Proper'
+    example: 'Author Name - Book Title - MP3 Proper'
   },
   {
     token: '{Author.Name}.{Book.Title}.{Quality.Full}',
-    example: 'Author.Name.Book.Title.MP3-320'
+    example: 'Author.Name.Book.Title.MP3'
   }
 ];
 
@@ -62,26 +62,17 @@ const bookTokens = [
   { token: '{Book Disambiguation}', example: 'Disambiguation' }
 ];
 
-const mediumTokens = [
-  { token: '{medium:0}', example: '1' },
-  { token: '{medium:00}', example: '01' }
-];
-
-const mediumFormatTokens = [
-  { token: '{Medium Format}', example: 'CD' }
-];
-
 const releaseDateTokens = [
   { token: '{Release Year}', example: '2016' }
 ];
 
 const qualityTokens = [
-  { token: '{Quality Full}', example: 'FLAC Proper' },
-  { token: '{Quality Title}', example: 'FLAC' }
+  { token: '{Quality Full}', example: 'AZW3 Proper' },
+  { token: '{Quality Title}', example: 'AZW3' }
 ];
 
 const mediaInfoTokens = [
-  { token: '{MediaInfo AudioCodec}', example: 'FLAC' },
+  { token: '{MediaInfo AudioCodec}', example: 'MP3' },
   { token: '{MediaInfo AudioChannels}', example: '2.0' },
   { token: '{MediaInfo AudioBitRate}', example: '320kbps' },
   { token: '{MediaInfo AudioBitsPerSample}', example: '24bit' },
@@ -94,7 +85,7 @@ const otherTokens = [
 ];
 
 const originalTokens = [
-  { token: '{Original Title}', example: 'Author.Name.Book.Name.2018.FLAC-EVOLVE' },
+  { token: '{Original Title}', example: 'Author.Name.Book.Name.2018.AZW3-EVOLVE' },
   { token: '{Original Filename}', example: '01 - book name' }
 ];
 
@@ -303,56 +294,6 @@ class NamingModal extends Component {
                       }
                     </div>
                   </FieldSet>
-                </div>
-            }
-
-            {
-              book &&
-                <div>
-                  <FieldSet legend={translate('Medium')}>
-                    <div className={styles.groups}>
-                      {
-                        mediumTokens.map(({ token, example }) => {
-                          return (
-                            <NamingOption
-                              key={token}
-                              name={name}
-                              value={value}
-                              token={token}
-                              example={example}
-                              tokenSeparator={tokenSeparator}
-                              tokenCase={tokenCase}
-                              onPress={this.onOptionPress}
-                            />
-                          );
-                        }
-                        )
-                      }
-                    </div>
-                  </FieldSet>
-
-                  <FieldSet legend={translate('MediumFormat')}>
-                    <div className={styles.groups}>
-                      {
-                        mediumFormatTokens.map(({ token, example }) => {
-                          return (
-                            <NamingOption
-                              key={token}
-                              name={name}
-                              value={value}
-                              token={token}
-                              example={example}
-                              tokenSeparator={tokenSeparator}
-                              tokenCase={tokenCase}
-                              onPress={this.onOptionPress}
-                            />
-                          );
-                        }
-                        )
-                      }
-                    </div>
-                  </FieldSet>
-
                 </div>
             }
 
