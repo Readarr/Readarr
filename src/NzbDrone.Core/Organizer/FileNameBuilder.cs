@@ -233,6 +233,7 @@ namespace NzbDrone.Core.Organizer
             tokenHandlers["{Author Name}"] = m => author.Name;
             tokenHandlers["{Author CleanName}"] = m => CleanTitle(author.Name);
             tokenHandlers["{Author NameThe}"] = m => TitleThe(author.Name);
+            tokenHandlers["{Author SortName}"] = m => author.Name.ToSortName();
 
             if (author.Metadata.Value.Disambiguation != null)
             {
