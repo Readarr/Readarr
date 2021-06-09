@@ -45,6 +45,8 @@ const authorTokens = [
 
   { token: '{Author CleanName}', example: 'Author Name' },
 
+  { token: '{Author SortName}', example: 'Name, Author' },
+
   { token: '{Author Disambiguation}', example: 'Disambiguation' }
 ];
 
