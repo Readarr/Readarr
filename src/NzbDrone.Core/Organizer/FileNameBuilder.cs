@@ -35,6 +35,8 @@ namespace NzbDrone.Core.Organizer
         private static readonly Regex TitleRegex = new Regex(@"\{(?<prefix>[- ._\[(]*)(?<token>(?:[a-z0-9]+)(?:(?<separator>[- ._]+)(?:[a-z0-9]+))?)(?::(?<customFormat>[a-z0-9]+))?(?<suffix>[- ._)\]]*)\}",
                                                              RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
+        public static readonly Regex PartRegex = new Regex(@"\{(?<prefix>[^{]*?)(?<token1>PartNumber|PartCount)(?::(?<customFormat1>[a-z0-9]+))?(?<separator>.*(?=PartNumber|PartCount))?((?<token2>PartNumber|PartCount)(?::(?<customFormat2>[a-z0-9]+))?)?(?<suffix>[^}]*)\}",
+                                                            RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
         public static readonly Regex SeasonEpisodePatternRegex = new Regex(@"(?<separator>(?<=})[- ._]+?)?(?<seasonEpisode>s?{season(?:\:0+)?}(?<episodeSeparator>[- ._]?[ex])(?<episode>{episode(?:\:0+)?}))(?<separator>[- ._]+?(?={))?",
                                                                             RegexOptions.Compiled | RegexOptions.IgnoreCase);
@@ -97,14 +99,11 @@ namespace NzbDrone.Core.Organizer
             AddMediaInfoTokens(tokenHandlers, bookFile);
             AddPreferredWords(tokenHandlers, author, bookFile, preferredWords);
 
-            var fileName = ReplaceTokens(safePattern, tokenHandlers, namingConfig).Trim();
+            var fileName = ReplacePartTokens(safePattern, tokenHandlers, namingConfig);
+            fileName = ReplaceTokens(fileName, tokenHandlers, namingConfig).Trim();
+
             fileName = FileNameCleanupRegex.Replace(fileName, match => match.Captures[0].Value[0].ToString());
             fileName = TrimSeparatorsRegex.Replace(fileName, string.Empty);
-
-            if (bookFile.PartCount > 1)
-            {
-                fileName = fileName + " (" + bookFile.Part + ")";
-            }
 
             return fileName;
         }
@@ -277,6 +276,12 @@ namespace NzbDrone.Core.Organizer
             tokenHandlers["{Original Title}"] = m => GetOriginalTitle(bookFile);
             tokenHandlers["{Original Filename}"] = m => GetOriginalFileName(bookFile);
             tokenHandlers["{Release Group}"] = m => bookFile.ReleaseGroup ?? m.DefaultValue("Readarr");
+
+            if (bookFile.PartCount > 1)
+            {
+                tokenHandlers["{PartNumber}"] = m => bookFile.Part.ToString(m.CustomFormat);
+                tokenHandlers["{PartCount}"] = m => bookFile.PartCount.ToString(m.CustomFormat);
+            }
         }
 
         private void AddQualityTokens(Dictionary<string, Func<TokenMatch, string>> tokenHandlers, Author author, BookFile bookFile)
@@ -372,6 +377,40 @@ namespace NzbDrone.Core.Organizer
             }
 
             return replacementText;
+        }
+
+        private string ReplacePartTokens(string pattern, Dictionary<string, Func<TokenMatch, string>> tokenHandlers, NamingConfig namingConfig)
+        {
+            return PartRegex.Replace(pattern, match => ReplacePartToken(match, tokenHandlers, namingConfig));
+        }
+
+        private string ReplacePartToken(Match match, Dictionary<string, Func<TokenMatch, string>> tokenHandlers, NamingConfig namingConfig)
+        {
+            var tokenHandler = tokenHandlers.GetValueOrDefault($"{{{match.Groups["token1"].Value}}}", m => string.Empty);
+
+            var tokenText1 = tokenHandler(new TokenMatch { CustomFormat = match.Groups["customFormat1"].Success ? match.Groups["customFormat1"].Value : "0" });
+
+            if (tokenText1 == string.Empty)
+            {
+                return string.Empty;
+            }
+
+            var prefix = match.Groups["prefix"].Value;
+
+            var tokenText2 = string.Empty;
+
+            var separator = match.Groups["separator"].Success ? match.Groups["separator"].Value : string.Empty;
+
+            var suffix = match.Groups["suffix"].Value;
+
+            if (match.Groups["token2"].Success)
+            {
+                tokenHandler = tokenHandlers.GetValueOrDefault($"{{{match.Groups["token2"].Value}}}", m => string.Empty);
+
+                tokenText2 = tokenHandler(new TokenMatch { CustomFormat = match.Groups["customFormat2"].Success ? match.Groups["customFormat2"].Value : "0" });
+            }
+
+            return $"{prefix}{tokenText1}{separator}{tokenText2}{suffix}";
         }
 
         private BookFormat[] GetTrackFormat(string pattern)

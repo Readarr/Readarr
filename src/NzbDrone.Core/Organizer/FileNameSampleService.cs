@@ -21,6 +21,7 @@ namespace NzbDrone.Core.Organizer
         private static Book _standardBook;
         private static Edition _standardEdition;
         private static BookFile _singleTrackFile;
+        private static BookFile _multiTrackFile;
         private static List<string> _preferredWords;
 
         public FileNameSampleService(IBuildFileNames buildFileNames)
@@ -66,7 +67,21 @@ namespace NzbDrone.Core.Organizer
                 SceneName = "Author.Name.Book.Name.TrackNum.Track.Title.MP3256",
                 ReleaseGroup = "RlsGrp",
                 MediaInfo = mediaInfo,
-                Edition = _standardEdition
+                Edition = _standardEdition,
+                Part = 1,
+                PartCount = 1
+            };
+
+            _multiTrackFile = new BookFile
+            {
+                Quality = new QualityModel(Quality.MP3, new Revision(2)),
+                Path = "/music/Author.Name.Book.Name.TrackNum.Track.Title.MP3256.mp3",
+                SceneName = "Author.Name.Book.Name.TrackNum.Track.Title.MP3256",
+                ReleaseGroup = "RlsGrp",
+                MediaInfo = mediaInfo,
+                Edition = _standardEdition,
+                Part = 1,
+                PartCount = 2
             };
 
             _preferredWords = new List<string>
@@ -92,7 +107,7 @@ namespace NzbDrone.Core.Organizer
         {
             var result = new SampleResult
             {
-                FileName = BuildTrackSample(_standardAuthor, _singleTrackFile, nameSpec),
+                FileName = BuildTrackSample(_standardAuthor, _multiTrackFile, nameSpec),
                 Author = _standardAuthor,
                 Book = _standardBook,
                 BookFile = _singleTrackFile

@@ -76,10 +76,15 @@ namespace Readarr.Api.V1.Config
             var sampleResource = new NamingExampleResource();
 
             var singleTrackSampleResult = _filenameSampleService.GetStandardTrackSample(nameSpec);
+            var multiDiscTrackSampleResult = _filenameSampleService.GetMultiDiscTrackSample(nameSpec);
 
             sampleResource.SingleBookExample = _filenameValidationService.ValidateTrackFilename(singleTrackSampleResult) != null
                     ? null
                     : singleTrackSampleResult.FileName;
+
+            sampleResource.MultiPartBookExample = _filenameValidationService.ValidateTrackFilename(multiDiscTrackSampleResult) != null
+                ? null
+                : multiDiscTrackSampleResult.FileName;
 
             sampleResource.AuthorFolderExample = nameSpec.AuthorFolderFormat.IsNullOrWhiteSpace()
                 ? null

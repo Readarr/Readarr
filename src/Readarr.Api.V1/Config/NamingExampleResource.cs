@@ -5,6 +5,7 @@ namespace Readarr.Api.V1.Config
     public class NamingExampleResource
     {
         public string SingleBookExample { get; set; }
+        public string MultiPartBookExample { get; set; }
         public string AuthorFolderExample { get; set; }
     }
 

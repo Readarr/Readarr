@@ -25,7 +25,7 @@ namespace NzbDrone.Integration.Test.ApiTests
         {
             var config = NamingConfig.GetSingle();
             config.RenameBooks = false;
-            config.StandardBookFormat = "{Author Name} - {Book Title}";
+            config.StandardBookFormat = "{Author Name} - {Book Title}{ (PartNumber)}";
 
             var result = NamingConfig.Put(config);
             result.RenameBooks.Should().BeFalse();
