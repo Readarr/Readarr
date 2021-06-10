@@ -157,7 +157,8 @@ namespace NzbDrone.Core.Datastore
                                                             new SqlBuilder()
                                                             .Join<Author, AuthorMetadata>((a, m) => a.AuthorMetadataId == m.Id)
                                                             .Join<Author, Book>((l, r) => l.AuthorMetadataId == r.AuthorMetadataId)
-                                                            .Where<Book>(a => a.Id == f.EditionId)).SingleOrDefault(),
+                                                            .Join<Book, Edition>((l, r) => l.Id == r.BookId)
+                                                            .Where<Edition>(a => a.Id == f.EditionId)).SingleOrDefault(),
                           t => t.Id > 0);
 
             Mapper.Entity<QualityDefinition>("QualityDefinitions").RegisterModel()

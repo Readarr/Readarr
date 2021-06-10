@@ -24,7 +24,7 @@ namespace NzbDrone.Core.MediaFiles
 
     public class BookFileMovingService : IMoveBookFiles
     {
-        private readonly IBookService _bookService;
+        private readonly IEditionService _editionService;
         private readonly IUpdateBookFileService _updateBookFileService;
         private readonly IBuildFileNames _buildFileNames;
         private readonly IDiskTransferService _diskTransferService;
@@ -35,7 +35,7 @@ namespace NzbDrone.Core.MediaFiles
         private readonly IConfigService _configService;
         private readonly Logger _logger;
 
-        public BookFileMovingService(IBookService bookService,
+        public BookFileMovingService(IEditionService editionService,
                                       IUpdateBookFileService updateBookFileService,
                                       IBuildFileNames buildFileNames,
                                       IDiskTransferService diskTransferService,
@@ -46,7 +46,7 @@ namespace NzbDrone.Core.MediaFiles
                                       IConfigService configService,
                                       Logger logger)
         {
-            _bookService = bookService;
+            _editionService = editionService;
             _updateBookFileService = updateBookFileService;
             _buildFileNames = buildFileNames;
             _diskTransferService = diskTransferService;
@@ -60,11 +60,11 @@ namespace NzbDrone.Core.MediaFiles
 
         public BookFile MoveBookFile(BookFile bookFile, Author author)
         {
-            var book = _bookService.GetBook(bookFile.EditionId);
-            var newFileName = _buildFileNames.BuildBookFileName(author, bookFile.Edition.Value, bookFile);
-            var filePath = _buildFileNames.BuildBookFilePath(author, bookFile.Edition.Value, newFileName, Path.GetExtension(bookFile.Path));
+            var edition = _editionService.GetEdition(bookFile.EditionId);
+            var newFileName = _buildFileNames.BuildBookFileName(author, edition, bookFile);
+            var filePath = _buildFileNames.BuildBookFilePath(author, edition, newFileName, Path.GetExtension(bookFile.Path));
 
-            EnsureBookFolder(bookFile, author, book, filePath);
+            EnsureBookFolder(bookFile, author, edition.Book.Value, filePath);
 
             _logger.Debug("Renaming book file: {0} to {1}", bookFile, filePath);
 

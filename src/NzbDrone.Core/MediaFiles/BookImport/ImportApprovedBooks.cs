@@ -276,6 +276,7 @@ namespace NzbDrone.Core.MediaFiles.BookImport
             foreach (var bookImport in bookImports)
             {
                 var book = bookImport.First().ImportDecision.Item.Book;
+                var edition = book.Editions.Value.Single(x => x.Monitored);
                 var author = bookImport.First().ImportDecision.Item.Author;
 
                 if (bookImport.Where(e => e.Errors.Count == 0).ToList().Count > 0 && author != null && book != null)
@@ -283,8 +284,8 @@ namespace NzbDrone.Core.MediaFiles.BookImport
                     _eventAggregator.PublishEvent(new BookImportedEvent(
                         author,
                         book,
-                        allImportedTrackFiles.Where(s => s.EditionId == book.Id).ToList(),
-                        allOldTrackFiles.Where(s => s.EditionId == book.Id).ToList(),
+                        allImportedTrackFiles.Where(s => s.EditionId == edition.Id).ToList(),
+                        allOldTrackFiles.Where(s => s.EditionId == edition.Id).ToList(),
                         replaceExisting,
                         downloadClientItem));
                 }
