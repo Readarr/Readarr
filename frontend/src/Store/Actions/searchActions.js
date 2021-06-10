@@ -115,6 +115,7 @@ export const actionHandlers = handleThunks({
     const promise = createAjaxRequest({
       url: '/author',
       method: 'POST',
+      dataType: 'json',
       contentType: 'application/json',
       data: JSON.stringify(newAuthor)
     }).request;
@@ -153,6 +154,7 @@ export const actionHandlers = handleThunks({
     const promise = createAjaxRequest({
       url: '/book',
       method: 'POST',
+      dataType: 'json',
       contentType: 'application/json',
       data: JSON.stringify(newBook)
     }).request;
