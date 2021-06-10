@@ -244,9 +244,31 @@ namespace NzbDrone.Core.Organizer
             {
                 tokenHandlers["{Release Year}"] = m => edition.ReleaseDate.Value.Year.ToString();
             }
+            else if (edition.Book.Value.ReleaseDate.HasValue)
+            {
+                tokenHandlers["{Release Year}"] = m => edition.Book.Value.ReleaseDate.Value.Year.ToString();
+            }
             else
             {
                 tokenHandlers["{Release Year}"] = m => "Unknown";
+            }
+
+            if (edition.ReleaseDate.HasValue)
+            {
+                tokenHandlers["{Edition Year}"] = m => edition.ReleaseDate.Value.Year.ToString();
+            }
+            else
+            {
+                tokenHandlers["{Edition Year}"] = m => "Unknown";
+            }
+
+            if (edition.Book.Value.ReleaseDate.HasValue)
+            {
+                tokenHandlers["{Release YearFirst}"] = m => edition.Book.Value.ReleaseDate.Value.Year.ToString();
+            }
+            else
+            {
+                tokenHandlers["{Release YearFirst}"] = m => "Unknown";
             }
         }
 

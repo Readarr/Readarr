@@ -63,7 +63,9 @@ const bookTokens = [
 ];
 
 const releaseDateTokens = [
-  { token: '{Release Year}', example: '2016' }
+  { token: '{Release Year}', example: '2016' },
+  { token: '{Release YearFirst}', example: '2015' },
+  { token: '{Edition Year}', example: '2016' }
 ];
 
 const qualityTokens = [
