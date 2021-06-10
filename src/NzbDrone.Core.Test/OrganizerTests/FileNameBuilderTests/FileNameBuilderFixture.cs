@@ -38,6 +38,7 @@ namespace NzbDrone.Core.Test.OrganizerTests.FileNameBuilderTests
             _book = Builder<Book>
                 .CreateNew()
                 .With(s => s.Title = "Hybrid Theory")
+                .With(s => s.AuthorMetadata = _author.Metadata.Value)
                 .Build();
 
             _edition = Builder<Edition>
@@ -433,7 +434,7 @@ namespace NzbDrone.Core.Test.OrganizerTests.FileNameBuilderTests
         {
             _namingConfig.StandardBookFormat = "{Author.Name}.{Book.Title}";
 
-            Subject.BuildBookFileName(new Author { Name = "In The Woods." }, new Edition { Title = "30 Rock", Book = new Book() }, _trackFile)
+            Subject.BuildBookFileName(new Author { Name = "In The Woods." }, new Edition { Title = "30 Rock", Book = new Book { AuthorMetadata = new AuthorMetadata { Name = "Author" } } }, _trackFile)
                    .Should().Be("In.The.Woods.30.Rock");
         }
 
@@ -442,7 +443,7 @@ namespace NzbDrone.Core.Test.OrganizerTests.FileNameBuilderTests
         {
             _namingConfig.StandardBookFormat = "{Author.Name}.{Book.Title}";
 
-            Subject.BuildBookFileName(new Author { Name = "In The Woods..." }, new Edition { Title = "30 Rock", Book = new Book() }, _trackFile)
+            Subject.BuildBookFileName(new Author { Name = "In The Woods..." }, new Edition { Title = "30 Rock", Book = new Book { AuthorMetadata = new AuthorMetadata { Name = "Author" } } }, _trackFile)
                    .Should().Be("In.The.Woods.30.Rock");
         }
 
