@@ -87,6 +87,12 @@ class Naming extends Component {
         standardBookFormatErrors.push({ message: 'Single Book: Invalid Format' });
       }
 
+      if (examples.multiPartBookExample) {
+        standardBookFormatHelpTexts.push(`Multi-part Book: ${examples.multiPartBookExample}`);
+      } else {
+        standardBookFormatErrors.push({ message: 'Multi-part Book: Invalid Format' });
+      }
+
       if (examples.authorFolderExample) {
         authorFolderFormatHelpTexts.push(`Example: ${examples.authorFolderExample}`);
       } else {

@@ -247,6 +247,72 @@ namespace NzbDrone.Core.Test.OrganizerTests.FileNameBuilderTests
         }
 
         [Test]
+        public void should_set_part_number()
+        {
+            _namingConfig.StandardBookFormat = "{(PartNumber)}";
+            _trackFile.PartCount = 2;
+            _trackFile.Part = 1;
+
+            Subject.BuildBookFileName(_author, _edition, _trackFile)
+                .Should().Be("(1)");
+        }
+
+        [Test]
+        public void should_set_part_number_with_prefix()
+        {
+            _namingConfig.StandardBookFormat = "{(ptPartNumber)}";
+            _trackFile.PartCount = 2;
+            _trackFile.Part = 1;
+
+            Subject.BuildBookFileName(_author, _edition, _trackFile)
+                .Should().Be("(pt1)");
+        }
+
+        [Test]
+        public void should_set_part_number_with_format()
+        {
+            _namingConfig.StandardBookFormat = "{(ptPartNumber:00)}";
+            _trackFile.PartCount = 2;
+            _trackFile.Part = 1;
+
+            Subject.BuildBookFileName(_author, _edition, _trackFile)
+                .Should().Be("(pt01)");
+        }
+
+        [Test]
+        public void should_set_part_number_and_count_with_format()
+        {
+            _namingConfig.StandardBookFormat = "{(ptPartNumber:00 of PartCount:00)}";
+            _trackFile.PartCount = 2;
+            _trackFile.Part = 1;
+
+            Subject.BuildBookFileName(_author, _edition, _trackFile)
+                .Should().Be("(pt01 of 02)");
+        }
+
+        [Test]
+        public void should_remove_part_token_for_single_files()
+        {
+            _namingConfig.StandardBookFormat = "{(ptPartNumber:00 of PartCount:00)}";
+            _trackFile.PartCount = 1;
+            _trackFile.Part = 1;
+
+            Subject.BuildBookFileName(_author, _edition, _trackFile)
+                .Should().Be("");
+        }
+
+        [Test]
+        public void part_regex_should_not_gobble_others()
+        {
+            _namingConfig.StandardBookFormat = "{Book Title}{ (PartNumber)} - {Author Name}";
+            _trackFile.Part = 1;
+            _trackFile.PartCount = 2;
+
+            Subject.BuildBookFileName(_author, _edition, _trackFile)
+                .Should().Be("Hybrid Theory (1) - Linkin Park");
+        }
+
+        [Test]
         public void should_replace_quality_title()
         {
             _namingConfig.StandardBookFormat = "{Quality Title}";
@@ -367,7 +433,7 @@ namespace NzbDrone.Core.Test.OrganizerTests.FileNameBuilderTests
         {
             _namingConfig.StandardBookFormat = "{Author.Name}.{Book.Title}";
 
-            Subject.BuildBookFileName(new Author { Name = "In The Woods." }, new Edition { Title = "30 Rock" }, _trackFile)
+            Subject.BuildBookFileName(new Author { Name = "In The Woods." }, new Edition { Title = "30 Rock", Book = new Book() }, _trackFile)
                    .Should().Be("In.The.Woods.30.Rock");
         }
 
@@ -376,7 +442,7 @@ namespace NzbDrone.Core.Test.OrganizerTests.FileNameBuilderTests
         {
             _namingConfig.StandardBookFormat = "{Author.Name}.{Book.Title}";
 
-            Subject.BuildBookFileName(new Author { Name = "In The Woods..." }, new Edition { Title = "30 Rock" }, _trackFile)
+            Subject.BuildBookFileName(new Author { Name = "In The Woods..." }, new Edition { Title = "30 Rock", Book = new Book() }, _trackFile)
                    .Should().Be("In.The.Woods.30.Rock");
         }
 

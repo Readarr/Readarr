@@ -35,6 +35,14 @@ const fileNameTokens = [
   {
     token: '{Author.Name}.{Book.Title}.{Quality.Full}',
     example: 'Author.Name.Book.Title.MP3'
+  },
+  {
+    token: '{Author Name} - {Book Title}{ (PartNumber)}',
+    example: 'Author Name - Book Title (2)'
+  },
+  {
+    token: '{Author Name} - {Book Title}{ (PartNumber/PartCount)}',
+    example: 'Author Name - Book Title (2/10)'
   }
 ];
 

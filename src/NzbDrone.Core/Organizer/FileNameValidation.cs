@@ -25,7 +25,7 @@ namespace NzbDrone.Core.Organizer
     public class ValidStandardTrackFormatValidator : PropertyValidator
     {
         public ValidStandardTrackFormatValidator()
-            : base("Must contain Book Title")
+            : base("Must contain Book Title AND PartNumber, OR Original Title")
         {
         }
 
@@ -33,7 +33,8 @@ namespace NzbDrone.Core.Organizer
         {
             var value = context.PropertyValue as string;
 
-            if (!FileNameBuilder.BookTitleRegex.IsMatch(value))
+            if (!(FileNameBuilder.BookTitleRegex.IsMatch(value) && FileNameBuilder.PartRegex.IsMatch(value)) &&
+                !FileNameValidation.OriginalTokenRegex.IsMatch(value))
             {
                 return false;
             }
