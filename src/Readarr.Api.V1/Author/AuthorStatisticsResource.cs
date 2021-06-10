@@ -35,6 +35,7 @@ namespace Readarr.Api.V1.Author
             return new AuthorStatisticsResource
             {
                 BookCount = model.BookCount,
+                TotalBookCount = model.TotalBookCount,
                 BookFileCount = model.BookFileCount,
                 SizeOnDisk = model.SizeOnDisk
             };
