@@ -51,7 +51,7 @@ namespace NzbDrone.Core.Notifications
 
         private string GetBookDownloadMessage(Author author, Book book, List<BookFile> tracks)
         {
-            return string.Format("{0} - {1} ({2} Tracks Imported)",
+            return string.Format("{0} - {1} ({2} Files Imported)",
                 author.Name,
                 book.Title,
                 tracks.Count);
@@ -59,7 +59,7 @@ namespace NzbDrone.Core.Notifications
 
         private string GetBookIncompleteImportMessage(string source)
         {
-            return string.Format("Readarr failed to Import all tracks for {0}",
+            return string.Format("Readarr failed to Import all files for {0}",
                 source);
         }
 

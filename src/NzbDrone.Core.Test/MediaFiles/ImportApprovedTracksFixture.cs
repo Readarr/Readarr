@@ -47,7 +47,10 @@ namespace NzbDrone.Core.Test.MediaFiles
 
             var edition = Builder<Edition>.CreateNew()
                 .With(e => e.Book = book)
+                .With(e => e.Monitored = true)
                 .Build();
+
+            book.Editions = new List<Edition> { edition };
 
             var rootFolder = Builder<RootFolder>.CreateNew()
                 .With(r => r.IsCalibreLibrary = false)
@@ -85,6 +88,10 @@ namespace NzbDrone.Core.Test.MediaFiles
             Mocker.GetMock<IRootFolderService>()
                 .Setup(s => s.GetBestRootFolder(It.IsAny<string>()))
                 .Returns(rootFolder);
+
+            Mocker.GetMock<IEditionService>()
+                .Setup(s => s.SetMonitored(edition))
+                .Returns(new List<Edition> { edition });
         }
 
         [Test]

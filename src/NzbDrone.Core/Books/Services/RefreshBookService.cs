@@ -216,7 +216,7 @@ namespace NzbDrone.Core.Books
 
             // Update book ids for trackfiles
             var files = _mediaFileService.GetFilesByBook(local.Id);
-            files.ForEach(x => x.EditionId = target.Id);
+            files.ForEach(x => x.EditionId = target.Editions.Value.Single(e => e.Monitored).Id);
             _mediaFileService.Update(files);
 
             // Update book ids for history

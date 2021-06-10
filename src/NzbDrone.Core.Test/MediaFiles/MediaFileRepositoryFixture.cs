@@ -165,6 +165,7 @@ namespace NzbDrone.Core.Test.MediaFiles
             }
         }
 
+        [Ignore("Doesn't make sense now we link to edition")]
         [Test]
         public void delete_files_by_book_should_work_if_join_fails()
         {

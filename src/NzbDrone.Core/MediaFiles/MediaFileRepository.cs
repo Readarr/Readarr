@@ -86,12 +86,13 @@ namespace NzbDrone.Core.MediaFiles
 
         public void DeleteFilesByBook(int bookId)
         {
-            Delete(x => x.EditionId == bookId);
+            var fileIds = GetFilesByBook(bookId).Select(x => x.Id).ToList();
+            Delete(x => fileIds.Contains(x.Id));
         }
 
         public void UnlinkFilesByBook(int bookId)
         {
-            var files = Query(x => x.EditionId == bookId);
+            var files = GetFilesByBook(bookId);
             files.ForEach(x => x.EditionId = 0);
             SetFields(files, f => f.EditionId);
         }

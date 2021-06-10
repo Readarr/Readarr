@@ -27,21 +27,21 @@ namespace NzbDrone.Core.Extras
                                 IHandle<AuthorRenamedEvent>
     {
         private readonly IMediaFileService _mediaFileService;
-        private readonly IBookService _bookService;
+        private readonly IEditionService _editionService;
         private readonly IDiskProvider _diskProvider;
         private readonly IConfigService _configService;
         private readonly List<IManageExtraFiles> _extraFileManagers;
         private readonly Logger _logger;
 
         public ExtraService(IMediaFileService mediaFileService,
-                            IBookService bookService,
+                            IEditionService editionService,
                             IDiskProvider diskProvider,
                             IConfigService configService,
                             IEnumerable<IManageExtraFiles> extraFileManagers,
                             Logger logger)
         {
             _mediaFileService = mediaFileService;
-            _bookService = bookService;
+            _editionService = editionService;
             _diskProvider = diskProvider;
             _configService = configService;
             _extraFileManagers = extraFileManagers.OrderBy(e => e.Order).ToList();
@@ -143,11 +143,11 @@ namespace NzbDrone.Core.Extras
         public void Handle(TrackFolderCreatedEvent message)
         {
             var author = message.Author;
-            var book = _bookService.GetBook(message.BookFile.EditionId);
+            var edition = _editionService.GetEdition(message.BookFile.EditionId);
 
             foreach (var extraFileManager in _extraFileManagers)
             {
-                extraFileManager.CreateAfterBookImport(author, book, message.AuthorFolder, message.BookFolder);
+                extraFileManager.CreateAfterBookImport(author, edition.Book.Value, message.AuthorFolder, message.BookFolder);
             }
         }
 
