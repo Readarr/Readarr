@@ -59,15 +59,29 @@ const authorTokens = [
 ];
 
 const bookTokens = [
-  { token: '{Book Title}', example: 'Book Title' },
+  { token: '{Book Title}', example: 'Book Title!: Subtitle!' },
 
-  { token: '{Book TitleThe}', example: 'Book Title, The' },
+  { token: '{Book TitleThe}', example: 'Book Title!, The: Subtitle!' },
 
-  { token: '{Book CleanTitle}', example: 'Book Title' },
+  { token: '{Book CleanTitle}', example: 'Book Title: Subtitle' },
 
-  { token: '{Book Type}', example: 'Book Type' },
+  { token: '{Book TitleNoSub}', example: 'Book Title!' },
 
-  { token: '{Book Disambiguation}', example: 'Disambiguation' }
+  { token: '{Book TitleTheNoSub}', example: 'Book Title!, The' },
+
+  { token: '{Book CleanTitleNoSub}', example: 'Book Title' },
+
+  { token: '{Book Subtitle}', example: 'Subtitle!' },
+
+  { token: '{Book SubtitleThe}', example: 'Subtitle!, The' },
+
+  { token: '{Book CleanSubtitle}', example: 'Subtitle' },
+
+  { token: '{Book Disambiguation}', example: 'Disambiguation' },
+
+  { token: '{PartNumber}', example: '2' },
+
+  { token: '{PartCount}', example: '10' }
 ];
 
 const releaseDateTokens = [

@@ -31,6 +31,7 @@ namespace NzbDrone.Core.Test.OrganizerTests.FileNameBuilderTests
             _book = Builder<Book>
                     .CreateNew()
                     .With(s => s.Title = "Hail to the King")
+                    .With(s => s.AuthorMetadata = _author.Metadata.Value)
                     .Build();
 
             _edition = Builder<Edition>

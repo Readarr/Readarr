@@ -31,6 +31,7 @@ namespace NzbDrone.Core.Test.OrganizerTests.FileNameBuilderTests
             _book = Builder<Book>
                     .CreateNew()
                     .With(s => s.Title = "Anthology")
+                    .With(s => s.AuthorMetadata = _author.Metadata.Value)
                     .Build();
 
             _edition = Builder<Edition>

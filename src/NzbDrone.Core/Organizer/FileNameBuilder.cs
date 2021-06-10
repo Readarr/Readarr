@@ -10,6 +10,7 @@ using NzbDrone.Common.EnsureThat;
 using NzbDrone.Common.Extensions;
 using NzbDrone.Core.Books;
 using NzbDrone.Core.MediaFiles;
+using NzbDrone.Core.Parser;
 using NzbDrone.Core.Profiles.Releases;
 using NzbDrone.Core.Qualities;
 
@@ -44,7 +45,7 @@ namespace NzbDrone.Core.Organizer
         public static readonly Regex AuthorNameRegex = new Regex(@"(?<token>\{(?:Author)(?<separator>[- ._])(Clean)?Name(The)?\})",
                                                                             RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
-        public static readonly Regex BookTitleRegex = new Regex(@"(?<token>\{(?:Book)(?<separator>[- ._])(Clean)?Title(The)?\})",
+        public static readonly Regex BookTitleRegex = new Regex(@"(?<token>\{(?:Book)(?<separator>[- ._])(Clean)?Title(The)?(NoSub)?\})",
                                                                             RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
         private static readonly Regex FileNameCleanupRegex = new Regex(@"([- ._])(\1)+", RegexOptions.Compiled);
@@ -233,6 +234,16 @@ namespace NzbDrone.Core.Organizer
             tokenHandlers["{Book Title}"] = m => edition.Title;
             tokenHandlers["{Book CleanTitle}"] = m => CleanTitle(edition.Title);
             tokenHandlers["{Book TitleThe}"] = m => TitleThe(edition.Title);
+
+            var (titleNoSub, subtitle) = edition.Title.SplitBookTitle(edition.Book.Value.AuthorMetadata.Value.Name);
+
+            tokenHandlers["{Book TitleNoSub}"] = m => titleNoSub;
+            tokenHandlers["{Book CleanTitleNoSub}"] = m => CleanTitle(titleNoSub);
+            tokenHandlers["{Book TitleTheNoSub}"] = m => TitleThe(titleNoSub);
+
+            tokenHandlers["{Book Subtitle}"] = m => subtitle;
+            tokenHandlers["{Book CleanSubtitle}"] = m => CleanTitle(subtitle);
+            tokenHandlers["{Book SubtitleThe}"] = m => TitleThe(subtitle);
 
             if (edition.Disambiguation != null)
             {
