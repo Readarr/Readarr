@@ -58,6 +58,7 @@ namespace NzbDrone.Core.AuthorStats
             {
                 BookStatistics = bookStatistics,
                 BookCount = bookStatistics.Sum(s => s.BookCount),
+                TotalBookCount = bookStatistics.Sum(s => s.TotalBookCount),
                 AuthorId = bookStatistics.First().AuthorId,
                 BookFileCount = bookStatistics.Sum(s => s.BookFileCount),
                 SizeOnDisk = bookStatistics.Sum(s => s.SizeOnDisk)

@@ -7,6 +7,7 @@ namespace NzbDrone.Core.AuthorStats
     {
         public int AuthorId { get; set; }
         public int BookCount { get; set; }
+        public int TotalBookCount { get; set; }
         public int BookFileCount { get; set; }
         public long SizeOnDisk { get; set; }
         public List<BookStatistics> BookStatistics { get; set; }
