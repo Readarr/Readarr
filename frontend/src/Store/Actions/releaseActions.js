@@ -243,6 +243,7 @@ export const actionHandlers = handleThunks({
       url: '/release',
       method: 'POST',
       contentType: 'application/json',
+      dataType: 'json',
       data: JSON.stringify(payload)
     }).request;
 
