@@ -461,5 +461,6 @@
     "ProxyPasswordHelpText": "필요한 경우 사용자 이름과 암호 만 입력하면됩니다. 그렇지 않으면 공백으로 두십시오.",
     "SslCertPathHelpTextWarning": "적용하려면 다시 시작해야합니다.",
     "SslCertPasswordHelpTextWarning": "적용하려면 다시 시작해야합니다.",
-    "UnableToLoadMetadataProfiles": "지연 프로필을로드 할 수 없습니다."
+    "UnableToLoadMetadataProfiles": "지연 프로필을로드 할 수 없습니다.",
+    "DownloadClientCheckDownloadingToRoot": "다운로드 클라이언트 {0}는 루트 폴더 {1}에 다운로드를 저장합니다. 루트 폴더에 다운로드해서는 안됩니다."
 }

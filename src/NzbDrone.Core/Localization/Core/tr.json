@@ -461,5 +461,6 @@
     "Version": "Sürüm",
     "WeekColumnHeader": "Hafta Sütun Başlığı",
     "Year": "Yıl",
-    "YesCancel": "Evet İptal"
+    "YesCancel": "Evet İptal",
+    "DownloadClientCheckDownloadingToRoot": "İndirme istemcisi {0}, indirmeleri kök klasöre yerleştirir {1}. Bir kök klasöre indirmemelisiniz."
 }

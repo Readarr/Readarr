@@ -461,5 +461,6 @@
     "LoadingBooksFailed": "Elokuvatiedostojen lataaminen epäonnistui",
     "ProxyPasswordHelpText": "Käyttäjänimi ja salasana on annettava vain, jos niitä tarvitaan. Jätä ne muuten tyhjiksi.",
     "SslCertPathHelpTextWarning": "Edellyttää uudelleenkäynnistystä voimaantulemiseksi",
-    "UnableToLoadMetadataProfiles": "Viiveprofiileja ei voi ladata"
+    "UnableToLoadMetadataProfiles": "Viiveprofiileja ei voi ladata",
+    "DownloadClientCheckDownloadingToRoot": "Latausohjelma {0} lataa lataukset juurikansioon {1}. Sinun ei pitäisi ladata juurikansioon."
 }

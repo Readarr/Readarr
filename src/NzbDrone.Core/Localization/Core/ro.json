@@ -461,5 +461,6 @@
     "Version": "Versiune",
     "WeekColumnHeader": "Antetul coloanei săptămânii",
     "Year": "An",
-    "YesCancel": "Da, Anulați"
+    "YesCancel": "Da, Anulați",
+    "DownloadClientCheckDownloadingToRoot": "Clientul de descărcare {0} plasează descărcările în folderul rădăcină {1}. Nu trebuie să descărcați într-un folder rădăcină."
 }

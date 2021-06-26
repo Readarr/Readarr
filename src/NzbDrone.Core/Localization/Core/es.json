@@ -462,5 +462,7 @@
     "WeekColumnHeader": "Encabezado de la columna semanal",
     "Year": "Año",
     "YesCancel": "Si, Cancela",
-    "20MinutesTwenty": "20 Minutos: {0}"
+    "20MinutesTwenty": "20 Minutos: {0}",
+    "DownloadClientCheckDownloadingToRoot": "El cliente de descargas {0} coloca las descargas en la carpeta raíz {1}. No debe descargar a una carpeta raíz.",
+    "MaintenanceRelease": "Lanzamiento de mantenimiento"
 }

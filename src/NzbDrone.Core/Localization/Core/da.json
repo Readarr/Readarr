@@ -461,5 +461,6 @@
     "LoadingBooksFailed": "Indlæsning af filmfiler mislykkedes",
     "ProxyPasswordHelpText": "Du skal kun indtaste et brugernavn og en adgangskode, hvis der kræves et. Lad dem være tomme ellers.",
     "SslCertPathHelpTextWarning": "Kræver genstart for at træde i kraft",
-    "UnableToLoadMetadataProfiles": "Kunne ikke indlæse forsinkelsesprofiler"
+    "UnableToLoadMetadataProfiles": "Kunne ikke indlæse forsinkelsesprofiler",
+    "DownloadClientCheckDownloadingToRoot": "Download klient {0} placerer downloads i rodmappen {1}. Du skal ikke downloade til en rodmappe."
 }

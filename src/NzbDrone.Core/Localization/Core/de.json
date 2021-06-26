@@ -502,5 +502,15 @@
     "CalibrePassword": "Calibre Passwort",
     "CalibrePort": "Calibre Port",
     "CalibreUsername": "Calibre Nutzername",
-    "ConsoleLogLevel": "Konsolenprotokollebene"
+    "ConsoleLogLevel": "Konsolenprotokollebene",
+    "DownloadClientCheckDownloadingToRoot": "Download-Client {0} legt Downloads im Stammordner {1} ab. Sie sollten nicht in einen Stammordner herunterladen.",
+    "Series": "Serien",
+    "Season": "Staffel",
+    "Publisher": "Herausgeber",
+    "MaintenanceRelease": "Wartungsupdate",
+    "LogRotation": "Logrotation",
+    "LogRotateHelpText": "Max. Anzahl der zu behaltenden Logdateien",
+    "Label": "Label",
+    "FilterSentryEventsHelpText": "Sende keine bekannten Benutzerfehler Ereignisse an Analystics",
+    "FilterAnalyticsEvents": "Analystische Ergeinisse filtern"
 }

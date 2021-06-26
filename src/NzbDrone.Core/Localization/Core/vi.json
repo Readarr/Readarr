@@ -461,5 +461,6 @@
     "ProxyPasswordHelpText": "Bạn chỉ cần nhập tên người dùng và mật khẩu nếu được yêu cầu. Nếu không, hãy để trống chúng.",
     "SslCertPathHelpTextWarning": "Yêu cầu khởi động lại để có hiệu lực",
     "SslCertPasswordHelpTextWarning": "Yêu cầu khởi động lại để có hiệu lực",
-    "UnableToLoadMetadataProfiles": "Không thể tải hồ sơ độ trễ"
+    "UnableToLoadMetadataProfiles": "Không thể tải hồ sơ độ trễ",
+    "DownloadClientCheckDownloadingToRoot": "Tải xuống ứng dụng khách {0} đặt các bản tải xuống trong thư mục gốc {1}. Bạn không nên tải xuống thư mục gốc."
 }

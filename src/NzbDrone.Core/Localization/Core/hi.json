@@ -461,5 +461,6 @@
     "SslCertPathHelpTextWarning": "प्रभावी करने के लिए पुनरारंभ की आवश्यकता है",
     "SslCertPasswordHelpTextWarning": "प्रभावी करने के लिए पुनरारंभ की आवश्यकता है",
     "Tags": "टैग",
-    "UnableToLoadMetadataProfiles": "विलंब प्रोफाइल लोड करने में असमर्थ"
+    "UnableToLoadMetadataProfiles": "विलंब प्रोफाइल लोड करने में असमर्थ",
+    "DownloadClientCheckDownloadingToRoot": "डाउनलोड क्लाइंट {0} रूट फ़ोल्डर में डाउनलोड करता है {1}। आपको रूट फ़ोल्डर में डाउनलोड नहीं करना चाहिए।"
 }
