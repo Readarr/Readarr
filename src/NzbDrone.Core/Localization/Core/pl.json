@@ -461,5 +461,6 @@
     "UsingExternalUpdateMechanismBranchUsedByExternalUpdateMechanism": "Gałąź używana przez zewnętrzny mechanizm aktualizacji",
     "Version": "Wersja",
     "WeekColumnHeader": "Nagłówek kolumny tygodnia",
-    "YesCancel": "Tak, anuluj"
+    "YesCancel": "Tak, anuluj",
+    "DownloadClientCheckDownloadingToRoot": "Klient pobierania {0} umieszcza pliki do pobrania w folderze głównym {1}. Nie należy pobierać do folderu głównego."
 }

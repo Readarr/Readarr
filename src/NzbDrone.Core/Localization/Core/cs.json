@@ -461,5 +461,6 @@
     "Version": "Verze",
     "WeekColumnHeader": "Záhlaví sloupce týdne",
     "Year": "Rok",
-    "YesCancel": "Ano, zrušit"
+    "YesCancel": "Ano, zrušit",
+    "DownloadClientCheckDownloadingToRoot": "Stahovací klient {0} umístí stažené soubory do kořenové složky {1}. Neměli byste stahovat do kořenové složky."
 }

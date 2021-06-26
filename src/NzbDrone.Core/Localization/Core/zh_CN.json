@@ -455,5 +455,12 @@
     "About": "关于",
     "AddListExclusion": "添加排除列表",
     "DeleteTag": "删除标签",
-    "UnableToLoadTags": "无法加载标签"
+    "UnableToLoadTags": "无法加载标签",
+    "DownloadClientCheckDownloadingToRoot": "下载客户端{0}将下载内容放在根文件夹{1}中。您不应该下载到根文件夹。",
+    "SslPortHelpTextWarning": "重启生效",
+    "SslCertPathHelpTextWarning": "重启生效",
+    "ProxyUsernameHelpText": "如果需要，您只需要输入用户名和密码。否则就让它们为空。",
+    "MaintenanceRelease": "维护版本",
+    "DeleteBookFileMessageText": "您确认您想删除吗？",
+    "ApiKeyHelpTextWarning": "重启生效"
 }

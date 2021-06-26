@@ -461,5 +461,6 @@
     "Version": "Útgáfa",
     "WeekColumnHeader": "Haus vikudálkur",
     "Year": "Ár",
-    "YesCancel": "Já, hætta við"
+    "YesCancel": "Já, hætta við",
+    "DownloadClientCheckDownloadingToRoot": "Sæktu viðskiptavinur {0} setur niðurhal í rótarmöppuna {1}. Þú ættir ekki að hlaða niður í rótarmöppu."
 }

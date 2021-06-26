@@ -461,5 +461,6 @@
     "ShowDateAdded": "הצגת תאריך הוספה",
     "SslCertPathHelpTextWarning": "נדרש הפעלה מחדש כדי להיכנס לתוקף",
     "SslCertPasswordHelpTextWarning": "נדרש הפעלה מחדש כדי להיכנס לתוקף",
-    "UnableToLoadMetadataProfiles": "לא ניתן לטעון פרופילי עיכוב"
+    "UnableToLoadMetadataProfiles": "לא ניתן לטעון פרופילי עיכוב",
+    "DownloadClientCheckDownloadingToRoot": "הורד לקוח {0} ממקם הורדות בתיקיית הבסיס {1}. אתה לא צריך להוריד לתיקיית שורש."
 }

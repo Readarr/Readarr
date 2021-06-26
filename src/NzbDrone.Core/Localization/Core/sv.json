@@ -461,5 +461,6 @@
     "Version": "Version",
     "WeekColumnHeader": "Rubrik för veckokolumn",
     "Year": "År",
-    "YesCancel": "Ja, avbryt"
+    "YesCancel": "Ja, avbryt",
+    "DownloadClientCheckDownloadingToRoot": "Ladda ner klient {0} placerar nedladdningar i rotmappen {1}. Du bör inte ladda ner till en rotmapp."
 }

@@ -461,5 +461,7 @@
     "LoadingBooksFailed": "Laden van filmbestanden is mislukt",
     "ProxyPasswordHelpText": "Je moet alleen een gebruikersnaam en wachtwoord ingeven als dit vereist is, laat ze anders leeg.",
     "SslCertPathHelpTextWarning": "Herstarten vereist om in werking te treden",
-    "UnableToLoadMetadataProfiles": "Vertragingsprofielen kunnen niet worden geladen"
+    "UnableToLoadMetadataProfiles": "Vertragingsprofielen kunnen niet worden geladen",
+    "DownloadClientCheckDownloadingToRoot": "Downloadclient {0} plaatst downloads in de hoofdmap {1}. U mag niet naar een hoofdmap downloaden.",
+    "MaintenanceRelease": "Onderhoudsuitgave"
 }

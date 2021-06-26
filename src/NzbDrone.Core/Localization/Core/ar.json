@@ -462,5 +462,6 @@
     "ProxyUsernameHelpText": "ما عليك سوى إدخال اسم مستخدم وكلمة مرور إذا كان أحدهما مطلوبًا. اتركها فارغة وإلا.",
     "UnableToLoadMetadataProfiles": "تعذر تحميل ملفات تعريف التأخير",
     "UrlBaseHelpTextWarning": "يتطلب إعادة التشغيل ليصبح ساري المفعول",
-    "SslPortHelpTextWarning": "يتطلب إعادة التشغيل ليصبح ساري المفعول"
+    "SslPortHelpTextWarning": "يتطلب إعادة التشغيل ليصبح ساري المفعول",
+    "DownloadClientCheckDownloadingToRoot": "يقوم برنامج التنزيل {0} بوضع التنزيلات في المجلد الجذر {1}. يجب ألا تقوم بالتنزيل إلى مجلد جذر."
 }

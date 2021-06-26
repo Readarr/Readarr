@@ -461,5 +461,6 @@
     "Version": "バージョン",
     "WeekColumnHeader": "週の列ヘッダー",
     "Year": "年",
-    "YesCancel": "はい、キャンセル"
+    "YesCancel": "はい、キャンセル",
+    "DownloadClientCheckDownloadingToRoot": "ダウンロードクライアント{0}は、ダウンロードをルートフォルダ{1}に配置します。ルートフォルダにダウンロードしないでください。"
 }

@@ -459,5 +459,7 @@
     "ProxyPasswordHelpText": "Devi inserire nome utente e password solo se richiesto. Altrimenti lascia vuoto.",
     "SslCertPathHelpTextWarning": "Richiede il riavvio per avere effetti",
     "SslCertPasswordHelpTextWarning": "Richiede il riavvio per avere effetti",
-    "UnableToLoadMetadataProfiles": "Non riesco a caricare i profili di ritardo"
+    "UnableToLoadMetadataProfiles": "Non riesco a caricare i profili di ritardo",
+    "DownloadClientCheckDownloadingToRoot": "Scarica client {0} colloca i download nella cartella principale {1}. Non dovresti scaricare in una cartella principale.",
+    "MaintenanceRelease": "Release di Manutenzione"
 }
