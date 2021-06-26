@@ -5,6 +5,7 @@ import { sortDirections } from 'Helpers/Props';
 import { createThunk, handleThunks } from 'Store/thunks';
 import createAjaxRequest from 'Utilities/createAjaxRequest';
 import serverSideCollectionHandlers from 'Utilities/serverSideCollectionHandlers';
+import translate from 'Utilities/String/translate';
 import { set, updateItem } from './baseActions';
 import createFetchHandler from './Creators/createFetchHandler';
 import createHandleActions from './Creators/createHandleActions';
@@ -57,80 +58,80 @@ export const defaultState = {
     columns: [
       {
         name: 'status',
-        columnLabel: 'Status',
+        columnLabel: translate('Status'),
         isSortable: true,
         isVisible: true,
         isModifiable: false
       },
       {
         name: 'authorMetadata.sortName',
-        label: 'Author',
+        label: translate('Author'),
         isSortable: true,
         isVisible: true
       },
       {
         name: 'books.title',
-        label: 'Book Title',
+        label: translate('BookTitle'),
         isSortable: true,
         isVisible: true
       },
       {
         name: 'books.releaseDate',
-        label: 'Release Date',
+        label: translate('ReleaseDate'),
         isSortable: true,
         isVisible: false
       },
       {
         name: 'quality',
-        label: 'Quality',
+        label: translate('Quality'),
         isSortable: true,
         isVisible: true
       },
       {
         name: 'protocol',
-        label: 'Protocol',
+        label: translate('Protocol'),
         isSortable: true,
         isVisible: false
       },
       {
         name: 'indexer',
-        label: 'Indexer',
+        label: translate('Indexer'),
         isSortable: true,
         isVisible: false
       },
       {
         name: 'downloadClient',
-        label: 'Download Client',
+        label: translate('DownloadClient'),
         isSortable: true,
         isVisible: false
       },
       {
         name: 'title',
-        label: 'Release Title',
+        label: translate('ReleaseTitle'),
         isSortable: true,
         isVisible: false
       },
       {
         name: 'outputPath',
-        label: 'Output Path',
+        label: translate('OutputPath'),
         isSortable: false,
         isVisible: false
       },
       {
         name: 'estimatedCompletionTime',
-        label: 'Timeleft',
+        label: translate('TimeLeft'),
         isSortable: true,
         isVisible: true
       },
       {
         name: 'progress',
-        label: 'Progress',
+        label: translate('Progress'),
         isSortable: true,
         isVisible: true
       },
       {
         name: 'actions',
-        columnLabel: 'Actions',
+        columnLabel: translate('Actions'),
         isVisible: true,
         isModifiable: false
       }
