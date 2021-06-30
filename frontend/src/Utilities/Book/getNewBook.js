@@ -5,7 +5,9 @@ function getNewBook(book, payload) {
     searchForNewBook = false
   } = payload;
 
-  getNewAuthor(book.author, payload);
+  if (!('id' in book.author) || book.author.id === 0) {
+    getNewAuthor(book.author, payload);
+  }
 
   book.addOptions = {
     searchForNewBook
