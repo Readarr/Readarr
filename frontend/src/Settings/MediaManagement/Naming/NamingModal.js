@@ -47,11 +47,11 @@ const fileNameTokens = [
 ];
 
 const authorTokens = [
-  { token: '{Author Name}', example: 'Author Name' },
+  { token: '{Author Name}', example: 'Author\'s Name' },
 
-  { token: '{Author NameThe}', example: 'Author Name, The' },
+  { token: '{Author NameThe}', example: 'Author\'s Name, The' },
 
-  { token: '{Author CleanName}', example: 'Author Name' },
+  { token: '{Author CleanName}', example: 'Authors Name' },
 
   { token: '{Author SortName}', example: 'Name, Author' },
 
@@ -59,17 +59,17 @@ const authorTokens = [
 ];
 
 const bookTokens = [
-  { token: '{Book Title}', example: 'Book Title!: Subtitle!' },
+  { token: '{Book Title}', example: 'The Book\'s Title!: Subtitle!' },
 
-  { token: '{Book TitleThe}', example: 'Book Title!, The: Subtitle!' },
+  { token: '{Book TitleThe}', example: 'Book\'s Title!, The: Subtitle!' },
 
-  { token: '{Book CleanTitle}', example: 'Book Title: Subtitle' },
+  { token: '{Book CleanTitle}', example: 'The Books Title!: Subtitle' },
 
-  { token: '{Book TitleNoSub}', example: 'Book Title!' },
+  { token: '{Book TitleNoSub}', example: 'The Book\'s Title!' },
 
-  { token: '{Book TitleTheNoSub}', example: 'Book Title!, The' },
+  { token: '{Book TitleTheNoSub}', example: 'Book\'s Title!, The' },
 
-  { token: '{Book CleanTitleNoSub}', example: 'Book Title' },
+  { token: '{Book CleanTitleNoSub}', example: 'The Books Title!' },
 
   { token: '{Book Subtitle}', example: 'Subtitle!' },
 
