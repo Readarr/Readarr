@@ -36,7 +36,7 @@ namespace NzbDrone.Core.Notifications.Email
 
             var paths = Settings.AttachFiles ? message.BookFiles.SelectList(a => a.Path) : null;
 
-            SendEmail(Settings, BOOK_DOWNLOADED_TITLE_BRANDED, body, paths);
+            SendEmail(Settings, BOOK_DOWNLOADED_TITLE_BRANDED, body, false, paths);
         }
 
         public override void OnHealthIssue(HealthCheck.HealthCheck message)
@@ -95,16 +95,21 @@ namespace NzbDrone.Core.Notifications.Email
                 Text = body
             };
 
-            _logger.Debug("Sending email Subject: {0}", subject);
-
             if (attachmentUrls != null)
             {
+                var builder = new BodyBuilder();
+                builder.HtmlBody = body;
                 foreach (var url in attachmentUrls)
                 {
-                    email.Attachments.Add(new Attachment(url));
+                    byte[] bytes = System.IO.File.ReadAllBytes(url);
+                    builder.Attachments.Add(url, bytes);
+                    _logger.Trace("Attaching: {0}", url);
                 }
+
+                email.Body = builder.ToMessageBody();
             }
 
+            _logger.Debug("Sending email Subject: {0}", subject);
             try
             {
                 Send(email, settings);
