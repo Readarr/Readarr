@@ -13,6 +13,7 @@
     <PackageReference Include="FluentMigrator.Runner" />
     <PackageReference Include="FluentMigrator.Runner.SQLite" />
     <PackageReference Include="FluentValidation" />
+    <PackageReference Include="MailKit" />
     <PackageReference Include="Newtonsoft.Json" />
     <PackageReference Include="NLog" />
     <PackageReference Include="RestSharp" />

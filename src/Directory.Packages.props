@@ -14,6 +14,7 @@
     <PackageVersion Include="Ical.Net" Version="4.2.0" />
     <PackageVersion Include="ImpromptuInterface" Version="7.0.1" />
     <PackageVersion Include="Kveer.XmlRPC" Version="1.1.1" />
+    <PackageVersion Include="Mailkit" Version="2.10.1" />
     <PackageVersion Include="Microsoft.AspNetCore.SignalR.Client" Version="5.0.7" />
     <PackageVersion Include="Microsoft.Extensions.Configuration" Version="5.0.0" />
     <PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="5.0.1" />
