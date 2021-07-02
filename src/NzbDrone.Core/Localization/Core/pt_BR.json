@@ -701,5 +701,6 @@
     "WriteAudioTagsScrubHelp": "Remover tags existentes dos arquivos, deixando apenas as adicionadas pelo Readarr.",
     "WriteAudioTagsScrub": "Limpar tags existentes",
     "WriteAudioTags": "Marcar arquivos de áudio com metadados",
-    "AudioFileMetadata": "Gravar metadados em arquivos de áudio"
+    "AudioFileMetadata": "Gravar metadados em arquivos de áudio",
+    "Timeleft": "Tempo Restante"
 }

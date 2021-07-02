@@ -376,7 +376,7 @@
     "TestAllLists": "Összes lista tesztelése",
     "ThisWillApplyToAllIndexersPleaseFollowTheRulesSetForthByThem": "Ez minden indexerre vonatkozni fog, kérjük, tartsa be az általuk meghatározott szabályokat",
     "TimeFormat": "Időformátum",
-    "Title": "Letöltés Alatt",
+    "Title": "Cím",
     "TorrentDelay": "Torrent késleltetés",
     "TorrentDelayHelpText": "Eltolás percekben, mielőtt a torrentkliens elkezdi a letöltést",
     "Torrents": "Torrentek",
@@ -701,5 +701,17 @@
     "WriteAudioTagsScrubHelp": "Távolítsa el a meglévő címkéket a fájlokból, és csak azokat hagyja meg, amelyeket a Readarr adott hozzá.",
     "WriteAudioTagsScrub": "Meglévő címkék törlése",
     "WriteAudioTags": "Audiófájlok címkézése metaadatokkal",
-    "AudioFileMetadata": "Metaadatok írása az Audió fájl(ok)ba"
+    "AudioFileMetadata": "Metaadatok írása az Audió fájl(ok)ba",
+    "UI": "Felület",
+    "Type": "Típus",
+    "Trigger": "Trigger",
+    "Tomorrow": "Holnap",
+    "Today": "Ma",
+    "Titles": "Címek",
+    "Timeleft": "Hátralévő idő",
+    "ReleaseTitle": "Kiadás címe",
+    "Progress": "Folyamat",
+    "OutputPath": "Kimeneti út",
+    "BookTitle": "Könyv Címe",
+    "Actions": "Teendők"
 }
