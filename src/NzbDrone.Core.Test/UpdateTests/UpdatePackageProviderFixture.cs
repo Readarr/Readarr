@@ -33,12 +33,13 @@ namespace NzbDrone.Core.Test.UpdateTests
         }
 
         [Test]
-        [Ignore("Ignore until we actually release something on Master")]
+        [Ignore("Ignore until we actually release something on Main")]
         public void should_get_master_if_branch_doesnt_exit()
         {
             UseRealHttp();
             Subject.GetLatestUpdate("invalid_branch", new Version(0, 2)).Should().NotBeNull();
         }
+
 
         [Test]
         public void should_get_recent_updates()

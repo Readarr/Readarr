@@ -1,10 +1,14 @@
-using System;
-using System.IO;
-using System.Text.RegularExpressions;
 using NzbDrone.Common.Disk;
 using NzbDrone.Common.EnvironmentInfo;
 using NzbDrone.Common.Extensions;
 using NzbDrone.Core.Update;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 
 namespace NzbDrone.Core.Configuration
 {
@@ -12,6 +16,7 @@ namespace NzbDrone.Core.Configuration
     {
         string PackageVersion { get; }
         string PackageAuthor { get; }
+        string PackageGlobalMessage { get; }
         string PackageBranch { get; }
         UpdateMechanism PackageUpdateMechanism { get; }
         string PackageUpdateMechanismMessage { get; }
@@ -33,7 +38,7 @@ namespace NzbDrone.Core.Configuration
             var releaseInfoPath = Path.Combine(bin, "release_info");
 
             PackageUpdateMechanism = UpdateMechanism.BuiltIn;
-            DefaultBranch = "aphrodite";
+            DefaultBranch = "main";
 
             if (Path.GetFileName(bin) == "bin" && diskProvider.FileExists(packageInfoPath))
             {
@@ -41,6 +46,7 @@ namespace NzbDrone.Core.Configuration
 
                 PackageVersion = ReadValue(data, "PackageVersion");
                 PackageAuthor = ReadValue(data, "PackageAuthor");
+                PackageGlobalMessage = ReadValue(data, "PackageGlobalMessage");
                 PackageUpdateMechanism = ReadEnumValue(data, "UpdateMethod", UpdateMechanism.BuiltIn);
                 PackageUpdateMechanismMessage = ReadValue(data, "UpdateMethodMessage");
                 PackageBranch = ReadValue(data, "Branch");
@@ -94,6 +100,7 @@ namespace NzbDrone.Core.Configuration
 
         public string PackageVersion { get; private set; }
         public string PackageAuthor { get; private set; }
+        public string PackageGlobalMessage { get; private set; }
         public string PackageBranch { get; private set; }
         public UpdateMechanism PackageUpdateMechanism { get; private set; }
         public string PackageUpdateMechanismMessage { get; private set; }
