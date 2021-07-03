@@ -38,7 +38,7 @@ namespace Readarr.Api.V1
                 Tags = definition.Tags,
                 Fields = SchemaBuilder.ToSchema(definition.Settings),
 
-                InfoLink = string.Format("https://wiki.servarr.com/Readarr_Supported_{0}",
+                InfoLink = string.Format("https://wiki.servarr.com/readarr/supported-{0}",
                     definition.Implementation.ToLower())
             };
         }

@@ -129,7 +129,7 @@ class FileBrowserModalContent extends Component {
                 className={styles.mappedDrivesWarning}
                 kind={kinds.WARNING}
               >
-                Mapped network drives are not available when running as a Windows Service, see the <Link className={styles.faqLink} to="https://wiki.servarr.com/Readarr_FAQ">FAQ</Link> for more information.
+                Mapped network drives are not available when running as a Windows Service, see the <Link className={styles.faqLink} to="https://wiki.servarr.com/readarr/faq">FAQ</Link> for more information.
               </Alert>
           }
 

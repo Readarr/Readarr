@@ -68,7 +68,7 @@ function UpdateSettings(props) {
           type={inputTypes.TEXT}
           name="branch"
           helpText={usingExternalUpdateMechanism ? translate('UsingExternalUpdateMechanismBranchUsedByExternalUpdateMechanism') : translate('UsingExternalUpdateMechanismBranchToUseToUpdateReadarr')}
-          helpLink="https://wiki.servarr.com/Readarr_FAQ#How_do_I_update_my_Readarr"
+          helpLink="https://wiki.servarr.com/readarr/faq#how-do-I-update-my-readarr"
           {...branch}
           onChange={onInputChange}
           readOnly={usingExternalUpdateMechanism}
@@ -109,7 +109,7 @@ function UpdateSettings(props) {
                 name="updateMechanism"
                 values={updateOptions}
                 helpText={translate('UpdateMechanismHelpText')}
-                helpLink="https://wiki.servarr.com/Readarr_FAQ#How_do_I_update_my_Readarr"
+                helpLink="https://wiki.servarr.com/readarr/faq#how-do-i-update-my-readarr"
                 onChange={onInputChange}
                 {...updateMechanism}
               />

@@ -29,7 +29,7 @@ namespace NzbDrone.Core.HealthCheck.Checks
 
             if (mounts.Any())
             {
-                return new HealthCheck(GetType(), HealthCheckResult.Error, "Mount containing a author path is mounted read-only: " + string.Join(",", mounts.Select(m => m.Name)), "#author_mount_ro");
+                return new HealthCheck(GetType(), HealthCheckResult.Error, "Mount containing a author path is mounted read-only: " + string.Join(",", mounts.Select(m => m.Name)), "#author-mount-ro");
             }
 
             return new HealthCheck(GetType());
