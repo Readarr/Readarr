@@ -702,5 +702,6 @@
     "WriteAudioTagsScrub": "Limpar tags existentes",
     "WriteAudioTags": "Marcar arquivos de áudio com metadados",
     "AudioFileMetadata": "Gravar metadados em arquivos de áudio",
-    "Timeleft": "Tempo Restante"
+    "Timeleft": "Tempo restante",
+    "IndexerIdHelpTextWarning": "Usar um indexador específico com as palavras preferidas pode acarretar na obtenção de lançamentos duplicados"
 }
