@@ -68,6 +68,7 @@
     "ChownGroupHelpTextWarning": "Þetta virkar aðeins ef notandinn sem keyrir Radarr er eigandi skráarinnar. Það er betra að tryggja að niðurhalsviðskiptavinurinn noti sama hóp og Radarr.",
     "ClickToChangeQuality": "Smelltu til að breyta gæðum",
     "ClientPriority": "Forgangur viðskiptavinar",
+    "CloneIndexer": "Clone Indexer",
     "CloneProfile": "Klónasnið",
     "Close": "Lokaðu",
     "Columns": "Súlur",

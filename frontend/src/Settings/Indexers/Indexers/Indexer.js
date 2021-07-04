@@ -87,7 +87,7 @@ class Indexer extends Component {
 
           <IconButton
             className={styles.cloneButton}
-            title={translate('CloneProfile')}
+            title={translate('CloneIndexer')}
             name={icons.CLONE}
             onPress={this.onCloneIndexerPress}
           />
