@@ -127,10 +127,9 @@ namespace NzbDrone.Common.Http.Dispatchers
                 {
                     try
                     {
-                        if (request.ResponseStream != null && httpWebResponse.StatusCode == HttpStatusCode.OK)
+                        if (request.ResponseStream != null)
                         {
                             // A target ResponseStream was specified, write to that instead.
-                            // But only on the OK status code, since we don't want to write failures and redirects.
                             responseStream.CopyTo(request.ResponseStream);
                         }
                         else
