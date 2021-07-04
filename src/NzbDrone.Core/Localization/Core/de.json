@@ -512,5 +512,6 @@
     "LogRotateHelpText": "Max. Anzahl der zu behaltenden Logdateien",
     "Label": "Label",
     "FilterSentryEventsHelpText": "Sende keine bekannten Benutzerfehler Ereignisse an Analystics",
-    "FilterAnalyticsEvents": "Analystische Ergeinisse filtern"
+    "FilterAnalyticsEvents": "Analystische Ergeinisse filtern",
+    "Timeleft": "Restzeit"
 }
