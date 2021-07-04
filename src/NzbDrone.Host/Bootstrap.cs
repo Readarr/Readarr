@@ -130,9 +130,8 @@ namespace NzbDrone.Host
                     c.AutoAddServices(Bootstrap.ASSEMBLIES)
                         .AddNzbDroneLogger()
                         .AddDatabase()
+                        .AddStartupContext(context)
                         .Resolve<IEventAggregator>().PublishEvent(new ApplicationStartingEvent());
-
-                    c.AddStartupContext(context);
                 })
                 .ConfigureWebHost(builder =>
                 {
