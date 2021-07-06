@@ -391,7 +391,7 @@
     "TestAllLists": "Testaa kaikki luettelot",
     "ThisWillApplyToAllIndexersPleaseFollowTheRulesSetForthByThem": "Tämä koskee kaikkia indeksoijia. Noudata heidän asettamiaan sääntöjä",
     "TimeFormat": "Aikamuoto",
-    "Title": "Ladataan",
+    "Title": "Otsikko",
     "TorrentDelay": "Torrentin viive",
     "TorrentDelayHelpText": "Odota muutamassa minuutissa odottamaan torrentia",
     "Torrents": "Torrentit",
@@ -463,5 +463,16 @@
     "ProxyPasswordHelpText": "Käyttäjänimi ja salasana on annettava vain, jos niitä tarvitaan. Jätä ne muuten tyhjiksi.",
     "SslCertPathHelpTextWarning": "Edellyttää uudelleenkäynnistystä voimaantulemiseksi",
     "UnableToLoadMetadataProfiles": "Viiveprofiileja ei voi ladata",
-    "DownloadClientCheckDownloadingToRoot": "Latausohjelma {0} lataa lataukset juurikansioon {1}. Sinun ei pitäisi ladata juurikansioon."
+    "DownloadClientCheckDownloadingToRoot": "Latausohjelma {0} lataa lataukset juurikansioon {1}. Sinun ei pitäisi ladata juurikansioon.",
+    "ReplaceIllegalCharactersHelpText": "Korvaa laittomat merkit. Jos valitsematta, Radarr poistaa ne",
+    "Trigger": "Laukaista",
+    "Type": "Tyyppi",
+    "OutputPath": "Lähtöpolku",
+    "Progress": "Edistyminen",
+    "Titles": "Nimikkeet",
+    "UI": "UI",
+    "Actions": "Toiminnot",
+    "ReleaseTitle": "Julkaisun otsikko",
+    "Today": "Tänään",
+    "Tomorrow": "Huomenna"
 }
