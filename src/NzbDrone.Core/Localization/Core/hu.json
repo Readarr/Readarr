@@ -667,7 +667,7 @@
     "SceneInformation": "Jelenet információ",
     "RootFolderPathHelpText": "A gyökérmappa listaelemei hozzáadódnak a mappához",
     "RescanAfterRefreshHelpText": "A szerző frissítése után vizsgálja át a szerzői mappát",
-    "ReplaceIllegalCharactersHelpText": "Az illegális karakterek cseréje vagy eltávolítása",
+    "ReplaceIllegalCharactersHelpText": "Helyettesítse az illegális karaktereket. Ha nincs bejelölve, akkor a Readarr eltávolítja őket",
     "RenameBooks": "Könyvek átnevezése",
     "ReleaseProfiles": "Kiadási profilok",
     "RefreshInformation": "Információk frissítése",
@@ -714,5 +714,6 @@
     "Progress": "Folyamat",
     "OutputPath": "Kimeneti út",
     "BookTitle": "Könyv Címe",
-    "Actions": "Teendők"
+    "Actions": "Teendők",
+    "IndexerIdHelpTextWarning": "Egy adott indexer előnyben részesített szavakkal történő használata megismételt kiadások kiválasztásához vezethet"
 }
