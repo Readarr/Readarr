@@ -267,7 +267,7 @@
   "IconTooltip": "Scheduled",
   "IfYouDontAddAnImportListExclusionAndTheAuthorHasAMetadataProfileOtherThanNoneThenThisBookMayBeReaddedDuringTheNextAuthorRefresh": "If you don't add an import list exclusion and the author has a metadata profile other than 'None' then this book may be re-added during the next author refresh.",
   "IgnoredAddresses": "Ignored Addresses",
-  "IgnoreDeletedBooks": "Ignore Deleted Books",
+  "IgnoreDeletedBooks": "Unmonitor Deleted Books",
   "IgnoredHelpText": "The release will be rejected if it contains one or more of terms (case insensitive)",
   "IgnoredPlaceHolder": "Add new restriction",
   "IllRestartLater": "I'll restart later",
