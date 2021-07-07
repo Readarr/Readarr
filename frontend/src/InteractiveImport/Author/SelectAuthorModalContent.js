@@ -56,7 +56,7 @@ class SelectAuthorModalContent extends Component {
         >
           <TextInput
             className={styles.filterInput}
-            placeholder={translate('FilterPlaceHolder')}
+            placeholder={translate('FilterAuthor')}
             name="filter"
             value={filter}
             autoFocus={true}
