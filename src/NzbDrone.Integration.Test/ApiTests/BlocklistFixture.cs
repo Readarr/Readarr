@@ -1,22 +1,22 @@
 using FluentAssertions;
 using NUnit.Framework;
 using Readarr.Api.V1.Author;
-using Readarr.Api.V1.Blacklist;
+using Readarr.Api.V1.Blocklist;
 
 namespace NzbDrone.Integration.Test.ApiTests
 {
     [TestFixture]
-    public class BlacklistFixture : IntegrationTest
+    public class BlocklistFixture : IntegrationTest
     {
         private AuthorResource _author;
 
         [Test]
-        [Ignore("Adding to blacklist not supported")]
-        public void should_be_able_to_add_to_blacklist()
+        [Ignore("Adding to blocklist not supported")]
+        public void should_be_able_to_add_to_blocklist()
         {
             _author = EnsureAuthor("14586394", "43765115", "Andrew Hunter Murray");
 
-            Blacklist.Post(new BlacklistResource
+            Blocklist.Post(new BlocklistResource
             {
                 AuthorId = _author.Id,
                 SourceTitle = "Blacklist - Book 1 [2015 FLAC]"
@@ -24,10 +24,10 @@ namespace NzbDrone.Integration.Test.ApiTests
         }
 
         [Test]
-        [Ignore("Adding to blacklist not supported")]
-        public void should_be_able_to_get_all_blacklisted()
+        [Ignore("Adding to blocklist not supported")]
+        public void should_be_able_to_get_all_blocklisted()
         {
-            var result = Blacklist.GetPaged(0, 1000, "date", "desc");
+            var result = Blocklist.GetPaged(0, 1000, "date", "desc");
 
             result.Should().NotBeNull();
             result.TotalRecords.Should().Be(1);
@@ -35,12 +35,12 @@ namespace NzbDrone.Integration.Test.ApiTests
         }
 
         [Test]
-        [Ignore("Adding to blacklist not supported")]
-        public void should_be_able_to_remove_from_blacklist()
+        [Ignore("Adding to blocklist not supported")]
+        public void should_be_able_to_remove_from_blocklist()
         {
-            Blacklist.Delete(1);
+            Blocklist.Delete(1);
 
-            var result = Blacklist.GetPaged(0, 1000, "date", "desc");
+            var result = Blocklist.GetPaged(0, 1000, "date", "desc");
 
             result.Should().NotBeNull();
             result.TotalRecords.Should().Be(0);

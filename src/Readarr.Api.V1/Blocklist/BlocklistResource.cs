@@ -5,9 +5,9 @@ using NzbDrone.Core.Qualities;
 using Readarr.Api.V1.Author;
 using Readarr.Http.REST;
 
-namespace Readarr.Api.V1.Blacklist
+namespace Readarr.Api.V1.Blocklist
 {
-    public class BlacklistResource : RestResource
+    public class BlocklistResource : RestResource
     {
         public int AuthorId { get; set; }
         public List<int> BookIds { get; set; }
@@ -21,16 +21,16 @@ namespace Readarr.Api.V1.Blacklist
         public AuthorResource Author { get; set; }
     }
 
-    public static class BlacklistResourceMapper
+    public static class BlocklistResourceMapper
     {
-        public static BlacklistResource MapToResource(this NzbDrone.Core.Blacklisting.Blacklist model)
+        public static BlocklistResource MapToResource(this NzbDrone.Core.Blocklisting.Blocklist model)
         {
             if (model == null)
             {
                 return null;
             }
 
-            return new BlacklistResource
+            return new BlocklistResource
             {
                 Id = model.Id,
 

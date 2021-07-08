@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 
-namespace Readarr.Api.V1.Blacklist
+namespace Readarr.Api.V1.Blocklist
 {
-    public class BlacklistBulkResource
+    public class BlocklistBulkResource
     {
         public List<int> Ids { get; set; }
     }

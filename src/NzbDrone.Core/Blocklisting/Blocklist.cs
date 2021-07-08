@@ -5,9 +5,9 @@ using NzbDrone.Core.Datastore;
 using NzbDrone.Core.Indexers;
 using NzbDrone.Core.Qualities;
 
-namespace NzbDrone.Core.Blacklisting
+namespace NzbDrone.Core.Blocklisting
 {
-    public class Blacklist : ModelBase
+    public class Blocklist : ModelBase
     {
         public int AuthorId { get; set; }
         public Author Author { get; set; }

@@ -19,9 +19,9 @@ import getSelectedIds from 'Utilities/Table/getSelectedIds';
 import removeOldSelectedState from 'Utilities/Table/removeOldSelectedState';
 import selectAll from 'Utilities/Table/selectAll';
 import toggleSelected from 'Utilities/Table/toggleSelected';
-import BlacklistRowConnector from './BlacklistRowConnector';
+import BlocklistRowConnector from './BlocklistRowConnector';
 
-class Blacklist extends Component {
+class Blocklist extends Component {
 
   //
   // Lifecycle
@@ -103,8 +103,8 @@ class Blacklist extends Component {
       columns,
       totalRecords,
       isRemoving,
-      isClearingBlacklistExecuting,
-      onClearBlacklistPress,
+      isClearingBlocklistExecuting,
+      onClearBlocklistPress,
       ...otherProps
     } = this.props;
 
@@ -121,7 +121,7 @@ class Blacklist extends Component {
     const selectedIds = this.getSelectedIds();
 
     return (
-      <PageContent title={translate('Blacklist')}>
+      <PageContent title={translate('Blocklist')}>
         <PageToolbar>
           <PageToolbarSection>
             <PageToolbarButton
@@ -135,8 +135,8 @@ class Blacklist extends Component {
             <PageToolbarButton
               label={translate('Clear')}
               iconName={icons.CLEAR}
-              isSpinning={isClearingBlacklistExecuting}
-              onPress={onClearBlacklistPress}
+              isSpinning={isClearingBlocklistExecuting}
+              onPress={onClearBlocklistPress}
             />
           </PageToolbarSection>
 
@@ -162,14 +162,14 @@ class Blacklist extends Component {
           {
             !isAnyFetching && !!error &&
               <div>
-                {translate('UnableToLoadBlacklist')}
+                {translate('UnableToLoadBlocklist')}
               </div>
           }
 
           {
             isAllPopulated && !error && !items.length &&
               <div>
-                No history blacklist
+                {translate('NoHistoryBlocklist')}
               </div>
           }
 
@@ -188,7 +188,7 @@ class Blacklist extends Component {
                     {
                       items.map((item) => {
                         return (
-                          <BlacklistRowConnector
+                          <BlocklistRowConnector
                             key={item.id}
                             isSelected={selectedState[item.id] || false}
                             columns={columns}
@@ -224,7 +224,7 @@ class Blacklist extends Component {
   }
 }
 
-Blacklist.propTypes = {
+Blocklist.propTypes = {
   isAuthorFetching: PropTypes.bool.isRequired,
   isAuthorPopulated: PropTypes.bool.isRequired,
   isFetching: PropTypes.bool.isRequired,
@@ -234,9 +234,9 @@ Blacklist.propTypes = {
   columns: PropTypes.arrayOf(PropTypes.object).isRequired,
   totalRecords: PropTypes.number,
   isRemoving: PropTypes.bool.isRequired,
-  isClearingBlacklistExecuting: PropTypes.bool.isRequired,
+  isClearingBlocklistExecuting: PropTypes.bool.isRequired,
   onRemoveSelected: PropTypes.func.isRequired,
-  onClearBlacklistPress: PropTypes.func.isRequired
+  onClearBlocklistPress: PropTypes.func.isRequired
 };
 
-export default Blacklist;
+export default Blocklist;
