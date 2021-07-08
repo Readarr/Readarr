@@ -4,7 +4,7 @@ import * as authorDetails from './authorDetailsActions';
 import * as authorEditor from './authorEditorActions';
 import * as authorHistory from './authorHistoryActions';
 import * as authorIndex from './authorIndexActions';
-import * as blacklist from './blacklistActions';
+import * as blocklist from './blocklistActions';
 import * as books from './bookActions';
 import * as bookFiles from './bookFileActions';
 import * as bookHistory from './bookHistoryActions';
@@ -37,7 +37,7 @@ export default [
   authorEditor,
   authorHistory,
   authorIndex,
-  blacklist,
+  blocklist,
   bookFiles,
   bookHistory,
   bookIndex,

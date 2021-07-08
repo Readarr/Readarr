@@ -9,10 +9,10 @@ import TableSelectCell from 'Components/Table/Cells/TableSelectCell';
 import TableRow from 'Components/Table/TableRow';
 import { icons, kinds } from 'Helpers/Props';
 import translate from 'Utilities/String/translate';
-import BlacklistDetailsModal from './BlacklistDetailsModal';
-import styles from './BlacklistRow.css';
+import BlocklistDetailsModal from './BlocklistDetailsModal';
+import styles from './BlocklistRow.css';
 
-class BlacklistRow extends Component {
+class BlocklistRow extends Component {
 
   //
   // Lifecycle
@@ -142,7 +142,7 @@ class BlacklistRow extends Component {
                   />
 
                   <IconButton
-                    title={translate('RemoveFromBlacklist')}
+                    title={translate('RemoveFromBlocklist')}
                     name={icons.REMOVE}
                     kind={kinds.DANGER}
                     onPress={onRemovePress}
@@ -155,7 +155,7 @@ class BlacklistRow extends Component {
           })
         }
 
-        <BlacklistDetailsModal
+        <BlocklistDetailsModal
           isOpen={this.state.isDetailsModalOpen}
           sourceTitle={sourceTitle}
           protocol={protocol}
@@ -169,7 +169,7 @@ class BlacklistRow extends Component {
 
 }
 
-BlacklistRow.propTypes = {
+BlocklistRow.propTypes = {
   id: PropTypes.number.isRequired,
   author: PropTypes.object.isRequired,
   sourceTitle: PropTypes.string.isRequired,
@@ -184,4 +184,4 @@ BlacklistRow.propTypes = {
   onRemovePress: PropTypes.func.isRequired
 };
 
-export default BlacklistRow;
+export default BlocklistRow;

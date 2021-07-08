@@ -1,6 +1,6 @@
 import { get, set } from 'lodash';
 
-const TABLES_TO_MIGRATE = ['blacklist', 'history', 'queue.paged', 'wanted.missing', 'wanted.cutoffUnmet'];
+const TABLES_TO_MIGRATE = ['blocklist', 'history', 'queue.paged', 'wanted.missing', 'wanted.cutoffUnmet'];
 
 export default function migrateAuthorSortKey(persistedState) {
 

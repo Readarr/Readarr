@@ -22,7 +22,7 @@ class RemoveQueueItemModal extends Component {
 
     this.state = {
       remove: true,
-      blacklist: false,
+      blocklist: false,
       skipredownload: false
     };
   }
@@ -33,7 +33,7 @@ class RemoveQueueItemModal extends Component {
   resetState = function() {
     this.setState({
       remove: true,
-      blacklist: false,
+      blocklist: false,
       skipredownload: false
     });
   }
@@ -45,8 +45,8 @@ class RemoveQueueItemModal extends Component {
     this.setState({ remove: value });
   }
 
-  onBlacklistChange = ({ value }) => {
-    this.setState({ blacklist: value });
+  onBlocklistChange = ({ value }) => {
+    this.setState({ blocklist: value });
   }
 
   onSkipReDownloadChange = ({ value }) => {
@@ -75,7 +75,7 @@ class RemoveQueueItemModal extends Component {
       canIgnore
     } = this.props;
 
-    const { remove, blacklist, skipredownload } = this.state;
+    const { remove, blocklist, skipredownload } = this.state;
 
     return (
       <Modal
@@ -112,20 +112,20 @@ class RemoveQueueItemModal extends Component {
 
             <FormGroup>
               <FormLabel>
-                {translate('BlacklistRelease')}
+                {translate('BlocklistRelease')}
               </FormLabel>
 
               <FormInputGroup
                 type={inputTypes.CHECK}
-                name="blacklist"
-                value={blacklist}
-                helpText={translate('BlacklistHelpText')}
-                onChange={this.onBlacklistChange}
+                name="blocklist"
+                value={blocklist}
+                helpText={translate('BlocklistHelpText')}
+                onChange={this.onBlocklistChange}
               />
             </FormGroup>
 
             {
-              blacklist &&
+              blocklist &&
                 <FormGroup>
                   <FormLabel>
                     {translate('SkipRedownload')}
