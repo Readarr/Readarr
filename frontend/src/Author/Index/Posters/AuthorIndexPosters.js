@@ -100,8 +100,8 @@ class AuthorIndexPosters extends Component {
       columnCount: 1,
       posterWidth: 238,
       posterHeight: 238,
-      rowHeight: calculateRowHeight(238, null, props.isSmallScreen, {}),
-      scrollRestored: false
+      rowHeight: calculateRowHeight(238, null, props.isSmallScreen, {})
+
     };
 
     this._isInitialized = false;
@@ -123,8 +123,7 @@ class AuthorIndexPosters extends Component {
       width,
       columnWidth,
       columnCount,
-      rowHeight,
-      scrollRestored
+      rowHeight
     } = this.state;
 
     if (prevProps.sortKey !== sortKey ||
@@ -142,11 +141,6 @@ class AuthorIndexPosters extends Component {
       this._grid.recomputeGridSize();
     }
 
-    if (this._grid && scrollTop !== 0 && !scrollRestored) {
-      this.setState({ scrollRestored: true });
-      this._grid.scrollToPosition({ scrollTop });
-    }
-
     if (jumpToCharacter != null && jumpToCharacter !== prevProps.jumpToCharacter) {
       const index = getIndexOfFirstCharacter(items, jumpToCharacter);
 
@@ -158,6 +152,10 @@ class AuthorIndexPosters extends Component {
           columnIndex: 0
         });
       }
+    }
+
+    if (this._grid && scrollTop !== 0) {
+      this._grid.scrollToPosition({ scrollTop });
     }
   }
 
@@ -213,8 +211,7 @@ class AuthorIndexPosters extends Component {
       showQualityProfile
     } = posterOptions;
 
-    const authorIdx = rowIndex * columnCount + columnIndex;
-    const author = items[authorIdx];
+    const author = items[rowIndex * columnCount + columnIndex];
 
     if (!author) {
       return null;
@@ -278,6 +275,7 @@ class AuthorIndexPosters extends Component {
 
     return (
       <Measure
+        whitelist={['width']}
         onMeasure={this.onMeasure}
       >
         <WindowScroller
