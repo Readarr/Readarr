@@ -63,6 +63,7 @@ namespace NzbDrone.Core.Annotations
         Captcha,
         OAuth,
         Device,
+        TagSelect,
         Bookshelf
     }
 
