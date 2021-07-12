@@ -38,7 +38,8 @@ namespace Readarr.Api.V1
                 Tags = definition.Tags,
                 Fields = SchemaBuilder.ToSchema(definition.Settings),
 
-                InfoLink = string.Format("https://wiki.servarr.com/readarr/supported-{0}",
+                //readarr/supported is an disambagation page. the # should be a header on the page with appropiate details/link
+                InfoLink = string.Format("https://wiki.servarr.com/readarr/supported#{0}",
                     definition.Implementation.ToLower())
             };
         }
