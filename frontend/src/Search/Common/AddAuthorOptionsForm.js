@@ -61,7 +61,7 @@ class AddAuthorOptionsForm extends Component {
 
         <FormGroup>
           <FormLabel>
-            Monitor
+            {translate('Monitor')}
 
             <Popover
               anchor={
