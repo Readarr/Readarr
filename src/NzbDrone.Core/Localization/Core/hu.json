@@ -715,5 +715,6 @@
     "OutputPath": "Kimeneti út",
     "BookTitle": "Könyv Címe",
     "Actions": "Teendők",
-    "IndexerIdHelpTextWarning": "Egy adott indexer előnyben részesített szavakkal történő használata megismételt kiadások kiválasztásához vezethet"
+    "IndexerIdHelpTextWarning": "Egy adott indexer előnyben részesített szavakkal történő használata megismételt kiadások kiválasztásához vezethet",
+    "FilterAuthor": "Szűrés Szerzőre"
 }

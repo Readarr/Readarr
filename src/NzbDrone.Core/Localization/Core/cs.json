@@ -397,7 +397,7 @@
     "TestAllLists": "Vyzkoušejte všechny seznamy",
     "ThisWillApplyToAllIndexersPleaseFollowTheRulesSetForthByThem": "To bude platit pro všechny indexery, dodržujte prosím pravidla stanovená nimi",
     "TimeFormat": "Časový formát",
-    "Title": "Stahování",
+    "Title": "Titul",
     "TorrentDelay": "Torrent Delay",
     "TorrentDelayHelpText": "Zpoždění v minutách čekání před popadnutím torrentu",
     "Torrents": "Torrenty",
@@ -463,5 +463,16 @@
     "WeekColumnHeader": "Záhlaví sloupce týdne",
     "Year": "Rok",
     "YesCancel": "Ano, zrušit",
-    "DownloadClientCheckDownloadingToRoot": "Stahovací klient {0} umístí stažené soubory do kořenové složky {1}. Neměli byste stahovat do kořenové složky."
+    "DownloadClientCheckDownloadingToRoot": "Stahovací klient {0} umístí stažené soubory do kořenové složky {1}. Neměli byste stahovat do kořenové složky.",
+    "UI": "UI",
+    "ReplaceIllegalCharactersHelpText": "Nahraďte nepovolené znaky. Pokud není zaškrtnuto, radarr je místo toho odstraní",
+    "OutputPath": "Výstupní cesta",
+    "Actions": "Akce",
+    "Type": "Typ",
+    "Trigger": "Spoušť",
+    "Today": "Dnes",
+    "Titles": "Tituly",
+    "ReleaseTitle": "Uvolněte název",
+    "Progress": "Pokrok",
+    "Tomorrow": "Zítra"
 }

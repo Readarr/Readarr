@@ -397,7 +397,7 @@
     "TestAllLists": "Comprobar Todas las Listas",
     "ThisWillApplyToAllIndexersPleaseFollowTheRulesSetForthByThem": "Se aplicará a todos los indexers, por favor sigue las reglas de los mismos",
     "TimeFormat": "Formato de Hora",
-    "Title": "Descargando",
+    "Title": "Título",
     "TorrentDelay": "Retraso del Torrent",
     "TorrentDelayHelpText": "Retraso en minutos a esperar antes de descargar un torrent",
     "Torrents": "Torrents",
@@ -465,5 +465,16 @@
     "YesCancel": "Si, Cancela",
     "20MinutesTwenty": "20 Minutos: {0}",
     "DownloadClientCheckDownloadingToRoot": "El cliente de descargas {0} coloca las descargas en la carpeta raíz {1}. No debe descargar a una carpeta raíz.",
-    "MaintenanceRelease": "Lanzamiento de mantenimiento"
+    "MaintenanceRelease": "Lanzamiento de mantenimiento",
+    "ReplaceIllegalCharactersHelpText": "Reemplazar caracteres ilegales. Si está desactivado, Radarr los eliminará si no",
+    "Actions": "Acciones",
+    "Today": "Hoy",
+    "Titles": "Títulos",
+    "ReleaseTitle": "Título del Estreno",
+    "Progress": "Progreso",
+    "UI": "UI",
+    "Type": "Tipo",
+    "Trigger": "Desencadenar",
+    "Tomorrow": "mañana",
+    "OutputPath": "Ruta de Output"
 }
