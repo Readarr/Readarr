@@ -32,7 +32,7 @@
     "MetadataSettings": "메타 데이터 설정",
     "MinimumAge": "최소 연령",
     "TimeFormat": "시간 형식",
-    "Title": "다운로드 중",
+    "Title": "표제",
     "TorrentDelay": "급류 지연",
     "TorrentDelayHelpText": "급류를 잡기 전에 대기하는 데 몇 분이 걸립니다.",
     "Torrents": "급류",
@@ -463,5 +463,16 @@
     "SslCertPathHelpTextWarning": "적용하려면 다시 시작해야합니다.",
     "SslCertPasswordHelpTextWarning": "적용하려면 다시 시작해야합니다.",
     "UnableToLoadMetadataProfiles": "지연 프로필을로드 할 수 없습니다.",
-    "DownloadClientCheckDownloadingToRoot": "다운로드 클라이언트 {0}는 루트 폴더 {1}에 다운로드를 저장합니다. 루트 폴더에 다운로드해서는 안됩니다."
+    "DownloadClientCheckDownloadingToRoot": "다운로드 클라이언트 {0}는 루트 폴더 {1}에 다운로드를 저장합니다. 루트 폴더에 다운로드해서는 안됩니다.",
+    "ReplaceIllegalCharactersHelpText": "잘못된 문자를 바꿉니다. 선택하지 않으면 Radarr가 대신 제거합니다.",
+    "ReleaseTitle": "릴리스 제목",
+    "Actions": "행위",
+    "UI": "UI",
+    "Type": "유형",
+    "Trigger": "방아쇠",
+    "Tomorrow": "내일",
+    "Today": "오늘",
+    "Titles": "타이틀",
+    "Progress": "진행",
+    "OutputPath": "출력 경로"
 }

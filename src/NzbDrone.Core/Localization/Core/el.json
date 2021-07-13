@@ -392,7 +392,7 @@
     "TestAllLists": "Δοκιμάστε όλες τις λίστες",
     "ThisWillApplyToAllIndexersPleaseFollowTheRulesSetForthByThem": "Αυτό θα ισχύει για όλους τους δείκτες, ακολουθήστε τους κανόνες που έχουν καθορίσει",
     "TimeFormat": "Μορφή ώρας",
-    "Title": "Λήψη",
+    "Title": "Τίτλος",
     "TorrentDelay": "Καθυστέρηση Torrent",
     "TorrentDelayHelpText": "Καθυστέρηση σε λίγα λεπτά για να περιμένετε πριν πιάσετε ένα χείμαρρο",
     "Torrents": "Torrents",
@@ -463,5 +463,16 @@
     "SslCertPathHelpTextWarning": "Απαιτείται επανεκκίνηση για να τεθεί σε ισχύ",
     "SslPortHelpTextWarning": "Απαιτείται επανεκκίνηση για να τεθεί σε ισχύ",
     "UnableToLoadMetadataProfiles": "Δεν είναι δυνατή η φόρτωση των Καθυστέρησης προφίλ",
-    "DownloadClientCheckDownloadingToRoot": "Λήψη προγράμματος-πελάτη {0} τοποθετεί λήψεις στον ριζικό φάκελο {1}. Δεν πρέπει να κάνετε λήψη σε έναν ριζικό φάκελο."
+    "DownloadClientCheckDownloadingToRoot": "Λήψη προγράμματος-πελάτη {0} τοποθετεί λήψεις στον ριζικό φάκελο {1}. Δεν πρέπει να κάνετε λήψη σε έναν ριζικό φάκελο.",
+    "ReplaceIllegalCharactersHelpText": "Αντικαταστήστε τους παράνομους χαρακτήρες. Εάν δεν είναι επιλεγμένο, το Radarr θα τα καταργήσει",
+    "UI": "Διεπαφή χρήστη",
+    "Tomorrow": "Αύριο",
+    "Today": "Σήμερα",
+    "Actions": "Ενέργειες",
+    "Type": "Τύπος",
+    "Trigger": "Δώσει το έναυσμα για",
+    "Progress": "Πρόοδος",
+    "OutputPath": "Διαδρομή εξόδου",
+    "Titles": "Τίτλοι",
+    "ReleaseTitle": "Τίτλος έκδοσης"
 }
