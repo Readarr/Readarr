@@ -111,7 +111,88 @@ function EditRootFolderModalContent(props) {
 
               <FormGroup>
                 <FormLabel>
-                  Use Calibre
+                  Monitor
+
+                  <Popover
+                    anchor={
+                      <Icon
+                        className={styles.labelIcon}
+                        name={icons.INFO}
+                      />
+                    }
+                    title={translate('MonitoringOptions')}
+                    body={<AuthorMonitoringOptionsPopoverContent />}
+                    position={tooltipPositions.RIGHT}
+                  />
+                </FormLabel>
+
+                <FormInputGroup
+                  type={inputTypes.MONITOR_BOOKS_SELECT}
+                  name="defaultMonitorOption"
+                  onChange={onInputChange}
+                  {...defaultMonitorOption}
+                  helpText={translate('DefaultMonitorOptionHelpText')}
+                />
+
+              </FormGroup>
+
+              <FormGroup>
+                <FormLabel>
+                  {translate('QualityProfile')}
+                </FormLabel>
+
+                <FormInputGroup
+                  type={inputTypes.QUALITY_PROFILE_SELECT}
+                  name="defaultQualityProfileId"
+                  helpText={translate('DefaultQualityProfileIdHelpText')}
+                  {...defaultQualityProfileId}
+                  onChange={onInputChange}
+                />
+              </FormGroup>
+
+              <FormGroup className={showMetadataProfile ? undefined : styles.hideMetadataProfile}>
+                <FormLabel>
+                  Metadata Profile
+                  <Popover
+                    anchor={
+                      <Icon
+                        className={styles.labelIcon}
+                        name={icons.INFO}
+                      />
+                    }
+                    title={translate('MetadataProfile')}
+                    body={<AuthorMetadataProfilePopoverContent />}
+                    position={tooltipPositions.RIGHT}
+                  />
+                </FormLabel>
+
+                <FormInputGroup
+                  type={inputTypes.METADATA_PROFILE_SELECT}
+                  name="defaultMetadataProfileId"
+                  helpText={translate('DefaultMetadataProfileIdHelpText')}
+                  {...defaultMetadataProfileId}
+                  includeNone={true}
+                  onChange={onInputChange}
+                />
+              </FormGroup>
+
+              <FormGroup>
+                <FormLabel>
+                  {translate('DefaultReadarrTags')}
+                </FormLabel>
+
+                <FormInputGroup
+                  type={inputTypes.TAG}
+                  name="defaultTags"
+                  helpText={translate('DefaultTagsHelpText')}
+                  {...defaultTags}
+                  onChange={onInputChange}
+                />
+              </FormGroup>
+
+              <FormGroup>
+                <FormLabel>
+                  Use Calibre Content Server
                   <Popover
                     anchor={
                       <Icon
@@ -120,7 +201,7 @@ function EditRootFolderModalContent(props) {
                       />
                     }
                     title={translate('CalibreContentServer')}
-                    body={'Using a Calibre content server allows Readarr to add books to your Calibre library and trigger conversions between formats'}
+                    body={translate('CalibreContentServerText')}
                     position={tooltipPositions.RIGHT}
                   />
                 </FormLabel>
@@ -292,87 +373,6 @@ function EditRootFolderModalContent(props) {
                     </FormGroup>
                   </div>
               }
-
-              <FormGroup>
-                <FormLabel>
-                  Monitor
-
-                  <Popover
-                    anchor={
-                      <Icon
-                        className={styles.labelIcon}
-                        name={icons.INFO}
-                      />
-                    }
-                    title={translate('MonitoringOptions')}
-                    body={<AuthorMonitoringOptionsPopoverContent />}
-                    position={tooltipPositions.RIGHT}
-                  />
-                </FormLabel>
-
-                <FormInputGroup
-                  type={inputTypes.MONITOR_BOOKS_SELECT}
-                  name="defaultMonitorOption"
-                  onChange={onInputChange}
-                  {...defaultMonitorOption}
-                  helpText={translate('DefaultMonitorOptionHelpText')}
-                />
-
-              </FormGroup>
-
-              <FormGroup>
-                <FormLabel>
-                  {translate('QualityProfile')}
-                </FormLabel>
-
-                <FormInputGroup
-                  type={inputTypes.QUALITY_PROFILE_SELECT}
-                  name="defaultQualityProfileId"
-                  helpText={translate('DefaultQualityProfileIdHelpText')}
-                  {...defaultQualityProfileId}
-                  onChange={onInputChange}
-                />
-              </FormGroup>
-
-              <FormGroup className={showMetadataProfile ? undefined : styles.hideMetadataProfile}>
-                <FormLabel>
-                  Metadata Profile
-                  <Popover
-                    anchor={
-                      <Icon
-                        className={styles.labelIcon}
-                        name={icons.INFO}
-                      />
-                    }
-                    title={translate('MetadataProfile')}
-                    body={<AuthorMetadataProfilePopoverContent />}
-                    position={tooltipPositions.RIGHT}
-                  />
-                </FormLabel>
-
-                <FormInputGroup
-                  type={inputTypes.METADATA_PROFILE_SELECT}
-                  name="defaultMetadataProfileId"
-                  helpText={translate('DefaultMetadataProfileIdHelpText')}
-                  {...defaultMetadataProfileId}
-                  includeNone={true}
-                  onChange={onInputChange}
-                />
-              </FormGroup>
-
-              <FormGroup>
-                <FormLabel>
-                  {translate('DefaultReadarrTags')}
-                </FormLabel>
-
-                <FormInputGroup
-                  type={inputTypes.TAG}
-                  name="defaultTags"
-                  helpText={translate('DefaultTagsHelpText')}
-                  {...defaultTags}
-                  onChange={onInputChange}
-                />
-              </FormGroup>
 
             </Form>
         }
