@@ -173,10 +173,13 @@ namespace NzbDrone.Core.MediaFiles.BookImport.Identification
             {
                 foreach (var authorTag in authorTags)
                 {
-                    var possibleAuthors = _authorService.GetCandidates(authorTag);
-                    foreach (var author in possibleAuthors)
+                    if (authorTag.IsNotNullOrWhiteSpace())
                     {
-                        candidateReleases.AddRange(GetDbCandidatesByAuthor(localEdition, author, includeExisting));
+                        var possibleAuthors = _authorService.GetCandidates(authorTag);
+                        foreach (var author in possibleAuthors)
+                        {
+                            candidateReleases.AddRange(GetDbCandidatesByAuthor(localEdition, author, includeExisting));
+                        }
                     }
                 }
             }

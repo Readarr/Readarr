@@ -81,6 +81,7 @@ namespace NzbDrone.Core.MediaFiles.BookImport.Identification
             {
                 i++;
                 _logger.ProgressInfo($"Identifying book {i}/{releases.Count}");
+                _logger.Debug($"Identifying book files:\n{localRelease.LocalBooks.Select(x => x.Path).ConcatToString("\n")}");
                 IdentifyRelease(localRelease, idOverrides, config);
             }
 
