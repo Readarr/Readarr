@@ -1,8 +1,10 @@
+using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
 using FluentValidation.Results;
 using NzbDrone.Common.Extensions;
+using NzbDrone.Core.HealthCheck;
 
 namespace NzbDrone.Core.Notifications.Notifiarr
 {
@@ -82,7 +84,7 @@ namespace NzbDrone.Core.Notifications.Notifiarr
             var variables = new StringDictionary();
 
             variables.Add("Readarr_EventType", "HealthIssue");
-            variables.Add("Readarr_Health_Issue_Level", nameof(healthCheck.Type));
+            variables.Add("Readarr_Health_Issue_Level", Enum.GetName(typeof(HealthCheckResult), healthCheck.Type));
             variables.Add("Readarr_Health_Issue_Message", healthCheck.Message);
             variables.Add("Readarr_Health_Issue_Type", healthCheck.Source.Name);
             variables.Add("Readarr_Health_Issue_Wiki", healthCheck.WikiUrl.ToString() ?? string.Empty);
