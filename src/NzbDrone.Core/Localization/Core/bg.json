@@ -391,7 +391,7 @@
     "TestAllLists": "Тествайте всички списъци",
     "ThisWillApplyToAllIndexersPleaseFollowTheRulesSetForthByThem": "Това ще важи за всички индексатори, моля, следвайте правилата, определени от тях",
     "TimeFormat": "Времеви формат",
-    "Title": "Изтегляне",
+    "Title": "Заглавие",
     "TorrentDelay": "Торент закъснение",
     "TorrentDelayHelpText": "Забавете за минути, за да изчакате, преди да вземете порой",
     "Torrents": "Торенти",
@@ -463,5 +463,16 @@
     "SslPortHelpTextWarning": "Изисква рестартиране, за да влезе в сила",
     "UnableToLoadMetadataProfiles": "Профилите за забавяне не могат да се заредят",
     "SslCertPathHelpTextWarning": "Изисква рестартиране, за да влезе в сила",
-    "DownloadClientCheckDownloadingToRoot": "Клиентът за изтегляне {0} поставя изтеглянията в основната папка {1}. Не трябва да изтегляте в основна папка."
+    "DownloadClientCheckDownloadingToRoot": "Клиентът за изтегляне {0} поставя изтеглянията в основната папка {1}. Не трябва да изтегляте в основна папка.",
+    "ReplaceIllegalCharactersHelpText": "Заменете незаконните символи. Ако не е отметнато, Radarr ще ги премахне вместо това",
+    "UI": "Потребителски интерфейс",
+    "Actions": "Действия",
+    "Tomorrow": "Утре",
+    "Today": "Днес",
+    "Titles": "Заглавия",
+    "ReleaseTitle": "Заглавие на изданието",
+    "Progress": "Напредък",
+    "OutputPath": "Изходен път",
+    "Type": "Тип",
+    "Trigger": "Задействане"
 }

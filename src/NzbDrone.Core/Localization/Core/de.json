@@ -528,5 +528,6 @@
     "Titles": "Titel",
     "Today": "Heute",
     "Tomorrow": "Morgen",
-    "HostHelpText": "Calibre-Content-Server"
+    "HostHelpText": "Calibre-Content-Server",
+    "PasswordHelpText": "Calibre-Content-Server"
 }

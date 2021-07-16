@@ -390,7 +390,7 @@
     "TagIsNotUsedAndCanBeDeleted": "Thẻ không được sử dụng và có thể bị xóa",
     "ThisWillApplyToAllIndexersPleaseFollowTheRulesSetForthByThem": "Điều này sẽ áp dụng cho tất cả người lập chỉ mục, vui lòng tuân theo các quy tắc do họ đặt ra",
     "TimeFormat": "Định dạng thời gian",
-    "Title": "Đang tải xuống",
+    "Title": "Tiêu đề",
     "TorrentDelay": "Torrent Delay",
     "TorrentDelayHelpText": "Trì hoãn trong vài phút để đợi trước khi lấy một torrent",
     "Torrents": "Torrents",
@@ -463,5 +463,16 @@
     "SslCertPathHelpTextWarning": "Yêu cầu khởi động lại để có hiệu lực",
     "SslCertPasswordHelpTextWarning": "Yêu cầu khởi động lại để có hiệu lực",
     "UnableToLoadMetadataProfiles": "Không thể tải hồ sơ độ trễ",
-    "DownloadClientCheckDownloadingToRoot": "Tải xuống ứng dụng khách {0} đặt các bản tải xuống trong thư mục gốc {1}. Bạn không nên tải xuống thư mục gốc."
+    "DownloadClientCheckDownloadingToRoot": "Tải xuống ứng dụng khách {0} đặt các bản tải xuống trong thư mục gốc {1}. Bạn không nên tải xuống thư mục gốc.",
+    "ReleaseTitle": "Tiêu đề phát hành",
+    "Actions": "Hành động",
+    "ReplaceIllegalCharactersHelpText": "Thay thế các ký tự bất hợp pháp. Nếu không được chọn, Radarr sẽ xóa chúng thay thế",
+    "UI": "Giao diện người dùng",
+    "Type": "Kiểu",
+    "Trigger": "Kích hoạt",
+    "Tomorrow": "Ngày mai",
+    "Today": "Hôm nay",
+    "Titles": "Tiêu đề",
+    "Progress": "Phát triển",
+    "OutputPath": "Đường đầu ra"
 }
