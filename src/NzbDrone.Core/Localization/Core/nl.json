@@ -399,7 +399,7 @@
     "TestAllLists": "Test Alle Lijsten",
     "ThisWillApplyToAllIndexersPleaseFollowTheRulesSetForthByThem": "Dit zal van toepassing zijn op alle indexeerders, gelieve de door hen opgelegde regels te volgen",
     "TimeFormat": "Tijdsformaat",
-    "Title": "Downloaden",
+    "Title": "Titel",
     "TorrentDelay": "Torrent Vertraging",
     "TorrentDelayHelpText": "Wachttijd in minuten alvorens een torrent op te halen",
     "Torrents": "Torrents",
@@ -464,5 +464,17 @@
     "SslCertPathHelpTextWarning": "Herstarten vereist om in werking te treden",
     "UnableToLoadMetadataProfiles": "Vertragingsprofielen kunnen niet worden geladen",
     "DownloadClientCheckDownloadingToRoot": "Downloadclient {0} plaatst downloads in de hoofdmap {1}. U mag niet naar een hoofdmap downloaden.",
-    "MaintenanceRelease": "Onderhoudsuitgave"
+    "MaintenanceRelease": "Onderhoudsuitgave",
+    "Actions": "Acties",
+    "BlacklistHelpText": "Voorkom dat Radarr deze release nogmaals automatisch ophaalt",
+    "UI": "Gebruikersinterface",
+    "Tomorrow": "Morgen",
+    "Titles": "Titels",
+    "ReplaceIllegalCharactersHelpText": "Vervang illegale karakters. Indien niet aangevinkt, zal Radarr ze in de plaats daarvan verwijderen",
+    "Progress": "Voortgang",
+    "Type": "Type",
+    "Trigger": "In gang zetten",
+    "Today": "Vandaag",
+    "ReleaseTitle": "Uitgave Titel",
+    "OutputPath": "Uitvoer Pad"
 }

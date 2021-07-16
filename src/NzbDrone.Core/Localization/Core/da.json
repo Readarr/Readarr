@@ -394,7 +394,7 @@
     "TestAllLists": "Test alle lister",
     "ThisWillApplyToAllIndexersPleaseFollowTheRulesSetForthByThem": "Dette gælder for alle indeksører. Følg de regler, der er angivet af dem",
     "TimeFormat": "Tidsformat",
-    "Title": "Downloader",
+    "Title": "Titel",
     "TorrentDelay": "Torrentforsinkelse",
     "TorrentDelayHelpText": "Forsink i minutter, før du tager fat i en torrent",
     "Torrents": "Torrenter",
@@ -463,5 +463,16 @@
     "ProxyPasswordHelpText": "Du skal kun indtaste et brugernavn og en adgangskode, hvis der kræves et. Lad dem være tomme ellers.",
     "SslCertPathHelpTextWarning": "Kræver genstart for at træde i kraft",
     "UnableToLoadMetadataProfiles": "Kunne ikke indlæse forsinkelsesprofiler",
-    "DownloadClientCheckDownloadingToRoot": "Download klient {0} placerer downloads i rodmappen {1}. Du skal ikke downloade til en rodmappe."
+    "DownloadClientCheckDownloadingToRoot": "Download klient {0} placerer downloads i rodmappen {1}. Du skal ikke downloade til en rodmappe.",
+    "ReplaceIllegalCharactersHelpText": "Udskift ulovlige tegn. Hvis det ikke er markeret, fjerner Radarr dem i stedet",
+    "ReleaseTitle": "Udgiv titel",
+    "Actions": "Handlinger",
+    "UI": "UI",
+    "Type": "Type",
+    "Trigger": "Udløser",
+    "Tomorrow": "I morgen",
+    "Today": "I dag",
+    "Titles": "Titler",
+    "Progress": "Fremskridt",
+    "OutputPath": "Outputsti"
 }
