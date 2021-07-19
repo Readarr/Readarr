@@ -4,6 +4,7 @@ using System.IO.Abstractions;
 using System.Linq;
 using NLog;
 using NzbDrone.Common.Instrumentation.Extensions;
+using NzbDrone.Core.Books;
 using NzbDrone.Core.MediaFiles.Commands;
 using NzbDrone.Core.Messaging.Commands;
 using NzbDrone.Core.Parser.Model;
@@ -14,6 +15,7 @@ namespace NzbDrone.Core.MediaFiles
     {
         ParsedTrackInfo ReadTags(IFileInfo file);
         void WriteTags(BookFile trackfile, bool newDownload, bool force = false);
+        void SyncTags(List<Edition> books);
         List<RetagBookFilePreview> GetRetagPreviewsByAuthor(int authorId);
         List<RetagBookFilePreview> GetRetagPreviewsByBook(int authorId);
     }
@@ -55,10 +57,16 @@ namespace NzbDrone.Core.MediaFiles
             {
                 _audioTagService.WriteTags(bookFile, newDownload, force);
             }
-            else
+            else if (bookFile.CalibreId > 0)
             {
                 _eBookTagService.WriteTags(bookFile, newDownload, force);
             }
+        }
+
+        public void SyncTags(List<Edition> editions)
+        {
+            _audioTagService.SyncTags(editions);
+            _eBookTagService.SyncTags(editions);
         }
 
         public List<RetagBookFilePreview> GetRetagPreviewsByAuthor(int authorId)

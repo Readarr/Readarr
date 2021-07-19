@@ -14,18 +14,15 @@ namespace NzbDrone.Core.Books
     public class RefreshEditionService : IRefreshEditionService
     {
         private readonly IEditionService _editionService;
-        private readonly IAudioTagService _audioTagService;
-        private readonly IEBookTagService _eBookTagService;
+        private readonly IMetadataTagService _metadataTagService;
         private readonly Logger _logger;
 
         public RefreshEditionService(IEditionService editionService,
-                                   IAudioTagService audioTagService,
-                                   IEBookTagService eBookTagService,
-                                   Logger logger)
+            IMetadataTagService metadataTagService,
+            Logger logger)
         {
             _editionService = editionService;
-            _audioTagService = audioTagService;
-            _eBookTagService = eBookTagService;
+            _metadataTagService = metadataTagService;
             _logger = logger;
         }
 
@@ -54,8 +51,7 @@ namespace NzbDrone.Core.Books
                 tagsToUpdate = updateList.Concat(upToDate).ToList();
             }
 
-            _audioTagService.SyncTags(tagsToUpdate);
-            _eBookTagService.SyncTags(tagsToUpdate);
+            _metadataTagService.SyncTags(tagsToUpdate);
 
             return add.Any() || delete.Any() || updateList.Any() || merge.Any();
         }
