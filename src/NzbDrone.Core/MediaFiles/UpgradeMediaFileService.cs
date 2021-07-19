@@ -22,7 +22,7 @@ namespace NzbDrone.Core.MediaFiles
         private readonly IConfigService _configService;
         private readonly IRecycleBinProvider _recycleBinProvider;
         private readonly IMediaFileService _mediaFileService;
-        private readonly IAudioTagService _audioTagService;
+        private readonly IMetadataTagService _metadataTagService;
         private readonly IMoveBookFiles _bookFileMover;
         private readonly IDiskProvider _diskProvider;
         private readonly IRootFolderService _rootFolderService;
@@ -33,7 +33,7 @@ namespace NzbDrone.Core.MediaFiles
         public UpgradeMediaFileService(IConfigService configService,
                                        IRecycleBinProvider recycleBinProvider,
                                        IMediaFileService mediaFileService,
-                                       IAudioTagService audioTagService,
+                                       IMetadataTagService metadataTagService,
                                        IMoveBookFiles bookFileMover,
                                        IDiskProvider diskProvider,
                                        IRootFolderService rootFolderService,
@@ -44,7 +44,7 @@ namespace NzbDrone.Core.MediaFiles
             _configService = configService;
             _recycleBinProvider = recycleBinProvider;
             _mediaFileService = mediaFileService;
-            _audioTagService = audioTagService;
+            _metadataTagService = metadataTagService;
             _bookFileMover = bookFileMover;
             _diskProvider = diskProvider;
             _rootFolderService = rootFolderService;
@@ -109,7 +109,7 @@ namespace NzbDrone.Core.MediaFiles
                     moveFileResult.BookFile = _bookFileMover.MoveBookFile(bookFile, localBook);
                 }
 
-                _audioTagService.WriteTags(bookFile, true);
+                _metadataTagService.WriteTags(bookFile, true);
             }
             else
             {

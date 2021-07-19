@@ -12,7 +12,6 @@ using NzbDrone.Core.Books.Calibre;
 using NzbDrone.Core.Configuration;
 using NzbDrone.Core.MediaFiles.Azw;
 using NzbDrone.Core.MediaFiles.Commands;
-using NzbDrone.Core.Messaging.Commands;
 using NzbDrone.Core.Parser.Model;
 using NzbDrone.Core.Qualities;
 using NzbDrone.Core.RootFolders;
@@ -107,7 +106,7 @@ namespace NzbDrone.Core.MediaFiles
 
                 _logger.Debug($"Syncing ebook tags for {edition}");
 
-                foreach (var file in bookFiles)
+                foreach (var file in bookFiles.Where(x => x.CalibreId != 0))
                 {
                     // populate tracks (which should also have release/book/author set) because
                     // not all of the updates will have been committed to the database yet
@@ -169,6 +168,11 @@ namespace NzbDrone.Core.MediaFiles
 
         private void WriteTagsInternal(BookFile file, bool updateCover, bool embedMetadata)
         {
+            if (file.CalibreId == 0)
+            {
+                _logger.Trace($"No calibre id for {file.Path}, skipping writing tags");
+            }
+
             var rootFolder = _rootFolderService.GetBestRootFolder(file.Path);
             _calibre.SetFields(file, rootFolder.CalibreSettings, updateCover, embedMetadata);
 

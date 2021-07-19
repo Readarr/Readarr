@@ -29,8 +29,7 @@ namespace NzbDrone.Core.MediaFiles.BookImport
     {
         private readonly IUpgradeMediaFiles _bookFileUpgrader;
         private readonly IMediaFileService _mediaFileService;
-        private readonly IAudioTagService _audioTagService;
-        private readonly IEBookTagService _eBookTagService;
+        private readonly IMetadataTagService _metadataTagService;
         private readonly IAuthorService _authorService;
         private readonly IAddAuthorService _addAuthorService;
         private readonly IBookService _bookService;
@@ -45,8 +44,7 @@ namespace NzbDrone.Core.MediaFiles.BookImport
 
         public ImportApprovedBooks(IUpgradeMediaFiles bookFileUpgrader,
                                    IMediaFileService mediaFileService,
-                                   IAudioTagService audioTagService,
-                                   IEBookTagService eBookTagService,
+                                   IMetadataTagService metadataTagService,
                                    IAuthorService authorService,
                                    IAddAuthorService addAuthorService,
                                    IBookService bookService,
@@ -61,8 +59,7 @@ namespace NzbDrone.Core.MediaFiles.BookImport
         {
             _bookFileUpgrader = bookFileUpgrader;
             _mediaFileService = mediaFileService;
-            _audioTagService = audioTagService;
-            _eBookTagService = eBookTagService;
+            _metadataTagService = metadataTagService;
             _authorService = authorService;
             _addAuthorService = addAuthorService;
             _bookService = bookService;
@@ -215,8 +212,7 @@ namespace NzbDrone.Core.MediaFiles.BookImport
                             }
                         }
 
-                        _audioTagService.WriteTags(bookFile, false);
-                        _eBookTagService.WriteTags(bookFile, false);
+                        _metadataTagService.WriteTags(bookFile, false);
                     }
 
                     filesToAdd.Add(bookFile);
