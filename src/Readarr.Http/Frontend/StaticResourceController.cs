@@ -4,8 +4,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using NLog;
-using NzbDrone.Common.EnvironmentInfo;
-using NzbDrone.Core.Configuration;
 using Readarr.Http.Extensions;
 using Readarr.Http.Frontend.Mappers;
 
@@ -34,14 +32,14 @@ namespace Readarr.Http.Frontend
 
         [EnableCors("AllowGet")]
         [AllowAnonymous]
-        [HttpGet("/content/{**path:regex(^(?!api/).*)}")]
+        [HttpGet("content/{**path:regex(^(?!/*api/).*)}")]
         public IActionResult IndexContent([FromRoute] string path)
         {
             return MapResource("Content/" + path);
         }
 
         [HttpGet("")]
-        [HttpGet("/{**path:regex(^(?!api/).*)}")]
+        [HttpGet("/{**path:regex(^(?!/*api/).*)}")]
         public IActionResult Index([FromRoute] string path)
         {
             return MapResource(path);
