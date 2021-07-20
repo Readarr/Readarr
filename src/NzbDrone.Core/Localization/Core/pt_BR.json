@@ -715,5 +715,6 @@
     "ReleaseTitle": "Título do lançamento",
     "Trigger": "Acionador",
     "UI": "interface",
-    "Actions": "Ações"
+    "Actions": "Ações",
+    "FilterAuthor": "Filtro de Autor"
 }

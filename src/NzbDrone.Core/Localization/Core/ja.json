@@ -419,7 +419,7 @@
     "TestAllIndexers": "すべてのインデクサーをテストする",
     "TestAllLists": "すべてのリストをテストする",
     "ThisWillApplyToAllIndexersPleaseFollowTheRulesSetForthByThem": "これはすべてのインデクサーに適用されます。彼らが定めた規則に従ってください。",
-    "Title": "ダウンロード",
+    "Title": "題名",
     "TorrentDelay": "トレント遅延",
     "TorrentDelayHelpText": "トレントをつかむ前に待つために数分遅れる",
     "Torrents": "トレント",
@@ -463,5 +463,16 @@
     "WeekColumnHeader": "週の列ヘッダー",
     "Year": "年",
     "YesCancel": "はい、キャンセル",
-    "DownloadClientCheckDownloadingToRoot": "ダウンロードクライアント{0}は、ダウンロードをルートフォルダ{1}に配置します。ルートフォルダにダウンロードしないでください。"
+    "DownloadClientCheckDownloadingToRoot": "ダウンロードクライアント{0}は、ダウンロードをルートフォルダ{1}に配置します。ルートフォルダにダウンロードしないでください。",
+    "UI": "UI",
+    "Type": "タイプ",
+    "Trigger": "引き金",
+    "Tomorrow": "明日",
+    "Today": "今日",
+    "Titles": "タイトル",
+    "Actions": "行動",
+    "ReplaceIllegalCharactersHelpText": "不正な文字を置き換えます。チェックされていない場合、Radarrは代わりにそれらを削除します",
+    "ReleaseTitle": "リリースタイトル",
+    "Progress": "進捗",
+    "OutputPath": "出力パス"
 }

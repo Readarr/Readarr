@@ -63,7 +63,7 @@
     "Torrents": "السيول",
     "TorrentDelayHelpText": "تأخير في دقائق للانتظار قبل الاستيلاء على سيل",
     "TorrentDelay": "تأخير السيل",
-    "Title": "جارى التحميل",
+    "Title": "عنوان",
     "TimeFormat": "تنسيق الوقت",
     "ThisWillApplyToAllIndexersPleaseFollowTheRulesSetForthByThem": "سينطبق هذا على جميع المفهرسين ، يرجى اتباع القواعد المنصوص عليها من قبلهم",
     "TestAllLists": "اختبر كل القوائم",
@@ -464,5 +464,16 @@
     "UnableToLoadMetadataProfiles": "تعذر تحميل ملفات تعريف التأخير",
     "UrlBaseHelpTextWarning": "يتطلب إعادة التشغيل ليصبح ساري المفعول",
     "SslPortHelpTextWarning": "يتطلب إعادة التشغيل ليصبح ساري المفعول",
-    "DownloadClientCheckDownloadingToRoot": "يقوم برنامج التنزيل {0} بوضع التنزيلات في المجلد الجذر {1}. يجب ألا تقوم بالتنزيل إلى مجلد جذر."
+    "DownloadClientCheckDownloadingToRoot": "يقوم برنامج التنزيل {0} بوضع التنزيلات في المجلد الجذر {1}. يجب ألا تقوم بالتنزيل إلى مجلد جذر.",
+    "Progress": "التقدم",
+    "UI": "واجهة المستخدم",
+    "Type": "اكتب",
+    "Trigger": "اثار",
+    "Titles": "الألقاب",
+    "ReplaceIllegalCharactersHelpText": "استبدل الأحرف غير القانونية. إذا لم يتم تحديده ، فسوف يقوم Radarr بإزالتها بدلاً من ذلك",
+    "ReleaseTitle": "عنوان الإصدار",
+    "Actions": "أجراءات",
+    "Tomorrow": "غدا",
+    "Today": "اليوم",
+    "OutputPath": "مسار الاخراج"
 }

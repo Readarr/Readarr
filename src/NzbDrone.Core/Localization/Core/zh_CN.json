@@ -463,5 +463,6 @@
     "ProxyUsernameHelpText": "如果需要，您只需要输入用户名和密码。否则就让它们为空。",
     "MaintenanceRelease": "维护版本",
     "DeleteBookFileMessageText": "您确认您想删除吗？",
-    "ApiKeyHelpTextWarning": "重启生效"
+    "ApiKeyHelpTextWarning": "重启生效",
+    "Actions": "操作"
 }
