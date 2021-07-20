@@ -64,17 +64,8 @@ class BookFileEditorTableContent extends Component {
   // Control
 
   getSelectedIds = () => {
-    const selectedIds = getSelectedIds(this.state.selectedState);
-
-    return selectedIds.reduce((acc, id) => {
-      const matchingItem = this.props.items.find((item) => item.id === id);
-
-      if (matchingItem && !acc.includes(matchingItem.bookFileId)) {
-        acc.push(matchingItem.bookFileId);
-      }
-
-      return acc;
-    }, []);
+    const ids = getSelectedIds(this.state.selectedState);
+    return ids;
   }
 
   //
