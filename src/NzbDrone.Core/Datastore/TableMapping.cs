@@ -102,7 +102,7 @@ namespace NzbDrone.Core.Datastore
                 .HasOne(a => a.Metadata, a => a.AuthorMetadataId)
                 .HasOne(a => a.QualityProfile, a => a.QualityProfileId)
                 .HasOne(s => s.MetadataProfile, s => s.MetadataProfileId)
-                .LazyLoad(a => a.Books, (db, a) => db.Query<Book>(new SqlBuilder().Where<Book>(rg => rg.AuthorMetadataId == a.Id)).ToList(), a => a.Id > 0);
+                .LazyLoad(a => a.Books, (db, a) => db.Query<Book>(new SqlBuilder().Where<Book>(b => b.AuthorMetadataId == a.AuthorMetadataId)).ToList(), a => a.AuthorMetadataId > 0);
 
             Mapper.Entity<Series>("Series").RegisterModel()
                 .Ignore(s => s.ForeignAuthorId)
