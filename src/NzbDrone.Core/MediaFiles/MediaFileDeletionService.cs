@@ -23,6 +23,7 @@ namespace NzbDrone.Core.MediaFiles
     }
 
     public class MediaFileDeletionService : IDeleteMediaFiles,
+                                            IHandle<AuthorDeletedEvent>,
                                             IHandleAsync<AuthorDeletedEvent>,
                                             IHandleAsync<BookDeletedEvent>,
                                             IHandle<BookFileDeletedEvent>
@@ -121,36 +122,62 @@ namespace NzbDrone.Core.MediaFiles
             }
         }
 
+        [EventHandleOrder(EventHandleOrder.First)]
+        public void Handle(AuthorDeletedEvent message)
+        {
+            if (message.DeleteFiles)
+            {
+                var author = message.Author;
+
+                var rootFolder = _rootFolderService.GetBestRootFolder(message.Author.Path);
+                var isCalibre = rootFolder.IsCalibreLibrary && rootFolder.CalibreSettings != null;
+
+                if (isCalibre)
+                {
+                    // use metadataId instead of authorId so that query works even after author deleted
+                    var books = _mediaFileService.GetFilesByAuthorMetadataId(author.AuthorMetadataId);
+                    _calibre.DeleteBooks(books, rootFolder.CalibreSettings);
+                }
+            }
+        }
+
         public void HandleAsync(AuthorDeletedEvent message)
         {
             if (message.DeleteFiles)
             {
                 var author = message.Author;
-                var allAuthors = _authorService.AllAuthorPaths();
 
-                foreach (var s in allAuthors)
+                var rootFolder = _rootFolderService.GetBestRootFolder(message.Author.Path);
+                var isCalibre = rootFolder.IsCalibreLibrary && rootFolder.CalibreSettings != null;
+
+                if (!isCalibre)
                 {
-                    if (s.Key == author.Id)
+                    var allAuthors = _authorService.AllAuthorPaths();
+
+                    foreach (var s in allAuthors)
                     {
-                        continue;
+                        if (s.Key == author.Id)
+                        {
+                            continue;
+                        }
+
+                        if (author.Path.IsParentPath(s.Value))
+                        {
+                            _logger.Error("Author path: '{0}' is a parent of another author, not deleting files.", author.Path);
+                            return;
+                        }
+
+                        if (author.Path.PathEquals(s.Value))
+                        {
+                            _logger.Error("Author path: '{0}' is the same as another author, not deleting files.", author.Path);
+                            return;
+                        }
                     }
 
-                    if (author.Path.IsParentPath(s.Value))
+                    if (_diskProvider.FolderExists(message.Author.Path))
                     {
-                        _logger.Error("Author path: '{0}' is a parent of another author, not deleting files.", author.Path);
-                        return;
+                        _recycleBinProvider.DeleteFolder(message.Author.Path);
                     }
-
-                    if (author.Path.PathEquals(s.Value))
-                    {
-                        _logger.Error("Author path: '{0}' is the same as another author, not deleting files.", author.Path);
-                        return;
-                    }
-                }
-
-                if (_diskProvider.FolderExists(message.Author.Path))
-                {
-                    _recycleBinProvider.DeleteFolder(message.Author.Path);
                 }
             }
         }

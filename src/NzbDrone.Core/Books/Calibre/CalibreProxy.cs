@@ -23,6 +23,7 @@ namespace NzbDrone.Core.Books.Calibre
     {
         CalibreImportJob AddBook(BookFile book, CalibreSettings settings);
         void DeleteBook(BookFile book, CalibreSettings settings);
+        void DeleteBooks(List<BookFile> books, CalibreSettings settings);
         void AddFormat(BookFile file, CalibreSettings settings);
         void RemoveFormats(int calibreId, IEnumerable<string> formats, CalibreSettings settings);
         void SetFields(BookFile file, CalibreSettings settings, bool updateCover = true, bool embed = false);
@@ -102,16 +103,15 @@ namespace NzbDrone.Core.Books.Calibre
 
         public void DeleteBook(BookFile book, CalibreSettings settings)
         {
-            try
-            {
-                var request = GetBuilder($"cdb/delete-books/{book.CalibreId}/{settings.Library}", settings).Build();
-                _httpClient.Post(request);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                throw;
-            }
+            var request = GetBuilder($"cdb/delete-books/{book.CalibreId}/{settings.Library}", settings).Build();
+            _httpClient.Post(request);
+        }
+
+        public void DeleteBooks(List<BookFile> books, CalibreSettings settings)
+        {
+            var idString = books.Where(x => x.CalibreId != 0).Select(x => x.CalibreId).ConcatToString(",");
+            var request = GetBuilder($"cdb/delete-books/{idString}/{settings.Library}", settings).Build();
+            _httpClient.Post(request);
         }
 
         public void AddFormat(BookFile file, CalibreSettings settings)

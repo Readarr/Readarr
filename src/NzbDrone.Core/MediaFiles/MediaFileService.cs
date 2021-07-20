@@ -22,6 +22,7 @@ namespace NzbDrone.Core.MediaFiles
         void Delete(BookFile bookFile, DeleteMediaFileReason reason);
         void DeleteMany(List<BookFile> bookFiles, DeleteMediaFileReason reason);
         List<BookFile> GetFilesByAuthor(int authorId);
+        List<BookFile> GetFilesByAuthorMetadataId(int authorMetadataId);
         List<BookFile> GetFilesByBook(int bookId);
         List<BookFile> GetFilesByEdition(int editionId);
         List<BookFile> GetUnmappedFiles();
@@ -180,6 +181,11 @@ namespace NzbDrone.Core.MediaFiles
         public List<BookFile> GetFilesByAuthor(int authorId)
         {
             return _mediaFileRepository.GetFilesByAuthor(authorId);
+        }
+
+        public List<BookFile> GetFilesByAuthorMetadataId(int authorMetadataId)
+        {
+            return _mediaFileRepository.GetFilesByAuthorMetadataId(authorMetadataId);
         }
 
         public List<BookFile> GetFilesByBook(int bookId)

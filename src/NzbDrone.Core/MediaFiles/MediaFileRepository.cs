@@ -12,6 +12,7 @@ namespace NzbDrone.Core.MediaFiles
     public interface IMediaFileRepository : IBasicRepository<BookFile>
     {
         List<BookFile> GetFilesByAuthor(int authorId);
+        List<BookFile> GetFilesByAuthorMetadataId(int authorMetadataId);
         List<BookFile> GetFilesByBook(int bookId);
         List<BookFile> GetFilesByEdition(int editionId);
         List<BookFile> GetUnmappedFiles();
@@ -66,6 +67,11 @@ namespace NzbDrone.Core.MediaFiles
         public List<BookFile> GetFilesByAuthor(int authorId)
         {
             return Query(Builder().Where<Author>(a => a.Id == authorId));
+        }
+
+        public List<BookFile> GetFilesByAuthorMetadataId(int authorMetadataId)
+        {
+            return Query(Builder().Where<Book>(b => b.AuthorMetadataId == authorMetadataId));
         }
 
         public List<BookFile> GetFilesByBook(int bookId)
