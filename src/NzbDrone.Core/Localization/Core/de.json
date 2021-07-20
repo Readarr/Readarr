@@ -529,5 +529,6 @@
     "Today": "Heute",
     "Tomorrow": "Morgen",
     "HostHelpText": "Calibre-Content-Server",
-    "PasswordHelpText": "Calibre-Content-Server"
+    "PasswordHelpText": "Calibre-Content-Server",
+    "DeleteBookFileMessageText": "Möchten Sie {0} wirklich löschen?"
 }

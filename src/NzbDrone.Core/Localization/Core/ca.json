@@ -1,4 +1,13 @@
 {
     "Actions": "Accions",
-    "About": "Quant a"
+    "About": "Quant a",
+    "Reload": "Recarregar",
+    "Refresh": "Actualització",
+    "RecyclingBin": "Paperera de reciclatge",
+    "Queue": "Cua",
+    "QualityProfiles": "Perfil de qualitat",
+    "QualityProfile": "Perfil de qualitat",
+    "Publisher": "Editor",
+    "Password": "Contrassenya",
+    "New": "Nou"
 }
