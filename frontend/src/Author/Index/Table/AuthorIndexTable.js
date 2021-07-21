@@ -25,12 +25,13 @@ class AuthorIndexTable extends Component {
   componentDidUpdate(prevProps) {
     const {
       items,
+      sortKey,
       jumpToCharacter
     } = this.props;
 
     if (jumpToCharacter != null && jumpToCharacter !== prevProps.jumpToCharacter) {
 
-      const scrollIndex = getIndexOfFirstCharacter(items, jumpToCharacter);
+      const scrollIndex = getIndexOfFirstCharacter(items, sortKey, jumpToCharacter);
 
       if (scrollIndex != null) {
         this.setState({ scrollIndex });
@@ -47,7 +48,8 @@ class AuthorIndexTable extends Component {
     const {
       items,
       columns,
-      showBanners
+      showBanners,
+      showTitle
     } = this.props;
 
     const author = items[rowIndex];
@@ -66,6 +68,7 @@ class AuthorIndexTable extends Component {
           qualityProfileId={author.qualityProfileId}
           metadataProfileId={author.metadataProfileId}
           showBanners={showBanners}
+          showTitle={showTitle}
         />
       </VirtualTableRow>
     );
@@ -118,9 +121,10 @@ class AuthorIndexTable extends Component {
 AuthorIndexTable.propTypes = {
   items: PropTypes.arrayOf(PropTypes.object).isRequired,
   columns: PropTypes.arrayOf(PropTypes.object).isRequired,
-  sortKey: PropTypes.string,
+  sortKey: PropTypes.string.isRequired,
   sortDirection: PropTypes.oneOf(sortDirections.all),
   showBanners: PropTypes.bool.isRequired,
+  showTitle: PropTypes.string.isRequired,
   jumpToCharacter: PropTypes.string,
   scrollTop: PropTypes.number,
   scroller: PropTypes.instanceOf(Element).isRequired,

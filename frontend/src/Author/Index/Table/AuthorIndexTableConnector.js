@@ -12,6 +12,7 @@ function createMapStateToProps() {
       return {
         isSmallScreen: dimensions.isSmallScreen,
         showBanners: tableOptions.showBanners,
+        showTitle: tableOptions.showTitle,
         columns
       };
     }

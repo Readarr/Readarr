@@ -531,7 +531,9 @@ namespace NzbDrone.Core.MetadataSource.Goodreads
                 Status = resource.DiedOnDate < DateTime.UtcNow ? AuthorStatusType.Ended : AuthorStatusType.Continuing
             };
 
-            author.SortName = author.Name.ToSortName().ToLower();
+            author.SortName = author.Name.ToLower();
+            author.NameLastFirst = author.Name.ToLastFirst();
+            author.SortNameLastFirst = author.NameLastFirst.ToLower();
 
             if (!NoPhotoRegex.IsMatch(resource.LargeImageUrl))
             {
@@ -556,7 +558,9 @@ namespace NzbDrone.Core.MetadataSource.Goodreads
                 TitleSlug = resource.Id.ToString()
             };
 
-            author.SortName = author.Name.ToSortName().ToLower();
+            author.SortName = author.Name.ToLower();
+            author.NameLastFirst = author.Name.ToLastFirst();
+            author.SortNameLastFirst = author.NameLastFirst.ToLower();
 
             if (resource.RatingsCount.HasValue)
             {
@@ -707,7 +711,9 @@ namespace NzbDrone.Core.MetadataSource.Goodreads
                         {
                             ForeignAuthorId = resource.BestBook.AuthorId.ToString(),
                             Name = resource.BestBook.AuthorName,
-                            SortName = resource.BestBook.AuthorName.ToSortName().ToLower(),
+                            NameLastFirst = resource.BestBook.AuthorName.ToLastFirst(),
+                            SortName = resource.BestBook.AuthorName.ToLower(),
+                            SortNameLastFirst = resource.BestBook.AuthorName.ToLastFirst().ToLower(),
                             TitleSlug = resource.BestBook.AuthorId.ToString()
                         }
                     };

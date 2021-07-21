@@ -34,16 +34,16 @@ function AuthorIndexSortMenu(props) {
           sortDirection={sortDirection}
           onPress={onSortSelect}
         >
-          Name
+          First Name
         </SortMenuItem>
 
         <SortMenuItem
-          name="authorType"
+          name="sortNameLastFirst"
           sortKey={sortKey}
           sortDirection={sortDirection}
           onPress={onSortSelect}
         >
-          Type
+          Last Name
         </SortMenuItem>
 
         <SortMenuItem

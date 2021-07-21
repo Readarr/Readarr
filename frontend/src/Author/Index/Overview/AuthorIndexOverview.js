@@ -74,6 +74,7 @@ class AuthorIndexOverview extends Component {
     const {
       id,
       authorName,
+      authorNameLastFirst,
       overview,
       monitored,
       status,
@@ -167,7 +168,7 @@ class AuthorIndexOverview extends Component {
                 className={styles.title}
                 to={link}
               >
-                {authorName}
+                {overviewOptions.showTitle === 'firstLast' ? authorName : authorNameLastFirst}
               </Link>
 
               <div className={styles.actions}>
@@ -247,7 +248,8 @@ class AuthorIndexOverview extends Component {
 AuthorIndexOverview.propTypes = {
   id: PropTypes.number.isRequired,
   authorName: PropTypes.string.isRequired,
-  overview: PropTypes.string.isRequired,
+  authorNameLastFirst: PropTypes.string.isRequired,
+  overview: PropTypes.string,
   monitored: PropTypes.bool.isRequired,
   status: PropTypes.string.isRequired,
   titleSlug: PropTypes.string.isRequired,

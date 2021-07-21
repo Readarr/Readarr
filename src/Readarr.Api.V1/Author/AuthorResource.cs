@@ -22,6 +22,7 @@ namespace Readarr.Api.V1.Author
         public bool Ended => Status == AuthorStatusType.Ended;
 
         public string AuthorName { get; set; }
+        public string AuthorNameLastFirst { get; set; }
         public string ForeignAuthorId { get; set; }
         public string TitleSlug { get; set; }
         public string Overview { get; set; }
@@ -47,6 +48,8 @@ namespace Readarr.Api.V1.Author
         public List<string> Genres { get; set; }
         public string CleanName { get; set; }
         public string SortName { get; set; }
+        public string SortNameLastFirst { get; set; }
+
         public HashSet<int> Tags { get; set; }
         public DateTime Added { get; set; }
         public AddAuthorOptions AddOptions { get; set; }
@@ -70,9 +73,11 @@ namespace Readarr.Api.V1.Author
                 AuthorMetadataId = model.AuthorMetadataId,
 
                 AuthorName = model.Name,
+                AuthorNameLastFirst = model.Metadata.Value.NameLastFirst,
 
                 //AlternateTitles
                 SortName = model.Metadata.Value.SortName,
+                SortNameLastFirst = model.Metadata.Value.SortNameLastFirst,
 
                 Status = model.Metadata.Value.Status,
                 Overview = model.Metadata.Value.Overview,
@@ -119,7 +124,9 @@ namespace Readarr.Api.V1.Author
                     ForeignAuthorId = resource.ForeignAuthorId,
                     TitleSlug = resource.TitleSlug,
                     Name = resource.AuthorName,
+                    NameLastFirst = resource.AuthorNameLastFirst,
                     SortName = resource.SortName,
+                    SortNameLastFirst = resource.SortNameLastFirst,
                     Status = resource.Status,
                     Overview = resource.Overview,
                     Links = resource.Links,

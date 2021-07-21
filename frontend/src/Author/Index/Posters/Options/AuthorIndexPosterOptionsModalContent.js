@@ -19,6 +19,12 @@ const posterSizeOptions = [
   { key: 'large', value: 'Large' }
 ];
 
+const nameOptions = [
+  { key: 'no', value: translate('NoName') },
+  { key: 'firstLast', value: translate('NameFirstLast') },
+  { key: 'lastFirst', value: translate('NameLastFirst') }
+];
+
 class AuthorIndexPosterOptionsModalContent extends Component {
 
   //
@@ -148,9 +154,10 @@ class AuthorIndexPosterOptionsModalContent extends Component {
               </FormLabel>
 
               <FormInputGroup
-                type={inputTypes.CHECK}
+                type={inputTypes.SELECT}
                 name="showTitle"
                 value={showTitle}
+                values={nameOptions}
                 helpText={translate('ShowTitleHelpText')}
                 onChange={this.onChangePosterOption}
               />
@@ -214,7 +221,7 @@ class AuthorIndexPosterOptionsModalContent extends Component {
 
 AuthorIndexPosterOptionsModalContent.propTypes = {
   size: PropTypes.string.isRequired,
-  showTitle: PropTypes.bool.isRequired,
+  showTitle: PropTypes.string.isRequired,
   showMonitored: PropTypes.bool.isRequired,
   showQualityProfile: PropTypes.bool.isRequired,
   detailedProgressBar: PropTypes.bool.isRequired,

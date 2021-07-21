@@ -94,13 +94,13 @@ class AuthorIndex extends Component {
     } = this.props;
 
     // Reset if not sorting by sortName
-    if (sortKey !== 'sortName') {
+    if (sortKey !== 'sortName' && sortKey !== 'sortNameLastFirst') {
       this.setState({ jumpBarItems: { order: [] } });
       return;
     }
 
     const characters = _.reduce(items, (acc, item) => {
-      let char = item.sortName.charAt(0);
+      let char = item[sortKey].charAt(0);
 
       if (!isNaN(char)) {
         char = '#';

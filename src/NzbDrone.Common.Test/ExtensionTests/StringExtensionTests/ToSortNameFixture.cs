@@ -36,7 +36,7 @@ namespace NzbDrone.Common.Test.ExtensionTests.StringExtensionTests
         [TestCase("John [x]von Neumann (III)", "von Neumann, John")]
         public void should_get_sort_name(string input, string expected)
         {
-            input.ToSortName().Should().Be(expected);
+            input.ToLastFirst().Should().Be(expected);
         }
     }
 }

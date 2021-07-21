@@ -90,7 +90,8 @@ class AuthorIndexOverviews extends Component {
     if (this._grid &&
         (prevState.width !== width ||
             prevState.rowHeight !== rowHeight ||
-            hasDifferentItemsOrOrder(prevProps.items, items))) {
+            hasDifferentItemsOrOrder(prevProps.items, items) ||
+            prevProps.overviewOptions.showTitle !== overviewOptions.showTitle)) {
       // recomputeGridSize also forces Grid to discard its cache of rendered cells
       this._grid.recomputeGridSize();
     }
@@ -101,7 +102,7 @@ class AuthorIndexOverviews extends Component {
     }
 
     if (jumpToCharacter != null && jumpToCharacter !== prevProps.jumpToCharacter) {
-      const index = getIndexOfFirstCharacter(items, jumpToCharacter);
+      const index = getIndexOfFirstCharacter(items, sortKey, jumpToCharacter);
 
       if (this._grid && index != null) {
 
