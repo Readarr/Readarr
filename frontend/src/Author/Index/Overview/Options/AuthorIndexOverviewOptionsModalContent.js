@@ -13,6 +13,11 @@ import ModalHeader from 'Components/Modal/ModalHeader';
 import { inputTypes } from 'Helpers/Props';
 import translate from 'Utilities/String/translate';
 
+const nameOptions = [
+  { key: 'firstLast', value: translate('NameFirstLast') },
+  { key: 'lastFirst', value: translate('NameLastFirst') }
+];
+
 const posterSizeOptions = [
   { key: 'small', value: 'Small' },
   { key: 'medium', value: 'Medium' },
@@ -28,6 +33,7 @@ class AuthorIndexOverviewOptionsModalContent extends Component {
     super(props, context);
 
     this.state = {
+      showTitle: props.showTitle,
       detailedProgressBar: props.detailedProgressBar,
       size: props.size,
       showMonitored: props.showMonitored,
@@ -43,6 +49,7 @@ class AuthorIndexOverviewOptionsModalContent extends Component {
 
   componentDidUpdate(prevProps) {
     const {
+      showTitle,
       detailedProgressBar,
       size,
       showMonitored,
@@ -56,6 +63,10 @@ class AuthorIndexOverviewOptionsModalContent extends Component {
     } = this.props;
 
     const state = {};
+
+    if (showTitle !== prevProps.showTitle) {
+      state.showTitle = showTitle;
+    }
 
     if (detailedProgressBar !== prevProps.detailedProgressBar) {
       state.detailedProgressBar = detailedProgressBar;
@@ -122,6 +133,7 @@ class AuthorIndexOverviewOptionsModalContent extends Component {
     } = this.props;
 
     const {
+      showTitle,
       detailedProgressBar,
       size,
       showMonitored,
@@ -142,6 +154,20 @@ class AuthorIndexOverviewOptionsModalContent extends Component {
 
         <ModalBody>
           <Form>
+            <FormGroup>
+              <FormLabel>
+                {translate('NameStyle')}
+              </FormLabel>
+
+              <FormInputGroup
+                type={inputTypes.SELECT}
+                name="showTitle"
+                value={showTitle}
+                values={nameOptions}
+                onChange={this.onChangeOverviewOption}
+              />
+            </FormGroup>
+
             <FormGroup>
               <FormLabel>
                 {translate('PosterSize')}
@@ -291,6 +317,7 @@ class AuthorIndexOverviewOptionsModalContent extends Component {
 }
 
 AuthorIndexOverviewOptionsModalContent.propTypes = {
+  showTitle: PropTypes.string.isRequired,
   size: PropTypes.string.isRequired,
   detailedProgressBar: PropTypes.bool.isRequired,
   showMonitored: PropTypes.bool.isRequired,

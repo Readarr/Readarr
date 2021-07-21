@@ -50,7 +50,7 @@ function calculateRowHeight(posterHeight, sortKey, isSmallScreen, posterOptions)
     isSmallScreen ? columnPaddingSmallScreen : columnPadding
   ];
 
-  if (showTitle) {
+  if (showTitle !== 'no') {
     heights.push(19);
   }
 
@@ -137,7 +137,8 @@ class AuthorIndexPosters extends Component {
             prevState.columnWidth !== columnWidth ||
             prevState.columnCount !== columnCount ||
             prevState.rowHeight !== rowHeight ||
-            hasDifferentItemsOrOrder(prevProps.items, items))) {
+            hasDifferentItemsOrOrder(prevProps.items, items)) ||
+            prevProps.posterOptions.showTitle !== posterOptions.showTitle) {
       // recomputeGridSize also forces Grid to discard its cache of rendered cells
       this._grid.recomputeGridSize();
     }
@@ -148,7 +149,7 @@ class AuthorIndexPosters extends Component {
     }
 
     if (jumpToCharacter != null && jumpToCharacter !== prevProps.jumpToCharacter) {
-      const index = getIndexOfFirstCharacter(items, jumpToCharacter);
+      const index = getIndexOfFirstCharacter(items, sortKey, jumpToCharacter);
 
       if (this._grid && index != null) {
         const row = Math.floor(index / columnCount);

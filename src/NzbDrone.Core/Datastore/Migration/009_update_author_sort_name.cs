@@ -25,7 +25,7 @@ namespace NzbDrone.Core.Datastore.Migration
 
             foreach (var row in rows)
             {
-                row.SortName = row.Name.ToSortName().ToLower();
+                row.SortName = row.Name.ToLastFirst().ToLower();
             }
 
             var sql = "UPDATE AuthorMetadata SET SortName = @SortName WHERE Id = @Id";

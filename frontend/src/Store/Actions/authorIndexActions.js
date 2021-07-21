@@ -16,31 +16,23 @@ export const section = 'authorIndex';
 // State
 
 export const defaultState = {
-  sortKey: 'sortName',
+  sortKey: 'sortNameLastFirst',
   sortDirection: sortDirections.ASCENDING,
-  secondarySortKey: 'sortName',
+  secondarySortKey: 'sortNameLastFirst',
   secondarySortDirection: sortDirections.ASCENDING,
   view: 'posters',
 
   posterOptions: {
     detailedProgressBar: false,
     size: 'large',
-    showTitle: true,
-    showMonitored: true,
-    showQualityProfile: true,
-    showSearchAction: false
-  },
-
-  bannerOptions: {
-    detailedProgressBar: false,
-    size: 'large',
-    showTitle: false,
+    showTitle: 'lastFirst',
     showMonitored: true,
     showQualityProfile: true,
     showSearchAction: false
   },
 
   overviewOptions: {
+    showTitle: 'lastFirst',
     detailedProgressBar: false,
     size: 'medium',
     showMonitored: true,
@@ -54,6 +46,7 @@ export const defaultState = {
   },
 
   tableOptions: {
+    showTitle: 'lastFirst',
     showBanners: false,
     showSearchAction: false
   },

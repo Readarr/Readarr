@@ -315,7 +315,9 @@ namespace NzbDrone.Core.MetadataSource.SkyHook
                 Ratings = new Ratings { Votes = resource.RatingsCount, Value = (decimal)resource.AverageRating }
             };
 
-            author.SortName = author.Name.ToSortName().ToLower();
+            author.NameLastFirst = author.Name.ToLastFirst();
+            author.SortName = author.Name.ToLower();
+            author.SortNameLastFirst = author.Name.ToLastFirst().ToLower();
 
             if (resource.ImageUrl.IsNotNullOrWhiteSpace())
             {

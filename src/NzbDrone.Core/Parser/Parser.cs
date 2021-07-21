@@ -357,7 +357,7 @@ namespace NzbDrone.Core.Parser
 
                 if (foundAuthor == null)
                 {
-                    foundAuthor = GetTitleFuzzy(simpleTitle, authorName.ToSortName(), out remainder);
+                    foundAuthor = GetTitleFuzzy(simpleTitle, authorName.ToLastFirst(), out remainder);
                 }
 
                 var foundBook = GetTitleFuzzy(remainder, bestBook.Title, out _);

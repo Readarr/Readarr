@@ -275,7 +275,7 @@ namespace NzbDrone.Common.Extensions
             return new string(buf.ToArray());
         }
 
-        public static string ToSortName(this string author)
+        public static string ToLastFirst(this string author)
         {
             // ported from https://github.com/kovidgoyal/calibre/blob/master/src/calibre/ebooks/metadata/__init__.py
             if (author == null)

@@ -70,6 +70,7 @@ class AuthorIndexPoster extends Component {
     const {
       id,
       authorName,
+      authorNameLastFirst,
       monitored,
       titleSlug,
       status,
@@ -193,9 +194,9 @@ class AuthorIndexPoster extends Component {
           />
 
           {
-            showTitle &&
+            showTitle !== 'no' &&
               <div className={styles.title}>
-                {authorName}
+                {showTitle === 'firstLast' ? authorName : authorNameLastFirst}
               </div>
           }
 
@@ -260,6 +261,7 @@ class AuthorIndexPoster extends Component {
 AuthorIndexPoster.propTypes = {
   id: PropTypes.number.isRequired,
   authorName: PropTypes.string.isRequired,
+  authorNameLastFirst: PropTypes.string.isRequired,
   monitored: PropTypes.bool.isRequired,
   status: PropTypes.string.isRequired,
   titleSlug: PropTypes.string.isRequired,
@@ -269,7 +271,7 @@ AuthorIndexPoster.propTypes = {
   posterWidth: PropTypes.number.isRequired,
   posterHeight: PropTypes.number.isRequired,
   detailedProgressBar: PropTypes.bool.isRequired,
-  showTitle: PropTypes.bool.isRequired,
+  showTitle: PropTypes.string.isRequired,
   showMonitored: PropTypes.bool.isRequired,
   showQualityProfile: PropTypes.bool.isRequired,
   qualityProfile: PropTypes.object.isRequired,

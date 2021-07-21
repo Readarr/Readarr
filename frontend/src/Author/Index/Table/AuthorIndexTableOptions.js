@@ -6,6 +6,11 @@ import FormLabel from 'Components/Form/FormLabel';
 import { inputTypes } from 'Helpers/Props';
 import translate from 'Utilities/String/translate';
 
+const nameOptions = [
+  { key: 'firstLast', value: translate('NameFirstLast') },
+  { key: 'lastFirst', value: translate('NameLastFirst') }
+];
+
 class AuthorIndexTableOptions extends Component {
 
   //
@@ -16,23 +21,27 @@ class AuthorIndexTableOptions extends Component {
 
     this.state = {
       showBanners: props.showBanners,
-      showSearchAction: props.showSearchAction
+      showSearchAction: props.showSearchAction,
+      showTitle: props.showTitle
     };
   }
 
   componentDidUpdate(prevProps) {
     const {
       showBanners,
-      showSearchAction
+      showSearchAction,
+      showTitle
     } = this.props;
 
     if (
       showBanners !== prevProps.showBanners ||
-      showSearchAction !== prevProps.showSearchAction
+      showSearchAction !== prevProps.showSearchAction ||
+      showTitle !== prevProps.showTitle
     ) {
       this.setState({
         showBanners,
-        showSearchAction
+        showSearchAction,
+        showTitle
       });
     }
   }
@@ -59,11 +68,26 @@ class AuthorIndexTableOptions extends Component {
   render() {
     const {
       showBanners,
-      showSearchAction
+      showSearchAction,
+      showTitle
     } = this.state;
 
     return (
       <Fragment>
+        <FormGroup>
+          <FormLabel>
+            {translate('NameStyle')}
+          </FormLabel>
+
+          <FormInputGroup
+            type={inputTypes.SELECT}
+            name="showTitle"
+            value={showTitle}
+            values={nameOptions}
+            onChange={this.onTableOptionChange}
+          />
+        </FormGroup>
+
         <FormGroup>
           <FormLabel>
             {translate('ShowBanners')}
@@ -97,6 +121,7 @@ class AuthorIndexTableOptions extends Component {
 }
 
 AuthorIndexTableOptions.propTypes = {
+  showTitle: PropTypes.string.isRequired,
   showBanners: PropTypes.bool.isRequired,
   showSearchAction: PropTypes.bool.isRequired,
   onTableOptionChange: PropTypes.func.isRequired

@@ -82,6 +82,7 @@ class AuthorIndexRow extends Component {
       monitored,
       status,
       authorName,
+      authorNameLastFirst,
       titleSlug,
       qualityProfile,
       metadataProfile,
@@ -95,6 +96,7 @@ class AuthorIndexRow extends Component {
       tags,
       images,
       showBanners,
+      showTitle,
       showSearchAction,
       columns,
       isRefreshingAuthor,
@@ -169,14 +171,14 @@ class AuthorIndexRow extends Component {
                         {
                           hasBannerError &&
                             <div className={styles.overlayTitle}>
-                              {authorName}
+                              {showTitle === 'firstLast' ? authorName : authorNameLastFirst}
                             </div>
                         }
                       </Link> :
 
                       <AuthorNameLink
                         titleSlug={titleSlug}
-                        authorName={authorName}
+                        authorName={showTitle === 'firstLast' ? authorName : authorNameLastFirst}
                       />
                   }
                 </VirtualTableRowCell>
@@ -408,6 +410,7 @@ AuthorIndexRow.propTypes = {
   monitored: PropTypes.bool.isRequired,
   status: PropTypes.string.isRequired,
   authorName: PropTypes.string.isRequired,
+  authorNameLastFirst: PropTypes.string.isRequired,
   titleSlug: PropTypes.string.isRequired,
   qualityProfile: PropTypes.object.isRequired,
   metadataProfile: PropTypes.object.isRequired,
@@ -422,6 +425,7 @@ AuthorIndexRow.propTypes = {
   tags: PropTypes.arrayOf(PropTypes.number).isRequired,
   images: PropTypes.arrayOf(PropTypes.object).isRequired,
   showBanners: PropTypes.bool.isRequired,
+  showTitle: PropTypes.string.isRequired,
   showSearchAction: PropTypes.bool.isRequired,
   columns: PropTypes.arrayOf(PropTypes.object).isRequired,
   isRefreshingAuthor: PropTypes.bool.isRequired,

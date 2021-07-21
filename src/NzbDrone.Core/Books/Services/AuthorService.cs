@@ -101,7 +101,7 @@ namespace NzbDrone.Core.Books
             {
                 tc((a, t) => a.CleanName.FuzzyMatch(t), cleanTitle),
                 tc((a, t) => a.Name.FuzzyMatch(t), title),
-                tc((a, t) => a.Name.ToSortName().FuzzyMatch(t), title),
+                tc((a, t) => a.Name.ToLastFirst().FuzzyMatch(t), title),
                 tc((a, t) => a.Metadata.Value.Aliases.Concat(new List<string> { a.Name }).Max(x => x.CleanAuthorName().FuzzyMatch(t)), cleanTitle),
             };
 
@@ -153,7 +153,7 @@ namespace NzbDrone.Core.Books
             {
                 tc((a, t) => t.FuzzyContains(a.CleanName), cleanReportTitle),
                 tc((a, t) => t.FuzzyContains(a.Metadata.Value.Name), reportTitle),
-                tc((a, t) => t.FuzzyContains(a.Metadata.Value.Name.ToSortName()), reportTitle)
+                tc((a, t) => t.FuzzyContains(a.Metadata.Value.Name.ToLastFirst()), reportTitle)
             };
 
             return scoringFunctions;
