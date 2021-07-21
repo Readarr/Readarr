@@ -17,24 +17,6 @@ import toggleSelected from 'Utilities/Table/toggleSelected';
 import BookFileEditorRow from './BookFileEditorRow';
 import styles from './BookFileEditorTableContent.css';
 
-const columns = [
-  {
-    name: 'path',
-    label: 'Path',
-    isVisible: true
-  },
-  {
-    name: 'quality',
-    label: 'Quality',
-    isVisible: true
-  },
-  {
-    name: 'actions',
-    columnLabel: 'Actions',
-    isVisible: true
-  }
-];
-
 class BookFileEditorTableContent extends Component {
 
   //
@@ -115,7 +97,8 @@ class BookFileEditorTableContent extends Component {
       error,
       items,
       qualities,
-      dispatchDeleteBookFile
+      dispatchDeleteBookFile,
+      ...otherProps
     } = this.props;
 
     const {
@@ -160,29 +143,33 @@ class BookFileEditorTableContent extends Component {
 
         {
           isPopulated && items.length ?
-            <Table
-              columns={columns}
-              selectAll={true}
-              allSelected={allSelected}
-              allUnselected={allUnselected}
-              onSelectAllChange={this.onSelectAllChange}
+            <div
+              className={styles.filesTable}
             >
-              <TableBody>
-                {
-                  items.map((item) => {
-                    return (
-                      <BookFileEditorRow
-                        key={item.id}
-                        isSelected={selectedState[item.id]}
-                        {...item}
-                        onSelectedChange={this.onSelectedChange}
-                        deleteBookFile={dispatchDeleteBookFile}
-                      />
-                    );
-                  })
-                }
-              </TableBody>
-            </Table> :
+              <Table
+                selectAll={true}
+                allSelected={allSelected}
+                allUnselected={allUnselected}
+                onSelectAllChange={this.onSelectAllChange}
+                {...otherProps}
+              >
+                <TableBody>
+                  {
+                    items.map((item) => {
+                      return (
+                        <BookFileEditorRow
+                          key={item.id}
+                          isSelected={selectedState[item.id]}
+                          {...item}
+                          onSelectedChange={this.onSelectedChange}
+                          deleteBookFile={dispatchDeleteBookFile}
+                        />
+                      );
+                    })
+                  }
+                </TableBody>
+              </Table>
+            </div> :
             null
         }
 
