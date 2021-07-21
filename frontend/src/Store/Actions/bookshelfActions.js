@@ -42,11 +42,6 @@ export const defaultState = {
       valueType: filterBuilderValueTypes.AUTHOR_STATUS
     },
     {
-      name: 'authorType',
-      label: 'Author Type',
-      type: filterBuilderTypes.EXACT
-    },
-    {
       name: 'qualityProfileId',
       label: 'Quality Profile',
       type: filterBuilderTypes.EXACT,

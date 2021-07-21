@@ -18,12 +18,6 @@
   flex-grow: 1;
 }
 
-.authorType {
-  composes: headerCell from '~Components/Table/VirtualTableHeaderCell.css';
-
-  flex: 0 0 100px;
-}
-
 .qualityProfileId,
 .metadataProfileId {
   composes: headerCell from '~Components/Table/VirtualTableHeaderCell.css';

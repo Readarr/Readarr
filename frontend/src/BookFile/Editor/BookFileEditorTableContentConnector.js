@@ -47,7 +47,6 @@ function createMapStateToProps() {
       return {
         ...schema,
         items: bookFiles.items,
-        authorType: author.authorType,
         isDeleting: bookFiles.isDeleting,
         isSaving: bookFiles.isSaving
       };

@@ -15,7 +15,6 @@ export const BOOK_EDITION_SELECT = 'bookEditionSelect';
 export const INDEXER_SELECT = 'indexerSelect';
 export const ROOT_FOLDER_SELECT = 'rootFolderSelect';
 export const SELECT = 'select';
-export const SERIES_TYPE_SELECT = 'authorTypeSelect';
 export const DYNAMIC_SELECT = 'dynamicSelect';
 export const TAG = 'tag';
 export const TEXT = 'text';
@@ -41,7 +40,6 @@ export const all = [
   ROOT_FOLDER_SELECT,
   SELECT,
   DYNAMIC_SELECT,
-  SERIES_TYPE_SELECT,
   TAG,
   TEXT,
   TEXT_TAG,

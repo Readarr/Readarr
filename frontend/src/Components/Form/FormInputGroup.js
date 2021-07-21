@@ -22,7 +22,6 @@ import PasswordInput from './PasswordInput';
 import PathInputConnector from './PathInputConnector';
 import QualityProfileSelectInputConnector from './QualityProfileSelectInputConnector';
 import RootFolderSelectInputConnector from './RootFolderSelectInputConnector';
-import SeriesTypeSelectInput from './SeriesTypeSelectInput';
 import TagInputConnector from './TagInputConnector';
 import TextInput from './TextInput';
 import TextTagInputConnector from './TextTagInputConnector';
@@ -84,9 +83,6 @@ function getComponent(type) {
 
     case inputTypes.DYNAMIC_SELECT:
       return EnhancedSelectInputConnector;
-
-    case inputTypes.SERIES_TYPE_SELECT:
-      return SeriesTypeSelectInput;
 
     case inputTypes.TAG:
       return TagInputConnector;
