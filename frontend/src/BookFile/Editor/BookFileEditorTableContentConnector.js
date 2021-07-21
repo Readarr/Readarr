@@ -4,9 +4,10 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
-import { deleteBookFile, deleteBookFiles, updateBookFiles } from 'Store/Actions/bookFileActions';
+import { deleteBookFile, deleteBookFiles, setBookFilesSort, updateBookFiles } from 'Store/Actions/bookFileActions';
 import { fetchQualityProfileSchema } from 'Store/Actions/settingsActions';
 import createAuthorSelector from 'Store/Selectors/createAuthorSelector';
+import createClientSideCollectionSelector from 'Store/Selectors/createClientSideCollectionSelector';
 import getQualities from 'Utilities/Quality/getQualities';
 import BookFileEditorTableContent from './BookFileEditorTableContent';
 
@@ -35,7 +36,7 @@ function createSchemaSelector() {
 function createMapStateToProps() {
   return createSelector(
     (state, { bookId }) => bookId,
-    (state) => state.bookFiles,
+    createClientSideCollectionSelector('bookFiles'),
     createSchemaSelector(),
     createAuthorSelector(),
     (
@@ -44,9 +45,14 @@ function createMapStateToProps() {
       schema,
       author
     ) => {
+      const {
+        items,
+        ...otherProps
+      } = bookFiles;
       return {
         ...schema,
-        items: bookFiles.items,
+        items,
+        ...otherProps,
         isDeleting: bookFiles.isDeleting,
         isSaving: bookFiles.isSaving
       };
@@ -56,6 +62,10 @@ function createMapStateToProps() {
 
 function createMapDispatchToProps(dispatch, props) {
   return {
+    onSortPress(sortKey) {
+      dispatch(setBookFilesSort({ sortKey }));
+    },
+
     dispatchFetchQualityProfileSchema(name, path) {
       dispatch(fetchQualityProfileSchema());
     },

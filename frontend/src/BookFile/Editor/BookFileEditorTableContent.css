@@ -1,3 +1,16 @@
+.filesTable {
+  margin-bottom: 20px;
+  padding-top: 15px;
+  border: 1px solid $borderColor;
+  border-top: 1px solid $borderColor;
+  border-radius: 4px;
+  background-color: $white;
+
+  &:last-of-type {
+    margin-bottom: 0;
+  }
+}
+
 .actions {
   display: flex;
   margin-right: auto;
