@@ -101,21 +101,12 @@ function AuthorIndexSortMenu(props) {
         </SortMenuItem>
 
         <SortMenuItem
-          name="trackProgress"
+          name="bookProgress"
           sortKey={sortKey}
           sortDirection={sortDirection}
           onPress={onSortSelect}
         >
-          Books
-        </SortMenuItem>
-
-        <SortMenuItem
-          name="bookCount"
-          sortKey={sortKey}
-          sortDirection={sortDirection}
-          onPress={onSortSelect}
-        >
-          Book Count
+          Books Progress
         </SortMenuItem>
 
         <SortMenuItem
