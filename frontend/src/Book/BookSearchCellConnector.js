@@ -28,7 +28,6 @@ function createMapStateToProps() {
 
       return {
         authorMonitored: author.monitored,
-        authorType: author.authorType,
         isSearching
       };
     }

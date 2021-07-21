@@ -27,7 +27,6 @@ class AuthorEditorRow extends Component {
       status,
       titleSlug,
       authorName,
-      authorType,
       monitored,
       metadataProfile,
       qualityProfile,
@@ -62,7 +61,6 @@ class AuthorEditorRow extends Component {
               return (
                 <AuthorStatusCell
                   key={name}
-                  authorType={authorType}
                   monitored={monitored}
                   status={status}
                 />
@@ -137,7 +135,6 @@ AuthorEditorRow.propTypes = {
   status: PropTypes.string.isRequired,
   titleSlug: PropTypes.string.isRequired,
   authorName: PropTypes.string.isRequired,
-  authorType: PropTypes.string,
   monitored: PropTypes.bool.isRequired,
   metadataProfile: PropTypes.object.isRequired,
   qualityProfile: PropTypes.object.isRequired,

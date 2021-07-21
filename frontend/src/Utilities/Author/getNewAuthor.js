@@ -5,7 +5,6 @@ function getNewAuthor(author, payload) {
     monitor,
     qualityProfileId,
     metadataProfileId,
-    authorType,
     tags,
     searchForMissingBooks = false
   } = payload;
@@ -20,7 +19,6 @@ function getNewAuthor(author, payload) {
   author.qualityProfileId = qualityProfileId;
   author.metadataProfileId = metadataProfileId;
   author.rootFolderPath = rootFolderPath;
-  author.authorType = authorType;
   author.tags = tags;
 
   return author;

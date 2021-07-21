@@ -4,17 +4,14 @@ import AuthorNameLink from 'Author/AuthorNameLink';
 import bookEntities from 'Book/bookEntities';
 import BookSearchCellConnector from 'Book/BookSearchCellConnector';
 import BookTitleLink from 'Book/BookTitleLink';
-import EpisodeStatusConnector from 'Book/EpisodeStatusConnector';
 import RelativeDateCellConnector from 'Components/Table/Cells/RelativeDateCellConnector';
 import TableRowCell from 'Components/Table/Cells/TableRowCell';
 import TableSelectCell from 'Components/Table/Cells/TableSelectCell';
 import TableRow from 'Components/Table/TableRow';
-import styles from './CutoffUnmetRow.css';
 
 function CutoffUnmetRow(props) {
   const {
     id,
-    bookFileId,
     author,
     releaseDate,
     titleSlug,
@@ -77,21 +74,6 @@ function CutoffUnmetRow(props) {
                 key={name}
                 date={releaseDate}
               />
-            );
-          }
-
-          if (name === 'status') {
-            return (
-              <TableRowCell
-                key={name}
-                className={styles.status}
-              >
-                <EpisodeStatusConnector
-                  bookId={id}
-                  bookFileId={bookFileId}
-                  bookEntity={bookEntities.WANTED_CUTOFF_UNMET}
-                />
-              </TableRowCell>
             );
           }
 
