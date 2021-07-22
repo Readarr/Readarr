@@ -146,7 +146,7 @@ class BookRow extends Component {
               return (
                 <TableRowCell
                   key={name}
-                  className={styles.title}
+                  className={styles.position}
                 >
                   {position || ''}
                 </TableRowCell>

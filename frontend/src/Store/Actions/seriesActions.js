@@ -45,6 +45,12 @@ export const defaultState = {
       isVisible: false
     },
     {
+      name: 'position',
+      label: 'Number',
+      isSortable: true,
+      isVisible: true
+    },
+    {
       name: 'releaseDate',
       label: 'Release Date',
       isSortable: true,

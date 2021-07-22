@@ -10,7 +10,6 @@ import { setSeriesSort, setSeriesTableOption } from 'Store/Actions/seriesActions
 import createAuthorSelector from 'Store/Selectors/createAuthorSelector';
 import createCommandsSelector from 'Store/Selectors/createCommandsSelector';
 import createDimensionsSelector from 'Store/Selectors/createDimensionsSelector';
-// import createClientSideCollectionSelector from 'Store/Selectors/createClientSideCollectionSelector';
 import createUISettingsSelector from 'Store/Selectors/createUISettingsSelector';
 import AuthorDetailsSeries from './AuthorDetailsSeries';
 

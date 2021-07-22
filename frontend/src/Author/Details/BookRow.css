@@ -8,13 +8,9 @@
   width: 42px;
 }
 
+.position,
+.rating,
 .status {
-  composes: cell from '~Components/Table/Cells/TableRowCell.css';
-
-  width: 100px;
-}
-
-.rating {
   composes: cell from '~Components/Table/Cells/TableRowCell.css';
 
   width: 100px;

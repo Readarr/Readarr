@@ -100,12 +100,6 @@
   composes: actionButton;
 
   margin-right: 15px;
-
-  /* position: absolute; */
-  /* top: 50%; */
-  /* left: 90%; */
-  /* margin-top: -12px; */
-  /* margin-left: -15px; */
 }
 
 .noBooks {
