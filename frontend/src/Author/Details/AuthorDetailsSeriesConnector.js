@@ -4,9 +4,9 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
-import { setBooksTableOption, toggleBooksMonitored } from 'Store/Actions/bookActions';
+import { toggleBooksMonitored } from 'Store/Actions/bookActions';
 import { executeCommand } from 'Store/Actions/commandActions';
-import { setSeriesSort } from 'Store/Actions/seriesActions';
+import { setSeriesSort, setSeriesTableOption } from 'Store/Actions/seriesActions';
 import createAuthorSelector from 'Store/Selectors/createAuthorSelector';
 import createCommandsSelector from 'Store/Selectors/createCommandsSelector';
 import createDimensionsSelector from 'Store/Selectors/createDimensionsSelector';
@@ -70,7 +70,7 @@ function createMapStateToProps() {
 
 const mapDispatchToProps = {
   toggleBooksMonitored,
-  setBooksTableOption,
+  setSeriesTableOption,
   dispatchSetSeriesSort: setSeriesSort,
   executeCommand
 };
@@ -81,7 +81,7 @@ class AuthorDetailsSeasonConnector extends Component {
   // Listeners
 
   onTableOptionChange = (payload) => {
-    this.props.setBooksTableOption(payload);
+    this.props.setSeriesTableOption(payload);
   }
 
   onSortPress = (sortKey) => {
@@ -113,7 +113,7 @@ class AuthorDetailsSeasonConnector extends Component {
 AuthorDetailsSeasonConnector.propTypes = {
   authorId: PropTypes.number.isRequired,
   toggleBooksMonitored: PropTypes.func.isRequired,
-  setBooksTableOption: PropTypes.func.isRequired,
+  setSeriesTableOption: PropTypes.func.isRequired,
   dispatchSetSeriesSort: PropTypes.func.isRequired,
   executeCommand: PropTypes.func.isRequired
 };
