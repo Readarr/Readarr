@@ -65,7 +65,27 @@ namespace NzbDrone.Core.MediaFiles
 
                 Title = tag.Title ?? tag.TitleSort;
                 Performers = tag.Performers ?? tag.PerformersSort;
-                BookAuthors = tag.AlbumArtists ?? tag.AlbumArtistsSort;
+
+                var authors = new List<string>();
+
+                if (tag.AlbumArtists?.Any() ?? false)
+                {
+                    authors.AddRange(tag.AlbumArtists);
+                }
+                else if (tag.AlbumArtistsSort?.Any() ?? false)
+                {
+                    authors.AddRange(tag.AlbumArtistsSort);
+                }
+                else if (tag.Performers?.Any() ?? false)
+                {
+                    authors.AddRange(tag.Performers);
+                }
+                else if (tag.PerformersSort?.Any() ?? false)
+                {
+                    authors.AddRange(tag.PerformersSort);
+                }
+
+                BookAuthors = authors.ToArray();
                 Track = tag.Track;
                 TrackCount = tag.TrackCount;
                 Book = tag.Album ?? tag.AlbumSort;
@@ -507,23 +527,16 @@ namespace NzbDrone.Core.MediaFiles
                 };
             }
 
-            var author = tag.BookAuthors?.FirstOrDefault();
-
-            if (author.IsNullOrWhiteSpace())
+            var authors = tag.BookAuthors.Where(x => x.IsNotNullOrWhiteSpace()).ToList();
+            if (!authors.Any())
             {
-                author = tag.Performers?.FirstOrDefault();
+                authors.AddRange(tag.Performers.Where(x => x.IsNotNullOrWhiteSpace()));
             }
-
-            var authorTitleInfo = new AuthorTitleInfo
-            {
-                Title = author,
-                Year = (int)tag.Year
-            };
 
             return new ParsedTrackInfo
             {
                 BookTitle = tag.Book,
-                Authors = new List<string> { author },
+                Authors = authors,
                 DiscNumber = (int)tag.Disc,
                 DiscCount = (int)tag.DiscCount,
                 Year = tag.Year,
