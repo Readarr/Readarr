@@ -23,19 +23,20 @@ namespace NzbDrone.Core.MediaFiles.BookImport.Identification
         {
             var dist = new Distance();
 
-            var authors = new List<string>();
+            // the most common list of authors reported by a file
+            var fileAuthors = localTracks.Select(x => x.FileTrackInfo.Authors.Where(a => a.IsNotNullOrWhiteSpace()).ToList())
+                .GroupBy(x => x.ConcatToString())
+                .OrderByDescending(x => x.Count())
+                .First()
+                .First();
 
-            var fileAuthors = localTracks.MostCommon(x => x.FileTrackInfo.Authors);
-            if (fileAuthors?.Any() ?? false)
+            var authors = new List<string>(fileAuthors);
+
+            foreach (var author in fileAuthors)
             {
-                authors.AddRange(fileAuthors);
-
-                foreach (var author in fileAuthors)
+                if (author.Contains(','))
                 {
-                    if (author.Contains(','))
-                    {
-                        authors.Add(authors[0].Split(',', 2).Select(x => x.Trim()).Reverse().ConcatToString(" "));
-                    }
+                    authors.Add(authors[0].Split(',', 2).Select(x => x.Trim()).Reverse().ConcatToString(" "));
                 }
             }
 

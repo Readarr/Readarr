@@ -285,7 +285,13 @@ namespace NzbDrone.Core.MediaFiles.BookImport.Identification
             }
             else
             {
-                authorTags.AddRange(localEdition.LocalBooks.MostCommon(x => x.FileTrackInfo.Authors));
+                // the most common list of authors reported by a file
+                var authors = localEdition.LocalBooks.Select(x => x.FileTrackInfo.Authors.Where(a => a.IsNotNullOrWhiteSpace()).ToList())
+                    .GroupBy(x => x.ConcatToString())
+                    .OrderByDescending(x => x.Count())
+                    .First()
+                    .First();
+                authorTags.AddRange(authors);
             }
 
             var bookTag = localEdition.LocalBooks.MostCommon(x => x.FileTrackInfo.BookTitle) ?? "";
