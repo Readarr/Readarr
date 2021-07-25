@@ -205,7 +205,7 @@ namespace NzbDrone.Core.MediaFiles
 
                 _logger.Debug($"Syncing audio tags for {bookFiles.Count} files");
 
-                foreach (var file in bookFiles)
+                foreach (var file in bookFiles.Where(x => MediaFileExtensions.AudioExtensions.Contains(Path.GetExtension(x.Path))))
                 {
                     // populate tracks (which should also have release/book/author set) because
                     // not all of the updates will have been committed to the database yet
