@@ -69,7 +69,9 @@ namespace NzbDrone.Core.MediaFiles.BookImport.Identification
                     if (l.Series?.Value?.Title?.IsNotNullOrWhiteSpace() ?? false)
                     {
                         titleOptions.Add($"{l.Series.Value.Title} {l.Position} {edition.Title}");
+                        titleOptions.Add($"{l.Series.Value.Title} Book {l.Position} {edition.Title}");
                         titleOptions.Add($"{edition.Title} {l.Series.Value.Title} {l.Position}");
+                        titleOptions.Add($"{edition.Title} {l.Series.Value.Title} Book {l.Position}");
                     }
                 }
             }
