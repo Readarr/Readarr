@@ -165,7 +165,40 @@ namespace NzbDrone.Core.Test.MediaFiles
         }
 
         [Test]
-        public void should_import_larger_files_first()
+        public void should_import_higher_quality_files_first()
+        {
+            var lqDecision = _approvedDecisions.First();
+            lqDecision.Item.Quality = new QualityModel(Quality.MOBI);
+            lqDecision.Item.Size = 10.Megabytes();
+
+            var hqDecision = new ImportDecision<LocalBook>(
+                new LocalBook
+                {
+                    Author = lqDecision.Item.Author,
+                    Book = lqDecision.Item.Book,
+                    Edition = lqDecision.Item.Edition,
+                    Path = @"C:\Test\Music\Alien Ant Farm\Alien Ant Farm - 01 - Pilot.mp3".AsOsAgnostic(),
+                    Quality = new QualityModel(Quality.AZW3),
+                    Size = 1.Megabytes(),
+                    FileTrackInfo = new ParsedTrackInfo
+                    {
+                        ReleaseGroup = "DRONE"
+                    }
+                });
+
+            var all = new List<ImportDecision<LocalBook>>();
+            all.Add(lqDecision);
+            all.Add(hqDecision);
+
+            var results = Subject.Import(all, false);
+
+            results.Should().HaveCount(all.Count);
+            results.Should().ContainSingle(d => d.Result == ImportResultType.Imported);
+            results.Should().ContainSingle(d => d.Result == ImportResultType.Imported && d.ImportDecision.Item.Size == hqDecision.Item.Size);
+        }
+
+        [Test]
+        public void should_import_larger_files_for_same_quality_first()
         {
             var fileDecision = _approvedDecisions.First();
             fileDecision.Item.Size = 1.Gigabytes();

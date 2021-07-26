@@ -142,7 +142,7 @@ namespace NzbDrone.Core.MediaFiles.BookImport
             var filesToAdd = new List<BookFile>(qualifiedImports.Count);
             var trackImportedEvents = new List<TrackImportedEvent>(qualifiedImports.Count);
 
-            foreach (var importDecision in qualifiedImports.OrderByDescending(e => e.Item.Size))
+            foreach (var importDecision in qualifiedImports)
             {
                 var localTrack = importDecision.Item;
                 var oldFiles = new List<BookFile>();
