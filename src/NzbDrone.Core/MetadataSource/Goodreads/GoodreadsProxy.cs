@@ -137,10 +137,21 @@ namespace NzbDrone.Core.MetadataSource.Goodreads
             if (existingAuthor != null)
             {
                 var existingEditions = _editionService.GetEditionsByAuthor(existingAuthor.Id);
-                var extraEditionIds = existingEditions.Select(x => x.ForeignEditionId).Except(books.Select(x => x.Editions.Value.First().ForeignEditionId));
+                var extraEditionIds = existingEditions
+                    .Select(x => x.ForeignEditionId)
+                    .Except(books.Select(x => x.Editions.Value.First().ForeignEditionId))
+                    .ToList();
 
                 _logger.Debug($"Getting data for extra editions {extraEditionIds.ConcatToString()}");
-                var extraEditions = extraEditionIds.Select(x => GetBookInfo(x));
+
+                var extraEditions = new List<Tuple<string, Book, List<AuthorMetadata>>>();
+                foreach (var id in extraEditionIds)
+                {
+                    if (TryGetBookInfo(id, true, out var result))
+                    {
+                        extraEditions.Add(result);
+                    }
+                }
 
                 var bookDict = books.ToDictionary(x => x.ForeignBookId);
                 foreach (var edition in extraEditions)
@@ -311,6 +322,21 @@ namespace NzbDrone.Core.MetadataSource.Goodreads
         private HashSet<string> GetChangedBooksUncached(DateTime startTime)
         {
             return null;
+        }
+
+        private bool TryGetBookInfo(string foreignEditionId, bool useCache, out Tuple<string, Book, List<AuthorMetadata>> result)
+        {
+            try
+            {
+                result = GetBookInfo(foreignEditionId, useCache);
+                return true;
+            }
+            catch (BookNotFoundException e)
+            {
+                result = null;
+                _logger.Warn(e, "Book not found");
+                return false;
+            }
         }
 
         public Tuple<string, Book, List<AuthorMetadata>> GetBookInfo(string foreignEditionId, bool useCache = true)
