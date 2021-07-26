@@ -604,7 +604,7 @@ namespace NzbDrone.Core.MetadataSource.Goodreads
             {
                 ForeignBookId = resource.Work.Id.ToString(),
                 Title = (resource.Work.OriginalTitle ?? resource.TitleWithoutSeries).CleanSpaces(),
-                TitleSlug = resource.Id.ToString(),
+                TitleSlug = resource.Work.Id.ToString(),
                 ReleaseDate = resource.Work.OriginalPublicationDate ?? resource.PublicationDate,
                 Ratings = new Ratings { Votes = resource.Work.RatingsCount, Value = resource.Work.AverageRating },
                 AnyEditionOk = true
