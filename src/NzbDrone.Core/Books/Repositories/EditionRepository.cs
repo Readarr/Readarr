@@ -12,6 +12,8 @@ namespace NzbDrone.Core.Books
         Edition FindByForeignEditionId(string foreignEditionId);
         List<Edition> FindByBook(int id);
         List<Edition> FindByAuthor(int id);
+        List<Edition> FindByAuthorMetadataId(int id, bool onlyMonitored);
+        Edition FindByTitle(int authorMetadataId, string title);
         List<Edition> GetEditionsForRefresh(int bookId, IEnumerable<string> foreignEditionIds);
         List<Edition> SetMonitored(Edition edition);
     }
@@ -61,6 +63,28 @@ namespace NzbDrone.Core.Books
             return Query(Builder().Join<Edition, Book>((e, b) => e.BookId == b.Id)
                          .Join<Book, Author>((b, a) => b.AuthorMetadataId == a.AuthorMetadataId)
                          .Where<Author>(a => a.Id == id));
+        }
+
+        public List<Edition> FindByAuthorMetadataId(int authorMetadataId, bool onlyMonitored)
+        {
+            var builder = Builder().Join<Edition, Book>((e, b) => e.BookId == b.Id)
+                .Where<Book>(b => b.AuthorMetadataId == authorMetadataId);
+
+            if (onlyMonitored)
+            {
+                builder = builder.Where<Edition>(e => e.Monitored == true);
+            }
+
+            return Query(builder);
+        }
+
+        public Edition FindByTitle(int authorMetadataId, string title)
+        {
+            return Query(Builder().Join<Edition, Book>((e, b) => e.BookId == b.Id)
+                .Where<Book>(b => b.AuthorMetadataId == authorMetadataId)
+                .Where<Edition>(e => e.Monitored == true)
+                .Where<Edition>(e => e.Title == title))
+                .FirstOrDefault();
         }
 
         public List<Edition> SetMonitored(Edition edition)

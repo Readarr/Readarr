@@ -187,7 +187,17 @@ namespace NzbDrone.Core.Test.DecisionEngineTests
             _reports[0].Title = "1937 - Snow White and the Seven Dwarves";
 
             var author = new Author { Name = "Some Author" };
-            var books = new List<Book> { new Book { Title = "Some Book" } };
+            var books = new List<Book>
+            {
+                new Book
+                {
+                    Title = "Some Book",
+                    Editions = new List<Edition>
+                    {
+                        new Edition { Title = "Some Edition Title" }
+                    }
+                }
+            };
 
             Subject.GetSearchDecision(_reports, new BookSearchCriteria { Author = author, Books = books }).ToList();
 
