@@ -4,9 +4,10 @@
 [![Docker Pulls](https://img.shields.io/docker/pulls/hotio/readarr)](https://hub.docker.com/r/hotio/readarr)
 [![Backers on Open Collective](https://opencollective.com/readarr/backers/badge.svg)](#backers) [![Sponsors on Open Collective](https://opencollective.com/readarr/sponsors/badge.svg)](#sponsors)
 
-### Readarr is in early stages of development, alpha/beta binary builds are not yet available. Use of any test builds isn't recommend, and may have detrimental effects on your library.
+### Readarr is currently in beta testing and is generally still in a work in progress. Features may be broken, incomplete, or cause spontaneous combustion.
 
-Readarr is an ebook (and maybe eventually magazine/audiobook) collection manager for Usenet and BitTorrent users. It can monitor multiple RSS feeds for new books from your favorite authors and will grab, sort and rename them.
+Readarr is an ebook and audiobook collection manager for Usenet and BitTorrent users. It can monitor multiple RSS feeds for new books from your favorite authors and will grab, sort and rename them.
+Note that only one type of a given book is supported. If you want both an audiobook and ebook of a given book you will need multiple instances.
 
 ## Major Features Include:
 
@@ -22,8 +23,11 @@ Readarr is an ebook (and maybe eventually magazine/audiobook) collection manager
 
 ## Support
 
+Note: GitHub Issues are for Bugs and Feature Requests Only
+
 [![Discord](https://img.shields.io/badge/discord-chat-7289DA.svg?maxAge=60)](https://readarr.com/discord)
-[![GitHub](https://img.shields.io/badge/github-issues-red.svg?maxAge=60)](https://github.com/Readarr/Readarr/issues)
+[![Reddit](https://img.shields.io/badge/reddit-discussion-FF4500.svg?maxAge=60)](https://www.reddit.com/r/readarr)
+[![GitHub - Bugs and Feature Requests Only]((https://img.shields.io/badge/github-issues-red.svg?maxAge=60)](https://github.com/Readarr/Readarr/issues)
 [![Wiki](https://img.shields.io/badge/servarr-wiki-181717.svg?maxAge=60)](https://wiki.servarr.com/readarr)
 
 ## Contributors

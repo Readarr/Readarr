@@ -2,6 +2,8 @@
 
 We're always looking for people to help make Readarr even better, there are a number of ways to contribute.
 
+This file is updated on an ad-hoc basis, for the latest details please see the [contributing wiki page](https://wiki.servarr.com/readarr/contributing).
+
 ## Documentation ##
 Setup guides, FAQ, the more information we have on the [wiki](https://wiki.servarr.com/readarr) the better.
 
