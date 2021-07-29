@@ -29,8 +29,11 @@ namespace NzbDrone.Core.Test.ParserTests
         private void GivenSearchCriteria(string authorName, string bookTitle)
         {
             _author.Name = authorName;
-            var a = new Book();
-            a.Title = bookTitle;
+            var a = new Book
+            {
+                Title = bookTitle,
+                Editions = new List<Edition> { new Edition { Title = bookTitle, Monitored = true } }
+            };
             _books.Add(a);
         }
 

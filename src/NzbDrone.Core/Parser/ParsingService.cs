@@ -28,15 +28,18 @@ namespace NzbDrone.Core.Parser
     {
         private readonly IAuthorService _authorService;
         private readonly IBookService _bookService;
+        private readonly IEditionService _editionService;
         private readonly IMediaFileService _mediaFileService;
         private readonly Logger _logger;
 
         public ParsingService(IAuthorService authorService,
                               IBookService bookService,
+                              IEditionService editionService,
                               IMediaFileService mediaFileService,
                               Logger logger)
         {
             _bookService = bookService;
+            _editionService = editionService;
             _authorService = authorService;
             _mediaFileService = mediaFileService;
             _logger = logger;
@@ -129,8 +132,21 @@ namespace NzbDrone.Core.Parser
 
             if (bookInfo == null)
             {
+                var edition = _editionService.FindByTitle(author.AuthorMetadataId, parsedBookInfo.BookTitle);
+                bookInfo = edition?.Book.Value;
+            }
+
+            if (bookInfo == null)
+            {
                 _logger.Debug("Trying inexact book match for {0}", parsedBookInfo.BookTitle);
                 bookInfo = _bookService.FindByTitleInexact(author.AuthorMetadataId, parsedBookInfo.BookTitle);
+            }
+
+            if (bookInfo == null)
+            {
+                _logger.Debug("Trying inexact edition match for {0}", parsedBookInfo.BookTitle);
+                var edition = _editionService.FindByTitleInexact(author.AuthorMetadataId, parsedBookInfo.BookTitle);
+                bookInfo = edition?.Book.Value;
             }
 
             if (bookInfo != null)
@@ -211,6 +227,21 @@ namespace NzbDrone.Core.Parser
                     {
                         bestAuthor = author;
                         bestBook = book;
+                    }
+                }
+
+                var possibleEditions = _editionService.GetCandidates(author.AuthorMetadataId, title);
+                foreach (var edition in possibleEditions)
+                {
+                    var editionMatch = title.FuzzyMatch(edition.Title, 0.5);
+                    var score = (authorMatch.Item2 + editionMatch.Item2) / 2;
+
+                    _logger.Trace($"Edition {edition} has score {score}");
+
+                    if (score > bestScore)
+                    {
+                        bestAuthor = author;
+                        bestBook = edition.Book.Value;
                     }
                 }
             }
