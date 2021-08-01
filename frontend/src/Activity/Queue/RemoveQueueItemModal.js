@@ -72,7 +72,8 @@ class RemoveQueueItemModal extends Component {
     const {
       isOpen,
       sourceTitle,
-      canIgnore
+      canIgnore,
+      isPending
     } = this.props;
 
     const { remove, blocklist, skipredownload } = this.state;
@@ -95,20 +96,24 @@ class RemoveQueueItemModal extends Component {
               Are you sure you want to remove '{sourceTitle}' from the queue?
             </div>
 
-            <FormGroup>
-              <FormLabel>
-                {translate('RemoveFromDownloadClient')}
-              </FormLabel>
+            {
+              isPending ?
+                null :
+                <FormGroup>
+                  <FormLabel>
+                    {translate('RemoveFromDownloadClient')}
+                  </FormLabel>
 
-              <FormInputGroup
-                type={inputTypes.CHECK}
-                name="remove"
-                value={remove}
-                helpTextWarning={translate('RemoveHelpTextWarning')}
-                isDisabled={!canIgnore}
-                onChange={this.onRemoveChange}
-              />
-            </FormGroup>
+                  <FormInputGroup
+                    type={inputTypes.CHECK}
+                    name="remove"
+                    value={remove}
+                    helpTextWarning={translate('RemoveHelpTextWarning')}
+                    isDisabled={!canIgnore}
+                    onChange={this.onRemoveChange}
+                  />
+                </FormGroup>
+            }
 
             <FormGroup>
               <FormLabel>
@@ -164,6 +169,7 @@ RemoveQueueItemModal.propTypes = {
   isOpen: PropTypes.bool.isRequired,
   sourceTitle: PropTypes.string.isRequired,
   canIgnore: PropTypes.bool.isRequired,
+  isPending: PropTypes.bool.isRequired,
   onRemovePress: PropTypes.func.isRequired,
   onModalClose: PropTypes.func.isRequired
 };
