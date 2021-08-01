@@ -426,14 +426,15 @@ namespace NzbDrone.Core.Download.Clients.DownloadStation
             {
                 return Settings.TvDirectory.TrimStart('/');
             }
-            else if (Settings.MusicCategory.IsNotNullOrWhiteSpace())
-            {
-                var destDir = GetDefaultDir();
 
+            var destDir = GetDefaultDir();
+
+            if (Settings.MusicCategory.IsNotNullOrWhiteSpace())
+            {
                 return $"{destDir.TrimEnd('/')}/{Settings.MusicCategory}";
             }
 
-            return null;
+            return destDir.TrimEnd('/');
         }
     }
 }
