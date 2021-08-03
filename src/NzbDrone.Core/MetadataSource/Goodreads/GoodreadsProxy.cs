@@ -747,6 +747,7 @@ namespace NzbDrone.Core.MetadataSource.Goodreads
 
                 book.Author = author;
                 book.AuthorMetadata = book.Author.Value.Metadata.Value;
+                book.AuthorMetadataId = author.AuthorMetadataId;
                 book.CleanTitle = book.Title.CleanAuthorName();
             }
 
@@ -833,6 +834,7 @@ namespace NzbDrone.Core.MetadataSource.Goodreads
 
             book.Author = author;
             book.AuthorMetadata = book.Author.Value.Metadata.Value;
+            book.AuthorMetadataId = author.AuthorMetadataId;
             book.CleanTitle = book.Title.CleanAuthorName();
             book.SeriesLinks = MapSearchSeries(resource.Title, resource.BookTitleBare);
 

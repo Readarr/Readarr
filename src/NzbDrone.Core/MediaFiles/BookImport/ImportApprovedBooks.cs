@@ -374,6 +374,12 @@ namespace NzbDrone.Core.MediaFiles.BookImport
                 if (dbBook == null)
                 {
                     _logger.Debug($"Adding remote book {book}");
+
+                    if (book.AuthorMetadataId == 0)
+                    {
+                        throw new InvalidOperationException("Cannot insert book with AuthorMetadataId = 0");
+                    }
+
                     try
                     {
                         book.Added = DateTime.UtcNow;

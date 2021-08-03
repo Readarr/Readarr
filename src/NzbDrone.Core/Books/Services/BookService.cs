@@ -63,6 +63,11 @@ namespace NzbDrone.Core.Books
 
         public Book AddBook(Book newBook, bool doRefresh = true)
         {
+            if (newBook.AuthorMetadataId == 0)
+            {
+                throw new InvalidOperationException("Cannot insert book with AuthorMetadataId = 0");
+            }
+
             _bookRepository.Upsert(newBook);
 
             var editions = newBook.Editions.Value;
@@ -244,6 +249,11 @@ namespace NzbDrone.Core.Books
 
         public void InsertMany(List<Book> books)
         {
+            if (books.Any(x => x.AuthorMetadataId == 0))
+            {
+                throw new InvalidOperationException("Cannot insert book with AuthorMetadataId = 0");
+            }
+
             _bookRepository.InsertMany(books);
         }
 
