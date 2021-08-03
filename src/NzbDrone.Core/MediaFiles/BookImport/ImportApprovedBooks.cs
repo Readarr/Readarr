@@ -79,6 +79,7 @@ namespace NzbDrone.Core.MediaFiles.BookImport
             var allImportedTrackFiles = new List<BookFile>();
             var allOldTrackFiles = new List<BookFile>();
             var addedAuthors = new List<Author>();
+            var addedBooks = new List<Book>();
 
             var bookDecisions = decisions.Where(e => e.Item.Book != null && e.Approved)
                 .GroupBy(e => e.Item.Book.ForeignBookId).ToList();
@@ -98,7 +99,7 @@ namespace NzbDrone.Core.MediaFiles.BookImport
                     continue;
                 }
 
-                var book = EnsureBookAdded(decisionList);
+                var book = EnsureBookAdded(decisionList, addedBooks);
 
                 if (book == null)
                 {
@@ -297,6 +298,15 @@ namespace NzbDrone.Core.MediaFiles.BookImport
                 _commandQueueManager.Push(new BulkRefreshAuthorCommand(addedAuthors.Select(x => x.Id).ToList(), true));
             }
 
+            var addedAuthorMetadataIds = addedAuthors.Select(x => x.AuthorMetadataId).ToHashSet();
+            var booksToRefresh = addedBooks.Where(x => !addedAuthorMetadataIds.Contains(x.AuthorMetadataId)).ToList();
+
+            if (booksToRefresh.Any())
+            {
+                _logger.Debug($"Refreshing info for {booksToRefresh.Count} new books");
+                _commandQueueManager.Push(new BulkRefreshBookCommand(booksToRefresh.Select(x => x.Id).ToList()));
+            }
+
             return importResults;
         }
 
@@ -363,7 +373,7 @@ namespace NzbDrone.Core.MediaFiles.BookImport
             return author;
         }
 
-        private Book EnsureBookAdded(List<ImportDecision<LocalBook>> decisions)
+        private Book EnsureBookAdded(List<ImportDecision<LocalBook>> decisions, List<Book> addedBooks)
         {
             var book = decisions.First().Item.Book;
 
@@ -385,6 +395,7 @@ namespace NzbDrone.Core.MediaFiles.BookImport
                         book.Monitored = book.Author.Value.Monitored;
                         book.Added = DateTime.UtcNow;
                         _bookService.InsertMany(new List<Book> { book });
+                        addedBooks.Add(book);
 
                         book.Editions.Value.ForEach(x => x.BookId = book.Id);
                         _editionService.InsertMany(book.Editions.Value);

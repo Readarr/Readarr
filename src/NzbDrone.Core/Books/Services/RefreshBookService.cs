@@ -25,7 +25,8 @@ namespace NzbDrone.Core.Books
 
     public class RefreshBookService : RefreshEntityServiceBase<Book, Edition>,
         IRefreshBookService,
-        IExecute<RefreshBookCommand>
+        IExecute<RefreshBookCommand>,
+        IExecute<BulkRefreshBookCommand>
     {
         private readonly IBookService _bookService;
         private readonly IAuthorService _authorService;
@@ -372,6 +373,16 @@ namespace NzbDrone.Core.Books
             var data = GetSkyhookData(book);
 
             return RefreshBookInfo(book, data.Books, data, false);
+        }
+
+        public void Execute(BulkRefreshBookCommand message)
+        {
+            var books = _bookService.GetBooks(message.BookIds);
+
+            foreach (var book in books)
+            {
+                RefreshBookInfo(book);
+            }
         }
 
         public void Execute(RefreshBookCommand message)
