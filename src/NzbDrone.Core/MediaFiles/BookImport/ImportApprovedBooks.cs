@@ -382,6 +382,7 @@ namespace NzbDrone.Core.MediaFiles.BookImport
 
                     try
                     {
+                        book.Monitored = book.Author.Value.Monitored;
                         book.Added = DateTime.UtcNow;
                         _bookService.InsertMany(new List<Book> { book });
 
