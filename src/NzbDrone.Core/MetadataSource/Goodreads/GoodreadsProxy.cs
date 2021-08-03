@@ -869,7 +869,7 @@ namespace NzbDrone.Core.MetadataSource.Goodreads
                 }
             }
 
-            return null;
+            return new List<SeriesBookLink>();
         }
     }
 }
