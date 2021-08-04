@@ -289,7 +289,12 @@ class Bookshelf extends Component {
   }
 
   onJumpBarItemPress = (jumpToCharacter) => {
-    const scrollIndex = getIndexOfFirstCharacter(this.props.items, jumpToCharacter);
+    const {
+      items,
+      sortKey
+    } = this.props;
+
+    const scrollIndex = getIndexOfFirstCharacter(items, sortKey, jumpToCharacter);
 
     if (scrollIndex != null) {
       this.setState({ scrollIndex });
