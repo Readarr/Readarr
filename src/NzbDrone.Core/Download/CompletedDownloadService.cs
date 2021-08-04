@@ -94,9 +94,7 @@ namespace NzbDrone.Core.Download
 
             if (importResults.Empty())
             {
-                trackedDownload.State = TrackedDownloadState.ImportFailed;
                 trackedDownload.Warn("No files found are eligible for import in {0}", outputPath);
-                _eventAggregator.PublishEvent(new BookImportIncompleteEvent(trackedDownload));
                 return;
             }
 

@@ -149,6 +149,18 @@ namespace NzbDrone.Core.Test.Download.CompletedDownloadServiceTests
         }
 
         [Test]
+        public void should_not_mark_as_failed_if_nothing_found_to_import()
+        {
+            Mocker.GetMock<IDownloadedBooksImportService>()
+                .Setup(v => v.ProcessPath(It.IsAny<string>(), It.IsAny<ImportMode>(), It.IsAny<Author>(), It.IsAny<DownloadClientItem>()))
+                .Returns(new List<ImportResult>());
+
+            Subject.Import(_trackedDownload);
+
+            _trackedDownload.State.Should().Be(TrackedDownloadState.ImportPending);
+        }
+
+        [Test]
         public void should_not_mark_as_imported_if_all_files_were_skipped()
         {
             Mocker.GetMock<IDownloadedBooksImportService>()
