@@ -8,6 +8,7 @@ import AuthorDetailsPageConnector from 'Author/Details/AuthorDetailsPageConnecto
 import AuthorEditorConnector from 'Author/Editor/AuthorEditorConnector';
 import AuthorIndexConnector from 'Author/Index/AuthorIndexConnector';
 import BookDetailsPageConnector from 'Book/Details/BookDetailsPageConnector';
+import BookIndexConnector from 'Book/Index/BookIndexConnector';
 import BookshelfConnector from 'Bookshelf/BookshelfConnector';
 import CalendarPageConnector from 'Calendar/CalendarPageConnector';
 import NotFound from 'Components/NotFound';
@@ -72,6 +73,11 @@ function AppRoutes(props) {
       }
 
       <Route
+        path="/authors"
+        component={AuthorIndexConnector}
+      />
+
+      <Route
         path="/add/search"
         component={AddNewItemConnector}
       />
@@ -84,6 +90,11 @@ function AppRoutes(props) {
       <Route
         path="/bookshelf"
         component={BookshelfConnector}
+      />
+
+      <Route
+        path="/books"
+        component={BookIndexConnector}
       />
 
       <Route

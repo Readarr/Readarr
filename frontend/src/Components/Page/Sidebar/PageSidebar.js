@@ -22,8 +22,16 @@ const links = [
     iconName: icons.AUTHOR_CONTINUING,
     title: 'Library',
     to: '/',
-    alias: '/author',
+    alias: '/authors',
     children: [
+      {
+        title: 'Authors',
+        to: '/authors'
+      },
+      {
+        title: 'Books',
+        to: '/books'
+      },
       {
         title: 'Add New',
         to: '/add/search'

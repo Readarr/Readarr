@@ -7,6 +7,7 @@ import * as blacklist from './blacklistActions';
 import * as books from './bookActions';
 import * as bookFiles from './bookFileActions';
 import * as bookHistory from './bookHistoryActions';
+import * as bookIndex from './bookIndexActions';
 import * as bookStudio from './bookshelfActions';
 import * as calendar from './calendarActions';
 import * as captcha from './captchaActions';
@@ -38,6 +39,7 @@ export default [
   books,
   bookFiles,
   bookHistory,
+  bookIndex,
   history,
   interactiveImportActions,
   oAuth,

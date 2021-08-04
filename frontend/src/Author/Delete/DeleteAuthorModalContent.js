@@ -125,7 +125,7 @@ class DeleteAuthorModalContent extends Component {
             deleteFiles &&
               <div className={styles.deleteFilesMessage}>
                 <div>
-                  {translate('TheAuthorFolderStrongpathstrongAndAllOfItsContentWillBeDeleted')}
+                  {translate('TheAuthorFolderAndAllOfItsContentWillBeDeleted', [path])}
                 </div>
 
                 {
