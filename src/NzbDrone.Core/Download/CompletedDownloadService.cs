@@ -95,6 +95,7 @@ namespace NzbDrone.Core.Download
             if (importResults.Empty())
             {
                 trackedDownload.Warn("No files found are eligible for import in {0}", outputPath);
+                trackedDownload.State = TrackedDownloadState.ImportPending;
                 return;
             }
 
