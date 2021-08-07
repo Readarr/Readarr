@@ -181,13 +181,13 @@ namespace NzbDrone.Core.ImportLists
 
             if (excludedBook != null)
             {
-                _logger.Debug("{0} [{1}] Rejected due to list exlcusion", report.EditionGoodreadsId, report.Book);
+                _logger.Debug("{0} [{1}] Rejected due to list exclusion", report.EditionGoodreadsId, report.Book);
                 return;
             }
 
             if (excludedAuthor != null)
             {
-                _logger.Debug("{0} [{1}] Rejected due to list exlcusion for parent author", report.EditionGoodreadsId, report.Book);
+                _logger.Debug("{0} [{1}] Rejected due to list exclusion for parent author", report.EditionGoodreadsId, report.Book);
                 return;
             }
 
@@ -297,7 +297,7 @@ namespace NzbDrone.Core.ImportLists
 
             if (excludedAuthor != null)
             {
-                _logger.Debug("{0} [{1}] Rejected due to list exlcusion", report.AuthorGoodreadsId, report.Author);
+                _logger.Debug("{0} [{1}] Rejected due to list exclusion", report.AuthorGoodreadsId, report.Author);
                 return null;
             }
 
