@@ -32,31 +32,6 @@ namespace NzbDrone.Core.ImportLists.Readarr
         {
             var authorsAndBooks = new List<ImportListItemInfo>();
 
-            /*try
-            {
-                var remoteAuthors = _readarrV1Proxy.GetAuthors(Settings);
-
-                foreach (var remoteAuthor in remoteAuthors)
-                {
-                    if ((!Settings.ProfileIds.Any() || Settings.ProfileIds.Contains(remoteAuthor.QualityProfileId)) &&
-                        (!Settings.TagIds.Any() || Settings.TagIds.Any(x => remoteAuthor.Tags.Any(y => y == x))) &&
-                        remoteAuthor.Monitored)
-                    {
-                        authorsAndBooks.Add(new ImportListItemInfo
-                        {
-                            Author = remoteAuthor.AuthorName,
-                            AuthorGoodreadsId = remoteAuthor.ForeignAuthorId
-                        });
-                    }
-                }
-
-                _importListStatusService.RecordSuccess(Definition.Id);
-            }
-            catch
-            {
-                _importListStatusService.RecordFailure(Definition.Id);
-            }*/
-
             try
             {
                 var remoteBooks = _readarrV1Proxy.GetBooks(Settings);
