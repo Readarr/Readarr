@@ -41,9 +41,9 @@ namespace NzbDrone.Core.Books
                 if (monitoredBooks.Any())
                 {
                     ToggleBooksMonitoredState(
-                        books.Where(s => monitoredBooks.Any(t => t == s.ForeignBookId)), true);
+                        books.Where(s => monitoredBooks.Contains(s.ForeignBookId)), true);
                     ToggleBooksMonitoredState(
-                        books.Where(s => monitoredBooks.Any(t => t != s.ForeignBookId)), false);
+                        books.Where(s => !monitoredBooks.Contains(s.ForeignBookId)), false);
                 }
                 else
                 {

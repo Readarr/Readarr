@@ -12,6 +12,7 @@ namespace NzbDrone.Core.ImportLists.Readarr
     public interface IReadarrV1Proxy
     {
         List<ReadarrAuthor> GetAuthors(ReadarrSettings settings);
+        List<ReadarrBook> GetBooks(ReadarrSettings settings);
         List<ReadarrProfile> GetProfiles(ReadarrSettings settings);
         List<ReadarrTag> GetTags(ReadarrSettings settings);
         ValidationFailure Test(ReadarrSettings settings);
@@ -31,6 +32,11 @@ namespace NzbDrone.Core.ImportLists.Readarr
         public List<ReadarrAuthor> GetAuthors(ReadarrSettings settings)
         {
             return Execute<ReadarrAuthor>("/api/v1/author", settings);
+        }
+
+        public List<ReadarrBook> GetBooks(ReadarrSettings settings)
+        {
+            return Execute<ReadarrBook>("/api/v1/book", settings);
         }
 
         public List<ReadarrProfile> GetProfiles(ReadarrSettings settings)

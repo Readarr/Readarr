@@ -104,7 +104,7 @@ namespace NzbDrone.Core.ImportLists
                         MapBookReport(report);
                     }
 
-                    ProcessBookReport(importList, report, listExclusions, booksToAdd);
+                    ProcessBookReport(importList, report, listExclusions, booksToAdd, authorsToAdd);
                 }
                 else if (report.Author.IsNotNullOrWhiteSpace() || report.AuthorGoodreadsId.IsNotNullOrWhiteSpace())
                 {
@@ -163,7 +163,7 @@ namespace NzbDrone.Core.ImportLists
             report.AuthorGoodreadsId = mappedBook.AuthorMetadata?.Value?.ForeignAuthorId;
         }
 
-        private void ProcessBookReport(ImportListDefinition importList, ImportListItemInfo report, List<ImportListExclusion> listExclusions, List<Book> booksToAdd)
+        private void ProcessBookReport(ImportListDefinition importList, ImportListItemInfo report, List<ImportListExclusion> listExclusions, List<Book> booksToAdd, List<Author> authorsToAdd)
         {
             if (report.EditionGoodreadsId == null)
             {
@@ -251,13 +251,28 @@ namespace NzbDrone.Core.ImportLists
                     },
                     AddOptions = new AddBookOptions
                     {
-                        SearchForNewBook = monitored
+                        SearchForNewBook = importList.ShouldSearch
                     }
                 };
 
                 if (importList.ShouldMonitor == ImportListMonitorType.SpecificBook)
                 {
-                    toAdd.Author.Value.AddOptions.BooksToMonitor.Add(toAdd.ForeignBookId);
+                    if (report.AuthorGoodreadsId != null)
+                    {
+                        var existingAuthor = authorsToAdd.Find(item => item.ForeignAuthorId == report.AuthorGoodreadsId);
+                        if (existingAuthor != null)
+                        {
+                            existingAuthor.AddOptions.BooksToMonitor.Add(toAdd.ForeignBookId);
+                        }
+                        else
+                        {
+                            toAdd.Author.Value.AddOptions.BooksToMonitor.Add(toAdd.ForeignBookId);
+                        }
+                    }
+                    else
+                    {
+                        toAdd.Author.Value.AddOptions.BooksToMonitor.Add(toAdd.ForeignBookId);
+                    }
                 }
 
                 booksToAdd.Add(toAdd);

@@ -13,6 +13,26 @@ namespace NzbDrone.Core.ImportLists.Readarr
         public HashSet<int> Tags { get; set; }
     }
 
+    public class ReadarrEdition
+    {
+        public string Title { get; set; }
+        public string ForeignEditionId { get; set; }
+        public string Overview { get; set; }
+        public List<MediaCover.MediaCover> Images { get; set; }
+        public bool Monitored { get; set; }
+    }
+
+    public class ReadarrBook
+    {
+        public string Title { get; set; }
+        public string ForeignBookId { get; set; }
+        public string Overview { get; set; }
+        public List<MediaCover.MediaCover> Images { get; set; }
+        public bool Monitored { get; set; }
+        public ReadarrAuthor Author { get; set; }
+        public List<ReadarrEdition> Editions { get; set; }
+    }
+
     public class ReadarrProfile
     {
         public string Name { get; set; }
