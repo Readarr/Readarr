@@ -223,6 +223,26 @@ namespace NzbDrone.Core.ImportLists
             {
                 var monitored = importList.ShouldMonitor != ImportListMonitorType.None;
 
+                var toAddAuthor = new Author
+                {
+                    Monitored = monitored,
+                    RootFolderPath = importList.RootFolderPath,
+                    QualityProfileId = importList.ProfileId,
+                    MetadataProfileId = importList.MetadataProfileId,
+                    Tags = importList.Tags,
+                    AddOptions = new AddAuthorOptions
+                    {
+                        SearchForMissingBooks = importList.ShouldSearch,
+                        Monitored = monitored,
+                        Monitor = monitored ? MonitorTypes.All : MonitorTypes.None
+                    }
+                };
+
+                if (report.AuthorGoodreadsId != null && report.Author != null)
+                {
+                    toAddAuthor = ProcessAuthorReport(importList, report, listExclusions, authorsToAdd);
+                }
+
                 var toAdd = new Book
                 {
                     ForeignBookId = report.BookGoodreadsId,
@@ -235,20 +255,7 @@ namespace NzbDrone.Core.ImportLists
                             Monitored = true
                         }
                     },
-                    Author = new Author
-                    {
-                        Monitored = monitored,
-                        RootFolderPath = importList.RootFolderPath,
-                        QualityProfileId = importList.ProfileId,
-                        MetadataProfileId = importList.MetadataProfileId,
-                        Tags = importList.Tags,
-                        AddOptions = new AddAuthorOptions
-                        {
-                            SearchForMissingBooks = importList.ShouldSearch,
-                            Monitored = monitored,
-                            Monitor = monitored ? MonitorTypes.All : MonitorTypes.None
-                        }
-                    },
+                    Author = toAddAuthor,
                     AddOptions = new AddBookOptions
                     {
                         SearchForNewBook = importList.ShouldSearch
@@ -257,22 +264,7 @@ namespace NzbDrone.Core.ImportLists
 
                 if (importList.ShouldMonitor == ImportListMonitorType.SpecificBook)
                 {
-                    if (report.AuthorGoodreadsId != null)
-                    {
-                        var existingAuthor = authorsToAdd.Find(item => item.ForeignAuthorId == report.AuthorGoodreadsId);
-                        if (existingAuthor != null)
-                        {
-                            existingAuthor.AddOptions.BooksToMonitor.Add(toAdd.ForeignBookId);
-                        }
-                        else
-                        {
-                            toAdd.Author.Value.AddOptions.BooksToMonitor.Add(toAdd.ForeignBookId);
-                        }
-                    }
-                    else
-                    {
-                        toAdd.Author.Value.AddOptions.BooksToMonitor.Add(toAdd.ForeignBookId);
-                    }
+                    toAddAuthor.AddOptions.BooksToMonitor.Add(toAdd.ForeignBookId);
                 }
 
                 booksToAdd.Add(toAdd);
@@ -287,11 +279,11 @@ namespace NzbDrone.Core.ImportLists
             report.Author = mappedAuthor?.Metadata.Value?.Name;
         }
 
-        private void ProcessAuthorReport(ImportListDefinition importList, ImportListItemInfo report, List<ImportListExclusion> listExclusions, List<Author> authorsToAdd)
+        private Author ProcessAuthorReport(ImportListDefinition importList, ImportListItemInfo report, List<ImportListExclusion> listExclusions, List<Author> authorsToAdd)
         {
             if (report.AuthorGoodreadsId == null)
             {
-                return;
+                return null;
             }
 
             // Check to see if author in DB
@@ -300,10 +292,13 @@ namespace NzbDrone.Core.ImportLists
             // Check to see if author excluded
             var excludedAuthor = listExclusions.Where(s => s.ForeignId == report.AuthorGoodreadsId).SingleOrDefault();
 
+            // Check to see if author in import
+            var existingImportAuthor = authorsToAdd.Find(i => i.ForeignAuthorId == report.AuthorGoodreadsId);
+
             if (excludedAuthor != null)
             {
                 _logger.Debug("{0} [{1}] Rejected due to list exlcusion", report.AuthorGoodreadsId, report.Author);
-                return;
+                return null;
             }
 
             if (existingAuthor != null)
@@ -316,34 +311,41 @@ namespace NzbDrone.Core.ImportLists
                     _authorService.UpdateAuthor(existingAuthor);
                 }
 
-                return;
+                return existingAuthor;
             }
 
-            // Append Author if not already in DB or already on add list
-            if (authorsToAdd.All(s => s.Metadata.Value.ForeignAuthorId != report.AuthorGoodreadsId))
+            if (existingImportAuthor != null)
             {
-                var monitored = importList.ShouldMonitor != ImportListMonitorType.None;
+                _logger.Debug("{0} [{1}] Rejected, Author Exists in Import.", report.AuthorGoodreadsId, report.Author);
 
-                authorsToAdd.Add(new Author
-                {
-                    Metadata = new AuthorMetadata
-                    {
-                        ForeignAuthorId = report.AuthorGoodreadsId,
-                        Name = report.Author
-                    },
-                    Monitored = monitored,
-                    RootFolderPath = importList.RootFolderPath,
-                    QualityProfileId = importList.ProfileId,
-                    MetadataProfileId = importList.MetadataProfileId,
-                    Tags = importList.Tags,
-                    AddOptions = new AddAuthorOptions
-                    {
-                        SearchForMissingBooks = importList.ShouldSearch,
-                        Monitored = monitored,
-                        Monitor = monitored ? MonitorTypes.All : MonitorTypes.None
-                    }
-                });
+                return existingImportAuthor;
             }
+
+            var monitored = importList.ShouldMonitor != ImportListMonitorType.None;
+
+            var toAdd = new Author
+            {
+                Metadata = new AuthorMetadata
+                {
+                    ForeignAuthorId = report.AuthorGoodreadsId,
+                    Name = report.Author
+                },
+                Monitored = monitored,
+                RootFolderPath = importList.RootFolderPath,
+                QualityProfileId = importList.ProfileId,
+                MetadataProfileId = importList.MetadataProfileId,
+                Tags = importList.Tags,
+                AddOptions = new AddAuthorOptions
+                {
+                    SearchForMissingBooks = importList.ShouldSearch,
+                    Monitored = monitored,
+                    Monitor = monitored ? MonitorTypes.All : MonitorTypes.None
+                }
+            };
+
+            authorsToAdd.Add(toAdd);
+
+            return toAdd;
         }
 
         public void Execute(ImportListSyncCommand message)

@@ -32,7 +32,7 @@ namespace NzbDrone.Core.ImportLists.Readarr
         {
             var authorsAndBooks = new List<ImportListItemInfo>();
 
-            try
+            /*try
             {
                 var remoteAuthors = _readarrV1Proxy.GetAuthors(Settings);
 
@@ -55,7 +55,7 @@ namespace NzbDrone.Core.ImportLists.Readarr
             catch
             {
                 _importListStatusService.RecordFailure(Definition.Id);
-            }
+            }*/
 
             try
             {
@@ -65,7 +65,7 @@ namespace NzbDrone.Core.ImportLists.Readarr
                 {
                     if ((!Settings.ProfileIds.Any() || Settings.ProfileIds.Contains(remoteBook.Author.QualityProfileId)) &&
                         (!Settings.TagIds.Any() || Settings.TagIds.Any(x => remoteBook.Author.Tags.Any(y => y == x))) &&
-                         remoteBook.Monitored)
+                         remoteBook.Monitored && remoteBook.Author.Monitored)
                     {
                         authorsAndBooks.Add(new ImportListItemInfo
                         {
