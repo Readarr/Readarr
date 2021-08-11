@@ -46,7 +46,7 @@ namespace NzbDrone.Core.ImportLists.Readarr
                         {
                             BookGoodreadsId = remoteBook.ForeignBookId,
                             Book = remoteBook.Title,
-                            EditionGoodreadsId = remoteBook.Editions[0].ForeignEditionId,
+                            EditionGoodreadsId = remoteBook.Editions.Single(x => x.Monitored).ForeignEditionId,
                             Author = remoteBook.Author.AuthorName,
                             AuthorGoodreadsId = remoteBook.Author.ForeignAuthorId
                         });
