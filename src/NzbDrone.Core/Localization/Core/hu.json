@@ -716,5 +716,9 @@
     "BookTitle": "Könyv Címe",
     "Actions": "Teendők",
     "IndexerIdHelpTextWarning": "Egy adott indexer előnyben részesített szavakkal történő használata megismételt kiadások kiválasztásához vezethet",
-    "FilterAuthor": "Szűrés Szerzőre"
+    "FilterAuthor": "Szűrés Szerzőre",
+    "NoName": "Ne mutassa a nevet",
+    "NameStyle": "Szerző névstílusa",
+    "NameLastFirst": "Keresztnév, Vezetéknév",
+    "NameFirstLast": "Vezetéknév Keresztnév"
 }
