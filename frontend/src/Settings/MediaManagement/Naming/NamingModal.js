@@ -79,9 +79,10 @@ const bookTokens = [
 
   { token: '{Book Disambiguation}', example: 'Disambiguation' },
 
-  { token: '{PartNumber}', example: '2' },
-
-  { token: '{PartCount}', example: '10' }
+  { token: '{PartNumber:0}', example: '2' },
+  { token: '{PartNumber:00}', example: '02' },
+  { token: '{PartCount:0}', example: '9' },
+  { token: '{PartCount:00}', example: '09' }
 ];
 
 const releaseDateTokens = [
