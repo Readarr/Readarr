@@ -99,7 +99,7 @@ namespace NzbDrone.Core.ImportLists
 
                 if (report.Book.IsNotNullOrWhiteSpace() || report.EditionGoodreadsId.IsNotNullOrWhiteSpace())
                 {
-                    if (report.EditionGoodreadsId.IsNullOrWhiteSpace() || report.AuthorGoodreadsId.IsNullOrWhiteSpace())
+                    if (report.EditionGoodreadsId.IsNullOrWhiteSpace() || report.AuthorGoodreadsId.IsNullOrWhiteSpace() || report.BookGoodreadsId.IsNullOrWhiteSpace())
                     {
                         MapBookReport(report);
                     }
@@ -147,7 +147,7 @@ namespace NzbDrone.Core.ImportLists
                 mappedBook = _bookSearchService.SearchForNewBook(report.Book, report.Author).FirstOrDefault();
             }
 
-            // Break if we are looking for an book and cant find it. This will avoid us from adding the author and possibly getting it wrong.
+            // Break if we are looking for a book and cant find it. This will avoid us from adding the author and possibly getting it wrong.
             if (mappedBook == null)
             {
                 _logger.Trace($"Nothing found for {report.EditionGoodreadsId}");
@@ -159,8 +159,8 @@ namespace NzbDrone.Core.ImportLists
 
             report.BookGoodreadsId = mappedBook.ForeignBookId;
             report.Book = mappedBook.Title;
-            report.Author = mappedBook.AuthorMetadata?.Value?.Name;
-            report.AuthorGoodreadsId = mappedBook.AuthorMetadata?.Value?.ForeignAuthorId;
+            report.Author ??= mappedBook.AuthorMetadata?.Value?.Name;
+            report.AuthorGoodreadsId ??= mappedBook.AuthorMetadata?.Value?.ForeignAuthorId;
         }
 
         private void ProcessBookReport(ImportListDefinition importList, ImportListItemInfo report, List<ImportListExclusion> listExclusions, List<Book> booksToAdd, List<Author> authorsToAdd)

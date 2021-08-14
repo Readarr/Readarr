@@ -88,6 +88,19 @@ namespace NzbDrone.Core.Test.ImportListTests
             _importListReports.First().EditionGoodreadsId = "1234";
         }
 
+        private void WithSecondBook()
+        {
+            var importListItem2 = new ImportListItemInfo
+            {
+                Author = "Linkin Park",
+                AuthorGoodreadsId = "f59c5520-5f46-4d2c-b2c4-822eabf53419",
+                Book = "Meteora 2",
+                EditionGoodreadsId = "5678",
+                BookGoodreadsId = "8765"
+            };
+            _importListReports.Add(importListItem2);
+        }
+
         private void WithExistingAuthor()
         {
             Mocker.GetMock<IAuthorService>()
@@ -289,6 +302,27 @@ namespace NzbDrone.Core.Test.ImportListTests
 
             Mocker.GetMock<IAddBookService>()
                 .Verify(v => v.AddBooks(It.Is<List<Book>>(t => t.Count == 0), false));
+        }
+
+        [TestCase(ImportListMonitorType.None, 0, false)]
+        [TestCase(ImportListMonitorType.SpecificBook, 2, true)]
+        [TestCase(ImportListMonitorType.EntireAuthor, 0, true)]
+        public void should_add_two_books(ImportListMonitorType monitor, int expectedBooksMonitored, bool expectedAuthorMonitored)
+        {
+            WithBook();
+            WithBookId();
+            WithSecondBook();
+            WithAuthorId();
+            WithMonitorType(monitor);
+
+            Subject.Execute(new ImportListSyncCommand());
+
+            Mocker.GetMock<IAddBookService>()
+                .Verify(v => v.AddBooks(It.Is<List<Book>>(t => t.Count == 2), false));
+            Mocker.GetMock<IAddAuthorService>()
+                .Verify(v => v.AddAuthors(It.Is<List<Author>>(t => t.Count == 1 &&
+                                                                   t.First().AddOptions.BooksToMonitor.Count == expectedBooksMonitored &&
+                                                                   t.First().Monitored == expectedAuthorMonitored), false));
         }
     }
 }
