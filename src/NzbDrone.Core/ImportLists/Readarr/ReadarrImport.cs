@@ -30,21 +30,25 @@ namespace NzbDrone.Core.ImportLists.Readarr
 
         public override IList<ImportListItemInfo> Fetch()
         {
-            var authors = new List<ImportListItemInfo>();
+            var authorsAndBooks = new List<ImportListItemInfo>();
 
             try
             {
-                var remoteAuthors = _readarrV1Proxy.GetAuthors(Settings);
+                var remoteBooks = _readarrV1Proxy.GetBooks(Settings);
 
-                foreach (var remoteAuthor in remoteAuthors)
+                foreach (var remoteBook in remoteBooks)
                 {
-                    if ((!Settings.ProfileIds.Any() || Settings.ProfileIds.Contains(remoteAuthor.QualityProfileId)) &&
-                        (!Settings.TagIds.Any() || Settings.TagIds.Any(x => remoteAuthor.Tags.Any(y => y == x))))
+                    if ((!Settings.ProfileIds.Any() || Settings.ProfileIds.Contains(remoteBook.Author.QualityProfileId)) &&
+                        (!Settings.TagIds.Any() || Settings.TagIds.Any(x => remoteBook.Author.Tags.Any(y => y == x))) &&
+                         remoteBook.Monitored && remoteBook.Author.Monitored)
                     {
-                        authors.Add(new ImportListItemInfo
+                        authorsAndBooks.Add(new ImportListItemInfo
                         {
-                            AuthorGoodreadsId = remoteAuthor.ForeignAuthorId,
-                            Author = remoteAuthor.AuthorName
+                            BookGoodreadsId = remoteBook.ForeignBookId,
+                            Book = remoteBook.Title,
+                            EditionGoodreadsId = remoteBook.Editions.Single(x => x.Monitored).ForeignEditionId,
+                            Author = remoteBook.Author.AuthorName,
+                            AuthorGoodreadsId = remoteBook.Author.ForeignAuthorId
                         });
                     }
                 }
@@ -56,7 +60,7 @@ namespace NzbDrone.Core.ImportLists.Readarr
                 _importListStatusService.RecordFailure(Definition.Id);
             }
 
-            return CleanupListItems(authors);
+            return CleanupListItems(authorsAndBooks);
         }
 
         public override object RequestAction(string action, IDictionary<string, string> query)
