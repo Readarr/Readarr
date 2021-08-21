@@ -377,18 +377,15 @@ namespace NzbDrone.Core.MediaFiles
             return result;
         }
 
-        private string GetIsbn(IEnumerable<EpubMetadataIdentifier> ids)
+        public string GetIsbn(IEnumerable<EpubMetadataIdentifier> ids)
         {
-            foreach (var id in ids)
-            {
-                var isbn = StripIsbn(id?.Identifier);
-                if (isbn != null)
-                {
-                    return isbn;
-                }
-            }
+            var candidates = ids.Select(x => StripIsbn(x?.Identifier))
+                .Where(x => x != null)
+                .OrderByDescending(x => x.Length);
 
-            return null;
+            return candidates.FirstOrDefault(x => x.StartsWith("978"))
+                ?? candidates.FirstOrDefault(x => x.StartsWith("979"))
+                ?? candidates.FirstOrDefault();
         }
 
         private string GetIsbnChars(string input)
