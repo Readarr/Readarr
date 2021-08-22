@@ -28,8 +28,11 @@ namespace NzbDrone.Core.MetadataSource.Goodreads
         private static readonly Regex NoPhotoRegex = new Regex(@"/nophoto/(book|user)/",
                                                                RegexOptions.IgnoreCase | RegexOptions.Compiled);
 
-        private static readonly Regex SeriesRegex = new Regex(@"\((?<series>[^,]+),\s+#(?<position>[\w\d\.]+)\)$",
-            RegexOptions.Compiled);
+        private static readonly List<Regex> SeriesRegex = new List<Regex>
+        {
+            new Regex(@"\((?<series>[^,]+),\s+#(?<position>[\w\d\.]+)\)$", RegexOptions.Compiled),
+            new Regex(@"(The\s+(?<series>.+)\s+Series\s+Book\s+(?<position>[\w\d\.]+)\)$)", RegexOptions.Compiled)
+        };
 
         private readonly ICachedHttpResponseService _cachedHttpClient;
         private readonly Logger _logger;
@@ -841,31 +844,34 @@ namespace NzbDrone.Core.MetadataSource.Goodreads
             return book;
         }
 
-        private static List<SeriesBookLink> MapSearchSeries(string title, string titleWithoutSeries)
+        public static List<SeriesBookLink> MapSearchSeries(string title, string titleWithoutSeries)
         {
             if (title != titleWithoutSeries &&
                 title.Substring(0, titleWithoutSeries.Length) == titleWithoutSeries)
             {
                 var seriesText = title.Substring(titleWithoutSeries.Length);
 
-                var match = SeriesRegex.Match(seriesText);
-
-                if (match.Success)
+                foreach (var regex in SeriesRegex)
                 {
-                    var series = match.Groups["series"].Value;
-                    var position = match.Groups["position"].Value;
+                    var match = regex.Match(seriesText);
 
-                    return new List<SeriesBookLink>
+                    if (match.Success)
                     {
-                        new SeriesBookLink
+                        var series = match.Groups["series"].Value;
+                        var position = match.Groups["position"].Value;
+
+                        return new List<SeriesBookLink>
                         {
-                            Series = new Series
+                            new SeriesBookLink
                             {
-                                Title = series
-                            },
-                            Position = position
-                        }
-                    };
+                                Series = new Series
+                                {
+                                    Title = series
+                                },
+                                Position = position
+                            }
+                        };
+                    }
                 }
             }
 

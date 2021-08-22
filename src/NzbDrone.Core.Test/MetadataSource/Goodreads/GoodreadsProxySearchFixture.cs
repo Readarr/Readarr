@@ -116,5 +116,16 @@ namespace NzbDrone.Core.Test.MetadataSource.Goodreads
             link.Series.Value.Title.Should().Be(series);
             link.Position.Should().Be(position);
         }
+
+        [TestCase("Imperium: A Novel of Ancient Rome (Cicero, #1)", "Imperium: A Novel of Ancient Rome", "Cicero", "1")]
+        [TestCase("Sons of Valor (The Tier One Shared-World Series Book 1)", "Sons of Valor", "Tier One Shared-World", "1")]
+        public void should_map_series_for_search(string title, string titleWithoutSeries, string series, string position)
+        {
+            var result = GoodreadsProxy.MapSearchSeries(title, titleWithoutSeries);
+
+            result.Should().HaveCount(1);
+            result[0].Series.Value.Title.Should().Be(series);
+            result[0].Position.Should().Be(position);
+        }
     }
 }
