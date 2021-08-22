@@ -40,6 +40,13 @@ namespace Readarr.Api.V1.Books
             return resource;
         }
 
+        protected override BookResource GetResourceByIdForBroadcast(int id)
+        {
+            var book = _bookService.GetBook(id);
+            var resource = MapToResource(book, false);
+            return resource;
+        }
+
         protected BookResource MapToResource(Book book, bool includeAuthor)
         {
             var resource = book.ToResource();
