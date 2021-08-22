@@ -76,7 +76,8 @@ namespace NzbDrone.Core.MediaFiles
                 {
                     authors.AddRange(tag.AlbumArtistsSort);
                 }
-                else if (tag.Performers?.Any() ?? false)
+
+                if (tag.Performers?.Any() ?? false)
                 {
                     authors.AddRange(tag.Performers);
                 }
