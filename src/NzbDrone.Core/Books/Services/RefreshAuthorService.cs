@@ -385,6 +385,7 @@ namespace NzbDrone.Core.Books
                     {
                         try
                         {
+                            LogProgress(author);
                             var data = GetSkyhookData(author.ForeignAuthorId, author.MetadataProfile.Value.MinPopularity);
                             updated |= RefreshEntityInfo(author, null, data, manualTrigger, false, message.LastStartTime);
                         }
