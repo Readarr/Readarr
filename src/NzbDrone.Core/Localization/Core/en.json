@@ -305,6 +305,7 @@
   "IsExpandedShowFileInfo": "Show file info",
   "IsInUseCantDeleteAMetadataProfileThatIsAttachedToAnAuthorOrImportList": "Can't delete a metadata profile that is attached to an author or import list",
   "IsInUseCantDeleteAQualityProfileThatIsAttachedToAnAuthorOrImportList": "Can't delete a quality profile that is attached to an author or import list",
+  "Iso639-3": "ISO 639-3 language codes, or 'null', comma separated",
   "IsShowingMonitoredMonitorSelected": "Monitor Selected",
   "IsShowingMonitoredUnmonitorSelected": "Unmonitor Selected",
   "IsTagUsedCannotBeDeletedWhileInUse": "Cannot be deleted while in use",

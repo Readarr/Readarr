@@ -173,6 +173,7 @@ function EditMetadataProfileModalContent(props) {
                   type={inputTypes.TEXT}
                   name="allowedLanguages"
                   {...allowedLanguages}
+                  helpText={translate('Iso639-3')}
                   onChange={onInputChange}
                 />
               </FormGroup>

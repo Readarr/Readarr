@@ -1,6 +1,8 @@
 using System.Collections.Generic;
+using System.Linq;
 using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
+using NzbDrone.Common.Extensions;
 using NzbDrone.Core.Profiles.Metadata;
 using NzbDrone.Http.REST.Attributes;
 using Readarr.Http;
@@ -17,6 +19,14 @@ namespace Readarr.Api.V1.Profiles.Metadata
         {
             _profileService = profileService;
             SharedValidator.RuleFor(c => c.Name).NotEqual("None").WithMessage("'None' is a reserved profile name").NotEmpty();
+            SharedValidator.RuleFor(c => c.AllowedLanguages)
+                .Must(x => x
+                    .Trim(',')
+                    .Split(',')
+                    .Select(y => y.Trim())
+                    .All(y => y == "null" || NzbDrone.Core.Books.Calibre.Extensions.KnownLanguages.Contains(y)))
+                .When(x => x.AllowedLanguages.IsNotNullOrWhiteSpace())
+                .WithMessage("Unknown languages");
         }
 
         [RestPostById]
