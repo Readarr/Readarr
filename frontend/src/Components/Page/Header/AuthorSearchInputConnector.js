@@ -21,7 +21,8 @@ function createCleanAuthorSelector() {
         } = author;
 
         return {
-          authorName,
+          type: 'author',
+          name: authorName,
           sortName,
           titleSlug,
           images,
@@ -40,12 +41,41 @@ function createCleanAuthorSelector() {
   );
 }
 
+function createCleanBookSelector() {
+  return createSelector(
+    (state) => state.books.items,
+    (allBooks) => {
+      return allBooks.map((book) => {
+        const {
+          title,
+          images,
+          titleSlug
+        } = book;
+
+        return {
+          type: 'book',
+          name: title,
+          sortName: title,
+          titleSlug,
+          images,
+          tags: []
+        };
+      });
+    }
+  );
+}
+
 function createMapStateToProps() {
   return createDeepEqualSelector(
     createCleanAuthorSelector(),
-    (authors) => {
+    createCleanBookSelector(),
+    (authors, books) => {
+      const items = [
+        ...authors,
+        ...books
+      ];
       return {
-        authors
+        items
       };
     }
   );
@@ -55,6 +85,10 @@ function createMapDispatchToProps(dispatch, props) {
   return {
     onGoToAuthor(titleSlug) {
       dispatch(push(`${window.Readarr.urlBase}/author/${titleSlug}`));
+    },
+
+    onGoToBook(titleSlug) {
+      dispatch(push(`${window.Readarr.urlBase}/book/${titleSlug}`));
     },
 
     onGoToAddNewAuthor(query) {

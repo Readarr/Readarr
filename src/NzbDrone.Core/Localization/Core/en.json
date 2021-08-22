@@ -217,6 +217,7 @@
   "ErrorLoadingPreviews": "Error loading previews",
   "Exception": "Exception",
   "ExistingBooks": "Existing Books",
+  "ExistingItems": "Existing Items",
   "ExistingTagsScrubbed": "Existing tags scrubbed",
   "ExtraFileExtensionsHelpTexts1": "Comma separated list of extra files to import (.nfo will be imported as .nfo-orig)",
   "ExtraFileExtensionsHelpTexts2": "Examples: \".sub, .nfo\" or \"sub,nfo\"",

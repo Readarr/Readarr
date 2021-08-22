@@ -8,43 +8,16 @@ const fuseOptions = {
   distance: 100,
   minMatchCharLength: 1,
   keys: [
-    'authorName',
+    'name',
     'tags.label'
   ]
 };
 
-function getSuggestions(authors, value) {
+function getSuggestions(items, value) {
   const limit = 10;
-  let suggestions = [];
 
-  if (value.length === 1) {
-    for (let i = 0; i < authors.length; i++) {
-      const s = authors[i];
-      if (s.firstCharacter === value.toLowerCase()) {
-        suggestions.push({
-          item: authors[i],
-          indices: [
-            [0, 0]
-          ],
-          matches: [
-            {
-              value: s.title,
-              key: 'title'
-            }
-          ],
-          arrayIndex: 0
-        });
-        if (suggestions.length > limit) {
-          break;
-        }
-      }
-    }
-  } else {
-    const fuse = new Fuse(authors, fuseOptions);
-    suggestions = fuse.search(value, { limit });
-  }
-
-  return suggestions;
+  const fuse = new Fuse(items, fuseOptions);
+  return fuse.search(value, { limit });
 }
 
 onmessage = function(e) {
@@ -53,16 +26,20 @@ onmessage = function(e) {
   }
 
   const {
-    authors,
+    items,
     value
   } = e.data;
 
-  const suggestions = getSuggestions(authors, value);
+  console.log(`got search request ${value} with ${items.length} items`);
+
+  const suggestions = getSuggestions(items, value);
 
   const results = {
     value,
     suggestions
   };
+
+  console.log(`return ${suggestions.length} results for search ${value}`);
 
   self.postMessage(results);
 };
