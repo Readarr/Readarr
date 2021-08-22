@@ -6,8 +6,7 @@ import { filterTypePredicates, filterTypes, sortDirections } from 'Helpers/Props
 import { createThunk, handleThunks } from 'Store/thunks';
 import createAjaxRequest from 'Utilities/createAjaxRequest';
 import dateFilterPredicate from 'Utilities/Date/dateFilterPredicate';
-import { removeItem, updateItem } from './baseActions';
-import createFetchHandler from './Creators/createFetchHandler';
+import { removeItem, set, update, updateItem } from './baseActions';
 import createHandleActions from './Creators/createHandleActions';
 import createRemoveItemHandler from './Creators/createRemoveItemHandler';
 import createSaveProviderHandler from './Creators/createSaveProviderHandler';
@@ -259,7 +258,47 @@ export const setBookValue = createAction(SET_BOOK_VALUE, (payload) => {
 // Action Handlers
 
 export const actionHandlers = handleThunks({
-  [FETCH_BOOKS]: createFetchHandler(section, '/book'),
+  [FETCH_BOOKS]: function(getState, payload, dispatch) {
+    dispatch(set({ section, isFetching: true }));
+
+    const { request, abortRequest } = createAjaxRequest({
+      url: '/book',
+      data: payload,
+      traditional: true
+    });
+
+    request.done((data) => {
+      // Preserve books for other authors we didn't fetch
+      if (payload.hasOwnProperty('authorId')) {
+        const oldBooks = getState().books.items;
+        const newBooks = oldBooks.filter((x) => x.authorId !== payload.authorId);
+        data = newBooks.concat(data);
+      }
+
+      dispatch(batchActions([
+        update({ section, data }),
+
+        set({
+          section,
+          isFetching: false,
+          isPopulated: true,
+          error: null
+        })
+      ]));
+    });
+
+    request.fail((xhr) => {
+      dispatch(set({
+        section,
+        isFetching: false,
+        isPopulated: false,
+        error: xhr.aborted ? null : xhr
+      }));
+    });
+
+    return abortRequest;
+  },
+
   [SAVE_BOOK]: createSaveProviderHandler(section, '/book'),
   [DELETE_BOOK]: createRemoveItemHandler(section, '/book'),
 

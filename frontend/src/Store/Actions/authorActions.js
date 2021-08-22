@@ -5,7 +5,8 @@ import { filterTypePredicates, filterTypes, sortDirections } from 'Helpers/Props
 import { createThunk, handleThunks } from 'Store/thunks';
 import createAjaxRequest from 'Utilities/createAjaxRequest';
 import dateFilterPredicate from 'Utilities/Date/dateFilterPredicate';
-import { updateItem } from './baseActions';
+import { set, updateItem } from './baseActions';
+import { fetchBooks } from './bookActions';
 import createFetchHandler from './Creators/createFetchHandler';
 import createHandleActions from './Creators/createHandleActions';
 import createRemoveItemHandler from './Creators/createRemoveItemHandler';
@@ -169,6 +170,7 @@ export const DELETE_AUTHOR = 'authors/deleteAuthor';
 
 export const TOGGLE_AUTHOR_MONITORED = 'authors/toggleAuthorMonitored';
 export const TOGGLE_BOOK_MONITORED = 'authors/toggleBookMonitored';
+export const UPDATE_BOOK_MONITORED = 'authors/updateBookMonitored';
 
 //
 // Action Creators
@@ -202,6 +204,7 @@ export const deleteAuthor = createThunk(DELETE_AUTHOR, (payload) => {
 
 export const toggleAuthorMonitored = createThunk(TOGGLE_AUTHOR_MONITORED);
 export const toggleBookMonitored = createThunk(TOGGLE_BOOK_MONITORED);
+export const updateBookMonitor = createThunk(UPDATE_BOOK_MONITORED);
 
 export const setAuthorValue = createAction(SET_AUTHOR_VALUE, (payload) => {
   return {
@@ -330,8 +333,53 @@ export const actionHandlers = handleThunks({
         seasons: author.seasons
       }));
     });
-  }
+  },
 
+  [UPDATE_BOOK_MONITORED]: function(getState, payload, dispatch) {
+    const {
+      id,
+      monitor
+    } = payload;
+
+    const authorToUpdate = { id };
+
+    if (monitor !== 'None') {
+      authorToUpdate.monitored = true;
+    }
+
+    dispatch(set({
+      section,
+      isSaving: true
+    }));
+
+    const promise = createAjaxRequest({
+      url: '/bookshelf',
+      method: 'POST',
+      data: JSON.stringify({
+        authors: [{ id }],
+        monitoringOptions: { monitor }
+      }),
+      dataType: 'json'
+    }).request;
+
+    promise.done((data) => {
+      dispatch(fetchBooks({ authorId: id }));
+
+      dispatch(set({
+        section,
+        isSaving: false,
+        saveError: null
+      }));
+    });
+
+    promise.fail((xhr) => {
+      dispatch(set({
+        section,
+        isSaving: false,
+        saveError: xhr
+      }));
+    });
+  }
 });
 
 //
