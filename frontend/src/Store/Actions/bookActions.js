@@ -6,7 +6,7 @@ import { filterTypePredicates, filterTypes, sortDirections } from 'Helpers/Props
 import { createThunk, handleThunks } from 'Store/thunks';
 import createAjaxRequest from 'Utilities/createAjaxRequest';
 import dateFilterPredicate from 'Utilities/Date/dateFilterPredicate';
-import { updateItem } from './baseActions';
+import { removeItem, updateItem } from './baseActions';
 import createFetchHandler from './Creators/createFetchHandler';
 import createHandleActions from './Creators/createHandleActions';
 import createRemoveItemHandler from './Creators/createRemoveItemHandler';
@@ -213,6 +213,7 @@ export const CLEAR_BOOKS = 'books/clearBooks';
 export const SET_BOOK_VALUE = 'books/setBookValue';
 export const SAVE_BOOK = 'books/saveBook';
 export const DELETE_BOOK = 'books/deleteBook';
+export const DELETE_AUTHOR_BOOKS = 'books/deleteAuthorBooks';
 export const TOGGLE_BOOK_MONITORED = 'books/toggleBookMonitored';
 export const TOGGLE_BOOKS_MONITORED = 'books/toggleBooksMonitored';
 
@@ -238,6 +239,15 @@ export const deleteBook = createThunk(DELETE_BOOK, (payload) => {
   };
 });
 
+export const deleteAuthorBooks = createThunk(DELETE_AUTHOR_BOOKS, (payload) => {
+  return {
+    ...payload,
+    queryParams: {
+      authorId: payload.authorId
+    }
+  };
+});
+
 export const setBookValue = createAction(SET_BOOK_VALUE, (payload) => {
   return {
     section: 'books',
@@ -252,6 +262,15 @@ export const actionHandlers = handleThunks({
   [FETCH_BOOKS]: createFetchHandler(section, '/book'),
   [SAVE_BOOK]: createSaveProviderHandler(section, '/book'),
   [DELETE_BOOK]: createRemoveItemHandler(section, '/book'),
+
+  [DELETE_AUTHOR_BOOKS]: function(getState, payload, dispatch) {
+    const { authorId } = payload;
+    const books = getState().books.items;
+
+    const toDelete = books.filter((x) => x.authorId === authorId);
+
+    dispatch(batchActions(toDelete.map((b) => removeItem({ section, id: b.id }))));
+  },
 
   [TOGGLE_BOOK_MONITORED]: function(getState, payload, dispatch) {
     const {

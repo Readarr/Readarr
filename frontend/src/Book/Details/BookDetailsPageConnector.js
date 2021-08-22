@@ -8,7 +8,6 @@ import LoadingIndicator from 'Components/Loading/LoadingIndicator';
 import NotFound from 'Components/NotFound';
 import PageContent from 'Components/Page/PageContent';
 import PageContentBody from 'Components/Page/PageContentBody';
-import { clearBooks, fetchBooks } from 'Store/Actions/bookActions';
 import translate from 'Utilities/String/translate';
 import BookDetailsConnector from './BookDetailsConnector';
 
@@ -44,9 +43,7 @@ function createMapStateToProps() {
 }
 
 const mapDispatchToProps = {
-  push,
-  fetchBooks,
-  clearBooks
+  push
 };
 
 class BookDetailsPageConnector extends Component {
@@ -62,24 +59,11 @@ class BookDetailsPageConnector extends Component {
     this.populate();
   }
 
-  componentWillUnmount() {
-    this.unpopulate();
-  }
-
   //
   // Control
 
   populate = () => {
-    const titleSlug = this.props.titleSlug;
     this.setState({ hasMounted: true });
-    this.props.fetchBooks({
-      titleSlug,
-      includeAllAuthorBooks: true
-    });
-  }
-
-  unpopulate = () => {
-    this.props.clearBooks();
   }
 
   //
@@ -125,8 +109,6 @@ BookDetailsPageConnector.propTypes = {
   titleSlug: PropTypes.string,
   match: PropTypes.shape({ params: PropTypes.shape({ titleSlug: PropTypes.string.isRequired }).isRequired }).isRequired,
   push: PropTypes.func.isRequired,
-  fetchBooks: PropTypes.func.isRequired,
-  clearBooks: PropTypes.func.isRequired,
   isFetching: PropTypes.bool.isRequired,
   isPopulated: PropTypes.bool.isRequired
 };

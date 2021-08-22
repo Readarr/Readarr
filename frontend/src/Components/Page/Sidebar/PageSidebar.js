@@ -42,7 +42,7 @@ const links = [
       },
       {
         title: 'Bookshelf',
-        to: '/bookshelf'
+        to: '/shelf'
       },
       {
         title: 'Unmapped Files',

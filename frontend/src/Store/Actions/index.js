@@ -1,5 +1,6 @@
 import * as app from './appActions';
 import * as author from './authorActions';
+import * as authorDetails from './authorDetailsActions';
 import * as authorEditor from './authorEditorActions';
 import * as authorHistory from './authorHistoryActions';
 import * as authorIndex from './authorIndexActions';
@@ -31,31 +32,32 @@ import * as wanted from './wantedActions';
 
 export default [
   app,
+  author,
+  authorDetails,
+  authorEditor,
+  authorHistory,
+  authorIndex,
   blacklist,
-  captcha,
-  calendar,
-  commands,
-  customFilters,
-  books,
   bookFiles,
   bookHistory,
   bookIndex,
+  books,
+  bookStudio,
+  calendar,
+  captcha,
+  commands,
+  customFilters,
   history,
   interactiveImportActions,
   oAuth,
   organizePreview,
-  retagPreview,
   paths,
   providerOptions,
   queue,
   releases,
-  bookStudio,
-  author,
-  authorEditor,
-  authorHistory,
-  authorIndex,
-  series,
+  retagPreview,
   search,
+  series,
   settings,
   system,
   tags,

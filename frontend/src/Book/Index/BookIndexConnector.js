@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
 import * as commandNames from 'Commands/commandNames';
 import withScrollPosition from 'Components/withScrollPosition';
-import { clearBooks, fetchBooks } from 'Store/Actions/bookActions';
 import { setBookFilter, setBookSort, setBookTableOption, setBookView } from 'Store/Actions/bookIndexActions';
 import { executeCommand } from 'Store/Actions/commandActions';
 import scrollPositions from 'Store/scrollPositions';
@@ -67,41 +66,11 @@ function createMapDispatchToProps(dispatch, props) {
       dispatch(executeCommand({
         name: commandNames.RSS_SYNC
       }));
-    },
-
-    dispatchFetchBooks() {
-      dispatch(fetchBooks());
-    },
-
-    dispatchClearBooks() {
-      dispatch(clearBooks());
     }
   };
 }
 
 class BookIndexConnector extends Component {
-
-  //
-  // Lifecycle
-
-  componentDidMount() {
-    this.populate();
-  }
-
-  componentWillUnmount() {
-    this.unpopulate();
-  }
-
-  //
-  // Control
-
-  populate = () => {
-    this.props.dispatchFetchBooks();
-  }
-
-  unpopulate = () => {
-    this.props.dispatchClearBooks();
-  }
 
   //
   // Listeners
@@ -131,8 +100,6 @@ class BookIndexConnector extends Component {
 BookIndexConnector.propTypes = {
   isSmallScreen: PropTypes.bool.isRequired,
   view: PropTypes.string.isRequired,
-  dispatchFetchBooks: PropTypes.func.isRequired,
-  dispatchClearBooks: PropTypes.func.isRequired,
   dispatchSetBookView: PropTypes.func.isRequired
 };
 

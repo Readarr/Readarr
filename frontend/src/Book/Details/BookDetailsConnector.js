@@ -48,10 +48,11 @@ function createMapStateToProps() {
     createUISettingsSelector(),
     createDimensionsSelector(),
     (titleSlug, bookFiles, books, authors, commands, uiSettings, dimensions) => {
-      const sortedBooks = _.orderBy(books.items, 'releaseDate');
-      const bookIndex = _.findIndex(sortedBooks, { titleSlug });
-      const book = sortedBooks[bookIndex];
-      const author = _.find(authors, { id: book.authorId });
+      const book = books.items.find((b) => b.titleSlug === titleSlug);
+      const author = authors.find((a) => a.id === book.authorId);
+      const sortedBooks = books.items.filter((b) => b.authorId === book.authorId);
+      sortedBooks.sort((a, b) => ((a.releaseDate > b.releaseDate) ? 1 : -1));
+      const bookIndex = sortedBooks.findIndex((b) => b.id === book.id);
 
       if (!book) {
         return {};

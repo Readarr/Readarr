@@ -4,24 +4,22 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
-import { setBooksSort, setBooksTableOption, toggleBooksMonitored } from 'Store/Actions/bookActions';
+import { setAuthorDetailsId, setAuthorDetailsSort } from 'Store/Actions/authorDetailsActions';
+import { setBooksTableOption, toggleBooksMonitored } from 'Store/Actions/bookActions';
 import { executeCommand } from 'Store/Actions/commandActions';
 import createAuthorSelector from 'Store/Selectors/createAuthorSelector';
 import createClientSideCollectionSelector from 'Store/Selectors/createClientSideCollectionSelector';
-import createCommandsSelector from 'Store/Selectors/createCommandsSelector';
 import createDimensionsSelector from 'Store/Selectors/createDimensionsSelector';
 import createUISettingsSelector from 'Store/Selectors/createUISettingsSelector';
 import AuthorDetailsSeason from './AuthorDetailsSeason';
 
 function createMapStateToProps() {
   return createSelector(
-    (state, { label }) => label,
-    createClientSideCollectionSelector('books'),
+    createClientSideCollectionSelector('books', 'authorDetails'),
     createAuthorSelector(),
-    createCommandsSelector(),
     createDimensionsSelector(),
     createUISettingsSelector(),
-    (label, books, author, commands, dimensions, uiSettings) => {
+    (books, author, dimensions, uiSettings) => {
 
       const booksInGroup = books.items;
 
@@ -47,13 +45,21 @@ function createMapStateToProps() {
 }
 
 const mapDispatchToProps = {
+  setAuthorDetailsId,
+  setAuthorDetailsSort,
   toggleBooksMonitored,
   setBooksTableOption,
-  dispatchSetBookSort: setBooksSort,
   executeCommand
 };
 
 class AuthorDetailsSeasonConnector extends Component {
+
+  //
+  // Lifecycle
+
+  componentDidMount() {
+    this.props.setAuthorDetailsId({ authorId: this.props.authorId });
+  }
 
   //
   // Listeners
@@ -63,7 +69,7 @@ class AuthorDetailsSeasonConnector extends Component {
   }
 
   onSortPress = (sortKey) => {
-    this.props.dispatchSetBookSort({ sortKey });
+    this.props.setAuthorDetailsSort({ sortKey });
   }
 
   onMonitorBookPress = (bookIds, monitored) => {
@@ -92,7 +98,8 @@ AuthorDetailsSeasonConnector.propTypes = {
   authorId: PropTypes.number.isRequired,
   toggleBooksMonitored: PropTypes.func.isRequired,
   setBooksTableOption: PropTypes.func.isRequired,
-  dispatchSetBookSort: PropTypes.func.isRequired,
+  setAuthorDetailsId: PropTypes.func.isRequired,
+  setAuthorDetailsSort: PropTypes.func.isRequired,
   executeCommand: PropTypes.func.isRequired
 };
 
