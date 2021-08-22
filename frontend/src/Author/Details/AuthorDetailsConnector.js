@@ -96,7 +96,7 @@ function createMapStateToProps() {
     createCommandsSelector(),
     createDimensionsSelector(),
     (titleSlug, books, series, bookFiles, allAuthors, commands, dimensions) => {
-      const sortedAuthor = _.orderBy(allAuthors, 'sortName');
+      const sortedAuthor = _.orderBy(allAuthors, 'sortNameLastFirst');
       const authorIndex = _.findIndex(sortedAuthor, { titleSlug });
       const author = sortedAuthor[authorIndex];
 
