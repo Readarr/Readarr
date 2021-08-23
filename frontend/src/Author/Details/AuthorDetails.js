@@ -164,7 +164,8 @@ class AuthorDetails extends Component {
       previousAuthor,
       nextAuthor,
       onRefreshPress,
-      onSearchPress
+      onSearchPress,
+      statistics
     } = this.props;
 
     const {
@@ -331,35 +332,35 @@ class AuthorDetails extends Component {
                       className={styles.tab}
                       selectedClassName={styles.selectedTab}
                     >
-                      Books
+                      {translate('BooksTotal', [statistics.totalBookCount])}
                     </Tab>
 
                     <Tab
                       className={styles.tab}
                       selectedClassName={styles.selectedTab}
                     >
-                      Series
+                      {translate('SeriesTotal', [series.length])}
                     </Tab>
 
                     <Tab
                       className={styles.tab}
                       selectedClassName={styles.selectedTab}
                     >
-                      History
+                      {translate('History')}
                     </Tab>
 
                     <Tab
                       className={styles.tab}
                       selectedClassName={styles.selectedTab}
                     >
-                      Search
+                      {translate('Search')}
                     </Tab>
 
                     <Tab
                       className={styles.tab}
                       selectedClassName={styles.selectedTab}
                     >
-                      Files
+                      {translate('Files')}
                     </Tab>
 
                     {

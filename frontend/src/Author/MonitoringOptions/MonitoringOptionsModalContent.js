@@ -50,7 +50,8 @@ class MonitoringOptionsModalContent extends Component {
 
   onSavePress = () => {
     const {
-      onSavePress
+      onSavePress,
+      isSaving
     } = this.props;
     const {
       monitor
@@ -59,6 +60,14 @@ class MonitoringOptionsModalContent extends Component {
     if (monitor !== NO_CHANGE) {
       onSavePress({ monitor });
     }
+
+    if (!isSaving) {
+      this.onModalClose();
+    }
+  }
+
+  onModalClose = () => {
+    this.props.onModalClose();
   }
 
   //
