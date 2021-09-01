@@ -13,6 +13,7 @@ namespace Readarr.Api.V1.Books
     public class BookResource : RestResource
     {
         public string Title { get; set; }
+        public string AuthorTitle { get; set; }
         public string SeriesTitle { get; set; }
         public string Disambiguation { get; set; }
         public string Overview { get; set; }
@@ -29,6 +30,7 @@ namespace Readarr.Api.V1.Books
         public List<MediaCover> Images { get; set; }
         public List<Links> Links { get; set; }
         public BookStatisticsResource Statistics { get; set; }
+        public DateTime? Added { get; set; }
         public AddBookOptions AddOptions { get; set; }
         public string RemoteCover { get; set; }
         public List<EditionResource> Editions { get; set; }
@@ -49,6 +51,9 @@ namespace Readarr.Api.V1.Books
 
             var selectedEdition = model.Editions?.Value.Where(x => x.Monitored).SingleOrDefault();
 
+            var title = selectedEdition?.Title ?? model.Title;
+            var authorTitle = $"{model.Author.Value.Metadata.Value.SortNameLastFirst} {title}";
+
             return new BookResource
             {
                 Id = model.Id,
@@ -60,13 +65,15 @@ namespace Readarr.Api.V1.Books
                 ReleaseDate = model.ReleaseDate,
                 PageCount = selectedEdition?.PageCount ?? 0,
                 Genres = model.Genres,
-                Title = selectedEdition?.Title ?? model.Title,
+                Title = title,
+                AuthorTitle = authorTitle,
                 SeriesTitle = model.SeriesLinks?.Value?.Select(x => x?.Series?.Value?.Title + (x?.Position.IsNotNullOrWhiteSpace() ?? false ? $" #{x.Position}" : string.Empty)).ConcatToString("; "),
                 Disambiguation = selectedEdition?.Disambiguation,
                 Overview = selectedEdition?.Overview,
                 Images = selectedEdition?.Images ?? new List<MediaCover>(),
                 Links = model.Links.Concat(selectedEdition?.Links ?? new List<Links>()).ToList(),
                 Ratings = selectedEdition?.Ratings ?? new Ratings(),
+                Added = model.Added,
                 Author = model.Author?.Value.ToResource(),
                 Editions = model.Editions?.Value.ToResource() ?? new List<EditionResource>()
             };

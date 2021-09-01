@@ -133,6 +133,7 @@ class BookDetailsHeader extends Component {
               </div>
 
               <div>
+                {author.authorName}
                 {
                   !!pageCount &&
                     <span className={styles.duration}>

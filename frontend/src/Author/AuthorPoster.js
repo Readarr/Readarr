@@ -8,7 +8,6 @@ function AuthorPoster(props) {
   return (
     <AuthorImage
       {...props}
-      coverType="poster"
       placeholder={posterPlaceholder}
     />
   );
@@ -19,7 +18,8 @@ AuthorPoster.propTypes = {
 };
 
 AuthorPoster.defaultProps = {
-  size: 250
+  size: 250,
+  coverType: 'poster'
 };
 
 export default AuthorPoster;

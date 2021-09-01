@@ -5,13 +5,16 @@ import { kinds } from 'Helpers/Props';
 import styles from './NoAuthor.css';
 
 function NoAuthor(props) {
-  const { totalItems } = props;
+  const {
+    totalItems,
+    itemType
+  } = props;
 
   if (totalItems > 0) {
     return (
       <div>
         <div className={styles.message}>
-          All authors are hidden due to the applied filter.
+          {`All ${itemType} are hidden due to the applied filter.`}
         </div>
       </div>
     );
@@ -20,7 +23,7 @@ function NoAuthor(props) {
   return (
     <div>
       <div className={styles.message}>
-        No authors found, to get started you'll want to add a new author or book or add an existing library location (Root Folder) and update.
+        {`No ${itemType} found, to get started you'll want to add a new author or book or add an existing library location (Root Folder) and update.`}
       </div>
 
       <div className={styles.buttonContainer}>
@@ -45,7 +48,12 @@ function NoAuthor(props) {
 }
 
 NoAuthor.propTypes = {
-  totalItems: PropTypes.number.isRequired
+  totalItems: PropTypes.number.isRequired,
+  itemType: PropTypes.string.isRequired
+};
+
+NoAuthor.defaultProps = {
+  itemType: 'authors'
 };
 
 export default NoAuthor;

@@ -2,9 +2,10 @@ import _ from 'lodash';
 import { createAction } from 'redux-actions';
 import { batchActions } from 'redux-batched-actions';
 import bookEntities from 'Book/bookEntities';
-import { sortDirections } from 'Helpers/Props';
+import { filterTypePredicates, filterTypes, sortDirections } from 'Helpers/Props';
 import { createThunk, handleThunks } from 'Store/thunks';
 import createAjaxRequest from 'Utilities/createAjaxRequest';
+import dateFilterPredicate from 'Utilities/Date/dateFilterPredicate';
 import { updateItem } from './baseActions';
 import createFetchHandler from './Creators/createFetchHandler';
 import createHandleActions from './Creators/createHandleActions';
@@ -18,6 +19,113 @@ import createSetTableOptionReducer from './Creators/Reducers/createSetTableOptio
 // Variables
 
 export const section = 'books';
+
+export const filters = [
+  {
+    key: 'all',
+    label: 'All',
+    filters: []
+  },
+  {
+    key: 'monitored',
+    label: 'Monitored Only',
+    filters: [
+      {
+        key: 'monitored',
+        value: true,
+        type: filterTypes.EQUAL
+      }
+    ]
+  },
+  {
+    key: 'unmonitored',
+    label: 'Unmonitored Only',
+    filters: [
+      {
+        key: 'monitored',
+        value: false,
+        type: filterTypes.EQUAL
+      }
+    ]
+  },
+  {
+    key: 'missing',
+    label: 'Missing Books',
+    filters: [
+      {
+        key: 'missing',
+        value: true,
+        type: filterTypes.EQUAL
+      }
+    ]
+  }
+];
+
+export const filterPredicates = {
+  missing: function(item) {
+    const { statistics = {} } = item;
+
+    return statistics.bookFileCount === 0;
+  },
+
+  releaseDate: function(item, filterValue, type) {
+    return dateFilterPredicate(item.releaseDate, filterValue, type);
+  },
+
+  added: function(item, filterValue, type) {
+    return dateFilterPredicate(item.added, filterValue, type);
+  },
+
+  qualityProfileId: function(item, filterValue, type) {
+    const predicate = filterTypePredicates[type];
+
+    return predicate(item.author.qualityProfileId, filterValue);
+  },
+
+  ratings: function(item, filterValue, type) {
+    const predicate = filterTypePredicates[type];
+
+    return predicate(item.ratings.value * 10, filterValue);
+  },
+
+  bookFileCount: function(item, filterValue, type) {
+    const predicate = filterTypePredicates[type];
+    const bookCount = item.statistics ? item.statistics.bookFileCount : 0;
+
+    return predicate(bookCount, filterValue);
+  },
+
+  sizeOnDisk: function(item, filterValue, type) {
+    const predicate = filterTypePredicates[type];
+    const sizeOnDisk = item.statistics && item.statistics.sizeOnDisk ?
+      item.statistics.sizeOnDisk :
+      0;
+
+    return predicate(sizeOnDisk, filterValue);
+  }
+};
+
+export const sortPredicates = {
+  status: function(item) {
+    let result = 0;
+
+    if (item.monitored) {
+      result += 2;
+    }
+
+    if (item.status === 'continuing') {
+      result++;
+    }
+
+    return result;
+  },
+
+  sizeOnDisk: function(item) {
+    const { statistics = {} } = item;
+
+    return statistics.sizeOnDisk || 0;
+  }
+};
 
 //
 // State
