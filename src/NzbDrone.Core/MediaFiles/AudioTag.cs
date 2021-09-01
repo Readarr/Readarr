@@ -85,7 +85,7 @@ namespace NzbDrone.Core.MediaFiles
                     authors.AddRange(tag.PerformersSort);
                 }
 
-                BookAuthors = authors.ToArray();
+                BookAuthors = authors.Distinct().ToArray();
                 Track = tag.Track;
                 TrackCount = tag.TrackCount;
                 Book = tag.Album ?? tag.AlbumSort;

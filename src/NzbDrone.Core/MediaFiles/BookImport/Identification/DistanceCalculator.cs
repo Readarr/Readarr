@@ -30,15 +30,7 @@ namespace NzbDrone.Core.MediaFiles.BookImport.Identification
                 .First()
                 .First();
 
-            var authors = new List<string>(fileAuthors);
-
-            foreach (var author in fileAuthors)
-            {
-                if (author.Contains(','))
-                {
-                    authors.Add(authors[0].Split(',', 2).Select(x => x.Trim()).Reverse().ConcatToString(" "));
-                }
-            }
+            var authors = GetAuthorVariants(fileAuthors);
 
             dist.AddString("author", authors, edition.Book.Value.AuthorMetadata.Value.Name);
             Logger.Trace("author: '{0}' vs '{1}'; {2}", authors.ConcatToString("' or '"), edition.Book.Value.AuthorMetadata.Value.Name, dist.NormalizedDistance());
@@ -114,6 +106,76 @@ namespace NzbDrone.Core.MediaFiles.BookImport.Identification
             }
 
             return dist;
+        }
+
+        public static List<string> GetAuthorVariants(List<string> fileAuthors)
+        {
+            var authors = new List<string>(fileAuthors);
+
+            if (fileAuthors.Count == 1)
+            {
+                authors.AddRange(SplitAuthor(fileAuthors[0]));
+            }
+
+            foreach (var author in fileAuthors)
+            {
+                if (author.Contains(','))
+                {
+                    var split = author.Split(',', 2).Select(x => x.Trim());
+                    if (!split.First().Contains(' '))
+                    {
+                        authors.Add(split.Reverse().ConcatToString(" "));
+                    }
+                }
+            }
+
+            return authors;
+        }
+
+        private static List<string> SplitAuthor(string input)
+        {
+            var seps = new[] { ';', '/' };
+            foreach (var sep in seps)
+            {
+                if (input.Contains(sep))
+                {
+                    return input.Split(sep).Select(x => x.Trim()).ToList();
+                }
+            }
+
+            var andSeps = new List<string> { " and ", " & " };
+            foreach (var sep in andSeps)
+            {
+                if (input.Contains(sep))
+                {
+                    var result = new List<string>();
+                    foreach (var s in input.Split(sep).Select(x => x.Trim()))
+                    {
+                        var s2 = SplitAuthor(s);
+                        if (s2.Any())
+                        {
+                            result.AddRange(s2);
+                        }
+                        else
+                        {
+                            result.Add(s);
+                        }
+                    }
+
+                    return result;
+                }
+            }
+
+            if (input.Contains(','))
+            {
+                var split = input.Split(',').Select(x => x.Trim()).ToList();
+                if (split[0].Contains(' '))
+                {
+                    return split;
+                }
+            }
+
+            return new List<string>();
         }
     }
 }

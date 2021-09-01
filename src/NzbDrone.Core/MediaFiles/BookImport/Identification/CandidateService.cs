@@ -130,7 +130,7 @@ namespace NzbDrone.Core.MediaFiles.BookImport.Identification
         {
             // Sort by most voted so less likely to swap to a random release
             return GetDbCandidatesByEdition(_editionService.GetEditionsByBook(book.Id)
-                                            .OrderByDescending(x => x.Ratings.Votes)
+                                            .OrderByDescending(x => x.Ratings.Popularity)
                                             .ToList(), includeExisting);
         }
 
@@ -171,7 +171,9 @@ namespace NzbDrone.Core.MediaFiles.BookImport.Identification
             var authorTags = localEdition.LocalBooks.MostCommon(x => x.FileTrackInfo.Authors) ?? new List<string>();
             if (authorTags.Any())
             {
-                foreach (var authorTag in authorTags)
+                var variants = DistanceCalculator.GetAuthorVariants(authorTags.Where(x => x.IsNotNullOrWhiteSpace()).ToList());
+
+                foreach (var authorTag in variants)
                 {
                     if (authorTag.IsNotNullOrWhiteSpace())
                     {
