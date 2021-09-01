@@ -6,6 +6,7 @@ import { createSelector } from 'reselect';
 import { setAppValue, setVersion } from 'Store/Actions/appActions';
 import { fetchAuthor } from 'Store/Actions/authorActions';
 import { removeItem, update, updateItem } from 'Store/Actions/baseActions';
+import { deleteAuthorBooks } from 'Store/Actions/bookActions';
 import { fetchCommands, finishCommand, updateCommand } from 'Store/Actions/commandActions';
 import { fetchQueue, fetchQueueDetails } from 'Store/Actions/queueActions';
 import { fetchRootFolders } from 'Store/Actions/settingsActions';
@@ -45,6 +46,7 @@ const mapDispatchToProps = {
   dispatchUpdate: update,
   dispatchUpdateItem: updateItem,
   dispatchRemoveItem: removeItem,
+  dispatchDeleteAuthorBooks: deleteAuthorBooks,
   dispatchFetchAuthor: fetchAuthor,
   dispatchFetchHealth: fetchHealth,
   dispatchFetchQueue: fetchQueue,
@@ -182,7 +184,6 @@ class SignalRConnector extends Component {
     if (action === 'updated') {
       this.props.dispatchUpdateItem({
         section,
-        updateOnly: true,
         ...body.resource
       });
     } else if (action === 'deleted') {
@@ -218,6 +219,7 @@ class SignalRConnector extends Component {
       this.props.dispatchUpdateItem({ section, ...body.resource });
     } else if (action === 'deleted') {
       this.props.dispatchRemoveItem({ section, id: body.resource.id });
+      this.props.dispatchDeleteAuthorBooks({ authorId: body.resource.id });
     }
   }
 
@@ -365,6 +367,7 @@ SignalRConnector.propTypes = {
   dispatchUpdate: PropTypes.func.isRequired,
   dispatchUpdateItem: PropTypes.func.isRequired,
   dispatchRemoveItem: PropTypes.func.isRequired,
+  dispatchDeleteAuthorBooks: PropTypes.func.isRequired,
   dispatchFetchAuthor: PropTypes.func.isRequired,
   dispatchFetchHealth: PropTypes.func.isRequired,
   dispatchFetchQueue: PropTypes.func.isRequired,

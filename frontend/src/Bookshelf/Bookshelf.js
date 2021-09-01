@@ -308,19 +308,6 @@ class Bookshelf extends Component {
     this.cache.clearAll();
   }
 
-  // onSectionRendered = ({ rowStartIndex }) => {
-  //   console.log(`rendered starting ${rowStartIndex}, aiming for ${this.state.scrollIndex}`);
-
-  //   const {
-  //     scrollIndex
-  //   } = this.state;
-
-  //   if (rowStartIndex === scrollIndex) {
-  //     console.log('resetting scrollindex');
-  //     this.setState({ scrollIndex: null });
-  //   }
-  // }
-
   //
   // Render
 
@@ -385,7 +372,7 @@ class Bookshelf extends Component {
             }
 
             {
-              !error && isPopulated && !!items.length &&
+              !error && isPopulated && !!items.length && scroller &&
                 <div className={styles.contentBodyContainer}>
                   <VirtualTable
                     items={items}

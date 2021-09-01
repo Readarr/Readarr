@@ -2,7 +2,6 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
-import { clearBooks, fetchBooks } from 'Store/Actions/bookActions';
 import { saveBookshelf, setBookshelfFilter, setBookshelfSort } from 'Store/Actions/bookshelfActions';
 import createAuthorClientSideCollectionItemsSelector from 'Store/Selectors/createAuthorClientSideCollectionItemsSelector';
 import createDimensionsSelector from 'Store/Selectors/createDimensionsSelector';
@@ -44,36 +43,12 @@ function createMapStateToProps() {
 }
 
 const mapDispatchToProps = {
-  fetchBooks,
-  clearBooks,
   setBookshelfSort,
   setBookshelfFilter,
   saveBookshelf
 };
 
 class BookshelfConnector extends Component {
-
-  //
-  // Lifecycle
-
-  componentDidMount() {
-    this.populate();
-  }
-
-  componentWillUnmount() {
-    this.unpopulate();
-  }
-
-  //
-  // Control
-
-  populate = () => {
-    this.props.fetchBooks();
-  }
-
-  unpopulate = () => {
-    this.props.clearBooks();
-  }
 
   //
   // Listeners
@@ -108,8 +83,6 @@ class BookshelfConnector extends Component {
 BookshelfConnector.propTypes = {
   setBookshelfSort: PropTypes.func.isRequired,
   setBookshelfFilter: PropTypes.func.isRequired,
-  fetchBooks: PropTypes.func.isRequired,
-  clearBooks: PropTypes.func.isRequired,
   saveBookshelf: PropTypes.func.isRequired
 };
 

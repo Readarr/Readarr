@@ -4,12 +4,9 @@ import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
 import * as commandNames from 'Commands/commandNames';
 import withCurrentPage from 'Components/withCurrentPage';
-import { clearBooks, fetchBooks } from 'Store/Actions/bookActions';
 import { executeCommand } from 'Store/Actions/commandActions';
 import * as queueActions from 'Store/Actions/queueActions';
 import createCommandExecutingSelector from 'Store/Selectors/createCommandExecutingSelector';
-import hasDifferentItems from 'Utilities/Object/hasDifferentItems';
-import selectUniqueIds from 'Utilities/Object/selectUniqueIds';
 import { registerPagePopulator, unregisterPagePopulator } from 'Utilities/pagePopulator';
 import Queue from './Queue';
 
@@ -37,8 +34,6 @@ function createMapStateToProps() {
 
 const mapDispatchToProps = {
   ...queueActions,
-  fetchBooks,
-  clearBooks,
   executeCommand
 };
 
@@ -67,16 +62,6 @@ class QueueConnector extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (hasDifferentItems(prevProps.items, this.props.items)) {
-      const bookIds = selectUniqueIds(this.props.items, 'bookId');
-
-      if (bookIds.length) {
-        this.props.fetchBooks({ bookIds });
-      } else {
-        this.props.clearBooks();
-      }
-    }
-
     if (
       this.props.includeUnknownAuthorItems !==
       prevProps.includeUnknownAuthorItems
@@ -87,8 +72,6 @@ class QueueConnector extends Component {
 
   componentWillUnmount() {
     unregisterPagePopulator(this.repopulate);
-    this.props.clearQueue();
-    this.props.clearBooks();
   }
 
   //
@@ -185,8 +168,6 @@ QueueConnector.propTypes = {
   clearQueue: PropTypes.func.isRequired,
   grabQueueItems: PropTypes.func.isRequired,
   removeQueueItems: PropTypes.func.isRequired,
-  fetchBooks: PropTypes.func.isRequired,
-  clearBooks: PropTypes.func.isRequired,
   executeCommand: PropTypes.func.isRequired
 };
 

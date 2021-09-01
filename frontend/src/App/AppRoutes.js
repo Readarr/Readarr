@@ -88,11 +88,13 @@ function AppRoutes(props) {
       />
 
       <Route
-        path="/bookshelf"
+        exact={true}
+        path="/shelf"
         component={BookshelfConnector}
       />
 
       <Route
+        exact={true}
         path="/books"
         component={BookIndexConnector}
       />

@@ -12,32 +12,10 @@ import TableBody from 'Components/Table/TableBody';
 import TableOptionsModalWrapper from 'Components/Table/TableOptions/TableOptionsModalWrapper';
 import TablePager from 'Components/Table/TablePager';
 import { align, icons } from 'Helpers/Props';
-import hasDifferentItems from 'Utilities/Object/hasDifferentItems';
 import translate from 'Utilities/String/translate';
 import HistoryRowConnector from './HistoryRowConnector';
 
 class History extends Component {
-
-  //
-  // Lifecycle
-
-  shouldComponentUpdate(nextProps) {
-    // Don't update when fetching has completed if items have changed,
-    // before books start fetching or when books start fetching.
-
-    if (
-      (
-        this.props.isFetching &&
-        nextProps.isPopulated &&
-        hasDifferentItems(this.props.items, nextProps.items)
-      ) ||
-      (!this.props.isBooksFetching && nextProps.isBooksFetching)
-    ) {
-      return false;
-    }
-
-    return true;
-  }
 
   //
   // Render

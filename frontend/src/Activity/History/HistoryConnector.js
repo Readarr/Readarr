@@ -3,10 +3,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
 import withCurrentPage from 'Components/withCurrentPage';
-import { clearBooks, fetchBooks } from 'Store/Actions/bookActions';
 import * as historyActions from 'Store/Actions/historyActions';
-import hasDifferentItems from 'Utilities/Object/hasDifferentItems';
-import selectUniqueIds from 'Utilities/Object/selectUniqueIds';
 import { registerPagePopulator, unregisterPagePopulator } from 'Utilities/pagePopulator';
 import History from './History';
 
@@ -29,9 +26,7 @@ function createMapStateToProps() {
 }
 
 const mapDispatchToProps = {
-  ...historyActions,
-  fetchBooks,
-  clearBooks
+  ...historyActions
 };
 
 class HistoryConnector extends Component {
@@ -55,21 +50,9 @@ class HistoryConnector extends Component {
     }
   }
 
-  componentDidUpdate(prevProps) {
-    if (hasDifferentItems(prevProps.items, this.props.items)) {
-      const bookIds = selectUniqueIds(this.props.items, 'bookId');
-      if (bookIds.length) {
-        this.props.fetchBooks({ bookIds });
-      } else {
-        this.props.clearBooks();
-      }
-    }
-  }
-
   componentWillUnmount() {
     unregisterPagePopulator(this.repopulate);
     this.props.clearHistory();
-    this.props.clearBooks();
   }
 
   //
@@ -150,9 +133,7 @@ HistoryConnector.propTypes = {
   setHistorySort: PropTypes.func.isRequired,
   setHistoryFilter: PropTypes.func.isRequired,
   setHistoryTableOption: PropTypes.func.isRequired,
-  clearHistory: PropTypes.func.isRequired,
-  fetchBooks: PropTypes.func.isRequired,
-  clearBooks: PropTypes.func.isRequired
+  clearHistory: PropTypes.func.isRequired
 };
 
 export default withCurrentPage(

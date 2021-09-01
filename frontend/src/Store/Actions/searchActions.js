@@ -163,6 +163,7 @@ export const actionHandlers = handleThunks({
       itemToAdd.book = data;
       dispatch(batchActions([
         updateItem({ section: 'authors', ...data.author }),
+        updateItem({ section: 'books', ...data }),
         updateItem({ section, ...itemToAdd }),
 
         set({
