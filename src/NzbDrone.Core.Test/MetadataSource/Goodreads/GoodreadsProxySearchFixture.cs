@@ -7,6 +7,8 @@ using NUnit.Framework;
 using NzbDrone.Common.Http;
 using NzbDrone.Core.Books;
 using NzbDrone.Core.Http;
+using NzbDrone.Core.MetadataSource;
+using NzbDrone.Core.MetadataSource.BookInfo;
 using NzbDrone.Core.MetadataSource.Goodreads;
 using NzbDrone.Core.Profiles.Metadata;
 using NzbDrone.Core.Test.Framework;
@@ -15,12 +17,14 @@ using NzbDrone.Test.Common;
 namespace NzbDrone.Core.Test.MetadataSource.Goodreads
 {
     [TestFixture]
-    public class GoodreadsProxySearchFixture : CoreTest<GoodreadsProxy>
+    public class GoodreadsProxySearchFixture : CoreTest<GoodreadsSearchProxy>
     {
         [SetUp]
         public void Setup()
         {
             UseRealHttp();
+
+            Mocker.SetConstant<IProvideBookInfo>(Mocker.Resolve<GoodreadsProxy>());
 
             var httpClient = Mocker.Resolve<IHttpClient>();
             Mocker.GetMock<ICachedHttpResponseService>()
