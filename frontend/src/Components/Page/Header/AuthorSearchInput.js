@@ -6,7 +6,9 @@ import Icon from 'Components/Icon';
 import keyboardShortcuts, { shortcuts } from 'Components/keyboardShortcuts';
 import LoadingIndicator from 'Components/Loading/LoadingIndicator';
 import { icons } from 'Helpers/Props';
+import translate from 'Utilities/String/translate';
 import AuthorSearchResult from './AuthorSearchResult';
+import BookSearchResult from './BookSearchResult';
 import FuseWorker from './fuse.worker';
 import styles from './AuthorSearchInput.css';
 
@@ -96,17 +98,43 @@ class AuthorSearchInput extends Component {
       );
     }
 
-    return (
-      <AuthorSearchResult
-        {...item.item}
-        match={item.matches[0]}
-      />
-    );
+    if (item.item.type === 'author') {
+      return (
+        <AuthorSearchResult
+          {...item.item}
+          match={item.matches[0]}
+        />
+      );
+    }
+
+    if (item.item.type === 'book') {
+      return (
+        <BookSearchResult
+          {...item.item}
+          match={item.matches[0]}
+        />
+      );
+    }
   }
 
-  goToAuthor(item) {
+  goToItem(item) {
+    const {
+      onGoToAuthor,
+      onGoToBook
+    } = this.props;
+
     this.setState({ value: '' });
-    this.props.onGoToAuthor(item.item.titleSlug);
+
+    const {
+      type,
+      titleSlug
+    } = item.item;
+
+    if (type === 'author') {
+      onGoToAuthor(titleSlug);
+    } else if (type === 'book') {
+      onGoToBook(titleSlug);
+    }
   }
 
   reset() {
@@ -164,9 +192,9 @@ class AuthorSearchInput extends Component {
     // otherwise go to the selected author.
 
     if (highlightedSuggestionIndex == null) {
-      this.goToAuthor(suggestions[0]);
+      this.goToItem(suggestions[0]);
     } else {
-      this.goToAuthor(suggestions[highlightedSuggestionIndex]);
+      this.goToItem(suggestions[highlightedSuggestionIndex]);
     }
 
     this._autosuggest.input.blur();
@@ -202,7 +230,7 @@ class AuthorSearchInput extends Component {
     if (!requestLoading) {
       const payload = {
         value,
-        authors: this.props.authors
+        items: this.props.items
       };
 
       this.getWorker().postMessage(payload);
@@ -235,7 +263,7 @@ class AuthorSearchInput extends Component {
 
       const payload = {
         value: this.state.requestValue,
-        authors: this.props.authors
+        items: this.props.items
       };
 
       this.getWorker().postMessage(payload);
@@ -253,7 +281,7 @@ class AuthorSearchInput extends Component {
     if (suggestion.type === ADD_NEW_TYPE) {
       this.props.onGoToAddNewAuthor(this.state.value);
     } else {
-      this.goToAuthor(suggestion);
+      this.goToItem(suggestion);
     }
   }
 
@@ -271,14 +299,14 @@ class AuthorSearchInput extends Component {
 
     if (suggestions.length || loading) {
       suggestionGroups.push({
-        title: 'Existing Author',
+        title: translate('ExistingItems'),
         loading,
         suggestions
       });
     }
 
     suggestionGroups.push({
-      title: 'Add New Item',
+      title: translate('AddNewItem'),
       suggestions: [
         {
           type: ADD_NEW_TYPE,
@@ -292,7 +320,7 @@ class AuthorSearchInput extends Component {
       className: styles.input,
       name: 'authorSearch',
       value,
-      placeholder: 'Search',
+      placeholder: translate('Search'),
       autoComplete: 'off',
       spellCheck: false,
       onChange: this.onChange,
@@ -336,8 +364,9 @@ class AuthorSearchInput extends Component {
 }
 
 AuthorSearchInput.propTypes = {
-  authors: PropTypes.arrayOf(PropTypes.object).isRequired,
+  items: PropTypes.arrayOf(PropTypes.object).isRequired,
   onGoToAuthor: PropTypes.func.isRequired,
+  onGoToBook: PropTypes.func.isRequired,
   onGoToAddNewAuthor: PropTypes.func.isRequired,
   bindShortcut: PropTypes.func.isRequired
 };
