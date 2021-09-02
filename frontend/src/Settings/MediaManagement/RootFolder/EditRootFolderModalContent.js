@@ -127,6 +127,7 @@ function EditRootFolderModalContent(props) {
 
                 <FormInputGroup
                   type={inputTypes.CHECK}
+                  isDisabled={!!id}
                   name="isCalibreLibrary"
                   helpText={translate('IsCalibreLibraryHelpText')}
                   {...isCalibreLibrary}
