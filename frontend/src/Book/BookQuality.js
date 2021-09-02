@@ -4,11 +4,7 @@ import Label from 'Components/Label';
 import { kinds } from 'Helpers/Props';
 import formatBytes from 'Utilities/Number/formatBytes';
 
-function getTooltip(title, quality, size) {
-  if (!title) {
-    return;
-  }
-
+function getTooltip(title, quality, size, isMonitored, isCutoffNotMet) {
   const revision = quality.revision;
 
   if (revision.real && revision.real > 0) {
@@ -23,6 +19,12 @@ function getTooltip(title, quality, size) {
     title += ` - ${formatBytes(size)}`;
   }
 
+  if (!isMonitored) {
+    title += ' [Not Monitored]';
+  } else if (isCutoffNotMet) {
+    title += ' [Cutoff Not Met]';
+  }
+
   return title;
 }
 
@@ -32,14 +34,26 @@ function BookQuality(props) {
     title,
     quality,
     size,
+    isMonitored,
     isCutoffNotMet
   } = props;
+
+  let kind = kinds.DEFAULT;
+  if (!isMonitored) {
+    kind = kinds.DISABLED;
+  } else if (isCutoffNotMet) {
+    kind = kinds.INVERSE;
+  }
+
+  if (!quality) {
+    return null;
+  }
 
   return (
     <Label
       className={className}
-      kind={isCutoffNotMet ? kinds.INVERSE : kinds.DEFAULT}
-      title={getTooltip(title, quality, size)}
+      kind={kind}
+      title={getTooltip(title, quality, size, isMonitored, isCutoffNotMet)}
     >
       {quality.quality.name}
     </Label>
@@ -51,11 +65,13 @@ BookQuality.propTypes = {
   title: PropTypes.string,
   quality: PropTypes.object.isRequired,
   size: PropTypes.number,
+  isMonitored: PropTypes.bool,
   isCutoffNotMet: PropTypes.bool
 };
 
 BookQuality.defaultProps = {
-  title: ''
+  title: '',
+  isMonitored: true
 };
 
 export default BookQuality;
