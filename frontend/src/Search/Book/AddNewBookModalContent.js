@@ -144,7 +144,7 @@ class AddNewBookModalContent extends Component {
 AddNewBookModalContent.propTypes = {
   bookTitle: PropTypes.string.isRequired,
   authorName: PropTypes.string.isRequired,
-  disambiguation: PropTypes.string.isRequired,
+  disambiguation: PropTypes.string,
   overview: PropTypes.string,
   images: PropTypes.arrayOf(PropTypes.object).isRequired,
   isAdding: PropTypes.bool.isRequired,
