@@ -5,6 +5,7 @@ using System.Text.RegularExpressions;
 using NLog;
 using NzbDrone.Common.Extensions;
 using NzbDrone.Core.Books;
+using NzbDrone.Core.Books.Calibre;
 using NzbDrone.Core.ImportLists;
 using NzbDrone.Core.Lifecycle;
 using NzbDrone.Core.MediaFiles;
@@ -173,14 +174,14 @@ namespace NzbDrone.Core.Profiles.Metadata
 
         private List<Edition> FilterEditions(IEnumerable<Edition> editions, List<Edition> localEditions, List<BookFile> localFiles, MetadataProfile profile)
         {
-            var allowedLanguages = profile.AllowedLanguages.IsNotNullOrWhiteSpace() ? new HashSet<string>(profile.AllowedLanguages.Split(',').Select(x => x.Trim().ToLower())) : new HashSet<string>();
+            var allowedLanguages = profile.AllowedLanguages.IsNotNullOrWhiteSpace() ? new HashSet<string>(profile.AllowedLanguages.Trim(',').Split(',').Select(x => x.CanonicalizeLanguage())) : new HashSet<string>();
 
             var hash = new HashSet<Edition>(editions);
 
             var localHash = new HashSet<string>(localEditions.Where(x => x.ManualAdd).Select(x => x.ForeignEditionId));
             localHash.UnionWith(localFiles.Select(x => x.Edition.Value.ForeignEditionId));
 
-            FilterByPredicate(hash, x => x.ForeignEditionId, localHash, profile, (x, p) => !allowedLanguages.Any() || allowedLanguages.Contains(x.Language?.ToLower() ?? "null"), "edition language not allowed");
+            FilterByPredicate(hash, x => x.ForeignEditionId, localHash, profile, (x, p) => !allowedLanguages.Any() || allowedLanguages.Contains(x.Language?.CanonicalizeLanguage() ?? "null"), "edition language not allowed");
             FilterByPredicate(hash, x => x.ForeignEditionId, localHash, profile, (x, p) => !p.SkipMissingIsbn || x.Isbn13.IsNotNullOrWhiteSpace() || x.Asin.IsNotNullOrWhiteSpace(), "isbn and asin is missing");
             FilterByPredicate(hash, x => x.ForeignEditionId, localHash, profile, (x, p) => !MatchesTerms(x.Title, p.Ignored), "contains ignored terms");
 
@@ -272,7 +273,7 @@ namespace NzbDrone.Core.Profiles.Metadata
                     MinPopularity = 350,
                     SkipMissingDate = true,
                     SkipPartsAndSets = true,
-                    AllowedLanguages = "eng, en-US, en-GB, null"
+                    AllowedLanguages = "eng, null"
                 });
             }
 

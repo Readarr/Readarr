@@ -13,12 +13,16 @@ namespace NzbDrone.Core.Books.Calibre
         private static readonly Dictionary<string, string> ByThree;
         private static readonly Dictionary<string, string> NameMap;
 
+        public static HashSet<string> KnownLanguages { get; }
+
         static Extensions()
         {
             var assembly = Assembly.GetExecutingAssembly();
             TwoToThree = InitializeDictionary(assembly, "2to3.json");
             ByThree = InitializeDictionary(assembly, "by3.json");
             NameMap = InitializeDictionary(assembly, "name_map.json");
+
+            KnownLanguages = ByThree.Keys.ToHashSet();
         }
 
         private static Dictionary<string, string> InitializeDictionary(Assembly assembly, string resource)
