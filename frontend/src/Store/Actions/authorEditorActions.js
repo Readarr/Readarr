@@ -55,7 +55,7 @@ export const defaultState = {
       name: 'metadataProfileId',
       label: 'Metadata Profile',
       isSortable: true,
-      isVisible: false
+      isVisible: true
     },
     {
       name: 'path',
