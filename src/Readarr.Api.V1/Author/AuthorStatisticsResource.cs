@@ -4,8 +4,9 @@ namespace Readarr.Api.V1.Author
 {
     public class AuthorStatisticsResource
     {
-        public int BookCount { get; set; }
         public int BookFileCount { get; set; }
+        public int BookCount { get; set; }
+        public int AvailableBookCount { get; set; }
         public int TotalBookCount { get; set; }
         public long SizeOnDisk { get; set; }
 
@@ -18,7 +19,7 @@ namespace Readarr.Api.V1.Author
                     return 0;
                 }
 
-                return BookFileCount / (decimal)BookCount * 100;
+                return AvailableBookCount / (decimal)BookCount * 100;
             }
         }
     }
@@ -34,9 +35,10 @@ namespace Readarr.Api.V1.Author
 
             return new AuthorStatisticsResource
             {
-                BookCount = model.BookCount,
-                TotalBookCount = model.TotalBookCount,
                 BookFileCount = model.BookFileCount,
+                BookCount = model.BookCount,
+                AvailableBookCount = model.AvailableBookCount,
+                TotalBookCount = model.TotalBookCount,
                 SizeOnDisk = model.SizeOnDisk
             };
         }
