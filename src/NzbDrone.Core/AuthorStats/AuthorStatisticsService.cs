@@ -56,12 +56,13 @@ namespace NzbDrone.Core.AuthorStats
         {
             var authorStatistics = new AuthorStatistics
             {
-                BookStatistics = bookStatistics,
-                BookCount = bookStatistics.Sum(s => s.BookCount),
-                TotalBookCount = bookStatistics.Sum(s => s.TotalBookCount),
                 AuthorId = bookStatistics.First().AuthorId,
                 BookFileCount = bookStatistics.Sum(s => s.BookFileCount),
-                SizeOnDisk = bookStatistics.Sum(s => s.SizeOnDisk)
+                BookCount = bookStatistics.Sum(s => s.BookCount),
+                AvailableBookCount = bookStatistics.Sum(s => s.AvailableBookCount),
+                TotalBookCount = bookStatistics.Sum(s => s.TotalBookCount),
+                SizeOnDisk = bookStatistics.Sum(s => s.SizeOnDisk),
+                BookStatistics = bookStatistics
             };
 
             return authorStatistics;
