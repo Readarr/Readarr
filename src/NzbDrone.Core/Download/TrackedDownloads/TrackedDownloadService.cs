@@ -56,18 +56,21 @@ namespace NzbDrone.Core.Download.TrackedDownloads
         {
             var updateCacheItems = _cache.Values.Where(x => x.RemoteBook != null && x.RemoteBook.Books.Any(a => a.Id == bookId)).ToList();
 
-            foreach (var item in updateCacheItems)
+            if (updateCacheItems.Any())
             {
-                var parsedBookInfo = Parser.Parser.ParseBookTitle(item.DownloadItem.Title);
-                item.RemoteBook = null;
-
-                if (parsedBookInfo != null)
+                foreach (var item in updateCacheItems)
                 {
-                    item.RemoteBook = _parsingService.Map(parsedBookInfo);
-                }
-            }
+                    var parsedBookInfo = Parser.Parser.ParseBookTitle(item.DownloadItem.Title);
+                    item.RemoteBook = null;
 
-            _eventAggregator.PublishEvent(new TrackedDownloadRefreshedEvent(GetTrackedDownloads()));
+                    if (parsedBookInfo != null)
+                    {
+                        item.RemoteBook = _parsingService.Map(parsedBookInfo);
+                    }
+                }
+
+                _eventAggregator.PublishEvent(new TrackedDownloadRefreshedEvent(GetTrackedDownloads()));
+            }
         }
 
         public void StopTracking(string downloadId)
