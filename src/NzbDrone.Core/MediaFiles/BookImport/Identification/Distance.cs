@@ -173,6 +173,22 @@ namespace NzbDrone.Core.MediaFiles.BookImport.Identification
             }
         }
 
+        public void AddString(string key, List<string> values, List<string> options)
+        {
+            if (!values.Any() && !options.Any())
+            {
+                Add(key, 0.0);
+            }
+            else if (!values.Any() || !options.Any())
+            {
+                Add(key, 1.0);
+            }
+            else
+            {
+                Add(key, values.Min(v => options.Min(o => StringScore(v, o))));
+            }
+        }
+
         public void AddBool(string key, bool expr)
         {
             Add(key, expr ? 1.0 : 0.0);
