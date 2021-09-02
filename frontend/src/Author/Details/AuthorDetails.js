@@ -4,6 +4,7 @@ import { Tab, TabList, TabPanel, Tabs } from 'react-tabs';
 import DeleteAuthorModal from 'Author/Delete/DeleteAuthorModal';
 import EditAuthorModalConnector from 'Author/Edit/EditAuthorModalConnector';
 import AuthorHistoryTable from 'Author/History/AuthorHistoryTable';
+import MonitoringOptionsModal from 'Author/MonitoringOptions/MonitoringOptionsModal';
 import BookFileEditorTable from 'BookFile/Editor/BookFileEditorTable';
 import IconButton from 'Components/Link/IconButton';
 import Link from 'Components/Link/Link';
@@ -51,6 +52,7 @@ class AuthorDetails extends Component {
       isEditAuthorModalOpen: false,
       isDeleteAuthorModalOpen: false,
       isInteractiveImportModalOpen: false,
+      isMonitorOptionsModalOpen: false,
       allExpanded: false,
       allCollapsed: false,
       expandedState: {},
@@ -102,6 +104,14 @@ class AuthorDetails extends Component {
 
   onDeleteAuthorModalClose = () => {
     this.setState({ isDeleteAuthorModalOpen: false });
+  }
+
+  onMonitorOptionsPress = () => {
+    this.setState({ isMonitorOptionsModalOpen: true });
+  }
+
+  onMonitorOptionsClose = () => {
+    this.setState({ isMonitorOptionsModalOpen: false });
   }
 
   onExpandAllPress = () => {
@@ -163,6 +173,7 @@ class AuthorDetails extends Component {
       isEditAuthorModalOpen,
       isDeleteAuthorModalOpen,
       isInteractiveImportModalOpen,
+      isMonitorOptionsModalOpen,
       allExpanded,
       allCollapsed,
       expandedState,
@@ -222,6 +233,12 @@ class AuthorDetails extends Component {
             />
 
             <PageToolbarSeparator />
+
+            <PageToolbarButton
+              label={translate('BookMonitoring')}
+              iconName={icons.MONITORED}
+              onPress={this.onMonitorOptionsPress}
+            />
 
             <PageToolbarButton
               label={translate('Edit')}
@@ -408,10 +425,10 @@ class AuthorDetails extends Component {
           </div>
 
           <div className={styles.metadataMessage}>
-            Missing or too many books? Modify or create a new
-            <Link to='/settings/profiles'> Metadata Profile </Link>
+            {translate('TooManyBooks')}
+            <Link to='/settings/profiles'> {translate('MetadataProfile')} </Link>
             or manually
-            <Link to={`/add/search?term=${encodeURIComponent(authorName)}`}> Search </Link>
+            <Link to={`/add/search?term=${encodeURIComponent(authorName)}`}> {translate('Search')} </Link>
             for new items!
           </div>
 
@@ -448,6 +465,12 @@ class AuthorDetails extends Component {
             showFilterExistingFiles={true}
             showImportMode={false}
             onModalClose={this.onInteractiveImportModalClose}
+          />
+
+          <MonitoringOptionsModal
+            isOpen={isMonitorOptionsModalOpen}
+            authorId={id}
+            onModalClose={this.onMonitorOptionsClose}
           />
         </PageContentBody>
       </PageContent>
