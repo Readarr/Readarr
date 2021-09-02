@@ -35,6 +35,7 @@ namespace NzbDrone.Core.Profiles.Metadata
         private readonly IMetadataProfileRepository _profileRepository;
         private readonly IAuthorService _authorService;
         private readonly IBookService _bookService;
+        private readonly IEditionService _editionService;
         private readonly IMediaFileService _mediaFileService;
         private readonly IImportListFactory _importListFactory;
         private readonly IRootFolderService _rootFolderService;
@@ -44,6 +45,7 @@ namespace NzbDrone.Core.Profiles.Metadata
         public MetadataProfileService(IMetadataProfileRepository profileRepository,
                                       IAuthorService authorService,
                                       IBookService bookService,
+                                      IEditionService editionService,
                                       IMediaFileService mediaFileService,
                                       IImportListFactory importListFactory,
                                       IRootFolderService rootFolderService,
@@ -53,6 +55,7 @@ namespace NzbDrone.Core.Profiles.Metadata
             _profileRepository = profileRepository;
             _authorService = authorService;
             _bookService = bookService;
+            _editionService = editionService;
             _mediaFileService = mediaFileService;
             _importListFactory = importListFactory;
             _rootFolderService = rootFolderService;
@@ -112,7 +115,26 @@ namespace NzbDrone.Core.Profiles.Metadata
                 .ToDictionary(x => x.Key, y => y.ToList());
 
             var dbAuthor = _authorService.FindById(input.ForeignAuthorId);
-            var localBooks = dbAuthor?.Books.Value ?? new List<Book>();
+
+            var localBooks = new List<Book>();
+            if (dbAuthor != null)
+            {
+                localBooks = _bookService.GetBooksByAuthorMetadataId(dbAuthor.AuthorMetadataId);
+                var editions = _editionService.GetEditionsByAuthor(dbAuthor.Id).GroupBy(x => x.BookId).ToDictionary(x => x.Key, y => y.ToList());
+
+                foreach (var book in localBooks)
+                {
+                    if (editions.TryGetValue(book.Id, out var bookEditions))
+                    {
+                        book.Editions = bookEditions;
+                    }
+                    else
+                    {
+                        book.Editions = new List<Edition>();
+                    }
+                }
+            }
+
             var localFiles = _mediaFileService.GetFilesByAuthor(dbAuthor?.Id ?? 0);
 
             return FilterBooks(input.Books.Value, localBooks, localFiles, seriesLinks, profileId);
