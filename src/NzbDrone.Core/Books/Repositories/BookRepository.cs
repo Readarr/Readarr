@@ -176,6 +176,8 @@ namespace NzbDrone.Core.Books
         {
             book.Monitored = monitored;
             SetFields(book, p => p.Monitored);
+
+            ModelUpdated(book, true);
         }
 
         public void SetMonitored(IEnumerable<int> ids, bool monitored)

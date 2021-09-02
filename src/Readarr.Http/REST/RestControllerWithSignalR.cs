@@ -29,6 +29,11 @@ namespace Readarr.Http.REST
             }
         }
 
+        protected virtual TResource GetResourceByIdForBroadcast(int id)
+        {
+            return GetResourceById(id);
+        }
+
         [NonAction]
         public void Handle(ModelEvent<TModel> message)
         {
@@ -42,7 +47,7 @@ namespace Readarr.Http.REST
                 BroadcastResourceChange(message.Action);
             }
 
-            BroadcastResourceChange(message.Action, message.Model.Id);
+            BroadcastResourceChange(message.Action, message.ModelId);
         }
 
         protected void BroadcastResourceChange(ModelAction action, int id)
@@ -58,7 +63,7 @@ namespace Readarr.Http.REST
             }
             else
             {
-                var resource = GetResourceById(id);
+                var resource = GetResourceByIdForBroadcast(id);
                 BroadcastResourceChange(action, resource);
             }
         }
