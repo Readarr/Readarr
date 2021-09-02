@@ -18,7 +18,7 @@ namespace Readarr.Api.V1.Bookshelf
         }
 
         [HttpPost]
-        public IActionResult UpdateAll([FromBody] BookshelfResource request)
+        public ActionResult<object> UpdateAll([FromBody] BookshelfResource request)
         {
             //Read from request
             var authorToUpdate = _authorService.GetAuthors(request.Authors.Select(s => s.Id));
@@ -40,7 +40,7 @@ namespace Readarr.Api.V1.Bookshelf
                 _bookMonitoredService.SetBookMonitoredStatus(author, request.MonitoringOptions);
             }
 
-            return Accepted();
+            return Accepted(new object());
         }
     }
 }
