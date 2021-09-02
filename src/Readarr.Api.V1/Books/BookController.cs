@@ -174,6 +174,15 @@ namespace Readarr.Api.V1.Books
         {
             _bookService.SetMonitored(resource.BookIds, resource.Monitored);
 
+            if (resource.BookIds.Count == 1)
+            {
+                _bookService.SetBookMonitored(resource.BookIds.First(), resource.Monitored);
+            }
+            else
+            {
+                _bookService.SetMonitored(resource.BookIds, resource.Monitored);
+            }
+
             return Accepted(MapToResource(_bookService.GetBooks(resource.BookIds), false));
         }
 
