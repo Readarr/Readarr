@@ -2,27 +2,13 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import BookSearchCellConnector from 'Book/BookSearchCellConnector';
 import BookTitleLink from 'Book/BookTitleLink';
-import Label from 'Components/Label';
 import MonitorToggleButton from 'Components/MonitorToggleButton';
 import StarRating from 'Components/StarRating';
 import RelativeDateCellConnector from 'Components/Table/Cells/RelativeDateCellConnector';
 import TableRowCell from 'Components/Table/Cells/TableRowCell';
 import TableRow from 'Components/Table/TableRow';
-import { kinds, sizes } from 'Helpers/Props';
-import translate from 'Utilities/String/translate';
+import BookStatus from './BookStatus';
 import styles from './BookRow.css';
-
-function getBookCountKind(monitored, bookFileCount, bookCount) {
-  if (bookFileCount === bookCount && bookCount > 0) {
-    return kinds.SUCCESS;
-  }
-
-  if (!monitored) {
-    return kinds.WARNING;
-  }
-
-  return kinds.DANGER;
-}
 
 class BookRow extends Component {
 
@@ -69,7 +55,6 @@ class BookRow extends Component {
       id,
       authorId,
       monitored,
-      statistics,
       releaseDate,
       title,
       seriesTitle,
@@ -79,14 +64,12 @@ class BookRow extends Component {
       isSaving,
       authorMonitored,
       titleSlug,
+      bookFiles,
       columns
     } = this.props;
 
-    const {
-      bookCount,
-      bookFileCount,
-      totalBookCount
-    } = statistics;
+    const bookFile = bookFiles[0];
+    const isAvailable = Date.parse(releaseDate) < new Date();
 
     return (
       <TableRow>
@@ -196,15 +179,11 @@ class BookRow extends Component {
                   key={name}
                   className={styles.status}
                 >
-                  <Label
-                    title={translate('TotalBookCountBooksTotalBookFileCountBooksWithFilesInterp', [totalBookCount, bookFileCount])}
-                    kind={getBookCountKind(monitored, bookFileCount, bookCount)}
-                    size={sizes.MEDIUM}
-                  >
-                    {
-                      <span>{bookFileCount} / {bookCount}</span>
-                    }
-                  </Label>
+                  <BookStatus
+                    isAvailable={isAvailable}
+                    monitored={monitored}
+                    bookFile={bookFile}
+                  />
                 </TableRowCell>
               );
             }
@@ -240,16 +219,9 @@ BookRow.propTypes = {
   titleSlug: PropTypes.string.isRequired,
   isSaving: PropTypes.bool,
   authorMonitored: PropTypes.bool.isRequired,
-  statistics: PropTypes.object.isRequired,
+  bookFiles: PropTypes.arrayOf(PropTypes.object).isRequired,
   columns: PropTypes.arrayOf(PropTypes.object).isRequired,
   onMonitorBookPress: PropTypes.func.isRequired
-};
-
-BookRow.defaultProps = {
-  statistics: {
-    bookCount: 0,
-    bookFileCount: 0
-  }
 };
 
 export default BookRow;

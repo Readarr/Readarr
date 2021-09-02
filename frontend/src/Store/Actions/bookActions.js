@@ -105,20 +105,6 @@ export const filterPredicates = {
 };
 
 export const sortPredicates = {
-  status: function(item) {
-    let result = 0;
-
-    if (item.monitored) {
-      result += 2;
-    }
-
-    if (item.status === 'continuing') {
-      result++;
-    }
-
-    return result;
-  },
-
   sizeOnDisk: function(item) {
     const { statistics = {} } = item;
 

@@ -2,17 +2,38 @@
 import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
 import createAuthorSelector from 'Store/Selectors/createAuthorSelector';
-import createBookFileSelector from 'Store/Selectors/createBookFileSelector';
 import BookRow from './BookRow';
+
+const selectBookFiles = createSelector(
+  (state) => state.bookFiles,
+  (bookFiles) => {
+    const {
+      items
+    } = bookFiles;
+
+    const bookFileDict = items.reduce((acc, file) => {
+      const bookId = file.bookId;
+      if (!acc.hasOwnProperty(bookId)) {
+        acc[bookId] = [];
+      }
+
+      acc[bookId].push(file);
+      return acc;
+    }, {});
+
+    return bookFileDict;
+  }
+);
 
 function createMapStateToProps() {
   return createSelector(
     createAuthorSelector(),
-    createBookFileSelector(),
-    (author = {}, bookFile) => {
+    selectBookFiles,
+    (state, { id }) => id,
+    (author = {}, bookFiles, bookId) => {
       return {
         authorMonitored: author.monitored,
-        bookFilePath: bookFile ? bookFile.path : null
+        bookFiles: bookFiles[bookId] ?? []
       };
     }
   );
