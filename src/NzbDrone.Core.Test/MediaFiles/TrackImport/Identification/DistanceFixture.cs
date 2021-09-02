@@ -164,6 +164,22 @@ namespace NzbDrone.Core.Test.MediaFiles.BookImport.Identification
         }
 
         [Test]
+        public void test_add_string_multiple_options_multiple_values_match()
+        {
+            var dist = new Distance();
+            dist.AddString("string", new List<string> { "cat", "dog" }, new List<string> { "dog", "mouse" });
+            dist.Penalties.Should().BeEquivalentTo(new Dictionary<string, List<double>> { { "string", new List<double> { 0.0 } } });
+        }
+
+        [Test]
+        public void test_add_string_multiple_options_multiple_values_no_match()
+        {
+            var dist = new Distance();
+            dist.AddString("string", new List<string> { "cat", "dog" }, new List<string> { "y", "z" });
+            dist.Penalties.Should().BeEquivalentTo(new Dictionary<string, List<double>> { { "string", new List<double> { 1.0 } } });
+        }
+
+        [Test]
         public void test_distance()
         {
             var dist = new Distance();
