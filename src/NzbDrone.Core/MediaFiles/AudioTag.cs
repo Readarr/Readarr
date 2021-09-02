@@ -536,7 +536,7 @@ namespace NzbDrone.Core.MediaFiles
 
             return new ParsedTrackInfo
             {
-                BookTitle = tag.Book,
+                BookTitle = tag.Book.IsNotNullOrWhiteSpace() ? tag.Book : tag.Title,
                 Authors = authors,
                 DiscNumber = (int)tag.Disc,
                 DiscCount = (int)tag.DiscCount,
