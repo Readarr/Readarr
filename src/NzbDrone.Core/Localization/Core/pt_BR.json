@@ -479,7 +479,6 @@
     "TrackNumber": "Número da faixa",
     "TotalBookCountBooksTotalBookFileCountBooksWithFilesInterp": "{0} livro(s) no total. {1} livro(s) com arquivos.",
     "TheBooksFilesWillBeDeleted": "Os arquivos do livro serão excluídos.",
-    "TheAuthorFolderStrongpathstrongAndAllOfItsContentWillBeDeleted": "A pasta de autor {path} e seu conteúdo serão excluídos.",
     "Term": "Termo",
     "TagsHelpText": "Os perfis de lançamento aplicam-se a autores com pelo menos uma tag correspondente. Deixe em branco para aplicar a todos os autores",
     "TBA": "A ser anunciado",
@@ -719,5 +718,6 @@
     "FilterAuthor": "Filtro de Autor",
     "NameFirstLast": "Primeiro Nome Último Nome",
     "NameLastFirst": "Último Nome, Primeiro Nome",
-    "NoName": "Não exibir nome"
+    "NoName": "Não exibir nome",
+    "NameStyle": "Estilo do nome do autor"
 }

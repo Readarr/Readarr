@@ -680,7 +680,6 @@
     "SkipBooksWithNoISBNOrASIN": "Ignorar livros sem ISBN ou ASIN",
     "SkipRedownload": "Ignorar nova transferência",
     "SkipSecondarySeriesBooks": "Ignorar livros de série secundária",
-    "TheAuthorFolderStrongpathstrongAndAllOfItsContentWillBeDeleted": "A pasta de autor {path} e seu conteúdo serão eliminados.",
     "TheBooksFilesWillBeDeleted": "Os ficheiros do livro serão eliminados.",
     "TotalBookCountBooksTotalBookFileCountBooksWithFilesInterp": "{0} livro(s) no total. {1} livro(s) com ficheiros.",
     "TrackNumber": "Número da faixa",

@@ -187,7 +187,7 @@
     "IncludeHealthWarningsHelpText": "Inclure avertissements santé",
     "IncludeUnknownAuthorItemsHelpText": "Afficher les éléments sans film dans la file d'attente. Cela peut inclure des films supprimés ou tout autre élément de la catégorie de Radarr",
     "IncludeUnmonitored": "Inclure non surveillé",
-    "Indexer": "Indexer",
+    "Indexer": "Indexeur",
     "IndexerPriority": "Priorité de l'indexeur",
     "IndexerSettings": "Paramètres de l'indexeur",
     "Indexers": "Indexeurs",

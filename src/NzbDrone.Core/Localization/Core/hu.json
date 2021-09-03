@@ -629,7 +629,6 @@
     "TrackTitle": "Szám címe",
     "TotalBookCountBooksTotalBookFileCountBooksWithFilesInterp": "{0} könyv összesen. {1} könyv fájlokkal.",
     "TheBooksFilesWillBeDeleted": "A könyv(ek) fájljai törlődnek.",
-    "TheAuthorFolderStrongpathstrongAndAllOfItsContentWillBeDeleted": "A(z) {path} szerzői mappa és annak teljes tartalma törlődik.",
     "Term": "Feltétel",
     "TagsHelpText": "A kiadási profilok legalább egy megfelelő címkével rendelkező szerzőkre vonatkoznak. Hagyja üresen, hogy minden szerzőre alkalmazható legyen",
     "TBA": "Bejelentés alatt",
