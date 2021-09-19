@@ -105,14 +105,14 @@ namespace NzbDrone.Core.Test.ImportListTests
         {
             Mocker.GetMock<IAuthorService>()
                 .Setup(v => v.FindById(_importListReports.First().AuthorGoodreadsId))
-                .Returns(new Author { ForeignAuthorId = _importListReports.First().AuthorGoodreadsId });
+                .Returns(new Author { Id = 1, ForeignAuthorId = _importListReports.First().AuthorGoodreadsId });
         }
 
         private void WithExistingBook()
         {
             Mocker.GetMock<IBookService>()
                 .Setup(v => v.FindById(_importListReports.First().EditionGoodreadsId))
-                .Returns(new Book { ForeignBookId = _importListReports.First().EditionGoodreadsId });
+                .Returns(new Book { Id = 1, ForeignBookId = _importListReports.First().EditionGoodreadsId });
         }
 
         private void WithExcludedAuthor()
@@ -231,6 +231,7 @@ namespace NzbDrone.Core.Test.ImportListTests
         public void should_add_if_existing_author_but_new_book()
         {
             WithBookId();
+            WithAuthorId();
             WithExistingAuthor();
 
             Subject.Execute(new ImportListSyncCommand());

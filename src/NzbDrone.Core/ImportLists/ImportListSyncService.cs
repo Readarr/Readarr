@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using NLog;
 using NzbDrone.Common.Extensions;
@@ -262,8 +263,9 @@ namespace NzbDrone.Core.ImportLists
                     }
                 };
 
-                if (importList.ShouldMonitor == ImportListMonitorType.SpecificBook)
+                if (importList.ShouldMonitor == ImportListMonitorType.SpecificBook && toAddAuthor.AddOptions != null)
                 {
+                    Debug.Assert(toAddAuthor.Id == 0, "new author added but ID is not 0");
                     toAddAuthor.AddOptions.BooksToMonitor.Add(toAdd.ForeignBookId);
                 }
 
