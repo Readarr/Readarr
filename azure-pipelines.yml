@@ -812,6 +812,10 @@ stages:
         inputs:
           version: 2.1.815
       - task: UseDotNet@2
+        displayName: 'Install .net core 3.1'
+        inputs:
+          version: 3.1.413    
+      - task: UseDotNet@2
         displayName: 'Install .net core 5.0'
         inputs:
           version: $(dotnetVersion)
