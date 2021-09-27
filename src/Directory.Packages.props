@@ -30,6 +30,7 @@
     <PackageVersion Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageVersion Include="NLog.Extensions.Logging" Version="1.7.4" />
     <PackageVersion Include="NLog" Version="4.7.14" />
+    <PackageVersion Include="NLog.Targets.Syslog" Version="6.0.2" />
     <PackageVersion Include="NUnit3TestAdapter" Version="4.2.1" />
     <PackageVersion Include="NUnit" Version="3.13.2" />
     <PackageVersion Include="NunitXml.TestLogger" Version="3.0.117" />
