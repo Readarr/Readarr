@@ -475,5 +475,11 @@
     "Actions": "أجراءات",
     "Tomorrow": "غدا",
     "Today": "اليوم",
-    "OutputPath": "مسار الاخراج"
+    "OutputPath": "مسار الاخراج",
+    "BookAvailableButMissing": "الفيلم متاح ، لكنه مفقود",
+    "NotAvailable": "غير متوفر",
+    "NotMonitored": "غير مراقب",
+    "ShowBookTitleHelpText": "إظهار عنوان الفيلم تحت الملصق",
+    "ShowReleaseDate": "إظهار تاريخ الإصدار",
+    "ShowTitle": "إظهار العنوان"
 }

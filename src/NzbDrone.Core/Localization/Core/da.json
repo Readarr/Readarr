@@ -474,5 +474,11 @@
     "Today": "I dag",
     "Titles": "Titler",
     "Progress": "Fremskridt",
-    "OutputPath": "Outputsti"
+    "OutputPath": "Outputsti",
+    "NotAvailable": "Ikke tilgængelig",
+    "NotMonitored": "Ikke overvåget",
+    "BookAvailableButMissing": "Film tilgængelig, men mangler",
+    "ShowBookTitleHelpText": "Vis filmtitel under plakat",
+    "ShowReleaseDate": "Vis udgivelsesdato",
+    "ShowTitle": "Vis titel"
 }

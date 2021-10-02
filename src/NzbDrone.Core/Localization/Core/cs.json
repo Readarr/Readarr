@@ -474,5 +474,11 @@
     "Titles": "Tituly",
     "ReleaseTitle": "Uvolněte název",
     "Progress": "Pokrok",
-    "Tomorrow": "Zítra"
+    "Tomorrow": "Zítra",
+    "BookAvailableButMissing": "Film je k dispozici, ale chybí",
+    "NotAvailable": "Není dostupný",
+    "NotMonitored": "Nesledováno",
+    "ShowBookTitleHelpText": "Zobrazit titul filmu pod plakátem",
+    "ShowReleaseDate": "Zobrazit datum vydání",
+    "ShowTitle": "Ukázat nadpis"
 }

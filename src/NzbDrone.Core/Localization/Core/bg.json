@@ -474,5 +474,11 @@
     "Progress": "Напредък",
     "OutputPath": "Изходен път",
     "Type": "Тип",
-    "Trigger": "Задействане"
+    "Trigger": "Задействане",
+    "BookAvailableButMissing": "Наличен филм, но липсва",
+    "NotAvailable": "Не е наличен",
+    "NotMonitored": "Не се следи",
+    "ShowBookTitleHelpText": "Показване на заглавието на филма под плакат",
+    "ShowReleaseDate": "Показване на датата на издаване",
+    "ShowTitle": "Показване на заглавието"
 }

@@ -474,5 +474,11 @@
     "ReplaceIllegalCharactersHelpText": "不正な文字を置き換えます。チェックされていない場合、Radarrは代わりにそれらを削除します",
     "ReleaseTitle": "リリースタイトル",
     "Progress": "進捗",
-    "OutputPath": "出力パス"
+    "OutputPath": "出力パス",
+    "BookAvailableButMissing": "映画はありますが、ありません",
+    "NotAvailable": "利用不可",
+    "NotMonitored": "監視されていません",
+    "ShowBookTitleHelpText": "ポスターの下に映画のタイトルを表示する",
+    "ShowReleaseDate": "リリース日を表示",
+    "ShowTitle": "タイトルを表示"
 }

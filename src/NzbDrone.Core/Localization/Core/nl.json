@@ -476,5 +476,12 @@
     "Trigger": "In gang zetten",
     "Today": "Vandaag",
     "ReleaseTitle": "Uitgave Titel",
-    "OutputPath": "Uitvoer Pad"
+    "OutputPath": "Uitvoer Pad",
+    "BookAvailableButMissing": "Film Beschikbaar, maar Ontbrekend",
+    "ShowReleaseDate": "Toon releasedatum",
+    "ShowTitle": "Toon Titel",
+    "TheAuthorFolderAndAllOfItsContentWillBeDeleted": "De film map '{0}' en al zijn inhoud zal worden verwijdert.",
+    "NotAvailable": "Niet Beschikbaar",
+    "NotMonitored": "Niet Bewaakt",
+    "ShowBookTitleHelpText": "Toon filmtitel onder poster"
 }

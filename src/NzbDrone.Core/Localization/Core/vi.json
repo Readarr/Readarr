@@ -474,5 +474,11 @@
     "Today": "Hôm nay",
     "Titles": "Tiêu đề",
     "Progress": "Phát triển",
-    "OutputPath": "Đường đầu ra"
+    "OutputPath": "Đường đầu ra",
+    "ShowTitle": "Hiển thị tiêu đề",
+    "BookAvailableButMissing": "Phim khả dụng nhưng bị thiếu",
+    "NotAvailable": "Không có sẵn",
+    "NotMonitored": "Không được giám sát",
+    "ShowBookTitleHelpText": "Hiển thị tiêu đề phim dưới áp phích",
+    "ShowReleaseDate": "Hiển thị ngày phát hành"
 }

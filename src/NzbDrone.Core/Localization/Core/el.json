@@ -474,5 +474,11 @@
     "Progress": "Πρόοδος",
     "OutputPath": "Διαδρομή εξόδου",
     "Titles": "Τίτλοι",
-    "ReleaseTitle": "Τίτλος έκδοσης"
+    "ReleaseTitle": "Τίτλος έκδοσης",
+    "BookAvailableButMissing": "Διαθέσιμη ταινία, αλλά λείπει",
+    "NotAvailable": "Μη διαθέσιμος",
+    "NotMonitored": "Δεν παρακολουθείται",
+    "ShowBookTitleHelpText": "Εμφάνιση τίτλου ταινίας κάτω από την αφίσα",
+    "ShowReleaseDate": "Εμφάνιση ημερομηνίας κυκλοφορίας",
+    "ShowTitle": "Εμφάνιση τίτλου"
 }

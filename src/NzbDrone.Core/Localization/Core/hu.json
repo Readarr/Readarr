@@ -629,7 +629,6 @@
     "TrackTitle": "Szám címe",
     "TotalBookCountBooksTotalBookFileCountBooksWithFilesInterp": "{0} könyv összesen. {1} könyv fájlokkal.",
     "TheBooksFilesWillBeDeleted": "A könyv(ek) fájljai törlődnek.",
-    "TheAuthorFolderStrongpathstrongAndAllOfItsContentWillBeDeleted": "A(z) {path} szerzői mappa és annak teljes tartalma törlődik.",
     "Term": "Feltétel",
     "TagsHelpText": "A kiadási profilok legalább egy megfelelő címkével rendelkező szerzőkre vonatkoznak. Hagyja üresen, hogy minden szerzőre alkalmazható legyen",
     "TBA": "Bejelentés alatt",
@@ -720,5 +719,12 @@
     "NoName": "Ne mutassa a nevet",
     "NameStyle": "Szerző névstílusa",
     "NameLastFirst": "Keresztnév, Vezetéknév",
-    "NameFirstLast": "Vezetéknév Keresztnév"
+    "NameFirstLast": "Vezetéknév Keresztnév",
+    "BookAvailableButMissing": "A film elérhető, de hiányzik",
+    "NotAvailable": "Nem elérhető",
+    "NotMonitored": "Nincs monitorozva",
+    "ShowBookTitleHelpText": "Mutasd a filmcímet a poszter alatt",
+    "ShowReleaseDate": "Megjelenés dátuma",
+    "ShowTitle": "Cím megjelenítése",
+    "TheAuthorFolderAndAllOfItsContentWillBeDeleted": "A '{0}' film mappája és annak tartalma törlésre kerül."
 }

@@ -474,5 +474,11 @@
     "Today": "오늘",
     "Titles": "타이틀",
     "Progress": "진행",
-    "OutputPath": "출력 경로"
+    "OutputPath": "출력 경로",
+    "BookAvailableButMissing": "영화를 볼 수 있지만 누락 됨",
+    "NotAvailable": "사용할 수 없습니다",
+    "NotMonitored": "모니터링되지 않음",
+    "ShowBookTitleHelpText": "포스터 아래에 영화 제목 표시",
+    "ShowReleaseDate": "출시일 표시",
+    "ShowTitle": "쇼 제목"
 }

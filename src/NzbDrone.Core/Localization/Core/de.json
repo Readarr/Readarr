@@ -530,5 +530,12 @@
     "Tomorrow": "Morgen",
     "HostHelpText": "Calibre-Content-Server",
     "PasswordHelpText": "Calibre-Content-Server",
-    "DeleteBookFileMessageText": "Möchten Sie {0} wirklich löschen?"
+    "DeleteBookFileMessageText": "Möchten Sie {0} wirklich löschen?",
+    "NotAvailable": "Nicht verfügbar",
+    "NotMonitored": "Nicht beobachtet",
+    "BookAvailableButMissing": "Film verfügbar, aber fehlend",
+    "ShowBookTitleHelpText": "Filmtitel unter dem Plakat anzeigen",
+    "ShowReleaseDate": "Veröffentlichungsdatum anzeigen",
+    "ShowTitle": "Titel anzeigen",
+    "TheAuthorFolderAndAllOfItsContentWillBeDeleted": "Der Filmordner und dessen Inhalt wird gelöscht."
 }

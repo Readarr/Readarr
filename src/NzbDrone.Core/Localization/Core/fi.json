@@ -474,5 +474,11 @@
     "Actions": "Toiminnot",
     "ReleaseTitle": "Julkaisun otsikko",
     "Today": "Tänään",
-    "Tomorrow": "Huomenna"
+    "Tomorrow": "Huomenna",
+    "BookAvailableButMissing": "Elokuva saatavilla, mutta puuttuu",
+    "NotAvailable": "Ei saatavilla",
+    "NotMonitored": "Ei valvottu",
+    "ShowBookTitleHelpText": "Näytä elokuvan nimi julisteen alla",
+    "ShowReleaseDate": "Näytä julkaisupäivä",
+    "ShowTitle": "Näytä otsikko"
 }
