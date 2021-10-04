@@ -43,7 +43,7 @@
     <PackageVersion Include="StyleCop.Analyzers" Version="1.1.118" />
     <PackageVersion Include="System.Buffers" Version="4.5.1" />
     <PackageVersion Include="System.Configuration.ConfigurationManager" Version="5.0.0" />
-    <PackageVersion Include="System.Data.SQLite.Core.Servarr" Version="1.0.113.0-0" />
+    <PackageVersion Include="System.Data.SQLite.Core.Servarr" Version="1.0.115.0-0" />
     <PackageVersion Include="System.IO.Abstractions.TestingHelpers" Version="13.2.41" />
     <PackageVersion Include="System.IO.Abstractions" Version="13.2.41" />
     <PackageVersion Include="System.IO.FileSystem.AccessControl" Version="5.0.0" />
