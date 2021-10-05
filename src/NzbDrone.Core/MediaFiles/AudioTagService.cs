@@ -108,9 +108,9 @@ namespace NzbDrone.Core.MediaFiles
                 // We may have omitted media so index in the list isn't the same as medium number
                 Media = fileTags.Media,
                 Date = edition.ReleaseDate,
-                Year = (uint)edition.ReleaseDate?.Year,
+                Year = (uint)(edition.ReleaseDate?.Year ?? 0),
                 OriginalReleaseDate = book.ReleaseDate,
-                OriginalYear = (uint)book.ReleaseDate?.Year,
+                OriginalYear = (uint)(book.ReleaseDate?.Year ?? 0),
                 Publisher = edition.Publisher,
                 Genres = new string[0],
                 ImageFile = imageFile,

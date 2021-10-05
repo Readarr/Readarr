@@ -17,7 +17,6 @@ using NzbDrone.Test.Common;
 namespace NzbDrone.Core.Test.MediaFiles.AudioTagServiceFixture
 {
     [TestFixture]
-    [Ignore("Readarr doesn't currently support audio")]
     public class AudioTagServiceFixture : CoreTest<AudioTagService>
     {
         public static class TestCaseFactory
@@ -362,6 +361,16 @@ namespace NzbDrone.Core.Test.MediaFiles.AudioTagServiceFixture
             var fileInfo = _diskProvider.GetFileInfo(file.Path);
             file.Modified.Should().Be(fileInfo.LastWriteTimeUtc);
             file.Size.Should().Be(fileInfo.Length);
+        }
+
+        [Test]
+        public void should_not_fail_reading_metadata_with_dates_omitted()
+        {
+            var bookFile = GivenPopulatedTrackfile(0);
+            bookFile.Edition.Value.ReleaseDate = null;
+            bookFile.Edition.Value.Book.Value.ReleaseDate = null;
+
+            Assert.DoesNotThrow(() => Subject.GetTrackMetadata(bookFile));
         }
     }
 }
