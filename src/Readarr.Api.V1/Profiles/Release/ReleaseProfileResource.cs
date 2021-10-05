@@ -17,6 +17,9 @@ namespace Readarr.Api.V1.Profiles.Release
 
         public ReleaseProfileResource()
         {
+            Required = new List<string>();
+            Ignored = new List<string>();
+            Preferred = new List<KeyValuePair<string, int>>();
             Tags = new HashSet<int>();
         }
     }

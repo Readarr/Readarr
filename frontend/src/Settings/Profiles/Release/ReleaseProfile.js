@@ -198,8 +198,8 @@ ReleaseProfile.propTypes = {
 
 ReleaseProfile.defaultProps = {
   enabled: true,
-  required: '',
-  ignored: '',
+  required: [],
+  ignored: [],
   preferred: [],
   indexerId: 0
 };
