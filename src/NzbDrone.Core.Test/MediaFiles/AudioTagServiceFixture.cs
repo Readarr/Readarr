@@ -23,7 +23,7 @@ namespace NzbDrone.Core.Test.MediaFiles.AudioTagServiceFixture
         {
             private static readonly string[] MediaFiles = new[] { "nin.mp2", "nin.mp3", "nin.flac", "nin.m4a", "nin.wma", "nin.ape", "nin.opus" };
 
-            private static readonly string[] SkipProperties = new[] { "IsValid", "Duration", "Quality", "MediaInfo", "ImageFile" };
+            private static readonly string[] SkipProperties = new[] { "IsValid", "Duration", "Quality", "MediaInfo", "ImageFile", "BookAuthors" };
             private static readonly Dictionary<string, string[]> SkipPropertiesByFile = new Dictionary<string, string[]>
             {
                 { "nin.mp2", new[] { "OriginalReleaseDate" } }
@@ -193,6 +193,9 @@ namespace NzbDrone.Core.Test.MediaFiles.AudioTagServiceFixture
             var writtentags = Subject.ReadAudioTag(path);
 
             VerifySame(writtentags, _testTags, skipProperties);
+            writtentags.BookAuthors.Should().BeEquivalentTo(
+                _testTags.BookAuthors.Concat(_testTags.Performers),
+                options => options.WithStrictOrdering());
         }
 
         [Test]
@@ -336,12 +339,12 @@ namespace NzbDrone.Core.Test.MediaFiles.AudioTagServiceFixture
         [Test]
         public void should_not_fail_if_media_has_been_omitted()
         {
-            // make sure that we aren't relying on index of items in
-            // Media being the same as the medium number
-            var file = GivenPopulatedTrackfile(100);
-            var tag = Subject.GetTrackMetadata(file);
+            GivenFileCopy("nin.mp3");
 
-            tag.Media.Should().NotBeNull();
+            var file = GivenPopulatedTrackfile(100);
+            file.Path = _copiedFile;
+
+            Assert.DoesNotThrow(() => Subject.GetTrackMetadata(file));
         }
 
         [TestCase("nin.mp3")]
@@ -366,7 +369,10 @@ namespace NzbDrone.Core.Test.MediaFiles.AudioTagServiceFixture
         [Test]
         public void should_not_fail_reading_metadata_with_dates_omitted()
         {
+            GivenFileCopy("nin.mp3");
+
             var bookFile = GivenPopulatedTrackfile(0);
+            bookFile.Path = _copiedFile;
             bookFile.Edition.Value.ReleaseDate = null;
             bookFile.Edition.Value.Book.Value.ReleaseDate = null;
 
