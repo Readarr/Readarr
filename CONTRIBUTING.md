@@ -9,4 +9,4 @@ Setup guides, [FAQ](https://wiki.servarr.com/readarr/faq), the more information 
 
 ## Development
 
-See the [Wiki Page]((https://wiki.servarr.com/readarr/contributing))
+See the [Wiki Page](https://wiki.servarr.com/readarr/contributing)
