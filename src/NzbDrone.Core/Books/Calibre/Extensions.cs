@@ -13,6 +13,31 @@ namespace NzbDrone.Core.Books.Calibre
         private static readonly Dictionary<string, string> ByThree;
         private static readonly Dictionary<string, string> NameMap;
 
+        // generated from https://www.loc.gov/standards/iso639-2/ISO-639-2_utf-8.txt
+        public static readonly Dictionary<string, string> BtoTmap = new ()
+        {
+            { "alb", "sqi" },
+            { "arm", "hye" },
+            { "baq", "eus" },
+            { "bur", "mya" },
+            { "chi", "zho" },
+            { "cze", "ces" },
+            { "dut", "nld" },
+            { "fre", "fra" },
+            { "geo", "kat" },
+            { "ger", "deu" },
+            { "gre", "ell" },
+            { "ice", "isl" },
+            { "mac", "mkd" },
+            { "mao", "mri" },
+            { "may", "msa" },
+            { "per", "fas" },
+            { "rum", "ron" },
+            { "slo", "slk" },
+            { "tib", "bod" },
+            { "wel", "cym" }
+        };
+
         public static HashSet<string> KnownLanguages { get; }
 
         static Extensions()
@@ -73,6 +98,11 @@ namespace NzbDrone.Core.Books.Calibre
                 if (ByThree.ContainsKey(raw))
                 {
                     return raw;
+                }
+
+                if (BtoTmap.TryGetValue(raw, out var mapped))
+                {
+                    return mapped;
                 }
             }
 
