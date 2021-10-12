@@ -52,8 +52,6 @@
     "BindAddress": "Indirizzo per il collegamento",
     "BindAddressHelpText": "Indirizzo IPV4 valido o '*' per tutte le interfacce",
     "BindAddressHelpTextWarning": "Richiede il riavvio per avere effetti",
-    "Blacklist": "Lista Nera",
-    "BlacklistRelease": "Release in blacklist",
     "BookIsDownloading": "Film in Download",
     "BookIsDownloadingInterp": "Film in download - {0}% {1}",
     "Branch": "Ramo",
@@ -310,7 +308,6 @@
     "RemoveCompletedDownloadsHelpText": "Rimuovi i download importati dalla storia del client di download",
     "RemoveFailedDownloadsHelpText": "Rimuovi i download falliti dalla storia del client di download",
     "RemoveFilter": "Rimuovi filtro",
-    "RemoveFromBlacklist": "Rimuovi della blacklist",
     "RemoveFromDownloadClient": "Rimuovi dal client di download",
     "RemoveFromQueue": "Rimuovi dalla coda",
     "RemoveHelpTextWarning": "La rimozione eliminerà il download e i file dal client di download.",
@@ -420,7 +417,6 @@
     "UnableToAddANewRemotePathMappingPleaseTryAgain": "Non riesco ad aggiungere la mappatura di un nuovo percorso remoto, riprova.",
     "UnableToAddANewRootFolderPleaseTryAgain": "Non riesco ad aggiungere un nuovo formato personalizzato, riprova.",
     "UnableToLoadBackups": "Non riesco a caricare i backup",
-    "UnableToLoadBlacklist": "Non riesco a caricare la BlackList",
     "UnableToLoadDelayProfiles": "Non riesco a caricare i profili di ritardo",
     "UnableToLoadDownloadClientOptions": "Non riesco a caricare le opzioni del client di download",
     "UnableToLoadDownloadClients": "Non riesco a caricare i client di download",
@@ -482,6 +478,5 @@
     "Trigger": "Trigger",
     "Type": "Tipo",
     "UI": "Interfaccia",
-    "BlacklistHelpText": "Impedisci a Radarr di acquisire automaticamente questo versione",
     "CloneIndexer": "Clona Indexer"
 }
