@@ -12,7 +12,7 @@ namespace Readarr.Api.V1.Profiles.Metadata
         {
             var profile = new MetadataProfile
             {
-                AllowedLanguages = "eng, en-US, en-GB"
+                AllowedLanguages = "eng"
             };
 
             return profile.ToResource();
