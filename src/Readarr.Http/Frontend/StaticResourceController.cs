@@ -39,7 +39,7 @@ namespace Readarr.Http.Frontend
         }
 
         [HttpGet("")]
-        [HttpGet("/{**path:regex(^(?!/*api/).*)}")]
+        [HttpGet("/{**path:regex(^(?!(api|feed)/).*)}")]
         public IActionResult Index([FromRoute] string path)
         {
             return MapResource(path);
