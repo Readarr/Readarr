@@ -730,5 +730,11 @@
     "MonitorBook": "Monitor de Livro",
     "Monitoring": "Monitorando",
     "SeriesTotal": "Séries ({0})",
-    "TooManyBooks": "Livros ausentes ou muitos? Modifique ou crie um novo"
+    "TooManyBooks": "Livros ausentes ou muitos? Modifique ou crie um novo",
+    "BlocklistRelease": "Lançamento na lista de bloqueio",
+    "NoHistoryBlocklist": "Sem histórico na lista de bloqueio",
+    "Blocklist": "Lista de  bloqueio",
+    "BlocklistHelpText": "Previne Readarr de automaticamente baixar esses arquivos novamente",
+    "RemoveFromBlocklist": "Remover da lista de bloqueio",
+    "UnableToLoadBlocklist": "Incapaz de carregar a lista de bloqueio"
 }
