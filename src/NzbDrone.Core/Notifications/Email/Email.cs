@@ -7,6 +7,7 @@ using MailKit.Security;
 using MimeKit;
 using NLog;
 using NzbDrone.Common.Extensions;
+using NzbDrone.Core.MediaFiles;
 
 namespace NzbDrone.Core.Notifications.Email
 {
@@ -101,9 +102,16 @@ namespace NzbDrone.Core.Notifications.Email
                 builder.HtmlBody = body;
                 foreach (var url in attachmentUrls)
                 {
-                    byte[] bytes = System.IO.File.ReadAllBytes(url);
-                    builder.Attachments.Add(url, bytes);
-                    _logger.Trace("Attaching: {0}", url);
+                    if (MediaFileExtensions.AudioExtensions.Contains(System.IO.Path.GetExtension(url)))
+                    {
+                        byte[] bytes = System.IO.File.ReadAllBytes(url);
+                        builder.Attachments.Add(url, bytes);
+                        _logger.Trace("Attaching ebook file: {0}", url);
+                    }
+                    else
+                    {
+                        _logger.Trace("Skipping audiobook file: {0}", url);
+                    }
                 }
 
                 email.Body = builder.ToMessageBody();
