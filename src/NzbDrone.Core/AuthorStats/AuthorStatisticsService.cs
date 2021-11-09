@@ -114,7 +114,12 @@ namespace NzbDrone.Core.AuthorStats
         public void Handle(BookFileDeletedEvent message)
         {
             _cache.Remove("AllAuthors");
-            _cache.Remove(message.BookFile.Author.Value.Id.ToString());
+
+            var authorId = message.BookFile.Author?.Value?.Id.ToString();
+            if (authorId != null)
+            {
+                _cache.Remove(authorId);
+            }
         }
     }
 }
