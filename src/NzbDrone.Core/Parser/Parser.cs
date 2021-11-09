@@ -639,6 +639,11 @@ namespace NzbDrone.Core.Parser
 
         public static string CleanAuthorName(this string name)
         {
+            if (name.IsNullOrWhiteSpace())
+            {
+                return string.Empty;
+            }
+
             // If Title only contains numbers return it as is.
             if (long.TryParse(name, out _))
             {
