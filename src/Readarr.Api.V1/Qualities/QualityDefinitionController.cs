@@ -26,7 +26,7 @@ namespace Readarr.Api.V1.Qualities
             return Accepted(model.Id);
         }
 
-        public override QualityDefinitionResource GetResourceById(int id)
+        protected override QualityDefinitionResource GetResourceById(int id)
         {
             return _qualityDefinitionService.GetById(id).ToResource();
         }

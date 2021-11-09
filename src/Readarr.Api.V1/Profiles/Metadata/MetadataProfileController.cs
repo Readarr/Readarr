@@ -53,7 +53,7 @@ namespace Readarr.Api.V1.Profiles.Metadata
             return Accepted(model.Id);
         }
 
-        public override MetadataProfileResource GetResourceById(int id)
+        protected override MetadataProfileResource GetResourceById(int id)
         {
             return _profileService.Get(id).ToResource();
         }

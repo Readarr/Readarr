@@ -26,7 +26,7 @@ namespace Prowlarr.Api.V1.Config
             SharedValidator.RuleFor(c => c.MetadataSource).IsValidUrl().When(c => !c.MetadataSource.IsNullOrWhiteSpace());
         }
 
-        public override DevelopmentConfigResource GetResourceById(int id)
+        protected override DevelopmentConfigResource GetResourceById(int id)
         {
             return GetDevelopmentConfig();
         }

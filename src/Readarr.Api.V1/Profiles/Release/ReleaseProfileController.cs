@@ -41,7 +41,7 @@ namespace Readarr.Api.V1.Profiles.Release
             });
         }
 
-        public override ReleaseProfileResource GetResourceById(int id)
+        protected override ReleaseProfileResource GetResourceById(int id)
         {
             return _releaseProfileService.Get(id).ToResource();
         }

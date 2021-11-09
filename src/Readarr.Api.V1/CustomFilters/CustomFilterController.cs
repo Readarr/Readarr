@@ -17,7 +17,7 @@ namespace Readarr.Api.V1.CustomFilters
             _customFilterService = customFilterService;
         }
 
-        public override CustomFilterResource GetResourceById(int id)
+        protected override CustomFilterResource GetResourceById(int id)
         {
             return _customFilterService.Get(id).ToResource();
         }
