@@ -14,6 +14,7 @@ namespace NzbDrone.Core.Books
         {
             Links = new List<Links>();
             Genres = new List<string>();
+            RelatedBooks = new List<int>();
             Ratings = new Ratings();
             Author = new Author();
             AddOptions = new AddBookOptions();
@@ -28,6 +29,7 @@ namespace NzbDrone.Core.Books
         public DateTime? ReleaseDate { get; set; }
         public List<Links> Links { get; set; }
         public List<string> Genres { get; set; }
+        public List<int> RelatedBooks { get; set; }
         public Ratings Ratings { get; set; }
 
         // These are Readarr generated/config
@@ -72,6 +74,7 @@ namespace NzbDrone.Core.Books
             ReleaseDate = other.ReleaseDate;
             Links = other.Links;
             Genres = other.Genres;
+            RelatedBooks = other.RelatedBooks;
             Ratings = other.Ratings;
             CleanTitle = other.CleanTitle;
         }

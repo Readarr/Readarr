@@ -157,15 +157,26 @@ namespace NzbDrone.Common.Test.Http
             response.Resource.Data.Should().Be(message);
         }
 
-        [TestCase("gzip")]
-        public void should_execute_get_using_gzip(string compression)
+        [Test]
+        public void should_execute_get_using_gzip()
         {
-            var request = new HttpRequest($"https://{_httpBinHost}/{compression}");
+            var request = new HttpRequest($"https://{_httpBinHost}/gzip");
 
             var response = Subject.Get<HttpBinResource>(request);
 
-            response.Resource.Headers["Accept-Encoding"].ToString().Should().Be(compression);
+            response.Resource.Headers["Accept-Encoding"].ToString().Should().Contain("gzip");
             response.Resource.Gzipped.Should().BeTrue();
+        }
+
+        [Test]
+        public void should_execute_get_using_brotli()
+        {
+            var request = new HttpRequest($"https://{_httpBinHost}/brotli");
+
+            var response = Subject.Get<HttpBinResource>(request);
+
+            response.Resource.Headers["Accept-Encoding"].ToString().Should().Contain("br");
+            response.Resource.Brotli.Should().BeTrue();
         }
 
         [TestCase(HttpStatusCode.Unauthorized)]
@@ -783,6 +794,7 @@ namespace NzbDrone.Common.Test.Http
         public string Url { get; set; }
         public string Data { get; set; }
         public bool Gzipped { get; set; }
+        public bool Brotli { get; set; }
     }
 
     public class HttpCookieResource
