@@ -7,7 +7,6 @@ using FluentValidation.Results;
 using Moq;
 using Newtonsoft.Json;
 using NUnit.Framework;
-using NzbDrone.Common.Serializer;
 using NzbDrone.Core.Books;
 using NzbDrone.Core.Books.Commands;
 using NzbDrone.Core.Configuration;
@@ -19,6 +18,7 @@ using NzbDrone.Core.MediaFiles.BookImport.Aggregation.Aggregators;
 using NzbDrone.Core.MediaFiles.BookImport.Identification;
 using NzbDrone.Core.Messaging.Commands;
 using NzbDrone.Core.MetadataSource;
+using NzbDrone.Core.MetadataSource.BookInfo;
 using NzbDrone.Core.MetadataSource.Goodreads;
 using NzbDrone.Core.Parser;
 using NzbDrone.Core.Parser.Model;
@@ -59,7 +59,7 @@ namespace NzbDrone.Core.Test.MediaFiles.BookImport.Identification
             Mocker.SetConstant<IMediaFileService>(Mocker.Resolve<MediaFileService>());
 
             Mocker.SetConstant<IConfigService>(Mocker.Resolve<IConfigService>());
-            Mocker.SetConstant<IProvideAuthorInfo>(Mocker.Resolve<GoodreadsProxy>());
+            Mocker.SetConstant<IProvideAuthorInfo>(Mocker.Resolve<BookInfoProxy>());
             Mocker.SetConstant<IProvideBookInfo>(Mocker.Resolve<GoodreadsProxy>());
 
             _addAuthorService = Mocker.Resolve<AddAuthorService>();

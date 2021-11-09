@@ -339,18 +339,9 @@ namespace NzbDrone.Core.Books
         {
             var updated = false;
 
-            HashSet<string> updatedGoodreadsBooks = null;
-
-            if (lastUpdate.HasValue && lastUpdate.Value.AddDays(14) > DateTime.UtcNow)
-            {
-                updatedGoodreadsBooks = _bookInfo.GetChangedBooks(lastUpdate.Value);
-            }
-
             foreach (var book in books)
             {
-                if (forceBookRefresh ||
-                    (updatedGoodreadsBooks == null && _checkIfBookShouldBeRefreshed.ShouldRefresh(book)) ||
-                    (updatedGoodreadsBooks != null && updatedGoodreadsBooks.Contains(book.ForeignBookId)))
+                if (forceBookRefresh || _checkIfBookShouldBeRefreshed.ShouldRefresh(book))
                 {
                     updated |= RefreshBookInfo(book, remoteBooks, remoteData, forceUpdateFileTags);
                 }

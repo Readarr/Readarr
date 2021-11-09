@@ -1,8 +1,8 @@
-namespace NzbDrone.Core.MetadataSource.SkyHook
+namespace NzbDrone.Core.MetadataSource.BookInfo
 {
     public class ContributorResource
     {
-        public int GoodreadsId { get; set; }
+        public int ForeignId { get; set; }
         public string Role { get; set; }
     }
 }

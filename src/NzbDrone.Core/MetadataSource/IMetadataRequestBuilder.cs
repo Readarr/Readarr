@@ -30,7 +30,7 @@ namespace NzbDrone.Core.MetadataSource
             }
             else
             {
-                return _defaultRequestFactory.Search;
+                return _defaultRequestFactory.Metadata;
             }
         }
     }

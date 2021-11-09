@@ -19,8 +19,8 @@ namespace NzbDrone.Core.Test.MetadataSource
                 .Returns("");
 
             Mocker.GetMock<IReadarrCloudRequestBuilder>()
-                .Setup(s => s.Search)
-                .Returns(new HttpRequestBuilder("https://api.readarr.com/api/v0.4/{route}").CreateFactory());
+                .Setup(s => s.Metadata)
+                .Returns(new HttpRequestBuilder("https://api.bookinfo.club/v1/{route}").CreateFactory());
         }
 
         private void WithCustomProvider()
@@ -45,7 +45,7 @@ namespace NzbDrone.Core.Test.MetadataSource
         {
             var details = Subject.GetRequestBuilder().Create();
 
-            details.BaseUrl.ToString().Should().Contain("v0.4");
+            details.BaseUrl.ToString().Should().Contain("bookinfo.club/v1");
         }
     }
 }

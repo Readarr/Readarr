@@ -1,16 +1,12 @@
 using System;
 using System.Diagnostics;
 using System.IO;
-using System.IO.Compression;
 using System.Net;
-using System.Reflection;
 using System.Text;
 using NLog;
-using NLog.Fluent;
 using NzbDrone.Common.EnvironmentInfo;
 using NzbDrone.Common.Extensions;
 using NzbDrone.Common.Http.Proxy;
-using NzbDrone.Common.Instrumentation.Extensions;
 
 namespace NzbDrone.Common.Http.Dispatchers
 {
@@ -38,7 +34,7 @@ namespace NzbDrone.Common.Http.Dispatchers
             // Deflate is not a standard and could break depending on implementation.
             // we should just stick with the more compatible Gzip
             //http://stackoverflow.com/questions/8490718/how-to-decompress-stream-deflated-with-java-util-zip-deflater-in-net
-            webRequest.AutomaticDecompression = DecompressionMethods.GZip;
+            webRequest.AutomaticDecompression = DecompressionMethods.Brotli | DecompressionMethods.GZip;
 
             webRequest.Method = request.Method.ToString();
             webRequest.UserAgent = _userAgentBuilder.GetUserAgent(request.UseSimplifiedUserAgent);

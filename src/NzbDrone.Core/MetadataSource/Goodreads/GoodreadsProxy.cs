@@ -17,7 +17,7 @@ using NzbDrone.Core.Parser;
 
 namespace NzbDrone.Core.MetadataSource.Goodreads
 {
-    public class GoodreadsProxy : IProvideAuthorInfo, IProvideBookInfo
+    public class GoodreadsProxy : IProvideBookInfo
     {
         private static readonly RegexReplace FullSizeImageRegex = new RegexReplace(@"\._[SU][XY]\d+_.jpg$",
                                                                                    ".jpg",
@@ -307,14 +307,8 @@ namespace NzbDrone.Core.MetadataSource.Goodreads
             return result;
         }
 
-        public HashSet<string> GetChangedBooks(DateTime startTime)
         {
-            return _cache.Get("ChangedBooks", () => GetChangedBooksUncached(startTime), TimeSpan.FromMinutes(30));
-        }
 
-        private HashSet<string> GetChangedBooksUncached(DateTime startTime)
-        {
-            return null;
         }
 
         private bool TryGetBookInfo(string foreignEditionId, bool useCache, out Tuple<string, Book, List<AuthorMetadata>> result)

@@ -97,7 +97,7 @@ namespace NzbDrone.Core.Books
 
             try
             {
-                author = _authorInfo.GetAuthorInfo(newAuthor.Metadata.Value.ForeignAuthorId);
+                author = _authorInfo.GetAuthorInfo(newAuthor.Metadata.Value.ForeignAuthorId, includeBooks: false);
             }
             catch (AuthorNotFoundException)
             {
