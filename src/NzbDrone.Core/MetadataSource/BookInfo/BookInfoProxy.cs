@@ -251,6 +251,20 @@ namespace NzbDrone.Core.MetadataSource.BookInfo
                 book.Editions = new List<Edition>();
             }
 
+            // sometimes the work release date is after the earliest good edition release
+            var editionReleases = book.Editions.Value
+                .Where(x => x.ReleaseDate.HasValue && x.ReleaseDate.Value.Month != 1 && x.ReleaseDate.Value.Day != 1)
+                .ToList();
+
+            if (editionReleases.Any())
+            {
+                var earliestRelease = editionReleases.Min(x => x.ReleaseDate.Value);
+                if (earliestRelease < book.ReleaseDate)
+                {
+                    book.ReleaseDate = earliestRelease;
+                }
+            }
+
             Debug.Assert(!book.Editions.Value.Any() || book.Editions.Value.Count(x => x.Monitored) == 1, "one edition monitored");
 
             book.AnyEditionOk = true;
