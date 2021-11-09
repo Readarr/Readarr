@@ -17,7 +17,7 @@ using NzbDrone.Core.Parser;
 
 namespace NzbDrone.Core.MetadataSource.Goodreads
 {
-    public class GoodreadsProxy : IProvideBookInfo
+    public class GoodreadsProxy : IProvideBookInfo, IProvideSeriesInfo
     {
         private static readonly RegexReplace FullSizeImageRegex = new RegexReplace(@"\._[SU][XY]\d+_.jpg$",
                                                                                    ".jpg",
@@ -307,8 +307,35 @@ namespace NzbDrone.Core.MetadataSource.Goodreads
             return result;
         }
 
+        public SeriesResource GetSeriesInfo(int foreignSeriesId, bool useCache = true)
         {
+            _logger.Debug("Getting Series with GoodreadsId of {0}", foreignSeriesId);
 
+            var httpRequest = _requestBuilder.Create()
+                .SetSegment("route", $"series/{foreignSeriesId}")
+                .AddQueryParam("format", "xml")
+                .Build();
+
+            httpRequest.AllowAutoRedirect = true;
+            httpRequest.SuppressHttpError = true;
+
+            var httpResponse = _cachedHttpClient.Get(httpRequest, useCache, TimeSpan.FromDays(7));
+
+            if (httpResponse.HasHttpError)
+            {
+                if (httpResponse.StatusCode == HttpStatusCode.BadRequest)
+                {
+                    throw new BadRequestException(foreignSeriesId.ToString());
+                }
+                else
+                {
+                    throw new HttpException(httpRequest, httpResponse);
+                }
+            }
+
+            var resource = httpResponse.Deserialize<ShowSeriesResource>();
+
+            return resource.Series;
         }
 
         private bool TryGetBookInfo(string foreignEditionId, bool useCache, out Tuple<string, Book, List<AuthorMetadata>> result)
