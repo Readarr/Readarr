@@ -17,7 +17,7 @@ namespace Readarr.Api.V1.Config
             _configService = configService;
         }
 
-        public override TResource GetResourceById(int id)
+        protected override TResource GetResourceById(int id)
         {
             return GetConfig();
         }

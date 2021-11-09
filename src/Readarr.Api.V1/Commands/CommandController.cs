@@ -41,7 +41,7 @@ namespace Readarr.Api.V1.Commands
             _pendingUpdates = new Dictionary<int, CommandResource>();
         }
 
-        public override CommandResource GetResourceById(int id)
+        protected override CommandResource GetResourceById(int id)
         {
             return _commandQueueManager.Get(id).ToResource();
         }

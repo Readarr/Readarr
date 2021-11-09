@@ -7,7 +7,7 @@ namespace Readarr.Api.V1.Indexers
 {
     public abstract class ReleaseControllerBase : RestController<ReleaseResource>
     {
-        public override ReleaseResource GetResourceById(int id)
+        protected override ReleaseResource GetResourceById(int id)
         {
             throw new NotImplementedException();
         }

@@ -95,7 +95,7 @@ namespace Readarr.Api.V1.Author
             PutValidator.RuleFor(s => s.Path).IsValidPath();
         }
 
-        public override AuthorResource GetResourceById(int id)
+        protected override AuthorResource GetResourceById(int id)
         {
             var author = _authorService.GetAuthor(id);
             return GetAuthorResource(author);

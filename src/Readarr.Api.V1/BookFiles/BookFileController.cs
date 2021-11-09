@@ -60,7 +60,7 @@ namespace Readarr.Api.V1.BookFiles
             }
         }
 
-        public override BookFileResource GetResourceById(int id)
+        protected override BookFileResource GetResourceById(int id)
         {
             var resource = MapToResource(_mediaFileService.Get(id));
             resource.AudioTags = _metadataTagService.ReadTags((FileInfoBase)new FileInfo(resource.Path));

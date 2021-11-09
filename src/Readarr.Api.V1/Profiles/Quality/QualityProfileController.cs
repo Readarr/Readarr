@@ -45,7 +45,7 @@ namespace Readarr.Api.V1.Profiles.Quality
             return Accepted(model.Id);
         }
 
-        public override QualityProfileResource GetResourceById(int id)
+        protected override QualityProfileResource GetResourceById(int id)
         {
             return _profileService.Get(id).ToResource();
         }

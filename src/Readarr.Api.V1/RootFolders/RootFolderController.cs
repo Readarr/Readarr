@@ -92,7 +92,7 @@ namespace Readarr.Api.V1.RootFolders
             return HttpUri.CombinePath(HttpRequestBuilder.BuildBaseUrl(settings.UseSsl, settings.Host, settings.Port, settings.UrlBase), settings.Library);
         }
 
-        public override RootFolderResource GetResourceById(int id)
+        protected override RootFolderResource GetResourceById(int id)
         {
             return _rootFolderService.Get(id).ToResource();
         }

@@ -78,7 +78,7 @@ namespace Readarr.Api.V1.Config
             return cert != null;
         }
 
-        public override HostConfigResource GetResourceById(int id)
+        protected override HostConfigResource GetResourceById(int id)
         {
             return GetHostConfig();
         }

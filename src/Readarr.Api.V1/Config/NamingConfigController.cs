@@ -33,7 +33,7 @@ namespace Readarr.Api.V1.Config
             SharedValidator.RuleFor(c => c.AuthorFolderFormat).ValidAuthorFolderFormat();
         }
 
-        public override NamingConfigResource GetResourceById(int id)
+        protected override NamingConfigResource GetResourceById(int id)
         {
             return GetNamingConfig();
         }

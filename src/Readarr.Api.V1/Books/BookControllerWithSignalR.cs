@@ -33,7 +33,7 @@ namespace Readarr.Api.V1.Books
             _qualityUpgradableSpecification = qualityUpgradableSpecification;
         }
 
-        public override BookResource GetResourceById(int id)
+        protected override BookResource GetResourceById(int id)
         {
             var book = _bookService.GetBook(id);
             var resource = MapToResource(book, true);

@@ -24,7 +24,7 @@ namespace Readarr.Api.V1.ImportLists
             SharedValidator.RuleFor(c => c.AuthorName).NotEmpty();
         }
 
-        public override ImportListExclusionResource GetResourceById(int id)
+        protected override ImportListExclusionResource GetResourceById(int id)
         {
             return _importListExclusionService.Get(id).ToResource();
         }
