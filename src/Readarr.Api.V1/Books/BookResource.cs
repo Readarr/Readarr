@@ -52,7 +52,7 @@ namespace Readarr.Api.V1.Books
             var selectedEdition = model.Editions?.Value.Where(x => x.Monitored).SingleOrDefault();
 
             var title = selectedEdition?.Title ?? model.Title;
-            var authorTitle = $"{model.Author.Value.Metadata.Value.SortNameLastFirst} {title}";
+            var authorTitle = $"{model.Author?.Value?.Metadata?.Value?.SortNameLastFirst} {title}";
 
             return new BookResource
             {

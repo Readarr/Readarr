@@ -28,6 +28,7 @@ namespace Readarr.Api.V1.Books
         IHandle<BookGrabbedEvent>,
         IHandle<BookEditedEvent>,
         IHandle<BookUpdatedEvent>,
+        IHandle<BookDeletedEvent>,
         IHandle<BookImportedEvent>,
         IHandle<TrackImportedEvent>,
         IHandle<BookFileDeletedEvent>
