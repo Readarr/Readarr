@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
+using System.Net.Http;
 using System.Web;
 using System.Xml.Linq;
 using System.Xml.XPath;
@@ -142,7 +143,7 @@ namespace NzbDrone.Core.ImportLists.Goodreads
         {
             var request = new Common.Http.HttpRequest(Settings.SigningUrl)
             {
-                Method = HttpMethod.POST,
+                Method = HttpMethod.Post,
             };
             request.Headers.Set("Content-Type", "application/json");
 

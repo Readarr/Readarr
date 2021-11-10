@@ -1,10 +1,12 @@
 using System;
-using System.Diagnostics;
 using System.IO;
 using System.Net;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
+using System.Threading;
 using NLog;
-using NzbDrone.Common.EnvironmentInfo;
+using NzbDrone.Common.Cache;
 using NzbDrone.Common.Extensions;
 using NzbDrone.Common.Http.Proxy;
 
@@ -12,120 +14,113 @@ namespace NzbDrone.Common.Http.Dispatchers
 {
     public class ManagedHttpDispatcher : IHttpDispatcher
     {
+        private const string NO_PROXY_KEY = "no-proxy";
+
         private readonly IHttpProxySettingsProvider _proxySettingsProvider;
         private readonly ICreateManagedWebProxy _createManagedWebProxy;
         private readonly IUserAgentBuilder _userAgentBuilder;
-        private readonly IPlatformInfo _platformInfo;
+        private readonly ICached<System.Net.Http.HttpClient> _httpClientCache;
+        private readonly ICached<CredentialCache> _credentialCache;
         private readonly Logger _logger;
 
-        public ManagedHttpDispatcher(IHttpProxySettingsProvider proxySettingsProvider, ICreateManagedWebProxy createManagedWebProxy, IUserAgentBuilder userAgentBuilder, IPlatformInfo platformInfo, Logger logger)
+        public ManagedHttpDispatcher(IHttpProxySettingsProvider proxySettingsProvider,
+            ICreateManagedWebProxy createManagedWebProxy,
+            IUserAgentBuilder userAgentBuilder,
+            ICacheManager cacheManager,
+            Logger logger)
         {
             _proxySettingsProvider = proxySettingsProvider;
             _createManagedWebProxy = createManagedWebProxy;
             _userAgentBuilder = userAgentBuilder;
-            _platformInfo = platformInfo;
             _logger = logger;
+
+            _httpClientCache = cacheManager.GetCache<System.Net.Http.HttpClient>(typeof(ManagedHttpDispatcher), "httpclient");
+            _credentialCache = cacheManager.GetCache<CredentialCache>(typeof(ManagedHttpDispatcher), "credentialcache");
         }
 
         public HttpResponse GetResponse(HttpRequest request, CookieContainer cookies)
         {
-            var webRequest = (HttpWebRequest)WebRequest.Create((Uri)request.Url);
+            var requestMessage = new HttpRequestMessage(request.Method, (Uri)request.Url);
+            requestMessage.Headers.UserAgent.ParseAdd(_userAgentBuilder.GetUserAgent(request.UseSimplifiedUserAgent));
+            requestMessage.Headers.ConnectionClose = !request.ConnectionKeepAlive;
 
-            // Deflate is not a standard and could break depending on implementation.
-            // we should just stick with the more compatible Gzip
-            //http://stackoverflow.com/questions/8490718/how-to-decompress-stream-deflated-with-java-util-zip-deflater-in-net
-            webRequest.AutomaticDecompression = DecompressionMethods.Brotli | DecompressionMethods.GZip;
-
-            webRequest.Method = request.Method.ToString();
-            webRequest.UserAgent = _userAgentBuilder.GetUserAgent(request.UseSimplifiedUserAgent);
-            webRequest.KeepAlive = request.ConnectionKeepAlive;
-            webRequest.AllowAutoRedirect = false;
-            webRequest.CookieContainer = cookies;
+            var cookieHeader = cookies.GetCookieHeader((Uri)request.Url);
+            if (cookieHeader.IsNotNullOrWhiteSpace())
+            {
+                requestMessage.Headers.Add("Cookie", cookieHeader);
+            }
 
             if (request.Credentials != null)
             {
-                if (request.Credentials is BasicNetworkCredential nc)
+                if (request.Credentials is BasicNetworkCredential bc)
                 {
                     // Manually set header to avoid initial challenge response
-                    var authInfo = nc.UserName + ":" + nc.Password;
+                    var authInfo = bc.UserName + ":" + bc.Password;
                     authInfo = Convert.ToBase64String(Encoding.GetEncoding("ISO-8859-1").GetBytes(authInfo));
-                    webRequest.Headers.Add("Authorization", "Basic " + authInfo);
+                    requestMessage.Headers.Authorization = new AuthenticationHeaderValue("Basic", authInfo);
                 }
-                else
+                else if (request.Credentials is NetworkCredential nc)
                 {
-                    webRequest.PreAuthenticate = true;
-                    webRequest.Credentials = request.Credentials;
+                    var creds = GetCredentialCache();
+                    creds.Remove((Uri)request.Url, "Digest");
+                    creds.Add((Uri)request.Url, "Digest", nc);
                 }
             }
 
+            using var cts = new CancellationTokenSource();
             if (request.RequestTimeout != TimeSpan.Zero)
             {
-                webRequest.Timeout = (int)Math.Ceiling(request.RequestTimeout.TotalMilliseconds);
+                cts.CancelAfter(request.RequestTimeout);
             }
-
-            webRequest.Proxy = GetProxy(request.Url);
+            else
+            {
+                // The default for System.Net.Http.HttpClient
+                cts.CancelAfter(TimeSpan.FromSeconds(100));
+            }
 
             if (request.Headers != null)
             {
-                AddRequestHeaders(webRequest, request.Headers);
+                AddRequestHeaders(requestMessage, request.Headers);
             }
 
-            HttpWebResponse httpWebResponse;
+            var httpClient = GetClient(request.Url);
+
+            HttpResponseMessage responseMessage;
 
             try
             {
                 if (request.ContentData != null)
                 {
-                    webRequest.ContentLength = request.ContentData.Length;
-                    using (var writeStream = webRequest.GetRequestStream())
+                    var content = new ByteArrayContent(request.ContentData);
+                    content.Headers.Remove("Content-Type");
+                    if (request.Headers.ContentType.IsNotNullOrWhiteSpace())
                     {
-                        writeStream.Write(request.ContentData, 0, request.ContentData.Length);
+                        content.Headers.Add("Content-Type", request.Headers.ContentType);
                     }
+
+                    requestMessage.Content = content;
                 }
 
-                httpWebResponse = (HttpWebResponse)webRequest.GetResponse();
+                responseMessage = httpClient.Send(requestMessage, cts.Token);
             }
-            catch (WebException e)
+            catch (HttpRequestException e)
             {
-                httpWebResponse = (HttpWebResponse)e.Response;
-
-                if (httpWebResponse == null)
-                {
-                    // The default messages for WebException on mono are pretty horrible.
-                    if (e.Status == WebExceptionStatus.NameResolutionFailure)
-                    {
-                        throw new WebException($"DNS Name Resolution Failure: '{webRequest.RequestUri.Host}'", e.Status);
-                    }
-                    else if (e.ToString().Contains("TLS Support not"))
-                    {
-                        throw new TlsFailureException(webRequest, e);
-                    }
-                    else if (e.ToString().Contains("The authentication or decryption has failed."))
-                    {
-                        throw new TlsFailureException(webRequest, e);
-                    }
-                    else if (OsInfo.IsNotWindows)
-                    {
-                        throw new WebException($"{e.Message}: '{webRequest.RequestUri}'", e, e.Status, e.Response);
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
+                _logger.Error(e, "HttpClient error");
+                throw;
             }
 
             byte[] data = null;
 
-            using (var responseStream = httpWebResponse.GetResponseStream())
+            using (var responseStream = responseMessage.Content.ReadAsStream())
             {
                 if (responseStream != null && responseStream != Stream.Null)
                 {
                     try
                     {
-                        if (request.ResponseStream != null)
+                        if (request.ResponseStream != null && responseMessage.StatusCode == HttpStatusCode.OK)
                         {
                             // A target ResponseStream was specified, write to that instead.
+                            // But only on the OK status code, since we don't want to write failures and redirects.
                             responseStream.CopyTo(request.ResponseStream);
                         }
                         else
@@ -135,102 +130,88 @@ namespace NzbDrone.Common.Http.Dispatchers
                     }
                     catch (Exception ex)
                     {
-                        throw new WebException("Failed to read complete http response", ex, WebExceptionStatus.ReceiveFailure, httpWebResponse);
+                        throw new WebException("Failed to read complete http response", ex, WebExceptionStatus.ReceiveFailure, null);
                     }
                 }
             }
 
-            return new HttpResponse(request, new HttpHeader(httpWebResponse.Headers), data, httpWebResponse.StatusCode);
+            return new HttpResponse(request, new HttpHeader(responseMessage.Headers), data, responseMessage.StatusCode);
         }
 
-        public void DownloadFile(string url, string fileName)
+        protected virtual System.Net.Http.HttpClient GetClient(HttpUri uri)
         {
-            try
-            {
-                var fileInfo = new FileInfo(fileName);
-                if (fileInfo.Directory != null && !fileInfo.Directory.Exists)
-                {
-                    fileInfo.Directory.Create();
-                }
-
-                _logger.Debug("Downloading [{0}] to [{1}]", url, fileName);
-
-                var stopWatch = Stopwatch.StartNew();
-                var uri = new HttpUri(url);
-
-                using (var webClient = new GZipWebClient())
-                {
-                    webClient.Headers.Add(HttpRequestHeader.UserAgent, _userAgentBuilder.GetUserAgent());
-                    webClient.Proxy = GetProxy(uri);
-                    webClient.DownloadFile(uri.FullUri, fileName);
-                    stopWatch.Stop();
-                    _logger.Debug("Downloading Completed. took {0:0}s", stopWatch.Elapsed.Seconds);
-                }
-            }
-            catch (WebException e)
-            {
-                _logger.Warn("Failed to get response from: {0} {1}", url, e.Message);
-                throw;
-            }
-            catch (Exception e)
-            {
-                _logger.Warn(e, "Failed to get response from: " + url);
-                throw;
-            }
-        }
-
-        protected virtual IWebProxy GetProxy(HttpUri uri)
-        {
-            IWebProxy proxy = null;
-
             var proxySettings = _proxySettingsProvider.GetProxySettings(uri);
+
+            var key = proxySettings?.Key ?? NO_PROXY_KEY;
+
+            return _httpClientCache.Get(key, () => CreateHttpClient(proxySettings));
+        }
+
+        protected virtual System.Net.Http.HttpClient CreateHttpClient(HttpProxySettings proxySettings)
+        {
+            var handler = new HttpClientHandler()
+            {
+                AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Brotli,
+                UseCookies = false, // sic - we don't want to use a shared cookie container
+                AllowAutoRedirect = false,
+                Credentials = GetCredentialCache(),
+                PreAuthenticate = true
+            };
 
             if (proxySettings != null)
             {
-                proxy = _createManagedWebProxy.GetWebProxy(proxySettings);
+                handler.Proxy = _createManagedWebProxy.GetWebProxy(proxySettings);
             }
 
-            return proxy;
+            var client = new System.Net.Http.HttpClient(handler)
+            {
+                Timeout = Timeout.InfiniteTimeSpan
+            };
+
+            return client;
         }
 
-        protected virtual void AddRequestHeaders(HttpWebRequest webRequest, HttpHeader headers)
+        protected virtual void AddRequestHeaders(HttpRequestMessage webRequest, HttpHeader headers)
         {
             foreach (var header in headers)
             {
                 switch (header.Key)
                 {
                     case "Accept":
-                        webRequest.Accept = header.Value;
+                        webRequest.Headers.Accept.ParseAdd(header.Value);
                         break;
                     case "Connection":
-                        webRequest.Connection = header.Value;
+                        webRequest.Headers.Connection.Clear();
+                        webRequest.Headers.Connection.Add(header.Value);
                         break;
                     case "Content-Length":
-                        webRequest.ContentLength = Convert.ToInt64(header.Value);
+                        webRequest.Headers.Add("Content-Length", header.Value);
                         break;
                     case "Content-Type":
-                        webRequest.ContentType = header.Value;
+                        webRequest.Headers.Remove("Content-Type");
+                        webRequest.Headers.Add("Content-Type", header.Value);
                         break;
                     case "Date":
-                        webRequest.Date = HttpHeader.ParseDateTime(header.Value);
+                        webRequest.Headers.Remove("Date");
+                        webRequest.Headers.Date = HttpHeader.ParseDateTime(header.Value);
                         break;
                     case "Expect":
-                        webRequest.Expect = header.Value;
+                        webRequest.Headers.Expect.ParseAdd(header.Value);
                         break;
                     case "Host":
-                        webRequest.Host = header.Value;
+                        webRequest.Headers.Host = header.Value;
                         break;
                     case "If-Modified-Since":
-                        webRequest.IfModifiedSince = HttpHeader.ParseDateTime(header.Value);
+                        webRequest.Headers.IfModifiedSince = HttpHeader.ParseDateTime(header.Value);
                         break;
                     case "Referer":
-                        webRequest.Referer = header.Value;
+                        webRequest.Headers.Add("Referer", header.Value);
                         break;
                     case "Transfer-Encoding":
-                        webRequest.TransferEncoding = header.Value;
+                        webRequest.Headers.TransferEncoding.ParseAdd(header.Value);
                         break;
                     case "User-Agent":
-                        webRequest.UserAgent = header.Value;
+                        webRequest.Headers.UserAgent.ParseAdd(header.Value);
                         break;
                     case "Proxy-Connection":
                         throw new NotImplementedException();
@@ -239,6 +220,11 @@ namespace NzbDrone.Common.Http.Dispatchers
                         break;
                 }
             }
+        }
+
+        private CredentialCache GetCredentialCache()
+        {
+            return _credentialCache.Get("credentialCache", () => new CredentialCache());
         }
     }
 }

@@ -1,4 +1,5 @@
-using System.Net;
+using System;
+using System.Net.Http;
 using NzbDrone.Common.Extensions;
 using NzbDrone.Common.Http;
 using NzbDrone.Common.Serializer;
@@ -27,7 +28,13 @@ namespace NzbDrone.Core.Notifications.Webhook
                     .Accept(HttpAccept.Json)
                     .Build();
 
-                request.Method = (HttpMethod)settings.Method;
+                request.Method = settings.Method switch
+                {
+                    (int)WebhookMethod.POST => HttpMethod.Post,
+                    (int)WebhookMethod.PUT => HttpMethod.Put,
+                    _ => throw new ArgumentOutOfRangeException($"Invalid Webhook method {settings.Method}")
+                };
+
                 request.Headers.ContentType = "application/json";
                 request.SetContent(body.ToJson());
 

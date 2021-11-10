@@ -17,6 +17,7 @@ using NzbDrone.Common.Http.Proxy;
 using NzbDrone.Common.TPL;
 using NzbDrone.Test.Common;
 using NzbDrone.Test.Common.Categories;
+using HttpClient = NzbDrone.Common.Http.HttpClient;
 
 namespace NzbDrone.Common.Test.Http
 {
@@ -30,6 +31,8 @@ namespace NzbDrone.Common.Test.Http
         private static int _httpBinRandom;
         private string _httpBinHost;
         private string _httpBinHost2;
+
+        private System.Net.Http.HttpClient _httpClient = new ();
 
         [OneTimeSetUp]
         public void FixtureSetUp()
@@ -53,22 +56,13 @@ namespace NzbDrone.Common.Test.Http
         {
             try
             {
-                var req = WebRequest.Create($"https://{site}/get") as HttpWebRequest;
-                var res = req.GetResponse() as HttpWebResponse;
+                var res = _httpClient.GetAsync($"https://{site}/get").GetAwaiter().GetResult();
                 if (res.StatusCode != HttpStatusCode.OK)
                 {
                     return false;
                 }
 
-                try
-                {
-                    req = WebRequest.Create($"https://{site}/status/429") as HttpWebRequest;
-                    res = req.GetResponse() as HttpWebResponse;
-                }
-                catch (WebException ex)
-                {
-                    res = ex.Response as HttpWebResponse;
-                }
+                res = _httpClient.GetAsync($"https://{site}/status/429").GetAwaiter().GetResult();
 
                 if (res == null || res.StatusCode != (HttpStatusCode)429)
                 {
@@ -165,7 +159,9 @@ namespace NzbDrone.Common.Test.Http
             var response = Subject.Get<HttpBinResource>(request);
 
             response.Resource.Headers["Accept-Encoding"].ToString().Should().Contain("gzip");
+
             response.Resource.Gzipped.Should().BeTrue();
+            response.Resource.Brotli.Should().BeFalse();
         }
 
         [Test]
@@ -176,6 +172,8 @@ namespace NzbDrone.Common.Test.Http
             var response = Subject.Get<HttpBinResource>(request);
 
             response.Resource.Headers["Accept-Encoding"].ToString().Should().Contain("br");
+
+            response.Resource.Gzipped.Should().BeFalse();
             response.Resource.Brotli.Should().BeTrue();
         }
 
@@ -358,11 +356,36 @@ namespace NzbDrone.Common.Test.Http
         {
             var file = GetTempFilePath();
 
-            Assert.Throws<WebException>(() => Subject.DownloadFile("https://download.readarr.com/wrongpath", file));
+            Assert.Throws<HttpException>(() => Subject.DownloadFile("https://download.sonarr.tv/wrongpath", file));
 
             File.Exists(file).Should().BeFalse();
 
             ExceptionVerification.ExpectedWarns(1);
+        }
+
+        [Test]
+        public void should_not_write_redirect_content_to_stream()
+        {
+            var file = GetTempFilePath();
+
+            using (var fileStream = new FileStream(file, FileMode.Create))
+            {
+                var request = new HttpRequest($"http://{_httpBinHost}/redirect/1");
+                request.AllowAutoRedirect = false;
+                request.ResponseStream = fileStream;
+
+                var response = Subject.Get(request);
+
+                response.StatusCode.Should().Be(HttpStatusCode.Moved);
+            }
+
+            ExceptionVerification.ExpectedErrors(1);
+
+            File.Exists(file).Should().BeTrue();
+
+            var fileInfo = new FileInfo(file);
+
+            fileInfo.Length.Should().Be(0);
         }
 
         [Test]
@@ -783,6 +806,28 @@ namespace NzbDrone.Common.Test.Http
             finally
             {
             }
+        }
+
+        [Test]
+        public void should_correctly_use_basic_auth()
+        {
+            var request = new HttpRequest($"https://{_httpBinHost}/basic-auth/username/password");
+            request.Credentials = new BasicNetworkCredential("username", "password");
+
+            var response = Subject.Execute(request);
+
+            response.StatusCode.Should().Be(HttpStatusCode.OK);
+        }
+
+        [Test]
+        public void should_correctly_use_digest_auth()
+        {
+            var request = new HttpRequest($"https://{_httpBinHost}/digest-auth/auth/username/password");
+            request.Credentials = new NetworkCredential("username", "password");
+
+            var response = Subject.Execute(request);
+
+            response.StatusCode.Should().Be(HttpStatusCode.OK);
         }
     }
 
