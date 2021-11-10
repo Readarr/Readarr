@@ -120,7 +120,7 @@ stages:
             enableAnalysis: 'true'
           Mac:
             osName: 'Mac'
-            imageName: 'macos-10.14'
+            imageName: 'macos-11'
             enableAnalysis: 'false'
 
       pool:
@@ -169,7 +169,7 @@ stages:
             imageName: 'ubuntu-18.04'
           Mac:
             osName: 'Mac'
-            imageName: 'macos-10.14'
+            imageName: 'macos-11'
           Windows:
             osName: 'Windows'
             imageName: 'windows-2019'
@@ -394,7 +394,7 @@ stages:
             osName: 'Mac'
             testName: 'MacCore'
             poolName: 'Azure Pipelines'
-            imageName: 'macos-10.14'
+            imageName: 'macos-11'
           WindowsCore:
             osName: 'Windows'
             testName: 'WindowsCore'
@@ -507,7 +507,7 @@ stages:
           MacCore:
             osName: 'Mac'
             testName: 'MacCore'
-            imageName: 'macos-10.14'
+            imageName: 'macos-11'
             pattern: 'Readarr.*.osx-core-x64.tar.gz'
           WindowsCore:
             osName: 'Windows'
@@ -678,7 +678,7 @@ stages:
             pattern: 'Readarr.*.linux-core-x64.tar.gz'
           Mac:
             osName: 'Mac'
-            imageName: 'macos-10.14'
+            imageName: 'macos-11'
             pattern: 'Readarr.*.osx-core-x64.tar.gz'
           Windows:
             osName: 'Windows'
