@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Web;
 using System.Xml.Linq;
@@ -112,11 +113,11 @@ namespace NzbDrone.Core.Notifications.Goodreads
             // we need the url without the query to sign
             auth.RequestUrl = request.Url.SetQuery(null).FullUri;
 
-            if (builder.Method == HttpMethod.GET)
+            if (builder.Method == HttpMethod.Get)
             {
                 auth.Parameters = builder.QueryParams.ToDictionary(x => x.Key, x => x.Value);
             }
-            else if (builder.Method == HttpMethod.POST)
+            else if (builder.Method == HttpMethod.Post)
             {
                 auth.Parameters = builder.FormData.ToDictionary(x => x.Name, x => Encoding.UTF8.GetString(x.ContentData));
             }
@@ -172,7 +173,7 @@ namespace NzbDrone.Core.Notifications.Goodreads
         {
             var request = new Common.Http.HttpRequest(Settings.SigningUrl)
             {
-                Method = HttpMethod.POST,
+                Method = HttpMethod.Post,
             };
             request.Headers.Set("Content-Type", "application/json");
 
