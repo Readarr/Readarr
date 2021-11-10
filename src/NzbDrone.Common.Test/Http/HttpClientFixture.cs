@@ -152,6 +152,20 @@ namespace NzbDrone.Common.Test.Http
         }
 
         [Test]
+        public void should_execute_post_with_content_type()
+        {
+            var message = "{ my: 1 }";
+
+            var request = new HttpRequest($"https://{_httpBinHost}/post");
+            request.SetContent(message);
+            request.Headers.ContentType = "application/json";
+
+            var response = Subject.Post<HttpBinResource>(request);
+
+            response.Resource.Data.Should().Be(message);
+        }
+
+        [Test]
         public void should_execute_get_using_gzip()
         {
             var request = new HttpRequest($"https://{_httpBinHost}/gzip");
