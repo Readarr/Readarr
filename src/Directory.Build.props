@@ -2,6 +2,7 @@
   <!-- Common to all Readarr Projects -->
   <PropertyGroup>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+	<ErrorOnDuplicatePublishOutputFiles>false</ErrorOnDuplicatePublishOutputFiles>
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
 
     <PlatformTarget>AnyCPU</PlatformTarget>

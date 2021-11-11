@@ -15,12 +15,12 @@
     <PackageVersion Include="ImpromptuInterface" Version="7.0.1" />
     <PackageVersion Include="Kveer.XmlRPC" Version="1.2.0" />
     <PackageVersion Include="Mailkit" Version="2.15.0" />
-    <PackageVersion Include="Microsoft.AspNetCore.SignalR.Client" Version="5.0.8" />
-    <PackageVersion Include="Microsoft.Extensions.Configuration" Version="5.0.0" />
-    <PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="5.0.2" />
-    <PackageVersion Include="Microsoft.Extensions.Hosting.WindowsServices" Version="5.0.1" />
-    <PackageVersion Include="Microsoft.Extensions.Logging" Version="5.0.0" />
-    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="16.10.0" />
+    <PackageVersion Include="Microsoft.AspNetCore.SignalR.Client" Version="6.0.0" />
+    <PackageVersion Include="Microsoft.Extensions.Configuration" Version="6.0.0" />
+    <PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
+    <PackageVersion Include="Microsoft.Extensions.Hosting.WindowsServices" Version="6.0.0" />
+    <PackageVersion Include="Microsoft.Extensions.Logging" Version="6.0.0" />
+    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.0.0" />
     <PackageVersion Include="Microsoft.Win32.Registry" Version="5.0.0" />
     <PackageVersion Include="Mono.Posix.NETStandard" Version="5.20.1-servarr1" />
     <PackageVersion Include="MonoTorrent" Version="2.0.1" />
@@ -42,19 +42,19 @@
     <PackageVersion Include="SixLabors.ImageSharp" Version="1.0.4" />
     <PackageVersion Include="StyleCop.Analyzers" Version="1.1.118" />
     <PackageVersion Include="System.Buffers" Version="4.5.1" />
-    <PackageVersion Include="System.Configuration.ConfigurationManager" Version="5.0.0" />
+    <PackageVersion Include="System.Configuration.ConfigurationManager" Version="6.0.0" />
     <PackageVersion Include="System.Data.SQLite.Core.Servarr" Version="1.0.115.0-0" />
     <PackageVersion Include="System.IO.Abstractions.TestingHelpers" Version="13.2.47" />
     <PackageVersion Include="System.IO.Abstractions" Version="13.2.47" />
     <PackageVersion Include="System.IO.FileSystem.AccessControl" Version="5.0.0" />
     <PackageVersion Include="System.Memory" Version="4.5.4" />
     <PackageVersion Include="System.Reflection.TypeExtensions" Version="4.7.0" />
-    <PackageVersion Include="System.Resources.Extensions" Version="5.0.0" />
+    <PackageVersion Include="System.Resources.Extensions" Version="6.0.0" />
     <PackageVersion Include="System.Runtime.Loader" Version="4.3.0" />
     <PackageVersion Include="System.Security.Principal.Windows" Version="5.0.0" />
-    <PackageVersion Include="System.ServiceProcess.ServiceController" Version="5.0.0" />
-    <PackageVersion Include="System.Text.Encoding.CodePages" Version="5.0.0" />
-    <PackageVersion Include="System.Text.Json" Version="5.0.2" />
+    <PackageVersion Include="System.ServiceProcess.ServiceController" Version="6.0.0" />
+    <PackageVersion Include="System.Text.Encoding.CodePages" Version="6.0.0" />
+    <PackageVersion Include="System.Text.Json" Version="6.0.0" />
     <PackageVersion Include="System.ValueTuple" Version="4.5.0" />
     <PackageVersion Include="TagLibSharp-Lidarr" Version="2.2.0.19" />
     <PackageVersion Include="Unity" Version="5.11.10" />
