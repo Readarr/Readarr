@@ -5,7 +5,6 @@
     <DefineConstants Condition="'$(RuntimeIdentifier)' == 'linux-musl-x64' or '$(RuntimeIdentifier)' == 'linux-musl-arm64'">ISMUSL</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="DotNet4.SocksProxy" />
     <PackageReference Include="DryIoc.dll" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" />
     <PackageReference Include="NLog.Extensions.Logging" />

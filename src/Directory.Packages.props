@@ -3,7 +3,6 @@
     <PackageVersion Include="AutoFixture" Version="4.17.0" />
     <PackageVersion Include="coverlet.collector" Version="3.0.4-preview.27.ge7cb7c3b40" PrivateAssets="all" />
     <PackageVersion Include="Dapper" Version="2.0.123" />
-    <PackageVersion Include="DotNet4.SocksProxy" Version="1.4.0.1" />
     <PackageVersion Include="DryIoc.dll" Version="4.8.4" />
     <PackageVersion Include="DryIoc.Microsoft.DependencyInjection" Version="5.1.0" />
     <PackageVersion Include="Equ" Version="2.3.0" />
