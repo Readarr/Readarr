@@ -823,10 +823,21 @@ namespace NzbDrone.Common.Test.Http
         }
 
         [Test]
-        public void should_correctly_use_basic_auth()
+        public void should_correctly_use_basic_auth_with_basic_network_credential()
         {
             var request = new HttpRequest($"https://{_httpBinHost}/basic-auth/username/password");
             request.Credentials = new BasicNetworkCredential("username", "password");
+
+            var response = Subject.Execute(request);
+
+            response.StatusCode.Should().Be(HttpStatusCode.OK);
+        }
+
+        [Test]
+        public void should_correctly_use_basic_auth_with_network_credential()
+        {
+            var request = new HttpRequest($"https://{_httpBinHost}/basic-auth/username/password");
+            request.Credentials = new NetworkCredential("username", "password");
 
             var response = Subject.Execute(request);
 

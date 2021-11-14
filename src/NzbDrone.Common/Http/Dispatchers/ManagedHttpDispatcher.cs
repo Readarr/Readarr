@@ -68,8 +68,11 @@ namespace NzbDrone.Common.Http.Dispatchers
                 else if (request.Credentials is NetworkCredential nc)
                 {
                     var creds = GetCredentialCache();
-                    creds.Remove((Uri)request.Url, "Digest");
-                    creds.Add((Uri)request.Url, "Digest", nc);
+                    foreach (var authtype in new[] { "Basic", "Digest" })
+                    {
+                        creds.Remove((Uri)request.Url, authtype);
+                        creds.Add((Uri)request.Url, authtype, nc);
+                    }
                 }
             }
 
