@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
-import { addAuthor, setAddDefault } from 'Store/Actions/searchActions';
+import { addAuthor, setAuthorAddDefault } from 'Store/Actions/searchActions';
 import createDimensionsSelector from 'Store/Selectors/createDimensionsSelector';
 import selectSettings from 'Store/Selectors/selectSettings';
 import AddNewAuthorModalContent from './AddNewAuthorModalContent';
@@ -16,14 +16,14 @@ function createMapStateToProps() {
       const {
         isAdding,
         addError,
-        defaults
+        authorDefaults
       } = searchState;
 
       const {
         settings,
         validationErrors,
         validationWarnings
-      } = selectSettings(defaults, {}, addError);
+      } = selectSettings(authorDefaults, {}, addError);
 
       return {
         isAdding,
@@ -39,7 +39,7 @@ function createMapStateToProps() {
 }
 
 const mapDispatchToProps = {
-  setAddDefault,
+  setAuthorAddDefault,
   addAuthor
 };
 
@@ -49,7 +49,7 @@ class AddNewAuthorModalContentConnector extends Component {
   // Listeners
 
   onInputChange = ({ name, value }) => {
-    this.props.setAddDefault({ [name]: value });
+    this.props.setAuthorAddDefault({ [name]: value });
   }
 
   onAddAuthorPress = (searchForMissingBooks) => {
@@ -95,7 +95,7 @@ AddNewAuthorModalContentConnector.propTypes = {
   metadataProfileId: PropTypes.object,
   tags: PropTypes.object.isRequired,
   onModalClose: PropTypes.func.isRequired,
-  setAddDefault: PropTypes.func.isRequired,
+  setAuthorAddDefault: PropTypes.func.isRequired,
   addAuthor: PropTypes.func.isRequired
 };
 

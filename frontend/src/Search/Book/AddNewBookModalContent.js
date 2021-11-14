@@ -105,6 +105,7 @@ class AddNewBookModalContent extends Component {
                   <AddAuthorOptionsForm
                     authorName={authorName}
                     includeNoneMetadataProfile={true}
+                    includeSpecificBookMonitor={true}
                     {...otherProps}
                   />
               }

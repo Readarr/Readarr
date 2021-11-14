@@ -7,6 +7,7 @@ function MonitorBooksSelectInput(props) {
   const {
     includeNoChange,
     includeMixed,
+    includeSpecificBook,
     ...otherProps
   } = props;
 
@@ -28,6 +29,13 @@ function MonitorBooksSelectInput(props) {
     });
   }
 
+  if (includeSpecificBook) {
+    values.push({
+      key: 'specificBook',
+      value: 'Only This Book'
+    });
+  }
+
   return (
     <SelectInput
       values={values}
@@ -39,12 +47,14 @@ function MonitorBooksSelectInput(props) {
 MonitorBooksSelectInput.propTypes = {
   includeNoChange: PropTypes.bool.isRequired,
   includeMixed: PropTypes.bool.isRequired,
+  includeSpecificBook: PropTypes.bool.isRequired,
   onChange: PropTypes.func.isRequired
 };
 
 MonitorBooksSelectInput.defaultProps = {
   includeNoChange: false,
-  includeMixed: false
+  includeMixed: false,
+  includeSpecificBook: false
 };
 
 export default MonitorBooksSelectInput;

@@ -29,7 +29,15 @@ export const defaultState = {
   addError: null,
   items: [],
 
-  defaults: {
+  authorDefaults: {
+    rootFolderPath: '',
+    monitor: monitorOptions[0].key,
+    qualityProfileId: 0,
+    metadataProfileId: 0,
+    tags: []
+  },
+
+  bookDefaults: {
     rootFolderPath: '',
     monitor: monitorOptions[0].key,
     qualityProfileId: 0,
@@ -39,7 +47,8 @@ export const defaultState = {
 };
 
 export const persistState = [
-  'search.defaults'
+  'search.bookDefaults',
+  'search.authorDefaults'
 ];
 
 //
@@ -49,7 +58,8 @@ export const GET_SEARCH_RESULTS = 'search/getSearchResults';
 export const ADD_AUTHOR = 'search/addAuthor';
 export const ADD_BOOK = 'search/addBook';
 export const CLEAR_SEARCH_RESULTS = 'search/clearSearchResults';
-export const SET_ADD_DEFAULT = 'search/setAddDefault';
+export const SET_AUTHOR_ADD_DEFAULT = 'search/setAuthorAddDefault';
+export const SET_BOOK_ADD_DEFAULT = 'search/setBookAddDefault';
 
 //
 // Action Creators
@@ -58,7 +68,8 @@ export const getSearchResults = createThunk(GET_SEARCH_RESULTS);
 export const addAuthor = createThunk(ADD_AUTHOR);
 export const addBook = createThunk(ADD_BOOK);
 export const clearSearchResults = createAction(CLEAR_SEARCH_RESULTS);
-export const setAddDefault = createAction(SET_ADD_DEFAULT);
+export const setAuthorAddDefault = createAction(SET_AUTHOR_ADD_DEFAULT);
+export const setBookAddDefault = createAction(SET_BOOK_ADD_DEFAULT);
 
 //
 // Action Handlers
@@ -191,11 +202,22 @@ export const actionHandlers = handleThunks({
 
 export const reducers = createHandleActions({
 
-  [SET_ADD_DEFAULT]: function(state, { payload }) {
+  [SET_AUTHOR_ADD_DEFAULT]: function(state, { payload }) {
     const newState = getSectionState(state, section);
 
-    newState.defaults = {
-      ...newState.defaults,
+    newState.authorDefaults = {
+      ...newState.authorDefaults,
+      ...payload
+    };
+
+    return updateSectionState(state, section, newState);
+  },
+
+  [SET_BOOK_ADD_DEFAULT]: function(state, { payload }) {
+    const newState = getSectionState(state, section);
+
+    newState.bookDefaults = {
+      ...newState.bookDefaults,
       ...payload
     };
 
@@ -204,7 +226,8 @@ export const reducers = createHandleActions({
 
   [CLEAR_SEARCH_RESULTS]: function(state) {
     const {
-      defaults,
+      authorDefaults,
+      bookDefaults,
       ...otherDefaultState
     } = defaultState;
 

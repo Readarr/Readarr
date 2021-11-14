@@ -2,8 +2,7 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
-import { metadataProfileNames } from 'Helpers/Props';
-import { addBook, setAddDefault } from 'Store/Actions/searchActions';
+import { addBook, setBookAddDefault } from 'Store/Actions/searchActions';
 import createDimensionsSelector from 'Store/Selectors/createDimensionsSelector';
 import selectSettings from 'Store/Selectors/selectSettings';
 import AddNewBookModalContent from './AddNewBookModalContent';
@@ -18,17 +17,14 @@ function createMapStateToProps() {
       const {
         isAdding,
         addError,
-        defaults
+        bookDefaults
       } = searchState;
 
       const {
         settings,
         validationErrors,
         validationWarnings
-      } = selectSettings(defaults, {}, addError);
-
-      // For adding single books, default to None profile
-      const noneProfile = metadataProfiles.items.find((item) => item.name === metadataProfileNames.NONE);
+      } = selectSettings(bookDefaults, {}, addError);
 
       return {
         isAdding,
@@ -37,7 +33,6 @@ function createMapStateToProps() {
         isSmallScreen: dimensions.isSmallScreen,
         validationErrors,
         validationWarnings,
-        noneMetadataProfileId: noneProfile.id,
         ...settings
       };
     }
@@ -45,39 +40,17 @@ function createMapStateToProps() {
 }
 
 const mapDispatchToProps = {
-  setAddDefault,
+  setBookAddDefault,
   addBook
 };
 
 class AddNewBookModalContentConnector extends Component {
 
   //
-  // Lifecycle
-
-  constructor(props, context) {
-    super(props, context);
-
-    this.state = {
-      metadataProfileIdDefault: props.metadataProfileId.value
-    };
-
-    // select none as default
-    this.onInputChange({
-      name: 'metadataProfileId',
-      value: props.noneMetadataProfileId
-    });
-  }
-
-  componentWillUnmount() {
-    // reinstate standard default
-    this.props.setAddDefault({ metadataProfileId: this.state.metadataProfileIdDefault });
-  }
-
-  //
   // Listeners
 
   onInputChange = ({ name, value }) => {
-    this.props.setAddDefault({ [name]: value });
+    this.props.setBookAddDefault({ [name]: value });
   }
 
   onAddBookPress = (searchForNewBook) => {
@@ -122,10 +95,9 @@ AddNewBookModalContentConnector.propTypes = {
   monitor: PropTypes.object.isRequired,
   qualityProfileId: PropTypes.object,
   metadataProfileId: PropTypes.object,
-  noneMetadataProfileId: PropTypes.number.isRequired,
   tags: PropTypes.object.isRequired,
   onModalClose: PropTypes.func.isRequired,
-  setAddDefault: PropTypes.func.isRequired,
+  setBookAddDefault: PropTypes.func.isRequired,
   addBook: PropTypes.func.isRequired
 };
 
