@@ -80,7 +80,7 @@ namespace NzbDrone.Core.Test.MusicTests.BookMonitoredServiceTests
             Subject.SetBookMonitoredStatus(_author, new MonitoringOptions { Monitor = MonitorTypes.All });
 
             Mocker.GetMock<IBookService>()
-                  .Verify(v => v.UpdateMany(It.Is<List<Book>>(l => l.All(e => e.Monitored))));
+                  .Verify(v => v.UpdateBook(It.Is<Book>(l => l.Monitored)), Times.Exactly(_books.Count));
         }
 
         [Test]
@@ -101,13 +101,13 @@ namespace NzbDrone.Core.Test.MusicTests.BookMonitoredServiceTests
         private void VerifyMonitored(Func<Book, bool> predicate)
         {
             Mocker.GetMock<IBookService>()
-                .Verify(v => v.UpdateMany(It.Is<List<Book>>(l => l.Where(predicate).All(e => e.Monitored))));
+                .Verify(v => v.UpdateBook(It.Is<Book>(b => b.Monitored)), Times.AtLeast(_books.Where(predicate).Count()));
         }
 
         private void VerifyNotMonitored(Func<Book, bool> predicate)
         {
             Mocker.GetMock<IBookService>()
-                .Verify(v => v.UpdateMany(It.Is<List<Book>>(l => l.Where(predicate).All(e => !e.Monitored))));
+                .Verify(v => v.UpdateBook(It.Is<Book>(b => !b.Monitored)), Times.AtLeast(_books.Where(predicate).Count()));
         }
     }
 }
