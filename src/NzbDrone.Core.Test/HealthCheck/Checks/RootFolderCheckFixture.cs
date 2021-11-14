@@ -7,6 +7,7 @@ using NzbDrone.Common.Disk;
 using NzbDrone.Core.Books;
 using NzbDrone.Core.HealthCheck.Checks;
 using NzbDrone.Core.ImportLists;
+using NzbDrone.Core.Localization;
 using NzbDrone.Core.Test.Framework;
 
 namespace NzbDrone.Core.Test.HealthCheck.Checks
@@ -14,6 +15,14 @@ namespace NzbDrone.Core.Test.HealthCheck.Checks
     [TestFixture]
     public class RootFolderCheckFixture : CoreTest<RootFolderCheck>
     {
+        [SetUp]
+        public void Setup()
+        {
+            Mocker.GetMock<ILocalizationService>()
+                  .Setup(s => s.GetLocalizedString(It.IsAny<string>()))
+                  .Returns("Some Warning Message");
+        }
+
         private void GivenMissingRootFolder()
         {
             var author = Builder<Author>.CreateListOfSize(1)
@@ -34,7 +43,7 @@ namespace NzbDrone.Core.Test.HealthCheck.Checks
 
             Mocker.GetMock<IDiskProvider>()
                   .Setup(s => s.GetParentFolder(author.First().Path))
-                  .Returns(@"C:\Music");
+                  .Returns(@"C:\Books");
 
             Mocker.GetMock<IDiskProvider>()
                   .Setup(s => s.FolderExists(It.IsAny<string>()))
@@ -42,7 +51,7 @@ namespace NzbDrone.Core.Test.HealthCheck.Checks
         }
 
         [Test]
-        public void should_not_return_error_when_no_author()
+        public void should_not_return_error_when_no_book()
         {
             Mocker.GetMock<IAuthorService>()
                   .Setup(s => s.AllAuthorPaths())
@@ -56,7 +65,7 @@ namespace NzbDrone.Core.Test.HealthCheck.Checks
         }
 
         [Test]
-        public void should_return_error_if_author_parent_is_missing()
+        public void should_return_error_if_book_parent_is_missing()
         {
             GivenMissingRootFolder();
 

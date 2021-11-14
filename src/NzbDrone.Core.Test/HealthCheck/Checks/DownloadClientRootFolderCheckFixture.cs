@@ -31,6 +31,10 @@ namespace NzbDrone.Core.Test.HealthCheck.Checks
         [SetUp]
         public void Setup()
         {
+            Mocker.GetMock<ILocalizationService>()
+                  .Setup(s => s.GetLocalizedString(It.IsAny<string>()))
+                  .Returns("Some Warning Message");
+
             _clientStatus = new DownloadClientInfo
             {
                 IsLocalhost = true,
@@ -43,10 +47,6 @@ namespace NzbDrone.Core.Test.HealthCheck.Checks
 
             _downloadClient.Setup(s => s.GetStatus())
                 .Returns(_clientStatus);
-
-            Mocker.GetMock<ILocalizationService>()
-                  .Setup(s => s.GetLocalizedString(It.IsAny<string>()))
-                  .Returns("Some Warning Message");
 
             Mocker.GetMock<IProvideDownloadClient>()
                   .Setup(s => s.GetDownloadClients())
