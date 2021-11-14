@@ -186,7 +186,7 @@ function EditMetadataProfileModalContent(props) {
                 <FormInputGroup
                   type={inputTypes.TEXT_TAG}
                   name="ignored"
-                  helpText={translate('IgnoredHelpText')}
+                  helpText={translate('IgnoredMetaHelpText')}
                   kind={kinds.DANGER}
                   placeholder={translate('IgnoredPlaceHolder')}
                   delimiters={tagInputDelimiters}
