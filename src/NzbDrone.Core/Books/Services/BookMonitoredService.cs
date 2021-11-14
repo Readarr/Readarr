@@ -86,7 +86,11 @@ namespace NzbDrone.Core.Books
                     }
                 }
 
-                _bookService.UpdateMany(books);
+                // Use individual update to ensure updates are sent to frontend
+                foreach (var book in books)
+                {
+                    _bookService.UpdateBook(book);
+                }
             }
 
             _authorService.UpdateAuthor(author);
