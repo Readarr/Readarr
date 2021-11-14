@@ -733,7 +733,7 @@
     "TooManyBooks": "Hiányzik valamelyik, vagy túl sok a könyv? Módosíts vagy hozzon létre újat",
     "BlocklistRelease": "Feketelistás Kiadás",
     "NoHistoryBlocklist": "Nincs blokkolási előzménylista",
-    "Blocklist": "Tiltólista",
+    "Blocklist": "Feketelista",
     "BlocklistHelpText": "Megakadályozza, hogy a Readarr automatikusan letöltse újra",
     "RemoveFromBlocklist": "Eltávolítás a feketelistáról",
     "UnableToLoadBlocklist": "Nem sikerült betölteni a feketelistát"

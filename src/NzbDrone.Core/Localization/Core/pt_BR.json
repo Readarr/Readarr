@@ -456,7 +456,7 @@
     "Version": "Versão",
     "WeekColumnHeader": "Cabeçalho da coluna da semana",
     "Year": "Ano",
-    "YesCancel": "Sim, cancelar",
+    "YesCancel": "Sim, Cancelar",
     "BookFileCountBookCountTotalTotalBookCountInterp": "{0}/{1} (Total: {2})",
     "WriteBookTagsHelpTextWarning": "Selecionar \"Todos os arquivos\" alterará os arquivos existentes quando forem importados.",
     "WatchRootFoldersForFileChanges": "Monitorar alterações nas pastas raiz",
@@ -733,7 +733,7 @@
     "TooManyBooks": "Livros ausentes ou muitos? Modifique ou crie um novo",
     "BlocklistRelease": "Lançamento na lista de bloqueio",
     "NoHistoryBlocklist": "Sem histórico na lista de bloqueio",
-    "Blocklist": "Lista de  bloqueio",
+    "Blocklist": "Lista de bloqueio",
     "BlocklistHelpText": "Previne Readarr de automaticamente baixar esses arquivos novamente",
     "RemoveFromBlocklist": "Remover da lista de bloqueio",
     "UnableToLoadBlocklist": "Incapaz de carregar a lista de bloqueio"
