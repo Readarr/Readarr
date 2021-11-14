@@ -35,6 +35,7 @@ class AddAuthorOptionsForm extends Component {
       qualityProfileId,
       metadataProfileId,
       includeNoneMetadataProfile,
+      includeSpecificBookMonitor,
       showMetadataProfile,
       tags,
       onInputChange,
@@ -77,6 +78,7 @@ class AddAuthorOptionsForm extends Component {
             type={inputTypes.MONITOR_BOOKS_SELECT}
             name="monitor"
             onChange={onInputChange}
+            includeSpecificBook={includeSpecificBookMonitor}
             {...monitor}
           />
         </FormGroup>
@@ -147,6 +149,7 @@ AddAuthorOptionsForm.propTypes = {
   metadataProfileId: PropTypes.object,
   showMetadataProfile: PropTypes.bool.isRequired,
   includeNoneMetadataProfile: PropTypes.bool.isRequired,
+  includeSpecificBookMonitor: PropTypes.bool.isRequired,
   tags: PropTypes.object.isRequired,
   onInputChange: PropTypes.func.isRequired
 };
