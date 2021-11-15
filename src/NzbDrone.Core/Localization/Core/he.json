@@ -476,5 +476,13 @@
     "Today": "היום",
     "Tomorrow": "מָחָר",
     "Trigger": "הדק",
-    "Type": "סוּג"
+    "Type": "סוּג",
+    "Time": "זְמַן",
+    "RemoveFromBlocklist": "הסר מהרשימה השחורה",
+    "UnableToLoadBlocklist": "לא ניתן לטעון את הרשימה השחורה",
+    "Component": "רְכִיב",
+    "Level": "רָמָה",
+    "ReleaseBranchCheckOfficialBranchMessage": "סניף {0} אינו סניף חוקי לשחרור Radarr, לא תקבל עדכונים",
+    "Blocklist": "רשימה שחורה",
+    "BlocklistRelease": "שחרור הרשימה השחורה"
 }

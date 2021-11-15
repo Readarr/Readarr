@@ -476,5 +476,13 @@
     "NotMonitored": "Δεν παρακολουθείται",
     "ShowBookTitleHelpText": "Εμφάνιση τίτλου ταινίας κάτω από την αφίσα",
     "ShowReleaseDate": "Εμφάνιση ημερομηνίας κυκλοφορίας",
-    "ShowTitle": "Εμφάνιση τίτλου"
+    "ShowTitle": "Εμφάνιση τίτλου",
+    "Component": "Στοιχείο",
+    "RemoveFromBlocklist": "Κατάργηση από μαύρη λίστα",
+    "Time": "χρόνος",
+    "UnableToLoadBlocklist": "Δεν είναι δυνατή η φόρτωση της μαύρης λίστας",
+    "Level": "Επίπεδο",
+    "ReleaseBranchCheckOfficialBranchMessage": "Το υποκατάστημα {0} δεν είναι έγκυρο υποκατάστημα κυκλοφορίας Radarr, δεν θα λαμβάνετε ενημερώσεις",
+    "Blocklist": "Αποριφθέντα",
+    "BlocklistRelease": "Έκδοση μαύρης λίστας"
 }

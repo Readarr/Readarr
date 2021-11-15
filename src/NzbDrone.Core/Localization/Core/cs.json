@@ -476,5 +476,13 @@
     "NotMonitored": "Nesledováno",
     "ShowBookTitleHelpText": "Zobrazit titul filmu pod plakátem",
     "ShowReleaseDate": "Zobrazit datum vydání",
-    "ShowTitle": "Ukázat nadpis"
+    "ShowTitle": "Ukázat nadpis",
+    "RemoveFromBlocklist": "Odebrat z černé listiny",
+    "UnableToLoadBlocklist": "Nelze načíst černou listinu",
+    "Component": "Součástka",
+    "Level": "Úroveň",
+    "ReleaseBranchCheckOfficialBranchMessage": "Pobočka {0} není platná větev vydání Radarr, nebudete dostávat aktualizace",
+    "Time": "Čas",
+    "Blocklist": "Černá listina",
+    "BlocklistRelease": "Vydání černé listiny"
 }
