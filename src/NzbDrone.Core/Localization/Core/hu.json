@@ -736,5 +736,9 @@
     "Blocklist": "Feketelista",
     "BlocklistHelpText": "Megakadályozza, hogy a Readarr automatikusan letöltse újra",
     "RemoveFromBlocklist": "Eltávolítás a feketelistáról",
-    "UnableToLoadBlocklist": "Nem sikerült betölteni a feketelistát"
+    "UnableToLoadBlocklist": "Nem sikerült betölteni a feketelistát",
+    "Component": "Komponens",
+    "Level": "Szint",
+    "ReleaseBranchCheckOfficialBranchMessage": "A(z) {0} nem érvényes Readarr frissítési ágazat, ezért nem kap frissítéseket",
+    "Time": "Idő"
 }

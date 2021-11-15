@@ -476,5 +476,13 @@
     "BookAvailableButMissing": "Film tilgængelig, men mangler",
     "ShowBookTitleHelpText": "Vis filmtitel under plakat",
     "ShowReleaseDate": "Vis udgivelsesdato",
-    "ShowTitle": "Vis titel"
+    "ShowTitle": "Vis titel",
+    "Time": "Tid",
+    "UnableToLoadBlocklist": "Kunne ikke indlæse sortliste",
+    "RemoveFromBlocklist": "Fjern fra sortlisten",
+    "Component": "Komponent",
+    "Level": "Niveau",
+    "ReleaseBranchCheckOfficialBranchMessage": "Filial {0} er ikke en gyldig Radarr-frigivelsesfilial, du modtager ikke opdateringer",
+    "Blocklist": "Blacklist",
+    "BlocklistRelease": "Udgivelse af sortliste"
 }

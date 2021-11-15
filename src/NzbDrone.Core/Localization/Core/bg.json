@@ -476,5 +476,12 @@
     "NotMonitored": "Не се следи",
     "ShowBookTitleHelpText": "Показване на заглавието на филма под плакат",
     "ShowReleaseDate": "Показване на датата на издаване",
-    "ShowTitle": "Показване на заглавието"
+    "ShowTitle": "Показване на заглавието",
+    "Level": "Ниво",
+    "RemoveFromBlocklist": "Премахване от черния списък",
+    "Time": "Време",
+    "UnableToLoadBlocklist": "Черният списък не може да се зареди",
+    "ReleaseBranchCheckOfficialBranchMessage": "Клон {0} не е валиден клон за издаване на Radarr, няма да получавате актуализации",
+    "Blocklist": "Черен списък",
+    "BlocklistRelease": "Освобождаване на черния списък"
 }

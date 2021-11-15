@@ -476,5 +476,11 @@
     "NotMonitored": "모니터링되지 않음",
     "ShowBookTitleHelpText": "포스터 아래에 영화 제목 표시",
     "ShowReleaseDate": "출시일 표시",
-    "ShowTitle": "쇼 제목"
+    "ShowTitle": "쇼 제목",
+    "Component": "구성 요소",
+    "RemoveFromBlocklist": "블랙리스트에서 제거",
+    "UnableToLoadBlocklist": "블랙리스트를로드 할 수 없습니다.",
+    "TheAuthorFolderAndAllOfItsContentWillBeDeleted": "동영상 폴더 '{0}' 및 모든 콘텐츠가 삭제됩니다.",
+    "Blocklist": "블랙리스트",
+    "BlocklistRelease": "블랙리스트 릴리스"
 }

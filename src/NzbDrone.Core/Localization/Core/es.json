@@ -478,5 +478,14 @@
     "ShowBookTitleHelpText": "Mostrar el título de la película debajo del poster",
     "ShowReleaseDate": "Mostrar fecha de lanzamiento",
     "ShowTitle": "Mostrar Título",
-    "TheAuthorFolderAndAllOfItsContentWillBeDeleted": "Se eliminará la carpeta de películas '{0}' y todo su contenido."
+    "TheAuthorFolderAndAllOfItsContentWillBeDeleted": "Se eliminará la carpeta de películas '{0}' y todo su contenido.",
+    "Component": "Componente",
+    "RemoveFromBlocklist": "Eliminar de lista de bloqueados",
+    "Time": "Fecha",
+    "UnableToLoadBlocklist": "No se han podido cargar las bloqueadas",
+    "Level": "Nivel",
+    "ReleaseBranchCheckOfficialBranchMessage": "Las versión {0} no es una versión válida de Radarr, no recibirás actualizaciones",
+    "Blocklist": "Bloqueadas",
+    "BlocklistHelpText": "Evita que Radarr vuelva a capturar esta película automáticamente",
+    "BlocklistRelease": "Bloquear este Estreno"
 }
