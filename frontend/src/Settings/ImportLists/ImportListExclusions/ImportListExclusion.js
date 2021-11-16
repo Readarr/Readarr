@@ -65,8 +65,8 @@ class ImportListExclusion extends Component {
           styles.importListExclusion
         )}
       >
-        <div className={styles.authorName}>{authorName}</div>
         <div className={styles.foreignId}>{foreignId}</div>
+        <div className={styles.name}>{authorName}</div>
 
         <div className={styles.actions}>
           <Link

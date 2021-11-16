@@ -4,12 +4,12 @@
   font-weight: bold;
 }
 
-.host {
-  flex: 0 0 300px;
+.foreignId {
+  flex: 0 0 200px;
 }
 
-.path {
-  flex: 0 0 400px;
+.name {
+  flex: 1 0 300px;
 }
 
 .addImportListExclusion {
