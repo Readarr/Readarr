@@ -177,7 +177,10 @@ namespace NzbDrone.Core.Books.Calibre
                 if (File.Exists(imageFile))
                 {
                     var imageData = File.ReadAllBytes(imageFile);
-                    image = Convert.ToBase64String(imageData);
+                    if (CalibreImageValidator.IsValidImage(imageData))
+                    {
+                        image = Convert.ToBase64String(imageData);
+                    }
                 }
             }
 
