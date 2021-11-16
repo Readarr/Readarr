@@ -196,7 +196,7 @@ namespace NzbDrone.Core.ImportLists
             {
                 _logger.Debug("{0} [{1}] Rejected, Book Exists in DB.  Ensuring Book and Author monitored.", report.EditionGoodreadsId, report.Book);
 
-                if (importList.ShouldMonitor != ImportListMonitorType.None)
+                if (importList.ShouldMonitorExisting && importList.ShouldMonitor != ImportListMonitorType.None)
                 {
                     if (!existingBook.Monitored)
                     {
@@ -307,7 +307,7 @@ namespace NzbDrone.Core.ImportLists
             {
                 _logger.Debug("{0} [{1}] Rejected, Author Exists in DB.  Ensuring Author monitored", report.AuthorGoodreadsId, report.Author);
 
-                if (!existingAuthor.Monitored)
+                if (importList.ShouldMonitorExisting && !existingAuthor.Monitored)
                 {
                     existingAuthor.Monitored = true;
                     _authorService.UpdateAuthor(existingAuthor);
