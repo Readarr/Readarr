@@ -29,6 +29,7 @@ namespace NzbDrone.Core.Profiles.Metadata
     public class MetadataProfileService : IMetadataProfileService, IHandle<ApplicationStartedEvent>
     {
         public const string NONE_PROFILE_NAME = "None";
+        public const double NONE_PROFILE_MIN_POPULARITY = 1e10;
 
         private static readonly Regex PartOrSetRegex = new Regex(@"(?<from>\d+) of (?<to>\d+)|(?<from>\d+)\s?/\s?(?<to>\d+)|(?<from>\d+)\s?-\s?(?<to>\d+)",
             RegexOptions.Compiled | RegexOptions.IgnoreCase);
@@ -153,7 +154,7 @@ namespace NzbDrone.Core.Profiles.Metadata
             var localHash = new HashSet<string>(localBooks.Where(x => x.AddOptions.AddType == BookAddType.Manual).Select(x => x.ForeignBookId));
             localHash.UnionWith(localFiles.Select(x => x.Edition.Value.Book.Value.ForeignBookId));
 
-            FilterByPredicate(hash, x => x.ForeignBookId, localHash, profile, (x, p) => (x.Ratings.Popularity >= p.MinPopularity) || x.ReleaseDate > DateTime.UtcNow, "rating criteria not met");
+            FilterByPredicate(hash, x => x.ForeignBookId, localHash, profile, BookAllowedByRating, "rating criteria not met");
             FilterByPredicate(hash, x => x.ForeignBookId, localHash, profile, (x, p) => !p.SkipMissingDate || x.ReleaseDate.HasValue, "release date is missing");
             FilterByPredicate(hash, x => x.ForeignBookId, localHash, profile, (x, p) => !p.SkipPartsAndSets || !IsPartOrSet(x, seriesLinks.GetValueOrDefault(x), titles), "book is part of set");
             FilterByPredicate(hash, x => x.ForeignBookId, localHash, profile, (x, p) => !p.SkipSeriesSecondary || !seriesLinks.ContainsKey(x) || seriesLinks[x].Any(y => y.IsPrimary), "book is a secondary series item");
@@ -196,6 +197,17 @@ namespace NzbDrone.Core.Profiles.Metadata
                 _logger.Trace($"Skipping {filtered.Count} {typeof(T).Name} because {message}:\n{filtered.ConcatToString(x => x.ToString(), "\n")}");
                 remoteItems.RemoveWhere(x => filtered.Contains(x));
             }
+        }
+
+        private bool BookAllowedByRating(Book b, MetadataProfile p)
+        {
+            // hack for the 'none' metadata profile
+            if (p.MinPopularity == NONE_PROFILE_MIN_POPULARITY)
+            {
+                return false;
+            }
+
+            return (b.Ratings.Popularity >= p.MinPopularity) || b.ReleaseDate > DateTime.UtcNow;
         }
 
         private bool IsPartOrSet(Book book, List<SeriesBookLink> seriesLinks, HashSet<string> titles)
@@ -258,7 +270,7 @@ namespace NzbDrone.Core.Profiles.Metadata
             // make sure empty profile exists and is actually empty
             // TODO: reinstate
             if (emptyProfile != null &&
-                emptyProfile.MinPopularity == 1e10)
+                emptyProfile.MinPopularity == NONE_PROFILE_MIN_POPULARITY)
             {
                 return;
             }
@@ -300,7 +312,7 @@ namespace NzbDrone.Core.Profiles.Metadata
             Add(new MetadataProfile
             {
                 Name = NONE_PROFILE_NAME,
-                MinPopularity = 1e10
+                MinPopularity = NONE_PROFILE_MIN_POPULARITY
             });
         }
     }
