@@ -7,12 +7,12 @@
   line-height: 30px;
 }
 
-.authorName {
-  flex: 0 0 300px;
+.name {
+  flex: 1 0 300px;
 }
 
 .foreignId {
-  flex: 0 0 400px;
+  flex: 0 0 200px;
 }
 
 .actions {
