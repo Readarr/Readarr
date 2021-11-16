@@ -84,7 +84,7 @@ namespace NzbDrone.Core.IndexerSearch
                     SortKey = "Id"
                 };
 
-                pagingSpec.FilterExpressions.Add(v => v.Monitored == true && v.Author.Value.Monitored == true);
+                pagingSpec.FilterExpressions.Add(v => v.Monitored == true);
 
                 books = _bookService.BooksWithoutFiles(pagingSpec).Records.Where(e => e.AuthorId.Equals(authorId)).ToList();
             }
@@ -98,7 +98,7 @@ namespace NzbDrone.Core.IndexerSearch
                     SortKey = "Id"
                 };
 
-                pagingSpec.FilterExpressions.Add(v => v.Monitored == true && v.Author.Value.Monitored == true);
+                pagingSpec.FilterExpressions.Add(v => v.Monitored == true);
 
                 books = _bookService.BooksWithoutFiles(pagingSpec).Records.ToList();
             }
@@ -113,9 +113,7 @@ namespace NzbDrone.Core.IndexerSearch
         {
             Expression<Func<Book, bool>> filterExpression;
 
-            filterExpression = v =>
-                v.Monitored == true &&
-                v.Author.Value.Monitored == true;
+            filterExpression = v => v.Monitored == true;
 
             var pagingSpec = new PagingSpec<Book>
             {

@@ -149,8 +149,7 @@ namespace NzbDrone.Core.Books
             if (!includeUnmonitored)
             {
                 builder = builder.Where<Book>(e => e.Monitored == true)
-                    .Join<Book, Author>((l, r) => l.AuthorMetadataId == r.AuthorMetadataId)
-                    .Where<Author>(e => e.Monitored == true);
+                    .Join<Book, Author>((l, r) => l.AuthorMetadataId == r.AuthorMetadataId);
             }
 
             return Query(builder);
@@ -165,8 +164,7 @@ namespace NzbDrone.Core.Books
             if (!includeUnmonitored)
             {
                 builder = builder.Where<Book>(e => e.Monitored == true)
-                    .Join<Book, Author>((l, r) => l.AuthorMetadataId == r.AuthorMetadataId)
-                    .Where<Author>(e => e.Monitored == true);
+                    .Join<Book, Author>((l, r) => l.AuthorMetadataId == r.AuthorMetadataId);
             }
 
             return Query(builder);

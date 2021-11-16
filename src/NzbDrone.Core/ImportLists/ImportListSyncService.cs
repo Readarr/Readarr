@@ -307,12 +307,6 @@ namespace NzbDrone.Core.ImportLists
             {
                 _logger.Debug("{0} [{1}] Rejected, Author Exists in DB.  Ensuring Author monitored", report.AuthorGoodreadsId, report.Author);
 
-                if (importList.ShouldMonitorExisting && !existingAuthor.Monitored)
-                {
-                    existingAuthor.Monitored = true;
-                    _authorService.UpdateAuthor(existingAuthor);
-                }
-
                 return existingAuthor;
             }
 

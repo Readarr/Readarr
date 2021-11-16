@@ -28,12 +28,6 @@ namespace NzbDrone.Core.DecisionEngine.Specifications.RssSync
                 }
             }
 
-            if (!subject.Author.Monitored)
-            {
-                _logger.Debug("{0} is present in the DB but not tracked. Rejecting.", subject.Author);
-                return Decision.Reject("Author is not monitored");
-            }
-
             var monitoredCount = subject.Books.Count(book => book.Monitored);
             if (monitoredCount == subject.Books.Count)
             {

@@ -41,11 +41,11 @@ namespace Readarr.Api.V1.Wanted
 
             if (monitoredFilter != null && monitoredFilter.Value == "false")
             {
-                pagingSpec.FilterExpressions.Add(v => v.Monitored == false || v.Author.Value.Monitored == false);
+                pagingSpec.FilterExpressions.Add(v => v.Monitored == false);
             }
             else
             {
-                pagingSpec.FilterExpressions.Add(v => v.Monitored == true && v.Author.Value.Monitored == true);
+                pagingSpec.FilterExpressions.Add(v => v.Monitored == true);
             }
 
             return pagingSpec.ApplyToPage(_bookService.BooksWithoutFiles, v => MapToResource(v, includeAuthor));

@@ -64,12 +64,6 @@ namespace NzbDrone.Core.Books
         {
             if (message.Author.AddOptions == null)
             {
-                if (!message.Author.Monitored)
-                {
-                    _logger.Debug("Author is not monitored");
-                    return;
-                }
-
                 if (message.Added.Empty())
                 {
                     _logger.Debug("No new books, skipping search");

@@ -68,13 +68,6 @@ namespace NzbDrone.Core.Test.DecisionEngineTests
         }
 
         [Test]
-        public void not_monitored_author_should_be_skipped()
-        {
-            _fakeAuthor.Monitored = false;
-            _monitoredBookSpecification.IsSatisfiedBy(_parseResultMulti, null).Accepted.Should().BeFalse();
-        }
-
-        [Test]
         public void only_book_not_monitored_should_return_false()
         {
             WithFirstBookUnmonitored();
