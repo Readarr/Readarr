@@ -81,11 +81,21 @@ namespace NzbDrone.Core.MediaFiles.BookImport.Identification
                 dist.AddBool("isbn", isbn != edition.Isbn13);
                 Logger.Trace("isbn: '{0}' vs '{1}'; {2}", isbn, edition.Isbn13, dist.NormalizedDistance());
             }
+            else if (isbn.IsNullOrWhiteSpace() != edition.Isbn13.IsNullOrWhiteSpace())
+            {
+                dist.AddBool("isbn_missing", true);
+                Logger.Trace("isbn: '{0}' vs '{1}'; {2}", isbn, edition.Isbn13, dist.NormalizedDistance());
+            }
 
             var asin = localTracks.MostCommon(x => x.FileTrackInfo.Asin);
             if (asin.IsNotNullOrWhiteSpace() && edition.Asin.IsNotNullOrWhiteSpace())
             {
                 dist.AddBool("asin", asin != edition.Asin);
+                Logger.Trace("asin: '{0}' vs '{1}'; {2}", asin, edition.Asin, dist.NormalizedDistance());
+            }
+            else if (asin.IsNullOrWhiteSpace() != edition.Asin.IsNullOrWhiteSpace())
+            {
+                dist.AddBool("asin_missing", true);
                 Logger.Trace("asin: '{0}' vs '{1}'; {2}", asin, edition.Asin, dist.NormalizedDistance());
             }
 
