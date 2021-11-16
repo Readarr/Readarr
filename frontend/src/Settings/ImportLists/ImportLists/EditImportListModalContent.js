@@ -73,6 +73,7 @@ function EditImportListModalContent(props) {
     name,
     enableAutomaticAdd,
     shouldMonitor,
+    shouldMonitorExisting,
     shouldSearch,
     rootFolderPath,
     qualityProfileId,
@@ -163,6 +164,20 @@ function EditImportListModalContent(props) {
                   values={monitorOptions}
                   helpText={translate('ShouldMonitorHelpText')}
                   {...shouldMonitor}
+                  onChange={onInputChange}
+                />
+              </FormGroup>
+
+              <FormGroup>
+                <FormLabel>
+                  {translate('ShouldMonitorExisting')}
+                </FormLabel>
+
+                <FormInputGroup
+                  type={inputTypes.CHECK}
+                  name="shouldMonitorExisting"
+                  helpText={translate('ShouldMonitorExistingHelpText')}
+                  {...shouldMonitorExisting}
                   onChange={onInputChange}
                 />
               </FormGroup>
