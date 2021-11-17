@@ -476,5 +476,14 @@
     "NotMonitored": "غير مراقب",
     "ShowBookTitleHelpText": "إظهار عنوان الفيلم تحت الملصق",
     "ShowReleaseDate": "إظهار تاريخ الإصدار",
-    "ShowTitle": "إظهار العنوان"
+    "ShowTitle": "إظهار العنوان",
+    "RemoveFromBlocklist": "إزالة من القائمة السوداء",
+    "UnableToLoadBlocklist": "تعذر تحميل القائمة السوداء",
+    "Level": "مستوى",
+    "ReleaseBranchCheckOfficialBranchMessage": "الفرع {0} ليس فرع إصدار Radarr صالح ، لن تتلقى تحديثات",
+    "Time": "زمن",
+    "Component": "مكون",
+    "Blocklist": "القائمة السوداء",
+    "BlocklistHelpText": "يمنع Radarr من الاستيلاء على هذا الإصدار تلقائيًا مرة أخرى",
+    "BlocklistRelease": "إصدار القائمة السوداء"
 }

@@ -476,5 +476,13 @@
     "NotMonitored": "監視されていません",
     "ShowBookTitleHelpText": "ポスターの下に映画のタイトルを表示する",
     "ShowReleaseDate": "リリース日を表示",
-    "ShowTitle": "タイトルを表示"
+    "ShowTitle": "タイトルを表示",
+    "UnableToLoadBlocklist": "ブラックリストを読み込めません",
+    "RemoveFromBlocklist": "ブラックリストから削除する",
+    "Component": "成分",
+    "Level": "レベル",
+    "ReleaseBranchCheckOfficialBranchMessage": "ブランチ{0}は有効なRadarrリリースブランチではありません。更新を受け取りません。",
+    "Time": "時間",
+    "Blocklist": "ブラックリスト",
+    "BlocklistRelease": "ブラックリストリリース"
 }

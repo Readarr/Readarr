@@ -476,5 +476,13 @@
     "Tomorrow": "Á morgun",
     "Trigger": "Kveikja",
     "Type": "Tegund",
-    "UI": "HÍ"
+    "UI": "HÍ",
+    "Level": "Stig",
+    "RemoveFromBlocklist": "Fjarlægja af svörtum lista",
+    "UnableToLoadBlocklist": "Ekki er hægt að hlaða svartan lista",
+    "Component": "Hluti",
+    "ReleaseBranchCheckOfficialBranchMessage": "Útibú {0} er ekki gild útibú frá Radarr, þú færð ekki uppfærslur",
+    "Time": "Tími",
+    "Blocklist": "Svartur listi",
+    "BlocklistRelease": "Útgáfa svartalista"
 }

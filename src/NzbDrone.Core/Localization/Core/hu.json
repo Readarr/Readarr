@@ -625,7 +625,7 @@
     "TotalBookCountBooksTotalBookFileCountBooksWithFilesInterp": "{0} könyv összesen. {1} könyv fájlokkal.",
     "TheBooksFilesWillBeDeleted": "A könyv(ek) fájljai törlődnek.",
     "Term": "Feltétel",
-    "TagsHelpText": "A kiadási profilok legalább egy megfelelő címkével rendelkező szerzőkre vonatkoznak. Hagyja üresen, hogy minden szerzőre alkalmazható legyen",
+    "TagsHelpText": "Azokra a szerzőkre vonatkozik, akik legalább egy megfelelő címkével rendelkeznek. Hagyja üresen, ha minden szerzőre vonatkozik",
     "TBA": "Bejelentés alatt",
     "StatusEndedDeceased": "Elhunyt",
     "StatusEndedContinuing": "Folytatás",
@@ -736,5 +736,10 @@
     "Blocklist": "Feketelista",
     "BlocklistHelpText": "Megakadályozza, hogy a Readarr automatikusan letöltse újra",
     "RemoveFromBlocklist": "Eltávolítás a feketelistáról",
-    "UnableToLoadBlocklist": "Nem sikerült betölteni a feketelistát"
+    "UnableToLoadBlocklist": "Nem sikerült betölteni a feketelistát",
+    "Component": "Komponens",
+    "Level": "Szint",
+    "ReleaseBranchCheckOfficialBranchMessage": "A(z) {0} nem érvényes Readarr frissítési ágazat, ezért nem kap frissítéseket",
+    "Time": "Idő",
+    "IgnoredMetaHelpText": "A rendszer figyelmen kívül hagyja azokat a könyveket, amelyek egy vagy több kritériumot tartalmaznak (a kis- és nagybetűket nem különbözteti meg)"
 }

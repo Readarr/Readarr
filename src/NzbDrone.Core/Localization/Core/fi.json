@@ -476,5 +476,13 @@
     "NotMonitored": "Ei valvottu",
     "ShowBookTitleHelpText": "Näytä elokuvan nimi julisteen alla",
     "ShowReleaseDate": "Näytä julkaisupäivä",
-    "ShowTitle": "Näytä otsikko"
+    "ShowTitle": "Näytä otsikko",
+    "Component": "Komponentti",
+    "Level": "Taso",
+    "RemoveFromBlocklist": "Poista mustalta listalta",
+    "UnableToLoadBlocklist": "Mustaa listaa ei voi ladata",
+    "ReleaseBranchCheckOfficialBranchMessage": "Branch {0} ei ole kelvollinen Radarr-julkaisuhakemisto, et saa päivityksiä",
+    "Time": "Aika",
+    "Blocklist": "Musta lista",
+    "BlocklistRelease": "Mustan listan julkaisu"
 }

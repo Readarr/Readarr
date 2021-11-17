@@ -478,5 +478,18 @@
     "Trigger": "Trigger",
     "Type": "Tipo",
     "UI": "Interfaccia",
-    "CloneIndexer": "Clona Indexer"
+    "CloneIndexer": "Clona Indexer",
+    "RemoveFromBlocklist": "Rimuovi della blacklist",
+    "Time": "Orario",
+    "Label": "Etichetta",
+    "UnableToLoadBlocklist": "Non riesco a caricare la BlackList",
+    "Component": "Componente",
+    "Level": "Livello",
+    "ReleaseBranchCheckOfficialBranchMessage": "Il Branch {0} non è un branch valido per le release di Radarr, non riceverai aggiornamenti",
+    "Absolute": "Assoluto",
+    "AddMissing": "Aggiungi ai mancanti",
+    "AddNewItem": "Aggiungi Nuovo Elemento",
+    "Blocklist": "Lista Nera",
+    "BlocklistHelpText": "Impedisci a Radarr di acquisire automaticamente questo versione",
+    "BlocklistRelease": "Release in blacklist"
 }
