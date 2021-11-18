@@ -7,6 +7,7 @@
   <ItemGroup>
     <PackageReference Include="DryIoc.dll" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" />
+	<PackageReference Include="Microsoft.Extensions.Hosting.WindowsServices" />
     <PackageReference Include="NLog.Extensions.Logging" />
     <PackageReference Include="Newtonsoft.Json" />
     <PackageReference Include="NLog" />
