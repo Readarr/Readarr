@@ -73,7 +73,7 @@ namespace Readarr.Api.V1.Books
                 var books = _bookService.GetAllBooks();
 
                 var authors = _authorService.GetAllAuthors().ToDictionary(x => x.AuthorMetadataId);
-                var editions = _editionService.GetAllEditions().GroupBy(x => x.BookId).ToDictionary(x => x.Key, y => y.ToList());
+                var editions = _editionService.GetAllMonitoredEditions().GroupBy(x => x.BookId).ToDictionary(x => x.Key, y => y.ToList());
 
                 foreach (var book in books)
                 {

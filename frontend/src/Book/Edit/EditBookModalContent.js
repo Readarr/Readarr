@@ -6,11 +6,13 @@ import FormInputGroup from 'Components/Form/FormInputGroup';
 import FormLabel from 'Components/Form/FormLabel';
 import Button from 'Components/Link/Button';
 import SpinnerButton from 'Components/Link/SpinnerButton';
+import LoadingIndicator from 'Components/Loading/LoadingIndicator';
 import ModalBody from 'Components/Modal/ModalBody';
 import ModalContent from 'Components/Modal/ModalContent';
 import ModalFooter from 'Components/Modal/ModalFooter';
 import ModalHeader from 'Components/Modal/ModalHeader';
 import { inputTypes } from 'Helpers/Props';
+import getErrorMessage from 'Utilities/Object/getErrorMessage';
 import translate from 'Utilities/String/translate';
 
 class EditBookModalContent extends Component {
@@ -36,6 +38,9 @@ class EditBookModalContent extends Component {
       authorName,
       statistics,
       item,
+      isFetching,
+      isPopulated,
+      error,
       isSaving,
       onInputChange,
       onModalClose,
@@ -49,6 +54,7 @@ class EditBookModalContent extends Component {
     } = item;
 
     const hasFile = statistics ? statistics.bookFileCount : 0;
+    const errorMessage = getErrorMessage(error, 'Unable to load editions');
 
     return (
       <ModalContent onModalClose={onModalClose}>
@@ -88,20 +94,33 @@ class EditBookModalContent extends Component {
               />
             </FormGroup>
 
-            <FormGroup>
-              <FormLabel>
-                {translate('Edition')}
-              </FormLabel>
+            {
+              isFetching &&
+                <LoadingIndicator />
+            }
 
-              <FormInputGroup
-                type={inputTypes.BOOK_EDITION_SELECT}
-                name="editions"
-                helpText={translate('EditionsHelpText')}
-                isDisabled={anyEditionOk.value && hasFile}
-                bookEditions={editions}
-                onChange={onInputChange}
-              />
-            </FormGroup>
+            {
+              error &&
+                <div>{errorMessage}</div>
+            }
+
+            {
+              isPopulated && !isFetching && !!editions.value.length &&
+                <FormGroup>
+                  <FormLabel>
+                    {translate('Edition')}
+                  </FormLabel>
+
+                  <FormInputGroup
+                    type={inputTypes.BOOK_EDITION_SELECT}
+                    name="editions"
+                    helpText={translate('EditionsHelpText')}
+                    isDisabled={anyEditionOk.value && hasFile}
+                    bookEditions={editions}
+                    onChange={onInputChange}
+                  />
+                </FormGroup>
+            }
 
           </Form>
         </ModalBody>
@@ -131,6 +150,9 @@ EditBookModalContent.propTypes = {
   authorName: PropTypes.string.isRequired,
   statistics: PropTypes.object.isRequired,
   item: PropTypes.object.isRequired,
+  isFetching: PropTypes.bool.isRequired,
+  error: PropTypes.object,
+  isPopulated: PropTypes.bool.isRequired,
   isSaving: PropTypes.bool.isRequired,
   onInputChange: PropTypes.func.isRequired,
   onSavePress: PropTypes.func.isRequired,
