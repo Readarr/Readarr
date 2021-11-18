@@ -4,6 +4,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Threading;
 using FluentAssertions;
 using Moq;
@@ -15,6 +16,8 @@ using NzbDrone.Common.Http;
 using NzbDrone.Common.Http.Dispatchers;
 using NzbDrone.Common.Http.Proxy;
 using NzbDrone.Common.TPL;
+using NzbDrone.Core.Configuration;
+using NzbDrone.Core.Security;
 using NzbDrone.Test.Common;
 using NzbDrone.Test.Common.Categories;
 using HttpClient = NzbDrone.Common.Http.HttpClient;
@@ -41,7 +44,7 @@ namespace NzbDrone.Common.Test.Http
             var mainHost = "httpbin.servarr.com";
 
             // Use mirrors for tests that use two hosts
-            var candidates = new[] { "eu.httpbin.org", /* "httpbin.org", */ "www.httpbin.org" };
+            var candidates = new[] { "httpbin1.servarr.com" };
 
             // httpbin.org is broken right now, occassionally redirecting to https if it's unavailable.
             _httpBinHost = mainHost;
@@ -49,7 +52,7 @@ namespace NzbDrone.Common.Test.Http
 
             TestLogger.Info($"{candidates.Length} TestSites available.");
 
-            _httpBinSleep = _httpBinHosts.Count() < 2 ? 100 : 10;
+            _httpBinSleep = 10;
         }
 
         private bool IsTestSiteAvailable(string site)
@@ -84,10 +87,13 @@ namespace NzbDrone.Common.Test.Http
             Mocker.GetMock<IOsInfo>().Setup(c => c.Name).Returns("TestOS");
             Mocker.GetMock<IOsInfo>().Setup(c => c.Version).Returns("9.0.0");
 
+            Mocker.GetMock<IConfigService>().SetupGet(x => x.CertificateValidation).Returns(CertificateValidationType.Enabled);
+
             Mocker.SetConstant<IUserAgentBuilder>(Mocker.Resolve<UserAgentBuilder>());
 
             Mocker.SetConstant<ICacheManager>(Mocker.Resolve<CacheManager>());
             Mocker.SetConstant<ICreateManagedWebProxy>(Mocker.Resolve<ManagedWebProxyFactory>());
+            Mocker.SetConstant<ICertificateValidationService>(new X509CertificateValidationService(Mocker.GetMock<IConfigService>().Object, TestLogger));
             Mocker.SetConstant<IRateLimitService>(Mocker.Resolve<RateLimitService>());
             Mocker.SetConstant<IEnumerable<IHttpRequestInterceptor>>(new IHttpRequestInterceptor[0]);
             Mocker.SetConstant<IHttpDispatcher>(Mocker.Resolve<TDispatcher>());
@@ -125,6 +131,28 @@ namespace NzbDrone.Common.Test.Http
             var response = Subject.Execute(request);
 
             response.Content.Should().NotBeNullOrWhiteSpace();
+        }
+
+        [TestCase(CertificateValidationType.Enabled)]
+        [TestCase(CertificateValidationType.DisabledForLocalAddresses)]
+        public void bad_ssl_should_fail_when_remote_validation_enabled(CertificateValidationType validationType)
+        {
+            Mocker.GetMock<IConfigService>().SetupGet(x => x.CertificateValidation).Returns(validationType);
+            var request = new HttpRequest($"https://expired.badssl.com");
+
+            Assert.Throws<HttpRequestException>(() => Subject.Execute(request));
+            ExceptionVerification.ExpectedErrors(2);
+        }
+
+        [Test]
+        public void bad_ssl_should_pass_if_remote_validation_disabled()
+        {
+            Mocker.GetMock<IConfigService>().SetupGet(x => x.CertificateValidation).Returns(CertificateValidationType.Disabled);
+
+            var request = new HttpRequest($"https://expired.badssl.com");
+
+            Subject.Execute(request);
+            ExceptionVerification.ExpectedErrors(0);
         }
 
         [Test]
