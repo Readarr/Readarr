@@ -12,7 +12,7 @@ namespace NzbDrone.Core.Books
     {
         Edition GetEdition(int id);
         Edition GetEditionByForeignEditionId(string foreignEditionId);
-        List<Edition> GetAllEditions();
+        List<Edition> GetAllMonitoredEditions();
         void InsertMany(List<Edition> editions);
         void UpdateMany(List<Edition> editions);
         void DeleteMany(List<Edition> editions);
@@ -48,9 +48,9 @@ namespace NzbDrone.Core.Books
             return _editionRepository.FindByForeignEditionId(foreignEditionId);
         }
 
-        public List<Edition> GetAllEditions()
+        public List<Edition> GetAllMonitoredEditions()
         {
-            return _editionRepository.All().ToList();
+            return _editionRepository.GetAllMonitoredEditions();
         }
 
         public void InsertMany(List<Edition> editions)

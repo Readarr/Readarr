@@ -14,6 +14,7 @@ import * as calendar from './calendarActions';
 import * as captcha from './captchaActions';
 import * as commands from './commandActions';
 import * as customFilters from './customFilterActions';
+import * as editions from './editionActions';
 import * as history from './historyActions';
 import * as interactiveImportActions from './interactiveImportActions';
 import * as oAuth from './oAuthActions';
@@ -47,6 +48,7 @@ export default [
   captcha,
   commands,
   customFilters,
+  editions,
   history,
   interactiveImportActions,
   oAuth,
