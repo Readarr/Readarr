@@ -6,6 +6,7 @@ import * as authorHistory from './authorHistoryActions';
 import * as authorIndex from './authorIndexActions';
 import * as blocklist from './blocklistActions';
 import * as books from './bookActions';
+import * as bookEditor from './bookEditorActions';
 import * as bookFiles from './bookFileActions';
 import * as bookHistory from './bookHistoryActions';
 import * as bookIndex from './bookIndexActions';
@@ -43,6 +44,7 @@ export default [
   bookHistory,
   bookIndex,
   books,
+  bookEditor,
   bookStudio,
   calendar,
   captcha,
