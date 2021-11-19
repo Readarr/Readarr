@@ -5,6 +5,7 @@ import DeleteAuthorModal from 'Author/Delete/DeleteAuthorModal';
 import EditAuthorModalConnector from 'Author/Edit/EditAuthorModalConnector';
 import AuthorHistoryTable from 'Author/History/AuthorHistoryTable';
 import MonitoringOptionsModal from 'Author/MonitoringOptions/MonitoringOptionsModal';
+import BookEditorFooter from 'Book/Editor/BookEditorFooter';
 import BookFileEditorTable from 'BookFile/Editor/BookFileEditorTable';
 import IconButton from 'Components/Link/IconButton';
 import Link from 'Components/Link/Link';
@@ -22,6 +23,7 @@ import InteractiveSearchTable from 'InteractiveSearch/InteractiveSearchTable';
 import OrganizePreviewModalConnector from 'Organize/OrganizePreviewModalConnector';
 import RetagPreviewModalConnector from 'Retag/RetagPreviewModalConnector';
 import translate from 'Utilities/String/translate';
+import getSelectedIds from 'Utilities/Table/getSelectedIds';
 import selectAll from 'Utilities/Table/selectAll';
 import toggleSelected from 'Utilities/Table/toggleSelected';
 import InteractiveImportModal from '../../InteractiveImport/InteractiveImportModal';
@@ -53,11 +55,54 @@ class AuthorDetails extends Component {
       isDeleteAuthorModalOpen: false,
       isInteractiveImportModalOpen: false,
       isMonitorOptionsModalOpen: false,
+      isBookEditorActive: false,
       allExpanded: false,
       allCollapsed: false,
       expandedState: {},
+      allSelected: false,
+      allUnselected: false,
+      lastToggled: null,
+      selectedState: {},
       selectedTabIndex: 0
     };
+  }
+
+  //
+  // Control
+
+  setSelectedState = (items) => {
+    const {
+      selectedState
+    } = this.state;
+
+    const newSelectedState = {};
+
+    items.forEach((item) => {
+      const isItemSelected = selectedState[item.id];
+
+      if (isItemSelected) {
+        newSelectedState[item.id] = isItemSelected;
+      } else {
+        newSelectedState[item.id] = false;
+      }
+    });
+
+    const selectedCount = getSelectedIds(newSelectedState).length;
+    const newStateCount = Object.keys(newSelectedState).length;
+    let isAllSelected = false;
+    let isAllUnselected = false;
+
+    if (selectedCount === 0) {
+      isAllUnselected = true;
+    } else if (selectedCount === newStateCount) {
+      isAllSelected = true;
+    }
+
+    this.setState({ selectedState: newSelectedState, allSelected: isAllSelected, allUnselected: isAllUnselected });
+  }
+
+  getSelectedIds = () => {
+    return getSelectedIds(this.state.selectedState);
   }
 
   //
@@ -114,6 +159,10 @@ class AuthorDetails extends Component {
     this.setState({ isMonitorOptionsModalOpen: false });
   }
 
+  onBookEditorTogglePress = () => {
+    this.setState({ isBookEditorActive: !this.state.isBookEditorActive });
+  }
+
   onExpandAllPress = () => {
     const {
       allExpanded,
@@ -134,6 +183,27 @@ class AuthorDetails extends Component {
       const newState = toggleSelected(convertedState, [], bookId, isExpanded, false);
 
       return getExpandedState(newState);
+    });
+  }
+
+  onSelectAllChange = ({ value }) => {
+    this.setState(selectAll(this.state.selectedState, value));
+  }
+
+  onSelectAllPress = () => {
+    this.onSelectAllChange({ value: !this.state.allSelected });
+  }
+
+  onSelectedChange = (items, id, value, shiftKey = false) => {
+    this.setState((state) => {
+      return toggleSelected(state, items, id, value, shiftKey);
+    });
+  }
+
+  onSaveSelected = (changes) => {
+    this.props.onSaveSelected({
+      bookIds: this.getSelectedIds(),
+      ...changes
     });
   }
 
@@ -165,6 +235,10 @@ class AuthorDetails extends Component {
       nextAuthor,
       onRefreshPress,
       onSearchPress,
+      isSaving,
+      saveError,
+      isDeleting,
+      deleteError,
       statistics
     } = this.props;
 
@@ -175,6 +249,9 @@ class AuthorDetails extends Component {
       isDeleteAuthorModalOpen,
       isInteractiveImportModalOpen,
       isMonitorOptionsModalOpen,
+      isBookEditorActive,
+      allSelected,
+      selectedState,
       allExpanded,
       allCollapsed,
       expandedState,
@@ -188,6 +265,8 @@ class AuthorDetails extends Component {
     } else if (allCollapsed) {
       expandIcon = icons.EXPAND;
     }
+
+    const selectedBookIds = this.getSelectedIds();
 
     return (
       <PageContent title={authorName}>
@@ -252,6 +331,33 @@ class AuthorDetails extends Component {
               iconName={icons.DELETE}
               onPress={this.onDeleteAuthorPress}
             />
+
+            <PageToolbarSeparator />
+
+            {
+              isBookEditorActive ?
+                <PageToolbarButton
+                  label={translate('BookList')}
+                  iconName={icons.AUTHOR_CONTINUING}
+                  onPress={this.onBookEditorTogglePress}
+                /> :
+                <PageToolbarButton
+                  label={translate('BookEditor')}
+                  iconName={icons.EDIT}
+                  onPress={this.onBookEditorTogglePress}
+                />
+            }
+
+            {
+              isBookEditorActive ?
+                <PageToolbarButton
+                  label={allSelected ? translate('UnselectAll') : translate('SelectAll')}
+                  iconName={icons.CHECK_SQUARE}
+                  onPress={this.onSelectAllPress}
+                /> :
+                null
+            }
+
           </PageToolbarSection>
 
           <PageToolbarSection alignContent={align.RIGHT}>
@@ -377,7 +483,11 @@ class AuthorDetails extends Component {
                     <AuthorDetailsSeasonConnector
                       authorId={id}
                       isExpanded={true}
+                      selectedState={selectedState}
                       onExpandPress={this.onExpandPress}
+                      setSelectedState={this.setSelectedState}
+                      onSelectedChange={this.onSelectedChange}
+                      isBookEditorActive={isBookEditorActive}
                     />
                   </TabPanel>
 
@@ -422,7 +532,6 @@ class AuthorDetails extends Component {
                   </TabPanel>
                 </Tabs>
             }
-
           </div>
 
           <div className={styles.metadataMessage}>
@@ -474,6 +583,19 @@ class AuthorDetails extends Component {
             onModalClose={this.onMonitorOptionsClose}
           />
         </PageContentBody>
+
+        {
+          isBookEditorActive &&
+            <BookEditorFooter
+              bookIds={selectedBookIds}
+              selectedCount={selectedBookIds.length}
+              isSaving={isSaving}
+              saveError={saveError}
+              isDeleting={isDeleting}
+              deleteError={deleteError}
+              onSaveSelected={this.onSaveSelected}
+            />
+        }
       </PageContent>
     );
   }
@@ -493,7 +615,6 @@ AuthorDetails.propTypes = {
   images: PropTypes.arrayOf(PropTypes.object).isRequired,
   alternateTitles: PropTypes.arrayOf(PropTypes.string).isRequired,
   tags: PropTypes.arrayOf(PropTypes.number).isRequired,
-  isSaving: PropTypes.bool.isRequired,
   isRefreshing: PropTypes.bool.isRequired,
   isSearching: PropTypes.bool.isRequired,
   isFetching: PropTypes.bool.isRequired,
@@ -510,13 +631,17 @@ AuthorDetails.propTypes = {
   isSmallScreen: PropTypes.bool.isRequired,
   onMonitorTogglePress: PropTypes.func.isRequired,
   onRefreshPress: PropTypes.func.isRequired,
-  onSearchPress: PropTypes.func.isRequired
+  onSearchPress: PropTypes.func.isRequired,
+  isSaving: PropTypes.bool.isRequired,
+  saveError: PropTypes.object,
+  isDeleting: PropTypes.bool.isRequired,
+  deleteError: PropTypes.object,
+  onSaveSelected: PropTypes.func.isRequired
 };
 
 AuthorDetails.defaultProps = {
   statistics: {},
-  tags: [],
-  isSaving: false
+  tags: []
 };
 
 export default AuthorDetails;
