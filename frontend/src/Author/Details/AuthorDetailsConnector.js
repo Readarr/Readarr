@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
 import * as commandNames from 'Commands/commandNames';
 import { toggleAuthorMonitored } from 'Store/Actions/authorActions';
+import { saveBookEditor } from 'Store/Actions/bookEditorActions';
 import { clearBookFiles, fetchBookFiles } from 'Store/Actions/bookFileActions';
 import { executeCommand } from 'Store/Actions/commandActions';
 import { clearQueueDetails, fetchQueueDetails } from 'Store/Actions/queueActions';
@@ -21,7 +22,8 @@ import AuthorDetails from './AuthorDetails';
 
 const selectBooks = createSelector(
   (state) => state.books,
-  (books) => {
+  (state) => state.bookEditor,
+  (books, editor) => {
     const {
       items,
       isFetching,
@@ -37,7 +39,8 @@ const selectBooks = createSelector(
       isBooksPopulated: isPopulated,
       booksError: error,
       hasBooks,
-      hasMonitoredBooks
+      hasMonitoredBooks,
+      ...editor
     };
   }
 );
@@ -187,6 +190,7 @@ function createMapStateToProps() {
 const mapDispatchToProps = {
   fetchSeries,
   clearSeries,
+  saveBookEditor,
   fetchBookFiles,
   clearBookFiles,
   toggleAuthorMonitored,
@@ -282,6 +286,10 @@ class AuthorDetailsConnector extends Component {
     });
   }
 
+  onSaveSelected = (payload) => {
+    this.props.saveBookEditor(payload);
+  }
+
   //
   // Render
 
@@ -292,6 +300,7 @@ class AuthorDetailsConnector extends Component {
         onMonitorTogglePress={this.onMonitorTogglePress}
         onRefreshPress={this.onRefreshPress}
         onSearchPress={this.onSearchPress}
+        onSaveSelected={this.onSaveSelected}
       />
     );
   }
@@ -307,6 +316,7 @@ AuthorDetailsConnector.propTypes = {
   isRenamingAuthor: PropTypes.bool.isRequired,
   fetchSeries: PropTypes.func.isRequired,
   clearSeries: PropTypes.func.isRequired,
+  saveBookEditor: PropTypes.func.isRequired,
   fetchBookFiles: PropTypes.func.isRequired,
   clearBookFiles: PropTypes.func.isRequired,
   toggleAuthorMonitored: PropTypes.func.isRequired,

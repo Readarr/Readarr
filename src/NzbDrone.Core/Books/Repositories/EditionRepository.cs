@@ -9,6 +9,7 @@ namespace NzbDrone.Core.Books
 {
     public interface IEditionRepository : IBasicRepository<Edition>
     {
+        List<Edition> GetAllMonitoredEditions();
         Edition FindByForeignEditionId(string foreignEditionId);
         List<Edition> FindByBook(int id);
         List<Edition> FindByAuthor(int id);
@@ -23,6 +24,11 @@ namespace NzbDrone.Core.Books
         public EditionRepository(IMainDatabase database, IEventAggregator eventAggregator)
             : base(database, eventAggregator)
         {
+        }
+
+        public List<Edition> GetAllMonitoredEditions()
+        {
+            return Query(x => x.Monitored == true);
         }
 
         public Edition FindByForeignEditionId(string foreignEditionId)

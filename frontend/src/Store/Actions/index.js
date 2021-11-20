@@ -6,6 +6,7 @@ import * as authorHistory from './authorHistoryActions';
 import * as authorIndex from './authorIndexActions';
 import * as blocklist from './blocklistActions';
 import * as books from './bookActions';
+import * as bookEditor from './bookEditorActions';
 import * as bookFiles from './bookFileActions';
 import * as bookHistory from './bookHistoryActions';
 import * as bookIndex from './bookIndexActions';
@@ -14,6 +15,7 @@ import * as calendar from './calendarActions';
 import * as captcha from './captchaActions';
 import * as commands from './commandActions';
 import * as customFilters from './customFilterActions';
+import * as editions from './editionActions';
 import * as history from './historyActions';
 import * as interactiveImportActions from './interactiveImportActions';
 import * as oAuth from './oAuthActions';
@@ -42,11 +44,13 @@ export default [
   bookHistory,
   bookIndex,
   books,
+  bookEditor,
   bookStudio,
   calendar,
   captcha,
   commands,
   customFilters,
+  editions,
   history,
   interactiveImportActions,
   oAuth,

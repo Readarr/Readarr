@@ -1,9 +1,9 @@
 using System;
 using System.Diagnostics;
 using System.IO;
-using System.Reflection;
 using System.Security.Principal;
-using System.ServiceProcess;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Hosting.WindowsServices;
 using NLog;
 using NzbDrone.Common.Processes;
 
@@ -14,14 +14,11 @@ namespace NzbDrone.Common.EnvironmentInfo
         private readonly Logger _logger;
         private readonly DateTime _startTime = DateTime.UtcNow;
 
-        public RuntimeInfo(IServiceProvider serviceProvider, Logger logger)
+        public RuntimeInfo(IHostLifetime hostLifetime, Logger logger)
         {
             _logger = logger;
 
-            IsWindowsService = !IsUserInteractive &&
-                               OsInfo.IsWindows &&
-                               serviceProvider.ServiceExist(ServiceProvider.SERVICE_NAME) &&
-                               serviceProvider.GetStatus(ServiceProvider.SERVICE_NAME) == ServiceControllerStatus.StartPending;
+            IsWindowsService = hostLifetime is WindowsServiceLifetime;
 
             //Guarded to avoid issues when running in a non-managed process
             var entry = Process.GetCurrentProcess().MainModule;

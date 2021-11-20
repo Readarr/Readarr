@@ -6,6 +6,7 @@ import MonitorToggleButton from 'Components/MonitorToggleButton';
 import StarRating from 'Components/StarRating';
 import RelativeDateCellConnector from 'Components/Table/Cells/RelativeDateCellConnector';
 import TableRowCell from 'Components/Table/Cells/TableRowCell';
+import TableSelectCell from 'Components/Table/Cells/TableSelectCell';
 import TableRow from 'Components/Table/TableRow';
 import BookStatus from './BookStatus';
 import styles from './BookRow.css';
@@ -65,6 +66,9 @@ class BookRow extends Component {
       authorMonitored,
       titleSlug,
       bookFiles,
+      isBookEditorActive,
+      isSelected,
+      onSelectedChange,
       columns
     } = this.props;
 
@@ -82,6 +86,18 @@ class BookRow extends Component {
 
             if (!isVisible) {
               return null;
+            }
+
+            if (isBookEditorActive && name === 'select') {
+              return (
+                <TableSelectCell
+                  key={name}
+                  id={id}
+                  isSelected={isSelected}
+                  isDisabled={false}
+                  onSelectedChange={onSelectedChange}
+                />
+              );
             }
 
             if (name === 'monitored') {
@@ -220,6 +236,9 @@ BookRow.propTypes = {
   isSaving: PropTypes.bool,
   authorMonitored: PropTypes.bool.isRequired,
   bookFiles: PropTypes.arrayOf(PropTypes.object).isRequired,
+  isBookEditorActive: PropTypes.bool.isRequired,
+  isSelected: PropTypes.bool,
+  onSelectedChange: PropTypes.func.isRequired,
   columns: PropTypes.arrayOf(PropTypes.object).isRequired,
   onMonitorBookPress: PropTypes.func.isRequired
 };

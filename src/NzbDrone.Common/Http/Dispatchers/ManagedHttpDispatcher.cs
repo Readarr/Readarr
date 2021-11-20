@@ -3,6 +3,7 @@ using System.IO;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Net.Security;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
@@ -24,6 +25,7 @@ namespace NzbDrone.Common.Http.Dispatchers
 
         private readonly IHttpProxySettingsProvider _proxySettingsProvider;
         private readonly ICreateManagedWebProxy _createManagedWebProxy;
+        private readonly ICertificateValidationService _certificateValidationService;
         private readonly IUserAgentBuilder _userAgentBuilder;
         private readonly ICached<System.Net.Http.HttpClient> _httpClientCache;
         private readonly ICached<CredentialCache> _credentialCache;
@@ -31,12 +33,14 @@ namespace NzbDrone.Common.Http.Dispatchers
 
         public ManagedHttpDispatcher(IHttpProxySettingsProvider proxySettingsProvider,
             ICreateManagedWebProxy createManagedWebProxy,
+            ICertificateValidationService certificateValidationService,
             IUserAgentBuilder userAgentBuilder,
             ICacheManager cacheManager,
             Logger logger)
         {
             _proxySettingsProvider = proxySettingsProvider;
             _createManagedWebProxy = createManagedWebProxy;
+            _certificateValidationService = certificateValidationService;
             _userAgentBuilder = userAgentBuilder;
             _logger = logger;
 
@@ -158,7 +162,12 @@ namespace NzbDrone.Common.Http.Dispatchers
                 AllowAutoRedirect = false,
                 Credentials = GetCredentialCache(),
                 PreAuthenticate = true,
+                MaxConnectionsPerServer = 12,
                 ConnectCallback = onConnect,
+                SslOptions = new SslClientAuthenticationOptions
+                {
+                    RemoteCertificateValidationCallback = _certificateValidationService.ShouldByPassValidationError
+                }
             };
 
             if (proxySettings != null)
