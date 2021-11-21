@@ -139,7 +139,6 @@ class AuthorEditorFooter extends Component {
       isDeleting,
       isOrganizingAuthor,
       isRetaggingAuthor,
-      columns,
       onOrganizeAuthorPress,
       onRetagAuthorPress
     } = this.props;
@@ -179,87 +178,58 @@ class AuthorEditorFooter extends Component {
           />
         </div>
 
-        {
-          columns.map((column) => {
-            const {
-              name,
-              isVisible
-            } = column;
+        <div
+          className={styles.inputContainer}
+        >
+          <AuthorEditorFooterLabel
+            label={translate('QualityProfile')}
+            isSaving={isSaving && qualityProfileId !== NO_CHANGE}
+          />
 
-            if (!isVisible) {
-              return null;
-            }
+          <QualityProfileSelectInputConnector
+            name="qualityProfileId"
+            value={qualityProfileId}
+            includeNoChange={true}
+            isDisabled={!selectedCount}
+            onChange={this.onInputChange}
+          />
+        </div>
 
-            if (name === 'qualityProfileId') {
-              return (
-                <div
-                  key={name}
-                  className={styles.inputContainer}
-                >
-                  <AuthorEditorFooterLabel
-                    label={translate('QualityProfile')}
-                    isSaving={isSaving && qualityProfileId !== NO_CHANGE}
-                  />
+        <div
+          className={styles.inputContainer}
+        >
+          <AuthorEditorFooterLabel
+            label={translate('MetadataProfile')}
+            isSaving={isSaving && metadataProfileId !== NO_CHANGE}
+          />
 
-                  <QualityProfileSelectInputConnector
-                    name="qualityProfileId"
-                    value={qualityProfileId}
-                    includeNoChange={true}
-                    isDisabled={!selectedCount}
-                    onChange={this.onInputChange}
-                  />
-                </div>
-              );
-            }
+          <MetadataProfileSelectInputConnector
+            name="metadataProfileId"
+            value={metadataProfileId}
+            includeNoChange={true}
+            includeNone={true}
+            isDisabled={!selectedCount}
+            onChange={this.onInputChange}
+          />
+        </div>
 
-            if (name === 'metadataProfileId') {
-              return (
-                <div
-                  key={name}
-                  className={styles.inputContainer}
-                >
-                  <AuthorEditorFooterLabel
-                    label={translate('MetadataProfile')}
-                    isSaving={isSaving && metadataProfileId !== NO_CHANGE}
-                  />
+        <div
+          className={styles.inputContainer}
+        >
+          <AuthorEditorFooterLabel
+            label={translate('RootFolder')}
+            isSaving={isSaving && rootFolderPath !== NO_CHANGE}
+          />
 
-                  <MetadataProfileSelectInputConnector
-                    name="metadataProfileId"
-                    value={metadataProfileId}
-                    includeNoChange={true}
-                    isDisabled={!selectedCount}
-                    onChange={this.onInputChange}
-                  />
-                </div>
-              );
-            }
-
-            if (name === 'path') {
-              return (
-                <div
-                  key={name}
-                  className={styles.inputContainer}
-                >
-                  <AuthorEditorFooterLabel
-                    label={translate('RootFolder')}
-                    isSaving={isSaving && rootFolderPath !== NO_CHANGE}
-                  />
-
-                  <RootFolderSelectInputConnector
-                    name="rootFolderPath"
-                    value={rootFolderPath}
-                    includeNoChange={true}
-                    isDisabled={!selectedCount}
-                    selectedValueOptions={{ includeFreeSpace: false }}
-                    onChange={this.onInputChange}
-                  />
-                </div>
-              );
-            }
-
-            return null;
-          })
-        }
+          <RootFolderSelectInputConnector
+            name="rootFolderPath"
+            value={rootFolderPath}
+            includeNoChange={true}
+            isDisabled={!selectedCount}
+            selectedValueOptions={{ includeFreeSpace: false }}
+            onChange={this.onInputChange}
+          />
+        </div>
 
         <div className={styles.buttonContainer}>
           <div className={styles.buttonContainerContent}>
@@ -348,7 +318,6 @@ AuthorEditorFooter.propTypes = {
   isOrganizingAuthor: PropTypes.bool.isRequired,
   isRetaggingAuthor: PropTypes.bool.isRequired,
   showMetadataProfile: PropTypes.bool.isRequired,
-  columns: PropTypes.arrayOf(PropTypes.object).isRequired,
   onSaveSelected: PropTypes.func.isRequired,
   onOrganizeAuthorPress: PropTypes.func.isRequired,
   onRetagAuthorPress: PropTypes.func.isRequired

@@ -1,12 +1,10 @@
 import * as app from './appActions';
 import * as author from './authorActions';
 import * as authorDetails from './authorDetailsActions';
-import * as authorEditor from './authorEditorActions';
 import * as authorHistory from './authorHistoryActions';
 import * as authorIndex from './authorIndexActions';
 import * as blocklist from './blocklistActions';
 import * as books from './bookActions';
-import * as bookEditor from './bookEditorActions';
 import * as bookFiles from './bookFileActions';
 import * as bookHistory from './bookHistoryActions';
 import * as bookIndex from './bookIndexActions';
@@ -36,7 +34,6 @@ export default [
   app,
   author,
   authorDetails,
-  authorEditor,
   authorHistory,
   authorIndex,
   blocklist,
@@ -44,7 +41,6 @@ export default [
   bookHistory,
   bookIndex,
   books,
-  bookEditor,
   bookStudio,
   calendar,
   captcha,

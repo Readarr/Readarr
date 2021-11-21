@@ -37,10 +37,6 @@ const links = [
         to: '/add/search'
       },
       {
-        title: 'Mass Editor',
-        to: '/authoreditor'
-      },
-      {
         title: 'Bookshelf',
         to: '/shelf'
       },

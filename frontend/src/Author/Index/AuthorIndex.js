@@ -1,6 +1,9 @@
 import _ from 'lodash';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
+import RetagAuthorModal from 'Author/Editor/AudioTags/RetagAuthorModal';
+import AuthorEditorFooter from 'Author/Editor/AuthorEditorFooter';
+import OrganizeAuthorModal from 'Author/Editor/Organize/OrganizeAuthorModal';
 import NoAuthor from 'Author/NoAuthor';
 import LoadingIndicator from 'Components/Loading/LoadingIndicator';
 import PageContent from 'Components/Page/PageContent';
@@ -15,6 +18,9 @@ import { align, icons, sortDirections } from 'Helpers/Props';
 import getErrorMessage from 'Utilities/Object/getErrorMessage';
 import hasDifferentItemsOrOrder from 'Utilities/Object/hasDifferentItemsOrOrder';
 import translate from 'Utilities/String/translate';
+import getSelectedIds from 'Utilities/Table/getSelectedIds';
+import selectAll from 'Utilities/Table/selectAll';
+import toggleSelected from 'Utilities/Table/toggleSelected';
 import AuthorIndexFooterConnector from './AuthorIndexFooterConnector';
 import AuthorIndexFilterMenu from './Menus/AuthorIndexFilterMenu';
 import AuthorIndexSortMenu from './Menus/AuthorIndexSortMenu';
@@ -52,12 +58,20 @@ class AuthorIndex extends Component {
       jumpBarItems: { order: [] },
       jumpToCharacter: null,
       isPosterOptionsModalOpen: false,
-      isOverviewOptionsModalOpen: false
+      isOverviewOptionsModalOpen: false,
+      isEditorActive: false,
+      isOrganizingAuthorModalOpen: false,
+      isRetaggingAuthorModalOpen: false,
+      allSelected: false,
+      allUnselected: false,
+      lastToggled: null,
+      selectedState: {}
     };
   }
 
   componentDidMount() {
     this.setJumpBarItems();
+    this.setSelectedState();
   }
 
   componentDidUpdate(prevProps) {
@@ -72,6 +86,7 @@ class AuthorIndex extends Component {
         hasDifferentItemsOrOrder(prevProps.items, items)
     ) {
       this.setJumpBarItems();
+      this.setSelectedState();
     }
 
     if (this.state.jumpToCharacter != null) {
@@ -84,6 +99,48 @@ class AuthorIndex extends Component {
 
   setScrollerRef = (ref) => {
     this.setState({ scroller: ref });
+  }
+
+  getSelectedIds = () => {
+    if (this.state.allUnselected) {
+      return [];
+    }
+    return getSelectedIds(this.state.selectedState);
+  }
+
+  setSelectedState() {
+    const {
+      items
+    } = this.props;
+
+    const {
+      selectedState
+    } = this.state;
+
+    const newSelectedState = {};
+
+    items.forEach((author) => {
+      const isItemSelected = selectedState[author.id];
+
+      if (isItemSelected) {
+        newSelectedState[author.id] = isItemSelected;
+      } else {
+        newSelectedState[author.id] = false;
+      }
+    });
+
+    const selectedCount = getSelectedIds(newSelectedState).length;
+    const newStateCount = Object.keys(newSelectedState).length;
+    let isAllSelected = false;
+    let isAllUnselected = false;
+
+    if (selectedCount === 0) {
+      isAllUnselected = true;
+    } else if (selectedCount === newStateCount) {
+      isAllSelected = true;
+    }
+
+    this.setState({ selectedState: newSelectedState, allSelected: isAllSelected, allUnselected: isAllUnselected });
   }
 
   setJumpBarItems() {
@@ -149,8 +206,70 @@ class AuthorIndex extends Component {
     this.setState({ isOverviewOptionsModalOpen: false });
   }
 
+  onEditorTogglePress = () => {
+    if (this.state.isEditorActive) {
+      this.setState({ isEditorActive: false });
+    } else {
+      const newState = selectAll(this.state.selectedState, false);
+      newState.isEditorActive = true;
+      this.setState(newState);
+    }
+  }
+
   onJumpBarItemPress = (jumpToCharacter) => {
     this.setState({ jumpToCharacter });
+  }
+
+  onSelectAllChange = ({ value }) => {
+    this.setState(selectAll(this.state.selectedState, value));
+  }
+
+  onSelectAllPress = () => {
+    this.onSelectAllChange({ value: !this.state.allSelected });
+  }
+
+  onSelectedChange = ({ id, value, shiftKey = false }) => {
+    this.setState((state) => {
+      return toggleSelected(state, this.props.items, id, value, shiftKey);
+    });
+  }
+
+  onSaveSelected = (changes) => {
+    this.props.onSaveSelected({
+      authorIds: this.getSelectedIds(),
+      ...changes
+    });
+  }
+
+  onOrganizeAuthorPress = () => {
+    this.setState({ isOrganizingAuthorModalOpen: true });
+  }
+
+  onOrganizeAuthorModalClose = (organized) => {
+    this.setState({ isOrganizingAuthorModalOpen: false });
+
+    if (organized === true) {
+      this.onSelectAllChange({ value: false });
+    }
+  }
+
+  onRetagAuthorPress = () => {
+    this.setState({ isRetaggingAuthorModalOpen: true });
+  }
+
+  onRetagAuthorModalClose = (organized) => {
+    this.setState({ isRetaggingAuthorModalOpen: false });
+
+    if (organized === true) {
+      this.onSelectAllChange({ value: false });
+    }
+  }
+
+  onRefreshAuthorPress = () => {
+    const selectedIds = this.getSelectedIds();
+    const refreshIds = this.state.isEditorActive && selectedIds.length > 0 ? selectedIds : [];
+
+    this.props.onRefreshAuthorPress(refreshIds);
   }
 
   //
@@ -172,11 +291,16 @@ class AuthorIndex extends Component {
       view,
       isRefreshingAuthor,
       isRssSyncExecuting,
+      isOrganizingAuthor,
+      isRetaggingAuthor,
+      isSaving,
+      saveError,
+      isDeleting,
+      deleteError,
       onScroll,
       onSortSelect,
       onFilterSelect,
       onViewSelect,
-      onRefreshAuthorPress,
       onRssSyncPress,
       ...otherProps
     } = this.props;
@@ -186,23 +310,31 @@ class AuthorIndex extends Component {
       jumpBarItems,
       jumpToCharacter,
       isPosterOptionsModalOpen,
-      isOverviewOptionsModalOpen
+      isOverviewOptionsModalOpen,
+      isEditorActive,
+      selectedState,
+      allSelected,
+      allUnselected
     } = this.state;
+
+    const selectedAuthorIds = this.getSelectedIds();
 
     const ViewComponent = getViewComponent(view);
     const isLoaded = !!(!error && isPopulated && items.length && scroller);
     const hasNoAuthor = !totalItems;
+
+    const refreshLabel = isEditorActive && selectedAuthorIds.length > 0 ? translate('UpdateSelected') : translate('UpdateAll');
 
     return (
       <PageContent>
         <PageToolbar>
           <PageToolbarSection>
             <PageToolbarButton
-              label={translate('UpdateAll')}
+              label={refreshLabel}
               iconName={icons.REFRESH}
               spinningName={icons.REFRESH}
               isSpinning={isRefreshingAuthor}
-              onPress={onRefreshAuthorPress}
+              onPress={this.onRefreshAuthorPress}
             />
 
             <PageToolbarButton
@@ -212,6 +344,35 @@ class AuthorIndex extends Component {
               isDisabled={hasNoAuthor}
               onPress={onRssSyncPress}
             />
+
+            <PageToolbarSeparator />
+
+            {
+              isEditorActive ?
+                <PageToolbarButton
+                  label={translate('AuthorIndex')}
+                  iconName={icons.AUTHOR_CONTINUING}
+                  isDisabled={hasNoAuthor}
+                  onPress={this.onEditorTogglePress}
+                /> :
+                <PageToolbarButton
+                  label={translate('AuthorEditor')}
+                  iconName={icons.EDIT}
+                  isDisabled={hasNoAuthor}
+                  onPress={this.onEditorTogglePress}
+                />
+            }
+
+            {
+              isEditorActive ?
+                <PageToolbarButton
+                  label={allSelected ? translate('UnselectAll') : translate('SelectAll')}
+                  iconName={icons.CHECK_SQUARE}
+                  isDisabled={hasNoAuthor}
+                  onPress={this.onSelectAllPress}
+                /> :
+                null
+            }
 
           </PageToolbarSection>
 
@@ -310,6 +471,12 @@ class AuthorIndex extends Component {
                     sortKey={sortKey}
                     sortDirection={sortDirection}
                     jumpToCharacter={jumpToCharacter}
+                    isEditorActive={isEditorActive}
+                    allSelected={allSelected}
+                    allUnselected={allUnselected}
+                    onSelectedChange={this.onSelectedChange}
+                    onSelectAllChange={this.onSelectAllChange}
+                    selectedState={selectedState}
                     {...otherProps}
                   />
 
@@ -332,6 +499,24 @@ class AuthorIndex extends Component {
           }
         </div>
 
+        {
+          isLoaded && isEditorActive &&
+            <AuthorEditorFooter
+              authorIds={selectedAuthorIds}
+              selectedCount={selectedAuthorIds.length}
+              isSaving={isSaving}
+              saveError={saveError}
+              isDeleting={isDeleting}
+              deleteError={deleteError}
+              isOrganizingAuthor={isOrganizingAuthor}
+              isRetaggingAuthor={isRetaggingAuthor}
+              showMetadataProfile={true}
+              onSaveSelected={this.onSaveSelected}
+              onOrganizeAuthorPress={this.onOrganizeAuthorPress}
+              onRetagAuthorPress={this.onRetagAuthorPress}
+            />
+        }
+
         <AuthorIndexPosterOptionsModal
           isOpen={isPosterOptionsModalOpen}
           onModalClose={this.onPosterOptionsModalClose}
@@ -340,8 +525,20 @@ class AuthorIndex extends Component {
         <AuthorIndexOverviewOptionsModal
           isOpen={isOverviewOptionsModalOpen}
           onModalClose={this.onOverviewOptionsModalClose}
-
         />
+
+        <OrganizeAuthorModal
+          isOpen={this.state.isOrganizingAuthorModalOpen}
+          authorIds={selectedAuthorIds}
+          onModalClose={this.onOrganizeAuthorModalClose}
+        />
+
+        <RetagAuthorModal
+          isOpen={this.state.isRetaggingAuthorModalOpen}
+          authorIds={selectedAuthorIds}
+          onModalClose={this.onRetagAuthorModalClose}
+        />
+
       </PageContent>
     );
   }
@@ -361,14 +558,21 @@ AuthorIndex.propTypes = {
   sortDirection: PropTypes.oneOf(sortDirections.all),
   view: PropTypes.string.isRequired,
   isRefreshingAuthor: PropTypes.bool.isRequired,
+  isOrganizingAuthor: PropTypes.bool.isRequired,
+  isRetaggingAuthor: PropTypes.bool.isRequired,
   isRssSyncExecuting: PropTypes.bool.isRequired,
   isSmallScreen: PropTypes.bool.isRequired,
+  isSaving: PropTypes.bool.isRequired,
+  saveError: PropTypes.object,
+  isDeleting: PropTypes.bool.isRequired,
+  deleteError: PropTypes.object,
   onSortSelect: PropTypes.func.isRequired,
   onFilterSelect: PropTypes.func.isRequired,
   onViewSelect: PropTypes.func.isRequired,
   onRefreshAuthorPress: PropTypes.func.isRequired,
   onRssSyncPress: PropTypes.func.isRequired,
-  onScroll: PropTypes.func.isRequired
+  onScroll: PropTypes.func.isRequired,
+  onSaveSelected: PropTypes.func.isRequired
 };
 
 export default AuthorIndex;

@@ -1,7 +1,11 @@
 import { createAction } from 'redux-actions';
+import { batchActions } from 'redux-batched-actions';
 import { filterBuilderTypes, filterBuilderValueTypes, filterTypePredicates, sortDirections } from 'Helpers/Props';
+import { createThunk, handleThunks } from 'Store/thunks';
 import sortByName from 'Utilities/Array/sortByName';
+import createAjaxRequest from 'Utilities/createAjaxRequest';
 import { filterPredicates, filters, sortPredicates } from './authorActions';
+import { set, updateItem } from './baseActions';
 import createHandleActions from './Creators/createHandleActions';
 import createSetClientSideCollectionFilterReducer from './Creators/Reducers/createSetClientSideCollectionFilterReducer';
 import createSetClientSideCollectionSortReducer from './Creators/Reducers/createSetClientSideCollectionSortReducer';
@@ -16,6 +20,10 @@ export const section = 'authorIndex';
 // State
 
 export const defaultState = {
+  isSaving: false,
+  saveError: null,
+  isDeleting: false,
+  deleteError: null,
   sortKey: 'sortNameLastFirst',
   sortDirection: sortDirections.ASCENDING,
   secondarySortKey: 'sortNameLastFirst',
@@ -52,6 +60,14 @@ export const defaultState = {
   },
 
   columns: [
+    {
+      name: 'select',
+      columnLabel: 'Select',
+      isSortable: false,
+      isVisible: true,
+      isModifiable: false,
+      isHidden: true
+    },
     {
       name: 'status',
       columnLabel: 'Status',
@@ -328,6 +344,8 @@ export const SET_AUTHOR_TABLE_OPTION = 'authorIndex/setAuthorTableOption';
 export const SET_AUTHOR_POSTER_OPTION = 'authorIndex/setAuthorPosterOption';
 export const SET_AUTHOR_BANNER_OPTION = 'authorIndex/setAuthorBannerOption';
 export const SET_AUTHOR_OVERVIEW_OPTION = 'authorIndex/setAuthorOverviewOption';
+export const SAVE_AUTHOR_EDITOR = 'authorIndex/saveAuthorEditor';
+export const BULK_DELETE_AUTHOR = 'authorIndex/bulkDeleteAuthor';
 
 //
 // Action Creators
@@ -339,6 +357,85 @@ export const setAuthorTableOption = createAction(SET_AUTHOR_TABLE_OPTION);
 export const setAuthorPosterOption = createAction(SET_AUTHOR_POSTER_OPTION);
 export const setAuthorBannerOption = createAction(SET_AUTHOR_BANNER_OPTION);
 export const setAuthorOverviewOption = createAction(SET_AUTHOR_OVERVIEW_OPTION);
+export const saveAuthorEditor = createThunk(SAVE_AUTHOR_EDITOR);
+export const bulkDeleteAuthor = createThunk(BULK_DELETE_AUTHOR);
+
+//
+// Action Handlers
+
+export const actionHandlers = handleThunks({
+  [SAVE_AUTHOR_EDITOR]: function(getState, payload, dispatch) {
+    dispatch(set({
+      section,
+      isSaving: true
+    }));
+
+    const promise = createAjaxRequest({
+      url: '/author/editor',
+      method: 'PUT',
+      data: JSON.stringify(payload),
+      dataType: 'json'
+    }).request;
+
+    promise.done((data) => {
+      dispatch(batchActions([
+        ...data.map((author) => {
+          return updateItem({
+            id: author.id,
+            section: 'authors',
+            ...author
+          });
+        }),
+
+        set({
+          section,
+          isSaving: false,
+          saveError: null
+        })
+      ]));
+    });
+
+    promise.fail((xhr) => {
+      dispatch(set({
+        section,
+        isSaving: false,
+        saveError: xhr
+      }));
+    });
+  },
+
+  [BULK_DELETE_AUTHOR]: function(getState, payload, dispatch) {
+    dispatch(set({
+      section,
+      isDeleting: true
+    }));
+
+    const promise = createAjaxRequest({
+      url: '/author/editor',
+      method: 'DELETE',
+      data: JSON.stringify(payload),
+      dataType: 'json'
+    }).request;
+
+    promise.done(() => {
+      // SignaR will take care of removing the author from the collection
+
+      dispatch(set({
+        section,
+        isDeleting: false,
+        deleteError: null
+      }));
+    });
+
+    promise.fail((xhr) => {
+      dispatch(set({
+        section,
+        isDeleting: false,
+        deleteError: xhr
+      }));
+    });
+  }
+});
 
 //
 // Reducers

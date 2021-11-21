@@ -2,7 +2,9 @@ import _ from 'lodash';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import NoAuthor from 'Author/NoAuthor';
+import BookEditorFooter from 'Book/Editor/BookEditorFooter';
 import LoadingIndicator from 'Components/Loading/LoadingIndicator';
+import ConfirmModal from 'Components/Modal/ConfirmModal';
 import PageContent from 'Components/Page/PageContent';
 import PageContentBody from 'Components/Page/PageContentBody';
 import PageJumpBar from 'Components/Page/PageJumpBar';
@@ -11,10 +13,13 @@ import PageToolbarButton from 'Components/Page/Toolbar/PageToolbarButton';
 import PageToolbarSection from 'Components/Page/Toolbar/PageToolbarSection';
 import PageToolbarSeparator from 'Components/Page/Toolbar/PageToolbarSeparator';
 import TableOptionsModalWrapper from 'Components/Table/TableOptions/TableOptionsModalWrapper';
-import { align, icons, sortDirections } from 'Helpers/Props';
+import { align, icons, kinds, sortDirections } from 'Helpers/Props';
 import getErrorMessage from 'Utilities/Object/getErrorMessage';
 import hasDifferentItemsOrOrder from 'Utilities/Object/hasDifferentItemsOrOrder';
 import translate from 'Utilities/String/translate';
+import getSelectedIds from 'Utilities/Table/getSelectedIds';
+import selectAll from 'Utilities/Table/selectAll';
+import toggleSelected from 'Utilities/Table/toggleSelected';
 import BookIndexFooterConnector from './BookIndexFooterConnector';
 import BookIndexFilterMenu from './Menus/BookIndexFilterMenu';
 import BookIndexSortMenu from './Menus/BookIndexSortMenu';
@@ -52,12 +57,19 @@ class BookIndex extends Component {
       jumpBarItems: { order: [] },
       jumpToCharacter: null,
       isPosterOptionsModalOpen: false,
-      isOverviewOptionsModalOpen: false
+      isOverviewOptionsModalOpen: false,
+      isConfirmSearchModalOpen: false,
+      isEditorActive: false,
+      allSelected: false,
+      allUnselected: false,
+      lastToggled: null,
+      selectedState: {}
     };
   }
 
   componentDidMount() {
     this.setJumpBarItems();
+    this.setSelectedState();
   }
 
   componentDidUpdate(prevProps) {
@@ -72,6 +84,7 @@ class BookIndex extends Component {
         hasDifferentItemsOrOrder(prevProps.items, items)
     ) {
       this.setJumpBarItems();
+      this.setSelectedState();
     }
 
     if (this.state.jumpToCharacter != null) {
@@ -84,6 +97,48 @@ class BookIndex extends Component {
 
   setScrollerRef = (ref) => {
     this.setState({ scroller: ref });
+  }
+
+  getSelectedIds = () => {
+    if (this.state.allUnselected) {
+      return [];
+    }
+    return getSelectedIds(this.state.selectedState);
+  }
+
+  setSelectedState() {
+    const {
+      items
+    } = this.props;
+
+    const {
+      selectedState
+    } = this.state;
+
+    const newSelectedState = {};
+
+    items.forEach((book) => {
+      const isItemSelected = selectedState[book.id];
+
+      if (isItemSelected) {
+        newSelectedState[book.id] = isItemSelected;
+      } else {
+        newSelectedState[book.id] = false;
+      }
+    });
+
+    const selectedCount = getSelectedIds(newSelectedState).length;
+    const newStateCount = Object.keys(newSelectedState).length;
+    let isAllSelected = false;
+    let isAllUnselected = false;
+
+    if (selectedCount === 0) {
+      isAllUnselected = true;
+    } else if (selectedCount === newStateCount) {
+      isAllSelected = true;
+    }
+
+    this.setState({ selectedState: newSelectedState, allSelected: isAllSelected, allUnselected: isAllUnselected });
   }
 
   setJumpBarItems() {
@@ -150,8 +205,62 @@ class BookIndex extends Component {
     this.setState({ isOverviewOptionsModalOpen: false });
   }
 
+  onEditorTogglePress = () => {
+    if (this.state.isEditorActive) {
+      this.setState({ isEditorActive: false });
+    } else {
+      const newState = selectAll(this.state.selectedState, false);
+      newState.isEditorActive = true;
+      this.setState(newState);
+    }
+  }
+
   onJumpBarItemPress = (jumpToCharacter) => {
     this.setState({ jumpToCharacter });
+  }
+
+  onSelectAllChange = ({ value }) => {
+    this.setState(selectAll(this.state.selectedState, value));
+  }
+
+  onSelectAllPress = () => {
+    this.onSelectAllChange({ value: !this.state.allSelected });
+  }
+
+  onSelectedChange = ({ id, value, shiftKey = false }) => {
+    this.setState((state) => {
+      return toggleSelected(state, this.props.items, id, value, shiftKey);
+    });
+  }
+
+  onSaveSelected = (changes) => {
+    this.props.onSaveSelected({
+      bookIds: this.getSelectedIds(),
+      ...changes
+    });
+  }
+
+  onSearchPress = () => {
+    this.setState({ isConfirmSearchModalOpen: true });
+  }
+
+  onRefreshBookPress = () => {
+    const selectedIds = this.getSelectedIds();
+    const refreshIds = this.state.isEditorActive && selectedIds.length > 0 ? selectedIds : [];
+
+    this.props.onRefreshBookPress(refreshIds);
+  }
+
+  onSearchConfirmed = () => {
+    const selectedMovieIds = this.getSelectedIds();
+    const searchIds = this.state.isMovieEditorActive && selectedMovieIds.length > 0 ? selectedMovieIds : this.props.items.map((m) => m.id);
+
+    this.props.onSearchPress(searchIds);
+    this.setState({ isConfirmSearchModalOpen: false });
+  }
+
+  onConfirmSearchModalClose = () => {
+    this.setState({ isConfirmSearchModalOpen: false });
   }
 
   //
@@ -173,11 +282,15 @@ class BookIndex extends Component {
       view,
       isRefreshingBook,
       isRssSyncExecuting,
+      isSearching,
+      isSaving,
+      saveError,
+      isDeleting,
+      deleteError,
       onScroll,
       onSortSelect,
       onFilterSelect,
       onViewSelect,
-      onRefreshAuthorPress,
       onRssSyncPress,
       ...otherProps
     } = this.props;
@@ -187,23 +300,35 @@ class BookIndex extends Component {
       jumpBarItems,
       jumpToCharacter,
       isPosterOptionsModalOpen,
-      isOverviewOptionsModalOpen
+      isOverviewOptionsModalOpen,
+      isConfirmSearchModalOpen,
+      isEditorActive,
+      selectedState,
+      allSelected,
+      allUnselected
     } = this.state;
+
+    const selectedBookIds = this.getSelectedIds();
 
     const ViewComponent = getViewComponent(view);
     const isLoaded = !!(!error && isPopulated && items.length && scroller);
     const hasNoAuthor = !totalItems;
+
+    const refreshLabel = isEditorActive && selectedBookIds.length > 0 ? translate('UpdateSelected') : translate('UpdateAll');
+    const searchIndexLabel = selectedFilterKey === 'all' ? translate('SearchAll') : translate('SearchFiltered');
+    const searchEditorLabel = selectedBookIds.length > 0 ? translate('SearchSelected') : translate('SearchAll');
+    const searchWarningCount = isEditorActive && selectedBookIds.length > 0 ? selectedBookIds.length : items.length;
 
     return (
       <PageContent>
         <PageToolbar>
           <PageToolbarSection>
             <PageToolbarButton
-              label={translate('UpdateAll')}
+              label={refreshLabel}
               iconName={icons.REFRESH}
               spinningName={icons.REFRESH}
               isSpinning={isRefreshingBook}
-              onPress={onRefreshAuthorPress}
+              onPress={this.onRefreshBookPress}
             />
 
             <PageToolbarButton
@@ -213,6 +338,44 @@ class BookIndex extends Component {
               isDisabled={hasNoAuthor}
               onPress={onRssSyncPress}
             />
+
+            <PageToolbarSeparator />
+
+            <PageToolbarButton
+              label={isEditorActive ? searchEditorLabel : searchIndexLabel}
+              iconName={icons.SEARCH}
+              isDisabled={isSearching || !items.length}
+              onPress={this.onSearchPress}
+            />
+
+            <PageToolbarSeparator />
+
+            {
+              isEditorActive ?
+                <PageToolbarButton
+                  label={translate('BookIndex')}
+                  iconName={icons.AUTHOR_CONTINUING}
+                  isDisabled={hasNoAuthor}
+                  onPress={this.onEditorTogglePress}
+                /> :
+                <PageToolbarButton
+                  label={translate('BookEditor')}
+                  iconName={icons.EDIT}
+                  isDisabled={hasNoAuthor}
+                  onPress={this.onEditorTogglePress}
+                />
+            }
+
+            {
+              isEditorActive ?
+                <PageToolbarButton
+                  label={allSelected ? translate('UnselectAll') : translate('SelectAll')}
+                  iconName={icons.CHECK_SQUARE}
+                  isDisabled={hasNoAuthor}
+                  onPress={this.onSelectAllPress}
+                /> :
+                null
+            }
 
           </PageToolbarSection>
 
@@ -311,6 +474,12 @@ class BookIndex extends Component {
                     sortKey={sortKey}
                     sortDirection={sortDirection}
                     jumpToCharacter={jumpToCharacter}
+                    isEditorActive={isEditorActive}
+                    allSelected={allSelected}
+                    allUnselected={allUnselected}
+                    onSelectedChange={this.onSelectedChange}
+                    onSelectAllChange={this.onSelectAllChange}
+                    selectedState={selectedState}
                     {...otherProps}
                   />
 
@@ -336,6 +505,19 @@ class BookIndex extends Component {
           }
         </div>
 
+        {
+          isLoaded && isEditorActive &&
+            <BookEditorFooter
+              bookIds={selectedBookIds}
+              selectedCount={selectedBookIds.length}
+              isSaving={isSaving}
+              saveError={saveError}
+              isDeleting={isDeleting}
+              deleteError={deleteError}
+              onSaveSelected={this.onSaveSelected}
+            />
+        }
+
         <BookIndexPosterOptionsModal
           isOpen={isPosterOptionsModalOpen}
           onModalClose={this.onPosterOptionsModalClose}
@@ -345,6 +527,25 @@ class BookIndex extends Component {
           isOpen={isOverviewOptionsModalOpen}
           onModalClose={this.onOverviewOptionsModalClose}
 
+        />
+
+        <ConfirmModal
+          isOpen={isConfirmSearchModalOpen}
+          kind={kinds.DANGER}
+          title={translate('MassBookSearch')}
+          message={
+            <div>
+              <div>
+                {translate('MassBookSearchWarning', [searchWarningCount])}
+              </div>
+              <div>
+                {translate('ThisCannotBeCancelled')}
+              </div>
+            </div>
+          }
+          confirmLabel={translate('Search')}
+          onConfirm={this.onSearchConfirmed}
+          onCancel={this.onConfirmSearchModalClose}
         />
       </PageContent>
     );
@@ -365,14 +566,21 @@ BookIndex.propTypes = {
   sortDirection: PropTypes.oneOf(sortDirections.all),
   view: PropTypes.string.isRequired,
   isRefreshingBook: PropTypes.bool.isRequired,
+  isSearching: PropTypes.bool.isRequired,
   isRssSyncExecuting: PropTypes.bool.isRequired,
   isSmallScreen: PropTypes.bool.isRequired,
+  isSaving: PropTypes.bool.isRequired,
+  saveError: PropTypes.object,
+  isDeleting: PropTypes.bool.isRequired,
+  deleteError: PropTypes.object,
   onSortSelect: PropTypes.func.isRequired,
   onFilterSelect: PropTypes.func.isRequired,
   onViewSelect: PropTypes.func.isRequired,
-  onRefreshAuthorPress: PropTypes.func.isRequired,
+  onRefreshBookPress: PropTypes.func.isRequired,
   onRssSyncPress: PropTypes.func.isRequired,
-  onScroll: PropTypes.func.isRequired
+  onSearchPress: PropTypes.func.isRequired,
+  onScroll: PropTypes.func.isRequired,
+  onSaveSelected: PropTypes.func.isRequired
 };
 
 export default BookIndex;

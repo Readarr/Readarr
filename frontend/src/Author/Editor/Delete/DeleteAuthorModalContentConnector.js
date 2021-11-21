@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
-import { bulkDeleteAuthor } from 'Store/Actions/authorEditorActions';
+import { bulkDeleteAuthor } from 'Store/Actions/authorIndexActions';
 import createAllAuthorSelector from 'Store/Selectors/createAllAuthorsSelector';
 import DeleteAuthorModalContent from './DeleteAuthorModalContent';
 

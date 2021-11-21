@@ -73,7 +73,9 @@ class AuthorIndexOverviews extends Component {
       sortKey,
       overviewOptions,
       jumpToCharacter,
-      scrollTop
+      scrollTop,
+      isEditorActive,
+      selectedState
     } = this.props;
 
     const {
@@ -91,6 +93,8 @@ class AuthorIndexOverviews extends Component {
         (prevState.width !== width ||
             prevState.rowHeight !== rowHeight ||
             hasDifferentItemsOrOrder(prevProps.items, items) ||
+            prevProps.isEditorActive !== isEditorActive ||
+            prevProps.selectedState !== selectedState ||
             prevProps.overviewOptions.showTitle !== overviewOptions.showTitle)) {
       // recomputeGridSize also forces Grid to discard its cache of rendered cells
       this._grid.recomputeGridSize();
@@ -148,7 +152,10 @@ class AuthorIndexOverviews extends Component {
       shortDateFormat,
       longDateFormat,
       timeFormat,
-      isSmallScreen
+      isSmallScreen,
+      selectedState,
+      isEditorActive,
+      onSelectedChange
     } = this.props;
 
     const {
@@ -184,6 +191,9 @@ class AuthorIndexOverviews extends Component {
           authorId={author.id}
           qualityProfileId={author.qualityProfileId}
           metadataProfileId={author.metadataProfileId}
+          isSelected={selectedState[author.id]}
+          onSelectedChange={onSelectedChange}
+          isEditorActive={isEditorActive}
         />
       </div>
     );
@@ -264,7 +274,10 @@ AuthorIndexOverviews.propTypes = {
   shortDateFormat: PropTypes.string.isRequired,
   longDateFormat: PropTypes.string.isRequired,
   isSmallScreen: PropTypes.bool.isRequired,
-  timeFormat: PropTypes.string.isRequired
+  timeFormat: PropTypes.string.isRequired,
+  selectedState: PropTypes.object.isRequired,
+  onSelectedChange: PropTypes.func.isRequired,
+  isEditorActive: PropTypes.bool.isRequired
 };
 
 export default AuthorIndexOverviews;

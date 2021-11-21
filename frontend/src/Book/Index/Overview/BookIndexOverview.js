@@ -5,6 +5,7 @@ import AuthorPoster from 'Author/AuthorPoster';
 import DeleteAuthorModal from 'Author/Delete/DeleteAuthorModal';
 import EditAuthorModalConnector from 'Author/Edit/EditAuthorModalConnector';
 import BookIndexProgressBar from 'Book/Index/ProgressBar/BookIndexProgressBar';
+import CheckInput from 'Components/Form/CheckInput';
 import IconButton from 'Components/Link/IconButton';
 import Link from 'Components/Link/Link';
 import SpinnerIconButton from 'Components/Link/SpinnerIconButton';
@@ -67,6 +68,15 @@ class BookIndexOverview extends Component {
     this.setState({ isDeleteAuthorModalOpen: false });
   }
 
+  onChange = ({ value, shiftKey }) => {
+    const {
+      id,
+      onSelectedChange
+    } = this.props;
+
+    onSelectedChange({ id, value, shiftKey });
+  }
+
   //
   // Render
 
@@ -95,6 +105,8 @@ class BookIndexOverview extends Component {
       isSearchingBook,
       onRefreshBookPress,
       onSearchPress,
+      isEditorActive,
+      isSelected,
       ...otherProps
     } = this.props;
 
@@ -125,6 +137,17 @@ class BookIndexOverview extends Component {
       <div className={styles.container}>
         <div className={styles.content}>
           <div className={styles.posterContainer}>
+            {
+              isEditorActive &&
+                <div className={styles.editorSelect}>
+                  <CheckInput
+                    className={styles.checkInput}
+                    name={id.toString()}
+                    value={isSelected}
+                    onChange={this.onChange}
+                  />
+                </div>
+            }
             {
               status === 'ended' &&
                 <div
@@ -264,7 +287,10 @@ BookIndexOverview.propTypes = {
   isRefreshingBook: PropTypes.bool.isRequired,
   isSearchingBook: PropTypes.bool.isRequired,
   onRefreshBookPress: PropTypes.func.isRequired,
-  onSearchPress: PropTypes.func.isRequired
+  onSearchPress: PropTypes.func.isRequired,
+  isEditorActive: PropTypes.bool.isRequired,
+  isSelected: PropTypes.bool,
+  onSelectedChange: PropTypes.func.isRequired
 };
 
 BookIndexOverview.defaultProps = {

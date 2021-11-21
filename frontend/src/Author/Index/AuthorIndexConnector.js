@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
 import * as commandNames from 'Commands/commandNames';
 import withScrollPosition from 'Components/withScrollPosition';
-import { setAuthorFilter, setAuthorSort, setAuthorTableOption, setAuthorView } from 'Store/Actions/authorIndexActions';
+import { saveAuthorEditor, setAuthorFilter, setAuthorSort, setAuthorTableOption, setAuthorView } from 'Store/Actions/authorIndexActions';
 import { executeCommand } from 'Store/Actions/commandActions';
 import scrollPositions from 'Store/scrollPositions';
 import createAuthorClientSideCollectionItemsSelector from 'Store/Selectors/createAuthorClientSideCollectionItemsSelector';
@@ -18,16 +18,22 @@ function createMapStateToProps() {
     createAuthorClientSideCollectionItemsSelector('authorIndex'),
     createCommandExecutingSelector(commandNames.REFRESH_AUTHOR),
     createCommandExecutingSelector(commandNames.RSS_SYNC),
+    createCommandExecutingSelector(commandNames.RENAME_AUTHOR),
+    createCommandExecutingSelector(commandNames.RETAG_AUTHOR),
     createDimensionsSelector(),
     (
       author,
       isRefreshingAuthor,
+      isOrganizingAuthor,
+      isRetaggingAuthor,
       isRssSyncExecuting,
       dimensionsState
     ) => {
       return {
         ...author,
         isRefreshingAuthor,
+        isOrganizingAuthor,
+        isRetaggingAuthor,
         isRssSyncExecuting,
         isSmallScreen: dimensionsState.isSmallScreen
       };
@@ -53,9 +59,14 @@ function createMapDispatchToProps(dispatch, props) {
       dispatch(setAuthorView({ view }));
     },
 
-    onRefreshAuthorPress() {
+    dispatchSaveAuthorEditor(payload) {
+      dispatch(saveAuthorEditor(payload));
+    },
+
+    onRefreshAuthorPress(items) {
       dispatch(executeCommand({
-        name: commandNames.REFRESH_AUTHOR
+        name: commandNames.BULK_REFRESH_AUTHOR,
+        authorIds: items
       }));
     },
 
@@ -76,6 +87,10 @@ class AuthorIndexConnector extends Component {
     this.props.dispatchSetAuthorView(view);
   }
 
+  onSaveSelected = (payload) => {
+    this.props.dispatchSaveAuthorEditor(payload);
+  }
+
   onScroll = ({ scrollTop }) => {
     scrollPositions.authorIndex = scrollTop;
   }
@@ -89,6 +104,7 @@ class AuthorIndexConnector extends Component {
         {...this.props}
         onViewSelect={this.onViewSelect}
         onScroll={this.onScroll}
+        onSaveSelected={this.onSaveSelected}
       />
     );
   }
@@ -97,7 +113,8 @@ class AuthorIndexConnector extends Component {
 AuthorIndexConnector.propTypes = {
   isSmallScreen: PropTypes.bool.isRequired,
   view: PropTypes.string.isRequired,
-  dispatchSetAuthorView: PropTypes.func.isRequired
+  dispatchSetAuthorView: PropTypes.func.isRequired,
+  dispatchSaveAuthorEditor: PropTypes.func.isRequired
 };
 
 export default withScrollPosition(

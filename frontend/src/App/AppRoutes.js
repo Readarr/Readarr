@@ -5,7 +5,6 @@ import BlocklistConnector from 'Activity/Blocklist/BlocklistConnector';
 import HistoryConnector from 'Activity/History/HistoryConnector';
 import QueueConnector from 'Activity/Queue/QueueConnector';
 import AuthorDetailsPageConnector from 'Author/Details/AuthorDetailsPageConnector';
-import AuthorEditorConnector from 'Author/Editor/AuthorEditorConnector';
 import AuthorIndexConnector from 'Author/Index/AuthorIndexConnector';
 import BookDetailsPageConnector from 'Book/Details/BookDetailsPageConnector';
 import BookIndexConnector from 'Book/Index/BookIndexConnector';
@@ -80,11 +79,6 @@ function AppRoutes(props) {
       <Route
         path="/add/search"
         component={AddNewItemConnector}
-      />
-
-      <Route
-        path="/authoreditor"
-        component={AuthorEditorConnector}
       />
 
       <Route

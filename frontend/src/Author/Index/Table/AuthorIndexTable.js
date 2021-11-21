@@ -48,6 +48,9 @@ class AuthorIndexTable extends Component {
     const {
       items,
       columns,
+      selectedState,
+      onSelectedChange,
+      isEditorActive,
       showBanners,
       showTitle
     } = this.props;
@@ -67,6 +70,9 @@ class AuthorIndexTable extends Component {
           authorId={author.id}
           qualityProfileId={author.qualityProfileId}
           metadataProfileId={author.metadataProfileId}
+          isSelected={selectedState[author.id]}
+          onSelectedChange={onSelectedChange}
+          isEditorActive={isEditorActive}
           showBanners={showBanners}
           showTitle={showTitle}
         />
@@ -87,7 +93,12 @@ class AuthorIndexTable extends Component {
       isSmallScreen,
       onSortPress,
       scroller,
-      scrollTop
+      scrollTop,
+      allSelected,
+      allUnselected,
+      onSelectAllChange,
+      isEditorActive,
+      selectedState
     } = this.props;
 
     return (
@@ -108,8 +119,13 @@ class AuthorIndexTable extends Component {
             sortKey={sortKey}
             sortDirection={sortDirection}
             onSortPress={onSortPress}
+            allSelected={allSelected}
+            allUnselected={allUnselected}
+            onSelectAllChange={onSelectAllChange}
+            isEditorActive={isEditorActive}
           />
         }
+        selectedState={selectedState}
         columns={columns}
         sortKey={sortKey}
         sortDirection={sortDirection}
@@ -129,7 +145,13 @@ AuthorIndexTable.propTypes = {
   scrollTop: PropTypes.number,
   scroller: PropTypes.instanceOf(Element).isRequired,
   isSmallScreen: PropTypes.bool.isRequired,
-  onSortPress: PropTypes.func.isRequired
+  onSortPress: PropTypes.func.isRequired,
+  allSelected: PropTypes.bool.isRequired,
+  allUnselected: PropTypes.bool.isRequired,
+  selectedState: PropTypes.object.isRequired,
+  onSelectedChange: PropTypes.func.isRequired,
+  onSelectAllChange: PropTypes.func.isRequired,
+  isEditorActive: PropTypes.bool.isRequired
 };
 
 export default AuthorIndexTable;

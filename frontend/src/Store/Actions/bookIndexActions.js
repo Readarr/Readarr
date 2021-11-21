@@ -1,6 +1,10 @@
 import { createAction } from 'redux-actions';
+import { batchActions } from 'redux-batched-actions';
 import { filterBuilderTypes, filterBuilderValueTypes, sortDirections } from 'Helpers/Props';
+import { createThunk, handleThunks } from 'Store/thunks';
 import sortByName from 'Utilities/Array/sortByName';
+import createAjaxRequest from 'Utilities/createAjaxRequest';
+import { set, updateItem } from './baseActions';
 import { filterPredicates, filters, sortPredicates } from './bookActions';
 import createHandleActions from './Creators/createHandleActions';
 import createSetClientSideCollectionFilterReducer from './Creators/Reducers/createSetClientSideCollectionFilterReducer';
@@ -16,6 +20,10 @@ export const section = 'bookIndex';
 // State
 
 export const defaultState = {
+  isSaving: false,
+  saveError: null,
+  isDeleting: false,
+  deleteError: null,
   sortKey: 'title',
   sortDirection: sortDirections.ASCENDING,
   secondarySortKey: 'title',
@@ -49,6 +57,14 @@ export const defaultState = {
   },
 
   columns: [
+    {
+      name: 'select',
+      columnLabel: 'Select',
+      isSortable: false,
+      isVisible: true,
+      isModifiable: false,
+      isHidden: true
+    },
     {
       name: 'status',
       columnLabel: 'Status',
@@ -253,6 +269,8 @@ export const SET_BOOK_TABLE_OPTION = 'bookIndex/setBookTableOption';
 export const SET_BOOK_POSTER_OPTION = 'bookIndex/setBookPosterOption';
 export const SET_BOOK_BANNER_OPTION = 'bookIndex/setBookBannerOption';
 export const SET_BOOK_OVERVIEW_OPTION = 'bookIndex/setBookOverviewOption';
+export const SAVE_BOOK_EDITOR = 'bookEditor/saveBookEditor';
+export const BULK_DELETE_BOOK = 'bookEditor/bulkDeleteBook';
 
 //
 // Action Creators
@@ -264,6 +282,85 @@ export const setBookTableOption = createAction(SET_BOOK_TABLE_OPTION);
 export const setBookPosterOption = createAction(SET_BOOK_POSTER_OPTION);
 export const setBookBannerOption = createAction(SET_BOOK_BANNER_OPTION);
 export const setBookOverviewOption = createAction(SET_BOOK_OVERVIEW_OPTION);
+export const saveBookEditor = createThunk(SAVE_BOOK_EDITOR);
+export const bulkDeleteBook = createThunk(BULK_DELETE_BOOK);
+
+//
+// Action Handlers
+
+export const actionHandlers = handleThunks({
+  [SAVE_BOOK_EDITOR]: function(getState, payload, dispatch) {
+    dispatch(set({
+      section,
+      isSaving: true
+    }));
+
+    const promise = createAjaxRequest({
+      url: '/book/editor',
+      method: 'PUT',
+      data: JSON.stringify(payload),
+      dataType: 'json'
+    }).request;
+
+    promise.done((data) => {
+      dispatch(batchActions([
+        ...data.map((book) => {
+          return updateItem({
+            id: book.id,
+            section: 'books',
+            ...book
+          });
+        }),
+
+        set({
+          section,
+          isSaving: false,
+          saveError: null
+        })
+      ]));
+    });
+
+    promise.fail((xhr) => {
+      dispatch(set({
+        section,
+        isSaving: false,
+        saveError: xhr
+      }));
+    });
+  },
+
+  [BULK_DELETE_BOOK]: function(getState, payload, dispatch) {
+    dispatch(set({
+      section,
+      isDeleting: true
+    }));
+
+    const promise = createAjaxRequest({
+      url: '/book/editor',
+      method: 'DELETE',
+      data: JSON.stringify(payload),
+      dataType: 'json'
+    }).request;
+
+    promise.done(() => {
+      // SignalR will take care of removing the book from the collection
+
+      dispatch(set({
+        section,
+        isDeleting: false,
+        deleteError: null
+      }));
+    });
+
+    promise.fail((xhr) => {
+      dispatch(set({
+        section,
+        isDeleting: false,
+        deleteError: xhr
+      }));
+    });
+  }
+});
 
 //
 // Reducers
