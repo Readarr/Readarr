@@ -5,6 +5,7 @@ import IconButton from 'Components/Link/IconButton';
 import TableOptionsModalWrapper from 'Components/Table/TableOptions/TableOptionsModalWrapper';
 import VirtualTableHeader from 'Components/Table/VirtualTableHeader';
 import VirtualTableHeaderCell from 'Components/Table/VirtualTableHeaderCell';
+import VirtualTableSelectAllHeaderCell from 'Components/Table/VirtualTableSelectAllHeaderCell';
 import { icons } from 'Helpers/Props';
 import AuthorIndexTableOptionsConnector from './AuthorIndexTableOptionsConnector';
 import hasGrowableColumns from './hasGrowableColumns';
@@ -15,6 +16,10 @@ function AuthorIndexHeader(props) {
     showBanners,
     columns,
     onTableOptionChange,
+    allSelected,
+    allUnselected,
+    onSelectAllChange,
+    isEditorActive,
     ...otherProps
   } = props;
 
@@ -30,6 +35,21 @@ function AuthorIndexHeader(props) {
           } = column;
 
           if (!isVisible) {
+            return null;
+          }
+
+          if (name === 'select') {
+            if (isEditorActive) {
+              return (
+                <VirtualTableSelectAllHeaderCell
+                  key={name}
+                  allSelected={allSelected}
+                  allUnselected={allUnselected}
+                  onSelectAllChange={onSelectAllChange}
+                />
+              );
+            }
+
             return null;
           }
 
@@ -80,6 +100,10 @@ function AuthorIndexHeader(props) {
 AuthorIndexHeader.propTypes = {
   columns: PropTypes.arrayOf(PropTypes.object).isRequired,
   onTableOptionChange: PropTypes.func.isRequired,
+  allSelected: PropTypes.bool.isRequired,
+  allUnselected: PropTypes.bool.isRequired,
+  onSelectAllChange: PropTypes.func.isRequired,
+  isEditorActive: PropTypes.bool.isRequired,
   showBanners: PropTypes.bool.isRequired
 };
 

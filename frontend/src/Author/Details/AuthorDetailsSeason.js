@@ -78,7 +78,7 @@ class AuthorDetailsSeason extends Component {
   render() {
     const {
       items,
-      isBookEditorActive,
+      isEditorActive,
       columns,
       sortKey,
       sortDirection,
@@ -88,7 +88,7 @@ class AuthorDetailsSeason extends Component {
     } = this.props;
 
     let titleColumns = columns;
-    if (!isBookEditorActive) {
+    if (!isEditorActive) {
       titleColumns = columns.filter((x) => x.name !== 'select');
     }
 
@@ -113,7 +113,7 @@ class AuthorDetailsSeason extends Component {
                       columns={columns}
                       {...item}
                       onMonitorBookPress={this.onMonitorBookPress}
-                      isBookEditorActive={isBookEditorActive}
+                      isEditorActive={isEditorActive}
                       isSelected={selectedState[item.id]}
                       onSelectedChange={this.onSelectedChange}
                     />
@@ -132,7 +132,7 @@ AuthorDetailsSeason.propTypes = {
   sortKey: PropTypes.string,
   sortDirection: PropTypes.oneOf(sortDirections.all),
   items: PropTypes.arrayOf(PropTypes.object).isRequired,
-  isBookEditorActive: PropTypes.bool.isRequired,
+  isEditorActive: PropTypes.bool.isRequired,
   selectedState: PropTypes.object.isRequired,
   columns: PropTypes.arrayOf(PropTypes.object).isRequired,
   onTableOptionChange: PropTypes.func.isRequired,

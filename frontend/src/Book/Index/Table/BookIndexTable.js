@@ -47,7 +47,10 @@ class BookIndexTable extends Component {
   rowRenderer = ({ key, rowIndex, style }) => {
     const {
       items,
-      columns
+      columns,
+      selectedState,
+      onSelectedChange,
+      isEditorActive
     } = this.props;
 
     const book = items[rowIndex];
@@ -64,6 +67,9 @@ class BookIndexTable extends Component {
           columns={columns}
           authorId={book.authorId}
           bookId={book.id}
+          isSelected={selectedState[book.id]}
+          onSelectedChange={onSelectedChange}
+          isEditorActive={isEditorActive}
         />
       </VirtualTableRow>
     );
@@ -81,7 +87,12 @@ class BookIndexTable extends Component {
       isSmallScreen,
       onSortPress,
       scroller,
-      scrollTop
+      scrollTop,
+      allSelected,
+      allUnselected,
+      onSelectAllChange,
+      isEditorActive,
+      selectedState
     } = this.props;
 
     return (
@@ -101,8 +112,13 @@ class BookIndexTable extends Component {
             sortKey={sortKey}
             sortDirection={sortDirection}
             onSortPress={onSortPress}
+            allSelected={allSelected}
+            allUnselected={allUnselected}
+            onSelectAllChange={onSelectAllChange}
+            isEditorActive={isEditorActive}
           />
         }
+        selectedState={selectedState}
         columns={columns}
         sortKey={sortKey}
         sortDirection={sortDirection}
@@ -120,7 +136,13 @@ BookIndexTable.propTypes = {
   scrollTop: PropTypes.number,
   scroller: PropTypes.instanceOf(Element).isRequired,
   isSmallScreen: PropTypes.bool.isRequired,
-  onSortPress: PropTypes.func.isRequired
+  onSortPress: PropTypes.func.isRequired,
+  allSelected: PropTypes.bool.isRequired,
+  allUnselected: PropTypes.bool.isRequired,
+  selectedState: PropTypes.object.isRequired,
+  onSelectedChange: PropTypes.func.isRequired,
+  onSelectAllChange: PropTypes.func.isRequired,
+  isEditorActive: PropTypes.bool.isRequired
 };
 
 export default BookIndexTable;

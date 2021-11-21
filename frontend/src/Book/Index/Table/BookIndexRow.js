@@ -11,6 +11,7 @@ import IconButton from 'Components/Link/IconButton';
 import SpinnerIconButton from 'Components/Link/SpinnerIconButton';
 import RelativeDateCellConnector from 'Components/Table/Cells/RelativeDateCellConnector';
 import VirtualTableRowCell from 'Components/Table/Cells/VirtualTableRowCell';
+import VirtualTableSelectCell from 'Components/Table/Cells/VirtualTableSelectCell';
 import TagListConnector from 'Components/TagListConnector';
 import { icons } from 'Helpers/Props';
 import formatBytes from 'Utilities/Number/formatBytes';
@@ -100,8 +101,11 @@ class BookIndexRow extends Component {
       columns,
       isRefreshingBook,
       isSearchingBook,
+      isEditorActive,
+      isSelected,
       onRefreshBookPress,
-      onSearchPress
+      onSearchPress,
+      onSelectedChange
     } = this.props;
 
     const {
@@ -126,6 +130,19 @@ class BookIndexRow extends Component {
 
             if (!isVisible) {
               return null;
+            }
+
+            if (isEditorActive && name === 'select') {
+              return (
+                <VirtualTableSelectCell
+                  inputClassName={styles.checkInput}
+                  id={id}
+                  key={name}
+                  isSelected={isSelected}
+                  isDisabled={false}
+                  onSelectedChange={onSelectedChange}
+                />
+              );
             }
 
             if (name === 'status') {
@@ -368,7 +385,10 @@ BookIndexRow.propTypes = {
   isRefreshingBook: PropTypes.bool.isRequired,
   isSearchingBook: PropTypes.bool.isRequired,
   onRefreshBookPress: PropTypes.func.isRequired,
-  onSearchPress: PropTypes.func.isRequired
+  onSearchPress: PropTypes.func.isRequired,
+  isEditorActive: PropTypes.bool.isRequired,
+  isSelected: PropTypes.bool,
+  onSelectedChange: PropTypes.func.isRequired
 };
 
 BookIndexRow.defaultProps = {

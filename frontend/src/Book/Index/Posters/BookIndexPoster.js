@@ -5,6 +5,7 @@ import DeleteAuthorModal from 'Author/Delete/DeleteAuthorModal';
 import EditAuthorModalConnector from 'Author/Edit/EditAuthorModalConnector';
 import EditBookModalConnector from 'Book/Edit/EditBookModalConnector';
 import BookIndexProgressBar from 'Book/Index/ProgressBar/BookIndexProgressBar';
+import CheckInput from 'Components/Form/CheckInput';
 import Label from 'Components/Label';
 import IconButton from 'Components/Link/IconButton';
 import Link from 'Components/Link/Link';
@@ -73,6 +74,15 @@ class BookIndexPoster extends Component {
     }
   }
 
+  onChange = ({ value, shiftKey }) => {
+    const {
+      id,
+      onSelectedChange
+    } = this.props;
+
+    onSelectedChange({ id, value, shiftKey });
+  }
+
   //
   // Render
 
@@ -103,6 +113,9 @@ class BookIndexPoster extends Component {
       isSearchingBook,
       onRefreshBookPress,
       onSearchPress,
+      isEditorActive,
+      isSelected,
+      onSelectedChange,
       ...otherProps
     } = this.props;
 
@@ -132,6 +145,18 @@ class BookIndexPoster extends Component {
       <div>
         <div className={styles.content}>
           <div className={styles.posterContainer}>
+            {
+              isEditorActive &&
+                <div className={styles.editorSelect}>
+                  <CheckInput
+                    className={styles.checkInput}
+                    name={id.toString()}
+                    value={isSelected}
+                    onChange={this.onChange}
+                  />
+                </div>
+            }
+
             <Label className={styles.controls}>
               <SpinnerIconButton
                 className={styles.action}
@@ -309,7 +334,10 @@ BookIndexPoster.propTypes = {
   isRefreshingBook: PropTypes.bool.isRequired,
   isSearchingBook: PropTypes.bool.isRequired,
   onRefreshBookPress: PropTypes.func.isRequired,
-  onSearchPress: PropTypes.func.isRequired
+  onSearchPress: PropTypes.func.isRequired,
+  isEditorActive: PropTypes.bool.isRequired,
+  isSelected: PropTypes.bool,
+  onSelectedChange: PropTypes.func.isRequired
 };
 
 BookIndexPoster.defaultProps = {

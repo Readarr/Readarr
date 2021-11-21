@@ -55,7 +55,7 @@ class AuthorDetails extends Component {
       isDeleteAuthorModalOpen: false,
       isInteractiveImportModalOpen: false,
       isMonitorOptionsModalOpen: false,
-      isBookEditorActive: false,
+      isEditorActive: false,
       allExpanded: false,
       allCollapsed: false,
       expandedState: {},
@@ -160,7 +160,7 @@ class AuthorDetails extends Component {
   }
 
   onBookEditorTogglePress = () => {
-    this.setState({ isBookEditorActive: !this.state.isBookEditorActive });
+    this.setState({ isEditorActive: !this.state.isEditorActive });
   }
 
   onExpandAllPress = () => {
@@ -249,7 +249,7 @@ class AuthorDetails extends Component {
       isDeleteAuthorModalOpen,
       isInteractiveImportModalOpen,
       isMonitorOptionsModalOpen,
-      isBookEditorActive,
+      isEditorActive,
       allSelected,
       selectedState,
       allExpanded,
@@ -335,7 +335,7 @@ class AuthorDetails extends Component {
             <PageToolbarSeparator />
 
             {
-              isBookEditorActive ?
+              isEditorActive ?
                 <PageToolbarButton
                   label={translate('BookList')}
                   iconName={icons.AUTHOR_CONTINUING}
@@ -349,7 +349,7 @@ class AuthorDetails extends Component {
             }
 
             {
-              isBookEditorActive ?
+              isEditorActive ?
                 <PageToolbarButton
                   label={allSelected ? translate('UnselectAll') : translate('SelectAll')}
                   iconName={icons.CHECK_SQUARE}
@@ -487,7 +487,7 @@ class AuthorDetails extends Component {
                       onExpandPress={this.onExpandPress}
                       setSelectedState={this.setSelectedState}
                       onSelectedChange={this.onSelectedChange}
-                      isBookEditorActive={isBookEditorActive}
+                      isEditorActive={isEditorActive}
                     />
                   </TabPanel>
 
@@ -585,7 +585,7 @@ class AuthorDetails extends Component {
         </PageContentBody>
 
         {
-          isBookEditorActive &&
+          isEditorActive &&
             <BookEditorFooter
               bookIds={selectedBookIds}
               selectedCount={selectedBookIds.length}

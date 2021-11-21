@@ -121,7 +121,9 @@ class BookIndexPosters extends Component {
       posterOptions,
       jumpToCharacter,
       isSmallScreen,
-      scrollTop
+      isEditorActive,
+      scrollTop,
+      selectedState
     } = this.props;
 
     const {
@@ -142,7 +144,9 @@ class BookIndexPosters extends Component {
             prevState.columnWidth !== columnWidth ||
             prevState.columnCount !== columnCount ||
             prevState.rowHeight !== rowHeight ||
-            hasDifferentItemsOrOrder(prevProps.items, items))) {
+            hasDifferentItemsOrOrder(prevProps.items, items)) ||
+            prevProps.isEditorActive !== isEditorActive ||
+            prevProps.selectedState !== selectedState) {
       // recomputeGridSize also forces Grid to discard its cache of rendered cells
       this._grid.recomputeGridSize();
     }
@@ -202,7 +206,10 @@ class BookIndexPosters extends Component {
       posterOptions,
       showRelativeDates,
       shortDateFormat,
-      timeFormat
+      timeFormat,
+      selectedState,
+      isEditorActive,
+      onSelectedChange
     } = this.props;
 
     const {
@@ -251,6 +258,9 @@ class BookIndexPosters extends Component {
           style={style}
           bookId={book.id}
           authorId={book.authorId}
+          isSelected={selectedState[book.id]}
+          onSelectedChange={onSelectedChange}
+          isEditorActive={isEditorActive}
         />
       </div>
     );
@@ -333,7 +343,10 @@ BookIndexPosters.propTypes = {
   showRelativeDates: PropTypes.bool.isRequired,
   shortDateFormat: PropTypes.string.isRequired,
   isSmallScreen: PropTypes.bool.isRequired,
-  timeFormat: PropTypes.string.isRequired
+  timeFormat: PropTypes.string.isRequired,
+  selectedState: PropTypes.object.isRequired,
+  onSelectedChange: PropTypes.func.isRequired,
+  isEditorActive: PropTypes.bool.isRequired
 };
 
 export default BookIndexPosters;

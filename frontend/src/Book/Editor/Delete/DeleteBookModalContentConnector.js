@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
-import { bulkDeleteBook } from 'Store/Actions/bookEditorActions';
+import { bulkDeleteBook } from 'Store/Actions/bookIndexActions';
 import DeleteBookModalContent from './DeleteBookModalContent';
 
 function createMapStateToProps() {

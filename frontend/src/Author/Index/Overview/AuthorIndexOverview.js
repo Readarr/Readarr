@@ -5,6 +5,7 @@ import AuthorPoster from 'Author/AuthorPoster';
 import DeleteAuthorModal from 'Author/Delete/DeleteAuthorModal';
 import EditAuthorModalConnector from 'Author/Edit/EditAuthorModalConnector';
 import AuthorIndexProgressBar from 'Author/Index/ProgressBar/AuthorIndexProgressBar';
+import CheckInput from 'Components/Form/CheckInput';
 import IconButton from 'Components/Link/IconButton';
 import Link from 'Components/Link/Link';
 import SpinnerIconButton from 'Components/Link/SpinnerIconButton';
@@ -67,6 +68,15 @@ class AuthorIndexOverview extends Component {
     this.setState({ isDeleteAuthorModalOpen: false });
   }
 
+  onChange = ({ value, shiftKey }) => {
+    const {
+      id,
+      onSelectedChange
+    } = this.props;
+
+    onSelectedChange({ id, value, shiftKey });
+  }
+
   //
   // Render
 
@@ -97,6 +107,8 @@ class AuthorIndexOverview extends Component {
       isSearchingAuthor,
       onRefreshAuthorPress,
       onSearchPress,
+      isEditorActive,
+      isSelected,
       ...otherProps
     } = this.props;
 
@@ -127,6 +139,18 @@ class AuthorIndexOverview extends Component {
       <div className={styles.container}>
         <div className={styles.content}>
           <div className={styles.posterContainer}>
+            {
+              isEditorActive &&
+                <div className={styles.editorSelect}>
+                  <CheckInput
+                    className={styles.checkInput}
+                    name={id.toString()}
+                    value={isSelected}
+                    onChange={this.onChange}
+                  />
+                </div>
+            }
+
             {
               status === 'ended' &&
                 <div
@@ -270,7 +294,10 @@ AuthorIndexOverview.propTypes = {
   isRefreshingAuthor: PropTypes.bool.isRequired,
   isSearchingAuthor: PropTypes.bool.isRequired,
   onRefreshAuthorPress: PropTypes.func.isRequired,
-  onSearchPress: PropTypes.func.isRequired
+  onSearchPress: PropTypes.func.isRequired,
+  isEditorActive: PropTypes.bool.isRequired,
+  isSelected: PropTypes.bool,
+  onSelectedChange: PropTypes.func.isRequired
 };
 
 AuthorIndexOverview.defaultProps = {

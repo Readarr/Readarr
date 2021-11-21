@@ -78,6 +78,13 @@ $hoverScale: 1.05;
   color: $white;
 }
 
+.editorSelect {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 4;
+}
+
 .controls {
   position: absolute;
   bottom: 10px;

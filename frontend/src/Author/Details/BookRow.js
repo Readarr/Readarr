@@ -66,7 +66,7 @@ class BookRow extends Component {
       authorMonitored,
       titleSlug,
       bookFiles,
-      isBookEditorActive,
+      isEditorActive,
       isSelected,
       onSelectedChange,
       columns
@@ -88,7 +88,7 @@ class BookRow extends Component {
               return null;
             }
 
-            if (isBookEditorActive && name === 'select') {
+            if (isEditorActive && name === 'select') {
               return (
                 <TableSelectCell
                   key={name}
@@ -236,7 +236,7 @@ BookRow.propTypes = {
   isSaving: PropTypes.bool,
   authorMonitored: PropTypes.bool.isRequired,
   bookFiles: PropTypes.arrayOf(PropTypes.object).isRequired,
-  isBookEditorActive: PropTypes.bool.isRequired,
+  isEditorActive: PropTypes.bool.isRequired,
   isSelected: PropTypes.bool,
   onSelectedChange: PropTypes.func.isRequired,
   columns: PropTypes.arrayOf(PropTypes.object).isRequired,

@@ -5,6 +5,7 @@ import IconButton from 'Components/Link/IconButton';
 import TableOptionsModalWrapper from 'Components/Table/TableOptions/TableOptionsModalWrapper';
 import VirtualTableHeader from 'Components/Table/VirtualTableHeader';
 import VirtualTableHeaderCell from 'Components/Table/VirtualTableHeaderCell';
+import VirtualTableSelectAllHeaderCell from 'Components/Table/VirtualTableSelectAllHeaderCell';
 import { icons } from 'Helpers/Props';
 import BookIndexTableOptionsConnector from './BookIndexTableOptionsConnector';
 import styles from './BookIndexHeader.css';
@@ -13,6 +14,10 @@ function BookIndexHeader(props) {
   const {
     columns,
     onTableOptionChange,
+    allSelected,
+    allUnselected,
+    onSelectAllChange,
+    isEditorActive,
     ...otherProps
   } = props;
 
@@ -28,6 +33,21 @@ function BookIndexHeader(props) {
           } = column;
 
           if (!isVisible) {
+            return null;
+          }
+
+          if (name === 'select') {
+            if (isEditorActive) {
+              return (
+                <VirtualTableSelectAllHeaderCell
+                  key={name}
+                  allSelected={allSelected}
+                  allUnselected={allUnselected}
+                  onSelectAllChange={onSelectAllChange}
+                />
+              );
+            }
+
             return null;
           }
 
@@ -75,7 +95,11 @@ function BookIndexHeader(props) {
 
 BookIndexHeader.propTypes = {
   columns: PropTypes.arrayOf(PropTypes.object).isRequired,
-  onTableOptionChange: PropTypes.func.isRequired
+  onTableOptionChange: PropTypes.func.isRequired,
+  allSelected: PropTypes.bool.isRequired,
+  allUnselected: PropTypes.bool.isRequired,
+  onSelectAllChange: PropTypes.func.isRequired,
+  isEditorActive: PropTypes.bool.isRequired
 };
 
 export default BookIndexHeader;

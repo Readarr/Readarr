@@ -35,14 +35,12 @@ namespace Readarr.Api.V1.Books
         }
 
         [HttpDelete]
-        public object DeleteBook([FromBody] BookEditorResource resource)
+        public void DeleteBook([FromBody] BookEditorResource resource)
         {
             foreach (var bookId in resource.BookIds)
             {
                 _bookService.DeleteBook(bookId, resource.DeleteFiles ?? false, resource.AddImportListExclusion ?? false);
             }
-
-            return new object();
         }
     }
 }

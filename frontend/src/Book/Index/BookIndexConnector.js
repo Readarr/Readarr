@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
 import * as commandNames from 'Commands/commandNames';
 import withScrollPosition from 'Components/withScrollPosition';
-import { setBookFilter, setBookSort, setBookTableOption, setBookView } from 'Store/Actions/bookIndexActions';
+import { saveBookEditor, setBookFilter, setBookSort, setBookTableOption, setBookView } from 'Store/Actions/bookIndexActions';
 import { executeCommand } from 'Store/Actions/commandActions';
 import scrollPositions from 'Store/scrollPositions';
 import createBookClientSideCollectionItemsSelector from 'Store/Selectors/createBookClientSideCollectionItemsSelector';
@@ -19,12 +19,16 @@ function createMapStateToProps() {
     createCommandExecutingSelector(commandNames.REFRESH_AUTHOR),
     createCommandExecutingSelector(commandNames.REFRESH_BOOK),
     createCommandExecutingSelector(commandNames.RSS_SYNC),
+    createCommandExecutingSelector(commandNames.CUTOFF_UNMET_BOOK_SEARCH),
+    createCommandExecutingSelector(commandNames.MISSING_BOOK_SEARCH),
     createDimensionsSelector(),
     (
       book,
       isRefreshingAuthorCommand,
       isRefreshingBookCommand,
       isRssSyncExecuting,
+      isCutoffBooksSearch,
+      isMissingBooksSearch,
       dimensionsState
     ) => {
       const isRefreshingBook = isRefreshingBookCommand || isRefreshingAuthorCommand;
@@ -32,6 +36,7 @@ function createMapStateToProps() {
         ...book,
         isRefreshingBook,
         isRssSyncExecuting,
+        isSearching: isCutoffBooksSearch || isMissingBooksSearch,
         isSmallScreen: dimensionsState.isSmallScreen
       };
     }
@@ -56,15 +61,27 @@ function createMapDispatchToProps(dispatch, props) {
       dispatch(setBookView({ view }));
     },
 
-    onRefreshAuthorPress() {
+    dispatchSaveBookEditor(payload) {
+      dispatch(saveBookEditor(payload));
+    },
+
+    onRefreshBookPress(items) {
       dispatch(executeCommand({
-        name: commandNames.REFRESH_AUTHOR
+        name: commandNames.BULK_REFRESH_BOOK,
+        bookIds: items
       }));
     },
 
     onRssSyncPress() {
       dispatch(executeCommand({
         name: commandNames.RSS_SYNC
+      }));
+    },
+
+    onSearchPress(items) {
+      dispatch(executeCommand({
+        name: commandNames.BOOK_SEARCH,
+        bookIds: items
       }));
     }
   };
@@ -77,6 +94,10 @@ class BookIndexConnector extends Component {
 
   onViewSelect = (view) => {
     this.props.dispatchSetBookView(view);
+  }
+
+  onSaveSelected = (payload) => {
+    this.props.dispatchSaveBookEditor(payload);
   }
 
   onScroll = ({ scrollTop }) => {
@@ -92,6 +113,7 @@ class BookIndexConnector extends Component {
         {...this.props}
         onViewSelect={this.onViewSelect}
         onScroll={this.onScroll}
+        onSaveSelected={this.onSaveSelected}
       />
     );
   }
@@ -100,7 +122,8 @@ class BookIndexConnector extends Component {
 BookIndexConnector.propTypes = {
   isSmallScreen: PropTypes.bool.isRequired,
   view: PropTypes.string.isRequired,
-  dispatchSetBookView: PropTypes.func.isRequired
+  dispatchSetBookView: PropTypes.func.isRequired,
+  dispatchSaveBookEditor: PropTypes.func.isRequired
 };
 
 export default withScrollPosition(

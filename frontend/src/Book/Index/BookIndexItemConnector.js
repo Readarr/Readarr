@@ -42,7 +42,7 @@ function createMapStateToProps() {
       executingCommands
     ) => {
 
-      // If an book is deleted this selector may fire before the parent
+      // If a book is deleted this selector may fire before the parent
       // selectors, which will result in an undefined book, if that happens
       // we want to return early here and again in the render function to avoid
       // trying to show an book that has no information available.

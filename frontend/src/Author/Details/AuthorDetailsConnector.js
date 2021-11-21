@@ -6,8 +6,8 @@ import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
 import * as commandNames from 'Commands/commandNames';
 import { toggleAuthorMonitored } from 'Store/Actions/authorActions';
-import { saveBookEditor } from 'Store/Actions/bookEditorActions';
 import { clearBookFiles, fetchBookFiles } from 'Store/Actions/bookFileActions';
+import { saveBookEditor } from 'Store/Actions/bookIndexActions';
 import { executeCommand } from 'Store/Actions/commandActions';
 import { clearQueueDetails, fetchQueueDetails } from 'Store/Actions/queueActions';
 import { cancelFetchReleases, clearReleases } from 'Store/Actions/releaseActions';
@@ -22,14 +22,21 @@ import AuthorDetails from './AuthorDetails';
 
 const selectBooks = createSelector(
   (state) => state.books,
-  (state) => state.bookEditor,
-  (books, editor) => {
+  (state) => state.bookIndex,
+  (books, index) => {
     const {
       items,
       isFetching,
       isPopulated,
       error
     } = books;
+
+    const {
+      isSaving,
+      saveError,
+      isDeleting,
+      deleteError
+    } = index;
 
     const hasBooks = !!items.length;
     const hasMonitoredBooks = items.some((e) => e.monitored);
@@ -40,7 +47,10 @@ const selectBooks = createSelector(
       booksError: error,
       hasBooks,
       hasMonitoredBooks,
-      ...editor
+      isSaving,
+      saveError,
+      isDeleting,
+      deleteError
     };
   }
 );
@@ -112,7 +122,11 @@ function createMapStateToProps() {
         isBooksPopulated,
         booksError,
         hasBooks,
-        hasMonitoredBooks
+        hasMonitoredBooks,
+        isSaving,
+        saveError,
+        isDeleting,
+        deleteError
       } = books;
 
       const {
@@ -172,6 +186,10 @@ function createMapStateToProps() {
         isFetching,
         isPopulated,
         booksError,
+        isSaving,
+        saveError,
+        isDeleting,
+        deleteError,
         seriesError,
         bookFilesError,
         hasBooks,

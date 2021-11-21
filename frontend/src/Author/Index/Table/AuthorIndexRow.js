@@ -13,6 +13,7 @@ import SpinnerIconButton from 'Components/Link/SpinnerIconButton';
 import ProgressBar from 'Components/ProgressBar';
 import RelativeDateCellConnector from 'Components/Table/Cells/RelativeDateCellConnector';
 import VirtualTableRowCell from 'Components/Table/Cells/VirtualTableRowCell';
+import VirtualTableSelectCell from 'Components/Table/Cells/VirtualTableSelectCell';
 import TagListConnector from 'Components/TagListConnector';
 import { icons } from 'Helpers/Props';
 import getProgressBarKind from 'Utilities/Author/getProgressBarKind';
@@ -101,8 +102,11 @@ class AuthorIndexRow extends Component {
       columns,
       isRefreshingAuthor,
       isSearchingAuthor,
+      isEditorActive,
+      isSelected,
       onRefreshAuthorPress,
-      onSearchPress
+      onSearchPress,
+      onSelectedChange
     } = this.props;
 
     const {
@@ -129,6 +133,19 @@ class AuthorIndexRow extends Component {
 
             if (!isVisible) {
               return null;
+            }
+
+            if (isEditorActive && name === 'select') {
+              return (
+                <VirtualTableSelectCell
+                  inputClassName={styles.checkInput}
+                  id={id}
+                  key={name}
+                  isSelected={isSelected}
+                  isDisabled={false}
+                  onSelectedChange={onSelectedChange}
+                />
+              );
             }
 
             if (name === 'status') {
@@ -431,7 +448,10 @@ AuthorIndexRow.propTypes = {
   isRefreshingAuthor: PropTypes.bool.isRequired,
   isSearchingAuthor: PropTypes.bool.isRequired,
   onRefreshAuthorPress: PropTypes.func.isRequired,
-  onSearchPress: PropTypes.func.isRequired
+  onSearchPress: PropTypes.func.isRequired,
+  isEditorActive: PropTypes.bool.isRequired,
+  isSelected: PropTypes.bool,
+  onSelectedChange: PropTypes.func.isRequired
 };
 
 AuthorIndexRow.defaultProps = {
