@@ -22,8 +22,21 @@ namespace NzbDrone.Core.Notifications.Goodreads
 
         public override void OnReleaseImport(BookDownloadMessage message)
         {
-            var bookId = message.Book.Editions.Value.Single(x => x.Monitored).ForeignEditionId;
-            RemoveBookFromShelves(bookId, Settings.RemoveIds);
+            var importedBook = message.Book;
+
+            foreach (var shelf in Settings.RemoveIds)
+            {
+                // try to find the edition that we need to remove
+                var listBooks = SearchShelf(shelf, importedBook.AuthorMetadata.Value.Name);
+                var toRemove = listBooks.Where(x => x.Book.WorkId.ToString() == importedBook.ForeignBookId);
+
+                foreach (var listBook in toRemove)
+                {
+                    RemoveBookFromShelves(listBook.Book.Id, shelf);
+                }
+            }
+
+            var bookId = importedBook.Editions.Value.Single(x => x.Monitored).ForeignEditionId;
             AddToShelves(bookId, Settings.AddIds);
         }
 
@@ -104,22 +117,59 @@ namespace NzbDrone.Core.Notifications.Goodreads
             }
         }
 
-        private void RemoveBookFromShelves(string bookId, IEnumerable<string> shelves)
+        private IReadOnlyList<ReviewResource> SearchShelf(string shelf, string query)
         {
-            foreach (var shelf in shelves)
+            List<ReviewResource> results = new ();
+
+            while (true)
             {
-                var req = RequestBuilder()
-                    .Post()
-                    .SetSegment("route", "shelf/add_to_shelf.xml")
-                    .AddFormParameter("name", shelf)
-                    .AddFormParameter("book_id", bookId)
-                    .AddFormParameter("a", "remove");
+                var page = 1;
 
-                // in case not found in shelf
-                req.SuppressHttpError = true;
+                try
+                {
+                    var builder = RequestBuilder()
+                        .SetSegment("route", $"review/list.xml")
+                        .AddQueryParam("v", 2)
+                        .AddQueryParam("id", Settings.UserId)
+                        .AddQueryParam("shelf", shelf)
+                        .AddQueryParam("per_page", 200)
+                        .AddQueryParam("page", page++)
+                        .AddQueryParam("search[query]", query);
 
-                OAuthExecute(req);
+                    var httpResponse = OAuthExecute(builder);
+
+                    var resource = httpResponse.Deserialize<PaginatedList<ReviewResource>>("reviews");
+
+                    results.AddRange(resource.List);
+
+                    if (resource.Pagination.End >= resource.Pagination.TotalItems)
+                    {
+                        break;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    _logger.Warn(ex, "Error fetching bookshelves from Goodreads");
+                    return results;
+                }
             }
+
+            return results;
+        }
+
+        private void RemoveBookFromShelves(long bookId, string shelf)
+        {
+            var req = RequestBuilder()
+                .Post()
+                .SetSegment("route", "shelf/add_to_shelf.xml")
+                .AddFormParameter("name", shelf)
+                .AddFormParameter("book_id", bookId)
+                .AddFormParameter("a", "remove");
+
+            // in case not found in shelf
+            req.SuppressHttpError = true;
+
+            OAuthExecute(req);
         }
 
         private void AddToShelves(string bookId, IEnumerable<string> shelves)
