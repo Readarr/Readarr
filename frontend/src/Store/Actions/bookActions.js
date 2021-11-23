@@ -109,6 +109,35 @@ export const sortPredicates = {
     const { statistics = {} } = item;
 
     return statistics.sizeOnDisk || 0;
+  },
+
+  series: function(item) {
+    return item.seriesTitle;
+  },
+
+  rating: function(item) {
+    return item.ratings.value;
+  },
+
+  status: function(item) {
+    let result = 0;
+
+    const hasBookFile = !!item.statistics.bookFileCount;
+    const isAvailable = Date.parse(item.releaseDate) < new Date();
+
+    if (isAvailable) {
+      result++;
+    }
+
+    if (item.monitored) {
+      result += 2;
+    }
+
+    if (hasBookFile) {
+      result += 4;
+    }
+
+    return result;
   }
 };
 
@@ -179,7 +208,8 @@ export const defaultState = {
     {
       name: 'status',
       label: 'Status',
-      isVisible: true
+      isVisible: true,
+      isSortable: true
     },
     {
       name: 'actions',
