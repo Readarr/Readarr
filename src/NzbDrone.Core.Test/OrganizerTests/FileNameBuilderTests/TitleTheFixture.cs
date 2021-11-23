@@ -28,10 +28,23 @@ namespace NzbDrone.Core.Test.OrganizerTests.FileNameBuilderTests
                     .With(s => s.Name = "Alien Ant Farm")
                     .Build();
 
+            var series = Builder<Series>
+                .CreateNew()
+                .With(x => x.Title = "Series Title")
+                .Build();
+
+            var seriesLink = Builder<SeriesBookLink>
+                .CreateListOfSize(1)
+                .All()
+                .With(s => s.Position = "1-2")
+                .With(s => s.Series = series)
+                .BuildListOfNew();
+
             _book = Builder<Book>
                     .CreateNew()
                     .With(s => s.Title = "Anthology")
                     .With(s => s.AuthorMetadata = _author.Metadata.Value)
+                    .With(s => s.SeriesLinks = seriesLink)
                     .Build();
 
             _edition = Builder<Edition>

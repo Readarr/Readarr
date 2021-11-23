@@ -196,7 +196,8 @@ namespace NzbDrone.Core.MetadataSource.BookInfo
                         Book = bookDict[l.ForeignWorkId.ToString()],
                         Series = curr,
                         IsPrimary = l.Primary,
-                        Position = l.PositionInSeries
+                        Position = l.PositionInSeries,
+                        SeriesPosition = l.SeriesPosition
                     }).ToList();
                 }
             }

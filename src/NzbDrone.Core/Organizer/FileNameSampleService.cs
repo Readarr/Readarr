@@ -37,12 +37,24 @@ namespace NzbDrone.Core.Organizer
                 }
             };
 
+            var series = new Series
+            {
+                Title = "Series Title"
+            };
+
+            var seriesLink = new SeriesBookLink
+            {
+                Position = "1",
+                Series = series
+            };
+
             _standardBook = new Book
             {
                 Title = "The Book Title",
                 ReleaseDate = System.DateTime.Today,
                 Author = _standardAuthor,
-                AuthorMetadata = _standardAuthor.Metadata.Value
+                AuthorMetadata = _standardAuthor.Metadata.Value,
+                SeriesLinks = new List<SeriesBookLink> { seriesLink }
             };
 
             _standardEdition = new Edition

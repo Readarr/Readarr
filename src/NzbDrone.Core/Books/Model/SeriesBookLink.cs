@@ -6,6 +6,7 @@ namespace NzbDrone.Core.Books
     public class SeriesBookLink : Entity<SeriesBookLink>
     {
         public string Position { get; set; }
+        public int SeriesPosition { get; set; }
         public int SeriesId { get; set; }
         public int BookId { get; set; }
         public bool IsPrimary { get; set; }
@@ -18,6 +19,7 @@ namespace NzbDrone.Core.Books
         public override void UseMetadataFrom(SeriesBookLink other)
         {
             Position = other.Position;
+            SeriesPosition = other.SeriesPosition;
             IsPrimary = other.IsPrimary;
         }
 

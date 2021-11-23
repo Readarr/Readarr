@@ -54,6 +54,9 @@ namespace Readarr.Api.V1.Books
             var title = selectedEdition?.Title ?? model.Title;
             var authorTitle = $"{model.Author?.Value?.Metadata?.Value?.SortNameLastFirst} {title}";
 
+            var seriesLinks = model.SeriesLinks?.Value?.OrderBy(x => x.SeriesPosition);
+            var seriesTitle = seriesLinks?.Select(x => x?.Series?.Value?.Title + (x?.Position.IsNotNullOrWhiteSpace() ?? false ? $" #{x.Position}" : string.Empty)).ConcatToString("; ");
+
             return new BookResource
             {
                 Id = model.Id,
@@ -67,7 +70,7 @@ namespace Readarr.Api.V1.Books
                 Genres = model.Genres,
                 Title = title,
                 AuthorTitle = authorTitle,
-                SeriesTitle = model.SeriesLinks?.Value?.Select(x => x?.Series?.Value?.Title + (x?.Position.IsNotNullOrWhiteSpace() ?? false ? $" #{x.Position}" : string.Empty)).ConcatToString("; "),
+                SeriesTitle = seriesTitle,
                 Disambiguation = selectedEdition?.Disambiguation,
                 Overview = selectedEdition?.Overview,
                 Images = selectedEdition?.Images ?? new List<MediaCover>(),

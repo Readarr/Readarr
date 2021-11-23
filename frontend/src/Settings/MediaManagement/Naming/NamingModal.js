@@ -79,6 +79,12 @@ const bookTokens = [
 
   { token: '{Book Disambiguation}', example: 'Disambiguation' },
 
+  { token: '{Book Series}', example: 'Series Title' },
+
+  { token: '{Book SeriesPosition}', example: '1' },
+
+  { token: '{Book SeriesTitle}', example: 'Series Title #1' },
+
   { token: '{PartNumber:0}', example: '2' },
   { token: '{PartNumber:00}', example: '02' },
   { token: '{PartCount:0}', example: '9' },

@@ -245,6 +245,17 @@ namespace NzbDrone.Core.Organizer
             tokenHandlers["{Book CleanSubtitle}"] = m => CleanTitle(subtitle);
             tokenHandlers["{Book SubtitleThe}"] = m => TitleThe(subtitle);
 
+            var seriesLinks = edition.Book.Value.SeriesLinks.Value;
+            if (seriesLinks.Any())
+            {
+                var primarySeries = seriesLinks.OrderBy(x => x.SeriesPosition).First();
+                var seriesTitle = primarySeries.Series?.Value?.Title + (primarySeries.Position.IsNotNullOrWhiteSpace() ? $" #{primarySeries.Position}" : string.Empty);
+
+                tokenHandlers["{Book Series}"] = m => primarySeries.Series.Value.Title;
+                tokenHandlers["{Book SeriesPosition}"] = m => primarySeries.Position;
+                tokenHandlers["{Book SeriesTitle}"] = m => seriesTitle;
+            }
+
             if (edition.Disambiguation != null)
             {
                 tokenHandlers["{Book Disambiguation}"] = m => edition.Disambiguation;

@@ -8,6 +8,7 @@ namespace Readarr.Api.V1.Series
     public class SeriesBookLinkResource : RestResource
     {
         public string Position { get; set; }
+        public int SeriesPosition { get; set; }
         public int SeriesId { get; set; }
         public int BookId { get; set; }
     }
@@ -20,6 +21,7 @@ namespace Readarr.Api.V1.Series
             {
                 Id = model.Id,
                 Position = model.Position,
+                SeriesPosition = model.SeriesPosition,
                 SeriesId = model.SeriesId,
                 BookId = model.BookId
             };

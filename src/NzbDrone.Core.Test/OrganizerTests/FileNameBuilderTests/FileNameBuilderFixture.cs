@@ -35,10 +35,23 @@ namespace NzbDrone.Core.Test.OrganizerTests.FileNameBuilderTests
                     })
                     .Build();
 
+            var series = Builder<Series>
+                .CreateNew()
+                .With(x => x.Title = "Series Title")
+                .Build();
+
+            var seriesLink = Builder<SeriesBookLink>
+                .CreateListOfSize(1)
+                .All()
+                .With(s => s.Position = "1-2")
+                .With(s => s.Series = series)
+                .BuildListOfNew();
+
             _book = Builder<Book>
                 .CreateNew()
                 .With(s => s.Title = "Hybrid Theory")
                 .With(s => s.AuthorMetadata = _author.Metadata.Value)
+                .With(s => s.SeriesLinks = seriesLink)
                 .Build();
 
             _edition = Builder<Edition>
@@ -248,6 +261,33 @@ namespace NzbDrone.Core.Test.OrganizerTests.FileNameBuilderTests
         }
 
         [Test]
+        public void should_set_series()
+        {
+            _namingConfig.StandardBookFormat = "{Book Series}";
+
+            Subject.BuildBookFileName(_author, _edition, _trackFile)
+                .Should().Be("Series Title");
+        }
+
+        [Test]
+        public void should_set_series_number()
+        {
+            _namingConfig.StandardBookFormat = "{Book SeriesPosition}";
+
+            Subject.BuildBookFileName(_author, _edition, _trackFile)
+                .Should().Be("1-2");
+        }
+
+        [Test]
+        public void should_set_series_title()
+        {
+            _namingConfig.StandardBookFormat = "{Book SeriesTitle}";
+
+            Subject.BuildBookFileName(_author, _edition, _trackFile)
+                .Should().Be("Series Title #1-2");
+        }
+
+        [Test]
         public void should_set_part_number()
         {
             _namingConfig.StandardBookFormat = "{(PartNumber)}";
@@ -434,7 +474,7 @@ namespace NzbDrone.Core.Test.OrganizerTests.FileNameBuilderTests
         {
             _namingConfig.StandardBookFormat = "{Author.Name}.{Book.Title}";
 
-            Subject.BuildBookFileName(new Author { Name = "In The Woods." }, new Edition { Title = "30 Rock", Book = new Book { AuthorMetadata = new AuthorMetadata { Name = "Author" } } }, _trackFile)
+            Subject.BuildBookFileName(new Author { Name = "In The Woods." }, new Edition { Title = "30 Rock", Book = new Book { AuthorMetadata = new AuthorMetadata { Name = "Author" }, SeriesLinks = new List<SeriesBookLink>() } }, _trackFile)
                    .Should().Be("In.The.Woods.30.Rock");
         }
 
@@ -443,7 +483,7 @@ namespace NzbDrone.Core.Test.OrganizerTests.FileNameBuilderTests
         {
             _namingConfig.StandardBookFormat = "{Author.Name}.{Book.Title}";
 
-            Subject.BuildBookFileName(new Author { Name = "In The Woods..." }, new Edition { Title = "30 Rock", Book = new Book { AuthorMetadata = new AuthorMetadata { Name = "Author" } } }, _trackFile)
+            Subject.BuildBookFileName(new Author { Name = "In The Woods..." }, new Edition { Title = "30 Rock", Book = new Book { AuthorMetadata = new AuthorMetadata { Name = "Author" }, SeriesLinks = new List<SeriesBookLink>() } }, _trackFile)
                    .Should().Be("In.The.Woods.30.Rock");
         }
 
