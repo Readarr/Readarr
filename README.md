@@ -40,7 +40,10 @@ Note: GitHub Issues are for Bugs and Feature Requests Only
 
 [API Documentation](https://readarr.com/docs/api/)
 
-This project exists thanks to all the people who contribute. [Contribute](CONTRIBUTING.md).
+This project exists thanks to all the people who contribute.
+- [Contribute (GitHub)](CONTRIBUTING.md)
+- [Contribution (Wiki Article)](https://wiki.servarr.com/readarr/contributing)
+
 [![Contributors List](https://opencollective.com/Readarr/contributors.svg?width=890&button=false)](https://github.com/Readarr/Readarr/graphs/contributors)
 
 ## Backers
