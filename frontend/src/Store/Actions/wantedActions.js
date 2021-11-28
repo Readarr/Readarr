@@ -97,7 +97,7 @@ export const defaultState = {
         isVisible: true
       },
       {
-        name: 'books.Title',
+        name: 'books.title',
         label: 'Book',
         isSortable: true,
         isVisible: true
