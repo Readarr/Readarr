@@ -1,6 +1,6 @@
 import { createAction } from 'redux-actions';
 import { batchActions } from 'redux-batched-actions';
-import { filterBuilderTypes, filterBuilderValueTypes, sortDirections } from 'Helpers/Props';
+import { filterBuilderTypes, filterBuilderValueTypes, filterTypePredicates, sortDirections } from 'Helpers/Props';
 import { createThunk, handleThunks } from 'Store/thunks';
 import sortByName from 'Utilities/Array/sortByName';
 import createAjaxRequest from 'Utilities/createAjaxRequest';
@@ -151,6 +151,10 @@ export const defaultState = {
   sortPredicates: {
     ...sortPredicates,
 
+    authorName: function(item) {
+      return item.author.sortName;
+    },
+
     bookFileCount: function(item) {
       const { statistics = {} } = item;
 
@@ -169,13 +173,41 @@ export const defaultState = {
   filters,
 
   filterPredicates: {
-    ...filterPredicates
+    ...filterPredicates,
+
+    author: function(item, filterValue, type) {
+      const predicate = filterTypePredicates[type];
+
+      return predicate(item.author.authorName, filterValue);
+    },
+
+    anyEditionOk: function(item, filterValue, type) {
+      const predicate = filterTypePredicates[type];
+
+      return predicate(item.anyEditionOk, filterValue);
+    }
   },
 
   filterBuilderProps: [
     {
+      name: 'author',
+      label: 'Author',
+      type: filterBuilderTypes.STRING
+    },
+    {
+      name: 'title',
+      label: 'Title',
+      type: filterBuilderTypes.STRING
+    },
+    {
       name: 'monitored',
       label: 'Monitored',
+      type: filterBuilderTypes.EXACT,
+      valueType: filterBuilderValueTypes.BOOL
+    },
+    {
+      name: 'anyEditionOk',
+      label: 'Automatic Release Switching',
       type: filterBuilderTypes.EXACT,
       valueType: filterBuilderValueTypes.BOOL
     },
