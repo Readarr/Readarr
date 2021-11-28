@@ -87,6 +87,12 @@ export const filterPredicates = {
     return predicate(item.ratings.value * 10, filterValue);
   },
 
+  path: function(item, filterValue, type) {
+    const predicate = filterTypePredicates[type];
+
+    return predicate(item.author.path, filterValue);
+  },
+
   bookFileCount: function(item, filterValue, type) {
     const predicate = filterTypePredicates[type];
     const bookCount = item.statistics ? item.statistics.bookFileCount : 0;
@@ -109,6 +115,10 @@ export const sortPredicates = {
     const { statistics = {} } = item;
 
     return statistics.sizeOnDisk || 0;
+  },
+
+  path: function(item) {
+    return item.author.path;
   },
 
   series: function(item) {
