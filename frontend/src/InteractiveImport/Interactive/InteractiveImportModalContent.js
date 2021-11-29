@@ -455,7 +455,7 @@ class InteractiveImportModalContent extends Component {
 
             <Button
               kind={kinds.SUCCESS}
-              isDisabled={!selectedIds.length || !!invalidRowsSelected.length || inconsistentBookReleases}
+              isDisabled={isSaving || !selectedIds.length || !!invalidRowsSelected.length || inconsistentBookReleases}
               onPress={this.onImportSelectedPress}
             >
               Import

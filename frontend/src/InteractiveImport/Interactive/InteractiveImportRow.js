@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import BookQuality from 'Book/BookQuality';
 import FileDetails from 'BookFile/FileDetails';
 import Icon from 'Components/Icon';
+import LoadingIndicator from 'Components/Loading/LoadingIndicator';
 import ConfirmModal from 'Components/Modal/ConfirmModal';
 import TableRowCell from 'Components/Table/Cells/TableRowCell';
 import TableRowCellButton from 'Components/Table/Cells/TableRowCellButton';
@@ -152,7 +153,8 @@ class InteractiveImportRow extends Component {
       additionalFile,
       isSelected,
       onSelectedChange,
-      audioTags
+      audioTags,
+      isSaving
     } = this.props;
 
     const {
@@ -255,7 +257,14 @@ class InteractiveImportRow extends Component {
 
         <TableRowCell>
           {
-            rejections && rejections.length ?
+            isSaving &&
+              <LoadingIndicator
+                className={styles.loading}
+                size={20}
+              />
+          }
+          {
+            !isSaving && rejections && rejections.length ?
               <Popover
                 anchor={
                   <Icon
