@@ -248,6 +248,7 @@ namespace NzbDrone.Core.ImportLists
                 {
                     ForeignBookId = report.BookGoodreadsId,
                     Monitored = monitored,
+                    AnyEditionOk = true,
                     Editions = new List<Edition>
                     {
                         new Edition
