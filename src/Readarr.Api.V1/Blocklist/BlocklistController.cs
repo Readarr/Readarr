@@ -37,7 +37,7 @@ namespace Readarr.Api.V1.Blocklist
         {
             _blocklistService.Delete(resource.Ids);
 
-            return new object();
+            return new { };
         }
     }
 }

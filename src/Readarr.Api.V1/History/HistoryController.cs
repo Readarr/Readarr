@@ -103,7 +103,7 @@ namespace Readarr.Api.V1.History
         public object MarkAsFailed([FromBody] int id)
         {
             _failedDownloadService.MarkAsFailed(id);
-            return new object();
+            return new { };
         }
     }
 }

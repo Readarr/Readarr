@@ -86,7 +86,7 @@ namespace Readarr.Api.V1.Queue
 
             _trackedDownloadService.StopTracking(trackedDownloadIds);
 
-            return new object();
+            return new { };
         }
 
         [HttpGet]

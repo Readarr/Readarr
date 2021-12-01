@@ -31,7 +31,7 @@ namespace Readarr.Api.V1.Queue
 
             _downloadService.DownloadReport(pendingRelease.RemoteBook);
 
-            return new object();
+            return new { };
         }
 
         [HttpPost("grab/bulk")]
@@ -49,7 +49,7 @@ namespace Readarr.Api.V1.Queue
                 _downloadService.DownloadReport(pendingRelease.RemoteBook);
             }
 
-            return new object();
+            return new { };
         }
     }
 }

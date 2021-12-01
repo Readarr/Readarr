@@ -94,7 +94,7 @@ namespace Readarr.Api.V1.Author
                 _authorService.DeleteAuthor(authorId, false);
             }
 
-            return new object();
+            return new { };
         }
     }
 }
