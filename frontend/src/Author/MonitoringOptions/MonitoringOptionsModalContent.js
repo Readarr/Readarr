@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
+import Alert from 'Components/Alert';
 import Form from 'Components/Form/Form';
 import FormGroup from 'Components/Form/FormGroup';
 import FormInputGroup from 'Components/Form/FormInputGroup';
@@ -10,7 +11,7 @@ import ModalBody from 'Components/Modal/ModalBody';
 import ModalContent from 'Components/Modal/ModalContent';
 import ModalFooter from 'Components/Modal/ModalFooter';
 import ModalHeader from 'Components/Modal/ModalHeader';
-import { inputTypes } from 'Helpers/Props';
+import { inputTypes, kinds } from 'Helpers/Props';
 import translate from 'Utilities/String/translate';
 
 const NO_CHANGE = 'noChange';
@@ -92,6 +93,12 @@ class MonitoringOptionsModalContent extends Component {
         </ModalHeader>
 
         <ModalBody>
+          <Alert kind={kinds.INFO}>
+            <div>
+              {translate('MonitorBookExistingOnlyWarning')}
+            </div>
+          </Alert>
+
           <Form {...otherProps}>
             <FormGroup>
               <FormLabel>{translate('Monitoring')}</FormLabel>

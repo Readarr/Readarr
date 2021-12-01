@@ -58,6 +58,7 @@ class AddNewBookModalContentConnector extends Component {
       foreignBookId,
       rootFolderPath,
       monitor,
+      monitorNewItems,
       qualityProfileId,
       metadataProfileId,
       tags
@@ -67,6 +68,7 @@ class AddNewBookModalContentConnector extends Component {
       foreignBookId,
       rootFolderPath: rootFolderPath.value,
       monitor: monitor.value,
+      monitorNewItems: monitorNewItems.value,
       qualityProfileId: qualityProfileId.value,
       metadataProfileId: metadataProfileId.value,
       tags: tags.value,
@@ -93,6 +95,7 @@ AddNewBookModalContentConnector.propTypes = {
   foreignBookId: PropTypes.string.isRequired,
   rootFolderPath: PropTypes.object,
   monitor: PropTypes.object.isRequired,
+  monitorNewItems: PropTypes.object.isRequired,
   qualityProfileId: PropTypes.object,
   metadataProfileId: PropTypes.object,
   tags: PropTypes.object.isRequired,

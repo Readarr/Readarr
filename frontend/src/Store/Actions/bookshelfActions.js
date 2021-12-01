@@ -4,7 +4,6 @@ import { createThunk, handleThunks } from 'Store/thunks';
 import createAjaxRequest from 'Utilities/createAjaxRequest';
 import { filterPredicates, filters } from './authorActions';
 import { set } from './baseActions';
-import { fetchBooks } from './bookActions';
 import createHandleActions from './Creators/createHandleActions';
 import createSetClientSideCollectionFilterReducer from './Creators/Reducers/createSetClientSideCollectionFilterReducer';
 import createSetClientSideCollectionSortReducer from './Creators/Reducers/createSetClientSideCollectionSortReducer';
@@ -97,7 +96,8 @@ export const actionHandlers = handleThunks({
     const {
       authorIds,
       monitored,
-      monitor
+      monitor,
+      monitorNewItems
     } = payload;
 
     const authors = [];
@@ -122,14 +122,13 @@ export const actionHandlers = handleThunks({
       method: 'POST',
       data: JSON.stringify({
         authors,
-        monitoringOptions: { monitor }
+        monitoringOptions: { monitor },
+        monitorNewItems
       }),
       dataType: 'json'
     }).request;
 
     promise.done((data) => {
-      dispatch(fetchBooks());
-
       dispatch(set({
         section,
         isSaving: false,

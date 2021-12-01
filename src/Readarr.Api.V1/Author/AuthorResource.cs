@@ -5,7 +5,6 @@ using Newtonsoft.Json;
 using NzbDrone.Common.Extensions;
 using NzbDrone.Core.Books;
 using NzbDrone.Core.MediaCover;
-using Readarr.Api.V1.Books;
 using Readarr.Http.REST;
 
 namespace Readarr.Api.V1.Author
@@ -43,6 +42,7 @@ namespace Readarr.Api.V1.Author
 
         //Editing Only
         public bool Monitored { get; set; }
+        public NewItemMonitorTypes MonitorNewItems { get; set; }
 
         public string RootFolderPath { get; set; }
         public List<string> Genres { get; set; }
@@ -91,6 +91,7 @@ namespace Readarr.Api.V1.Author
                 Links = model.Metadata.Value.Links,
 
                 Monitored = model.Monitored,
+                MonitorNewItems = model.MonitorNewItems,
 
                 CleanName = model.CleanName,
                 ForeignAuthorId = model.Metadata.Value.ForeignAuthorId,
@@ -141,6 +142,7 @@ namespace Readarr.Api.V1.Author
                 MetadataProfileId = resource.MetadataProfileId,
 
                 Monitored = resource.Monitored,
+                MonitorNewItems = resource.MonitorNewItems,
 
                 CleanName = resource.CleanName,
                 RootFolderPath = resource.RootFolderPath,

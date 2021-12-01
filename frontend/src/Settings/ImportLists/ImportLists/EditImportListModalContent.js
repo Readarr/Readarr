@@ -1,8 +1,10 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import AuthorMonitorNewItemsOptionsPopoverContent from 'AddAuthor/AuthorMonitorNewItemsOptionsPopoverContent';
 import Alert from 'Components/Alert';
 import DescriptionList from 'Components/DescriptionList/DescriptionList';
 import DescriptionListItem from 'Components/DescriptionList/DescriptionListItem';
+import FieldSet from 'Components/FieldSet';
 import Form from 'Components/Form/Form';
 import FormGroup from 'Components/Form/FormGroup';
 import FormInputGroup from 'Components/Form/FormInputGroup';
@@ -76,6 +78,7 @@ function EditImportListModalContent(props) {
     shouldMonitorExisting,
     shouldSearch,
     rootFolderPath,
+    monitorNewItems,
     qualityProfileId,
     metadataProfileId,
     tags,
@@ -114,148 +117,178 @@ function EditImportListModalContent(props) {
                     {message.value.message}
                   </Alert>
               }
-              <FormGroup>
-                <FormLabel>
-                  {translate('Name')}
-                </FormLabel>
 
-                <FormInputGroup
-                  type={inputTypes.TEXT}
-                  name="name"
-                  {...name}
-                  onChange={onInputChange}
-                />
-              </FormGroup>
+              <FieldSet legend={translate('ImportListSettings')} >
+                <FormGroup>
+                  <FormLabel>
+                    {translate('Name')}
+                  </FormLabel>
 
-              <FormGroup>
-                <FormLabel>
-                  {translate('EnableAutomaticAdd')}
-                </FormLabel>
-
-                <FormInputGroup
-                  type={inputTypes.CHECK}
-                  name="enableAutomaticAdd"
-                  helpText={translate('EnableAutomaticAddHelpText')}
-                  {...enableAutomaticAdd}
-                  onChange={onInputChange}
-                />
-              </FormGroup>
-
-              <FormGroup>
-                <FormLabel>
-                  Monitor
-
-                  <Popover
-                    anchor={
-                      <Icon
-                        className={styles.labelIcon}
-                        name={icons.INFO}
-                      />
-                    }
-                    title={translate('MonitoringOptions')}
-                    body={<ImportListMonitoringOptionsPopoverContent />}
-                    position={tooltipPositions.RIGHT}
+                  <FormInputGroup
+                    type={inputTypes.TEXT}
+                    name="name"
+                    {...name}
+                    onChange={onInputChange}
                   />
-                </FormLabel>
+                </FormGroup>
 
-                <FormInputGroup
-                  type={inputTypes.SELECT}
-                  name="shouldMonitor"
-                  values={monitorOptions}
-                  helpText={translate('ShouldMonitorHelpText')}
-                  {...shouldMonitor}
-                  onChange={onInputChange}
-                />
-              </FormGroup>
+                <FormGroup>
+                  <FormLabel>
+                    {translate('EnableAutomaticAdd')}
+                  </FormLabel>
 
-              <FormGroup>
-                <FormLabel>
-                  {translate('ShouldMonitorExisting')}
-                </FormLabel>
+                  <FormInputGroup
+                    type={inputTypes.CHECK}
+                    name="enableAutomaticAdd"
+                    helpText={translate('EnableAutomaticAddHelpText')}
+                    {...enableAutomaticAdd}
+                    onChange={onInputChange}
+                  />
+                </FormGroup>
 
-                <FormInputGroup
-                  type={inputTypes.CHECK}
-                  name="shouldMonitorExisting"
-                  helpText={translate('ShouldMonitorExistingHelpText')}
-                  {...shouldMonitorExisting}
-                  onChange={onInputChange}
-                />
-              </FormGroup>
+                <FormGroup>
+                  <FormLabel>
+                    Monitor
 
-              <FormGroup>
-                <FormLabel>
-                  {translate('SearchForNewItems')}
-                </FormLabel>
+                    <Popover
+                      anchor={
+                        <Icon
+                          className={styles.labelIcon}
+                          name={icons.INFO}
+                        />
+                      }
+                      title={translate('MonitoringOptions')}
+                      body={<ImportListMonitoringOptionsPopoverContent />}
+                      position={tooltipPositions.RIGHT}
+                    />
+                  </FormLabel>
 
-                <FormInputGroup
-                  type={inputTypes.CHECK}
-                  name="shouldSearch"
-                  helpText={translate('ShouldSearchHelpText')}
-                  {...shouldSearch}
-                  onChange={onInputChange}
-                />
-              </FormGroup>
+                  <FormInputGroup
+                    type={inputTypes.SELECT}
+                    name="shouldMonitor"
+                    values={monitorOptions}
+                    helpText={translate('ShouldMonitorHelpText')}
+                    {...shouldMonitor}
+                    onChange={onInputChange}
+                  />
+                </FormGroup>
 
-              <FormGroup>
-                <FormLabel>
-                  {translate('RootFolder')}
-                </FormLabel>
+                <FormGroup>
+                  <FormLabel>
+                    {translate('ShouldMonitorExisting')}
+                  </FormLabel>
 
-                <FormInputGroup
-                  type={inputTypes.ROOT_FOLDER_SELECT}
-                  name="rootFolderPath"
-                  helpText={translate('RootFolderPathHelpText')}
-                  {...rootFolderPath}
-                  onChange={onInputChange}
-                />
-              </FormGroup>
+                  <FormInputGroup
+                    type={inputTypes.CHECK}
+                    name="shouldMonitorExisting"
+                    helpText={translate('ShouldMonitorExistingHelpText')}
+                    {...shouldMonitorExisting}
+                    onChange={onInputChange}
+                  />
+                </FormGroup>
 
-              <FormGroup>
-                <FormLabel>
-                  {translate('QualityProfile')}
-                </FormLabel>
+                <FormGroup>
+                  <FormLabel>
+                    {translate('SearchForNewItems')}
+                  </FormLabel>
 
-                <FormInputGroup
-                  type={inputTypes.QUALITY_PROFILE_SELECT}
-                  name="qualityProfileId"
-                  helpText={translate('QualityProfileIdHelpText')}
-                  {...qualityProfileId}
-                  onChange={onInputChange}
-                />
-              </FormGroup>
+                  <FormInputGroup
+                    type={inputTypes.CHECK}
+                    name="shouldSearch"
+                    helpText={translate('ShouldSearchHelpText')}
+                    {...shouldSearch}
+                    onChange={onInputChange}
+                  />
+                </FormGroup>
+              </FieldSet>
 
-              <FormGroup className={showMetadataProfile ? undefined : styles.hideMetadataProfile}>
-                <FormLabel>
-                  {translate('MetadataProfile')}
-                </FormLabel>
+              <FieldSet legend={translate('AddedAuthorSettings')} >
+                <FormGroup>
+                  <FormLabel>
+                    {translate('RootFolder')}
+                  </FormLabel>
 
-                <FormInputGroup
-                  type={inputTypes.METADATA_PROFILE_SELECT}
-                  name="metadataProfileId"
-                  helpText={translate('MetadataProfileIdHelpText')}
-                  {...metadataProfileId}
-                  includeNone={true}
-                  onChange={onInputChange}
-                />
-              </FormGroup>
+                  <FormInputGroup
+                    type={inputTypes.ROOT_FOLDER_SELECT}
+                    name="rootFolderPath"
+                    helpText={translate('RootFolderPathHelpText')}
+                    {...rootFolderPath}
+                    onChange={onInputChange}
+                  />
+                </FormGroup>
 
-              <FormGroup>
-                <FormLabel>
-                  {translate('ReadarrTags')}
-                </FormLabel>
+                <FormGroup>
+                  <FormLabel>
+                    {translate('MonitorNewItems')}
+                    <Popover
+                      anchor={
+                        <Icon
+                          className={styles.labelIcon}
+                          name={icons.INFO}
+                        />
+                      }
+                      title={translate('MonitorNewItems')}
+                      body={<AuthorMonitorNewItemsOptionsPopoverContent />}
+                      position={tooltipPositions.RIGHT}
+                    />
+                  </FormLabel>
 
-                <FormInputGroup
-                  type={inputTypes.TAG}
-                  name="tags"
-                  helpText={translate('TagsHelpText')}
-                  {...tags}
-                  onChange={onInputChange}
-                />
-              </FormGroup>
+                  <FormInputGroup
+                    type={inputTypes.MONITOR_NEW_ITEMS_SELECT}
+                    name="monitorNewItems"
+                    helpText={translate('MonitorNewItemsHelpText')}
+                    {...monitorNewItems}
+                    onChange={onInputChange}
+                  />
+                </FormGroup>
+
+                <FormGroup>
+                  <FormLabel>
+                    {translate('QualityProfile')}
+                  </FormLabel>
+
+                  <FormInputGroup
+                    type={inputTypes.QUALITY_PROFILE_SELECT}
+                    name="qualityProfileId"
+                    helpText={translate('QualityProfileIdHelpText')}
+                    {...qualityProfileId}
+                    onChange={onInputChange}
+                  />
+                </FormGroup>
+
+                <FormGroup className={showMetadataProfile ? undefined : styles.hideMetadataProfile}>
+                  <FormLabel>
+                    {translate('MetadataProfile')}
+                  </FormLabel>
+
+                  <FormInputGroup
+                    type={inputTypes.METADATA_PROFILE_SELECT}
+                    name="metadataProfileId"
+                    helpText={translate('MetadataProfileIdHelpText')}
+                    {...metadataProfileId}
+                    includeNone={true}
+                    onChange={onInputChange}
+                  />
+                </FormGroup>
+
+                <FormGroup>
+                  <FormLabel>
+                    {translate('ReadarrTags')}
+                  </FormLabel>
+
+                  <FormInputGroup
+                    type={inputTypes.TAG}
+                    name="tags"
+                    helpText={translate('TagsHelpText')}
+                    {...tags}
+                    onChange={onInputChange}
+                  />
+                </FormGroup>
+              </FieldSet>
 
               {
                 !!fields && !!fields.length &&
-                  <div>
+                  <FieldSet legend={translate('ImportListSpecificSettings')} >
                     {
                       fields.map((field) => {
                         return (
@@ -271,7 +304,7 @@ function EditImportListModalContent(props) {
                         );
                       })
                     }
-                  </div>
+                  </FieldSet>
               }
 
             </Form>

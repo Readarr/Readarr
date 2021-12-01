@@ -1,11 +1,23 @@
+.footer {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.dropdownContainer {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+
 .inputContainer {
+  flex: 1;
   margin-right: 20px;
   min-width: 150px;
 }
 
 .buttonContainer {
   display: flex;
-  justify-content: flex-end;
   flex-grow: 1;
 }
 
@@ -24,12 +36,14 @@
   composes: button from '~Components/Link/SpinnerButton.css';
 
   margin-right: 10px;
+  margin-bottom: 10px;
   height: 35px;
 }
 
 .deleteSelectedButton {
   composes: button from '~Components/Link/SpinnerButton.css';
 
+  margin-bottom: 10px;
   margin-left: 50px;
   height: 35px;
 }
@@ -48,6 +62,10 @@
 }
 
 @media only screen and (max-width: $breakpointSmall) {
+  .dropdownContainer {
+    display: block;
+  }
+
   .inputContainer {
     margin-right: 0;
   }
@@ -61,6 +79,7 @@
   }
 
   .buttons {
+    display: block;
     justify-content: space-between;
   }
 

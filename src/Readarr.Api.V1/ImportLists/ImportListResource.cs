@@ -1,3 +1,4 @@
+using NzbDrone.Core.Books;
 using NzbDrone.Core.ImportLists;
 
 namespace Readarr.Api.V1.ImportLists
@@ -9,6 +10,7 @@ namespace Readarr.Api.V1.ImportLists
         public bool ShouldMonitorExisting { get; set; }
         public bool ShouldSearch { get; set; }
         public string RootFolderPath { get; set; }
+        public NewItemMonitorTypes MonitorNewItems { get; set; }
         public int QualityProfileId { get; set; }
         public int MetadataProfileId { get; set; }
         public ImportListType ListType { get; set; }
@@ -31,6 +33,7 @@ namespace Readarr.Api.V1.ImportLists
             resource.ShouldMonitorExisting = definition.ShouldMonitorExisting;
             resource.ShouldSearch = definition.ShouldSearch;
             resource.RootFolderPath = definition.RootFolderPath;
+            resource.MonitorNewItems = definition.MonitorNewItems;
             resource.QualityProfileId = definition.ProfileId;
             resource.MetadataProfileId = definition.MetadataProfileId;
             resource.ListType = definition.ListType;
@@ -53,6 +56,7 @@ namespace Readarr.Api.V1.ImportLists
             definition.ShouldMonitorExisting = resource.ShouldMonitorExisting;
             definition.ShouldSearch = resource.ShouldSearch;
             definition.RootFolderPath = resource.RootFolderPath;
+            definition.MonitorNewItems = resource.MonitorNewItems;
             definition.ProfileId = resource.QualityProfileId;
             definition.MetadataProfileId = resource.MetadataProfileId;
             definition.ListType = resource.ListType;

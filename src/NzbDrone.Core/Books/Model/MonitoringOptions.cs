@@ -14,16 +14,4 @@ namespace NzbDrone.Core.Books
         public List<string> BooksToMonitor { get; set; }
         public bool Monitored { get; set; }
     }
-
-    public enum MonitorTypes
-    {
-        All,
-        Future,
-        Missing,
-        Existing,
-        Latest,
-        First,
-        None,
-        Unknown
-    }
 }

@@ -328,6 +328,7 @@ namespace NzbDrone.Core.MediaFiles.BookImport
                     author.MetadataProfileId = rootFolder.DefaultMetadataProfileId;
                     author.QualityProfileId = rootFolder.DefaultQualityProfileId;
                     author.Monitored = rootFolder.DefaultMonitorOption != MonitorTypes.None;
+                    author.MonitorNewItems = rootFolder.DefaultNewItemMonitorOption;
                     author.Tags = rootFolder.DefaultTags;
                     author.AddOptions = new AddAuthorOptions
                     {

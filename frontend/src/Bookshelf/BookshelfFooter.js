@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import MonitorBooksSelectInput from 'Components/Form/MonitorBooksSelectInput';
+import MonitorNewItemsSelectInput from 'Components/Form/MonitorNewItemsSelectInput';
 import SelectInput from 'Components/Form/SelectInput';
 import SpinnerButton from 'Components/Link/SpinnerButton';
 import PageContentFooter from 'Components/Page/PageContentFooter';
@@ -19,7 +20,8 @@ class BookshelfFooter extends Component {
 
     this.state = {
       monitored: NO_CHANGE,
-      monitor: NO_CHANGE
+      monitor: NO_CHANGE,
+      monitorNewItems: NO_CHANGE
     };
   }
 
@@ -32,7 +34,8 @@ class BookshelfFooter extends Component {
     if (prevProps.isSaving && !isSaving && !saveError) {
       this.setState({
         monitored: NO_CHANGE,
-        monitor: NO_CHANGE
+        monitor: NO_CHANGE,
+        monitorNewItems: NO_CHANGE
       });
     }
   }
@@ -47,7 +50,8 @@ class BookshelfFooter extends Component {
   onUpdateSelectedPress = () => {
     const {
       monitor,
-      monitored
+      monitored,
+      monitorNewItems
     } = this.state;
 
     const changes = {};
@@ -58,6 +62,10 @@ class BookshelfFooter extends Component {
 
     if (monitor !== NO_CHANGE) {
       changes.monitor = monitor;
+    }
+
+    if (monitorNewItems !== NO_CHANGE) {
+      changes.monitorNewItems = monitorNewItems;
     }
 
     this.props.onUpdateSelectedPress(changes);
@@ -74,7 +82,8 @@ class BookshelfFooter extends Component {
 
     const {
       monitored,
-      monitor
+      monitor,
+      monitorNewItems
     } = this.state;
 
     const monitoredOptions = [
@@ -83,7 +92,9 @@ class BookshelfFooter extends Component {
       { key: 'unmonitored', value: 'Unmonitored' }
     ];
 
-    const noChanges = monitored === NO_CHANGE && monitor === NO_CHANGE;
+    const noChanges = monitored === NO_CHANGE &&
+      monitor === NO_CHANGE &&
+      monitorNewItems === NO_CHANGE;
 
     return (
       <PageContentFooter>
@@ -103,12 +114,26 @@ class BookshelfFooter extends Component {
 
         <div className={styles.inputContainer}>
           <div className={styles.label}>
-            Monitor Books
+            Monitor Existing Books
           </div>
 
           <MonitorBooksSelectInput
             name="monitor"
             value={monitor}
+            includeNoChange={true}
+            isDisabled={!selectedCount}
+            onChange={this.onInputChange}
+          />
+        </div>
+
+        <div className={styles.inputContainer}>
+          <div className={styles.label}>
+            Monitor New Books
+          </div>
+
+          <MonitorNewItemsSelectInput
+            name="monitorNewItems"
+            value={monitorNewItems}
             includeNoChange={true}
             isDisabled={!selectedCount}
             onChange={this.onInputChange}

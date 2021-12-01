@@ -1,3 +1,4 @@
+using NzbDrone.Core.Books;
 using NzbDrone.Core.ThingiProvider;
 
 namespace NzbDrone.Core.ImportLists
@@ -8,6 +9,7 @@ namespace NzbDrone.Core.ImportLists
         public ImportListMonitorType ShouldMonitor { get; set; }
         public bool ShouldMonitorExisting { get; set; }
         public bool ShouldSearch { get; set; }
+        public NewItemMonitorTypes MonitorNewItems { get; set; }
         public int ProfileId { get; set; }
         public int MetadataProfileId { get; set; }
         public string RootFolderPath { get; set; }

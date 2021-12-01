@@ -15,6 +15,7 @@ namespace Readarr.Api.V1.RootFolders
         public int DefaultMetadataProfileId { get; set; }
         public int DefaultQualityProfileId { get; set; }
         public MonitorTypes DefaultMonitorOption { get; set; }
+        public NewItemMonitorTypes DefaultNewItemMonitorOption { get; set; }
         public HashSet<int> DefaultTags { get; set; }
         public bool IsCalibreLibrary { get; set; }
         public string Host { get; set; }
@@ -50,6 +51,7 @@ namespace Readarr.Api.V1.RootFolders
                 DefaultMetadataProfileId = model.DefaultMetadataProfileId,
                 DefaultQualityProfileId = model.DefaultQualityProfileId,
                 DefaultMonitorOption = model.DefaultMonitorOption,
+                DefaultNewItemMonitorOption = model.DefaultNewItemMonitorOption,
                 DefaultTags = model.DefaultTags,
                 IsCalibreLibrary = model.IsCalibreLibrary,
                 Host = model.CalibreSettings?.Host,
@@ -105,6 +107,7 @@ namespace Readarr.Api.V1.RootFolders
                 DefaultMetadataProfileId = resource.DefaultMetadataProfileId,
                 DefaultQualityProfileId = resource.DefaultQualityProfileId,
                 DefaultMonitorOption = resource.DefaultMonitorOption,
+                DefaultNewItemMonitorOption = resource.DefaultNewItemMonitorOption,
                 DefaultTags = resource.DefaultTags,
                 IsCalibreLibrary = resource.IsCalibreLibrary,
                 CalibreSettings = cs

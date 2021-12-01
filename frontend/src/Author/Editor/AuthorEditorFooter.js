@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import MoveAuthorModal from 'Author/MoveAuthor/MoveAuthorModal';
 import MetadataProfileSelectInputConnector from 'Components/Form/MetadataProfileSelectInputConnector';
+import MonitorNewItemsSelectInput from 'Components/Form/MonitorNewItemsSelectInput';
 import QualityProfileSelectInputConnector from 'Components/Form/QualityProfileSelectInputConnector';
 import RootFolderSelectInputConnector from 'Components/Form/RootFolderSelectInputConnector';
 import SelectInput from 'Components/Form/SelectInput';
@@ -26,6 +27,7 @@ class AuthorEditorFooter extends Component {
 
     this.state = {
       monitored: NO_CHANGE,
+      monitorNewItems: NO_CHANGE,
       qualityProfileId: NO_CHANGE,
       metadataProfileId: NO_CHANGE,
       rootFolderPath: NO_CHANGE,
@@ -46,6 +48,7 @@ class AuthorEditorFooter extends Component {
     if (prevProps.isSaving && !isSaving && !saveError) {
       this.setState({
         monitored: NO_CHANGE,
+        monitorNewItems: NO_CHANGE,
         qualityProfileId: NO_CHANGE,
         metadataProfileId: NO_CHANGE,
         rootFolderPath: NO_CHANGE,
@@ -145,6 +148,7 @@ class AuthorEditorFooter extends Component {
 
     const {
       monitored,
+      monitorNewItems,
       qualityProfileId,
       metadataProfileId,
       rootFolderPath,
@@ -163,83 +167,99 @@ class AuthorEditorFooter extends Component {
 
     return (
       <PageContentFooter>
-        <div className={styles.inputContainer}>
-          <AuthorEditorFooterLabel
-            label={translate('MonitorAuthor')}
-            isSaving={isSaving && monitored !== NO_CHANGE}
-          />
+        <div className={styles.footer}>
+          <div className={styles.dropdownContainer}>
+            <div className={styles.inputContainer}>
+              <AuthorEditorFooterLabel
+                label={translate('MonitorAuthor')}
+                isSaving={isSaving && monitored !== NO_CHANGE}
+              />
 
-          <SelectInput
-            name="monitored"
-            value={monitored}
-            values={monitoredOptions}
-            isDisabled={!selectedCount}
-            onChange={this.onInputChange}
-          />
-        </div>
+              <SelectInput
+                name="monitored"
+                value={monitored}
+                values={monitoredOptions}
+                isDisabled={!selectedCount}
+                onChange={this.onInputChange}
+              />
+            </div>
 
-        <div
-          className={styles.inputContainer}
-        >
-          <AuthorEditorFooterLabel
-            label={translate('QualityProfile')}
-            isSaving={isSaving && qualityProfileId !== NO_CHANGE}
-          />
+            <div className={styles.inputContainer}>
+              <AuthorEditorFooterLabel
+                label={translate('MonitorNewItems')}
+                isSaving={isSaving && monitored !== NO_CHANGE}
+              />
 
-          <QualityProfileSelectInputConnector
-            name="qualityProfileId"
-            value={qualityProfileId}
-            includeNoChange={true}
-            isDisabled={!selectedCount}
-            onChange={this.onInputChange}
-          />
-        </div>
+              <MonitorNewItemsSelectInput
+                name="monitorNewItems"
+                value={monitorNewItems}
+                includeNoChange={true}
+                isDisabled={!selectedCount}
+                onChange={this.onInputChange}
+              />
+            </div>
 
-        <div
-          className={styles.inputContainer}
-        >
-          <AuthorEditorFooterLabel
-            label={translate('MetadataProfile')}
-            isSaving={isSaving && metadataProfileId !== NO_CHANGE}
-          />
+            <div className={styles.inputContainer}>
+              <AuthorEditorFooterLabel
+                label={translate('QualityProfile')}
+                isSaving={isSaving && qualityProfileId !== NO_CHANGE}
+              />
 
-          <MetadataProfileSelectInputConnector
-            name="metadataProfileId"
-            value={metadataProfileId}
-            includeNoChange={true}
-            includeNone={true}
-            isDisabled={!selectedCount}
-            onChange={this.onInputChange}
-          />
-        </div>
+              <QualityProfileSelectInputConnector
+                name="qualityProfileId"
+                value={qualityProfileId}
+                includeNoChange={true}
+                isDisabled={!selectedCount}
+                onChange={this.onInputChange}
+              />
+            </div>
 
-        <div
-          className={styles.inputContainer}
-        >
-          <AuthorEditorFooterLabel
-            label={translate('RootFolder')}
-            isSaving={isSaving && rootFolderPath !== NO_CHANGE}
-          />
+            <div
+              className={styles.inputContainer}
+            >
+              <AuthorEditorFooterLabel
+                label={translate('MetadataProfile')}
+                isSaving={isSaving && metadataProfileId !== NO_CHANGE}
+              />
 
-          <RootFolderSelectInputConnector
-            name="rootFolderPath"
-            value={rootFolderPath}
-            includeNoChange={true}
-            isDisabled={!selectedCount}
-            selectedValueOptions={{ includeFreeSpace: false }}
-            onChange={this.onInputChange}
-          />
-        </div>
+              <MetadataProfileSelectInputConnector
+                name="metadataProfileId"
+                value={metadataProfileId}
+                includeNoChange={true}
+                includeNone={true}
+                isDisabled={!selectedCount}
+                onChange={this.onInputChange}
+              />
+            </div>
 
-        <div className={styles.buttonContainer}>
-          <div className={styles.buttonContainerContent}>
-            <AuthorEditorFooterLabel
-              label={translate('SelectedCountAuthorsSelectedInterp', [selectedCount])}
-              isSaving={false}
-            />
+            <div
+              className={styles.inputContainer}
+            >
+              <AuthorEditorFooterLabel
+                label={translate('RootFolder')}
+                isSaving={isSaving && rootFolderPath !== NO_CHANGE}
+              />
 
-            <div className={styles.buttons}>
-              <div>
+              <RootFolderSelectInputConnector
+                name="rootFolderPath"
+                value={rootFolderPath}
+                includeNoChange={true}
+                isDisabled={!selectedCount}
+                selectedValueOptions={{ includeFreeSpace: false }}
+                onChange={this.onInputChange}
+              />
+            </div>
+          </div>
+
+          <div className={styles.buttonContainer}>
+            <div className={styles.buttonContainerContent}>
+              <AuthorEditorFooterLabel
+                label={translate('SelectedCountAuthorsSelectedInterp', [selectedCount])}
+                isSaving={false}
+              />
+
+              <div className={styles.buttons}>
+
                 <SpinnerButton
                   className={styles.organizeSelectedButton}
                   kind={kinds.WARNING}
@@ -268,17 +288,18 @@ class AuthorEditorFooter extends Component {
                 >
                   Set Readarr Tags
                 </SpinnerButton>
-              </div>
 
-              <SpinnerButton
-                className={styles.deleteSelectedButton}
-                kind={kinds.DANGER}
-                isSpinning={isDeleting}
-                isDisabled={!selectedCount || isDeleting}
-                onPress={this.onDeleteSelectedPress}
-              >
-                Delete
-              </SpinnerButton>
+                <SpinnerButton
+                  className={styles.deleteSelectedButton}
+                  kind={kinds.DANGER}
+                  isSpinning={isDeleting}
+                  isDisabled={!selectedCount || isDeleting}
+                  onPress={this.onDeleteSelectedPress}
+                >
+                  Delete
+                </SpinnerButton>
+
+              </div>
             </div>
           </div>
         </div>

@@ -227,6 +227,7 @@ namespace NzbDrone.Core.ImportLists
                 var toAddAuthor = new Author
                 {
                     Monitored = monitored,
+                    MonitorNewItems = importList.MonitorNewItems,
                     RootFolderPath = importList.RootFolderPath,
                     QualityProfileId = importList.ProfileId,
                     MetadataProfileId = importList.MetadataProfileId,

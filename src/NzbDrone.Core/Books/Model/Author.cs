@@ -20,6 +20,7 @@ namespace NzbDrone.Core.Books
         public int AuthorMetadataId { get; set; }
         public string CleanName { get; set; }
         public bool Monitored { get; set; }
+        public NewItemMonitorTypes MonitorNewItems { get; set; }
         public DateTime? LastInfoSync { get; set; }
         public string Path { get; set; }
         public string RootFolderPath { get; set; }
@@ -70,6 +71,7 @@ namespace NzbDrone.Core.Books
             Id = other.Id;
             AuthorMetadataId = other.AuthorMetadataId;
             Monitored = other.Monitored;
+            MonitorNewItems = other.MonitorNewItems;
             LastInfoSync = other.LastInfoSync;
             Path = other.Path;
             RootFolderPath = other.RootFolderPath;
@@ -93,6 +95,7 @@ namespace NzbDrone.Core.Books
             AddOptions = other.AddOptions;
             RootFolderPath = other.RootFolderPath;
             Monitored = other.Monitored;
+            MonitorNewItems = other.MonitorNewItems;
         }
     }
 }

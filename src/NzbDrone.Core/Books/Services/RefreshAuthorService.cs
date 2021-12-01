@@ -42,6 +42,7 @@ namespace NzbDrone.Core.Books
         private readonly IHistoryService _historyService;
         private readonly IRootFolderService _rootFolderService;
         private readonly ICheckIfAuthorShouldBeRefreshed _checkIfAuthorShouldBeRefreshed;
+        private readonly IMonitorNewBookService _monitorNewBookService;
         private readonly IConfigService _configService;
         private readonly IImportListExclusionService _importListExclusionService;
         private readonly Logger _logger;
@@ -59,6 +60,7 @@ namespace NzbDrone.Core.Books
                                     IHistoryService historyService,
                                     IRootFolderService rootFolderService,
                                     ICheckIfAuthorShouldBeRefreshed checkIfAuthorShouldBeRefreshed,
+                                    IMonitorNewBookService monitorNewBookService,
                                     IConfigService configService,
                                     IImportListExclusionService importListExclusionService,
                                     Logger logger)
@@ -76,6 +78,7 @@ namespace NzbDrone.Core.Books
             _historyService = historyService;
             _rootFolderService = rootFolderService;
             _checkIfAuthorShouldBeRefreshed = checkIfAuthorShouldBeRefreshed;
+            _monitorNewBookService = monitorNewBookService;
             _configService = configService;
             _importListExclusionService = importListExclusionService;
             _logger = logger;
@@ -262,6 +265,14 @@ namespace NzbDrone.Core.Books
             local.AuthorMetadataId = entity.Metadata.Value.Id;
 
             remote.UseDbFieldsFrom(local);
+        }
+
+        protected override void ProcessChildren(Author entity, SortedChildren children)
+        {
+            foreach (var book in children.Added)
+            {
+                book.Monitored = _monitorNewBookService.ShouldMonitorNewBook(book, children.UpToDate, entity.MonitorNewItems);
+            }
         }
 
         protected override void AddChildren(List<Book> children)

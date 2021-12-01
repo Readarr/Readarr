@@ -7,5 +7,6 @@ namespace Readarr.Api.V1.Bookshelf
     {
         public List<BookshelfAuthorResource> Authors { get; set; }
         public MonitoringOptions MonitoringOptions { get; set; }
+        public NewItemMonitorTypes? MonitorNewItems { get; set; }
     }
 }

@@ -3,6 +3,7 @@ function getNewAuthor(author, payload) {
   const {
     rootFolderPath,
     monitor,
+    monitorNewItems,
     qualityProfileId,
     metadataProfileId,
     tags,
@@ -16,6 +17,7 @@ function getNewAuthor(author, payload) {
 
   author.addOptions = addOptions;
   author.monitored = true;
+  author.monitorNewItems = monitorNewItems;
   author.qualityProfileId = qualityProfileId;
   author.metadataProfileId = metadataProfileId;
   author.rootFolderPath = rootFolderPath;

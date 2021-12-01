@@ -39,6 +39,7 @@ function createMapStateToProps() {
 
       const authorSettings = _.pick(author, [
         'monitored',
+        'monitorNewItems',
         'qualityProfileId',
         'metadataProfileId',
         'path',

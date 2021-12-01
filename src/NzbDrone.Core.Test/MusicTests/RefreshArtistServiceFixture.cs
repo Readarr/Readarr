@@ -62,7 +62,7 @@ namespace NzbDrone.Core.Test.MusicTests
 
             Mocker.GetMock<IMetadataProfileService>()
                 .Setup(s => s.FilterBooks(It.IsAny<Author>(), It.IsAny<int>()))
-                .Returns(_books);
+                .Returns(_remoteBooks);
 
             Mocker.GetMock<IProvideAuthorInfo>()
                 .Setup(s => s.GetAuthorAndBooks(It.IsAny<string>(), It.IsAny<double>()))
@@ -83,6 +83,10 @@ namespace NzbDrone.Core.Test.MusicTests
             Mocker.GetMock<IRootFolderService>()
                 .Setup(x => x.All())
                 .Returns(new List<RootFolder>());
+
+            Mocker.GetMock<IMonitorNewBookService>()
+                .Setup(x => x.ShouldMonitorNewBook(It.IsAny<Book>(), It.IsAny<List<Book>>(), It.IsAny<NewItemMonitorTypes>()))
+                .Returns(true);
         }
 
         private void GivenNewAuthorInfo(Author author)
@@ -149,6 +153,29 @@ namespace NzbDrone.Core.Test.MusicTests
 
             VerifyEventPublished<AuthorUpdatedEvent>();
             VerifyEventPublished<AuthorRefreshCompleteEvent>();
+        }
+
+        [Test]
+        public void should_call_new_book_monitor_service_when_adding_book()
+        {
+            var newBook = Builder<Book>.CreateNew()
+                .With(x => x.Id = 0)
+                .With(x => x.ForeignBookId = "3")
+                .Build();
+            _remoteBooks.Add(newBook);
+
+            var newAuthorInfo = _author.JsonClone();
+            newAuthorInfo.Metadata = _author.Metadata.Value.JsonClone();
+            newAuthorInfo.Books = _remoteBooks;
+
+            GivenNewAuthorInfo(newAuthorInfo);
+            GivenBooksForRefresh(_books);
+            AllowAuthorUpdate();
+
+            Subject.Execute(new RefreshAuthorCommand(_author.Id));
+
+            Mocker.GetMock<IMonitorNewBookService>()
+                .Verify(x => x.ShouldMonitorNewBook(newBook, _books, _author.MonitorNewItems), Times.Once());
         }
 
         [Test]

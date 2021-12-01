@@ -34,6 +34,11 @@ namespace Readarr.Api.V1.Author
                     author.Monitored = resource.Monitored.Value;
                 }
 
+                if (resource.MonitorNewItems.HasValue)
+                {
+                    author.MonitorNewItems = resource.MonitorNewItems.Value;
+                }
+
                 if (resource.QualityProfileId.HasValue)
                 {
                     author.QualityProfileId = resource.QualityProfileId.Value;

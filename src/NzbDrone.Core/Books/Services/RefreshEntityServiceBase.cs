@@ -93,6 +93,11 @@ namespace NzbDrone.Core.Books
 
         protected abstract void PrepareNewChild(TChild child, TEntity entity);
         protected abstract void PrepareExistingChild(TChild local, TChild remote, TEntity entity);
+
+        protected virtual void ProcessChildren(TEntity entity, SortedChildren children)
+        {
+        }
+
         protected abstract void AddChildren(List<TChild> children);
         protected abstract bool RefreshChildren(SortedChildren localChildren, List<TChild> remoteChildren, Author remoteData, bool forceChildRefresh, bool forceUpdateFileTags, DateTime? lastUpdate);
 
@@ -276,6 +281,8 @@ namespace NzbDrone.Core.Books
                               sortedChildren.Merged.Count,
                               sortedChildren.Deleted.Count);
             }
+
+            ProcessChildren(entity, sortedChildren);
 
             // Add in the new children (we have checked that foreign IDs don't clash)
             AddChildren(sortedChildren.Added);

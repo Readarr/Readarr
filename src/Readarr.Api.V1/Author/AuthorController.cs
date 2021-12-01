@@ -18,7 +18,6 @@ using NzbDrone.Core.Validation;
 using NzbDrone.Core.Validation.Paths;
 using NzbDrone.Http.REST.Attributes;
 using NzbDrone.SignalR;
-using Readarr.Api.V1.Books;
 using Readarr.Http;
 using Readarr.Http.Extensions;
 using Readarr.Http.REST;
