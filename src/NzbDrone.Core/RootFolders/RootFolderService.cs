@@ -27,6 +27,7 @@ namespace NzbDrone.Core.RootFolders
         List<RootFolder> AllForTag(int tagId);
         RootFolder GetBestRootFolder(string path);
         string GetBestRootFolderPath(string path);
+        string GetBestRootFolderPath(string path, List<RootFolder> allRootFolders);
     }
 
     public class RootFolderService : IRootFolderService, IHandle<ModelEvent<RemotePathMapping>>
@@ -145,14 +146,26 @@ namespace NzbDrone.Core.RootFolders
 
         public RootFolder GetBestRootFolder(string path)
         {
-            return All().Where(r => PathEqualityComparer.Instance.Equals(r.Path, path) || r.Path.IsParentPath(path))
+            var folders = All();
+            return GetBestRootFolder(path, folders);
+        }
+
+        public RootFolder GetBestRootFolder(string path, List<RootFolder> allRootFolders)
+        {
+            return allRootFolders.Where(r => PathEqualityComparer.Instance.Equals(r.Path, path) || r.Path.IsParentPath(path))
                 .OrderByDescending(r => r.Path.Length)
                 .FirstOrDefault();
         }
 
         public string GetBestRootFolderPath(string path)
         {
-            var possibleRootFolder = GetBestRootFolder(path);
+            var folders = All();
+            return GetBestRootFolderPath(path, folders);
+        }
+
+        public string GetBestRootFolderPath(string path, List<RootFolder> allRootFolders)
+        {
+            var possibleRootFolder = GetBestRootFolder(path, allRootFolders);
 
             if (possibleRootFolder == null)
             {

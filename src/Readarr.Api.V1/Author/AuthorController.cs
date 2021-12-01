@@ -112,7 +112,6 @@ namespace Readarr.Api.V1.Author
             FetchAndLinkAuthorStatistics(resource);
             LinkNextPreviousBooks(resource);
 
-            //PopulateAlternateTitles(resource);
             LinkRootFolderPath(resource);
 
             return resource;
@@ -127,10 +126,8 @@ namespace Readarr.Api.V1.Author
             MapCoversToLocal(authorResources.ToArray());
             LinkNextPreviousBooks(authorResources.ToArray());
             LinkAuthorStatistics(authorResources, authorStats);
+            LinkRootFolderPath(authorResources.ToArray());
 
-            authorResources.ForEach(LinkRootFolderPath);
-
-            //PopulateAlternateTitles(seriesResources);
             return authorResources;
         }
 
@@ -223,25 +220,14 @@ namespace Readarr.Api.V1.Author
             resource.Statistics = authorStatistics.ToResource();
         }
 
-        //private void PopulateAlternateTitles(List<AuthorResource> resources)
-        //{
-        //    foreach (var resource in resources)
-        //    {
-        //        PopulateAlternateTitles(resource);
-        //    }
-        //}
-
-        //private void PopulateAlternateTitles(AuthorResource resource)
-        //{
-        //    var mappings = _sceneMappingService.FindByTvdbId(resource.TvdbId);
-
-        //    if (mappings == null) return;
-
-        //    resource.AlternateTitles = mappings.Select(v => new AlternateTitleResource { Title = v.Title, SeasonNumber = v.SeasonNumber, SceneSeasonNumber = v.SceneSeasonNumber }).ToList();
-        //}
-        private void LinkRootFolderPath(AuthorResource resource)
+        private void LinkRootFolderPath(params AuthorResource[] authors)
         {
-            resource.RootFolderPath = _rootFolderService.GetBestRootFolderPath(resource.Path);
+            var rootFolders = _rootFolderService.All();
+
+            foreach (var author in authors)
+            {
+                author.RootFolderPath = _rootFolderService.GetBestRootFolderPath(author.Path, rootFolders);
+            }
         }
 
         [NonAction]
