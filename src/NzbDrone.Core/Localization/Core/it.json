@@ -28,11 +28,11 @@
     "Year": "Anno",
     "YesCancel": "Si, annulla",
     "AgeWhenGrabbed": "Età (quando trovato)",
-    "AlreadyInYourLibrary": "Già presente nella libreria",
-    "AlternateTitles": "Titolo Alternativo",
+    "AlreadyInYourLibrary": "Già presente nella tua libreria",
+    "AlternateTitles": "Titoli alternativi",
     "AlternateTitleslength1Title": "Titolo",
     "AlternateTitleslength1Titles": "Titoli",
-    "Analytics": "Statistiche",
+    "Analytics": "Analisi",
     "AnalyticsEnabledHelpText": "Inviare informazioni anonime sull'utilizzo e sugli errori ai server di Radarr. Ciò include informazioni sul tuo browser, come le pagine di Radarr che utilizzi, la segnalazione di errori e la versione del sistema operativo e del runtime. Utilizzeremo queste informazioni per dare priorità alle funzioni e alle correzioni di bug.",
     "AppDataDirectory": "Cartella AppData",
     "ApplyTags": "Applica Etichette",
@@ -491,5 +491,8 @@
     "AddNewItem": "Aggiungi Nuovo Elemento",
     "Blocklist": "Lista Nera",
     "BlocklistHelpText": "Impedisci a Radarr di acquisire automaticamente questo versione",
-    "BlocklistRelease": "Release in blacklist"
+    "BlocklistRelease": "Release in blacklist",
+    "AllowFingerprinting": "Consenti impronte",
+    "AllExpandedCollapseAll": "Collassa tutto",
+    "AllExpandedExpandAll": "Espandi tutto"
 }
