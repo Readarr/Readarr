@@ -755,5 +755,8 @@
     "BookEditor": "Editor de Livro",
     "BookList": "Lista de Livros",
     "ThisCannotBeCancelled": "Isso não pode ser cancelado após iniciado sem reiniciar o Readarr.",
-    "UpdateSelected": "Atualizar selecionado"
+    "UpdateSelected": "Atualizar selecionado",
+    "CalibreSettings": "Configurações do Calibre",
+    "CalibreContentServerText": "Usando um Servidor de Conteúdo do Calibre (não o Calibre Web) permite ao Readarr adicione livros a sua biblioteca Calibre e ativar conversões entre formatos",
+    "AddedAuthorSettings": "Adicionado Configurações de Autor"
 }
