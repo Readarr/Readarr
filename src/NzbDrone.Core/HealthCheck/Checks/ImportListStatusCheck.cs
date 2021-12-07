@@ -40,7 +40,7 @@ namespace NzbDrone.Core.HealthCheck.Checks
                 return new HealthCheck(GetType(), HealthCheckResult.Error, "All import lists are unavailable due to failures", "#import-lists-are-unavailable-due-to-failures");
             }
 
-            return new HealthCheck(GetType(), HealthCheckResult.Warning, string.Format("Import lists unavailable due to failures: {0}", string.Join(", ", backOffProviders.Select(v => v.ImportList.Definition.Name))), "#import-lsits-are-unavailable-due-to-failures");
+            return new HealthCheck(GetType(), HealthCheckResult.Warning, string.Format("Import lists unavailable due to failures: {0}", string.Join(", ", backOffProviders.Select(v => v.ImportList.Definition.Name))), "#import-lists-are-unavailable-due-to-failures");
         }
     }
 }
