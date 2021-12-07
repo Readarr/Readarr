@@ -26,7 +26,7 @@ const paged = `${section}.paged`;
 
 export const defaultState = {
   options: {
-    includeUnknownAuthorItems: false
+    includeUnknownAuthorItems: true
   },
 
   status: {
