@@ -4,7 +4,26 @@
     "title": "Readarr",
     "description": "Readarr API docs",
     "version": "0.1.0"
+    "description": "The way users should interact with Readarr programatically. To utilize any of these endpoints you will need a few pieces of information:\n\nex: localhost:8787/api/v1/author?apiKey={key_here}\n\n* url: localhost, 10.1.0.1, 192.168.1.1, etc\n* port: 8787 (unless you modify it)\n* apiKey: Located in Settings > General > Security"
   },
+  "servers": [
+    {
+      "url": "{protocol}://{hostPath}/api/v1",
+      "variables": {
+        "protocol": {
+          "enum": [
+            "https",
+            "http"
+          ],
+          "default": "https"
+        },
+        "hostPath": {
+          "default": "localhost:8787",
+          "description": "Your Readarr Server URL"
+        }
+      }
+    }
+  ],
   "paths": {
     "/login": {
       "post": {
