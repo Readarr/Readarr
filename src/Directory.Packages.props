@@ -21,7 +21,7 @@
     <PackageVersion Include="Microsoft.Extensions.Logging" Version="6.0.0" />
     <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.0.0" />
     <PackageVersion Include="Microsoft.Win32.Registry" Version="5.0.0" />
-    <PackageVersion Include="Mono.Posix.NETStandard" Version="5.20.1.34-servarr17" />
+    <PackageVersion Include="Mono.Posix.NETStandard" Version="5.20.1.34-servarr18" />
     <PackageVersion Include="MonoTorrent" Version="2.0.1" />
     <PackageVersion Include="Moq" Version="4.16.1" />
     <PackageVersion Include="NBuilder" Version="6.1.0" />
