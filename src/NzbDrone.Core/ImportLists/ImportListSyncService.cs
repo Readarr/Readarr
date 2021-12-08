@@ -335,6 +335,7 @@ namespace NzbDrone.Core.ImportLists
                     Name = report.Author
                 },
                 Monitored = monitored,
+                MonitorNewItems = importList.MonitorNewItems,
                 RootFolderPath = importList.RootFolderPath,
                 QualityProfileId = importList.ProfileId,
                 MetadataProfileId = importList.MetadataProfileId,
