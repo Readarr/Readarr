@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using NzbDrone.Common.Messaging;
 
 namespace NzbDrone.Core.Books.Events

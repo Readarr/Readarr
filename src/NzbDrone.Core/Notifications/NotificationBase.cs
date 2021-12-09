@@ -11,6 +11,9 @@ namespace NzbDrone.Core.Notifications
     {
         protected const string BOOK_GRABBED_TITLE = "Book Grabbed";
         protected const string BOOK_DOWNLOADED_TITLE = "Book Downloaded";
+        protected const string AUTHOR_DELETED_TITLE = "Author Deleted";
+        protected const string BOOK_DELETED_TITLE = "Book Deleted";
+        protected const string BOOK_FILE_DELETED_TITLE = "Book File Deleted";
         protected const string HEALTH_ISSUE_TITLE = "Health Check Failure";
         protected const string DOWNLOAD_FAILURE_TITLE = "Download Failed";
         protected const string IMPORT_FAILURE_TITLE = "Import Failed";
@@ -18,6 +21,9 @@ namespace NzbDrone.Core.Notifications
 
         protected const string BOOK_GRABBED_TITLE_BRANDED = "Readarr - " + BOOK_GRABBED_TITLE;
         protected const string BOOK_DOWNLOADED_TITLE_BRANDED = "Readarr - " + BOOK_DOWNLOADED_TITLE;
+        protected const string AUTHOR_DELETED_TITlE_BRANDED = "Readarr - " + AUTHOR_DELETED_TITLE;
+        protected const string BOOK_DELETED_TITLE_BRANDED = "Readarr - " + BOOK_DELETED_TITLE;
+        protected const string BOOK_FILE_DELETED_TITLE_BRANDED = "Readarr - " + BOOK_FILE_DELETED_TITLE;
         protected const string HEALTH_ISSUE_TITLE_BRANDED = "Readarr - " + HEALTH_ISSUE_TITLE;
         protected const string DOWNLOAD_FAILURE_TITLE_BRANDED = "Readarr - " + DOWNLOAD_FAILURE_TITLE;
         protected const string IMPORT_FAILURE_TITLE_BRANDED = "Readarr - " + IMPORT_FAILURE_TITLE;
@@ -48,6 +54,18 @@ namespace NzbDrone.Core.Notifications
         {
         }
 
+        public virtual void OnAuthorDelete(AuthorDeleteMessage deleteMessage)
+        {
+        }
+
+        public virtual void OnBookDelete(BookDeleteMessage deleteMessage)
+        {
+        }
+
+        public virtual void OnBookFileDelete(BookFileDeleteMessage deleteMessage)
+        {
+        }
+
         public virtual void OnHealthIssue(HealthCheck.HealthCheck healthCheck)
         {
         }
@@ -64,8 +82,16 @@ namespace NzbDrone.Core.Notifications
         {
         }
 
+        public virtual void ProcessQueue()
+        {
+        }
+
         public bool SupportsOnGrab => HasConcreteImplementation("OnGrab");
         public bool SupportsOnRename => HasConcreteImplementation("OnRename");
+        public bool SupportsOnAuthorDelete => HasConcreteImplementation("OnAuthorDelete");
+        public bool SupportsOnBookDelete => HasConcreteImplementation("OnBookDelete");
+        public bool SupportsOnBookFileDelete => HasConcreteImplementation("OnBookFileDelete");
+        public bool SupportsOnBookFileDeleteForUpgrade => SupportsOnBookFileDelete;
         public bool SupportsOnReleaseImport => HasConcreteImplementation("OnReleaseImport");
         public bool SupportsOnUpgrade => SupportsOnReleaseImport;
         public bool SupportsOnHealthIssue => HasConcreteImplementation("OnHealthIssue");

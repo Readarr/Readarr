@@ -1,4 +1,4 @@
-﻿using NzbDrone.Common.Messaging;
+using NzbDrone.Common.Messaging;
 
 namespace NzbDrone.Core.Books.Events
 {

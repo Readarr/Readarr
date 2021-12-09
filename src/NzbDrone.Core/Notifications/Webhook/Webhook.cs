@@ -71,6 +71,43 @@ namespace NzbDrone.Core.Notifications.Webhook
             _proxy.SendWebhook(payload, Settings);
         }
 
+        public override void OnAuthorDelete(AuthorDeleteMessage deleteMessage)
+        {
+            var payload = new WebhookAuthorDeletePayload
+            {
+                EventType = WebhookEventType.Delete,
+                Author = new WebhookAuthor(deleteMessage.Author),
+                DeletedFiles = deleteMessage.DeletedFiles
+            };
+
+            _proxy.SendWebhook(payload, Settings);
+        }
+
+        public override void OnBookDelete(BookDeleteMessage deleteMessage)
+        {
+            var payload = new WebhookBookDeletePayload
+            {
+                EventType = WebhookEventType.Delete,
+                Author = new WebhookAuthor(deleteMessage.Book.Author),
+                Book = new WebhookBook(deleteMessage.Book)
+            };
+
+            _proxy.SendWebhook(payload, Settings);
+        }
+
+        public override void OnBookFileDelete(BookFileDeleteMessage deleteMessage)
+        {
+            var payload = new WebhookBookFileDeletePayload
+            {
+                EventType = WebhookEventType.Delete,
+                Author = new WebhookAuthor(deleteMessage.Book.Author),
+                Book = new WebhookBook(deleteMessage.Book),
+                BookFile = new WebhookBookFile(deleteMessage.BookFile)
+            };
+
+            _proxy.SendWebhook(payload, Settings);
+        }
+
         public override void OnBookRetag(BookRetagMessage message)
         {
             var payload = new WebhookRetagPayload

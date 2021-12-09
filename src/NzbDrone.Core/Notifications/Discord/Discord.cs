@@ -69,6 +69,54 @@ namespace NzbDrone.Core.Notifications.Discord
             _proxy.SendPayload(payload, Settings);
         }
 
+        public override void OnAuthorDelete(AuthorDeleteMessage deleteMessage)
+        {
+            var attachments = new List<Embed>
+                              {
+                                  new Embed
+                                  {
+                                      Title = deleteMessage.Author.Name,
+                                      Description = deleteMessage.DeletedFilesMessage
+                                  }
+                              };
+
+            var payload = CreatePayload("Author Deleted", attachments);
+
+            _proxy.SendPayload(payload, Settings);
+        }
+
+        public override void OnBookDelete(BookDeleteMessage deleteMessage)
+        {
+            var attachments = new List<Embed>
+                              {
+                                  new Embed
+                                  {
+                                    Title = $"${deleteMessage.Book.Author.Value.Name} - ${deleteMessage.Book.Title}",
+                                    Description = deleteMessage.DeletedFilesMessage
+                                  }
+                              };
+
+            var payload = CreatePayload("Book Deleted", attachments);
+
+            _proxy.SendPayload(payload, Settings);
+        }
+
+        public override void OnBookFileDelete(BookFileDeleteMessage deleteMessage)
+        {
+            var attachments = new List<Embed>
+                              {
+                                  new Embed
+                                  {
+                                    Title = $"${deleteMessage.Book.Author.Value.Name} - ${deleteMessage.Book.Title} - file deleted",
+                                    Description = deleteMessage.BookFile.Path
+                                  }
+                              };
+
+            var payload = CreatePayload("Book File Deleted", attachments);
+
+            _proxy.SendPayload(payload, Settings);
+        }
+
         public override void OnHealthIssue(HealthCheck.HealthCheck healthCheck)
         {
             var attachments = new List<Embed>

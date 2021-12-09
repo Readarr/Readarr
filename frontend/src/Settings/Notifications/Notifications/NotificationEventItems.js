@@ -19,6 +19,10 @@ function NotificationEventItems(props) {
     onReleaseImport,
     onUpgrade,
     onRename,
+    onAuthorDelete,
+    onBookDelete,
+    onBookFileDelete,
+    onBookFileDeleteForUpgrade,
     onHealthIssue,
     onDownloadFailure,
     onImportFailure,
@@ -27,6 +31,9 @@ function NotificationEventItems(props) {
     supportsOnReleaseImport,
     supportsOnUpgrade,
     supportsOnRename,
+    supportsOnAuthorDelete,
+    supportsOnBookDelete,
+    supportsOnBookFileDelete,
     supportsOnHealthIssue,
     includeHealthWarnings,
     supportsOnDownloadFailure,
@@ -110,6 +117,50 @@ function NotificationEventItems(props) {
               helpText={translate('OnRenameHelpText')}
               isDisabled={!supportsOnRename.value}
               {...onRename}
+              onChange={onInputChange}
+            />
+          </div>
+
+          <div>
+            <FormInputGroup
+              type={inputTypes.CHECK}
+              name="onAuthorDelete"
+              helpText={translate('OnAuthorDeleteHelpText')}
+              isDisabled={!supportsOnAuthorDelete.value}
+              {...onAuthorDelete}
+              onChange={onInputChange}
+            />
+          </div>
+
+          <div>
+            <FormInputGroup
+              type={inputTypes.CHECK}
+              name="onBookDelete"
+              helpText={translate('OnBookDeleteHelpText')}
+              isDisabled={!supportsOnBookDelete.value}
+              {...onBookDelete}
+              onChange={onInputChange}
+            />
+          </div>
+
+          <div>
+            <FormInputGroup
+              type={inputTypes.CHECK}
+              name="onBookFileDelete"
+              helpText={translate('OnBookFileDeleteHelpText')}
+              isDisabled={!supportsOnBookFileDelete.value}
+              {...onBookFileDelete}
+              onChange={onInputChange}
+            />
+          </div>
+
+          <div>
+            <FormInputGroup
+              type={inputTypes.CHECK}
+              name="onBookFileDeleteForUpgrade"
+              helpText={translate('OnBookFileDeleteForUpgradeHelpText')}
+              isDisabled={!supportsOnBookFileDelete.value}
+              {...onBookFileDeleteForUpgrade}
               onChange={onInputChange}
             />
           </div>

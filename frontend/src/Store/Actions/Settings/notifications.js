@@ -106,6 +106,10 @@ export default {
         selectedSchema.onReleaseImport = selectedSchema.supportsOnReleaseImport;
         selectedSchema.onUpgrade = selectedSchema.supportsOnUpgrade;
         selectedSchema.onRename = selectedSchema.supportsOnRename;
+        selectedSchema.onAuthorDelete = selectedSchema.supportsOnAuthorDelete;
+        selectedSchema.onBookDelete = selectedSchema.supportsOnBookDelete;
+        selectedSchema.onBookFileDelete = selectedSchema.supportsOnBookFileDelete;
+        selectedSchema.onBookFileDeleteForUpgrade = selectedSchema.supportsOnBookFileDeleteForUpgrade;
         selectedSchema.onHealthIssue = selectedSchema.supportsOnHealthIssue;
         selectedSchema.onDownloadFailure = selectedSchema.supportsOnDownloadFailure;
         selectedSchema.onImportFailure = selectedSchema.supportsOnImportFailure;

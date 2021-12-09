@@ -4,6 +4,7 @@ using System.Linq;
 using NLog;
 using NzbDrone.Common.Extensions;
 using NzbDrone.Core.Books;
+using NzbDrone.Core.Books.Events;
 using NzbDrone.Core.Download;
 using NzbDrone.Core.HealthCheck;
 using NzbDrone.Core.MediaFiles;
@@ -18,10 +19,14 @@ namespace NzbDrone.Core.Notifications
         : IHandle<BookGrabbedEvent>,
           IHandle<BookImportedEvent>,
           IHandle<AuthorRenamedEvent>,
+          IHandle<AuthorDeletedEvent>,
+          IHandle<BookDeletedEvent>,
+          IHandle<BookFileDeletedEvent>,
           IHandle<HealthCheckFailedEvent>,
           IHandle<DownloadFailedEvent>,
           IHandle<BookImportIncompleteEvent>,
-          IHandle<BookFileRetaggedEvent>
+          IHandle<BookFileRetaggedEvent>,
+          IHandleAsync<DeleteCompletedEvent>
     {
         private readonly INotificationFactory _notificationFactory;
         private readonly Logger _logger;
@@ -195,6 +200,76 @@ namespace NzbDrone.Core.Notifications
             }
         }
 
+        public void Handle(AuthorDeletedEvent message)
+        {
+            var deleteMessage = new AuthorDeleteMessage(message.Author, message.DeleteFiles);
+
+            foreach (var notification in _notificationFactory.OnAuthorDeleteEnabled())
+            {
+                try
+                {
+                    if (ShouldHandleAuthor(notification.Definition, deleteMessage.Author))
+                    {
+                        notification.OnAuthorDelete(deleteMessage);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    _logger.Warn(ex, "Unable to send OnAuthorDelete notification to: " + notification.Definition.Name);
+                }
+            }
+        }
+
+        public void Handle(BookDeletedEvent message)
+        {
+            var deleteMessage = new BookDeleteMessage(message.Book, message.DeleteFiles);
+
+            foreach (var notification in _notificationFactory.OnBookDeleteEnabled())
+            {
+                try
+                {
+                    if (ShouldHandleAuthor(notification.Definition, deleteMessage.Book.Author))
+                    {
+                        notification.OnBookDelete(deleteMessage);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    _logger.Warn(ex, "Unable to send OnBookDelete notification to: " + notification.Definition.Name);
+                }
+            }
+        }
+
+        public void Handle(BookFileDeletedEvent message)
+        {
+            var deleteMessage = new BookFileDeleteMessage();
+
+            var book = new List<Book> { message.BookFile.Edition.Value.Book };
+
+            deleteMessage.Message = GetMessage(message.BookFile.Author, book, message.BookFile.Quality);
+            deleteMessage.BookFile = message.BookFile;
+            deleteMessage.Book = message.BookFile.Edition.Value.Book;
+            deleteMessage.Reason = message.Reason;
+
+            foreach (var notification in _notificationFactory.OnBookFileDeleteEnabled())
+            {
+                try
+                {
+                    if (message.Reason != MediaFiles.DeleteMediaFileReason.Upgrade || ((NotificationDefinition)notification.Definition).OnBookFileDeleteForUpgrade)
+                    {
+                        if (ShouldHandleAuthor(notification.Definition, message.BookFile.Author))
+                        {
+                            notification.OnBookFileDelete(deleteMessage);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    _logger.Warn(ex, "Unable to send OnBookFileDelete notification to: " + notification.Definition.Name);
+                }
+            }
+        }
+
         public void Handle(HealthCheckFailedEvent message)
         {
             foreach (var notification in _notificationFactory.OnHealthIssueEnabled())
@@ -267,6 +342,26 @@ namespace NzbDrone.Core.Notifications
                 if (ShouldHandleAuthor(notification.Definition, message.Author))
                 {
                     notification.OnBookRetag(retagMessage);
+                }
+            }
+        }
+
+        public void HandleAsync(DeleteCompletedEvent message)
+        {
+            ProcessQueue();
+        }
+
+        private void ProcessQueue()
+        {
+            foreach (var notification in _notificationFactory.GetAvailableProviders())
+            {
+                try
+                {
+                    notification.ProcessQueue();
+                }
+                catch (Exception ex)
+                {
+                    _logger.Warn(ex, "Unable to process notification queue for " + notification.Definition.Name);
                 }
             }
         }
