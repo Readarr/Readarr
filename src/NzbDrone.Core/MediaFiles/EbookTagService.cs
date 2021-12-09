@@ -176,21 +176,6 @@ namespace NzbDrone.Core.MediaFiles
 
             var rootFolder = _rootFolderService.GetBestRootFolder(file.Path);
             _calibre.SetFields(file, rootFolder.CalibreSettings, updateCover, embedMetadata);
-
-            // updating the calibre metadata may have renamed the file, so track that
-            var updated = _calibre.GetBook(file.CalibreId, rootFolder.CalibreSettings);
-
-            var updatedPath = CalibreProxy.GetOriginalFormat(updated.Formats);
-
-            if (updatedPath != file.Path)
-            {
-                file.Path = updatedPath;
-
-                if (file.Id > 0)
-                {
-                    _mediaFileService.Update(file);
-                }
-            }
         }
 
         private IEnumerable<RetagBookFilePreview> GetPreviews(List<BookFile> files)
