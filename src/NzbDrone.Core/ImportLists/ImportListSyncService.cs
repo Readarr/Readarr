@@ -7,6 +7,7 @@ using NzbDrone.Common.Instrumentation.Extensions;
 using NzbDrone.Core.Books;
 using NzbDrone.Core.Books.Commands;
 using NzbDrone.Core.ImportLists.Exclusions;
+using NzbDrone.Core.IndexerSearch;
 using NzbDrone.Core.Messaging.Commands;
 using NzbDrone.Core.Messaging.Events;
 using NzbDrone.Core.MetadataSource;
@@ -201,18 +202,35 @@ namespace NzbDrone.Core.ImportLists
                     if (!existingBook.Monitored)
                     {
                         _bookService.SetBookMonitored(existingBook.Id, true);
+
+                        if (importList.ShouldMonitor == ImportListMonitorType.SpecificBook)
+                        {
+                            _commandQueueManager.Push(new BookSearchCommand(new List<int> { existingBook.Id }));
+                        }
                     }
 
                     var existingAuthor = existingBook.Author.Value;
+                    var doSearch = false;
+
                     if (importList.ShouldMonitor == ImportListMonitorType.EntireAuthor)
                     {
-                        _bookService.SetMonitored(existingAuthor.Books.Value.Select(x => x.Id), true);
+                        if (existingAuthor.Books.Value.Any(x => !x.Monitored))
+                        {
+                            doSearch = true;
+                            _bookService.SetMonitored(existingAuthor.Books.Value.Select(x => x.Id), true);
+                        }
                     }
 
                     if (!existingAuthor.Monitored)
                     {
+                        doSearch = true;
                         existingAuthor.Monitored = true;
                         _authorService.UpdateAuthor(existingAuthor);
+                    }
+
+                    if (doSearch)
+                    {
+                        _commandQueueManager.Push(new MissingBookSearchCommand(existingAuthor.Id));
                     }
                 }
 
@@ -261,7 +279,9 @@ namespace NzbDrone.Core.ImportLists
                     Author = toAddAuthor,
                     AddOptions = new AddBookOptions
                     {
-                        SearchForNewBook = importList.ShouldSearch
+                        // Only search for new book for existing authors
+                        // New author searches are triggered by SearchForMissingBooks
+                        SearchForNewBook = importList.ShouldSearch && toAddAuthor.Id > 0
                     }
                 };
 
