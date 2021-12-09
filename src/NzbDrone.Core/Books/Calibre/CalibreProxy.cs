@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Threading;
 using System.Threading.Tasks;
 using FluentValidation;
 using FluentValidation.Results;
@@ -43,6 +44,7 @@ namespace NzbDrone.Core.Books.Calibre
         private readonly IMapCoversToLocal _mediaCoverService;
         private readonly IRemotePathMappingService _pathMapper;
         private readonly IRootFolderWatchingService _rootFolderWatchingService;
+        private readonly IMediaFileService _mediaFileService;
         private readonly Logger _logger;
         private readonly ICached<CalibreBook> _bookCache;
 
@@ -50,6 +52,7 @@ namespace NzbDrone.Core.Books.Calibre
                             IMapCoversToLocal mediaCoverService,
                             IRemotePathMappingService pathMapper,
                             IRootFolderWatchingService rootFolderWatchingService,
+                            IMediaFileService mediaFileService,
                             ICacheManager cacheManager,
                             Logger logger)
         {
@@ -57,6 +60,7 @@ namespace NzbDrone.Core.Books.Calibre
             _mediaCoverService = mediaCoverService;
             _pathMapper = pathMapper;
             _rootFolderWatchingService = rootFolderWatchingService;
+            _mediaFileService = mediaFileService;
             _bookCache = cacheManager.GetCache<CalibreBook>(GetType());
             _logger = logger;
         }
@@ -213,7 +217,7 @@ namespace NzbDrone.Core.Books.Calibre
             if (embed)
             {
                 _rootFolderWatchingService.ReportFileSystemChangeBeginning(file.Path);
-                EmbedMetadata(file.CalibreId, settings);
+                EmbedMetadata(file, settings);
             }
         }
 
@@ -229,16 +233,23 @@ namespace NzbDrone.Core.Books.Calibre
             _httpClient.Execute(request);
         }
 
-        private void EmbedMetadata(int id, CalibreSettings settings)
+        private void EmbedMetadata(BookFile file, CalibreSettings settings)
         {
+            // make sure file properties are up to date
+            var fileInfo = new FileInfo(file.Path);
+            file.Size = fileInfo.Length;
+            file.Modified = fileInfo.LastWriteTimeUtc;
+
             var request = GetBuilder($"cdb/cmd/embed_metadata", settings)
                 .AddQueryParam("library_id", settings.Library)
                 .Post()
                 .SetHeader("Content-Type", "application/json")
                 .Build();
 
-            request.SetContent($"[{id}, null]");
+            request.SetContent($"[{file.CalibreId}, null]");
             _httpClient.Execute(request);
+
+            PollEmbedStatus(file, settings);
         }
 
         public CalibreBookData GetBookData(int calibreId, CalibreSettings settings)
@@ -463,6 +474,39 @@ namespace NzbDrone.Core.Books.Calibre
 
                 await Task.Delay(2000);
             }
+        }
+
+        private void PollEmbedStatus(BookFile file, CalibreSettings settings)
+        {
+            if (file.Id == 0)
+            {
+                return;
+            }
+
+            var previous = new FileInfo(file.Path);
+            Thread.Sleep(100);
+
+            FileInfo current = null;
+
+            var i = 0;
+            while (i++ < 20)
+            {
+                current = new FileInfo(file.Path);
+
+                if (current.LastWriteTimeUtc == previous.LastWriteTimeUtc &&
+                    current.LastWriteTimeUtc != file.Modified)
+                {
+                    break;
+                }
+
+                previous = current;
+                Thread.Sleep(1000);
+            }
+
+            file.Size = current.Length;
+            file.Modified = current.LastWriteTimeUtc;
+
+            _mediaFileService.Update(file);
         }
 
         public void Test(CalibreSettings settings)
