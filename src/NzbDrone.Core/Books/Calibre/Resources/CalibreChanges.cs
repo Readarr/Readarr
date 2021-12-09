@@ -20,6 +20,7 @@ namespace NzbDrone.Core.Books.Calibre
         public DateTime? PubDate { get; set; }
         public string Publisher { get; set; }
         public string Languages { get; set; }
+        public List<string> Tags { get; set; }
         public string Comments { get; set; }
         public decimal Rating { get; set; }
         public Dictionary<string, string> Identifiers { get; set; }

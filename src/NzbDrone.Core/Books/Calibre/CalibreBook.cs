@@ -24,6 +24,8 @@ namespace NzbDrone.Core.Books.Calibre
 
         public List<string> Languages { get; set; }
 
+        public List<string> Tags { get; set; }
+
         public string Comments { get; set; }
 
         public double Rating { get; set; }
@@ -70,6 +72,11 @@ namespace NzbDrone.Core.Books.Calibre
             if (!Languages.OrderBy(x => x).SequenceEqual(other.Languages.OrderBy(x => x)))
             {
                 output.Add("Languages", Tuple.Create(string.Join(" / ", Languages), string.Join(" / ", other.Languages)));
+            }
+
+            if (!Tags.OrderBy(x => x).SequenceEqual(other.Tags.OrderBy(x => x)))
+            {
+                output.Add("Tags", Tuple.Create(string.Join(" / ", Tags), string.Join(" / ", other.Tags)));
             }
 
             if (Comments != other.Comments)
