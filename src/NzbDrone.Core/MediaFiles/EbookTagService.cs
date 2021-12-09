@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.IO.Abstractions;
 using System.Linq;
@@ -226,6 +227,9 @@ namespace NzbDrone.Core.MediaFiles
 
                 var oldTags = dict[file.CalibreId];
 
+                var textInfo = CultureInfo.InvariantCulture.TextInfo;
+                var genres = book.Genres.Select(x => textInfo.ToTitleCase(x.Replace('-', ' '))).ToList();
+
                 var newTags = new CalibreBook
                 {
                     Title = edition.Title,
@@ -233,6 +237,7 @@ namespace NzbDrone.Core.MediaFiles
                     PubDate = book.ReleaseDate,
                     Publisher = edition.Publisher,
                     Languages = new List<string> { edition.Language.CanonicalizeLanguage() },
+                    Tags = genres,
                     Comments = edition.Overview,
                     Rating = (int)(edition.Ratings.Value * 2) / 2.0,
                     Identifiers = new Dictionary<string, string>

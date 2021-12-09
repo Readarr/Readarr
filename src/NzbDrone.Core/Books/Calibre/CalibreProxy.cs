@@ -184,6 +184,9 @@ namespace NzbDrone.Core.Books.Calibre
                 }
             }
 
+            var textInfo = CultureInfo.InvariantCulture.TextInfo;
+            var genres = book.Genres.Select(x => textInfo.ToTitleCase(x.Replace('-', ' '))).ToList();
+
             var payload = new CalibreChangesPayload
             {
                 LoadedBookIds = new List<int> { file.CalibreId },
@@ -195,6 +198,7 @@ namespace NzbDrone.Core.Books.Calibre
                     PubDate = book.ReleaseDate,
                     Publisher = edition.Publisher,
                     Languages = edition.Language.CanonicalizeLanguage(),
+                    Tags = genres,
                     Comments = edition.Overview,
                     Rating = (int)(edition.Ratings.Value * 2),
                     Identifiers = new Dictionary<string, string>
