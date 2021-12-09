@@ -26,6 +26,21 @@ namespace NzbDrone.Core.Notifications.Prowl
             _prowlProxy.SendNotification(BOOK_DOWNLOADED_TITLE, message.Message, Settings);
         }
 
+        public override void OnAuthorDelete(AuthorDeleteMessage deleteMessage)
+        {
+            _prowlProxy.SendNotification(AUTHOR_DELETED_TITLE, deleteMessage.Message, Settings);
+        }
+
+        public override void OnBookDelete(BookDeleteMessage deleteMessage)
+        {
+            _prowlProxy.SendNotification(BOOK_DELETED_TITLE, deleteMessage.Message, Settings);
+        }
+
+        public override void OnBookFileDelete(BookFileDeleteMessage deleteMessage)
+        {
+            _prowlProxy.SendNotification(BOOK_FILE_DELETED_TITLE, deleteMessage.Message, Settings);
+        }
+
         public override void OnHealthIssue(HealthCheck.HealthCheck healthCheck)
         {
             _prowlProxy.SendNotification(HEALTH_ISSUE_TITLE, healthCheck.Message, Settings);

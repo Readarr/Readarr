@@ -79,6 +79,73 @@ namespace NzbDrone.Core.Notifications.Notifiarr
             _proxy.SendNotification(variables, Settings);
         }
 
+        public override void OnAuthorDelete(AuthorDeleteMessage deleteMessage)
+        {
+            var author = deleteMessage.Author;
+            var variables = new StringDictionary();
+
+            variables.Add("Readarr_EventType", "AuthorDelete");
+            variables.Add("Readarr_Author_Id", author.Id.ToString());
+            variables.Add("Readarr_Author_Name", author.Name);
+            variables.Add("Readarr_Author_Path", author.Path);
+            variables.Add("Readarr_Author_GoodreadsId", author.ForeignAuthorId);
+            variables.Add("Readarr_Author_DeletedFiles", deleteMessage.DeletedFiles.ToString());
+
+            _proxy.SendNotification(variables, Settings);
+        }
+
+        public override void OnBookDelete(BookDeleteMessage deleteMessage)
+        {
+            var author = deleteMessage.Book.Author.Value;
+            var book = deleteMessage.Book;
+
+            var variables = new StringDictionary();
+
+            variables.Add("Readarr_EventType", "BookDelete");
+            variables.Add("Readarr_Author_Id", author.Id.ToString());
+            variables.Add("Readarr_Author_Name", author.Name);
+            variables.Add("Readarr_Author_Path", author.Path);
+            variables.Add("Readarr_Author_GoodreadsId", author.ForeignAuthorId);
+            variables.Add("Readarr_Book_Id", book.Id.ToString());
+            variables.Add("Readarr_Book_Title", book.Title);
+            variables.Add("Readarr_Book_GoodreadsId", book.ForeignBookId);
+            variables.Add("Readarr_Book_DeletedFiles", deleteMessage.DeletedFiles.ToString());
+
+            _proxy.SendNotification(variables, Settings);
+        }
+
+        public override void OnBookFileDelete(BookFileDeleteMessage deleteMessage)
+        {
+            var author = deleteMessage.Book.Author.Value;
+            var book = deleteMessage.Book;
+            var bookFile = deleteMessage.BookFile;
+            var edition = bookFile.Edition.Value;
+
+            var variables = new StringDictionary();
+
+            variables.Add("Readarr_EventType", "BookFileDelete");
+            variables.Add("Readarr_Delete_Reason", deleteMessage.Reason.ToString());
+            variables.Add("Readarr_Author_Id", author.Id.ToString());
+            variables.Add("Readarr_Author_Name", author.Name);
+            variables.Add("Readarr_Author_GoodreadsId", author.ForeignAuthorId);
+            variables.Add("Readarr_Book_Id", book.Id.ToString());
+            variables.Add("Readarr_Book_Title", book.Title);
+            variables.Add("Readarr_Book_GoodreadsId", book.ForeignBookId);
+            variables.Add("Readarr_BookFile_Id", bookFile.Id.ToString());
+            variables.Add("Readarr_BookFile_Path", bookFile.Path);
+            variables.Add("Readarr_BookFile_Quality", bookFile.Quality.Quality.Name);
+            variables.Add("Readarr_BookFile_QualityVersion", bookFile.Quality.Revision.Version.ToString());
+            variables.Add("Readarr_BookFile_ReleaseGroup", bookFile.ReleaseGroup ?? string.Empty);
+            variables.Add("Readarr_BookFile_SceneName", bookFile.SceneName ?? string.Empty);
+            variables.Add("Readarr_BookFile_Edition_Id", edition.Id.ToString());
+            variables.Add("Readarr_BookFile_Edition_Name", edition.Title);
+            variables.Add("Readarr_BookFile_Edition_GoodreadsId", edition.ForeignEditionId);
+            variables.Add("Readarr_BookFile_Edition_Isbn13", edition.Isbn13);
+            variables.Add("Readarr_BookFile_Edition_Asin", edition.Asin);
+
+            _proxy.SendNotification(variables, Settings);
+        }
+
         public override void OnHealthIssue(HealthCheck.HealthCheck healthCheck)
         {
             var variables = new StringDictionary();

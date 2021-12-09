@@ -33,6 +33,7 @@ namespace NzbDrone.Core.MediaFiles
         private readonly IMediaFileService _mediaFileService;
         private readonly IAuthorService _authorService;
         private readonly IConfigService _configService;
+        private readonly IEventAggregator _eventAggregator;
         private readonly IRootFolderService _rootFolderService;
         private readonly ICalibreProxy _calibre;
         private readonly Logger _logger;
@@ -42,6 +43,7 @@ namespace NzbDrone.Core.MediaFiles
                                         IMediaFileService mediaFileService,
                                         IAuthorService authorService,
                                         IConfigService configService,
+                                        IEventAggregator eventAggregator,
                                         IRootFolderService rootFolderService,
                                         ICalibreProxy calibre,
                                         Logger logger)
@@ -51,6 +53,7 @@ namespace NzbDrone.Core.MediaFiles
             _mediaFileService = mediaFileService;
             _authorService = authorService;
             _configService = configService;
+            _eventAggregator = eventAggregator;
             _rootFolderService = rootFolderService;
             _calibre = calibre;
             _logger = logger;
@@ -97,6 +100,8 @@ namespace NzbDrone.Core.MediaFiles
 
             // Delete the track file from the database to clean it up even if the file was already deleted
             _mediaFileService.Delete(bookFile, DeleteMediaFileReason.Manual);
+
+            _eventAggregator.PublishEvent(new DeleteCompletedEvent());
         }
 
         private void DeleteFile(BookFile bookFile, string subfolder = "")
@@ -178,6 +183,8 @@ namespace NzbDrone.Core.MediaFiles
                     {
                         _recycleBinProvider.DeleteFolder(message.Author.Path);
                     }
+
+                    _eventAggregator.PublishEvent(new DeleteCompletedEvent());
                 }
             }
         }

@@ -9,6 +9,10 @@ namespace Readarr.Api.V1.Notifications
         public bool OnReleaseImport { get; set; }
         public bool OnUpgrade { get; set; }
         public bool OnRename { get; set; }
+        public bool OnAuthorDelete { get; set; }
+        public bool OnBookDelete { get; set; }
+        public bool OnBookFileDelete { get; set; }
+        public bool OnBookFileDeleteForUpgrade { get; set; }
         public bool OnHealthIssue { get; set; }
         public bool OnDownloadFailure { get; set; }
         public bool OnImportFailure { get; set; }
@@ -17,6 +21,10 @@ namespace Readarr.Api.V1.Notifications
         public bool SupportsOnReleaseImport { get; set; }
         public bool SupportsOnUpgrade { get; set; }
         public bool SupportsOnRename { get; set; }
+        public bool SupportsOnAuthorDelete { get; set; }
+        public bool SupportsOnBookDelete { get; set; }
+        public bool SupportsOnBookFileDelete { get; set; }
+        public bool SupportsOnBookFileDeleteForUpgrade { get; set; }
         public bool SupportsOnHealthIssue { get; set; }
         public bool IncludeHealthWarnings { get; set; }
         public bool SupportsOnDownloadFailure { get; set; }
@@ -40,6 +48,10 @@ namespace Readarr.Api.V1.Notifications
             resource.OnReleaseImport = definition.OnReleaseImport;
             resource.OnUpgrade = definition.OnUpgrade;
             resource.OnRename = definition.OnRename;
+            resource.OnAuthorDelete = definition.OnAuthorDelete;
+            resource.OnBookDelete = definition.OnBookDelete;
+            resource.OnBookFileDelete = definition.OnBookFileDelete;
+            resource.OnBookFileDeleteForUpgrade = definition.OnBookFileDeleteForUpgrade;
             resource.OnHealthIssue = definition.OnHealthIssue;
             resource.OnDownloadFailure = definition.OnDownloadFailure;
             resource.OnImportFailure = definition.OnImportFailure;
@@ -48,6 +60,10 @@ namespace Readarr.Api.V1.Notifications
             resource.SupportsOnReleaseImport = definition.SupportsOnReleaseImport;
             resource.SupportsOnUpgrade = definition.SupportsOnUpgrade;
             resource.SupportsOnRename = definition.SupportsOnRename;
+            resource.SupportsOnAuthorDelete = definition.SupportsOnAuthorDelete;
+            resource.SupportsOnBookDelete = definition.SupportsOnBookDelete;
+            resource.SupportsOnBookFileDelete = definition.SupportsOnBookFileDelete;
+            resource.SupportsOnBookFileDeleteForUpgrade = definition.SupportsOnBookFileDeleteForUpgrade;
             resource.SupportsOnHealthIssue = definition.SupportsOnHealthIssue;
             resource.IncludeHealthWarnings = definition.IncludeHealthWarnings;
             resource.SupportsOnDownloadFailure = definition.SupportsOnDownloadFailure;
@@ -70,6 +86,10 @@ namespace Readarr.Api.V1.Notifications
             definition.OnReleaseImport = resource.OnReleaseImport;
             definition.OnUpgrade = resource.OnUpgrade;
             definition.OnRename = resource.OnRename;
+            definition.OnAuthorDelete = resource.OnAuthorDelete;
+            definition.OnBookDelete = resource.OnBookDelete;
+            definition.OnBookFileDelete = resource.OnBookFileDelete;
+            definition.OnBookFileDeleteForUpgrade = resource.OnBookFileDeleteForUpgrade;
             definition.OnHealthIssue = resource.OnHealthIssue;
             definition.OnDownloadFailure = resource.OnDownloadFailure;
             definition.OnImportFailure = resource.OnImportFailure;
@@ -78,6 +98,10 @@ namespace Readarr.Api.V1.Notifications
             definition.SupportsOnReleaseImport = resource.SupportsOnReleaseImport;
             definition.SupportsOnUpgrade = resource.SupportsOnUpgrade;
             definition.SupportsOnRename = resource.SupportsOnRename;
+            definition.SupportsOnAuthorDelete = resource.SupportsOnAuthorDelete;
+            definition.SupportsOnBookDelete = resource.SupportsOnBookDelete;
+            definition.SupportsOnBookFileDelete = resource.SupportsOnBookFileDelete;
+            definition.SupportsOnBookFileDeleteForUpgrade = resource.SupportsOnBookFileDeleteForUpgrade;
             definition.SupportsOnHealthIssue = resource.SupportsOnHealthIssue;
             definition.IncludeHealthWarnings = resource.IncludeHealthWarnings;
             definition.SupportsOnDownloadFailure = resource.SupportsOnDownloadFailure;

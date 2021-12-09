@@ -62,6 +62,21 @@ namespace NzbDrone.Core.Test.NotificationTests
                 TestLogger.Info("OnRename was called");
             }
 
+            public override void OnAuthorDelete(AuthorDeleteMessage message)
+            {
+                TestLogger.Info("OnAuthorDelete was called");
+            }
+
+            public override void OnBookDelete(BookDeleteMessage message)
+            {
+                TestLogger.Info("OnBookDelete was called");
+            }
+
+            public override void OnBookFileDelete(BookFileDeleteMessage message)
+            {
+                TestLogger.Info("OnBookFileDelete was called");
+            }
+
             public override void OnHealthIssue(NzbDrone.Core.HealthCheck.HealthCheck author)
             {
                 TestLogger.Info("OnHealthIssue was called");
@@ -116,6 +131,10 @@ namespace NzbDrone.Core.Test.NotificationTests
             notification.SupportsOnUpgrade.Should().BeTrue();
             notification.SupportsOnRename.Should().BeTrue();
             notification.SupportsOnHealthIssue.Should().BeTrue();
+            notification.SupportsOnAuthorDelete.Should().BeTrue();
+            notification.SupportsOnBookDelete.Should().BeTrue();
+            notification.SupportsOnBookFileDelete.Should().BeTrue();
+            notification.SupportsOnBookFileDeleteForUpgrade.Should().BeTrue();
             notification.SupportsOnDownloadFailure.Should().BeTrue();
             notification.SupportsOnImportFailure.Should().BeTrue();
             notification.SupportsOnBookRetag.Should().BeTrue();
@@ -130,6 +149,10 @@ namespace NzbDrone.Core.Test.NotificationTests
             notification.SupportsOnReleaseImport.Should().BeFalse();
             notification.SupportsOnUpgrade.Should().BeFalse();
             notification.SupportsOnRename.Should().BeFalse();
+            notification.SupportsOnAuthorDelete.Should().BeFalse();
+            notification.SupportsOnBookDelete.Should().BeFalse();
+            notification.SupportsOnBookFileDelete.Should().BeFalse();
+            notification.SupportsOnBookFileDeleteForUpgrade.Should().BeFalse();
             notification.SupportsOnHealthIssue.Should().BeFalse();
             notification.SupportsOnDownloadFailure.Should().BeFalse();
             notification.SupportsOnImportFailure.Should().BeFalse();

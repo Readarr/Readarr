@@ -46,6 +46,33 @@ namespace NzbDrone.Core.Notifications.Synology
             }
         }
 
+        public override void OnAuthorDelete(AuthorDeleteMessage deleteMessage)
+        {
+            if (Settings.UpdateLibrary)
+            {
+                _indexerProxy.DeleteFolder(deleteMessage.Author.Path);
+            }
+        }
+
+        public override void OnBookDelete(BookDeleteMessage deleteMessage)
+        {
+            if (Settings.UpdateLibrary && deleteMessage.DeletedFiles)
+            {
+                foreach (var bookFile in deleteMessage.Book.BookFiles.Value)
+                {
+                    _indexerProxy.DeleteFile(bookFile.Path);
+                }
+            }
+        }
+
+        public override void OnBookFileDelete(BookFileDeleteMessage deleteMessage)
+        {
+            if (Settings.UpdateLibrary)
+            {
+                _indexerProxy.DeleteFile(deleteMessage.BookFile.Path);
+            }
+        }
+
         public override void OnBookRetag(BookRetagMessage message)
         {
             if (Settings.UpdateLibrary)

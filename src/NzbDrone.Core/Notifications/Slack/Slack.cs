@@ -69,6 +69,54 @@ namespace NzbDrone.Core.Notifications.Slack
             _proxy.SendPayload(payload, Settings);
         }
 
+        public override void OnAuthorDelete(AuthorDeleteMessage deleteMessage)
+        {
+            var attachments = new List<Attachment>
+                             {
+                                 new Attachment
+                                 {
+                                     Title = deleteMessage.Author.Name,
+                                     Text = deleteMessage.DeletedFilesMessage
+                                 }
+                             };
+
+            var payload = CreatePayload("Author Deleted", attachments);
+
+            _proxy.SendPayload(payload, Settings);
+        }
+
+        public override void OnBookDelete(BookDeleteMessage deleteMessage)
+        {
+            var attachments = new List<Attachment>
+                             {
+                                 new Attachment
+                                 {
+                                     Title =  $"${deleteMessage.Book.Author.Value.Name} - ${deleteMessage.Book.Title}",
+                                     Text = deleteMessage.DeletedFilesMessage
+                                 }
+                             };
+
+            var payload = CreatePayload("Book Deleted", attachments);
+
+            _proxy.SendPayload(payload, Settings);
+        }
+
+        public override void OnBookFileDelete(BookFileDeleteMessage deleteMessage)
+        {
+            var attachments = new List<Attachment>
+                             {
+                                 new Attachment
+                                 {
+                                     Title =  $"${deleteMessage.Book.Author.Value.Name} - ${deleteMessage.Book.Title} - file deleted",
+                                     Text = deleteMessage.BookFile.Path
+                                 }
+                             };
+
+            var payload = CreatePayload("Book File Deleted", attachments);
+
+            _proxy.SendPayload(payload, Settings);
+        }
+
         public override void OnHealthIssue(HealthCheck.HealthCheck healthCheck)
         {
             var attachments = new List<Attachment>

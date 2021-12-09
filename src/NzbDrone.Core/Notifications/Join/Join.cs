@@ -27,6 +27,21 @@ namespace NzbDrone.Core.Notifications.Join
             _proxy.SendNotification(BOOK_DOWNLOADED_TITLE_BRANDED, message.Message, Settings);
         }
 
+        public override void OnAuthorDelete(AuthorDeleteMessage deleteMessage)
+        {
+            _proxy.SendNotification(AUTHOR_DELETED_TITlE_BRANDED, deleteMessage.Message, Settings);
+        }
+
+        public override void OnBookDelete(BookDeleteMessage deleteMessage)
+        {
+            _proxy.SendNotification(BOOK_DELETED_TITLE_BRANDED, deleteMessage.Message, Settings);
+        }
+
+        public override void OnBookFileDelete(BookFileDeleteMessage deleteMessage)
+        {
+            _proxy.SendNotification(BOOK_FILE_DELETED_TITLE_BRANDED, deleteMessage.Message, Settings);
+        }
+
         public override void OnHealthIssue(HealthCheck.HealthCheck message)
         {
             _proxy.SendNotification(HEALTH_ISSUE_TITLE_BRANDED, message.Message, Settings);

@@ -15,6 +15,10 @@ namespace NzbDrone.Core.Notifications
         List<INotification> OnUpgradeEnabled();
         List<INotification> OnRenameEnabled();
         List<INotification> OnHealthIssueEnabled();
+        List<INotification> OnAuthorDeleteEnabled();
+        List<INotification> OnBookDeleteEnabled();
+        List<INotification> OnBookFileDeleteEnabled();
+        List<INotification> OnBookFileDeleteForUpgradeEnabled();
         List<INotification> OnDownloadFailureEnabled();
         List<INotification> OnImportFailureEnabled();
         List<INotification> OnBookRetagEnabled();
@@ -47,6 +51,26 @@ namespace NzbDrone.Core.Notifications
             return GetAvailableProviders().Where(n => ((NotificationDefinition)n.Definition).OnRename).ToList();
         }
 
+        public List<INotification> OnAuthorDeleteEnabled()
+        {
+            return GetAvailableProviders().Where(n => ((NotificationDefinition)n.Definition).OnAuthorDelete).ToList();
+        }
+
+        public List<INotification> OnBookDeleteEnabled()
+        {
+            return GetAvailableProviders().Where(n => ((NotificationDefinition)n.Definition).OnBookDelete).ToList();
+        }
+
+        public List<INotification> OnBookFileDeleteEnabled()
+        {
+            return GetAvailableProviders().Where(n => ((NotificationDefinition)n.Definition).OnBookFileDelete).ToList();
+        }
+
+        public List<INotification> OnBookFileDeleteForUpgradeEnabled()
+        {
+            return GetAvailableProviders().Where(n => ((NotificationDefinition)n.Definition).OnBookFileDeleteForUpgrade).ToList();
+        }
+
         public List<INotification> OnHealthIssueEnabled()
         {
             return GetAvailableProviders().Where(n => ((NotificationDefinition)n.Definition).OnHealthIssue).ToList();
@@ -75,6 +99,10 @@ namespace NzbDrone.Core.Notifications
             definition.SupportsOnReleaseImport = provider.SupportsOnReleaseImport;
             definition.SupportsOnUpgrade = provider.SupportsOnUpgrade;
             definition.SupportsOnRename = provider.SupportsOnRename;
+            definition.SupportsOnAuthorDelete = provider.SupportsOnAuthorDelete;
+            definition.SupportsOnBookDelete = provider.SupportsOnBookDelete;
+            definition.SupportsOnBookFileDelete = provider.SupportsOnBookFileDelete;
+            definition.SupportsOnBookFileDeleteForUpgrade = provider.SupportsOnBookFileDeleteForUpgrade;
             definition.SupportsOnHealthIssue = provider.SupportsOnHealthIssue;
             definition.SupportsOnDownloadFailure = provider.SupportsOnDownloadFailure;
             definition.SupportsOnImportFailure = provider.SupportsOnImportFailure;

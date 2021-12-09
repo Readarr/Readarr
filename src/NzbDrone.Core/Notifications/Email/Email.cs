@@ -40,6 +40,27 @@ namespace NzbDrone.Core.Notifications.Email
             SendEmail(Settings, BOOK_DOWNLOADED_TITLE_BRANDED, body, false, paths);
         }
 
+        public override void OnAuthorDelete(AuthorDeleteMessage deleteMessage)
+        {
+            var body = deleteMessage.Message;
+
+            SendEmail(Settings, AUTHOR_DELETED_TITlE_BRANDED, body);
+        }
+
+        public override void OnBookDelete(BookDeleteMessage deleteMessage)
+        {
+            var body = deleteMessage.Message;
+
+            SendEmail(Settings, AUTHOR_DELETED_TITlE_BRANDED, body);
+        }
+
+        public override void OnBookFileDelete(BookFileDeleteMessage deleteMessage)
+        {
+            var body = deleteMessage.Message;
+
+            SendEmail(Settings, AUTHOR_DELETED_TITlE_BRANDED, body);
+        }
+
         public override void OnHealthIssue(HealthCheck.HealthCheck message)
         {
             SendEmail(Settings, HEALTH_ISSUE_TITLE_BRANDED, message.Message);

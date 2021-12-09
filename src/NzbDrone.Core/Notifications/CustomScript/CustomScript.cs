@@ -105,6 +105,73 @@ namespace NzbDrone.Core.Notifications.CustomScript
             ExecuteScript(environmentVariables);
         }
 
+        public override void OnAuthorDelete(AuthorDeleteMessage deleteMessage)
+        {
+            var author = deleteMessage.Author;
+            var environmentVariables = new StringDictionary();
+
+            environmentVariables.Add("Readarr_EventType", "AuthorDelete");
+            environmentVariables.Add("Readarr_Author_Id", author.Id.ToString());
+            environmentVariables.Add("Readarr_Author_Name", author.Name);
+            environmentVariables.Add("Readarr_Author_Path", author.Path);
+            environmentVariables.Add("Readarr_Author_GoodreadsId", author.ForeignAuthorId);
+            environmentVariables.Add("Readarr_Author_DeletedFiles", deleteMessage.DeletedFiles.ToString());
+
+            ExecuteScript(environmentVariables);
+        }
+
+        public override void OnBookDelete(BookDeleteMessage deleteMessage)
+        {
+            var author = deleteMessage.Book.Author.Value;
+            var book = deleteMessage.Book;
+
+            var environmentVariables = new StringDictionary();
+
+            environmentVariables.Add("Readarr_EventType", "BookDelete");
+            environmentVariables.Add("Readarr_Author_Id", author.Id.ToString());
+            environmentVariables.Add("Readarr_Author_Name", author.Name);
+            environmentVariables.Add("Readarr_Author_Path", author.Path);
+            environmentVariables.Add("Readarr_Author_GoodreadsId", author.ForeignAuthorId);
+            environmentVariables.Add("Readarr_Book_Id", book.Id.ToString());
+            environmentVariables.Add("Readarr_Book_Title", book.Title);
+            environmentVariables.Add("Readarr_Book_GoodreadsId", book.ForeignBookId);
+            environmentVariables.Add("Readarr_Book_DeletedFiles", deleteMessage.DeletedFiles.ToString());
+
+            ExecuteScript(environmentVariables);
+        }
+
+        public override void OnBookFileDelete(BookFileDeleteMessage deleteMessage)
+        {
+            var author = deleteMessage.Book.Author.Value;
+            var book = deleteMessage.Book;
+            var bookFile = deleteMessage.BookFile;
+            var edition = bookFile.Edition.Value;
+
+            var environmentVariables = new StringDictionary();
+
+            environmentVariables.Add("Readarr_EventType", "BookFileDelete");
+            environmentVariables.Add("Readarr_Delete_Reason", deleteMessage.Reason.ToString());
+            environmentVariables.Add("Readarr_Author_Id", author.Id.ToString());
+            environmentVariables.Add("Readarr_Author_Name", author.Name);
+            environmentVariables.Add("Readarr_Author_GoodreadsId", author.ForeignAuthorId);
+            environmentVariables.Add("Readarr_Book_Id", book.Id.ToString());
+            environmentVariables.Add("Readarr_Book_Title", book.Title);
+            environmentVariables.Add("Readarr_Book_GoodreadsId", book.ForeignBookId);
+            environmentVariables.Add("Readarr_BookFile_Id", bookFile.Id.ToString());
+            environmentVariables.Add("Readarr_BookFile_Path", bookFile.Path);
+            environmentVariables.Add("Readarr_BookFile_Quality", bookFile.Quality.Quality.Name);
+            environmentVariables.Add("Readarr_BookFile_QualityVersion", bookFile.Quality.Revision.Version.ToString());
+            environmentVariables.Add("Readarr_BookFile_ReleaseGroup", bookFile.ReleaseGroup ?? string.Empty);
+            environmentVariables.Add("Readarr_BookFile_SceneName", bookFile.SceneName ?? string.Empty);
+            environmentVariables.Add("Readarr_BookFile_Edition_Id", edition.Id.ToString());
+            environmentVariables.Add("Readarr_BookFile_Edition_Name", edition.Title);
+            environmentVariables.Add("Readarr_BookFile_Edition_GoodreadsId", edition.ForeignEditionId);
+            environmentVariables.Add("Readarr_BookFile_Edition_Isbn13", edition.Isbn13);
+            environmentVariables.Add("Readarr_BookFile_Edition_Asin", edition.Asin);
+
+            ExecuteScript(environmentVariables);
+        }
+
         public override void OnBookRetag(BookRetagMessage message)
         {
             var author = message.Author;

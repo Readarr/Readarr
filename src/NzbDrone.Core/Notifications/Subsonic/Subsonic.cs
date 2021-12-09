@@ -40,6 +40,38 @@ namespace NzbDrone.Core.Notifications.Subsonic
             Update();
         }
 
+        public override void OnAuthorDelete(AuthorDeleteMessage deleteMessage)
+        {
+            const string header = "Readarr - Author Deleted";
+
+            Notify(Settings, header, deleteMessage.Message);
+
+            if (deleteMessage.DeletedFiles)
+            {
+                Update();
+            }
+        }
+
+        public override void OnBookDelete(BookDeleteMessage deleteMessage)
+        {
+            const string header = "Readarr - Book Deleted";
+
+            Notify(Settings, header, deleteMessage.Message);
+
+            if (deleteMessage.DeletedFiles)
+            {
+                Update();
+            }
+        }
+
+        public override void OnBookFileDelete(BookFileDeleteMessage deleteMessage)
+        {
+            const string header = "Readarr - Book File Deleted";
+
+            Notify(Settings, header, deleteMessage.Message);
+            Update();
+        }
+
         public override void OnHealthIssue(HealthCheck.HealthCheck healthCheck)
         {
             Notify(Settings, HEALTH_ISSUE_TITLE_BRANDED, healthCheck.Message);

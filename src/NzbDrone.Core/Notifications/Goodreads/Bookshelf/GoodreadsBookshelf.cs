@@ -40,6 +40,54 @@ namespace NzbDrone.Core.Notifications.Goodreads
             AddToShelves(bookId, Settings.AddIds);
         }
 
+        public override void OnAuthorDelete(AuthorDeleteMessage deleteMessage)
+        {
+            if (deleteMessage.DeletedFiles)
+            {
+                foreach (var shelf in Settings.RemoveIds)
+                {
+                    var listBooks = SearchShelf(shelf, deleteMessage.Author.Name);
+                    var toRemove = listBooks.Where(x => deleteMessage.Author.Books.Value.Select(b => b.ForeignBookId).Contains(x.Book.WorkId.ToString()));
+
+                    foreach (var listBook in toRemove)
+                    {
+                        RemoveBookFromShelves(listBook.Book.Id, shelf);
+                    }
+                }
+            }
+        }
+
+        public override void OnBookDelete(BookDeleteMessage deleteMessage)
+        {
+            if (deleteMessage.DeletedFiles)
+            {
+                foreach (var shelf in Settings.RemoveIds)
+                {
+                    var listBooks = SearchShelf(shelf, deleteMessage.Book.Author.Value.Name);
+                    var toRemove = listBooks.Where(x => x.Book.WorkId.ToString() == deleteMessage.Book.ForeignBookId);
+
+                    foreach (var listBook in toRemove)
+                    {
+                        RemoveBookFromShelves(listBook.Book.Id, shelf);
+                    }
+                }
+            }
+        }
+
+        public override void OnBookFileDelete(BookFileDeleteMessage deleteMessage)
+        {
+            foreach (var shelf in Settings.RemoveIds)
+            {
+                var listBooks = SearchShelf(shelf, deleteMessage.Book.Author.Value.Name);
+                var toRemove = listBooks.Where(x => x.Book.WorkId.ToString() == deleteMessage.Book.ForeignBookId);
+
+                foreach (var listBook in toRemove)
+                {
+                    RemoveBookFromShelves(listBook.Book.Id, shelf);
+                }
+            }
+        }
+
         public override object RequestAction(string action, IDictionary<string, string> query)
         {
             if (action == "getBookshelves")

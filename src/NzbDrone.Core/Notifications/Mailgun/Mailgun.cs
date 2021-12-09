@@ -29,6 +29,21 @@ namespace NzbDrone.Core.Notifications.Mailgun
             _proxy.SendNotification(BOOK_DOWNLOADED_TITLE, downloadMessage.Message, Settings);
         }
 
+        public override void OnAuthorDelete(AuthorDeleteMessage deleteMessage)
+        {
+            _proxy.SendNotification(AUTHOR_DELETED_TITLE, deleteMessage.Message, Settings);
+        }
+
+        public override void OnBookDelete(BookDeleteMessage deleteMessage)
+        {
+            _proxy.SendNotification(BOOK_DELETED_TITLE, deleteMessage.Message, Settings);
+        }
+
+        public override void OnBookFileDelete(BookFileDeleteMessage deleteMessage)
+        {
+            _proxy.SendNotification(BOOK_FILE_DELETED_TITLE, deleteMessage.Message, Settings);
+        }
+
         public override void OnHealthIssue(HealthCheck.HealthCheck healthCheckMessage)
         {
             _proxy.SendNotification(HEALTH_ISSUE_TITLE, healthCheckMessage.Message, Settings);
