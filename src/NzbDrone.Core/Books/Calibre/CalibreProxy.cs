@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Threading;
 using System.Threading.Tasks;
 using FluentValidation;
 using FluentValidation.Results;
@@ -12,6 +14,7 @@ using NzbDrone.Common.Disk;
 using NzbDrone.Common.Extensions;
 using NzbDrone.Common.Http;
 using NzbDrone.Common.Serializer;
+using NzbDrone.Core.Configuration;
 using NzbDrone.Core.MediaCover;
 using NzbDrone.Core.MediaFiles;
 using NzbDrone.Core.RemotePathMappings;
@@ -21,14 +24,11 @@ namespace NzbDrone.Core.Books.Calibre
 {
     public interface ICalibreProxy
     {
-        CalibreImportJob AddBook(BookFile book, CalibreSettings settings);
+        BookFile AddAndConvert(BookFile file, CalibreSettings settings);
         void DeleteBook(BookFile book, CalibreSettings settings);
         void DeleteBooks(List<BookFile> books, CalibreSettings settings);
-        void AddFormat(BookFile file, CalibreSettings settings);
         void RemoveFormats(int calibreId, IEnumerable<string> formats, CalibreSettings settings);
         void SetFields(BookFile file, CalibreSettings settings, bool updateCover = true, bool embed = false);
-        CalibreBookData GetBookData(int calibreId, CalibreSettings settings);
-        long ConvertBook(int calibreId, CalibreConversionOptions options, CalibreSettings settings);
         List<string> GetAllBookFilePaths(CalibreSettings settings);
         CalibreBook GetBook(int calibreId, CalibreSettings settings);
         List<CalibreBook> GetBooks(List<int> calibreId, CalibreSettings settings);
@@ -43,6 +43,8 @@ namespace NzbDrone.Core.Books.Calibre
         private readonly IMapCoversToLocal _mediaCoverService;
         private readonly IRemotePathMappingService _pathMapper;
         private readonly IRootFolderWatchingService _rootFolderWatchingService;
+        private readonly IMediaFileService _mediaFileService;
+        private readonly IConfigService _configService;
         private readonly Logger _logger;
         private readonly ICached<CalibreBook> _bookCache;
 
@@ -50,6 +52,8 @@ namespace NzbDrone.Core.Books.Calibre
                             IMapCoversToLocal mediaCoverService,
                             IRemotePathMappingService pathMapper,
                             IRootFolderWatchingService rootFolderWatchingService,
+                            IMediaFileService mediaFileService,
+                            IConfigService configService,
                             ICacheManager cacheManager,
                             Logger logger)
         {
@@ -57,6 +61,8 @@ namespace NzbDrone.Core.Books.Calibre
             _mediaCoverService = mediaCoverService;
             _pathMapper = pathMapper;
             _rootFolderWatchingService = rootFolderWatchingService;
+            _mediaFileService = mediaFileService;
+            _configService = configService;
             _bookCache = cacheManager.GetCache<CalibreBook>(GetType());
             _logger = logger;
         }
@@ -69,7 +75,59 @@ namespace NzbDrone.Core.Books.Calibre
                 .FirstOrDefault().Value?.Path;
         }
 
-        public CalibreImportJob AddBook(BookFile book, CalibreSettings settings)
+        public BookFile AddAndConvert(BookFile file, CalibreSettings settings)
+        {
+            _logger.Trace($"Importing to calibre: {file.Path} calibre id: {file.CalibreId}");
+
+            if (file.CalibreId == 0)
+            {
+                var import = AddBook(file, settings);
+                file.CalibreId = import.Id;
+            }
+            else
+            {
+                AddFormat(file, settings);
+            }
+
+            _rootFolderWatchingService.ReportFileSystemChangeBeginning(file.Path);
+
+            SetFields(file, settings, true, _configService.EmbedMetadata);
+
+            if (settings.OutputFormat.IsNotNullOrWhiteSpace())
+            {
+                _logger.Trace($"Getting book data for {file.CalibreId}");
+                var options = GetBookData(file.CalibreId, settings);
+                var inputFormat = file.Quality.Quality.Name.ToUpper();
+
+                options.Conversion_options.Input_fmt = inputFormat;
+
+                var formats = settings.OutputFormat.Split(',').Select(x => x.Trim());
+                foreach (var format in formats)
+                {
+                    if (format.ToLower() == inputFormat ||
+                        options.Input_formats.Contains(format, StringComparer.OrdinalIgnoreCase))
+                    {
+                        continue;
+                    }
+
+                    options.Conversion_options.Output_fmt = format;
+
+                    if (settings.OutputProfile != (int)CalibreProfile.@default)
+                    {
+                        options.Conversion_options.Options.Output_profile = ((CalibreProfile)settings.OutputProfile).ToString();
+                    }
+
+                    _logger.Trace($"Starting conversion to {format}");
+
+                    _rootFolderWatchingService.ReportFileSystemChangeBeginning(Path.ChangeExtension(file.Path, format));
+                    ConvertBook(file.CalibreId, options.Conversion_options, settings);
+                }
+            }
+
+            return file;
+        }
+
+        private CalibreImportJob AddBook(BookFile book, CalibreSettings settings)
         {
             var jobid = (int)(DateTime.UtcNow.Ticks % 1000000000);
             var addDuplicates = 1;
@@ -114,7 +172,7 @@ namespace NzbDrone.Core.Books.Calibre
             _httpClient.Post(request);
         }
 
-        public void AddFormat(BookFile file, CalibreSettings settings)
+        private void AddFormat(BookFile file, CalibreSettings settings)
         {
             var format = Path.GetExtension(file.Path);
             var bookData = Convert.ToBase64String(File.ReadAllBytes(file.Path));
@@ -214,10 +272,29 @@ namespace NzbDrone.Core.Books.Calibre
 
             ExecuteSetFields(file.CalibreId, payload, settings);
 
+            // updating the calibre metadata may have renamed the file, so track that
+            var updated = GetBook(file.CalibreId, settings);
+
+            var updatedPath = GetOriginalFormat(updated.Formats);
+
+            if (updatedPath != file.Path)
+            {
+                _rootFolderWatchingService.ReportFileSystemChangeBeginning(updatedPath);
+                file.Path = updatedPath;
+            }
+
+            var fileInfo = new FileInfo(file.Path);
+            file.Size = fileInfo.Length;
+            file.Modified = fileInfo.LastWriteTimeUtc;
+
+            if (file.Id > 0)
+            {
+                _mediaFileService.Update(file);
+            }
+
             if (embed)
             {
-                _rootFolderWatchingService.ReportFileSystemChangeBeginning(file.Path);
-                EmbedMetadata(file.CalibreId, settings);
+                EmbedMetadata(file, settings);
             }
         }
 
@@ -233,19 +310,54 @@ namespace NzbDrone.Core.Books.Calibre
             _httpClient.Execute(request);
         }
 
-        private void EmbedMetadata(int id, CalibreSettings settings)
+        private void EmbedMetadata(BookFile file, CalibreSettings settings)
         {
+            _rootFolderWatchingService.ReportFileSystemChangeBeginning(file.Path);
+
             var request = GetBuilder($"cdb/cmd/embed_metadata", settings)
                 .AddQueryParam("library_id", settings.Library)
                 .Post()
                 .SetHeader("Content-Type", "application/json")
                 .Build();
 
-            request.SetContent($"[{id}, null]");
+            request.SetContent($"[{file.CalibreId}, null]");
             _httpClient.Execute(request);
+
+            PollEmbedStatus(file, settings);
         }
 
-        public CalibreBookData GetBookData(int calibreId, CalibreSettings settings)
+        private void PollEmbedStatus(BookFile file, CalibreSettings settings)
+        {
+            var previous = new FileInfo(file.Path);
+            Thread.Sleep(100);
+
+            FileInfo current = null;
+
+            var i = 0;
+            while (i++ < 20)
+            {
+                current = new FileInfo(file.Path);
+
+                if (current.LastWriteTimeUtc == previous.LastWriteTimeUtc &&
+                    current.LastWriteTimeUtc != file.Modified)
+                {
+                    break;
+                }
+
+                previous = current;
+                Thread.Sleep(1000);
+            }
+
+            file.Size = current.Length;
+            file.Modified = current.LastWriteTimeUtc;
+
+            if (file.Id > 0)
+            {
+                _mediaFileService.Update(file);
+            }
+        }
+
+        private CalibreBookData GetBookData(int calibreId, CalibreSettings settings)
         {
             try
             {
@@ -261,7 +373,7 @@ namespace NzbDrone.Core.Books.Calibre
             }
         }
 
-        public long ConvertBook(int calibreId, CalibreConversionOptions options, CalibreSettings settings)
+        private long ConvertBook(int calibreId, CalibreConversionOptions options, CalibreSettings settings)
         {
             try
             {
