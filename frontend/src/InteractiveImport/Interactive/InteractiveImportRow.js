@@ -41,12 +41,14 @@ class InteractiveImportRow extends Component {
       id,
       author,
       book,
+      foreignEditionId,
       quality
     } = this.props;
 
     if (
       author &&
       book != null &&
+      foreignEditionId &&
       quality
     ) {
       this.props.onSelectedChange({ id, value: true });
@@ -58,6 +60,7 @@ class InteractiveImportRow extends Component {
       id,
       author,
       book,
+      foreignEditionId,
       quality,
       isSelected,
       onValidRowChange
@@ -66,6 +69,7 @@ class InteractiveImportRow extends Component {
     if (
       prevProps.author === author &&
       prevProps.book === book &&
+      prevProps.foreignEditionId === foreignEditionId &&
       prevProps.quality === quality &&
       prevProps.isSelected === isSelected
     ) {
@@ -75,6 +79,7 @@ class InteractiveImportRow extends Component {
     const isValid = !!(
       author &&
       book &&
+      foreignEditionId &&
       quality
     );
 
@@ -337,6 +342,7 @@ InteractiveImportRow.propTypes = {
   path: PropTypes.string.isRequired,
   author: PropTypes.object,
   book: PropTypes.object,
+  foreignEditionId: PropTypes.string,
   quality: PropTypes.object,
   size: PropTypes.number.isRequired,
   rejections: PropTypes.arrayOf(PropTypes.object).isRequired,
