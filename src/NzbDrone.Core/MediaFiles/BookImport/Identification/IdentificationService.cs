@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.IO.Abstractions;
 using System.Linq;
 using NLog;
 using NzbDrone.Common.Extensions;
@@ -17,19 +19,19 @@ namespace NzbDrone.Core.MediaFiles.BookImport.Identification
     public class IdentificationService : IIdentificationService
     {
         private readonly ITrackGroupingService _trackGroupingService;
-        private readonly IAudioTagService _audioTagService;
+        private readonly IMetadataTagService _metadataTagService;
         private readonly IAugmentingService _augmentingService;
         private readonly ICandidateService _candidateService;
         private readonly Logger _logger;
 
         public IdentificationService(ITrackGroupingService trackGroupingService,
-                                     IAudioTagService audioTagService,
+                                     IMetadataTagService metadataTagService,
                                      IAugmentingService augmentingService,
                                      ICandidateService candidateService,
                                      Logger logger)
         {
             _trackGroupingService = trackGroupingService;
-            _audioTagService = audioTagService;
+            _metadataTagService = metadataTagService;
             _augmentingService = augmentingService;
             _candidateService = candidateService;
             _logger = logger;
@@ -101,7 +103,7 @@ namespace NzbDrone.Core.MediaFiles.BookImport.Identification
                 Path = x.Path,
                 Size = x.Size,
                 Modified = x.Modified,
-                FileTrackInfo = _audioTagService.ReadTags(x.Path),
+                FileTrackInfo = _metadataTagService.ReadTags((FileInfoBase)new FileInfo(x.Path)),
                 ExistingFile = true,
                 AdditionalFile = true,
                 Quality = x.Quality
