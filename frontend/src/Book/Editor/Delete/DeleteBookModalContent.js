@@ -77,7 +77,7 @@ class DeleteBookModalContent extends Component {
                 type={inputTypes.CHECK}
                 name="deleteFiles"
                 value={deleteFiles}
-                helpText={'Delete book files'}
+                helpText={translate('DeleteFilesHelpText')}
                 kind={kinds.DANGER}
                 isDisabled={files.length === 0}
                 onChange={this.onDeleteFilesChange}

@@ -51,8 +51,12 @@ class ImportListExclusions extends Component {
           {...otherProps}
         >
           <div className={styles.importListExclusionsHeader}>
-            <div className={styles.foreignId}>Foreign Id</div>
-            <div className={styles.name}>Name</div>
+            <div className={styles.foreignId}>
+              {translate('ForeignId')}
+            </div>
+            <div className={styles.name}>
+              {translate('Name')}
+            </div>
           </div>
 
           <div>

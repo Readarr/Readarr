@@ -167,7 +167,9 @@ class AddNewItem extends Component {
           {
             !isFetching && !error && !items.length && !!term &&
               <div className={styles.message}>
-                <div className={styles.noResults}>Couldn't find any results for '{term}'</div>
+                <div className={styles.noResults}>
+                  {translate('CouldntFindAnyResultsForTerm', [term])}
+                </div>
                 <div>
                   You can also search using the
                   <Link to="https://goodreads.com"> Goodreads ID </Link>
@@ -179,7 +181,9 @@ class AddNewItem extends Component {
           {
             !term &&
               <div className={styles.message}>
-                <div className={styles.helpText}>It's easy to add a new author or book, just start typing the name of the item you want to add.</div>
+                <div className={styles.helpText}>
+                  {translate('ItsEasyToAddANewAuthorOrBookJustStartTypingTheNameOfTheItemYouWantToAdd')}
+                </div>
                 <div>
                   You can also search using the
                   <Link to="https://goodreads.com"> Goodreads ID </Link>
