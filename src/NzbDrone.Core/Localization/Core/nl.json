@@ -43,7 +43,7 @@
     "BackupNow": "Veiligheidskopie Maken",
     "BackupRetentionHelpText": "Automatische veiligheidskopieën ouder dan de retentie periode zullen worden opgeruimd",
     "Backups": "Veiligheidskopieën",
-    "BindAddress": "Aanhaak Adres",
+    "BindAddress": "Gebonden Adres",
     "BindAddressHelpText": "Geldig IPv4 adres of '*' voor alle interfaces",
     "BindAddressHelpTextWarning": "Herstarten vereist om in werking te treden",
     "BookIsDownloading": "Film is aan het downloaden",
@@ -478,5 +478,7 @@
     "TheAuthorFolderAndAllOfItsContentWillBeDeleted": "De film map '{0}' en al zijn inhoud zal worden verwijdert.",
     "NotAvailable": "Niet Beschikbaar",
     "NotMonitored": "Niet Bewaakt",
-    "ShowBookTitleHelpText": "Toon filmtitel onder poster"
+    "ShowBookTitleHelpText": "Toon filmtitel onder poster",
+    "Blocklist": "Blokkeerlijst",
+    "BlocklistRelease": "Uitgave op blokkeerlijst zetten"
 }
