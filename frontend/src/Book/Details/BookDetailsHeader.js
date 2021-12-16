@@ -149,21 +149,24 @@ class BookDetailsHeader extends Component {
             </div>
 
             <div className={styles.detailsLabels}>
-              <Label
-                className={styles.detailsLabel}
-                size={sizes.LARGE}
-              >
-                <Icon
-                  name={icons.CALENDAR}
-                  size={17}
-                />
+              {
+                releaseDate &&
+                  <Label
+                    className={styles.detailsLabel}
+                    size={sizes.LARGE}
+                  >
+                    <Icon
+                      name={icons.CALENDAR}
+                      size={17}
+                    />
 
-                <span className={styles.sizeOnDisk}>
-                  {
-                    moment(releaseDate).format(shortDateFormat)
-                  }
-                </span>
-              </Label>
+                    <span className={styles.sizeOnDisk}>
+                      {
+                        moment(releaseDate).format(shortDateFormat)
+                      }
+                    </span>
+                  </Label>
+              }
 
               <Label
                 className={styles.detailsLabel}

@@ -47,6 +47,15 @@ function BookIndexSortMenu(props) {
         </SortMenuItem>
 
         <SortMenuItem
+          name="releaseDate"
+          sortKey={sortKey}
+          sortDirection={sortDirection}
+          onPress={onSortSelect}
+        >
+          Release Date
+        </SortMenuItem>
+
+        <SortMenuItem
           name="qualityProfileId"
           sortKey={sortKey}
           sortDirection={sortDirection}
