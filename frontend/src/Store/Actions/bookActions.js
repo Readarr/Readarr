@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import moment from 'moment';
 import { createAction } from 'redux-actions';
 import { batchActions } from 'redux-batched-actions';
 import bookEntities from 'Book/bookEntities';
@@ -6,6 +7,7 @@ import { filterTypePredicates, filterTypes, sortDirections } from 'Helpers/Props
 import { createThunk, handleThunks } from 'Store/thunks';
 import createAjaxRequest from 'Utilities/createAjaxRequest';
 import dateFilterPredicate from 'Utilities/Date/dateFilterPredicate';
+import translate from 'Utilities/String/translate';
 import { removeItem, set, update, updateItem } from './baseActions';
 import createHandleActions from './Creators/createHandleActions';
 import createRemoveItemHandler from './Creators/createRemoveItemHandler';
@@ -22,12 +24,12 @@ export const section = 'books';
 export const filters = [
   {
     key: 'all',
-    label: 'All',
+    label: translate('All'),
     filters: []
   },
   {
     key: 'monitored',
-    label: 'Monitored Only',
+    label: translate('Monitored'),
     filters: [
       {
         key: 'monitored',
@@ -38,7 +40,7 @@ export const filters = [
   },
   {
     key: 'unmonitored',
-    label: 'Unmonitored Only',
+    label: translate('Unmonitored'),
     filters: [
       {
         key: 'monitored',
@@ -49,12 +51,38 @@ export const filters = [
   },
   {
     key: 'missing',
-    label: 'Missing Books',
+    label: translate('Missing'),
     filters: [
+      {
+        key: 'monitored',
+        value: true,
+        type: filterTypes.EQUAL
+      },
       {
         key: 'missing',
         value: true,
         type: filterTypes.EQUAL
+      }
+    ]
+  },
+  {
+    key: 'wanted',
+    label: translate('Wanted'),
+    filters: [
+      {
+        key: 'monitored',
+        value: true,
+        type: filterTypes.EQUAL
+      },
+      {
+        key: 'missing',
+        value: true,
+        type: filterTypes.EQUAL
+      },
+      {
+        key: 'releaseDate',
+        value: moment(),
+        type: filterTypes.LESS_THAN
       }
     ]
   }
@@ -64,7 +92,7 @@ export const filterPredicates = {
   missing: function(item) {
     const { statistics = {} } = item;
 
-    return statistics.bookFileCount === 0;
+    return !statistics.hasOwnProperty('bookFileCount') || statistics.bookFileCount === 0;
   },
 
   releaseDate: function(item, filterValue, type) {
