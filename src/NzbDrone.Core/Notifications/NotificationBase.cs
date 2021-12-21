@@ -18,6 +18,7 @@ namespace NzbDrone.Core.Notifications
         protected const string DOWNLOAD_FAILURE_TITLE = "Download Failed";
         protected const string IMPORT_FAILURE_TITLE = "Import Failed";
         protected const string BOOK_RETAGGED_TITLE = "Book File Tags Updated";
+        protected const string APPLICATION_UPDATE_TITLE = "Application Updated";
 
         protected const string BOOK_GRABBED_TITLE_BRANDED = "Readarr - " + BOOK_GRABBED_TITLE;
         protected const string BOOK_DOWNLOADED_TITLE_BRANDED = "Readarr - " + BOOK_DOWNLOADED_TITLE;
@@ -28,6 +29,7 @@ namespace NzbDrone.Core.Notifications
         protected const string DOWNLOAD_FAILURE_TITLE_BRANDED = "Readarr - " + DOWNLOAD_FAILURE_TITLE;
         protected const string IMPORT_FAILURE_TITLE_BRANDED = "Readarr - " + IMPORT_FAILURE_TITLE;
         protected const string BOOK_RETAGGED_TITLE_BRANDED = "Readarr - " + BOOK_RETAGGED_TITLE;
+        protected const string APPLICATION_UPDATE_TITLE_BRANDED = "Readarr - " + APPLICATION_UPDATE_TITLE;
 
         public abstract string Name { get; }
 
@@ -82,6 +84,10 @@ namespace NzbDrone.Core.Notifications
         {
         }
 
+        public virtual void OnApplicationUpdate(ApplicationUpdateMessage updateMessage)
+        {
+        }
+
         public virtual void ProcessQueue()
         {
         }
@@ -98,6 +104,7 @@ namespace NzbDrone.Core.Notifications
         public bool SupportsOnDownloadFailure => HasConcreteImplementation("OnDownloadFailure");
         public bool SupportsOnImportFailure => HasConcreteImplementation("OnImportFailure");
         public bool SupportsOnBookRetag => HasConcreteImplementation("OnBookRetag");
+        public bool SupportsOnApplicationUpdate => HasConcreteImplementation("OnApplicationUpdate");
 
         protected TSettings Settings => (TSettings)Definition.Settings;
 

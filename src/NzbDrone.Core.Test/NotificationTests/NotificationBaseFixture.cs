@@ -96,6 +96,11 @@ namespace NzbDrone.Core.Test.NotificationTests
             {
                 TestLogger.Info("OnBookRetag was called");
             }
+
+            public override void OnApplicationUpdate(ApplicationUpdateMessage updateMessage)
+            {
+                TestLogger.Info("OnApplicationUpdate was called");
+            }
         }
 
         private class TestNotificationWithNoEvents : NotificationBase<TestSetting>
@@ -138,6 +143,7 @@ namespace NzbDrone.Core.Test.NotificationTests
             notification.SupportsOnDownloadFailure.Should().BeTrue();
             notification.SupportsOnImportFailure.Should().BeTrue();
             notification.SupportsOnBookRetag.Should().BeTrue();
+            notification.SupportsOnApplicationUpdate.Should().BeTrue();
         }
 
         [Test]
@@ -157,6 +163,7 @@ namespace NzbDrone.Core.Test.NotificationTests
             notification.SupportsOnDownloadFailure.Should().BeFalse();
             notification.SupportsOnImportFailure.Should().BeFalse();
             notification.SupportsOnBookRetag.Should().BeFalse();
+            notification.SupportsOnApplicationUpdate.Should().BeFalse();
         }
     }
 }

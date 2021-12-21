@@ -67,6 +67,7 @@ class Notification extends Component {
       onDownloadFailure,
       onImportFailure,
       onBookRetag,
+      onApplicationUpdate,
       supportsOnGrab,
       supportsOnReleaseImport,
       supportsOnUpgrade,
@@ -78,7 +79,8 @@ class Notification extends Component {
       supportsOnHealthIssue,
       supportsOnDownloadFailure,
       supportsOnImportFailure,
-      supportsOnBookRetag
+      supportsOnBookRetag,
+      supportsOnApplicationUpdate
     } = this.props;
 
     return (
@@ -188,6 +190,14 @@ class Notification extends Component {
         }
 
         {
+          supportsOnApplicationUpdate && onApplicationUpdate ?
+            <Label kind={kinds.SUCCESS} >
+              {translate('OnApplicationUpdate')}
+            </Label> :
+            null
+        }
+
+        {
           !onGrab && !onReleaseImport && !onRename && !onBookRetag && !onHealthIssue && !onDownloadFailure && !onImportFailure ?
             <Label
               kind={kinds.DISABLED}
@@ -234,6 +244,7 @@ Notification.propTypes = {
   onDownloadFailure: PropTypes.bool.isRequired,
   onImportFailure: PropTypes.bool.isRequired,
   onBookRetag: PropTypes.bool.isRequired,
+  onApplicationUpdate: PropTypes.bool.isRequired,
   supportsOnGrab: PropTypes.bool.isRequired,
   supportsOnReleaseImport: PropTypes.bool.isRequired,
   supportsOnUpgrade: PropTypes.bool.isRequired,
@@ -246,6 +257,7 @@ Notification.propTypes = {
   supportsOnDownloadFailure: PropTypes.bool.isRequired,
   supportsOnImportFailure: PropTypes.bool.isRequired,
   supportsOnBookRetag: PropTypes.bool.isRequired,
+  supportsOnApplicationUpdate: PropTypes.bool.isRequired,
   onConfirmDeleteNotification: PropTypes.func.isRequired
 };
 
