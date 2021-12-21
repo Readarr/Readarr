@@ -14,7 +14,7 @@ Note that only one type of a given book is supported. If you want both an audiob
 
 ## Major Features Include
 
-* Can watch for better quality of the movies you have and do an automatic upgrade. *e.g. from PDF to AZW3*
+* Can watch for better quality of the ebooks and audiobooks you have and do an automatic upgrade. *e.g. from PDF to AZW3*
 * Support for major platforms: Windows, Linux, macOS, Raspberry Pi, etc.
 * Automatically detects new books
 * Can scan your existing library and download any missing books
