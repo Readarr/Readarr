@@ -484,5 +484,15 @@
     "Level": "רָמָה",
     "ReleaseBranchCheckOfficialBranchMessage": "סניף {0} אינו סניף חוקי לשחרור Radarr, לא תקבל עדכונים",
     "Blocklist": "רשימה שחורה",
-    "BlocklistRelease": "שחרור הרשימה השחורה"
+    "BlocklistRelease": "שחרור הרשימה השחורה",
+    "CreateEmptyAuthorFolders": "צור תיקיות סרט ריקות",
+    "RescanAfterRefreshHelpText": "סרוק מחדש את תיקיית הסרט לאחר רענון הסרט",
+    "ShowUnknownAuthorItems": "הצג פריטי סרט לא ידועים",
+    "SelectedCountBooksSelectedInterp": "{0} סרט / ים נבחרו",
+    "ThisCannotBeCancelled": "לא ניתן לבטל פעולה זו לאחר שהתחילה מבלי להפעיל מחדש את Radarr.",
+    "UpdateSelected": "עדכון נבחר",
+    "All": "את כל",
+    "Wanted": "מבוקש",
+    "UnselectAll": "בטל את הבחירה בכול",
+    "SelectAll": "בחר הכל"
 }

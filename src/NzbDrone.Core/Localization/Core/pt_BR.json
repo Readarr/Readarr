@@ -766,5 +766,7 @@
     "ImportListSpecificSettings": "Importar configurações específicas da lista",
     "MonitorBookExistingOnlyWarning": "Este é um ajuste único da configuração monitoramento para cada livro. Use a opção em Autor/Editar para controlar o que acontece com os livros recém-adicionados",
     "NewBooks": "Novos Livros",
-    "UseCalibreContentServer": "Usar Servidor de Conteúdo do Calibre"
+    "UseCalibreContentServer": "Usar Servidor de Conteúdo do Calibre",
+    "Wanted": "Desejado",
+    "All": "Todos"
 }

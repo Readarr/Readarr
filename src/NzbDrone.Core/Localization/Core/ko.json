@@ -482,5 +482,7 @@
     "UnableToLoadBlocklist": "블랙리스트를로드 할 수 없습니다.",
     "TheAuthorFolderAndAllOfItsContentWillBeDeleted": "동영상 폴더 '{0}' 및 모든 콘텐츠가 삭제됩니다.",
     "Blocklist": "블랙리스트",
-    "BlocklistRelease": "블랙리스트 릴리스"
+    "BlocklistRelease": "블랙리스트 릴리스",
+    "CreateEmptyAuthorFolders": "빈 동영상 폴더 만들기",
+    "All": "모두"
 }

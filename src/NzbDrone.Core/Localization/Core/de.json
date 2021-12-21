@@ -542,5 +542,15 @@
     "ReleaseBranchCheckOfficialBranchMessage": "Zweig {0} ist kein gültiger Radarr-Release-Zweig. Sie erhalten keine Updates",
     "Blocklist": "Sperrliste",
     "BlocklistHelpText": "Dieses Release nicht automatisch erneut erfassen",
-    "BlocklistRelease": "Release sperren"
+    "BlocklistRelease": "Release sperren",
+    "RescanAfterRefreshHelpText": "Nach dem aktualisieren des Films, den Filmordner neu scannen",
+    "ShowUnknownAuthorItems": "Unzugeordente Filmeinträge anzeigen",
+    "SelectAll": "Alle wählen",
+    "SelectedCountBooksSelectedInterp": "{0} Film(e) ausgewählt",
+    "ThisCannotBeCancelled": "Nach dem Start kann dies nicht mehr abgebrochen werden ohne Radarr neuzustarten.",
+    "UnselectAll": "Keine wählen",
+    "UpdateSelected": "Auswahl aktualisieren",
+    "Wanted": "› Gesuchte",
+    "CreateEmptyAuthorFolders": "Leere Filmordner erstellen",
+    "All": "Alle"
 }

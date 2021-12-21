@@ -485,5 +485,12 @@
     "Component": "مكون",
     "Blocklist": "القائمة السوداء",
     "BlocklistHelpText": "يمنع Radarr من الاستيلاء على هذا الإصدار تلقائيًا مرة أخرى",
-    "BlocklistRelease": "إصدار القائمة السوداء"
+    "BlocklistRelease": "إصدار القائمة السوداء",
+    "ThisCannotBeCancelled": "لا يمكن إلغاء هذا بمجرد البدء دون إعادة تشغيل Radarr.",
+    "UnselectAll": "إلغاء تحديد الكل",
+    "UpdateSelected": "تم تحديد التحديث",
+    "Wanted": "مطلوب",
+    "All": "الكل",
+    "SelectAll": "اختر الكل",
+    "SelectedCountBooksSelectedInterp": "تم تحديد {0} فيلم (أفلام)"
 }

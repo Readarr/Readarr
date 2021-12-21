@@ -476,5 +476,21 @@
     "Trigger": "Tetik",
     "Type": "Tür",
     "UI": "UI",
-    "Actions": "Etkiler"
+    "Actions": "Etkiler",
+    "Component": "Bileşen",
+    "Level": "Seviye",
+    "ReleaseBranchCheckOfficialBranchMessage": "Dal {0} geçerli bir Radarr sürüm dalı değil, güncelleme almayacaksınız",
+    "RemoveFromBlocklist": "Kara listeden kaldır",
+    "SelectAll": "Hepsini seç",
+    "SelectedCountBooksSelectedInterp": "{0} Film Seçildi",
+    "ThisCannotBeCancelled": "Bu, Radarr yeniden başlatılmadan başlatıldıktan sonra iptal edilemez.",
+    "UnselectAll": "Tüm Seçimleri Kaldır",
+    "UpdateSelected": "Seçilmişleri güncelle",
+    "All": "Herşey",
+    "Time": "Zaman",
+    "UnableToLoadBlocklist": "Kara liste yüklenemiyor",
+    "Wanted": "İstenenler",
+    "Blocklist": "Kara liste",
+    "BlocklistHelpText": "Radarr'ın bu sürümü otomatik olarak tekrar yakalamasını engeller",
+    "BlocklistRelease": "Kara Liste Yayını"
 }

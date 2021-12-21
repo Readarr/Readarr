@@ -476,5 +476,20 @@
     "NotAvailable": "Không có sẵn",
     "NotMonitored": "Không được giám sát",
     "ShowBookTitleHelpText": "Hiển thị tiêu đề phim dưới áp phích",
-    "ShowReleaseDate": "Hiển thị ngày phát hành"
+    "ShowReleaseDate": "Hiển thị ngày phát hành",
+    "All": "Tất cả",
+    "ReleaseBranchCheckOfficialBranchMessage": "Nhánh {0} không phải là nhánh phát hành Radarr hợp lệ, bạn sẽ không nhận được cập nhật",
+    "RemoveFromBlocklist": "Xóa khỏi danh sách đen",
+    "SelectAll": "Chọn tất cả",
+    "UnableToLoadBlocklist": "Không thể tải danh sách đen",
+    "UnselectAll": "Bỏ chọn tất cả",
+    "UpdateSelected": "Cập nhật đã chọn",
+    "Wanted": "Muốn",
+    "Component": "Thành phần",
+    "Time": "Thời gian",
+    "Level": "Cấp độ",
+    "SelectedCountBooksSelectedInterp": "{0} Phim đã chọn",
+    "ThisCannotBeCancelled": "Điều này không thể bị hủy sau khi bắt đầu mà không khởi động lại Radarr.",
+    "Blocklist": "Danh sách đen",
+    "BlocklistRelease": "Phát hành danh sách đen"
 }

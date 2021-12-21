@@ -484,5 +484,15 @@
     "ReleaseBranchCheckOfficialBranchMessage": "Pobočka {0} není platná větev vydání Radarr, nebudete dostávat aktualizace",
     "Time": "Čas",
     "Blocklist": "Černá listina",
-    "BlocklistRelease": "Vydání černé listiny"
+    "BlocklistRelease": "Vydání černé listiny",
+    "ShowUnknownAuthorItems": "Zobrazit neznámé položky filmu",
+    "ThisCannotBeCancelled": "Toto nelze zrušit po spuštění bez restartování Radarru.",
+    "UnselectAll": "Odznačit vše",
+    "UpdateSelected": "Aktualizace vybrána",
+    "All": "Všechno",
+    "Wanted": "Chtěl",
+    "RescanAfterRefreshHelpText": "Po obnovení filmu znovu prohledejte složku filmu",
+    "CreateEmptyAuthorFolders": "Vytvořte prázdné složky s filmy",
+    "SelectAll": "Vybrat vše",
+    "SelectedCountBooksSelectedInterp": "{0} Vybrané filmy"
 }

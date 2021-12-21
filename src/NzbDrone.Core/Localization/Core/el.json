@@ -484,5 +484,12 @@
     "Level": "Επίπεδο",
     "ReleaseBranchCheckOfficialBranchMessage": "Το υποκατάστημα {0} δεν είναι έγκυρο υποκατάστημα κυκλοφορίας Radarr, δεν θα λαμβάνετε ενημερώσεις",
     "Blocklist": "Αποριφθέντα",
-    "BlocklistRelease": "Έκδοση μαύρης λίστας"
+    "BlocklistRelease": "Έκδοση μαύρης λίστας",
+    "SelectAll": "Επιλογή όλων",
+    "SelectedCountBooksSelectedInterp": "{0} Επιλεγμένες ταινίες",
+    "UnselectAll": "Αποεπιλογή όλων",
+    "UpdateSelected": "Επιλεγμένη ενημέρωση",
+    "All": "Όλα",
+    "ThisCannotBeCancelled": "Αυτό δεν μπορεί να ακυρωθεί μόλις ξεκινήσει χωρίς επανεκκίνηση του Radarr.",
+    "Wanted": "Καταζητούμενος"
 }

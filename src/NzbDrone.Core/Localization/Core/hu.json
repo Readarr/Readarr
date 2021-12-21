@@ -766,5 +766,7 @@
     "CalibreSettings": "Calibre beállítások",
     "CalibreContentServerText": "A Calibre tartalomkiszolgáló (nem a Calibre Web) használatával a Readarr könyveket adhat hozzá a Calibre könyvtárához, és konverziót indíthat el a formátumok között",
     "CalibreNotCalibreWeb": "A Readarr képes kapcsolódni a Calibre tartalomkiszolgálójához.  Nem tudja használni a Calibre-Web-et, amely nem kapcsolódó szoftver.",
-    "UseCalibreContentServer": "Használja a Calibre Tartalomkiszolgálót"
+    "UseCalibreContentServer": "Használja a Calibre Tartalomkiszolgálót",
+    "All": "Összes",
+    "Wanted": "Keresett"
 }

@@ -487,5 +487,15 @@
     "ReleaseBranchCheckOfficialBranchMessage": "Las versión {0} no es una versión válida de Radarr, no recibirás actualizaciones",
     "Blocklist": "Bloqueadas",
     "BlocklistHelpText": "Evita que Radarr vuelva a capturar esta película automáticamente",
-    "BlocklistRelease": "Bloquear este Estreno"
+    "BlocklistRelease": "Bloquear este Estreno",
+    "CreateEmptyAuthorFolders": "Crear carpetas de películas vacías",
+    "SelectAll": "Seleccionar Todas",
+    "SelectedCountBooksSelectedInterp": "{0} Película(s) Seleccionada(s)",
+    "ThisCannotBeCancelled": "Esto no se puede cancelar una vez iniciado sin reiniciar Radarr.",
+    "All": "Todas",
+    "RescanAfterRefreshHelpText": "Reescanear la carpeta de películas después de actualizar la película",
+    "ShowUnknownAuthorItems": "Mostrar Elementos Desconocidos",
+    "UnselectAll": "Deseleccionar Todo",
+    "UpdateSelected": "Actualizar Seleccionadas",
+    "Wanted": "Buscado"
 }

@@ -484,5 +484,12 @@
     "ReleaseBranchCheckOfficialBranchMessage": "शाखा {0} वैध रेडीआर रिलीज शाखा नहीं है, आपको अपडेट नहीं मिलेगा",
     "Time": "समय",
     "Blocklist": "काला सूची में डालना",
-    "BlocklistRelease": "ब्लैकलिस्ट रिलीज़"
+    "BlocklistRelease": "ब्लैकलिस्ट रिलीज़",
+    "SelectedCountBooksSelectedInterp": "{0} मूवी (s) चयनित",
+    "UnselectAll": "सभी का चयन रद्द",
+    "UpdateSelected": "चयनित अपडेट करें",
+    "All": "सब",
+    "Wanted": "चाहता था",
+    "SelectAll": "सभी का चयन करे",
+    "ThisCannotBeCancelled": "यह एक बार रद्द नहीं किया जा सकता है जब तक कि रेडर को फिर से शुरू किए बिना।"
 }

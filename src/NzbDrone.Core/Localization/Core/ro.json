@@ -476,5 +476,20 @@
     "UI": "Interfață Grafica",
     "OutputPath": "Calea pentru Output",
     "Progress": "Progres",
-    "ShowBookTitleHelpText": "Afișați titlul filmului sub afiș"
+    "ShowBookTitleHelpText": "Afișați titlul filmului sub afiș",
+    "RemoveFromBlocklist": "Eliminați de pe lista neagră",
+    "UnableToLoadBlocklist": "Imposibil de încărcat lista neagră",
+    "Level": "Nivel",
+    "ReleaseBranchCheckOfficialBranchMessage": "Branchul {0} nu este un branch Radarr valid, nu vei primi actualizări",
+    "Time": "Timp",
+    "SelectedCountBooksSelectedInterp": "{0} Film (e) selectat (e)",
+    "ThisCannotBeCancelled": "Acest lucru nu poate fi anulat odată pornit fără a reporni Radarr.",
+    "UnselectAll": "Deselectează tot",
+    "UpdateSelected": "Actualizează selecția",
+    "Wanted": "Dorite",
+    "Component": "Componentă",
+    "All": "Toate",
+    "SelectAll": "SelecteazăTot",
+    "Blocklist": "Listă Neagră",
+    "BlocklistRelease": "Lansare pe lista neagră"
 }
