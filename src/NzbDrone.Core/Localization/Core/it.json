@@ -494,5 +494,18 @@
     "BlocklistRelease": "Release in blacklist",
     "AllowFingerprinting": "Consenti impronte",
     "AllExpandedCollapseAll": "Collassa tutto",
-    "AllExpandedExpandAll": "Espandi tutto"
+    "AllExpandedExpandAll": "Espandi tutto",
+    "ShowUnknownAuthorItems": "Mostra film sconosciuti",
+    "SelectAll": "Seleziona Tutto",
+    "SelectedCountBooksSelectedInterp": "{0} Film selezionato(i)",
+    "ThisCannotBeCancelled": "Questo non può essere annullato una volta avviato senza riavviare Radarr.",
+    "UnselectAll": "Deseleziona Tutto",
+    "UpdateSelected": "Aggiorna i Film Selezionati",
+    "Wanted": "Ricercato",
+    "CreateEmptyAuthorFolders": "Crea le cartelle dei film se non esistono",
+    "All": "Tutti",
+    "RescanAfterRefreshHelpText": "Riscansiona la cartella dopo aver ricaricato il film",
+    "AllowFingerprintingHelpText": "Consenti impronte per migliorare il riconoscimento delle tracce",
+    "AllowFingerprintingHelpTextWarning": "Questo richiede che Lidarr legga le parti dei file e potrebbe causare un’alta attività del disco e della rete.",
+    "AllowAuthorChangeClickToChangeAuthor": "Clicca per cambiare l’artista"
 }

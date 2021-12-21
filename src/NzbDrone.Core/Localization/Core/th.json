@@ -476,5 +476,20 @@
     "Trigger": "ทริกเกอร์",
     "Type": "ประเภท",
     "BookAvailableButMissing": "มีภาพยนตร์ แต่ขาดหายไป",
-    "Actions": "การดำเนินการ"
+    "Actions": "การดำเนินการ",
+    "RemoveFromBlocklist": "ลบออกจากบัญชีดำ",
+    "Component": "ส่วนประกอบ",
+    "Level": "ระดับ",
+    "ReleaseBranchCheckOfficialBranchMessage": "สาขา {0} ไม่ใช่สาขาการเผยแพร่ Radarr ที่ถูกต้องคุณจะไม่ได้รับการอัปเดต",
+    "SelectAll": "เลือกทั้งหมด",
+    "SelectedCountBooksSelectedInterp": "{0} ภาพยนตร์ที่เลือก",
+    "ThisCannotBeCancelled": "ไม่สามารถยกเลิกได้เมื่อเริ่มต้นโดยไม่ต้องรีสตาร์ท Radarr",
+    "UnselectAll": "ไม่เลือกทั้งหมด",
+    "UpdateSelected": "อัปเดตที่เลือก",
+    "All": "ทั้งหมด",
+    "Wanted": "ต้องการ",
+    "UnableToLoadBlocklist": "ไม่สามารถโหลดบัญชีดำ",
+    "Time": "เวลา",
+    "Blocklist": "บัญชีดำ",
+    "BlocklistRelease": "Blacklist Release"
 }

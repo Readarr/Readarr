@@ -476,5 +476,20 @@
     "Trigger": "Cyngiel",
     "Type": "Rodzaj",
     "UI": "UI",
-    "ShowBookTitleHelpText": "Pokaż tytuł filmu pod plakatem"
+    "ShowBookTitleHelpText": "Pokaż tytuł filmu pod plakatem",
+    "Time": "Czas",
+    "UnableToLoadBlocklist": "Nie można załadować czarnej listy",
+    "All": "Wszystkie",
+    "ReleaseBranchCheckOfficialBranchMessage": "Gałąź {0} nie jest poprawną gałęzią wydania Radarr, nie będziesz otrzymywać aktualizacji",
+    "RemoveFromBlocklist": "Usuń z czarnej listy",
+    "SelectAll": "Zaznacz wszystko",
+    "SelectedCountBooksSelectedInterp": "Wybrane filmy: {0}",
+    "ThisCannotBeCancelled": "Nie można tego anulować po uruchomieniu bez ponownego uruchamiania Radarr.",
+    "UnselectAll": "Odznacz wszystko",
+    "UpdateSelected": "Aktualizuj wybrane",
+    "Component": "Składnik",
+    "Level": "Poziom",
+    "Wanted": "Chciał",
+    "Blocklist": "Czarna lista",
+    "BlocklistRelease": "Wydanie czarnej listy"
 }

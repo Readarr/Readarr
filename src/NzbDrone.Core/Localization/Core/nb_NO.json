@@ -50,5 +50,17 @@
     "ResetAPIKeyMessageText": "Er du sikker på at du vil tilbakestille API -nøkkelen din?",
     "ShowQualityProfile": "Legg til kvalitetsprofil",
     "UsingExternalUpdateMechanismBranchToUseToUpdateReadarr": "Gren som skal brukes til å oppdatere Radarr",
-    "UsingExternalUpdateMechanismBranchUsedByExternalUpdateMechanism": "Gren brukt av ekstern oppdateringsmekanisme"
+    "UsingExternalUpdateMechanismBranchUsedByExternalUpdateMechanism": "Gren brukt av ekstern oppdateringsmekanisme",
+    "DeleteDownloadClientMessageText": "Er du sikker på at du vil slette formattaggen {0}?",
+    "DeleteImportListMessageText": "Er du sikker på at du vil slette formattaggen {0}?",
+    "DeleteIndexerMessageText": "Er du sikker på at du vil slette formattaggen {0}?",
+    "DeleteMetadataProfileMessageText": "Er du sikker på at du vil slette denne forsinkelsesprofilen?",
+    "DeleteNotificationMessageText": "Er du sikker på at du vil slette formattaggen {0}?",
+    "DeleteQualityProfileMessageText": "Er du sikker på at du vil slette denne forsinkelsesprofilen?",
+    "DeleteRootFolderMessageText": "Er du sikker på at du vil slette formattaggen {0}?",
+    "All": "Alle",
+    "DeleteBackupMessageText": "Er du sikker på at du vil slette formattaggen {0}?",
+    "Blocklist": "Svarteliste",
+    "BlocklistHelpText": "Hindrer Radarr i å automatisk gripe denne utgivelsen igjen",
+    "BlocklistRelease": "Blacklist -utgivelse"
 }

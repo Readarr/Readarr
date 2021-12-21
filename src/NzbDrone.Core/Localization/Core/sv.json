@@ -736,5 +736,16 @@
     "LogRotation": "Logg Rotation",
     "LogSqlHelpText": "Logga alla SQL frågor från Readarr",
     "ManualDownload": "Manuell Nedladdning",
-    "MinimumPages": "Minsta antal Sidor"
+    "MinimumPages": "Minsta antal Sidor",
+    "Component": "Komponent",
+    "Level": "Nivå",
+    "Time": "Tid",
+    "SelectedCountBooksSelectedInterp": "{0} Film(er) markerade",
+    "ThisCannotBeCancelled": "Detta kan inte avbrytas en gång startat utan att Radarr startas om.",
+    "UpdateSelected": "Uppdatera markerade",
+    "All": "Samtliga",
+    "Wanted": "Önskade",
+    "ReleaseBranchCheckOfficialBranchMessage": "Gren {0} är inte en giltig gren av Radarr, du kommer ej erhålla uppdateringar",
+    "UnselectAll": "Avmarkera samtliga",
+    "SelectAll": "Välj samtliga"
 }

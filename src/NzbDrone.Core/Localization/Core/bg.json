@@ -483,5 +483,12 @@
     "UnableToLoadBlocklist": "Черният списък не може да се зареди",
     "ReleaseBranchCheckOfficialBranchMessage": "Клон {0} не е валиден клон за издаване на Radarr, няма да получавате актуализации",
     "Blocklist": "Черен списък",
-    "BlocklistRelease": "Освобождаване на черния списък"
+    "BlocklistRelease": "Освобождаване на черния списък",
+    "SelectAll": "Избери всичко",
+    "SelectedCountBooksSelectedInterp": "{0} Избран / и филм / и",
+    "ThisCannotBeCancelled": "Това не може да бъде отменено след стартиране без рестартиране на Radarr.",
+    "UnselectAll": "Деселектирайте всички",
+    "UpdateSelected": "Избрана актуализация",
+    "Wanted": "Издирва се",
+    "All": "всичко"
 }

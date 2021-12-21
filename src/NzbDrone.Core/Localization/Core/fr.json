@@ -498,5 +498,15 @@
     "Time": "Heure",
     "Blocklist": "Liste noire",
     "BlocklistHelpText": "Empêche Radarr de récupérer automatiquement cette version",
-    "BlocklistRelease": "Mettre cette release sur la liste noire"
+    "BlocklistRelease": "Mettre cette release sur la liste noire",
+    "RescanAfterRefreshHelpText": "Réanalyser le dossier du film après avoir actualisé le film",
+    "ShowUnknownAuthorItems": "Afficher les éléments de film inconnus",
+    "SelectAll": "Tout sélectionner",
+    "SelectedCountBooksSelectedInterp": "{0} Film(s) Sélectionner",
+    "ThisCannotBeCancelled": "Cela ne peut pas être annulé une fois démarré sans redémarrer Radarr.",
+    "UnselectAll": "Tout déselectionner",
+    "UpdateSelected": "Mettre à jour la sélection",
+    "All": "Tout",
+    "Wanted": "Recherché",
+    "CreateEmptyAuthorFolders": "Créer des dossiers films vides"
 }

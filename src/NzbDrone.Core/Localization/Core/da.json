@@ -484,5 +484,12 @@
     "Level": "Niveau",
     "ReleaseBranchCheckOfficialBranchMessage": "Filial {0} er ikke en gyldig Radarr-frigivelsesfilial, du modtager ikke opdateringer",
     "Blocklist": "Blacklist",
-    "BlocklistRelease": "Udgivelse af sortliste"
+    "BlocklistRelease": "Udgivelse af sortliste",
+    "SelectedCountBooksSelectedInterp": "{0} Film (er) valgt",
+    "ThisCannotBeCancelled": "Dette kan ikke annulleres en gang startet uden genstart af Radarr.",
+    "UnselectAll": "Fravælg alle",
+    "UpdateSelected": "Opdatering valgt",
+    "Wanted": "Ønskede",
+    "All": "Alt",
+    "SelectAll": "Vælg alle"
 }

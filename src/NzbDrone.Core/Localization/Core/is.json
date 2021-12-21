@@ -484,5 +484,12 @@
     "ReleaseBranchCheckOfficialBranchMessage": "Útibú {0} er ekki gild útibú frá Radarr, þú færð ekki uppfærslur",
     "Time": "Tími",
     "Blocklist": "Svartur listi",
-    "BlocklistRelease": "Útgáfa svartalista"
+    "BlocklistRelease": "Útgáfa svartalista",
+    "SelectAll": "Velja allt",
+    "SelectedCountBooksSelectedInterp": "{0} Kvikmynd (ir) valdar",
+    "ThisCannotBeCancelled": "Ekki er hægt að hætta við þetta þegar byrjað er án þess að endurræsa Radarr.",
+    "UnselectAll": "Afmarkaðu allt",
+    "UpdateSelected": "Uppfærsla valin",
+    "Wanted": "Óskað",
+    "All": "Allt"
 }
