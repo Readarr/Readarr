@@ -25,6 +25,8 @@ namespace NzbDrone.Core.Notifications.Discord
 
         [FieldDefinition(2, Label = "Avatar", HelpText = "Change the avatar that is used for messages from this integration", Type = FieldType.Textbox)]
         public string Avatar { get; set; }
+        [FieldDefinition(3, Label = "Host", Advanced = true, HelpText = "Override the Host that shows for this notification, Blank is machine name", Type = FieldType.Textbox)]
+        public string Author { get; set; }
 
         public NzbDroneValidationResult Validate()
         {

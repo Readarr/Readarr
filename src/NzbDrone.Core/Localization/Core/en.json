@@ -497,6 +497,8 @@
   "OnBookFileDeleteHelpText": "On Book File Delete",
   "OnBookRetagHelpText": "On Book Retag",
   "OnBookTagUpdate": "On Book Tag Update",
+  "OnApplicationUpdate": "On Application Update",
+  "OnApplicationUpdateHelpText": "On Application Update",
   "OnDownloadFailure": "On Download Failure",
   "OnDownloadFailureHelpText": "On Download Failure",
   "OnGrab": "On Grab",

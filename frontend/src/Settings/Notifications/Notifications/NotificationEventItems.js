@@ -27,6 +27,7 @@ function NotificationEventItems(props) {
     onDownloadFailure,
     onImportFailure,
     onBookRetag,
+    onApplicationUpdate,
     supportsOnGrab,
     supportsOnReleaseImport,
     supportsOnUpgrade,
@@ -38,7 +39,8 @@ function NotificationEventItems(props) {
     includeHealthWarnings,
     supportsOnDownloadFailure,
     supportsOnImportFailure,
-    supportsOnBookRetag
+    supportsOnBookRetag,
+    supportsOnApplicationUpdate
   } = item;
 
   return (
@@ -179,6 +181,17 @@ function NotificationEventItems(props) {
           <div>
             <FormInputGroup
               type={inputTypes.CHECK}
+              name="onApplicationUpdate"
+              helpText={translate('OnApplicationUpdateHelpText')}
+              isDisabled={!supportsOnApplicationUpdate.value}
+              {...onApplicationUpdate}
+              onChange={onInputChange}
+            />
+          </div>
+
+          <div>
+            <FormInputGroup
+              type={inputTypes.CHECK}
               name="onHealthIssue"
               helpText={translate('OnHealthIssueHelpText')}
               isDisabled={!supportsOnHealthIssue.value}
@@ -200,6 +213,7 @@ function NotificationEventItems(props) {
                 />
               </div>
           }
+
         </div>
       </div>
     </FormGroup>

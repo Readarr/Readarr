@@ -12,6 +12,7 @@ using NzbDrone.Core.MediaFiles.Events;
 using NzbDrone.Core.Messaging.Events;
 using NzbDrone.Core.Qualities;
 using NzbDrone.Core.ThingiProvider;
+using NzbDrone.Core.Update.History.Events;
 
 namespace NzbDrone.Core.Notifications
 {
@@ -26,7 +27,8 @@ namespace NzbDrone.Core.Notifications
           IHandle<DownloadFailedEvent>,
           IHandle<BookImportIncompleteEvent>,
           IHandle<BookFileRetaggedEvent>,
-          IHandleAsync<DeleteCompletedEvent>
+          IHandleAsync<DeleteCompletedEvent>,
+          IHandle<UpdateInstalledEvent>
     {
         private readonly INotificationFactory _notificationFactory;
         private readonly Logger _logger;
@@ -342,6 +344,26 @@ namespace NzbDrone.Core.Notifications
                 if (ShouldHandleAuthor(notification.Definition, message.Author))
                 {
                     notification.OnBookRetag(retagMessage);
+                }
+            }
+        }
+
+        public void Handle(UpdateInstalledEvent message)
+        {
+            var updateMessage = new ApplicationUpdateMessage();
+            updateMessage.Message = $"Readarr updated from {message.PreviousVerison.ToString()} to {message.NewVersion.ToString()}";
+            updateMessage.PreviousVersion = message.PreviousVerison;
+            updateMessage.NewVersion = message.NewVersion;
+
+            foreach (var notification in _notificationFactory.OnApplicationUpdateEnabled())
+            {
+                try
+                {
+                    notification.OnApplicationUpdate(updateMessage);
+                }
+                catch (Exception ex)
+                {
+                    _logger.Warn(ex, "Unable to send OnApplicationUpdate notification to: " + notification.Definition.Name);
                 }
             }
         }

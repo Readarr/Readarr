@@ -14,6 +14,7 @@ namespace NzbDrone.Core.Notifications.Webhook
         Rename,
         Delete,
         Health,
-        Retag
+        Retag,
+        ApplicationUpdate
     }
 }

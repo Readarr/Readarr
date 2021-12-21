@@ -17,6 +17,7 @@ namespace Readarr.Api.V1.Notifications
         public bool OnDownloadFailure { get; set; }
         public bool OnImportFailure { get; set; }
         public bool OnBookRetag { get; set; }
+        public bool OnApplicationUpdate { get; set; }
         public bool SupportsOnGrab { get; set; }
         public bool SupportsOnReleaseImport { get; set; }
         public bool SupportsOnUpgrade { get; set; }
@@ -30,6 +31,7 @@ namespace Readarr.Api.V1.Notifications
         public bool SupportsOnDownloadFailure { get; set; }
         public bool SupportsOnImportFailure { get; set; }
         public bool SupportsOnBookRetag { get; set; }
+        public bool SupportsOnApplicationUpdate { get; set; }
         public string TestCommand { get; set; }
     }
 
@@ -56,6 +58,7 @@ namespace Readarr.Api.V1.Notifications
             resource.OnDownloadFailure = definition.OnDownloadFailure;
             resource.OnImportFailure = definition.OnImportFailure;
             resource.OnBookRetag = definition.OnBookRetag;
+            resource.OnApplicationUpdate = definition.OnApplicationUpdate;
             resource.SupportsOnGrab = definition.SupportsOnGrab;
             resource.SupportsOnReleaseImport = definition.SupportsOnReleaseImport;
             resource.SupportsOnUpgrade = definition.SupportsOnUpgrade;
@@ -69,6 +72,7 @@ namespace Readarr.Api.V1.Notifications
             resource.SupportsOnDownloadFailure = definition.SupportsOnDownloadFailure;
             resource.SupportsOnImportFailure = definition.SupportsOnImportFailure;
             resource.SupportsOnBookRetag = definition.SupportsOnBookRetag;
+            resource.SupportsOnApplicationUpdate = definition.SupportsOnApplicationUpdate;
 
             return resource;
         }
@@ -94,6 +98,7 @@ namespace Readarr.Api.V1.Notifications
             definition.OnDownloadFailure = resource.OnDownloadFailure;
             definition.OnImportFailure = resource.OnImportFailure;
             definition.OnBookRetag = resource.OnBookRetag;
+            definition.OnApplicationUpdate = resource.OnApplicationUpdate;
             definition.SupportsOnGrab = resource.SupportsOnGrab;
             definition.SupportsOnReleaseImport = resource.SupportsOnReleaseImport;
             definition.SupportsOnUpgrade = resource.SupportsOnUpgrade;
@@ -107,6 +112,7 @@ namespace Readarr.Api.V1.Notifications
             definition.SupportsOnDownloadFailure = resource.SupportsOnDownloadFailure;
             definition.SupportsOnImportFailure = resource.SupportsOnImportFailure;
             definition.SupportsOnBookRetag = resource.SupportsOnBookRetag;
+            definition.SupportsOnApplicationUpdate = resource.SupportsOnApplicationUpdate;
 
             return definition;
         }

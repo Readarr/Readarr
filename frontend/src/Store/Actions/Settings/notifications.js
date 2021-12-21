@@ -114,6 +114,7 @@ export default {
         selectedSchema.onDownloadFailure = selectedSchema.supportsOnDownloadFailure;
         selectedSchema.onImportFailure = selectedSchema.supportsOnImportFailure;
         selectedSchema.onBookRetag = selectedSchema.supportsOnBookRetag;
+        selectedSchema.onApplicationUpdate = selectedSchema.supportsOnApplicationUpdate;
 
         return selectedSchema;
       });

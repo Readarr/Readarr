@@ -159,6 +159,18 @@ namespace NzbDrone.Core.Notifications.Notifiarr
             _proxy.SendNotification(variables, Settings);
         }
 
+        public override void OnApplicationUpdate(ApplicationUpdateMessage updateMessage)
+        {
+            var variables = new StringDictionary();
+
+            variables.Add("Readarr_EventType", "ApplicationUpdate");
+            variables.Add("Readarr_Update_Message", updateMessage.Message);
+            variables.Add("Readarr_Update_NewVersion", updateMessage.NewVersion.ToString());
+            variables.Add("Readarr_Update_PreviousVersion", updateMessage.PreviousVersion.ToString());
+
+            _proxy.SendNotification(variables, Settings);
+        }
+
         public override ValidationResult Test()
         {
             var failures = new List<ValidationFailure>();
