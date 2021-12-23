@@ -6,16 +6,18 @@ import BookIndexFooter from './BookIndexFooter';
 
 function createUnoptimizedSelector() {
   return createSelector(
-    createClientSideCollectionSelector('authors', 'authorIndex'),
-    (authors) => {
-      return authors.items.map((s) => {
+    createClientSideCollectionSelector('books', 'bookIndex'),
+    (books) => {
+      return books.items.map((s) => {
         const {
+          authorId,
           monitored,
           status,
           statistics
         } = s;
 
         return {
+          authorId,
           monitored,
           status,
           statistics
@@ -25,19 +27,19 @@ function createUnoptimizedSelector() {
   );
 }
 
-function createAuthorSelector() {
+function createBookSelector() {
   return createDeepEqualSelector(
     createUnoptimizedSelector(),
-    (author) => author
+    (book) => book
   );
 }
 
 function createMapStateToProps() {
   return createSelector(
-    createAuthorSelector(),
-    (author) => {
+    createBookSelector(),
+    (book) => {
       return {
-        author
+        book
       };
     }
   );

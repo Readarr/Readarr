@@ -14,16 +14,18 @@ class BookIndexFooter extends PureComponent {
   // Render
 
   render() {
-    const { author } = this.props;
-    const count = author.length;
+    const { book } = this.props;
+    const count = book.length;
     let books = 0;
     let bookFiles = 0;
-    let ended = 0;
-    let continuing = 0;
     let monitored = 0;
     let totalFileSize = 0;
 
-    author.forEach((s) => {
+    const authors = new Set();
+
+    book.forEach((s) => {
+      authors.add(s.authorId);
+
       const { statistics = {} } = s;
 
       const {
@@ -34,12 +36,6 @@ class BookIndexFooter extends PureComponent {
 
       books += bookCount;
       bookFiles += bookFileCount;
-
-      if (s.status === 'ended') {
-        ended++;
-      } else {
-        continuing++;
-      }
 
       if (s.monitored) {
         monitored++;
@@ -106,23 +102,6 @@ class BookIndexFooter extends PureComponent {
               <div className={styles.statistics}>
                 <DescriptionList>
                   <DescriptionListItem
-                    title={translate('Authors')}
-                    data={count}
-                  />
-
-                  <DescriptionListItem
-                    title={translate('Ended')}
-                    data={ended}
-                  />
-
-                  <DescriptionListItem
-                    title={translate('Continuing')}
-                    data={continuing}
-                  />
-                </DescriptionList>
-
-                <DescriptionList>
-                  <DescriptionListItem
                     title={translate('Monitored')}
                     data={monitored}
                   />
@@ -134,6 +113,11 @@ class BookIndexFooter extends PureComponent {
                 </DescriptionList>
 
                 <DescriptionList>
+                  <DescriptionListItem
+                    title={translate('Authors')}
+                    data={authors.size}
+                  />
+
                   <DescriptionListItem
                     title={translate('Books')}
                     data={books}
@@ -161,7 +145,7 @@ class BookIndexFooter extends PureComponent {
 }
 
 BookIndexFooter.propTypes = {
-  author: PropTypes.arrayOf(PropTypes.object).isRequired
+  book: PropTypes.arrayOf(PropTypes.object).isRequired
 };
 
 export default BookIndexFooter;
