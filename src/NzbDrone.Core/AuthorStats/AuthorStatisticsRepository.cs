@@ -27,22 +27,12 @@ namespace NzbDrone.Core.AuthorStats
 
         public List<BookStatistics> AuthorStatistics()
         {
-            var time = DateTime.UtcNow;
-
-#pragma warning disable CS0472
-            return Query(Builder().OrWhere<Book>(x => x.ReleaseDate < time)
-                         .OrWhere<BookFile>(x => x.Id != null));
-#pragma warning restore
+            return Query(Builder());
         }
 
         public List<BookStatistics> AuthorStatistics(int authorId)
         {
-            var time = DateTime.UtcNow;
-#pragma warning disable CS0472
-            return Query(Builder().OrWhere<Book>(x => x.ReleaseDate < time)
-                         .OrWhere<BookFile>(x => x.Id != null)
-                         .Where<Author>(x => x.Id == authorId));
-#pragma warning restore
+            return Query(Builder().Where<Author>(x => x.Id == authorId));
         }
 
         private List<BookStatistics> Query(SqlBuilder builder)
@@ -61,13 +51,14 @@ namespace NzbDrone.Core.AuthorStats
                      SUM(COALESCE(BookFiles.Size, 0)) AS SizeOnDisk,
                      1 AS TotalBookCount,
                      CASE WHEN BookFiles.Id IS NULL THEN 0 ELSE 1 END AS AvailableBookCount,
-                     CASE WHEN Books.Monitored = 1 OR BookFiles.Id IS NOT NULL THEN 1 ELSE 0 END AS BookCount,
+                     CASE WHEN (Books.Monitored = 1 AND (Books.ReleaseDate < @currentDate) OR Books.ReleaseDate IS NULL) OR BookFiles.Id IS NOT NULL THEN 1 ELSE 0 END AS BookCount,
                      CASE WHEN BookFiles.Id IS NULL THEN 0 ELSE COUNT(BookFiles.Id) END AS BookFileCount")
             .Join<Edition, Book>((e, b) => e.BookId == b.Id)
             .Join<Book, Author>((book, author) => book.AuthorMetadataId == author.AuthorMetadataId)
             .LeftJoin<Edition, BookFile>((t, f) => t.Id == f.EditionId)
             .Where<Edition>(x => x.Monitored == true)
             .GroupBy<Author>(x => x.Id)
-            .GroupBy<Book>(x => x.Id);
+            .GroupBy<Book>(x => x.Id)
+            .AddParameters(new Dictionary<string, object> { { "currentDate", DateTime.UtcNow } });
     }
 }

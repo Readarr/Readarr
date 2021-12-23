@@ -160,7 +160,7 @@ export const sortPredicates = {
   status: function(item) {
     let result = 0;
 
-    const hasBookFile = !!item.statistics.bookFileCount;
+    const hasBookFile = !!item.statistics?.bookFileCount;
     const isAvailable = Date.parse(item.releaseDate) < new Date();
 
     if (isAvailable) {
