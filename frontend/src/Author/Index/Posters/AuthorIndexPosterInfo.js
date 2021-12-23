@@ -8,8 +8,10 @@ function AuthorIndexPosterInfo(props) {
   const {
     qualityProfile,
     showQualityProfile,
-    previousAiring,
+    metadataProfile,
     added,
+    nextBook,
+    lastBook,
     bookCount,
     path,
     sizeOnDisk,
@@ -27,20 +29,10 @@ function AuthorIndexPosterInfo(props) {
     );
   }
 
-  if (sortKey === 'previousAiring' && previousAiring) {
+  if (sortKey === 'metadataProfileId') {
     return (
       <div className={styles.info}>
-        {
-          getRelativeDate(
-            previousAiring,
-            shortDateFormat,
-            showRelativeDates,
-            {
-              timeFormat,
-              timeForToday: true
-            }
-          )
-        }
+        {metadataProfile.name}
       </div>
     );
   }
@@ -59,6 +51,42 @@ function AuthorIndexPosterInfo(props) {
     return (
       <div className={styles.info}>
         {`Added ${addedDate}`}
+      </div>
+    );
+  }
+
+  if (sortKey === 'nextBook' && nextBook) {
+    const date = getRelativeDate(
+      nextBook.releaseDate,
+      shortDateFormat,
+      showRelativeDates,
+      {
+        timeFormat,
+        timeForToday: false
+      }
+    );
+
+    return (
+      <div className={styles.info}>
+        {`Next Book ${date}`}
+      </div>
+    );
+  }
+
+  if (sortKey === 'lastBook' && lastBook) {
+    const date = getRelativeDate(
+      lastBook.releaseDate,
+      shortDateFormat,
+      showRelativeDates,
+      {
+        timeFormat,
+        timeForToday: false
+      }
+    );
+
+    return (
+      <div className={styles.info}>
+        {`Last Book ${date}`}
       </div>
     );
   }
@@ -101,8 +129,10 @@ function AuthorIndexPosterInfo(props) {
 AuthorIndexPosterInfo.propTypes = {
   qualityProfile: PropTypes.object.isRequired,
   showQualityProfile: PropTypes.bool.isRequired,
-  previousAiring: PropTypes.string,
+  metadataProfile: PropTypes.object.isRequired,
   added: PropTypes.string,
+  nextBook: PropTypes.object,
+  lastBook: PropTypes.object,
   bookCount: PropTypes.number.isRequired,
   path: PropTypes.string.isRequired,
   sizeOnDisk: PropTypes.number,

@@ -94,6 +94,7 @@ class AuthorIndexPoster extends Component {
       showMonitored,
       showQualityProfile,
       qualityProfile,
+      metadataProfile,
       showSearchAction,
       showRelativeDates,
       shortDateFormat,
@@ -259,6 +260,7 @@ class AuthorIndexPoster extends Component {
             sizeOnDisk={sizeOnDisk}
             qualityProfile={qualityProfile}
             showQualityProfile={showQualityProfile}
+            metadataProfile={metadataProfile}
             showRelativeDates={showRelativeDates}
             shortDateFormat={shortDateFormat}
             timeFormat={timeFormat}
@@ -300,6 +302,7 @@ AuthorIndexPoster.propTypes = {
   showMonitored: PropTypes.bool.isRequired,
   showQualityProfile: PropTypes.bool.isRequired,
   qualityProfile: PropTypes.object.isRequired,
+  metadataProfile: PropTypes.object.isRequired,
   showSearchAction: PropTypes.bool.isRequired,
   showRelativeDates: PropTypes.bool.isRequired,
   shortDateFormat: PropTypes.string.isRequired,

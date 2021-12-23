@@ -8,8 +8,8 @@ function BookIndexPosterInfo(props) {
   const {
     qualityProfile,
     showQualityProfile,
-    previousAiring,
     added,
+    releaseDate,
     author,
     bookFileCount,
     sizeOnDisk,
@@ -23,24 +23,6 @@ function BookIndexPosterInfo(props) {
     return (
       <div className={styles.info}>
         {qualityProfile.name}
-      </div>
-    );
-  }
-
-  if (sortKey === 'previousAiring' && previousAiring) {
-    return (
-      <div className={styles.info}>
-        {
-          getRelativeDate(
-            previousAiring,
-            shortDateFormat,
-            showRelativeDates,
-            {
-              timeFormat,
-              timeForToday: true
-            }
-          )
-        }
       </div>
     );
   }
@@ -59,6 +41,24 @@ function BookIndexPosterInfo(props) {
     return (
       <div className={styles.info}>
         {`Added ${addedDate}`}
+      </div>
+    );
+  }
+
+  if (sortKey === 'releaseDate' && added) {
+    const date = getRelativeDate(
+      releaseDate,
+      shortDateFormat,
+      showRelativeDates,
+      {
+        timeFormat,
+        timeForToday: false
+      }
+    );
+
+    return (
+      <div className={styles.info}>
+        {`Released ${date}`}
       </div>
     );
   }
@@ -101,9 +101,9 @@ function BookIndexPosterInfo(props) {
 BookIndexPosterInfo.propTypes = {
   qualityProfile: PropTypes.object.isRequired,
   showQualityProfile: PropTypes.bool.isRequired,
-  previousAiring: PropTypes.string,
   author: PropTypes.object.isRequired,
   added: PropTypes.string,
+  releaseDate: PropTypes.string,
   bookFileCount: PropTypes.number.isRequired,
   sizeOnDisk: PropTypes.number,
   sortKey: PropTypes.string.isRequired,
