@@ -8,6 +8,7 @@ namespace NzbDrone.Core.MetadataSource
         List<Book> SearchForNewBook(string title, string author);
         List<Book> SearchByIsbn(string isbn);
         List<Book> SearchByAsin(string asin);
-        List<Book> SearchByGoodreadsId(int goodreadsId);
+        List<Book> SearchByGoodreadsWorkId(int goodreadsId);
+        List<Book> SearchByGoodreadsBookId(int goodreadsId);
     }
 }

@@ -17,10 +17,15 @@
   font-size: 36px;
 }
 
+.series {
+  font-weight: 300;
+  font-size: 24px;
+}
+
 .authorName {
   margin-bottom: 20px;
   font-weight: 300;
-  font-size: 20px;
+  font-size: 24px;
 }
 
 .disambiguation {

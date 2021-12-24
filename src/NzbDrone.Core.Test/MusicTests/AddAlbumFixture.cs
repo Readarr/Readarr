@@ -30,20 +30,20 @@ namespace NzbDrone.Core.Test.MusicTests
                 .Build();
         }
 
-        private void GivenValidBook(string readarrId)
+        private void GivenValidBook(string bookId, string editionId)
         {
             _fakeBook = Builder<Book>
                 .CreateNew()
                 .With(x => x.Editions = Builder<Edition>
                       .CreateListOfSize(1)
                       .TheFirst(1)
-                      .With(e => e.ForeignEditionId = readarrId)
+                      .With(e => e.ForeignEditionId = editionId)
                       .With(e => e.Monitored = true)
                       .BuildList())
                 .Build();
 
             Mocker.GetMock<IProvideBookInfo>()
-                .Setup(s => s.GetBookInfo(readarrId, true))
+                .Setup(s => s.GetBookInfo(bookId, true))
                 .Returns(Tuple.Create(_fakeAuthor.Metadata.Value.ForeignAuthorId,
                                       _fakeBook,
                                       new List<AuthorMetadata> { _fakeAuthor.Metadata.Value }));
@@ -85,7 +85,7 @@ namespace NzbDrone.Core.Test.MusicTests
         {
             var newBook = BookToAdd("edition", "book", "author");
 
-            GivenValidBook("edition");
+            GivenValidBook("book", "edition");
             GivenValidPath();
 
             var book = Subject.AddBook(newBook);
@@ -99,7 +99,7 @@ namespace NzbDrone.Core.Test.MusicTests
             var newBook = BookToAdd("edition", "book", "author");
 
             Mocker.GetMock<IProvideBookInfo>()
-                  .Setup(s => s.GetBookInfo("edition", true))
+                  .Setup(s => s.GetBookInfo("book", true))
                   .Throws(new BookNotFoundException("edition"));
 
             Assert.Throws<ValidationException>(() => Subject.AddBook(newBook));

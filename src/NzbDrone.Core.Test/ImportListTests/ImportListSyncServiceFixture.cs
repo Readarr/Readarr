@@ -39,7 +39,7 @@ namespace NzbDrone.Core.Test.ImportListTests
                 .Returns(new List<Book>());
 
             Mocker.GetMock<ISearchForNewBook>()
-                .Setup(v => v.SearchByGoodreadsId(It.IsAny<int>()))
+                .Setup(v => v.SearchByGoodreadsBookId(It.IsAny<int>()))
                 .Returns<int>(x => Builder<Book>
                               .CreateListOfSize(1)
                               .TheFirst(1)

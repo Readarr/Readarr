@@ -52,6 +52,11 @@
   font-size: 36px;
 }
 
+.series {
+  font-weight: 300;
+  font-size: 24px;
+}
+
 .year {
   margin-left: 10px;
   color: $disabledColor;
