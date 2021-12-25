@@ -25,7 +25,7 @@ namespace NzbDrone.Core.Datastore.Migration
                   .WithColumn("Data").AsString().Nullable();
 
             Create.Index().OnTable("DownloadHistory").OnColumn("EventType");
-            Create.Index().OnTable("DownloadHistory").OnColumn("SeriesId");
+            Create.Index().OnTable("DownloadHistory").OnColumn("AuthorId");
             Create.Index().OnTable("DownloadHistory").OnColumn("DownloadId");
 
             Execute.WithConnection(InitialImportedDownloadHistory);
