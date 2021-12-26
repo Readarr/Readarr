@@ -141,7 +141,7 @@ namespace NzbDrone.Core.ImportLists
 
             if (report.EditionGoodreadsId.IsNotNullOrWhiteSpace() && int.TryParse(report.EditionGoodreadsId, out var goodreadsId))
             {
-                var search = _bookSearchService.SearchByGoodreadsBookId(goodreadsId);
+                var search = _bookSearchService.SearchByGoodreadsId(goodreadsId);
                 mappedBook = search.FirstOrDefault(x => x.Editions.Value.Any(e => int.TryParse(e.ForeignEditionId, out var editionId) && editionId == goodreadsId));
             }
             else

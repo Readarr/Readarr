@@ -16,7 +16,7 @@ namespace NzbDrone.Integration.Test.ApiTests
             EnsureNoAuthor("14586394", "Andrew Hunter Murray");
             var tag = EnsureTag("abc");
 
-            var author = Author.Lookup("edition:43765115").Single();
+            var author = Author.Lookup("readarr:43765115").Single();
 
             author.QualityProfileId = 1;
             author.MetadataProfileId = 1;
@@ -36,7 +36,7 @@ namespace NzbDrone.Integration.Test.ApiTests
         {
             EnsureNoAuthor("14586394", "Andrew Hunter Murray");
 
-            var author = Author.Lookup("edition:43765115").Single();
+            var author = Author.Lookup("readarr:43765115").Single();
 
             author.Path = Path.Combine(AuthorRootFolder, author.AuthorName);
 
@@ -49,7 +49,7 @@ namespace NzbDrone.Integration.Test.ApiTests
         {
             EnsureNoAuthor("14586394", "Andrew Hunter Murray");
 
-            var author = Author.Lookup("edition:43765115").Single();
+            var author = Author.Lookup("readarr:43765115").Single();
 
             author.QualityProfileId = 1;
 
@@ -62,7 +62,7 @@ namespace NzbDrone.Integration.Test.ApiTests
         {
             EnsureNoAuthor("14586394", "Andrew Hunter Murray");
 
-            var author = Author.Lookup("edition:43765115").Single();
+            var author = Author.Lookup("readarr:43765115").Single();
 
             author.QualityProfileId = 1;
             author.MetadataProfileId = 1;

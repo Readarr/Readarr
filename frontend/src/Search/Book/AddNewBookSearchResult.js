@@ -74,7 +74,6 @@ class AddNewBookSearchResult extends Component {
       foreignBookId,
       titleSlug,
       title,
-      seriesTitle,
       releaseDate,
       disambiguation,
       overview,
@@ -152,13 +151,6 @@ class AddNewBookSearchResult extends Component {
               </div>
             </div>
 
-            {
-              seriesTitle &&
-                <div className={styles.series}>
-                  {seriesTitle}
-                </div>
-            }
-
             <div>
               <Label size={sizes.LARGE}>
                 <HeartRating
@@ -196,7 +188,6 @@ class AddNewBookSearchResult extends Component {
           isExistingAuthor={isExistingAuthor}
           foreignBookId={foreignBookId}
           bookTitle={title}
-          seriesTitle={seriesTitle}
           disambiguation={disambiguation}
           authorName={author.authorName}
           overview={overview}
@@ -212,7 +203,6 @@ AddNewBookSearchResult.propTypes = {
   foreignBookId: PropTypes.string.isRequired,
   titleSlug: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
-  seriesTitle: PropTypes.string,
   releaseDate: PropTypes.string,
   disambiguation: PropTypes.string,
   overview: PropTypes.string,
