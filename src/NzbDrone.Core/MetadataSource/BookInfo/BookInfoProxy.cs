@@ -324,7 +324,7 @@ namespace NzbDrone.Core.MetadataSource.BookInfo
 
         private int GetAuthorId(WorkResource b)
         {
-            return b.Books.First().Contributors.FirstOrDefault()?.ForeignId ?? 0;
+            return b.Books.OrderByDescending(x => x.RatingCount * x.AverageRating).First().Contributors.FirstOrDefault()?.ForeignId ?? 0;
         }
     }
 }
