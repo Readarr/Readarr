@@ -19,7 +19,6 @@
     <PackageReference Include="RestSharp" />
     <PackageReference Include="System.IO.Abstractions" />
     <PackageReference Include="TagLibSharp-Lidarr" />
-    <PackageReference Include="Kveer.XmlRPC" />
     <PackageReference Include="SixLabors.ImageSharp" />
     <PackageReference Include="Equ" />
     <PackageReference Include="MonoTorrent" />
