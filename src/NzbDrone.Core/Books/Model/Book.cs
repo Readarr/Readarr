@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text.Json.Serialization;
 using Equ;
 using NzbDrone.Common.Extensions;
@@ -8,6 +9,7 @@ using NzbDrone.Core.MediaFiles;
 
 namespace NzbDrone.Core.Books
 {
+    [DebuggerDisplay("{GetType().FullName} ID = {Id} [{ForeignBookId}][{Title}]")]
     public class Book : Entity<Book>
     {
         public Book()

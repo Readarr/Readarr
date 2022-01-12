@@ -141,7 +141,9 @@ namespace NzbDrone.Core.MediaFiles.BookImport.Identification
                 usedRemote = true;
             }
 
-            if (!candidateReleases.Any())
+            GetBestRelease(localBookRelease, candidateReleases, allLocalTracks, out var seenCandidate);
+
+            if (!seenCandidate)
             {
                 // can't find any candidates even after using remote search
                 // populate the overrides and return
@@ -155,8 +157,6 @@ namespace NzbDrone.Core.MediaFiles.BookImport.Identification
                 return;
             }
 
-            GetBestRelease(localBookRelease, candidateReleases, allLocalTracks);
-
             // If the result isn't great and we haven't tried remote candidates, try looking for remote candidates
             // Goodreads may have a better edition of a local book
             if (localBookRelease.Distance.NormalizedDistance() > 0.15 && !usedRemote)
@@ -169,7 +169,7 @@ namespace NzbDrone.Core.MediaFiles.BookImport.Identification
                     candidateReleases = candidateReleases.Where(x => x.Edition.Book.Value.Id > 0);
                 }
 
-                GetBestRelease(localBookRelease, candidateReleases, allLocalTracks);
+                GetBestRelease(localBookRelease, candidateReleases, allLocalTracks, out _);
             }
 
             _logger.Debug($"Best release found in {watch.ElapsedMilliseconds}ms");
@@ -179,7 +179,7 @@ namespace NzbDrone.Core.MediaFiles.BookImport.Identification
             _logger.Debug($"IdentifyRelease done in {watch.ElapsedMilliseconds}ms");
         }
 
-        private void GetBestRelease(LocalEdition localBookRelease, IEnumerable<CandidateEdition> candidateReleases, List<LocalBook> extraTracksOnDisk)
+        private void GetBestRelease(LocalEdition localBookRelease, IEnumerable<CandidateEdition> candidateReleases, List<LocalBook> extraTracksOnDisk, out bool seenCandidate)
         {
             var watch = System.Diagnostics.Stopwatch.StartNew();
 
@@ -187,9 +187,12 @@ namespace NzbDrone.Core.MediaFiles.BookImport.Identification
             _logger.Trace("Processing files:\n{0}", string.Join("\n", localBookRelease.LocalBooks.Select(x => x.Path)));
 
             double bestDistance = 1.0;
+            seenCandidate = false;
 
             foreach (var candidateRelease in candidateReleases)
             {
+                seenCandidate = true;
+
                 var release = candidateRelease.Edition;
                 _logger.Debug($"Trying Release {release}");
                 var rwatch = System.Diagnostics.Stopwatch.StartNew();

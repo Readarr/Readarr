@@ -582,7 +582,7 @@
   "Search": "Search",
   "SearchAll": "Search All",
   "SearchBook": "Search Book",
-  "SearchBoxPlaceHolder": "eg. War and Peace, goodreads:656, isbn:067003469X, asin:B00JCDK5ME",
+  "SearchBoxPlaceHolder": "eg. War and Peace, edition:656, work:4912783, author:128382, isbn:067003469X, asin:B00JCDK5ME",
   "SearchForAllCutoffUnmetBooks": "Search for all Cutoff Unmet books",
   "SearchForAllMissingBooks": "Search for all missing books",
   "SearchForMissing": "Search for Missing",

@@ -1,10 +1,12 @@
 using System.Collections.Generic;
+using System.Diagnostics;
 using Equ;
 using NzbDrone.Common.Extensions;
 using NzbDrone.Core.Datastore;
 
 namespace NzbDrone.Core.Books
 {
+    [DebuggerDisplay("{GetType().FullName} ID = {Id} [{ForeignSeriesId}][{Title}]")]
     public class Series : Entity<Series>
     {
         public string ForeignSeriesId { get; set; }

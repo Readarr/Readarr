@@ -243,7 +243,7 @@ namespace NzbDrone.Integration.Test
 
             if (result == null)
             {
-                var lookup = Author.Lookup("readarr:" + goodreadsEditionId);
+                var lookup = Author.Lookup("edition:" + goodreadsEditionId);
                 var author = lookup.First();
                 author.QualityProfileId = 1;
                 author.MetadataProfileId = 1;

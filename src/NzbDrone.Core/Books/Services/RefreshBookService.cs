@@ -75,12 +75,10 @@ namespace NzbDrone.Core.Books
 
         private Author GetSkyhookData(Book book)
         {
-            var foreignId = book.Editions.Value.First().ForeignEditionId;
-
             try
             {
-                var tuple = _bookInfo.GetBookInfo(foreignId, false);
-                var author = _authorInfo.GetAuthorInfo(tuple.Item1, false);
+                var tuple = _bookInfo.GetBookInfo(book.ForeignBookId);
+                var author = _authorInfo.GetAuthorInfo(tuple.Item1);
                 var newbook = tuple.Item2;
 
                 newbook.Author = author;
@@ -88,19 +86,12 @@ namespace NzbDrone.Core.Books
                 newbook.AuthorMetadataId = book.AuthorMetadataId;
                 newbook.AuthorMetadata.Value.Id = book.AuthorMetadataId;
 
-                // make sure to grab editions data for any other existing editions
-                foreach (var edition in book.Editions.Value.Skip(1))
-                {
-                    tuple = _bookInfo.GetBookInfo(edition.ForeignEditionId, false);
-                    newbook.Editions.Value.AddRange(tuple.Item2.Editions.Value);
-                }
-
                 author.Books = new List<Book> { newbook };
                 return author;
             }
             catch (BookNotFoundException)
             {
-                _logger.Error($"Could not find book with id {foreignId}");
+                _logger.Error($"Could not find book with id {book.ForeignBookId}");
             }
 
             return null;
@@ -119,6 +110,7 @@ namespace NzbDrone.Core.Books
 
             if (book == null)
             {
+                data = GetSkyhookData(local);
                 book = data.Books.Value.SingleOrDefault(x => x.ForeignBookId == local.ForeignBookId);
             }
 

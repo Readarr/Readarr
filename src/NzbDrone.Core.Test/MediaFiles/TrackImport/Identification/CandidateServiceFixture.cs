@@ -17,7 +17,7 @@ namespace NzbDrone.Core.Test.MediaFiles.BookImport.Identification
         public void should_not_throw_on_goodreads_exception()
         {
             Mocker.GetMock<ISearchForNewBook>()
-                .Setup(s => s.SearchForNewBook(It.IsAny<string>(), It.IsAny<string>()))
+                .Setup(s => s.SearchForNewBook(It.IsAny<string>(), It.IsAny<string>(), true))
                 .Throws(new GoodreadsException("Bad search"));
 
             var edition = new LocalEdition
