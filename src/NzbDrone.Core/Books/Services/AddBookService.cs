@@ -44,16 +44,13 @@ namespace NzbDrone.Core.Books
         {
             _logger.Debug($"Adding book {book}");
 
+            book = AddSkyhookData(book);
+
             // we allow adding extra editions, so check if the book already exists
             var dbBook = _bookService.FindById(book.ForeignBookId);
             if (dbBook != null)
             {
-                dbBook.Editions = book.Editions;
-                book = dbBook;
-            }
-            else
-            {
-                book = AddSkyhookData(book);
+                book.UseDbFieldsFrom(dbBook);
             }
 
             // Remove any import list exclusions preventing addition
@@ -107,10 +104,11 @@ namespace NzbDrone.Core.Books
         private Book AddSkyhookData(Book newBook)
         {
             var editionId = newBook.Editions.Value.Single(x => x.Monitored).ForeignEditionId;
+
             Tuple<string, Book, List<AuthorMetadata>> tuple = null;
             try
             {
-                tuple = _bookInfo.GetBookInfo(editionId);
+                tuple = _bookInfo.GetBookInfo(newBook.ForeignBookId);
             }
             catch (BookNotFoundException)
             {

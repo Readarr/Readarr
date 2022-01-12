@@ -65,7 +65,7 @@ namespace NzbDrone.Core.Test.MusicTests
                 .Returns(_remoteBooks);
 
             Mocker.GetMock<IProvideAuthorInfo>()
-                .Setup(s => s.GetAuthorAndBooks(It.IsAny<string>(), It.IsAny<double>()))
+                .Setup(s => s.GetAuthorInfo(It.IsAny<string>(), true))
                 .Callback(() => { throw new AuthorNotFoundException(_author.ForeignAuthorId); });
 
             Mocker.GetMock<IMediaFileService>()
@@ -92,7 +92,7 @@ namespace NzbDrone.Core.Test.MusicTests
         private void GivenNewAuthorInfo(Author author)
         {
             Mocker.GetMock<IProvideAuthorInfo>()
-                .Setup(s => s.GetAuthorAndBooks(_author.ForeignAuthorId, It.IsAny<double>()))
+                .Setup(s => s.GetAuthorInfo(_author.ForeignAuthorId, true))
                 .Returns(author);
         }
 

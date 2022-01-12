@@ -6,11 +6,12 @@ using NzbDrone.Common.Extensions;
 using NzbDrone.Common.Instrumentation.Extensions;
 using NzbDrone.Core.Books;
 using NzbDrone.Core.Books.Commands;
+using NzbDrone.Core.Exceptions;
 using NzbDrone.Core.ImportLists.Exclusions;
 using NzbDrone.Core.IndexerSearch;
 using NzbDrone.Core.Messaging.Commands;
 using NzbDrone.Core.Messaging.Events;
-using NzbDrone.Core.MetadataSource;
+using NzbDrone.Core.MetadataSource.Goodreads;
 using NzbDrone.Core.Parser.Model;
 
 namespace NzbDrone.Core.ImportLists
@@ -20,10 +21,11 @@ namespace NzbDrone.Core.ImportLists
         private readonly IImportListFactory _importListFactory;
         private readonly IImportListExclusionService _importListExclusionService;
         private readonly IFetchAndParseImportList _listFetcherAndParser;
-        private readonly ISearchForNewBook _bookSearchService;
-        private readonly ISearchForNewAuthor _authorSearchService;
+        private readonly IGoodreadsProxy _goodreadsProxy;
+        private readonly IGoodreadsSearchProxy _goodreadsSearchProxy;
         private readonly IAuthorService _authorService;
         private readonly IBookService _bookService;
+        private readonly IEditionService _editionService;
         private readonly IAddAuthorService _addAuthorService;
         private readonly IAddBookService _addBookService;
         private readonly IEventAggregator _eventAggregator;
@@ -33,10 +35,11 @@ namespace NzbDrone.Core.ImportLists
         public ImportListSyncService(IImportListFactory importListFactory,
                                      IImportListExclusionService importListExclusionService,
                                      IFetchAndParseImportList listFetcherAndParser,
-                                     ISearchForNewBook bookSearchService,
-                                     ISearchForNewAuthor authorSearchService,
+                                     IGoodreadsProxy goodreadsProxy,
+                                     IGoodreadsSearchProxy goodreadsSearchProxy,
                                      IAuthorService authorService,
                                      IBookService bookService,
+                                     IEditionService editionService,
                                      IAddAuthorService addAuthorService,
                                      IAddBookService addBookService,
                                      IEventAggregator eventAggregator,
@@ -46,10 +49,11 @@ namespace NzbDrone.Core.ImportLists
             _importListFactory = importListFactory;
             _importListExclusionService = importListExclusionService;
             _listFetcherAndParser = listFetcherAndParser;
-            _bookSearchService = bookSearchService;
-            _authorSearchService = authorSearchService;
+            _goodreadsProxy = goodreadsProxy;
+            _goodreadsSearchProxy = goodreadsSearchProxy;
             _authorService = authorService;
             _bookService = bookService;
+            _editionService = editionService;
             _addAuthorService = addAuthorService;
             _addBookService = addBookService;
             _eventAggregator = eventAggregator;
@@ -137,32 +141,55 @@ namespace NzbDrone.Core.ImportLists
 
         private void MapBookReport(ImportListItemInfo report)
         {
-            Book mappedBook;
-
             if (report.EditionGoodreadsId.IsNotNullOrWhiteSpace() && int.TryParse(report.EditionGoodreadsId, out var goodreadsId))
             {
-                var search = _bookSearchService.SearchByGoodreadsId(goodreadsId);
-                mappedBook = search.FirstOrDefault(x => x.Editions.Value.Any(e => int.TryParse(e.ForeignEditionId, out var editionId) && editionId == goodreadsId));
+                // check the local DB
+                var edition = _editionService.GetEditionByForeignEditionId(report.EditionGoodreadsId);
+
+                if (edition != null)
+                {
+                    var book = edition.Book.Value;
+                    report.BookGoodreadsId = book.ForeignBookId;
+                    report.Book = edition.Title;
+                    report.Author ??= book.AuthorMetadata.Value.Name;
+                    report.AuthorGoodreadsId ??= book.AuthorMetadata.Value.ForeignAuthorId;
+                    return;
+                }
+
+                try
+                {
+                    var remoteBook = _goodreadsProxy.GetBookInfo(report.EditionGoodreadsId);
+
+                    _logger.Trace($"Mapped {report.EditionGoodreadsId} to [{remoteBook.ForeignBookId}] {remoteBook.Title}");
+
+                    report.BookGoodreadsId = remoteBook.ForeignBookId;
+                    report.Book = remoteBook.Title;
+                    report.Author ??= remoteBook.AuthorMetadata.Value.Name;
+                    report.AuthorGoodreadsId ??= remoteBook.AuthorMetadata.Value.Name;
+                }
+                catch (BookNotFoundException)
+                {
+                    _logger.Debug($"Nothing found for edition [{report.EditionGoodreadsId}]");
+                    report.EditionGoodreadsId = null;
+                }
             }
             else
             {
-                mappedBook = _bookSearchService.SearchForNewBook(report.Book, report.Author).FirstOrDefault();
+                var mappedBook = _goodreadsSearchProxy.Search($"{report.Book} {report.Author}").FirstOrDefault();
+
+                if (mappedBook == null)
+                {
+                    _logger.Trace($"Nothing found for {report.Author} - {report.Book}");
+                    return;
+                }
+
+                _logger.Trace($"Mapped {report.EditionGoodreadsId} to [{mappedBook.WorkId}] {mappedBook.BookTitleBare}");
+
+                report.BookGoodreadsId = mappedBook.WorkId.ToString();
+                report.Book = mappedBook.BookTitleBare;
+                report.Author ??= mappedBook.Author.Name;
+                report.AuthorGoodreadsId ??= mappedBook.Author.Id.ToString();
             }
-
-            // Break if we are looking for a book and cant find it. This will avoid us from adding the author and possibly getting it wrong.
-            if (mappedBook == null)
-            {
-                _logger.Trace($"Nothing found for {report.EditionGoodreadsId}");
-                report.EditionGoodreadsId = null;
-                return;
-            }
-
-            _logger.Trace($"Mapped {report.EditionGoodreadsId} to {mappedBook}");
-
-            report.BookGoodreadsId = mappedBook.ForeignBookId;
-            report.Book = mappedBook.Title;
-            report.Author ??= mappedBook.AuthorMetadata?.Value?.Name;
-            report.AuthorGoodreadsId ??= mappedBook.AuthorMetadata?.Value?.ForeignAuthorId;
         }
 
         private void ProcessBookReport(ImportListDefinition importList, ImportListItemInfo report, List<ImportListExclusion> listExclusions, List<Book> booksToAdd, List<Author> authorsToAdd)
@@ -297,10 +324,18 @@ namespace NzbDrone.Core.ImportLists
 
         private void MapAuthorReport(ImportListItemInfo report)
         {
-            var mappedAuthor = _authorSearchService.SearchForNewAuthor(report.Author)
-                .FirstOrDefault();
-            report.AuthorGoodreadsId = mappedAuthor?.Metadata.Value?.ForeignAuthorId;
-            report.Author = mappedAuthor?.Metadata.Value?.Name;
+            var mappedBook = _goodreadsSearchProxy.Search(report.Author).FirstOrDefault();
+
+            if (mappedBook == null)
+            {
+                _logger.Trace($"Nothing found for {report.Author}");
+                return;
+            }
+
+            _logger.Trace($"Mapped {report.Author} to [{mappedBook.Author.Name}]");
+
+            report.Author = mappedBook.Author.Name;
+            report.AuthorGoodreadsId = mappedBook.Author.Id.ToString();
         }
 
         private Author ProcessAuthorReport(ImportListDefinition importList, ImportListItemInfo report, List<ImportListExclusion> listExclusions, List<Author> authorsToAdd)

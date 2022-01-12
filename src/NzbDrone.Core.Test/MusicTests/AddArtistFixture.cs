@@ -28,12 +28,16 @@ namespace NzbDrone.Core.Test.MusicTests
                 .With(s => s.Path = null)
                 .Build();
             _fakeAuthor.Books = new List<Book>();
+
+            Mocker.GetMock<IAuthorService>()
+                .Setup(s => s.AddAuthor(It.IsAny<Author>(), It.IsAny<bool>()))
+                .Returns<Author, bool>((author, _) => author);
         }
 
         private void GivenValidAuthor(string readarrId)
         {
             Mocker.GetMock<IProvideAuthorInfo>()
-                .Setup(s => s.GetAuthorInfo(readarrId, true, false))
+                .Setup(s => s.GetAuthorInfo(readarrId, false))
                 .Returns(_fakeAuthor);
         }
 
@@ -113,7 +117,7 @@ namespace NzbDrone.Core.Test.MusicTests
             };
 
             Mocker.GetMock<IProvideAuthorInfo>()
-                  .Setup(s => s.GetAuthorInfo(newAuthor.ForeignAuthorId, true, false))
+                  .Setup(s => s.GetAuthorInfo(newAuthor.ForeignAuthorId, false))
                   .Throws(new AuthorNotFoundException(newAuthor.ForeignAuthorId));
 
             Mocker.GetMock<IAddAuthorValidator>()

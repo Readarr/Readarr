@@ -6,7 +6,6 @@ namespace NzbDrone.Core.MetadataSource.BookInfo
     public class BookResource
     {
         public int ForeignId { get; set; }
-        public string TitleSlug { get; set; }
         public string Asin { get; set; }
         public string Description { get; set; }
         public string Isbn13 { get; set; }
@@ -18,7 +17,6 @@ namespace NzbDrone.Core.MetadataSource.BookInfo
         public string ImageUrl { get; set; }
         public bool IsEbook { get; set; }
         public int? NumPages { get; set; }
-        public int ReviewsCount { get; set; }
         public int RatingCount { get; set; }
         public double AverageRating { get; set; }
         public string Url { get; set; }

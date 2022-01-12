@@ -58,9 +58,7 @@ namespace NzbDrone.Core.Books
             newAuthor.AuthorMetadataId = newAuthor.Metadata.Value.Id;
 
             // add the author itself
-            _authorService.AddAuthor(newAuthor, doRefresh);
-
-            return newAuthor;
+            return _authorService.AddAuthor(newAuthor, doRefresh);
         }
 
         public List<Author> AddAuthors(List<Author> newAuthors, bool doRefresh = true)
@@ -97,7 +95,7 @@ namespace NzbDrone.Core.Books
 
             try
             {
-                author = _authorInfo.GetAuthorInfo(newAuthor.Metadata.Value.ForeignAuthorId, includeBooks: false);
+                author = _authorInfo.GetAuthorInfo(newAuthor.Metadata.Value.ForeignAuthorId, false);
             }
             catch (AuthorNotFoundException)
             {

@@ -346,6 +346,9 @@ namespace NzbDrone.Core.MediaFiles.BookImport
                     try
                     {
                         dbAuthor = _addAuthorService.AddAuthor(author, false);
+
+                        // this looks redundant but is necessary to get the LazyLoads populated
+                        dbAuthor = _authorService.GetAuthor(dbAuthor.Id);
                         addedAuthors.Add(dbAuthor);
                     }
                     catch (Exception e)

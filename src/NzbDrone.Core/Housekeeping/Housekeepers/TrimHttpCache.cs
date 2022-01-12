@@ -18,6 +18,8 @@ namespace NzbDrone.Core.Housekeeping.Housekeepers
             {
                 mapper.Execute(@"DELETE FROM HttpResponse WHERE Expiry < date('now')");
             }
+
+            _database.Vacuum();
         }
     }
 }

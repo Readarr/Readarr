@@ -60,7 +60,7 @@ namespace NzbDrone.Core.Test.MediaFiles.BookImport.Identification
 
             Mocker.SetConstant<IConfigService>(Mocker.Resolve<IConfigService>());
             Mocker.SetConstant<IProvideAuthorInfo>(Mocker.Resolve<BookInfoProxy>());
-            Mocker.SetConstant<IProvideBookInfo>(Mocker.Resolve<GoodreadsProxy>());
+            Mocker.SetConstant<IProvideBookInfo>(Mocker.Resolve<BookInfoProxy>());
 
             _addAuthorService = Mocker.Resolve<AddAuthorService>();
 

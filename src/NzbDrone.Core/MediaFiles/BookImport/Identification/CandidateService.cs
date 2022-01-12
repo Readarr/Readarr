@@ -254,7 +254,7 @@ namespace NzbDrone.Core.MediaFiles.BookImport.Identification
 
                     try
                     {
-                        remoteBooks = _bookSearchService.SearchByGoodreadsId(id);
+                        remoteBooks = _bookSearchService.SearchByGoodreadsBookId(id, true);
                     }
                     catch (GoodreadsException e)
                     {

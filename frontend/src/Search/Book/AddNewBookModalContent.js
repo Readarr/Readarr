@@ -43,6 +43,7 @@ class AddNewBookModalContent extends Component {
   render() {
     const {
       bookTitle,
+      seriesTitle,
       authorName,
       disambiguation,
       overview,
@@ -82,6 +83,13 @@ class AddNewBookModalContent extends Component {
               {
                 !!disambiguation &&
                   <span className={styles.disambiguation}>({disambiguation})</span>
+              }
+
+              {
+                !!seriesTitle &&
+                  <div className={styles.series}>
+                    {seriesTitle}
+                  </div>
               }
 
               <div>
@@ -144,6 +152,7 @@ class AddNewBookModalContent extends Component {
 
 AddNewBookModalContent.propTypes = {
   bookTitle: PropTypes.string.isRequired,
+  seriesTitle: PropTypes.string,
   authorName: PropTypes.string.isRequired,
   disambiguation: PropTypes.string,
   overview: PropTypes.string,

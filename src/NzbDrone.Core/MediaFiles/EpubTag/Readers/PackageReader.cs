@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO.Compression;
 using System.Threading.Tasks;
@@ -27,7 +27,12 @@ namespace VersOne.Epub.Internal
 
             XNamespace opfNamespace = "http://www.idpf.org/2007/opf";
             var packageNode = containerDocument.Element(opfNamespace + "package");
-            var result = new EpubPackage();
+
+            if (packageNode == null)
+            {
+                throw new Exception("Invalid epub file");
+            }
+
             var epubVersionValue = packageNode.Attribute("version").Value;
             EpubVersion epubVersion;
             switch (epubVersionValue)
@@ -46,6 +51,7 @@ namespace VersOne.Epub.Internal
                     throw new Exception($"Unsupported EPUB version: {epubVersionValue}.");
             }
 
+            var result = new EpubPackage();
             result.EpubVersion = epubVersion;
             var metadataNode = packageNode.Element(opfNamespace + "metadata");
             if (metadataNode == null)

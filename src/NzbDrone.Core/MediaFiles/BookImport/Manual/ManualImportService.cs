@@ -308,7 +308,7 @@ namespace NzbDrone.Core.MediaFiles.BookImport.Manual
                     var edition = _editionService.GetEditionByForeignEditionId(file.ForeignEditionId);
                     if (edition == null)
                     {
-                        var tuple = _bookInfo.GetBookInfo(file.ForeignEditionId);
+                        var tuple = _bookInfo.GetBookInfo(book.ForeignBookId);
                         edition = tuple.Item2.Editions.Value.SingleOrDefault(x => x.ForeignEditionId == file.ForeignEditionId);
                     }
 

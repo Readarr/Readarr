@@ -19,7 +19,7 @@ namespace NzbDrone.Integration.Test.ApiTests
         [Test]
         public void lookup_new_author_by_goodreads_book_id()
         {
-            var author = Author.Lookup("readarr:1");
+            var author = Author.Lookup("edition:1");
 
             author.Should().NotBeEmpty();
             author.Should().Contain(c => c.AuthorName == "J.K. Rowling");

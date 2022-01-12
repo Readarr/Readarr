@@ -1,5 +1,6 @@
 using System;
 using System.Net;
+using NLog;
 using NzbDrone.Common.Http;
 
 namespace NzbDrone.Core.Http
@@ -15,12 +16,15 @@ namespace NzbDrone.Core.Http
     {
         private readonly ICachedHttpResponseRepository _repo;
         private readonly IHttpClient _httpClient;
+        private readonly Logger _logger;
 
         public CachedHttpResponseService(ICachedHttpResponseRepository httpResponseRepository,
-                                         IHttpClient httpClient)
+                                         IHttpClient httpClient,
+                                         Logger logger)
         {
             _repo = httpResponseRepository;
             _httpClient = httpClient;
+            _logger = logger;
         }
 
         public HttpResponse Get(HttpRequest request, bool useCache, TimeSpan ttl)
@@ -29,6 +33,7 @@ namespace NzbDrone.Core.Http
 
             if (useCache && cached != null && cached.Expiry > DateTime.UtcNow)
             {
+                _logger.Trace($"Returning cached response for [GET] {request.Url}");
                 return new HttpResponse(request, new HttpHeader(), cached.Value, (HttpStatusCode)cached.StatusCode);
             }
 
