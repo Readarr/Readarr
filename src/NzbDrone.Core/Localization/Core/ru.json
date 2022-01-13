@@ -244,7 +244,7 @@
     "None": "Ничто",
     "NotificationTriggers": "Триггеры уведомления",
     "OnGrabHelpText": "При захвате",
-    "OnHealthIssueHelpText": "По вопросам здоровья",
+    "OnHealthIssueHelpText": "О проблемах в системе",
     "OnRenameHelpText": "При переименовании",
     "OnUpgradeHelpText": "При обновлении",
     "OpenBrowserOnStart": "Открывать браузер при запуске",
@@ -297,11 +297,11 @@
     "RefreshInformationAndScanDisk": "Обновить информацию и просканировать диск",
     "RefreshScan": "Обновить & сканировать",
     "ReleaseDate": "Дата выпуска",
-    "ReleaseGroup": "Группа выпуска",
+    "ReleaseGroup": "Релиз группа",
     "ReleaseRejected": "Релиз отклонен",
     "ReleaseWillBeProcessedInterp": "Выпуск будет обработан {0}",
     "Reload": "Перезагрузить",
-    "RemotePath": "Удаленный путь",
+    "RemotePath": "Удалённый путь",
     "RemotePathHelpText": "Корневой путь к каталогу, к которому имеет доступ клиент загрузки",
     "RemotePathMappings": "Сопоставления удаленного пути",
     "Remove": "Удалить",
@@ -494,5 +494,6 @@
     "Time": "Время",
     "Blocklist": "Черный список",
     "BlocklistHelpText": "Запрещает Radarr автоматически получать этот релиз повторно",
-    "BlocklistRelease": "Релиз из черного списка"
+    "BlocklistRelease": "Релиз из черного списка",
+    "Disabled": "Выключено"
 }

@@ -189,7 +189,7 @@
     "LaunchBrowserHelpText": " Avaa readarrin verkkokäyttöliittymä verkkoselaimeen sovelluksen käynnistyksen yhteydessä.",
     "LoadingBookFilesFailed": "Elokuvatiedostojen lataaminen epäonnistui",
     "Local": "Paikalliset",
-    "LocalPath": "Paikallinen polku",
+    "LocalPath": "Paikallinen sijainti",
     "LocalPathHelpText": "Polku, jota Radarrin tulisi käyttää päästäksesi etäpolulle paikallisesti",
     "LogFiles": "Lokitiedostot",
     "LogLevel": "Kirjauksen taso",
@@ -292,7 +292,7 @@
     "ReleaseRejected": "Vapautus hylätty",
     "ReleaseWillBeProcessedInterp": "Julkaisu käsitellään {0}",
     "Reload": "Lataa uudelleen",
-    "RemotePath": "Kaukopolku",
+    "RemotePath": "Etäsijainti",
     "RemotePathHelpText": "Lataustyökalun käyttämän hakemiston juurisijainti",
     "RemotePathMappings": "Etäreittien kartoitukset",
     "Remove": "Poista",
@@ -562,5 +562,6 @@
     "DeleteBookFileMessageText": "Haluatko varmasti poistaa sovellusprofiilin {0}?",
     "FilterAnalyticsEvents": "Suodata analytiikan tapahtumia",
     "All": "Kaikki",
-    "Books": "Kirja"
+    "Books": "Kirja",
+    "Disabled": "Ei käytössä"
 }
