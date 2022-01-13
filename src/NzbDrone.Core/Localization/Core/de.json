@@ -190,11 +190,11 @@
     "Local": "Lokal",
     "LocalPath": "Lokaler Pfad",
     "LocalPathHelpText": "Pfad, den Radarr verwenden sollte, um lokal auf den Entfernten-Pfad zuzugreifen",
-    "LogFiles": "Protokolle",
+    "LogFiles": "Protokolldateien",
     "LogLevel": "Log Level",
     "LogLevelvalueTraceTraceLoggingShouldOnlyBeEnabledTemporarily": "Trace logging sollte nur kurzzeitig aktiviert werden",
     "Logging": "Protokollierung",
-    "Logs": "Logs",
+    "Logs": "Protokolle",
     "LongDateFormat": "Langes Datumsformat",
     "MIA": "MIA",
     "ManualImport": "Manueller Import",
@@ -290,7 +290,7 @@
     "ReleaseRejected": "Release abgelehnt",
     "ReleaseWillBeProcessedInterp": "Release wird verarbeitet {0}",
     "Reload": "Neuladen",
-    "RemotePath": "Entfernter-Pfad",
+    "RemotePath": "Entfernter Pfad",
     "RemotePathHelpText": "Root-Pfad zum Verzeichnis, auf das der Download-Client zugreift",
     "RemotePathMappings": "Remote-Pfadzuordnungen",
     "Remove": "Entfernen",
@@ -552,5 +552,7 @@
     "UpdateSelected": "Auswahl aktualisieren",
     "Wanted": "› Gesuchte",
     "CreateEmptyAuthorFolders": "Leere Filmordner erstellen",
-    "All": "Alle"
+    "All": "Alle",
+    "Country": "Land",
+    "DeleteImportList": "Importliste löschen"
 }
