@@ -6,6 +6,7 @@ using NzbDrone.Common.Disk;
 using NzbDrone.Common.Extensions;
 using NzbDrone.Common.Instrumentation.Extensions;
 using NzbDrone.Core.Books;
+using NzbDrone.Core.Books.Calibre;
 using NzbDrone.Core.Books.Commands;
 using NzbDrone.Core.Books.Events;
 using NzbDrone.Core.DecisionEngine;
@@ -236,23 +237,30 @@ namespace NzbDrone.Core.MediaFiles.BookImport
                     _logger.Warn(e, "Couldn't import book " + localTrack);
                     _eventAggregator.PublishEvent(new TrackImportFailedEvent(e, localTrack, !localTrack.ExistingFile, downloadClientItem));
 
-                    importResults.Add(new ImportResult(importDecision, "Failed to import book, Root folder missing."));
+                    importResults.Add(new ImportResult(importDecision, "Failed to import book, root folder missing."));
                 }
                 catch (DestinationAlreadyExistsException e)
                 {
                     _logger.Warn(e, "Couldn't import book " + localTrack);
-                    importResults.Add(new ImportResult(importDecision, "Failed to import book, Destination already exists."));
+                    importResults.Add(new ImportResult(importDecision, "Failed to import book, destination already exists."));
                 }
                 catch (UnauthorizedAccessException e)
                 {
                     _logger.Warn(e, "Couldn't import book " + localTrack);
                     _eventAggregator.PublishEvent(new TrackImportFailedEvent(e, localTrack, !localTrack.ExistingFile, downloadClientItem));
 
-                    importResults.Add(new ImportResult(importDecision, "Failed to import book, Permissions error"));
+                    importResults.Add(new ImportResult(importDecision, "Failed to import book, permissions error"));
                 }
-                catch (Exception)
+                catch (CalibreException e)
                 {
-                    throw;
+                    _logger.Warn(e, "Couldn't import book " + localTrack);
+
+                    importResults.Add(new ImportResult(importDecision, "Failed to import book, error communicating with Calibre.  Check log for details."));
+                }
+                catch (Exception e)
+                {
+                    _logger.Warn(e, "Couldn't import book " + localTrack);
+                    importResults.Add(new ImportResult(importDecision, "Failed to import book."));
                 }
             }
 
