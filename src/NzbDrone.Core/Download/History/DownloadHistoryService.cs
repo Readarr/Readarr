@@ -174,7 +174,7 @@ namespace NzbDrone.Core.Download.History
             var history = new DownloadHistory
             {
                 EventType = DownloadHistoryEventType.DownloadImportIncomplete,
-                AuthorId = message.TrackedDownload.RemoteBook?.Author.Id ?? 0,
+                AuthorId = message.TrackedDownload.RemoteBook?.Author?.Id ?? 0,
                 DownloadId = message.TrackedDownload.DownloadItem.DownloadId,
                 SourceTitle = message.TrackedDownload.DownloadItem.OutputPath.ToString(),
                 Date = DateTime.UtcNow,
