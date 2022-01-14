@@ -89,8 +89,6 @@ namespace NzbDrone.Core.Books.Calibre
                 AddFormat(file, settings);
             }
 
-            _rootFolderWatchingService.ReportFileSystemChangeBeginning(file.Path);
-
             SetFields(file, settings, true, _configService.EmbedMetadata);
 
             if (settings.OutputFormat.IsNotNullOrWhiteSpace())
@@ -539,6 +537,17 @@ namespace NzbDrone.Core.Books.Calibre
             return response.Resource;
         }
 
+        private bool CalibreLoginEnabled(CalibreSettings settings)
+        {
+            var builder = GetBuilder($"/book-get-last-read-position/{settings.Library}/1", settings);
+            builder.SuppressHttpError = true;
+
+            var request = builder.Build();
+            var response = _httpClient.Get(request);
+
+            return response.StatusCode != HttpStatusCode.NotFound;
+        }
+
         private HttpRequestBuilder GetBuilder(string relativePath, CalibreSettings settings)
         {
             var baseUrl = HttpRequestBuilder.BuildBaseUrl(settings.UseSsl, settings.Host, settings.Port, settings.UrlBase);
@@ -595,6 +604,16 @@ namespace NzbDrone.Core.Books.Calibre
 
         private ValidationFailure TestCalibre(CalibreSettings settings)
         {
+            var authRequired = settings.Host != "127.0.0.1" && settings.Host != "::1" && settings.Host != "localhost";
+
+            if (authRequired && settings.Username.IsNullOrWhiteSpace())
+            {
+                return new NzbDroneValidationFailure("Username", "Username required")
+                {
+                    DetailedDescription = "A username/password is required for non-local Calibre servers to allow write access"
+                };
+            }
+
             var builder = GetBuilder("", settings);
             builder.Accept(HttpAccept.Html);
             builder.SuppressHttpError = true;
@@ -660,6 +679,13 @@ namespace NzbDrone.Core.Books.Calibre
                 {
                     return new NzbDroneValidationFailure(string.Empty, "Unknown exception: " + e.Message);
                 }
+            }
+
+            // now that we have library info, double check if auth is actually enabled calibre side.  If not, we'll get a 404 back.
+            // https://github.com/kovidgoyal/calibre/blob/bf53bbf07a6ced728bf6a87d097fb6eb8c67e4e0/src/calibre/srv/books.py#L196
+            if (authRequired && !CalibreLoginEnabled(settings))
+            {
+                return new ValidationFailure("Host", "Remote calibre server must have authentication enabled to allow Readarr write access");
             }
 
             if (settings.Library.IsNullOrWhiteSpace())
