@@ -681,16 +681,16 @@ namespace NzbDrone.Core.Books.Calibre
                 }
             }
 
+            if (settings.Library.IsNullOrWhiteSpace())
+            {
+                settings.Library = libraryInfo.DefaultLibrary;
+            }
+
             // now that we have library info, double check if auth is actually enabled calibre side.  If not, we'll get a 404 back.
             // https://github.com/kovidgoyal/calibre/blob/bf53bbf07a6ced728bf6a87d097fb6eb8c67e4e0/src/calibre/srv/books.py#L196
             if (authRequired && !CalibreLoginEnabled(settings))
             {
                 return new ValidationFailure("Host", "Remote calibre server must have authentication enabled to allow Readarr write access");
-            }
-
-            if (settings.Library.IsNullOrWhiteSpace())
-            {
-                settings.Library = libraryInfo.DefaultLibrary;
             }
 
             if (!libraryInfo.LibraryMap.ContainsKey(settings.Library))
