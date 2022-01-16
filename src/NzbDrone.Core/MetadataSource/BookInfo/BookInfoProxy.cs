@@ -358,6 +358,8 @@ namespace NzbDrone.Core.MetadataSource.BookInfo
             {
                 var trimmed = new Book();
                 trimmed.UseMetadataFrom(book);
+                trimmed.Author.Value.Metadata = book.AuthorMetadata.Value;
+                trimmed.AuthorMetadata = book.AuthorMetadata.Value;
                 trimmed.SeriesLinks = book.SeriesLinks;
                 var edition = book.Editions.Value.SingleOrDefault(e => e.ForeignEditionId == id.ToString());
                 if (edition == null)
