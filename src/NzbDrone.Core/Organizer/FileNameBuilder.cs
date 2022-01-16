@@ -88,9 +88,6 @@ namespace NzbDrone.Core.Organizer
 
             var pattern = namingConfig.StandardBookFormat;
 
-            var subFolders = pattern.Split(new[] { '/', '\\' }, StringSplitOptions.RemoveEmptyEntries);
-            var safePattern = subFolders.Aggregate("", (current, folderLevel) => Path.Combine(current, folderLevel));
-
             var tokenHandlers = new Dictionary<string, Func<TokenMatch, string>>(FileNameBuilderTokenEqualityComparer.Instance);
 
             AddAuthorTokens(tokenHandlers, author);
@@ -100,13 +97,26 @@ namespace NzbDrone.Core.Organizer
             AddMediaInfoTokens(tokenHandlers, bookFile);
             AddPreferredWords(tokenHandlers, author, bookFile, preferredWords);
 
-            var fileName = ReplacePartTokens(safePattern, tokenHandlers, namingConfig);
-            fileName = ReplaceTokens(fileName, tokenHandlers, namingConfig).Trim();
+            var splitPatterns = pattern.Split(new char[] { '\\', '/' }, StringSplitOptions.RemoveEmptyEntries);
+            var components = new List<string>();
 
-            fileName = FileNameCleanupRegex.Replace(fileName, match => match.Captures[0].Value[0].ToString());
-            fileName = TrimSeparatorsRegex.Replace(fileName, string.Empty);
+            foreach (var s in splitPatterns)
+            {
+                var splitPattern = s;
 
-            return fileName;
+                var component = ReplacePartTokens(splitPattern, tokenHandlers, namingConfig).Trim();
+                component = ReplaceTokens(component, tokenHandlers, namingConfig).Trim();
+
+                component = FileNameCleanupRegex.Replace(component, match => match.Captures[0].Value[0].ToString());
+                component = TrimSeparatorsRegex.Replace(component, string.Empty);
+
+                if (component.IsNotNullOrWhiteSpace())
+                {
+                    components.Add(component);
+                }
+            }
+
+            return Path.Combine(components.ToArray());
         }
 
         public string BuildBookFilePath(Author author, Edition edition, string fileName, string extension)
@@ -175,11 +185,28 @@ namespace NzbDrone.Core.Organizer
                 namingConfig = _namingConfigService.GetConfig();
             }
 
+            var pattern = namingConfig.AuthorFolderFormat;
             var tokenHandlers = new Dictionary<string, Func<TokenMatch, string>>(FileNameBuilderTokenEqualityComparer.Instance);
 
             AddAuthorTokens(tokenHandlers, author);
 
-            return CleanFolderName(ReplaceTokens(namingConfig.AuthorFolderFormat, tokenHandlers, namingConfig));
+            var splitPatterns = pattern.Split(new char[] { '\\', '/' }, StringSplitOptions.RemoveEmptyEntries);
+            var components = new List<string>();
+
+            foreach (var s in splitPatterns)
+            {
+                var splitPattern = s;
+
+                var component = ReplaceTokens(splitPattern, tokenHandlers, namingConfig);
+                component = CleanFolderName(component);
+
+                if (component.IsNotNullOrWhiteSpace())
+                {
+                    components.Add(component);
+                }
+            }
+
+            return Path.Combine(components.ToArray());
         }
 
         public static string CleanTitle(string title)
