@@ -590,7 +590,7 @@ namespace NzbDrone.Core.MetadataSource.BookInfo
             }
 
             var book = MapBook(resource);
-            var authorId = resource.Books.OrderByDescending(x => x.AverageRating * x.RatingCount).First().Contributors.First().ForeignId.ToString();
+            var authorId = GetAuthorId(resource).ToString();
             var metadata = resource.Authors.Select(MapAuthorMetadata).ToList();
 
             var series = resource.Series.Select(MapSeries).ToList();
@@ -818,7 +818,7 @@ namespace NzbDrone.Core.MetadataSource.BookInfo
 
         private static int GetAuthorId(WorkResource b)
         {
-            return b.Books.OrderByDescending(x => x.RatingCount * x.AverageRating).First().Contributors.FirstOrDefault()?.ForeignId ?? 0;
+            return b.Books.OrderByDescending(x => x.RatingCount * x.AverageRating).FirstOrDefault(x => x.Contributors.Any())?.Contributors.First().ForeignId ?? 0;
         }
     }
 }
