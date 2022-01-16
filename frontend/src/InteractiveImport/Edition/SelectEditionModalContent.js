@@ -46,7 +46,7 @@ class SelectEditionModalContent extends Component {
 
         <ModalBody
           className={styles.modalBody}
-          scrollDirection={scrollDirections.NONE}
+          scrollDirection={scrollDirections.VERTICAL}
         >
           <Alert>
             Overrriding an edition here will <b>disable automatic edition selection</b> for that book in future.
