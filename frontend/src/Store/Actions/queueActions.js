@@ -113,9 +113,9 @@ export const defaultState = {
       },
       {
         name: 'size',
-        label: 'Size',
+        label: translate('Size'),
         isSortable: true,
-        isVisibile: false
+        isVisible: false
       },
       {
         name: 'outputPath',
@@ -454,4 +454,3 @@ export const reducers = createHandleActions({
   })
 
 }, defaultState, section);
-

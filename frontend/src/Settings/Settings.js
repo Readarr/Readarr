@@ -18,121 +18,121 @@ function Settings() {
           className={styles.link}
           to="/settings/mediamanagement"
         >
-          Media Management
+          {translate('MediaManagement')}
         </Link>
 
         <div className={styles.summary}>
-          Naming, file management settings and root folders
+          {translate('MediaManagementSettingsSummary')}
         </div>
 
         <Link
           className={styles.link}
           to="/settings/profiles"
         >
-          Profiles
+          {translate('Profiles')}
         </Link>
 
         <div className={styles.summary}>
-          Quality, Metadata, Delay, and Release profiles
+          {translate('ProfilesSettingsSummary')}
         </div>
 
         <Link
           className={styles.link}
           to="/settings/quality"
         >
-          Quality
+          {translate('Quality')}
         </Link>
 
         <div className={styles.summary}>
-          Quality sizes and naming
+          {translate('QualitySettingsSummary')}
         </div>
 
         <Link
           className={styles.link}
           to="/settings/indexers"
         >
-          Indexers
+          {translate('Indexers')}
         </Link>
 
         <div className={styles.summary}>
-          Indexers and indexer options
+          {translate('IndexersSettingsSummary')}
         </div>
 
         <Link
           className={styles.link}
           to="/settings/downloadclients"
         >
-          Download Clients
+          {translate('DownloadClients')}
         </Link>
 
         <div className={styles.summary}>
-          Download clients, download handling and remote path mappings
+          {translate('DownloadClientsSettingsSummary')}
         </div>
 
         <Link
           className={styles.link}
           to="/settings/importlists"
         >
-          Import Lists
+          {translate('Lists')}
         </Link>
 
         <div className={styles.summary}>
-          Import Lists
+          {translate('ListsSettingsSummary')}
         </div>
 
         <Link
           className={styles.link}
           to="/settings/connect"
         >
-          Connect
+          {translate('Connect')}
         </Link>
 
         <div className={styles.summary}>
-          Notifications, connections to media servers/players and custom scripts
+          {translate('ConnectSettingsSummary')}
         </div>
 
         <Link
           className={styles.link}
           to="/settings/metadata"
         >
-          Metadata
+          {translate('Metadata')}
         </Link>
 
         <div className={styles.summary}>
-          Create metadata files when books are imported or author are refreshed
+          {translate('MetadataSettingsSummary')}
         </div>
 
         <Link
           className={styles.link}
           to="/settings/tags"
         >
-          Tags
+          {translate('Tags')}
         </Link>
 
         <div className={styles.summary}>
-          Manage author, profile, restriction, and notification tags
+          {translate('TagsSettingsSummary')}
         </div>
 
         <Link
           className={styles.link}
           to="/settings/general"
         >
-          General
+          {translate('General')}
         </Link>
 
         <div className={styles.summary}>
-          Port, SSL, username/password, proxy, analytics and updates
+          {translate('GeneralSettingsSummary')}
         </div>
 
         <Link
           className={styles.link}
           to="/settings/ui"
         >
-          UI
+          {translate('UI')}
         </Link>
 
         <div className={styles.summary}>
-          Calendar, date and color impaired options
+          {translate('UISettingsSummary')}
         </div>
       </PageContentBody>
     </PageContent>
