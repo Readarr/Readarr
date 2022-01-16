@@ -6,6 +6,7 @@ using NLog;
 using NzbDrone.Common.Extensions;
 using NzbDrone.Common.Instrumentation;
 using NzbDrone.Core.Books;
+using NzbDrone.Core.Books.Calibre;
 using NzbDrone.Core.Parser;
 using NzbDrone.Core.Parser.Model;
 
@@ -111,6 +112,15 @@ namespace NzbDrone.Core.MediaFiles.BookImport.Identification
                 }
 
                 Logger.Trace($"year: {localYear} vs {edition.ReleaseDate?.Year}; {dist.NormalizedDistance()}");
+            }
+
+            // Language - only if set for both the local book and remote edition
+            var localLanguage = localTracks.MostCommon(x => x.FileTrackInfo.Language).CanonicalizeLanguage();
+            var editionLanguage = edition.Language.CanonicalizeLanguage();
+            if (localLanguage.IsNotNullOrWhiteSpace() && editionLanguage.IsNotNullOrWhiteSpace())
+            {
+                dist.AddBool("language", localLanguage != editionLanguage);
+                Logger.Trace($"language: {localLanguage} vs {editionLanguage}; {dist.NormalizedDistance()}");
             }
 
             return dist;
