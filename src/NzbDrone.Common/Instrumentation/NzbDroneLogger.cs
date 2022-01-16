@@ -66,12 +66,12 @@ namespace NzbDrone.Common.Instrumentation
 
             if (updateClient)
             {
-                dsn = "https://54ec0b09e5f641508ac581371978bf21@sentry.servarr.com/5";
+                dsn = "https://a48936ded03b483bbba2ab52fa70de04@sentry.servarr.com/5";
             }
             else
             {
                 dsn = RuntimeInfo.IsProduction
-                    ? "https://038b792802be44b5ae2be4bf7255abbe@sentry.servarr.com/3"
+                    ? "https://19c3bc46b87a470ba0f91430c4c0a68d@sentry.servarr.com/3"
                     : "https://31e00a6c63ea42c8b5fe70358526a30d@sentry.servarr.com/4";
             }
 
