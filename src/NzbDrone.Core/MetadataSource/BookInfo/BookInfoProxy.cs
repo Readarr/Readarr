@@ -337,7 +337,7 @@ namespace NzbDrone.Core.MetadataSource.BookInfo
                 book = author.Books.Value.Where(b => b.Editions.Value.Any(e => e.ForeignEditionId == id.ToString())).FirstOrDefault();
                 authors = new List<AuthorMetadata> { author.Metadata.Value };
             }
-            else if (type == "book")
+            else if (type == "work")
             {
                 var tuple = PollBook(newId);
 
