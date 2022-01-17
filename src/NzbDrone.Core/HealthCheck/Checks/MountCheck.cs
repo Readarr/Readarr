@@ -28,7 +28,7 @@ namespace NzbDrone.Core.HealthCheck.Checks
 
             if (mounts.Any())
             {
-                return new HealthCheck(GetType(), HealthCheckResult.Error, _localizationService.GetLocalizedString("MountCheckMessage") + string.Join(", ", mounts.Select(m => m.Name)), "#track-mount-ro");
+                return new HealthCheck(GetType(), HealthCheckResult.Error, _localizationService.GetLocalizedString("MountCheckMessage") + string.Join(", ", mounts.Select(m => m.Name)), "#author-mount-ro");
             }
 
             return new HealthCheck(GetType());
