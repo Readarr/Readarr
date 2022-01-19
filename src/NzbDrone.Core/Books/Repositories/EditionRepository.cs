@@ -78,7 +78,8 @@ namespace NzbDrone.Core.Books
 
             if (onlyMonitored)
             {
-                builder = builder.Where<Edition>(e => e.Monitored == true);
+                builder = builder.OrWhere<Edition>(e => e.Monitored == true);
+                builder = builder.OrWhere<Book>(b => b.AnyEditionOk == true);
             }
 
             return Query(builder);

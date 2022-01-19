@@ -147,6 +147,9 @@ namespace NzbDrone.Core.MediaFiles.BookImport.Identification
                 {
                     candidateReleases.AddRange(GetDbCandidatesByBook(book, includeExisting));
                 }
+
+                var possibleEditions = _editionService.GetCandidates(author.AuthorMetadataId, bookTag);
+                candidateReleases.AddRange(GetDbCandidatesByEdition(possibleEditions, includeExisting));
             }
 
             return candidateReleases;
