@@ -429,12 +429,24 @@ namespace NzbDrone.Core.MetadataSource.BookInfo
                 book.UseDbFieldsFrom(dbBook);
 
                 var editions = _editionService.GetEditionsByBook(dbBook.Id).ToDictionary(x => x.ForeignEditionId);
+
+                // If we have any database editions, exactly one will be monitored.
+                // So unmonitor all the found editions and let the UseDbFieldsFrom set
+                // the monitored status
                 foreach (var edition in book.Editions.Value)
                 {
+                    edition.Monitored = false;
                     if (editions.TryGetValue(edition.ForeignEditionId, out var dbEdition))
                     {
                         edition.UseDbFieldsFrom(dbEdition);
                     }
+                }
+
+                // Double check at least one edition is monitored
+                if (book.Editions.Value.Any() && !book.Editions.Value.Any(x => x.Monitored))
+                {
+                    var mostPopular = book.Editions.Value.OrderByDescending(x => x.Ratings.Popularity).First();
+                    mostPopular.Monitored = true;
                 }
             }
 

@@ -132,6 +132,7 @@ namespace NzbDrone.Core.MediaFiles.BookImport.Identification
 
             if (!candidateReleases.Any())
             {
+                _logger.Debug("No local candidates found, trying remote");
                 candidateReleases = _candidateService.GetRemoteCandidates(localBookRelease, idOverrides);
                 if (!config.AddNewAuthors)
                 {
