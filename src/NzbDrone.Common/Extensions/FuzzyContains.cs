@@ -1,4 +1,4 @@
-﻿/*
+/*
  * This file incorporates work covered by the following copyright and
  * permission notice:
  *
@@ -65,7 +65,17 @@ namespace NzbDrone.Common.Extensions
             }
 
             // Do a fuzzy compare.
-            return MatchBitap(text, pattern, matchThreshold);
+            if (pattern.Length < 32)
+            {
+                return MatchBitap(text, pattern, matchThreshold, new IntCalculator());
+            }
+
+            if (pattern.Length < 64)
+            {
+                return MatchBitap(text, pattern, matchThreshold, new LongCalculator());
+            }
+
+            return MatchBitap(text, pattern, matchThreshold, new BigIntCalculator());
         }
 
         /**
@@ -75,38 +85,34 @@ namespace NzbDrone.Common.Extensions
          * @param pattern The pattern to search for.
          * @return Best match index or -1.
          */
-        private static Tuple<int, double> MatchBitap(string text, string pattern, double matchThreshold)
+        private static Tuple<int, double> MatchBitap<T>(string text, string pattern, double matchThreshold, Calculator<T> calculator)
         {
             // Initialise the alphabet.
-            Dictionary<char, BigInteger> s = alphabet(pattern);
+            var s = Alphabet(pattern, calculator);
 
-            // don't keep creating new BigInteger(1)
-            var big1 = new BigInteger(1);
-
-            // Lowest score belowe which we give up.
-            var score_threshold = matchThreshold;
+            // Lowest score below which we give up.
+            var scoreThreshold = matchThreshold;
 
             // Initialise the bit arrays.
-            var matchmask = big1 << (pattern.Length - 1);
-            int best_loc = -1;
+            var matchmask = calculator.LeftShift(calculator.One, pattern.Length - 1);
+            var bestLoc = -1;
 
-            // Empty initialization added to appease C# compiler.
-            var last_rd = new BigInteger[0];
-            for (int d = 0; d < pattern.Length; d++)
+            var lastRd = Array.Empty<T>();
+            for (var d = 0; d < pattern.Length; d++)
             {
                 // Scan for the best match; each iteration allows for one more error.
-                int start = 1;
-                int finish = text.Length + pattern.Length;
+                var start = 1;
+                var finish = text.Length + pattern.Length;
 
-                var rd = new BigInteger[finish + 2];
-                rd[finish + 1] = (big1 << d) - big1;
-                for (int j = finish; j >= start; j--)
+                var rd = new T[finish + 2];
+                rd[finish + 1] = calculator.Subtract(calculator.LeftShift(calculator.One, d), calculator.One);
+                for (var j = finish; j >= start; j--)
                 {
-                    BigInteger charMatch;
+                    T charMatch;
                     if (text.Length <= j - 1 || !s.ContainsKey(text[j - 1]))
                     {
                         // Out of range.
-                        charMatch = 0;
+                        charMatch = calculator.Zero;
                     }
                     else
                     {
@@ -116,40 +122,40 @@ namespace NzbDrone.Common.Extensions
                     if (d == 0)
                     {
                         // First pass: exact match.
-                        rd[j] = ((rd[j + 1] << 1) | big1) & charMatch;
+                        rd[j] = calculator.BitwiseAnd(calculator.BitwiseOr(calculator.LeftShift(rd[j + 1], 1), calculator.One), charMatch);
                     }
                     else
                     {
                         // Subsequent passes: fuzzy match.
-                        rd[j] = ((rd[j + 1] << 1) | big1) & charMatch
-                            | (((last_rd[j + 1] | last_rd[j]) << 1) | big1) | last_rd[j + 1];
+                        rd[j] = calculator.BitwiseOr(calculator.BitwiseAnd(calculator.BitwiseOr(calculator.LeftShift(rd[j + 1], 1), calculator.One), charMatch),
+                            calculator.BitwiseOr(calculator.BitwiseOr(calculator.LeftShift(calculator.BitwiseOr(lastRd[j + 1], lastRd[j]), 1), calculator.One), lastRd[j + 1]));
                     }
 
-                    if ((rd[j] & matchmask) != 0)
+                    if (calculator.NotEqual(calculator.BitwiseAnd(rd[j], matchmask), calculator.Zero))
                     {
-                        var score = bitapScore(d, pattern);
+                        var score = BitapScore(d, pattern);
 
                         // This match will almost certainly be better than any existing
                         // match.  But check anyway.
-                        if (score >= score_threshold)
+                        if (score >= scoreThreshold)
                         {
                             // Told you so.
-                            score_threshold = score;
-                            best_loc = j - 1;
+                            scoreThreshold = score;
+                            bestLoc = j - 1;
                         }
                     }
                 }
 
-                if (bitapScore(d + 1, pattern) < score_threshold)
+                if (BitapScore(d + 1, pattern) < scoreThreshold)
                 {
                     // No hope for a (better) match at greater error levels.
                     break;
                 }
 
-                last_rd = rd;
+                lastRd = rd;
             }
 
-            return new Tuple<int, double>(best_loc, score_threshold);
+            return new Tuple<int, double>(bestLoc, scoreThreshold);
         }
 
         /**
@@ -158,7 +164,7 @@ namespace NzbDrone.Common.Extensions
          * @param pattern Pattern being sought.
          * @return Overall score for match (1.0 = good, 0.0 = bad).
          */
-        private static double bitapScore(int e, string pattern)
+        private static double BitapScore(int e, string pattern)
         {
             return 1.0 - ((double)e / pattern.Length);
         }
@@ -168,26 +174,70 @@ namespace NzbDrone.Common.Extensions
          * @param pattern The text to encode.
          * @return Hash of character locations.
          */
-        private static Dictionary<char, BigInteger> alphabet(string pattern)
+        private static Dictionary<char, T> Alphabet<T>(string pattern, Calculator<T> calculator)
         {
-            var s = new Dictionary<char, BigInteger>();
-            char[] char_pattern = pattern.ToCharArray();
-            foreach (char c in char_pattern)
+            var s = new Dictionary<char, T>();
+            var charPattern = pattern.ToCharArray();
+            foreach (var c in charPattern)
             {
                 if (!s.ContainsKey(c))
                 {
-                    s.Add(c, 0);
+                    s.Add(c, calculator.Zero);
                 }
             }
 
-            int i = 0;
-            foreach (char c in char_pattern)
+            var i = 0;
+            foreach (var c in charPattern)
             {
-                s[c] = s[c] | (new BigInteger(1) << (pattern.Length - i - 1));
+                s[c] = calculator.BitwiseOr(s[c], calculator.LeftShift(calculator.One, pattern.Length - i - 1));
                 i++;
             }
 
             return s;
+        }
+
+        private abstract class Calculator<T>
+        {
+            public abstract T Zero { get; }
+            public abstract T One { get; }
+            public abstract T Subtract(T a, T b);
+            public abstract T LeftShift(T a, int shift);
+            public abstract T BitwiseOr(T a, T b);
+            public abstract T BitwiseAnd(T a, T b);
+            public abstract bool NotEqual(T a, T b);
+        }
+
+        private sealed class BigIntCalculator : Calculator<BigInteger>
+        {
+            public override BigInteger Zero => new BigInteger(0);
+            public override BigInteger One => new BigInteger(1);
+            public override BigInteger Subtract(BigInteger a, BigInteger b) => a - b;
+            public override BigInteger LeftShift(BigInteger a, int shift) => a << shift;
+            public override BigInteger BitwiseOr(BigInteger a, BigInteger b) => a | b;
+            public override BigInteger BitwiseAnd(BigInteger a, BigInteger b) => a & b;
+            public override bool NotEqual(BigInteger a, BigInteger b) => a != b;
+        }
+
+        private sealed class IntCalculator : Calculator<int>
+        {
+            public override int Zero => 0;
+            public override int One => 1;
+            public override int Subtract(int a, int b) => a - b;
+            public override int LeftShift(int a, int shift) => a << shift;
+            public override int BitwiseOr(int a, int b) => a | b;
+            public override int BitwiseAnd(int a, int b) => a & b;
+            public override bool NotEqual(int a, int b) => a != b;
+        }
+
+        private sealed class LongCalculator : Calculator<long>
+        {
+            public override long Zero => 0;
+            public override long One => 1;
+            public override long Subtract(long a, long b) => a - b;
+            public override long LeftShift(long a, int shift) => a << shift;
+            public override long BitwiseOr(long a, long b) => a | b;
+            public override long BitwiseAnd(long a, long b) => a & b;
+            public override bool NotEqual(long a, long b) => a != b;
         }
     }
 }

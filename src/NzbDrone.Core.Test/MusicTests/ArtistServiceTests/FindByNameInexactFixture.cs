@@ -34,30 +34,14 @@ namespace NzbDrone.Core.Test.MusicTests.AuthorServiceTests
                 .Returns(_authors);
         }
 
-        [TestCase("The Black Eyde Peas", "The Black Eyed Peas")]
-        [TestCase("Black Eyed Peas", "The Black Eyed Peas")]
+        [TestCase("The Black Eyd Peas", "The Black Eyed Peas")]
         [TestCase("The Black eys", "The Black Keys")]
-        [TestCase("Black Keys", "The Black Keys")]
         public void should_find_author_in_db_by_name_inexact(string name, string expected)
         {
             var author = Subject.FindByNameInexact(name);
 
             author.Should().NotBeNull();
             author.Name.Should().Be(expected);
-        }
-
-        [Test]
-        public void should_find_author_when_the_is_omitted_from_start()
-        {
-            _authors = new List<Author>();
-            _authors.Add(CreateAuthor("Black Keys"));
-            _authors.Add(CreateAuthor("The Black Eyed Peas"));
-
-            Mocker.GetMock<IAuthorRepository>()
-                .Setup(s => s.All())
-                .Returns(_authors);
-
-            Subject.FindByNameInexact("The Black Keys").Should().NotBeNull();
         }
 
         [TestCase("The Black Peas")]
