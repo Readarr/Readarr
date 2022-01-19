@@ -99,20 +99,9 @@ namespace NzbDrone.Core.Books
             Func<Func<Author, string, double>, string, Tuple<Func<Author, string, double>, string>> tc = Tuple.Create;
             var scoringFunctions = new List<Tuple<Func<Author, string, double>, string>>
             {
-                tc((a, t) => a.CleanName.FuzzyMatch(t), cleanTitle),
-                tc((a, t) => a.Name.FuzzyMatch(t), title),
-                tc((a, t) => a.Name.ToLastFirst().FuzzyMatch(t), title),
-                tc((a, t) => a.Metadata.Value.Aliases.Concat(new List<string> { a.Name }).Max(x => x.CleanAuthorName().FuzzyMatch(t)), cleanTitle),
+                tc((a, t) => a.Metadata.Value.Name.FuzzyMatch(t), title),
+                tc((a, t) => a.Metadata.Value.NameLastFirst.FuzzyMatch(t), title)
             };
-
-            if (title.StartsWith("The ", StringComparison.CurrentCultureIgnoreCase))
-            {
-                scoringFunctions.Add(tc((a, t) => a.CleanName.FuzzyMatch(t), title.Substring(4).CleanAuthorName()));
-            }
-            else
-            {
-                scoringFunctions.Add(tc((a, t) => a.CleanName.FuzzyMatch(t), "the" + cleanTitle));
-            }
 
             return scoringFunctions;
         }
@@ -151,9 +140,8 @@ namespace NzbDrone.Core.Books
             Func<Func<Author, string, double>, string, Tuple<Func<Author, string, double>, string>> tc = Tuple.Create;
             var scoringFunctions = new List<Tuple<Func<Author, string, double>, string>>
             {
-                tc((a, t) => t.FuzzyContains(a.CleanName), cleanReportTitle),
                 tc((a, t) => t.FuzzyContains(a.Metadata.Value.Name), reportTitle),
-                tc((a, t) => t.FuzzyContains(a.Metadata.Value.Name.ToLastFirst()), reportTitle)
+                tc((a, t) => t.FuzzyContains(a.Metadata.Value.NameLastFirst), reportTitle)
             };
 
             return scoringFunctions;
