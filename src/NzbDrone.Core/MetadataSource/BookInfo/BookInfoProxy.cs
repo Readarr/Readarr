@@ -82,12 +82,20 @@ namespace NzbDrone.Core.MetadataSource.BookInfo
         {
             _logger.Debug("Getting Author details GoodreadsId of {0}", foreignAuthorId);
 
-            if (useCache)
+            try
             {
-                return PollAuthor(foreignAuthorId);
-            }
+                if (useCache)
+                {
+                    return PollAuthor(foreignAuthorId);
+                }
 
-            return PollAuthorUncached(foreignAuthorId);
+                return PollAuthorUncached(foreignAuthorId);
+            }
+            catch (BookInfoException e)
+            {
+                _logger.Warn(e, "Unexpected error getting author info");
+                throw new AuthorNotFoundException(foreignAuthorId);
+            }
         }
 
         public HashSet<string> GetChangedBooks(DateTime startTime)
@@ -102,7 +110,15 @@ namespace NzbDrone.Core.MetadataSource.BookInfo
 
         public Tuple<string, Book, List<AuthorMetadata>> GetBookInfo(string foreignBookId)
         {
-            return PollBook(foreignBookId);
+            try
+            {
+                return PollBook(foreignBookId);
+            }
+            catch (BookInfoException e)
+            {
+                _logger.Warn(e, "Unexpected error getting book info");
+                throw new AuthorNotFoundException(foreignBookId);
+            }
         }
 
         public List<object> SearchForNewEntity(string title)
@@ -211,7 +227,17 @@ namespace NzbDrone.Core.MetadataSource.BookInfo
 
         private List<Book> Search(string query, bool getAllEditions)
         {
-            var result = _goodreadsSearchProxy.Search(query);
+            List<SearchJsonResource> result;
+            try
+            {
+                result = _goodreadsSearchProxy.Search(query);
+            }
+            catch (Exception e)
+            {
+                _logger.Warn(e, "Error searching for {0}", query);
+                return new List<Book>();
+            }
+
             var books = new List<Book>();
 
             if (getAllEditions)
@@ -250,18 +276,19 @@ namespace NzbDrone.Core.MetadataSource.BookInfo
 
                 if (ids.Count == 1)
                 {
-                    try
-                    {
-                        return SearchByGoodreadsBookId(ids[0], false);
-                    }
-                    catch (BookNotFoundException)
-                    {
-                        _logger.Debug($"Couldn't fetch book info for {ids[0]}");
-                        return new List<Book>();
-                    }
+                    return SearchByGoodreadsBookId(ids[0], false);
                 }
 
-                return MapSearchResult(ids);
+                try
+                {
+                    return MapSearchResult(ids);
+                }
+                catch (Exception e)
+                {
+                    _logger.Warn(e, "Error mapping search results");
+
+                    return new List<Book>();
+                }
             }
         }
 
@@ -285,6 +312,11 @@ namespace NzbDrone.Core.MetadataSource.BookInfo
             {
                 return new List<Book>();
             }
+            catch (BookInfoException e)
+            {
+                _logger.Warn(e, "Error searching by author id");
+                return new List<Book>();
+            }
         }
 
         public List<Book> SearchByGoodreadsWorkId(int id)
@@ -299,9 +331,41 @@ namespace NzbDrone.Core.MetadataSource.BookInfo
             {
                 return new List<Book>();
             }
+            catch (BookInfoException e)
+            {
+                _logger.Warn(e, "Error searching by work id");
+                return new List<Book>();
+            }
         }
 
         public List<Book> SearchByGoodreadsBookId(int id, bool getAllEditions)
+        {
+            try
+            {
+                var book = GetEditionInfo(id, getAllEditions);
+
+                return new List<Book> { book };
+            }
+            catch (AuthorNotFoundException)
+            {
+                return new List<Book>();
+            }
+            catch (BookNotFoundException)
+            {
+                return new List<Book>();
+            }
+            catch (EditionNotFoundException)
+            {
+                return new List<Book>();
+            }
+            catch (BookInfoException e)
+            {
+                _logger.Warn(e, "Error searching by book id");
+                return new List<Book>();
+            }
+        }
+
+        private Book GetEditionInfo(int id, bool getAllEditions)
         {
             var httpRequest = _requestBuilder.GetRequestBuilder().Create()
                 .SetSegment("route", $"book/{id}")
@@ -314,7 +378,7 @@ namespace NzbDrone.Core.MetadataSource.BookInfo
 
             if (httpResponse.StatusCode == HttpStatusCode.NotFound)
             {
-                return new List<Book>();
+                throw new EditionNotFoundException(id.ToString());
             }
 
             if (!httpResponse.HasHttpRedirect)
@@ -349,9 +413,9 @@ namespace NzbDrone.Core.MetadataSource.BookInfo
                 throw new NotImplementedException($"Unexpected response from {httpResponse.Request.Url}");
             }
 
-            if (book == null)
+            if (book == null || book.Editions.Value.All(e => e.ForeignEditionId != id.ToString()))
             {
-                return new List<Book>();
+                throw new EditionNotFoundException(id.ToString());
             }
 
             if (!getAllEditions)
@@ -362,20 +426,15 @@ namespace NzbDrone.Core.MetadataSource.BookInfo
                 trimmed.AuthorMetadata = book.AuthorMetadata.Value;
                 trimmed.SeriesLinks = book.SeriesLinks;
                 var edition = book.Editions.Value.SingleOrDefault(e => e.ForeignEditionId == id.ToString());
-                if (edition == null)
-                {
-                    return new List<Book>();
-                }
 
                 trimmed.Editions = new List<Edition> { edition };
-
-                return new List<Book> { trimmed };
+                return trimmed;
             }
 
             var authorDict = authors.ToDictionary(x => x.ForeignAuthorId);
             AddDbIds(book.AuthorMetadata.Value.ForeignAuthorId, book, authorDict);
 
-            return new List<Book> { book };
+            return book;
         }
 
         private List<Book> MapSearchResult(List<int> ids)
@@ -454,7 +513,10 @@ namespace NzbDrone.Core.MetadataSource.BookInfo
 
             if (author == null)
             {
-                var metadata = authors[authorId];
+                if (!authors.TryGetValue(authorId, out var metadata))
+                {
+                    throw new BookInfoException(string.Format("Expected author metadata for id [{0}] in book data {1}", authorId, book));
+                }
 
                 author = new Author
                 {
@@ -502,7 +564,7 @@ namespace NzbDrone.Core.MetadataSource.BookInfo
                     }
                     else
                     {
-                        throw new HttpException(httpRequest, httpResponse);
+                        throw new BookInfoException("Unexpected error fetching author data");
                     }
                 }
 
@@ -582,7 +644,7 @@ namespace NzbDrone.Core.MetadataSource.BookInfo
                     }
                     else
                     {
-                        throw new HttpException(httpRequest, httpResponse);
+                        throw new BookInfoException("Unexpected response fetching book data");
                     }
                 }
 
@@ -596,7 +658,7 @@ namespace NzbDrone.Core.MetadataSource.BookInfo
                 Thread.Sleep(2000);
             }
 
-            if (resource?.Books == null)
+            if (resource?.Books == null || resource?.Authors == null || (!resource?.Authors?.Any() ?? false))
             {
                 throw new BookInfoException($"Failed to get books for {foreignBookId}");
             }
