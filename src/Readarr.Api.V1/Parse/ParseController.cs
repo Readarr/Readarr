@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using NzbDrone.Common.Extensions;
 using NzbDrone.Core.Parser;
 using Readarr.Api.V1.Author;
 using Readarr.Api.V1.Books;
@@ -19,11 +20,19 @@ namespace Readarr.Api.V1.Parse
         [HttpGet]
         public ParseResource Parse(string title)
         {
+            if (title.IsNullOrWhiteSpace())
+            {
+                return null;
+            }
+
             var parsedBookInfo = Parser.ParseBookTitle(title);
 
             if (parsedBookInfo == null)
             {
-                return null;
+                return new ParseResource
+                {
+                    Title = title
+                };
             }
 
             var remoteBook = _parsingService.Map(parsedBookInfo);
