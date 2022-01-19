@@ -25,21 +25,21 @@ namespace NzbDrone.Core.HealthCheck.Checks
 
             if (automaticSearchEnabled.Empty())
             {
-                return new HealthCheck(GetType(), HealthCheckResult.Warning, "No indexers available with Automatic Search enabled, Readarr will not provide any automatic search results");
+                return new HealthCheck(GetType(), HealthCheckResult.Warning, _localizationService.GetLocalizedString("IndexerSearchCheckNoAutomaticMessage"), "#no-indexers-available-with-automatic-search-enabled-readarr-will-not-provide-any-automatic-search-results");
             }
 
             var interactiveSearchEnabled = _indexerFactory.InteractiveSearchEnabled(false);
 
             if (interactiveSearchEnabled.Empty())
             {
-                return new HealthCheck(GetType(), HealthCheckResult.Warning, "No indexers available with Interactive Search enabled, Readarr will not provide any interactive search results");
+                return new HealthCheck(GetType(), HealthCheckResult.Warning, _localizationService.GetLocalizedString("IndexerSearchCheckNoInteractiveMessage"), "#no-indexers-available-with-interactive-search-enabled");
             }
 
             var active = _indexerFactory.AutomaticSearchEnabled(true);
 
             if (active.Empty())
             {
-                return new HealthCheck(GetType(), HealthCheckResult.Warning, "All search-capable indexers are temporarily unavailable due to recent indexer errors");
+                return new HealthCheck(GetType(), HealthCheckResult.Warning, _localizationService.GetLocalizedString("IndexerSearchCheckNoAvailableIndexersMessage"), "#indexers-are-unavailable-due-to-failures");
             }
 
             return new HealthCheck(GetType());

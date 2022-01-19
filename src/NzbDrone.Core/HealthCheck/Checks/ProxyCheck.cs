@@ -19,7 +19,7 @@ namespace NzbDrone.Core.HealthCheck.Checks
 
         private readonly IHttpRequestBuilderFactory _cloudRequestBuilder;
 
-        public ProxyCheck(IReadarrCloudRequestBuilder cloudRequestBuilder, IConfigService configService, IHttpClient client, Logger logger, ILocalizationService localizationService)
+        public ProxyCheck(IReadarrCloudRequestBuilder cloudRequestBuilder, IConfigService configService, IHttpClient client, ILocalizationService localizationService, Logger logger)
             : base(localizationService)
         {
             _configService = configService;
@@ -36,7 +36,7 @@ namespace NzbDrone.Core.HealthCheck.Checks
                 var addresses = Dns.GetHostAddresses(_configService.ProxyHostname);
                 if (!addresses.Any())
                 {
-                    return new HealthCheck(GetType(), HealthCheckResult.Error, string.Format("Failed to resolve the IP Address for the Configured Proxy Host {0}", _configService.ProxyHostname));
+                    return new HealthCheck(GetType(), HealthCheckResult.Error, string.Format(_localizationService.GetLocalizedString("ProxyCheckResolveIpMessage"), _configService.ProxyHostname), "#proxy-failed-resolve-ip");
                 }
 
                 var request = _cloudRequestBuilder.Create()
@@ -51,13 +51,13 @@ namespace NzbDrone.Core.HealthCheck.Checks
                     if (response.StatusCode == HttpStatusCode.BadRequest)
                     {
                         _logger.Error("Proxy Health Check failed: {0}", response.StatusCode);
-                        return new HealthCheck(GetType(), HealthCheckResult.Error, $"Failed to test proxy. StatusCode: {response.StatusCode}");
+                        return new HealthCheck(GetType(), HealthCheckResult.Error, string.Format(_localizationService.GetLocalizedString("ProxyCheckBadRequestMessage"), response.StatusCode), "#proxy-failed-test");
                     }
                 }
                 catch (Exception ex)
                 {
                     _logger.Error(ex, "Proxy Health Check failed");
-                    return new HealthCheck(GetType(), HealthCheckResult.Error, $"Failed to test proxy: {request.Url}");
+                    return new HealthCheck(GetType(), HealthCheckResult.Error, string.Format(_localizationService.GetLocalizedString("ProxyCheckFailedToTestMessage"), request.Url), "#proxy-failed-test");
                 }
             }
 

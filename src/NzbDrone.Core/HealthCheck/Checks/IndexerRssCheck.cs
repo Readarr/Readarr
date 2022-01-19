@@ -25,14 +25,14 @@ namespace NzbDrone.Core.HealthCheck.Checks
 
             if (enabled.Empty())
             {
-                return new HealthCheck(GetType(), HealthCheckResult.Error, "No indexers available with RSS sync enabled, Readarr will not grab new releases automatically");
+                return new HealthCheck(GetType(), HealthCheckResult.Error, _localizationService.GetLocalizedString("IndexerRssHealthCheckNoIndexers"), "#no-indexers-available-with-rss-sync-enabled-readarr-will-not-grab-new-releases-automatically");
             }
 
             var active = _indexerFactory.RssEnabled(true);
 
             if (active.Empty())
             {
-                return new HealthCheck(GetType(), HealthCheckResult.Warning, "All rss-capable indexers are temporarily unavailable due to recent indexer errors");
+                return new HealthCheck(GetType(), HealthCheckResult.Warning, _localizationService.GetLocalizedString("IndexerRssHealthCheckNoAvailableIndexers"), "#indexers-are-unavailable-due-to-failures");
             }
 
             return new HealthCheck(GetType());
