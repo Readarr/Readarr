@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using NLog;
 using NzbDrone.Common.Disk;
 using NzbDrone.Common.Extensions;
@@ -15,6 +17,7 @@ using NzbDrone.Core.Extras;
 using NzbDrone.Core.MediaFiles.Events;
 using NzbDrone.Core.Messaging.Commands;
 using NzbDrone.Core.Messaging.Events;
+using NzbDrone.Core.Parser;
 using NzbDrone.Core.Parser.Model;
 using NzbDrone.Core.Qualities;
 using NzbDrone.Core.RootFolders;
@@ -28,6 +31,8 @@ namespace NzbDrone.Core.MediaFiles.BookImport
 
     public class ImportApprovedBooks : IImportApprovedBooks
     {
+        private static readonly RegexReplace PadNumbers = new RegexReplace(@"\d+", n => n.Value.PadLeft(9, '0'), RegexOptions.Compiled);
+
         private readonly IUpgradeMediaFiles _bookFileUpgrader;
         private readonly IMediaFileService _mediaFileService;
         private readonly IMetadataTagService _metadataTagService;
@@ -120,6 +125,17 @@ namespace NzbDrone.Core.MediaFiles.BookImport
                 // {
                 //     RemoveExistingTrackFiles(author, book);
                 // }
+
+                // make sure part numbers are populated for audio books
+                // If all audio files and all part numbers are zero, set them by filename order
+                if (decisionList.All(b => MediaFileExtensions.AudioExtensions.Contains(Path.GetExtension(b.Item.Path)) && b.Item.Part == 0))
+                {
+                    var part = 1;
+                    foreach (var d in decisionList.OrderBy(x => PadNumbers.Replace(x.Item.Path)))
+                    {
+                        d.Item.Part = part++;
+                    }
+                }
 
                 // set the correct release to be monitored before importing the new files
                 var newRelease = bookDecision.First().Item.Edition;

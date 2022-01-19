@@ -326,6 +326,8 @@ namespace NzbDrone.Core.Test.MediaFiles.AudioTagServiceFixture
                 .With(x => x.Author = author)
                 .Build();
 
+            edition.BookFiles = new List<BookFile> { file };
+
             return file;
         }
 

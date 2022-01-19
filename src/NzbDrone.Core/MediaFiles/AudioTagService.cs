@@ -73,6 +73,7 @@ namespace NzbDrone.Core.MediaFiles
             var edition = trackfile.Edition.Value;
             var book = edition.Book.Value;
             var author = book.Author.Value;
+            var partCount = edition.BookFiles.Value.Count;
 
             var fileTags = ReadAudioTag(trackfile.Path);
 
@@ -99,8 +100,8 @@ namespace NzbDrone.Core.MediaFiles
                 Title = edition.Title,
                 Performers = new[] { author.Name },
                 BookAuthors = new[] { author.Name },
-                Track = fileTags.Track,
-                TrackCount = fileTags.TrackCount,
+                Track = (uint)trackfile.Part,
+                TrackCount = (uint)partCount,
                 Book = book.Title,
                 Disc = fileTags.Disc,
                 DiscCount = fileTags.DiscCount,
@@ -219,14 +220,14 @@ namespace NzbDrone.Core.MediaFiles
         {
             var files = _mediaFileService.GetFilesByAuthor(authorId);
 
-            return GetPreviews(files).ToList();
+            return GetPreviews(files).OrderBy(b => b.BookId).ThenBy(b => b.Path).ToList();
         }
 
         public List<RetagBookFilePreview> GetRetagPreviewsByBook(int bookId)
         {
             var files = _mediaFileService.GetFilesByBook(bookId);
 
-            return GetPreviews(files).ToList();
+            return GetPreviews(files).OrderBy(b => b.BookId).ThenBy(b => b.Path).ToList();
         }
 
         private IEnumerable<RetagBookFilePreview> GetPreviews(List<BookFile> files)
