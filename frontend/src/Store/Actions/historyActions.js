@@ -170,7 +170,7 @@ export const defaultState = {
       filters: [
         {
           key: 'eventType',
-          value: '7',
+          value: '10',
           type: filterTypes.EQUAL
         }
       ]
