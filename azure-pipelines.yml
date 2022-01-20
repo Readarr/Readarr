@@ -7,6 +7,8 @@ variables:
   outputFolder: './_output'
   artifactsFolder: './_artifacts'
   testsFolder: './_tests'
+  yarnCacheFolder: $(Pipeline.Workspace)/.yarn
+  nugetCacheFolder: $(Pipeline.Workspace)/.nuget/packages
   majorVersion: '0.1.0'
   minorVersion: $[counter('minorVersion', 1)]
   readarrVersion: '$(majorVersion).$(minorVersion)'
@@ -14,8 +16,9 @@ variables:
   sentryOrg: 'servarr'
   sentryUrl: 'https://sentry.servarr.com'
   dotnetVersion: '6.0.101'
-  yarnCacheFolder: $(Pipeline.Workspace)/.yarn
-  nugetCacheFolder: $(Pipeline.Workspace)/.nuget/packages
+  windowsImage: 'windows-2022'
+  linuxImage: 'ubuntu-20.04'
+  macImage: 'macOS-11'
 
 trigger:
   branches:
@@ -42,7 +45,7 @@ stages:
         matrix:
           Windows:
             osName: 'Windows'
-            imageName: 'windows-2019'
+            imageName: ${{ variables.windowsImage }}
             enableAnalysis: 'false'
 
       pool:
@@ -116,11 +119,11 @@ stages:
         matrix:
           Linux:
             osName: 'Linux'
-            imageName: 'ubuntu-18.04'
+            imageName: ${{ variables.linuxImage }}
             enableAnalysis: 'true'
           Mac:
             osName: 'Mac'
-            imageName: 'macos-11'
+            imageName: ${{ variables.macImage }}
             enableAnalysis: 'false'
 
       pool:
@@ -166,13 +169,13 @@ stages:
         matrix:
           Linux:
             osName: 'Linux'
-            imageName: 'ubuntu-18.04'
+            imageName: ${{ variables.linuxImage }}
           Mac:
             osName: 'Mac'
-            imageName: 'macos-11'
+            imageName: ${{ variables.macImage }}
           Windows:
             osName: 'Windows'
-            imageName: 'windows-2019'
+            imageName: ${{ variables.windowsImage }}
       pool:
         vmImage: $(imageName)
       steps:
@@ -209,7 +212,7 @@ stages:
     - job: Windows_Installer
       displayName: Create Installer
       pool:
-        vmImage: 'windows-2019'
+        vmImage: ${{ variables.windowsImage }}
       steps:
       - checkout: self
         fetchDepth: 1
@@ -247,7 +250,7 @@ stages:
     - job: Other_Packages
       displayName: Create Standard Packages
       pool:
-        vmImage: 'ubuntu-18.04'
+        vmImage: ${{ variables.linuxImage }}
       steps:
       - checkout: self
         fetchDepth: 1
@@ -417,17 +420,17 @@ stages:
             osName: 'Mac'
             testName: 'MacCore'
             poolName: 'Azure Pipelines'
-            imageName: 'macos-11'
+            imageName: ${{ variables.macImage }}
           WindowsCore:
             osName: 'Windows'
             testName: 'WindowsCore'
             poolName: 'Azure Pipelines'
-            imageName: 'windows-2019'
+            imageName: ${{ variables.windowsImage }}
           LinuxCore:
             osName: 'Linux'
             testName: 'LinuxCore'
             poolName: 'Azure Pipelines'
-            imageName: 'ubuntu-18.04'
+            imageName: ${{ variables.linuxImage }}
           FreebsdCore:
             osName: 'Linux'
             testName: 'FreebsdCore'
@@ -485,7 +488,7 @@ stages:
             containerImage: ghcr.io/servarr/testimages:alpine
 
       pool:
-        vmImage: 'ubuntu-18.04'
+        vmImage: ${{ variables.linuxImage }}
       
       container: $[ variables['containerImage'] ]
 
@@ -530,17 +533,17 @@ stages:
           MacCore:
             osName: 'Mac'
             testName: 'MacCore'
-            imageName: 'macos-11'
+            imageName: ${{ variables.macImage }}
             pattern: 'Readarr.*.osx-core-x64.tar.gz'
           WindowsCore:
             osName: 'Windows'
             testName: 'WindowsCore'
-            imageName: 'windows-2019'
+            imageName: ${{ variables.windowsImage }}
             pattern: 'Readarr.*.windows-core-x64.zip'
           LinuxCore:
             osName: 'Linux'
             testName: 'LinuxCore'
-            imageName: 'ubuntu-18.04'
+            imageName: ${{ variables.linuxImage }}
             pattern: 'Readarr.*.linux-core-x64.tar.gz'
 
       pool:
@@ -641,7 +644,7 @@ stages:
             pattern: 'Readarr.*.linux-musl-core-x64.tar.gz'
 
       pool:
-        vmImage: 'ubuntu-18.04'
+        vmImage: ${{ variables.linuxImage }}
 
       container: $[ variables['containerImage'] ]
 
@@ -697,15 +700,15 @@ stages:
         matrix:
           Linux:
             osName: 'Linux'
-            imageName: 'ubuntu-18.04'
+            imageName: ${{ variables.linuxImage }}
             pattern: 'Readarr.*.linux-core-x64.tar.gz'
           Mac:
             osName: 'Mac'
-            imageName: 'macos-11'
+            imageName: ${{ variables.macImage }}
             pattern: 'Readarr.*.osx-core-x64.tar.gz'
           Windows:
             osName: 'Windows'
-            imageName: 'windows-2019'
+            imageName: ${{ variables.windowsImage }}
             pattern: 'Readarr.*.windows-core-x64.zip'
 
       pool:
@@ -772,10 +775,10 @@ stages:
         matrix:
           Linux:
             osName: 'Linux'
-            imageName: 'ubuntu-18.04'
+            imageName: ${{ variables.linuxImage }}
           Windows:
             osName: 'Windows'
-            imageName: 'windows-2019'
+            imageName: ${{ variables.windowsImage }}
       pool:
         vmImage: $(imageName)
       steps:
@@ -804,7 +807,7 @@ stages:
       displayName: Frontend
       condition: eq(variables['System.PullRequest.IsFork'], 'False')
       pool:
-        vmImage: windows-2019
+        vmImage: ${{ variables.windowsImage }}
       steps:
       - checkout: self # Need history for Sonar analysis
       - task: SonarCloudPrepare@1
@@ -827,7 +830,7 @@ stages:
       variables:
         disable.coverage.autogenerate: 'true'
       pool:
-        vmImage: ubuntu-18.04
+        vmImage: ${{ variables.linuxImage }}
 
       steps:
       - task: UseDotNet@2
@@ -899,7 +902,7 @@ stages:
     - job:
       displayName: Discord Notification
       pool:
-        vmImage: 'ubuntu-18.04'
+        vmImage: ${{ variables.linuxImage }}
       steps:
         - task: DownloadPipelineArtifact@2
           continueOnError: true
