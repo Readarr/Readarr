@@ -174,7 +174,7 @@ namespace NzbDrone.Core.Notifications.Discord
                 new Embed
                 {
                     Description = message.Message,
-                    Title = message.Book.Title,
+                    Title = message.Book?.Title ?? message.Message,
                     Text = message.Message,
                     Color = (int)DiscordColors.Warning
                 }
