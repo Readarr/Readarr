@@ -16,12 +16,6 @@ namespace NzbDrone.Core.MediaFiles.BookImport.Identification
         public MetadataProfile MetadataProfile { get; set; }
     }
 
-    public class AcoustIdTestCase
-    {
-        public string Path { get; set; }
-        public List<string> AcoustIdResults { get; set; }
-    }
-
     public class IdTestCase
     {
         public List<string> ExpectedMusicBrainzReleaseIds { get; set; }
@@ -32,6 +26,5 @@ namespace NzbDrone.Core.MediaFiles.BookImport.Identification
         public bool NewDownload { get; set; }
         public bool SingleRelease { get; set; }
         public List<BasicLocalTrack> Tracks { get; set; }
-        public List<AcoustIdTestCase> Fingerprints { get; set; }
     }
 }

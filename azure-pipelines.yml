@@ -265,7 +265,6 @@ stages:
       - bash: ./build.sh --packages --enable-bsd
         displayName: Create Packages
       - bash: |
-          find . -name "fpcalc" -exec chmod a+x {} \;
           find . -name "Readarr" -exec chmod a+x {} \;
           find . -name "Readarr.Update" -exec chmod a+x {} \;
         displayName: Set executable bits
@@ -453,10 +452,6 @@ stages:
       - powershell: Set-Service SCardSvr -StartupType Manual
         displayName: Enable Windows Test Service
         condition: and(succeeded(), eq(variables['osName'], 'Windows'))
-      - bash: |
-          chmod a+x _tests/fpcalc
-        displayName: Make fpcalc Executable
-        condition: and(succeeded(), or(eq(variables['osName'], 'Mac'), eq(variables['testName'], 'LinuxCore')))
       - bash: find ${TESTSFOLDER} -name "Readarr.Test.Dummy" -exec chmod a+x {} \;
         displayName: Make Test Dummy Executable
         condition: and(succeeded(), ne(variables['osName'], 'Windows'))

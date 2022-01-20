@@ -125,19 +125,6 @@ namespace NzbDrone.Core.Test.MediaFiles.BookImport.Identification
             return _authorService.FindById(foreignAuthorId);
         }
 
-        private void GivenFingerprints(List<AcoustIdTestCase> fingerprints)
-        {
-            Mocker.GetMock<IConfigService>().Setup(x => x.AllowFingerprinting).Returns(AllowFingerprinting.AllFiles);
-            Mocker.GetMock<IFingerprintingService>().Setup(x => x.IsSetup()).Returns(true);
-
-            Mocker.GetMock<IFingerprintingService>()
-                .Setup(x => x.Lookup(It.IsAny<List<LocalBook>>(), It.IsAny<double>()))
-                .Callback((List<LocalBook> track, double thres) =>
-                    {
-                        track.ForEach(x => x.AcoustIdResults = fingerprints.SingleOrDefault(f => f.Path == x.Path).AcoustIdResults);
-                    });
-        }
-
         public static class IdTestCaseFactory
         {
             // for some reason using Directory.GetFiles causes nUnit to error
@@ -181,11 +168,6 @@ namespace NzbDrone.Core.Test.MediaFiles.BookImport.Identification
                 Path = x.Path.AsOsAgnostic(),
                 FileTrackInfo = x.FileTrackInfo
             }).ToList();
-
-            if (testcase.Fingerprints != null)
-            {
-                GivenFingerprints(testcase.Fingerprints);
-            }
 
             var config = new ImportDecisionMakerConfig
             {
