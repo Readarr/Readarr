@@ -273,7 +273,7 @@ class AuthorDetails extends Component {
         <PageToolbar>
           <PageToolbarSection>
             <PageToolbarButton
-              label={translate('RefreshScan')}
+              label={translate('RefreshAndScan')}
               iconName={icons.REFRESH}
               spinningName={icons.REFRESH}
               title={translate('RefreshInformationAndScanDisk')}

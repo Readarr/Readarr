@@ -203,7 +203,7 @@ class RestoreBackupModalContent extends Component {
 
         <ModalFooter>
           <div className={styles.additionalInfo}>
-            Note: Readarr will automatically restart and reload the UI during the restore process.
+            {translate('RestartReloadNote')}
           </div>
 
           <Button onPress={onModalClose}>

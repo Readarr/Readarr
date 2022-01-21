@@ -77,13 +77,13 @@ function EditRemotePathMappingModalContent(props) {
 
               <FormGroup>
                 <FormLabel>
-                  {translate('RemotePath')}
+                  {translate('SettingsRemotePathMappingRemotePath')}
                 </FormLabel>
 
                 <FormInputGroup
                   type={inputTypes.TEXT}
                   name="remotePath"
-                  helpText={translate('RemotePathHelpText')}
+                  helpText={translate('SettingsRemotePathMappingRemotePathHelpText')}
                   {...remotePath}
                   onChange={onInputChange}
                 />
@@ -91,13 +91,13 @@ function EditRemotePathMappingModalContent(props) {
 
               <FormGroup>
                 <FormLabel>
-                  {translate('LocalPath')}
+                  {translate('SettingsRemotePathMappingLocalPath')}
                 </FormLabel>
 
                 <FormInputGroup
                   type={inputTypes.PATH}
                   name="localPath"
-                  helpText={translate('LocalPathHelpText')}
+                  helpText={translate('SettingsRemotePathMappingLocalPathHelpText')}
                   {...localPath}
                   onChange={onInputChange}
                 />

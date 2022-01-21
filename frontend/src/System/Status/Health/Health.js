@@ -143,7 +143,7 @@ class Health extends Component {
         {
           !healthIssues &&
             <div className={styles.healthOk}>
-              No issues with your configuration
+              {translate('HealthNoIssues')}
             </div>
         }
 
