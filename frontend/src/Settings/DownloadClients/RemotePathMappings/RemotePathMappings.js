@@ -55,10 +55,10 @@ class RemotePathMappings extends Component {
               {translate('Host')}
             </div>
             <div className={styles.path}>
-              {translate('RemotePath')}
+              {translate('SettingsRemotePathMappingRemotePath')}
             </div>
             <div className={styles.path}>
-              {translate('LocalPath')}
+              {translate('SettingsRemotePathMappingLocalPath')}
             </div>
           </div>
 
