@@ -54,7 +54,7 @@ namespace NzbDrone.Core.Download
             Ensure.That(remoteBook.Books, () => remoteBook.Books).HasItems();
 
             var downloadTitle = remoteBook.Release.Title;
-            var downloadClient = _downloadClientProvider.GetDownloadClient(remoteBook.Release.DownloadProtocol);
+            var downloadClient = _downloadClientProvider.GetDownloadClient(remoteBook.Release.DownloadProtocol, remoteBook.Release.IndexerId);
 
             if (downloadClient == null)
             {
