@@ -207,7 +207,7 @@ namespace NzbDrone.Core.MediaFiles
             var idInfo = new ImportDecisionMakerInfo
             {
                 DownloadClientItem = downloadClientItem,
-                ParsedTrackInfo = trackInfo
+                ParsedBookInfo = folderInfo
             };
             var idConfig = new ImportDecisionMakerConfig
             {

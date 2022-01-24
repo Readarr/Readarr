@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
+using NzbDrone.Core.Books;
+using NzbDrone.Core.CustomFormats;
 using NzbDrone.Core.Datastore;
 using NzbDrone.Core.DecisionEngine.Specifications;
 using NzbDrone.Core.Download;
@@ -17,21 +19,27 @@ namespace Readarr.Api.V1.History
     public class HistoryController : Controller
     {
         private readonly IHistoryService _historyService;
+        private readonly ICustomFormatCalculationService _formatCalculator;
         private readonly IUpgradableSpecification _upgradableSpecification;
         private readonly IFailedDownloadService _failedDownloadService;
+        private readonly IAuthorService _authorService;
 
         public HistoryController(IHistoryService historyService,
+                             ICustomFormatCalculationService formatCalculator,
                              IUpgradableSpecification upgradableSpecification,
-                             IFailedDownloadService failedDownloadService)
+                             IFailedDownloadService failedDownloadService,
+                             IAuthorService authorService)
         {
             _historyService = historyService;
+            _formatCalculator = formatCalculator;
             _upgradableSpecification = upgradableSpecification;
             _failedDownloadService = failedDownloadService;
+            _authorService = authorService;
         }
 
         protected HistoryResource MapToResource(EntityHistory model, bool includeAuthor, bool includeBook)
         {
-            var resource = model.ToResource();
+            var resource = model.ToResource(_formatCalculator);
 
             if (includeAuthor)
             {
@@ -91,12 +99,24 @@ namespace Readarr.Api.V1.History
         [HttpGet("author")]
         public List<HistoryResource> GetAuthorHistory(int authorId, int? bookId = null, EntityHistoryEventType? eventType = null, bool includeAuthor = false, bool includeBook = false)
         {
+            var author = _authorService.GetAuthor(authorId);
+
             if (bookId.HasValue)
             {
-                return _historyService.GetByBook(bookId.Value, eventType).Select(h => MapToResource(h, includeAuthor, includeBook)).ToList();
+                return _historyService.GetByBook(bookId.Value, eventType).Select(h =>
+                {
+                    h.Author = author;
+
+                    return MapToResource(h, includeAuthor, includeBook);
+                }).ToList();
             }
 
-            return _historyService.GetByAuthor(authorId, eventType).Select(h => MapToResource(h, includeAuthor, includeBook)).ToList();
+            return _historyService.GetByAuthor(authorId, eventType).Select(h =>
+            {
+                h.Author = author;
+
+                return MapToResource(h, includeAuthor, includeBook);
+            }).ToList();
         }
 
         [HttpPost("failed/{id}")]

@@ -1,9 +1,11 @@
 using System;
 using System.Collections.Generic;
+using NzbDrone.Core.CustomFormats;
 using NzbDrone.Core.History;
 using NzbDrone.Core.Qualities;
 using Readarr.Api.V1.Author;
 using Readarr.Api.V1.Books;
+using Readarr.Api.V1.CustomFormats;
 using Readarr.Http.REST;
 
 namespace Readarr.Api.V1.History
@@ -14,6 +16,7 @@ namespace Readarr.Api.V1.History
         public int AuthorId { get; set; }
         public string SourceTitle { get; set; }
         public QualityModel Quality { get; set; }
+        public List<CustomFormatResource> CustomFormats { get; set; }
         public bool QualityCutoffNotMet { get; set; }
         public DateTime Date { get; set; }
         public string DownloadId { get; set; }
@@ -28,7 +31,7 @@ namespace Readarr.Api.V1.History
 
     public static class HistoryResourceMapper
     {
-        public static HistoryResource ToResource(this EntityHistory model)
+        public static HistoryResource ToResource(this EntityHistory model, ICustomFormatCalculationService formatCalculator)
         {
             if (model == null)
             {
@@ -43,6 +46,7 @@ namespace Readarr.Api.V1.History
                 AuthorId = model.AuthorId,
                 SourceTitle = model.SourceTitle,
                 Quality = model.Quality,
+                CustomFormats = formatCalculator.ParseCustomFormat(model, model.Author).ToResource(false),
 
                 //QualityCutoffNotMet
                 Date = model.Date,

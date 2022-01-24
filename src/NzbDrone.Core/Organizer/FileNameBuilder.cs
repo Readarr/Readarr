@@ -9,6 +9,7 @@ using NzbDrone.Common.Cache;
 using NzbDrone.Common.EnsureThat;
 using NzbDrone.Common.Extensions;
 using NzbDrone.Core.Books;
+using NzbDrone.Core.CustomFormats;
 using NzbDrone.Core.MediaFiles;
 using NzbDrone.Core.Parser;
 using NzbDrone.Core.Profiles.Releases;
@@ -18,7 +19,7 @@ namespace NzbDrone.Core.Organizer
 {
     public interface IBuildFileNames
     {
-        string BuildBookFileName(Author author, Edition edition, BookFile bookFile, NamingConfig namingConfig = null, List<string> preferredWords = null);
+        string BuildBookFileName(Author author, Edition edition, BookFile bookFile, NamingConfig namingConfig = null, List<CustomFormat> customFormats = null);
         string BuildBookFilePath(Author author, Edition edition, string fileName, string extension);
         string BuildBookPath(Author author);
         BasicNamingConfig GetBasicNamingConfig(NamingConfig nameSpec);
@@ -29,7 +30,7 @@ namespace NzbDrone.Core.Organizer
     {
         private readonly INamingConfigService _namingConfigService;
         private readonly IQualityDefinitionService _qualityDefinitionService;
-        private readonly IPreferredWordService _preferredWordService;
+        private readonly ICustomFormatCalculationService _formatCalculator;
         private readonly ICached<BookFormat[]> _trackFormatCache;
         private readonly Logger _logger;
 
@@ -59,17 +60,17 @@ namespace NzbDrone.Core.Organizer
         public FileNameBuilder(INamingConfigService namingConfigService,
                                IQualityDefinitionService qualityDefinitionService,
                                ICacheManager cacheManager,
-                               IPreferredWordService preferredWordService,
+                               ICustomFormatCalculationService formatCalculator,
                                Logger logger)
         {
             _namingConfigService = namingConfigService;
             _qualityDefinitionService = qualityDefinitionService;
-            _preferredWordService = preferredWordService;
+            _formatCalculator = formatCalculator;
             _trackFormatCache = cacheManager.GetCache<BookFormat[]>(GetType(), "bookFormat");
             _logger = logger;
         }
 
-        public string BuildBookFileName(Author author, Edition edition, BookFile bookFile, NamingConfig namingConfig = null, List<string> preferredWords = null)
+        public string BuildBookFileName(Author author, Edition edition, BookFile bookFile, NamingConfig namingConfig = null, List<CustomFormat> customFormats = null)
         {
             if (namingConfig == null)
             {
@@ -95,7 +96,7 @@ namespace NzbDrone.Core.Organizer
             AddBookFileTokens(tokenHandlers, bookFile);
             AddQualityTokens(tokenHandlers, author, bookFile);
             AddMediaInfoTokens(tokenHandlers, bookFile);
-            AddPreferredWords(tokenHandlers, author, bookFile, preferredWords);
+            AddCustomFormats(tokenHandlers, author, bookFile, customFormats);
 
             var splitPatterns = pattern.Split(new char[] { '\\', '/' }, StringSplitOptions.RemoveEmptyEntries);
             var components = new List<string>();
@@ -369,14 +370,15 @@ namespace NzbDrone.Core.Organizer
             tokenHandlers["{MediaInfo AudioSampleRate}"] = m => MediaInfoFormatter.FormatAudioSampleRate(bookFile.MediaInfo);
         }
 
-        private void AddPreferredWords(Dictionary<string, Func<TokenMatch, string>> tokenHandlers, Author author, BookFile bookFile, List<string> preferredWords = null)
+        private void AddCustomFormats(Dictionary<string, Func<TokenMatch, string>> tokenHandlers, Author author, BookFile bookFile, List<CustomFormat> customFormats = null)
         {
-            if (preferredWords == null)
+            if (customFormats == null)
             {
-                preferredWords = _preferredWordService.GetMatchingPreferredWords(author, bookFile.GetSceneOrFileName());
+                bookFile.Author = author;
+                customFormats = _formatCalculator.ParseCustomFormat(bookFile, author);
             }
 
-            tokenHandlers["{Preferred Words}"] = m => string.Join(" ", preferredWords);
+            tokenHandlers["{Custom Formats}"] = m => string.Join(" ", customFormats.Where(x => x.IncludeCustomFormatWhenRenaming));
         }
 
         private string ReplaceTokens(string pattern, Dictionary<string, Func<TokenMatch, string>> tokenHandlers, NamingConfig namingConfig)

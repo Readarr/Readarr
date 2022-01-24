@@ -45,6 +45,7 @@ namespace NzbDrone.Core.MediaFiles.BookImport.Aggregation
             }
 
             localTrack.Size = _diskProvider.GetFileSize(localTrack.Path);
+            localTrack.SceneName = localTrack.SceneSource ? SceneNameCalculator.GetSceneName(localTrack) : null;
 
             foreach (var augmenter in _trackAugmenters)
             {
@@ -54,6 +55,8 @@ namespace NzbDrone.Core.MediaFiles.BookImport.Aggregation
                 }
                 catch (Exception ex)
                 {
+                    var message = $"Unable to augment information for file: '{localTrack.Path}'. Author: {localTrack.Author} Error: {ex.Message}";
+
                     _logger.Warn(ex, ex.Message);
                 }
             }

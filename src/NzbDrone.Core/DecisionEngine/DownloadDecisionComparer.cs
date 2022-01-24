@@ -28,7 +28,7 @@ namespace NzbDrone.Core.DecisionEngine
             var comparers = new List<CompareDelegate>
             {
                 CompareQuality,
-                ComparePreferredWordScore,
+                CompareCustomFormatScore,
                 CompareProtocol,
                 CompareIndexerPriority,
                 ComparePeersIfTorrent,
@@ -76,9 +76,9 @@ namespace NzbDrone.Core.DecisionEngine
                            CompareBy(x.RemoteBook, y.RemoteBook, remoteBook => remoteBook.ParsedBookInfo.Quality.Revision));
         }
 
-        private int ComparePreferredWordScore(DownloadDecision x, DownloadDecision y)
+        private int CompareCustomFormatScore(DownloadDecision x, DownloadDecision y)
         {
-            return CompareBy(x.RemoteBook, y.RemoteBook, remoteBook => remoteBook.PreferredWordScore);
+            return CompareBy(x.RemoteBook, y.RemoteBook, remoteBook => remoteBook.CustomFormatScore);
         }
 
         private int CompareProtocol(DownloadDecision x, DownloadDecision y)

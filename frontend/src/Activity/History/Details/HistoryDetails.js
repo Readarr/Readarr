@@ -9,6 +9,7 @@ import Link from 'Components/Link/Link';
 import { icons } from 'Helpers/Props';
 import formatDateTime from 'Utilities/Date/formatDateTime';
 import formatAge from 'Utilities/Number/formatAge';
+import formatPreferredWordScore from 'Utilities/Number/formatPreferredWordScore';
 import translate from 'Utilities/String/translate';
 import styles from './HistoryDetails.css';
 
@@ -65,6 +66,7 @@ function HistoryDetails(props) {
     const {
       indexer,
       releaseGroup,
+      customFormatScore,
       nzbInfoUrl,
       downloadClient,
       downloadId,
@@ -100,7 +102,16 @@ function HistoryDetails(props) {
         }
 
         {
-          !!nzbInfoUrl &&
+          customFormatScore && customFormatScore !== '0' ?
+            <DescriptionListItem
+              title="Custom Format Score"
+              data={formatPreferredWordScore(customFormatScore)}
+            /> :
+            null
+        }
+
+        {
+          nzbInfoUrl ?
             <span>
               <DescriptionListItemTitle>
                 Info URL
@@ -109,7 +120,8 @@ function HistoryDetails(props) {
               <DescriptionListItemDescription>
                 <Link to={nzbInfoUrl}>{nzbInfoUrl}</Link>
               </DescriptionListItemDescription>
-            </span>
+            </span> :
+            null
         }
 
         {
@@ -173,6 +185,7 @@ function HistoryDetails(props) {
 
   if (eventType === 'bookFileImported') {
     const {
+      customFormatScore,
       droppedPath,
       importedPath
     } = data;
@@ -195,12 +208,22 @@ function HistoryDetails(props) {
         }
 
         {
-          !!importedPath &&
+          importedPath ?
             <DescriptionListItem
               descriptionClassName={styles.description}
               title={translate('ImportedTo')}
               data={importedPath}
-            />
+            /> :
+            null
+        }
+
+        {
+          customFormatScore && customFormatScore !== '0' ?
+            <DescriptionListItem
+              title="Custom Format Score"
+              data={formatPreferredWordScore(customFormatScore)}
+            /> :
+            null
         }
       </DescriptionList>
     );
@@ -208,7 +231,8 @@ function HistoryDetails(props) {
 
   if (eventType === 'bookFileDeleted') {
     const {
-      reason
+      reason,
+      customFormatScore
     } = data;
 
     let reasonMessage = '';
@@ -238,6 +262,15 @@ function HistoryDetails(props) {
           title={translate('Reason')}
           data={reasonMessage}
         />
+
+        {
+          customFormatScore && customFormatScore !== '0' ?
+            <DescriptionListItem
+              title="Custom Format Score"
+              data={formatPreferredWordScore(customFormatScore)}
+            /> :
+            null
+        }
       </DescriptionList>
     );
   }

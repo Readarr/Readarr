@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import AuthorNameLink from 'Author/AuthorNameLink';
+import BookFormats from 'Book/BookFormats';
 import BookQuality from 'Book/BookQuality';
 import BookTitleLink from 'Book/BookTitleLink';
 import IconButton from 'Components/Link/IconButton';
@@ -8,6 +9,7 @@ import RelativeDateCellConnector from 'Components/Table/Cells/RelativeDateCellCo
 import TableRowCell from 'Components/Table/Cells/TableRowCell';
 import TableRow from 'Components/Table/TableRow';
 import { icons } from 'Helpers/Props';
+import formatPreferredWordScore from 'Utilities/Number/formatPreferredWordScore';
 import HistoryDetailsModal from './Details/HistoryDetailsModal';
 import HistoryEventTypeCell from './HistoryEventTypeCell';
 import styles from './HistoryRow.css';
@@ -54,6 +56,7 @@ class HistoryRow extends Component {
       author,
       book,
       quality,
+      customFormats,
       qualityCutoffNotMet,
       eventType,
       sourceTitle,
@@ -127,6 +130,16 @@ class HistoryRow extends Component {
               );
             }
 
+            if (name === 'customFormats') {
+              return (
+                <TableRowCell key={name}>
+                  <BookFormats
+                    formats={customFormats}
+                  />
+                </TableRowCell>
+              );
+            }
+
             if (name === 'date') {
               return (
                 <RelativeDateCellConnector
@@ -154,6 +167,17 @@ class HistoryRow extends Component {
                   className={styles.indexer}
                 >
                   {data.indexer}
+                </TableRowCell>
+              );
+            }
+
+            if (name === 'customFormatScore') {
+              return (
+                <TableRowCell
+                  key={name}
+                  className={styles.customFormatScore}
+                >
+                  {formatPreferredWordScore(data.customFormatScore)}
                 </TableRowCell>
               );
             }
@@ -219,6 +243,7 @@ HistoryRow.propTypes = {
   author: PropTypes.object.isRequired,
   book: PropTypes.object,
   quality: PropTypes.object.isRequired,
+  customFormats: PropTypes.arrayOf(PropTypes.object),
   qualityCutoffNotMet: PropTypes.bool.isRequired,
   eventType: PropTypes.string.isRequired,
   sourceTitle: PropTypes.string.isRequired,

@@ -1,25 +1,25 @@
-using System.Collections.Generic;
 using System.Linq;
 using NLog;
+using NzbDrone.Common.Cache;
+using NzbDrone.Core.CustomFormats;
 using NzbDrone.Core.IndexerSearch.Definitions;
 using NzbDrone.Core.Parser.Model;
-using NzbDrone.Core.Profiles.Releases;
-using NzbDrone.Core.Qualities;
 
 namespace NzbDrone.Core.DecisionEngine.Specifications
 {
     public class UpgradeDiskSpecification : IDecisionEngineSpecification
     {
         private readonly UpgradableSpecification _upgradableSpecification;
-        private readonly IPreferredWordService _preferredWordServiceCalculator;
+        private readonly ICustomFormatCalculationService _formatService;
         private readonly Logger _logger;
 
         public UpgradeDiskSpecification(UpgradableSpecification qualityUpgradableSpecification,
-                                        IPreferredWordService preferredWordServiceCalculator,
+                                        ICacheManager cacheManager,
+                                        ICustomFormatCalculationService formatService,
                                         Logger logger)
         {
             _upgradableSpecification = qualityUpgradableSpecification;
-            _preferredWordServiceCalculator = preferredWordServiceCalculator;
+            _formatService = formatService;
             _logger = logger;
         }
 
@@ -35,13 +35,15 @@ namespace NzbDrone.Core.DecisionEngine.Specifications
                     return Decision.Accept();
                 }
 
+                var customFormats = _formatService.ParseCustomFormat(file);
+
                 if (!_upgradableSpecification.IsUpgradable(subject.Author.QualityProfile,
-                                                            file.Quality,
-                                                            _preferredWordServiceCalculator.Calculate(subject.Author, file.GetSceneOrFileName(), subject.Release?.IndexerId ?? 0),
-                                                            subject.ParsedBookInfo.Quality,
-                                                            subject.PreferredWordScore))
+                                                           file.Quality,
+                                                           customFormats,
+                                                           subject.ParsedBookInfo.Quality,
+                                                           subject.CustomFormats))
                 {
-                    return Decision.Reject("Existing files on disk is of equal or higher preference: {0}", file.Quality);
+                    return Decision.Reject("Existing files on disk is of equal or higher preference: {0}", file.Quality.Quality.Name);
                 }
             }
 

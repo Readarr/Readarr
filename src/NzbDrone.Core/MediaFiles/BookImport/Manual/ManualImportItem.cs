@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using NzbDrone.Core.Books;
+using NzbDrone.Core.CustomFormats;
 using NzbDrone.Core.Datastore;
 using NzbDrone.Core.DecisionEngine;
 using NzbDrone.Core.Parser.Model;
@@ -11,6 +12,7 @@ namespace NzbDrone.Core.MediaFiles.BookImport.Manual
     {
         public ManualImportItem()
         {
+            CustomFormats = new List<CustomFormat>();
         }
 
         public string Path { get; set; }
@@ -22,6 +24,7 @@ namespace NzbDrone.Core.MediaFiles.BookImport.Manual
         public QualityModel Quality { get; set; }
         public string ReleaseGroup { get; set; }
         public string DownloadId { get; set; }
+        public List<CustomFormat> CustomFormats { get; set; }
         public IEnumerable<Rejection> Rejections { get; set; }
         public ParsedTrackInfo Tags { get; set; }
         public bool AdditionalFile { get; set; }

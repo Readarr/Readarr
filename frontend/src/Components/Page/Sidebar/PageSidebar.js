@@ -10,6 +10,7 @@ import { icons } from 'Helpers/Props';
 import locationShape from 'Helpers/Props/Shapes/locationShape';
 import dimensions from 'Styles/Variables/dimensions';
 import HealthStatusConnector from 'System/Status/Health/HealthStatusConnector';
+import translate from 'Utilities/String/translate';
 import MessagesConnector from './Messages/MessagesConnector';
 import PageSidebarItem from './PageSidebarItem';
 import styles from './PageSidebar.css';
@@ -108,7 +109,11 @@ const links = [
         to: '/settings/quality'
       },
       {
-        title: 'Indexers',
+        title: translate('CustomFormats'),
+        to: '/settings/customformats'
+      },
+      {
+        title: translate('Indexers'),
         to: '/settings/indexers'
       },
       {

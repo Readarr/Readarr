@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import ProtocolLabel from 'Activity/Queue/ProtocolLabel';
 import AuthorNameLink from 'Author/AuthorNameLink';
+import BookFormats from 'Book/BookFormats';
 import BookQuality from 'Book/BookQuality';
 import BookTitleLink from 'Book/BookTitleLink';
 import Icon from 'Components/Icon';
@@ -89,6 +90,7 @@ class QueueRow extends Component {
       author,
       book,
       quality,
+      customFormats,
       protocol,
       indexer,
       outputPath,
@@ -205,6 +207,16 @@ class QueueRow extends Component {
                 <TableRowCell key={name}>
                   <BookQuality
                     quality={quality}
+                  />
+                </TableRowCell>
+              );
+            }
+
+            if (name === 'customFormats') {
+              return (
+                <TableRowCell key={name}>
+                  <BookFormats
+                    formats={customFormats}
                   />
                 </TableRowCell>
               );
@@ -379,6 +391,7 @@ QueueRow.propTypes = {
   author: PropTypes.object,
   book: PropTypes.object,
   quality: PropTypes.object.isRequired,
+  customFormats: PropTypes.arrayOf(PropTypes.object),
   protocol: PropTypes.string.isRequired,
   indexer: PropTypes.string,
   outputPath: PropTypes.string,

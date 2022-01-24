@@ -25,6 +25,7 @@ import PathInputConnector from './PathInputConnector';
 import QualityProfileSelectInputConnector from './QualityProfileSelectInputConnector';
 import RootFolderSelectInputConnector from './RootFolderSelectInputConnector';
 import TagInputConnector from './TagInputConnector';
+import TextArea from './TextArea';
 import TextInput from './TextInput';
 import TextTagInputConnector from './TextTagInputConnector';
 import UMaskInput from './UMaskInput';
@@ -91,6 +92,9 @@ function getComponent(type) {
 
     case inputTypes.TAG:
       return TagInputConnector;
+
+    case inputTypes.TEXT_AREA:
+      return TextArea;
 
     case inputTypes.TEXT_TAG:
       return TextTagInputConnector;

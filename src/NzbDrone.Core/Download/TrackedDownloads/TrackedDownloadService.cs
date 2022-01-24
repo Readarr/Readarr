@@ -7,6 +7,7 @@ using NzbDrone.Common.Extensions;
 using NzbDrone.Common.Serializer;
 using NzbDrone.Core.Books;
 using NzbDrone.Core.Books.Events;
+using NzbDrone.Core.CustomFormats;
 using NzbDrone.Core.Download.History;
 using NzbDrone.Core.History;
 using NzbDrone.Core.Messaging.Events;
@@ -32,6 +33,7 @@ namespace NzbDrone.Core.Download.TrackedDownloads
         private readonly IHistoryService _historyService;
         private readonly IEventAggregator _eventAggregator;
         private readonly IDownloadHistoryService _downloadHistoryService;
+        private readonly ICustomFormatCalculationService _formatCalculator;
         private readonly Logger _logger;
         private readonly ICached<TrackedDownload> _cache;
 
@@ -40,10 +42,13 @@ namespace NzbDrone.Core.Download.TrackedDownloads
                                       IHistoryService historyService,
                                       IEventAggregator eventAggregator,
                                       IDownloadHistoryService downloadHistoryService,
+                                      ICustomFormatCalculationService formatCalculator,
                                       Logger logger)
         {
             _parsingService = parsingService;
             _historyService = historyService;
+            _cache = cacheManager.GetCache<TrackedDownload>(GetType());
+            _formatCalculator = formatCalculator;
             _eventAggregator = eventAggregator;
             _downloadHistoryService = downloadHistoryService;
             _cache = cacheManager.GetCache<TrackedDownload>(GetType());
@@ -189,7 +194,13 @@ namespace NzbDrone.Core.Download.TrackedDownloads
                     }
                 }
 
-                // Track it so it can be displayed in the queue even though we can't determine which author it is for
+                // Calculate custom formats
+                if (trackedDownload.RemoteBook != null)
+                {
+                    trackedDownload.RemoteBook.CustomFormats = _formatCalculator.ParseCustomFormat(trackedDownload.RemoteBook, downloadItem.TotalSize);
+                }
+
+                // Track it so it can be displayed in the queue even though we can't determine which artist it is for
                 if (trackedDownload.RemoteBook == null)
                 {
                     _logger.Trace("No Book found for download '{0}'", trackedDownload.DownloadItem.Title);

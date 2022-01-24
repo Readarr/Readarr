@@ -5,6 +5,7 @@ import LoadingIndicator from 'Components/Loading/LoadingIndicator';
 import Table from 'Components/Table/Table';
 import TableBody from 'Components/Table/TableBody';
 import { icons, sortDirections } from 'Helpers/Props';
+import translate from 'Utilities/String/translate';
 import InteractiveSearchRow from './InteractiveSearchRow';
 import styles from './InteractiveSearch.css';
 
@@ -52,10 +53,10 @@ const columns = [
     isVisible: true
   },
   {
-    name: 'preferredWordScore',
+    name: 'customFormatScore',
     label: React.createElement(Icon, {
       name: icons.SCORE,
-      title: 'Preferred word score'
+      title: translate('CustomFormatScore')
     }),
     isSortable: true,
     isVisible: true

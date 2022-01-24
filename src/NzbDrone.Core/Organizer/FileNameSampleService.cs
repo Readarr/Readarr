@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using NzbDrone.Core.Books;
+using NzbDrone.Core.CustomFormats;
 using NzbDrone.Core.MediaFiles;
 using NzbDrone.Core.Parser.Model;
 using NzbDrone.Core.Qualities;
@@ -22,7 +23,7 @@ namespace NzbDrone.Core.Organizer
         private static Edition _standardEdition;
         private static BookFile _singleTrackFile;
         private static BookFile _multiTrackFile;
-        private static List<string> _preferredWords;
+        private static List<CustomFormat> _customFormats;
 
         public FileNameSampleService(IBuildFileNames buildFileNames)
         {
@@ -63,6 +64,20 @@ namespace NzbDrone.Core.Organizer
                 Book = _standardBook
             };
 
+            _customFormats = new List<CustomFormat>
+            {
+                new CustomFormat
+                {
+                    Name = "Surround Sound",
+                    IncludeCustomFormatWhenRenaming = true
+                },
+                new CustomFormat
+                {
+                    Name = "x264",
+                    IncludeCustomFormatWhenRenaming = true
+                }
+            };
+
             var mediaInfo = new MediaInfoModel()
             {
                 AudioFormat = "Flac Audio",
@@ -94,11 +109,6 @@ namespace NzbDrone.Core.Organizer
                 Edition = _standardEdition,
                 Part = 1,
                 PartCount = 2
-            };
-
-            _preferredWords = new List<string>
-            {
-                "iNTERNAL"
             };
         }
 
@@ -137,7 +147,7 @@ namespace NzbDrone.Core.Organizer
         {
             try
             {
-                return _buildFileNames.BuildBookFileName(author, bookFile.Edition.Value, bookFile, nameSpec, _preferredWords);
+                return _buildFileNames.BuildBookFileName(author, bookFile.Edition.Value, bookFile, nameSpec, _customFormats);
             }
             catch (NamingFormatException)
             {

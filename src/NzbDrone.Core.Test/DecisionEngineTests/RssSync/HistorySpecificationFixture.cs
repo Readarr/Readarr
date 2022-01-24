@@ -6,6 +6,7 @@ using Moq;
 using NUnit.Framework;
 using NzbDrone.Core.Books;
 using NzbDrone.Core.Configuration;
+using NzbDrone.Core.CustomFormats;
 using NzbDrone.Core.DecisionEngine.Specifications;
 using NzbDrone.Core.DecisionEngine.Specifications.RssSync;
 using NzbDrone.Core.History;
@@ -13,9 +14,10 @@ using NzbDrone.Core.IndexerSearch.Definitions;
 using NzbDrone.Core.Parser.Model;
 using NzbDrone.Core.Profiles.Qualities;
 using NzbDrone.Core.Qualities;
+using NzbDrone.Core.Test.CustomFormats;
 using NzbDrone.Core.Test.Framework;
 
-namespace NzbDrone.Core.Test.DecisionEngineTests
+namespace NzbDrone.Core.Test.DecisionEngineTests.RssSync
 {
     [TestFixture]
     public class HistorySpecificationFixture : CoreTest<HistorySpecification>
@@ -37,6 +39,8 @@ namespace NzbDrone.Core.Test.DecisionEngineTests
             Mocker.Resolve<UpgradableSpecification>();
             _upgradeHistory = Mocker.Resolve<HistorySpecification>();
 
+            CustomFormatsTestHelpers.GivenCustomFormats();
+
             var singleBookList = new List<Book> { new Book { Id = FIRST_ALBUM_ID } };
             var doubleBookList = new List<Book>
             {
@@ -50,6 +54,8 @@ namespace NzbDrone.Core.Test.DecisionEngineTests
                 {
                     UpgradeAllowed = true,
                     Cutoff = Quality.MP3.Id,
+                    FormatItems = CustomFormatsTestHelpers.GetSampleFormatItems("None"),
+                    MinFormatScore = 0,
                     Items = Qualities.QualityFixture.GetDefaultQualities()
                 })
                 .Build();
@@ -58,14 +64,16 @@ namespace NzbDrone.Core.Test.DecisionEngineTests
             {
                 Author = _fakeAuthor,
                 ParsedBookInfo = new ParsedBookInfo { Quality = new QualityModel(Quality.MP3, new Revision(version: 2)) },
-                Books = doubleBookList
+                Books = doubleBookList,
+                CustomFormats = new List<CustomFormat>()
             };
 
             _parseResultSingle = new RemoteBook
             {
                 Author = _fakeAuthor,
                 ParsedBookInfo = new ParsedBookInfo { Quality = new QualityModel(Quality.MP3, new Revision(version: 2)) },
-                Books = singleBookList
+                Books = singleBookList,
+                CustomFormats = new List<CustomFormat>()
             };
 
             _upgradableQuality = new QualityModel(Quality.MP3, new Revision(version: 1));
@@ -74,6 +82,10 @@ namespace NzbDrone.Core.Test.DecisionEngineTests
             Mocker.GetMock<IConfigService>()
                   .SetupGet(s => s.EnableCompletedDownloadHandling)
                   .Returns(true);
+
+            Mocker.GetMock<ICustomFormatCalculationService>()
+                  .Setup(x => x.ParseCustomFormat(It.IsAny<EntityHistory>(), It.IsAny<Author>()))
+                  .Returns(new List<CustomFormat>());
         }
 
         private void GivenMostRecentForBook(int bookId, string downloadId, QualityModel quality, DateTime date, EntityHistoryEventType eventType)
