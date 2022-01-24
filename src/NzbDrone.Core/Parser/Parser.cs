@@ -413,7 +413,7 @@ namespace NzbDrone.Core.Parser
             return null;
         }
 
-        private static string GetTitleFuzzy(string report, string name, out string remainder)
+        public static string GetTitleFuzzy(string report, string name, out string remainder)
         {
             remainder = report;
 
@@ -600,8 +600,8 @@ namespace NzbDrone.Core.Parser
 
             if (parenthesis > -1)
             {
-                var endParenthesis = book.IndexOf(')');
-                if (endParenthesis > -1 && !book.Substring(parenthesis + 1, endParenthesis - parenthesis).Contains(' '))
+                var endParenthesis = book.IndexOf(')', parenthesis);
+                if (endParenthesis == -1 || !book.Substring(parenthesis + 1, endParenthesis - parenthesis).Contains(' '))
                 {
                     parenthesis = -1;
                 }

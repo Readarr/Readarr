@@ -280,6 +280,7 @@ namespace NzbDrone.Core.Test.ParserTests
         [TestCase("Andrew Steele", "Ageless: The New Science of Getting Older Without Getting Old", "Ageless", "The New Science of Getting Older Without Getting Old")]
         [TestCase("Author", "Title (Subtitle with spaces)", "Title", "Subtitle with spaces")]
         [TestCase("Author", "Title (Unabridged)", "Title (Unabridged)", "")]
+        [TestCase("Author", "asdf)(", "asdf)(", "")]
         public void should_split_title_correctly(string author, string book, string expectedTitle, string expectedSubtitle)
         {
             var (title, subtitle) = book.SplitBookTitle(author);
