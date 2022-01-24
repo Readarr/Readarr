@@ -1,4 +1,5 @@
-﻿using FluentAssertions;
+using System.Collections.Generic;
+using FluentAssertions;
 using NUnit.Framework;
 using NzbDrone.Common.Extensions;
 using NzbDrone.Test.Common;
@@ -56,6 +57,24 @@ namespace NzbDrone.Common.Test
         public void FuzzyContains(string text, string pattern, double expectedScore)
         {
             text.FuzzyContains(pattern).Should().BeApproximately(expectedScore, 1e-9);
+        }
+
+        [TestCase("The quick brown fox jumps over the lazy dog", "ovr", " ", "over")]
+        [TestCase("The quick brown fox jumps over the lazy dog", "eover", " ", "over")]
+        [TestCase("The quick brown fox jumps over the lazy dog", "jmps over", " ", "jumps over")]
+        [TestCase("The quick brown fox jumps over the lazy dog", "jmps ovr", " ", "jumps over")]
+        [TestCase("The quick brown fox jumps over the lazy dog", "jumpss oveor", " ", "jumps over")]
+        [TestCase("The quick brown fox jumps over the lazy dog", "jummps ovver", " ", "jumps over")]
+        [TestCase("The quick brown fox jumps over the lazy dog", "hhumps over", " ", "jumps over")]
+        [TestCase("The quick brown fox jumps over the lazy dog", "hhumps ov", " ", "jumps over")]
+        [TestCase("The quick brown fox jumps over the lazy dog", "jumps ovea", " ", "jumps over")]
+        public void should_match_on_word_boundaries(string text, string pattern, string delimiters, string expected)
+        {
+            var match = text.FuzzyMatch(pattern, wordDelimiters: new HashSet<char>(delimiters));
+
+            var result = match.Item1 != -1 ? text.Substring(match.Item1, match.Item2) : "";
+
+            result.Should().Be(expected);
         }
     }
 }

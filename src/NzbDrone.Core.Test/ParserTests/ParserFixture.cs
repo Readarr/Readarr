@@ -220,12 +220,28 @@ namespace NzbDrone.Core.Test.ParserTests
             parseResult.DiscographyEnd.Should().Be(endyear);
         }
 
-        [Test]
-        public void should_not_parse_author_name_and_book_title_by_incorrect_search_criteria()
+        [TestCase("Abba", "Abba", "Black Sabbath  Black Sabbath FLAC")]
+        [TestCase("Anthony Horowitz", "Oblivion", "The Elder Scrolls IV Oblivion+Expansions")]
+        [TestCase("Danielle Steel", "Zoya", "DanielleSteelZoya.zip")]
+        [TestCase("Stephen King", "It", "Stephen Kingston - Spirit Doll (retail) (azw3)")]
+        [TestCase("Stephen King", "It", "Stephen_Cleobury-The_Music_of_Kings_Choral_Favourites_from_Cambridge-WEB-2019-ENRiCH")]
+        [TestCase("Stephen King", "Guns", "Stephen King - The Gunslinger: Dark Tower 1 MP3")]
+        [TestCase("Rick Riordan", "An Interview with Rick Riordan", "AnInterviewwithRickRiordan_ep6")]
+        public void should_not_parse_author_name_and_book_title_by_incorrect_search_criteria(string searchAuthor, string searchBook, string report)
         {
-            GivenSearchCriteria("Abba", "Abba");
-            var parseResult = Parser.Parser.ParseBookTitleWithSearchCriteria("Black Sabbath  Black Sabbath FLAC", _author, _books);
+            GivenSearchCriteria(searchAuthor, searchBook);
+            var parseResult = Parser.Parser.ParseBookTitleWithSearchCriteria(report, _author, _books);
             parseResult.Should().BeNull();
+        }
+
+        [TestCase("James Herbert", "48", "James Hertbert Collection/'48 - James Herbert (epub)", "James Herbert", "48")]
+        public void should_parse_with_search_criteria(string searchAuthor, string searchBook, string report, string expectedAuthor, string expectedBook)
+        {
+            GivenSearchCriteria(searchAuthor, searchBook);
+            var parseResult = Parser.Parser.ParseBookTitleWithSearchCriteria(report, _author, _books);
+
+            parseResult.AuthorName.Should().Be(expectedAuthor);
+            parseResult.BookTitle.Should().Be(expectedBook);
         }
 
         [TestCase("Ed Sheeran", "I See Fire", "Ed Sheeran I See Fire[Mimp3.eu].mp3 FLAC")]

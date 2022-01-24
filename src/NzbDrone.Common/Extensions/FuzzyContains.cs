@@ -1,4 +1,4 @@
-/*
+    /*
  * This file incorporates work covered by the following copyright and
  * permission notice:
  *
@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Numerics;
 
 namespace NzbDrone.Common.Extensions
@@ -35,7 +36,7 @@ namespace NzbDrone.Common.Extensions
         // return the accuracy of the best match of pattern within text
         public static double FuzzyContains(this string text, string pattern)
         {
-            return FuzzyMatch(text, pattern, 0.25).Item2;
+            return FuzzyMatch(text, pattern, 0.25).Item3;
         }
 
         /**
@@ -45,37 +46,37 @@ namespace NzbDrone.Common.Extensions
          * @param pattern The pattern to search for.
          * @return Best match index or -1.
          */
-        public static Tuple<int, double> FuzzyMatch(this string text, string pattern, double matchThreshold = 0.5)
+        public static Tuple<int, int, double> FuzzyMatch(this string text, string pattern, double matchThreshold = 0.5, HashSet<char> wordDelimiters = null)
         {
             // Check for null inputs not needed since null can't be passed in C#.
             if (text.Length == 0 || pattern.Length == 0)
             {
                 // Nothing to match.
-                return new Tuple<int, double>(-1, 0);
+                return new Tuple<int, int, double>(-1, 0, 0);
             }
 
-            if (pattern.Length <= text.Length)
+            if (pattern.Length <= text.Length && wordDelimiters == null)
             {
                 var loc = text.IndexOf(pattern, StringComparison.Ordinal);
                 if (loc != -1)
                 {
                     // Perfect match!
-                    return new Tuple<int, double>(loc, 1);
+                    return new Tuple<int, int, double>(loc, pattern.Length, 1);
                 }
             }
 
             // Do a fuzzy compare.
             if (pattern.Length < 32)
             {
-                return MatchBitap(text, pattern, matchThreshold, new IntCalculator());
+                return MatchBitap(text, pattern, matchThreshold, new IntCalculator(), wordDelimiters);
             }
 
             if (pattern.Length < 64)
             {
-                return MatchBitap(text, pattern, matchThreshold, new LongCalculator());
+                return MatchBitap(text, pattern, matchThreshold, new LongCalculator(), wordDelimiters);
             }
 
-            return MatchBitap(text, pattern, matchThreshold, new BigIntCalculator());
+            return MatchBitap(text, pattern, matchThreshold, new BigIntCalculator(), wordDelimiters);
         }
 
         /**
@@ -85,7 +86,7 @@ namespace NzbDrone.Common.Extensions
          * @param pattern The pattern to search for.
          * @return Best match index or -1.
          */
-        private static Tuple<int, double> MatchBitap<T>(string text, string pattern, double matchThreshold, Calculator<T> calculator)
+        private static Tuple<int, int, double> MatchBitap<T>(string text, string pattern, double matchThreshold, Calculator<T> calculator, HashSet<char> wordDelimiters = null)
         {
             // Initialise the alphabet.
             var s = Alphabet(pattern, calculator);
@@ -96,8 +97,11 @@ namespace NzbDrone.Common.Extensions
             // Initialise the bit arrays.
             var matchmask = calculator.LeftShift(calculator.One, pattern.Length - 1);
             var bestLoc = -1;
+            var bestLength = 0;
 
             var lastRd = Array.Empty<T>();
+            var lastMd = Array.Empty<List<int>>();
+
             for (var d = 0; d < pattern.Length; d++)
             {
                 // Scan for the best match; each iteration allows for one more error.
@@ -106,42 +110,117 @@ namespace NzbDrone.Common.Extensions
 
                 var rd = new T[finish + 2];
                 rd[finish + 1] = calculator.Subtract(calculator.LeftShift(calculator.One, d), calculator.One);
+
+                var md = new List<int>[finish + 2];
+                md[finish + 1] = new List<int>();
+
                 for (var j = finish; j >= start; j--)
                 {
                     T charMatch;
-                    if (text.Length <= j - 1 || !s.ContainsKey(text[j - 1]))
+                    T rd_exact, rd_last, rd_curr, rd_a, rd_b;
+                    List<int> md_exact, md_last, md_curr, md_a, md_b;
+
+                    if (text.Length <= j - 1 || !s.TryGetValue(text[j - 1], out charMatch))
                     {
                         // Out of range.
                         charMatch = calculator.Zero;
-                    }
-                    else
-                    {
-                        charMatch = s[text[j - 1]];
                     }
 
                     if (d == 0)
                     {
                         // First pass: exact match.
                         rd[j] = calculator.BitwiseAnd(calculator.BitwiseOr(calculator.LeftShift(rd[j + 1], 1), calculator.One), charMatch);
+
+                        if (wordDelimiters != null)
+                        {
+                            if (calculator.NotEqual(rd[j], calculator.Zero))
+                            {
+                                md[j] = md[j + 1].Any() ? md[j + 1].SelectList(x => x + 1) : new List<int> { 1 };
+                            }
+                            else
+                            {
+                                md[j] = new List<int>();
+                            }
+                        }
                     }
                     else
                     {
                         // Subsequent passes: fuzzy match.
-                        rd[j] = calculator.BitwiseOr(calculator.BitwiseAnd(calculator.BitwiseOr(calculator.LeftShift(rd[j + 1], 1), calculator.One), charMatch),
-                            calculator.BitwiseOr(calculator.BitwiseOr(calculator.LeftShift(calculator.BitwiseOr(lastRd[j + 1], lastRd[j]), 1), calculator.One), lastRd[j + 1]));
+                        // state if we assume exact match on char j
+                        rd_exact = calculator.BitwiseAnd(calculator.BitwiseOr(calculator.LeftShift(rd[j + 1], 1), calculator.One), charMatch);
+
+                        // state if we assume substitution on char j
+                        rd_a = calculator.LeftShift(lastRd[j + 1], 1);
+
+                        // state if we assume deletion on char j
+                        rd_b = calculator.LeftShift(lastRd[j], 1);
+
+                        // state if we assume insertion at char j
+                        rd_last = lastRd[j + 1];
+
+                        // the final state for this pass
+                        rd_curr = calculator.BitwiseOr(rd_exact,
+                            calculator.BitwiseOr(rd_a,
+                                calculator.BitwiseOr(rd_b,
+                                    calculator.BitwiseOr(calculator.One,
+                                        rd_last))));
+
+                        rd[j] = rd_curr;
+
+                        if (wordDelimiters != null)
+                        {
+                            // exact match
+                            if (calculator.NotEqual(rd_exact, calculator.Zero))
+                            {
+                                md_exact = md[j + 1].Any() ? md[j + 1].SelectList(x => x + 1) : new List<int> { 1 };
+                            }
+                            else
+                            {
+                                md_exact = new List<int>();
+                            }
+
+                            // substitution
+                            md_a = lastMd[j + 1].Any() ? lastMd[j + 1].SelectList(x => x + 1) : new List<int> { 1 };
+
+                            // deletion
+                            md_b = lastMd[j].Any() ? lastMd[j] : new List<int> { 1 };
+
+                            // insertion
+                            md_last = lastMd[j].Any() ? lastMd[j + 1].SelectList(x => x + 1) : new List<int> { 1 };
+
+                            // combined
+                            md_curr = md_exact.Concat(md_a).Concat(md_b).Concat(md_last).Distinct().ToList();
+
+                            md[j] = md_curr;
+                        }
                     }
 
                     if (calculator.NotEqual(calculator.BitwiseAnd(rd[j], matchmask), calculator.Zero))
                     {
-                        var score = BitapScore(d, pattern);
-
                         // This match will almost certainly be better than any existing
                         // match.  But check anyway.
-                        if (score >= scoreThreshold)
+                        var score = BitapScore(d, pattern);
+
+                        bool isOnWordBoundary;
+                        var endsOnWordBoundaryLength = 0;
+
+                        if (wordDelimiters != null)
+                        {
+                            var startsOnWordBoundary = (j - 1 == 0 || wordDelimiters.Contains(text[j - 2])) && !wordDelimiters.Contains(text[j - 1]);
+                            endsOnWordBoundaryLength = md[j].FirstOrDefault(x => (j + x >= text.Length || wordDelimiters.Contains(text[j - 1 + x])) && !wordDelimiters.Contains(text[j - 1]));
+                            isOnWordBoundary = startsOnWordBoundary && endsOnWordBoundaryLength > 0;
+                        }
+                        else
+                        {
+                            isOnWordBoundary = true;
+                        }
+
+                        if (score >= scoreThreshold && isOnWordBoundary)
                         {
                             // Told you so.
                             scoreThreshold = score;
                             bestLoc = j - 1;
+                            bestLength = endsOnWordBoundaryLength;
                         }
                     }
                 }
@@ -153,9 +232,10 @@ namespace NzbDrone.Common.Extensions
                 }
 
                 lastRd = rd;
+                lastMd = md;
             }
 
-            return new Tuple<int, double>(bestLoc, scoreThreshold);
+            return new Tuple<int, int, double>(bestLoc, bestLength, scoreThreshold);
         }
 
         /**

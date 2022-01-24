@@ -219,7 +219,7 @@ namespace NzbDrone.Core.Parser
                 foreach (var book in possibleBooks)
                 {
                     var bookMatch = title.FuzzyMatch(book.Title, 0.5);
-                    var score = (authorMatch.Item2 + bookMatch.Item2) / 2;
+                    var score = (authorMatch.Item3 + bookMatch.Item3) / 2;
 
                     _logger.Trace($"Book {book} has score {score}");
 
@@ -234,7 +234,7 @@ namespace NzbDrone.Core.Parser
                 foreach (var edition in possibleEditions)
                 {
                     var editionMatch = title.FuzzyMatch(edition.Title, 0.5);
-                    var score = (authorMatch.Item2 + editionMatch.Item2) / 2;
+                    var score = (authorMatch.Item3 + editionMatch.Item3) / 2;
 
                     _logger.Trace($"Edition {edition} has score {score}");
 

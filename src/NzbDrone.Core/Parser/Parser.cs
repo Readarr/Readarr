@@ -203,6 +203,7 @@ namespace NzbDrone.Core.Parser
         private static readonly Regex YearInTitleRegex = new Regex(@"^(?<title>.+?)(?:\W|_)?(?<year>\d{4})",
                                                                 RegexOptions.IgnoreCase | RegexOptions.Compiled);
 
+        private static readonly HashSet<char> WordDelimiters = new HashSet<char>(" .,_-=()[]|\"`'’");
         private static readonly Regex WordDelimiterRegex = new Regex(@"(\s|\.|,|_|-|=|\(|\)|\[|\]|\|)+", RegexOptions.Compiled);
         private static readonly Regex PunctuationRegex = new Regex(@"[^\w\s]", RegexOptions.Compiled);
         private static readonly Regex CommonWordRegex = new Regex(@"\b(a|an|the|and|or|of)\b\s?", RegexOptions.IgnoreCase | RegexOptions.Compiled);
@@ -352,7 +353,7 @@ namespace NzbDrone.Core.Parser
                 simpleTitle = CleanTorrentSuffixRegex.Replace(simpleTitle);
 
                 var bestBook = books
-                    .OrderByDescending(x => simpleTitle.FuzzyContains(x.Editions.Value.Single(x => x.Monitored).Title))
+                    .OrderByDescending(x => simpleTitle.FuzzyMatch(x.Editions.Value.Single(x => x.Monitored).Title, wordDelimiters: WordDelimiters))
                     .First()
                     .Editions.Value
                     .Single(x => x.Monitored);
@@ -419,69 +420,18 @@ namespace NzbDrone.Core.Parser
 
             Logger.Trace($"Finding '{name}' in '{report}'");
 
-            var (locStart, score) = report.ToLowerInvariant().FuzzyMatch(name.ToLowerInvariant(), 0.6);
+            var (locStart, matchLength, score) = report.ToLowerInvariant().FuzzyMatch(name.ToLowerInvariant(), 0.6, WordDelimiters);
 
             if (locStart == -1)
             {
                 return null;
             }
 
-            var diff = (int)Math.Round((1.0 - score) * name.Length, 0);
-            var length = Math.Min(name.Length + diff, report.Length - locStart);
+            var found = report.Substring(locStart, matchLength);
 
-            var reportReversed = new string(report.Substring(locStart, length).ToLowerInvariant().Reverse().ToArray());
-            var nameReversed = new string(name.ToLowerInvariant().Reverse().ToArray());
-
-            var locEnd = locStart + reportReversed.Length - reportReversed.FuzzyFind(nameReversed, 0.6);
-
-            var boundaries = WordDelimiterRegex.Matches(report);
-
-            if (boundaries.Count == 0)
+            if (score >= 0.8)
             {
-                return null;
-            }
-
-            var starts = new List<int>();
-            var finishes = new List<int>();
-
-            if (boundaries[0].Index == 0)
-            {
-                starts.Add(boundaries[0].Length);
-            }
-            else
-            {
-                starts.Add(0);
-            }
-
-            foreach (Match match in boundaries)
-            {
-                var start = match.Index + match.Length;
-                if (start < report.Length)
-                {
-                    starts.Add(start);
-                }
-
-                var finish = match.Index - 1;
-                if (finish >= 0)
-                {
-                    finishes.Add(finish);
-                }
-            }
-
-            var lastMatch = boundaries[boundaries.Count - 1];
-            if (lastMatch.Index + lastMatch.Length < report.Length)
-            {
-                finishes.Add(report.Length - 1);
-            }
-
-            var wordStart = starts.OrderBy(x => Math.Abs(x - locStart)).First();
-            var wordEnd = finishes.OrderBy(x => Math.Abs(x - locEnd)).First();
-
-            var found = report.Substring(wordStart, wordEnd - wordStart + 1);
-
-            if (found.ToLowerInvariant().FuzzyMatch(name.ToLowerInvariant()) >= 0.8)
-            {
-                remainder = report.Remove(wordStart, wordEnd - wordStart + 1);
+                remainder = report.Remove(locStart, matchLength);
                 return found.Replace('.', ' ').Replace('_', ' ');
             }
 
