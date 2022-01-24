@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using FluentAssertions;
 using NUnit.Framework;
+using NzbDrone.Core.CustomFormats;
 using NzbDrone.Core.DecisionEngine.Specifications;
 using NzbDrone.Core.Profiles.Qualities;
 using NzbDrone.Core.Qualities;
@@ -11,8 +12,6 @@ namespace NzbDrone.Core.Test.DecisionEngineTests
     [TestFixture]
     public class CutoffSpecificationFixture : CoreTest<UpgradableSpecification>
     {
-        private static readonly int NoPreferredWordScore = 0;
-
         [Test]
         public void should_return_true_if_current_book_is_less_than_cutoff()
         {
@@ -20,10 +19,11 @@ namespace NzbDrone.Core.Test.DecisionEngineTests
              new QualityProfile
              {
                  Cutoff = Quality.MP3.Id,
-                 Items = Qualities.QualityFixture.GetDefaultQualities()
+                 Items = Qualities.QualityFixture.GetDefaultQualities(),
+                 UpgradeAllowed = true
              },
              new List<QualityModel> { new QualityModel(Quality.Unknown, new Revision(version: 2)) },
-             NoPreferredWordScore).Should().BeTrue();
+             new List<CustomFormat>()).Should().BeTrue();
         }
 
         [Test]
@@ -33,10 +33,11 @@ namespace NzbDrone.Core.Test.DecisionEngineTests
             new QualityProfile
             {
                 Cutoff = Quality.MP3.Id,
-                Items = Qualities.QualityFixture.GetDefaultQualities()
+                Items = Qualities.QualityFixture.GetDefaultQualities(),
+                UpgradeAllowed = true
             },
             new List<QualityModel> { new QualityModel(Quality.MP3, new Revision(version: 2)) },
-            NoPreferredWordScore).Should().BeFalse();
+            new List<CustomFormat>()).Should().BeFalse();
         }
 
         [Test]
@@ -46,10 +47,11 @@ namespace NzbDrone.Core.Test.DecisionEngineTests
             new QualityProfile
             {
                 Cutoff = Quality.AZW3.Id,
-                Items = Qualities.QualityFixture.GetDefaultQualities()
+                Items = Qualities.QualityFixture.GetDefaultQualities(),
+                UpgradeAllowed = true
             },
             new List<QualityModel> { new QualityModel(Quality.MP3, new Revision(version: 2)) },
-            NoPreferredWordScore).Should().BeFalse();
+            new List<CustomFormat>()).Should().BeFalse();
         }
 
         [Test]
@@ -59,10 +61,11 @@ namespace NzbDrone.Core.Test.DecisionEngineTests
             new QualityProfile
             {
                 Cutoff = Quality.MP3.Id,
-                Items = Qualities.QualityFixture.GetDefaultQualities()
+                Items = Qualities.QualityFixture.GetDefaultQualities(),
+                UpgradeAllowed = true
             },
             new List<QualityModel> { new QualityModel(Quality.MP3, new Revision(version: 1)) },
-            NoPreferredWordScore,
+            new List<CustomFormat>(),
             new QualityModel(Quality.MP3, new Revision(version: 2))).Should().BeTrue();
         }
 
@@ -73,28 +76,12 @@ namespace NzbDrone.Core.Test.DecisionEngineTests
             new QualityProfile
             {
                 Cutoff = Quality.MP3.Id,
-                Items = Qualities.QualityFixture.GetDefaultQualities()
+                Items = Qualities.QualityFixture.GetDefaultQualities(),
+                UpgradeAllowed = true
             },
             new List<QualityModel> { new QualityModel(Quality.MP3, new Revision(version: 2)) },
-            NoPreferredWordScore,
+            new List<CustomFormat>(),
             new QualityModel(Quality.FLAC, new Revision(version: 2))).Should().BeFalse();
-        }
-
-        [Test]
-        public void should_return_true_if_cutoffs_are_met_and_score_is_higher()
-        {
-            QualityProfile profile = new QualityProfile
-            {
-                Cutoff = Quality.MP3.Id,
-                Items = Qualities.QualityFixture.GetDefaultQualities(),
-            };
-
-            Subject.CutoffNotMet(
-                profile,
-                new List<QualityModel> { new QualityModel(Quality.MP3, new Revision(version: 2)) },
-                NoPreferredWordScore,
-                new QualityModel(Quality.FLAC, new Revision(version: 2)),
-                10).Should().BeTrue();
         }
 
         [Test]
@@ -104,14 +91,31 @@ namespace NzbDrone.Core.Test.DecisionEngineTests
             {
                 Cutoff = Quality.MP3.Id,
                 Items = Qualities.QualityFixture.GetDefaultQualities(),
+                UpgradeAllowed = true
             };
 
             Subject.CutoffNotMet(
                 profile,
                 new List<QualityModel> { new QualityModel(Quality.FLAC, new Revision(version: 1)) },
-                NoPreferredWordScore,
-                new QualityModel(Quality.FLAC, new Revision(version: 2)),
-                NoPreferredWordScore).Should().BeTrue();
+                new List<CustomFormat>(),
+                new QualityModel(Quality.FLAC, new Revision(version: 2))).Should().BeTrue();
+        }
+
+        [Test]
+        public void should_return_false_if_quality_profile_does_not_allow_upgrades_but_cutoff_is_set_to_highest_quality()
+        {
+            QualityProfile profile = new QualityProfile
+            {
+                Cutoff = Quality.FLAC.Id,
+                Items = Qualities.QualityFixture.GetDefaultQualities(),
+                UpgradeAllowed = false
+            };
+
+            Subject.CutoffNotMet(
+                profile,
+                new List<QualityModel> { new QualityModel(Quality.Unknown, new Revision(version: 1)) },
+                new List<CustomFormat>(),
+                new QualityModel(Quality.MP3, new Revision(version: 2))).Should().BeFalse();
         }
     }
 }

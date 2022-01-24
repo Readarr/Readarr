@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using NLog;
+using NzbDrone.Core.CustomFormats;
 using NzbDrone.Core.Download.TrackedDownloads;
 using NzbDrone.Core.IndexerSearch.Definitions;
 using NzbDrone.Core.Parser.Model;
@@ -14,17 +15,17 @@ namespace NzbDrone.Core.DecisionEngine.Specifications
     {
         private readonly IQueueService _queueService;
         private readonly UpgradableSpecification _upgradableSpecification;
-        private readonly IPreferredWordService _preferredWordServiceCalculator;
+        private readonly ICustomFormatCalculationService _formatService;
         private readonly Logger _logger;
 
         public QueueSpecification(IQueueService queueService,
-                                       UpgradableSpecification upgradableSpecification,
-                                       IPreferredWordService preferredWordServiceCalculator,
-                                       Logger logger)
+                                  UpgradableSpecification upgradableSpecification,
+                                  ICustomFormatCalculationService formatService,
+                                  Logger logger)
         {
             _queueService = queueService;
             _upgradableSpecification = upgradableSpecification;
-            _preferredWordServiceCalculator = preferredWordServiceCalculator;
+            _formatService = formatService;
             _logger = logger;
         }
 
@@ -54,13 +55,12 @@ namespace NzbDrone.Core.DecisionEngine.Specifications
 
                 _logger.Debug("Checking if existing release in queue meets cutoff. Queued quality is: {0}", remoteBook.ParsedBookInfo.Quality);
 
-                var queuedItemPreferredWordScore = _preferredWordServiceCalculator.Calculate(subject.Author, queueItem.Title, subject.Release?.IndexerId ?? 0);
+                var queuedItemCustomFormats = _formatService.ParseCustomFormat(remoteBook, (long)queueItem.Size);
 
                 if (!_upgradableSpecification.CutoffNotMet(qualityProfile,
                                                            new List<QualityModel> { remoteBook.ParsedBookInfo.Quality },
-                                                           queuedItemPreferredWordScore,
-                                                           subject.ParsedBookInfo.Quality,
-                                                           subject.PreferredWordScore))
+                                                           queuedItemCustomFormats,
+                                                           subject.ParsedBookInfo.Quality))
                 {
                     return Decision.Reject("Release in queue already meets cutoff: {0}", remoteBook.ParsedBookInfo.Quality);
                 }
@@ -69,9 +69,9 @@ namespace NzbDrone.Core.DecisionEngine.Specifications
 
                 if (!_upgradableSpecification.IsUpgradable(qualityProfile,
                                                            remoteBook.ParsedBookInfo.Quality,
-                                                           queuedItemPreferredWordScore,
+                                                           queuedItemCustomFormats,
                                                            subject.ParsedBookInfo.Quality,
-                                                           subject.PreferredWordScore))
+                                                           subject.CustomFormats))
                 {
                     return Decision.Reject("Release in queue is of equal or higher preference: {0}", remoteBook.ParsedBookInfo.Quality);
                 }
@@ -80,7 +80,9 @@ namespace NzbDrone.Core.DecisionEngine.Specifications
 
                 if (!_upgradableSpecification.IsUpgradeAllowed(qualityProfile,
                                                                remoteBook.ParsedBookInfo.Quality,
-                                                               subject.ParsedBookInfo.Quality))
+                                                               queuedItemCustomFormats,
+                                                               subject.ParsedBookInfo.Quality,
+                                                               subject.CustomFormats))
                 {
                     return Decision.Reject("Another release is queued and the Quality profile does not allow upgrades");
                 }

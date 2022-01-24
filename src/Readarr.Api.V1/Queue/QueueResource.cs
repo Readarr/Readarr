@@ -7,6 +7,7 @@ using NzbDrone.Core.Indexers;
 using NzbDrone.Core.Qualities;
 using Readarr.Api.V1.Author;
 using Readarr.Api.V1.Books;
+using Readarr.Api.V1.CustomFormats;
 using Readarr.Http.REST;
 
 namespace Readarr.Api.V1.Queue
@@ -18,6 +19,7 @@ namespace Readarr.Api.V1.Queue
         public AuthorResource Author { get; set; }
         public BookResource Book { get; set; }
         public QualityModel Quality { get; set; }
+        public List<CustomFormatResource> CustomFormats { get; set; }
         public decimal Size { get; set; }
         public string Title { get; set; }
         public decimal Sizeleft { get; set; }
@@ -53,6 +55,7 @@ namespace Readarr.Api.V1.Queue
                 Author = includeAuthor && model.Author != null ? model.Author.ToResource() : null,
                 Book = includeBook && model.Book != null ? model.Book.ToResource() : null,
                 Quality = model.Quality,
+                CustomFormats = model.RemoteBook?.CustomFormats?.ToResource(false),
                 Size = model.Size,
                 Title = model.Title,
                 Sizeleft = model.Sizeleft,

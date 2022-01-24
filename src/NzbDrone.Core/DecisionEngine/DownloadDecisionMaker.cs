@@ -5,6 +5,7 @@ using NLog;
 using NzbDrone.Common.Extensions;
 using NzbDrone.Common.Instrumentation.Extensions;
 using NzbDrone.Common.Serializer;
+using NzbDrone.Core.CustomFormats;
 using NzbDrone.Core.DecisionEngine.Specifications;
 using NzbDrone.Core.Download.Aggregation;
 using NzbDrone.Core.IndexerSearch.Definitions;
@@ -23,17 +24,20 @@ namespace NzbDrone.Core.DecisionEngine
     public class DownloadDecisionMaker : IMakeDownloadDecision
     {
         private readonly IEnumerable<IDecisionEngineSpecification> _specifications;
+        private readonly ICustomFormatCalculationService _formatCalculator;
         private readonly IParsingService _parsingService;
         private readonly IRemoteBookAggregationService _aggregationService;
         private readonly Logger _logger;
 
         public DownloadDecisionMaker(IEnumerable<IDecisionEngineSpecification> specifications,
             IParsingService parsingService,
+            ICustomFormatCalculationService formatService,
             IRemoteBookAggregationService aggregationService,
             Logger logger)
         {
             _specifications = specifications;
             _parsingService = parsingService;
+            _formatCalculator = formatService;
             _aggregationService = aggregationService;
             _logger = logger;
         }
@@ -89,6 +93,9 @@ namespace NzbDrone.Core.DecisionEngine
                     if (parsedBookInfo != null && !parsedBookInfo.AuthorName.IsNullOrWhiteSpace())
                     {
                         var remoteBook = _parsingService.Map(parsedBookInfo, searchCriteria);
+                        remoteBook.Release = report;
+
+                        _aggregationService.Augment(remoteBook);
 
                         // try parsing again using the search criteria, in case it parsed but parsed incorrectly
                         if ((remoteBook.Author == null || remoteBook.Books.Empty()) && searchCriteria != null)
@@ -134,6 +141,10 @@ namespace NzbDrone.Core.DecisionEngine
                         else
                         {
                             _aggregationService.Augment(remoteBook);
+
+                            remoteBook.CustomFormats = _formatCalculator.ParseCustomFormat(remoteBook, remoteBook.Release.Size);
+                            remoteBook.CustomFormatScore = remoteBook?.Author?.QualityProfile?.Value.CalculateCustomFormatScore(remoteBook.CustomFormats) ?? 0;
+
                             remoteBook.DownloadAllowed = remoteBook.Books.Any();
                             decision = GetDecisionForReport(remoteBook, searchCriteria);
                         }

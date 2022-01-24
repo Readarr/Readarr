@@ -6,11 +6,14 @@ using FluentAssertions;
 using Moq;
 using NUnit.Framework;
 using NzbDrone.Core.Books;
+using NzbDrone.Core.CustomFormats;
+using NzbDrone.Core.DecisionEngine;
 using NzbDrone.Core.DecisionEngine.Specifications;
 using NzbDrone.Core.MediaFiles;
 using NzbDrone.Core.Parser.Model;
 using NzbDrone.Core.Profiles.Qualities;
 using NzbDrone.Core.Qualities;
+using NzbDrone.Core.Test.CustomFormats;
 using NzbDrone.Core.Test.Framework;
 
 namespace NzbDrone.Core.Test.DecisionEngineTests
@@ -29,6 +32,8 @@ namespace NzbDrone.Core.Test.DecisionEngineTests
         {
             Mocker.Resolve<UpgradableSpecification>();
 
+            CustomFormatsTestHelpers.GivenCustomFormats();
+
             _firstFile = new BookFile { Quality = new QualityModel(Quality.FLAC, new Revision(version: 2)), DateAdded = DateTime.Now };
             _secondFile = new BookFile { Quality = new QualityModel(Quality.FLAC, new Revision(version: 2)), DateAdded = DateTime.Now };
 
@@ -40,7 +45,9 @@ namespace NzbDrone.Core.Test.DecisionEngineTests
                          {
                              UpgradeAllowed = true,
                              Cutoff = Quality.MP3.Id,
-                             Items = Qualities.QualityFixture.GetDefaultQualities()
+                             Items = Qualities.QualityFixture.GetDefaultQualities(),
+                             FormatItems = CustomFormatsTestHelpers.GetSampleFormatItems("None"),
+                             MinFormatScore = 0,
                          })
                          .Build();
 
@@ -52,15 +59,21 @@ namespace NzbDrone.Core.Test.DecisionEngineTests
             {
                 Author = fakeAuthor,
                 ParsedBookInfo = new ParsedBookInfo { Quality = new QualityModel(Quality.MP3, new Revision(version: 2)) },
-                Books = doubleBookList
+                Books = doubleBookList,
+                CustomFormats = new List<CustomFormat>()
             };
 
             _parseResultSingle = new RemoteBook
             {
                 Author = fakeAuthor,
                 ParsedBookInfo = new ParsedBookInfo { Quality = new QualityModel(Quality.MP3, new Revision(version: 2)) },
-                Books = singleBookList
+                Books = singleBookList,
+                CustomFormats = new List<CustomFormat>()
             };
+
+            Mocker.GetMock<ICustomFormatCalculationService>()
+                  .Setup(x => x.ParseCustomFormat(It.IsAny<BookFile>()))
+                  .Returns(new List<CustomFormat>());
         }
 
         private void WithFirstFileUpgradable()
@@ -136,6 +149,10 @@ namespace NzbDrone.Core.Test.DecisionEngineTests
         [Test]
         public void should_be_false_if_some_tracks_are_upgradable_and_some_are_downgrades()
         {
+            Mocker.GetMock<ICustomFormatCalculationService>()
+                  .Setup(s => s.ParseCustomFormat(It.IsAny<BookFile>()))
+                  .Returns(new List<CustomFormat>());
+
             WithFirstFileUpgradable();
             _parseResultSingle.ParsedBookInfo.Quality = new QualityModel(Quality.MP3);
             Subject.IsSatisfiedBy(_parseResultSingle, null).Accepted.Should().BeFalse();

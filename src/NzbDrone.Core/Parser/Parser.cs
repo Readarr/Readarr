@@ -489,7 +489,7 @@ namespace NzbDrone.Core.Parser
                         Logger.Trace(regex);
                         try
                         {
-                            var result = ParseBookMatchCollection(match);
+                            var result = ParseBookMatchCollection(match, releaseTitle);
 
                             if (result != null)
                             {
@@ -780,7 +780,7 @@ namespace NzbDrone.Core.Parser
             return parseResult.AuthorName;
         }
 
-        private static ParsedBookInfo ParseBookMatchCollection(MatchCollection matchCollection)
+        private static ParsedBookInfo ParseBookMatchCollection(MatchCollection matchCollection, string releaseTitle)
         {
             var authorName = matchCollection[0].Groups["author"].Value.Replace('.', ' ').Replace('_', ' ');
             var bookTitle = matchCollection[0].Groups["book"].Value.Replace('.', ' ').Replace('_', ' ');
@@ -794,7 +794,10 @@ namespace NzbDrone.Core.Parser
 
             ParsedBookInfo result;
 
-            result = new ParsedBookInfo();
+            result = new ParsedBookInfo
+            {
+                ReleaseTitle = releaseTitle
+            };
 
             result.AuthorName = authorName;
             result.BookTitle = bookTitle;

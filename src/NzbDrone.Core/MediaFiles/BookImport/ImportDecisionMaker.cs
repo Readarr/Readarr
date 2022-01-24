@@ -32,7 +32,7 @@ namespace NzbDrone.Core.MediaFiles.BookImport
     public class ImportDecisionMakerInfo
     {
         public DownloadClientItem DownloadClientItem { get; set; }
-        public ParsedTrackInfo ParsedTrackInfo { get; set; }
+        public ParsedBookInfo ParsedBookInfo { get; set; }
     }
 
     public class ImportDecisionMakerConfig
@@ -78,7 +78,7 @@ namespace NzbDrone.Core.MediaFiles.BookImport
             _logger = logger;
         }
 
-        public Tuple<List<LocalBook>, List<ImportDecision<LocalBook>>> GetLocalTracks(List<IFileInfo> musicFiles, DownloadClientItem downloadClientItem, ParsedTrackInfo folderInfo, FilterFilesType filter)
+        public Tuple<List<LocalBook>, List<ImportDecision<LocalBook>>> GetLocalTracks(List<IFileInfo> musicFiles, DownloadClientItem downloadClientItem, ParsedBookInfo folderInfo, FilterFilesType filter)
         {
             var watch = new System.Diagnostics.Stopwatch();
             watch.Start();
@@ -149,7 +149,7 @@ namespace NzbDrone.Core.MediaFiles.BookImport
             idOverrides = idOverrides ?? new IdentificationOverrides();
             itemInfo = itemInfo ?? new ImportDecisionMakerInfo();
 
-            var trackData = GetLocalTracks(musicFiles, itemInfo.DownloadClientItem, itemInfo.ParsedTrackInfo, config.Filter);
+            var trackData = GetLocalTracks(musicFiles, itemInfo.DownloadClientItem, itemInfo.ParsedBookInfo, config.Filter);
             var localTracks = trackData.Item1;
             var decisions = trackData.Item2;
 

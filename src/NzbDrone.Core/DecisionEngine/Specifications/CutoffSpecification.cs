@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using NLog;
 using NzbDrone.Common.Extensions;
+using NzbDrone.Core.CustomFormats;
 using NzbDrone.Core.IndexerSearch.Definitions;
 using NzbDrone.Core.Parser.Model;
 using NzbDrone.Core.Profiles.Releases;
@@ -13,14 +14,14 @@ namespace NzbDrone.Core.DecisionEngine.Specifications
     {
         private readonly UpgradableSpecification _upgradableSpecification;
         private readonly Logger _logger;
-        private readonly IPreferredWordService _preferredWordServiceCalculator;
+        private readonly ICustomFormatCalculationService _formatService;
 
         public CutoffSpecification(UpgradableSpecification upgradableSpecification,
-                                   IPreferredWordService preferredWordServiceCalculator,
+                                   ICustomFormatCalculationService formatService,
                                    Logger logger)
         {
             _upgradableSpecification = upgradableSpecification;
-            _preferredWordServiceCalculator = preferredWordServiceCalculator;
+            _formatService = formatService;
             _logger = logger;
         }
 
@@ -38,11 +39,12 @@ namespace NzbDrone.Core.DecisionEngine.Specifications
 
                 _logger.Debug("Comparing file quality with report. Existing files contain {0}", currentQualities.ConcatToString());
 
+                var customFormats = _formatService.ParseCustomFormat(file);
+
                 if (!_upgradableSpecification.CutoffNotMet(qualityProfile,
                                                            currentQualities,
-                                                           _preferredWordServiceCalculator.Calculate(subject.Author, file.GetSceneOrFileName(), subject.Release.IndexerId),
-                                                           subject.ParsedBookInfo.Quality,
-                                                           subject.PreferredWordScore))
+                                                           customFormats,
+                                                           subject.ParsedBookInfo.Quality))
                 {
                     _logger.Debug("Cutoff already met by existing files, rejecting.");
 

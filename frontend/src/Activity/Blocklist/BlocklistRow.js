@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import AuthorNameLink from 'Author/AuthorNameLink';
+import BookFormats from 'Book/BookFormats';
 import BookQuality from 'Book/BookQuality';
 import IconButton from 'Components/Link/IconButton';
 import RelativeDateCellConnector from 'Components/Table/Cells/RelativeDateCellConnector';
@@ -45,6 +46,7 @@ class BlocklistRow extends Component {
       author,
       sourceTitle,
       quality,
+      customFormats,
       date,
       protocol,
       indexer,
@@ -105,6 +107,16 @@ class BlocklistRow extends Component {
                 >
                   <BookQuality
                     quality={quality}
+                  />
+                </TableRowCell>
+              );
+            }
+
+            if (name === 'customFormats') {
+              return (
+                <TableRowCell key={name}>
+                  <BookFormats
+                    formats={customFormats}
                   />
                 </TableRowCell>
               );
@@ -174,6 +186,7 @@ BlocklistRow.propTypes = {
   author: PropTypes.object.isRequired,
   sourceTitle: PropTypes.string.isRequired,
   quality: PropTypes.object.isRequired,
+  customFormats: PropTypes.arrayOf(PropTypes.object).isRequired,
   date: PropTypes.string.isRequired,
   protocol: PropTypes.string.isRequired,
   indexer: PropTypes.string,

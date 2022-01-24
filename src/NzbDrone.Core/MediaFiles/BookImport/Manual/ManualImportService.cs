@@ -11,6 +11,7 @@ using NzbDrone.Common.Disk;
 using NzbDrone.Common.Extensions;
 using NzbDrone.Common.Instrumentation.Extensions;
 using NzbDrone.Core.Books;
+using NzbDrone.Core.CustomFormats;
 using NzbDrone.Core.DecisionEngine;
 using NzbDrone.Core.Download;
 using NzbDrone.Core.Download.TrackedDownloads;
@@ -43,6 +44,7 @@ namespace NzbDrone.Core.MediaFiles.BookImport.Manual
         private readonly IProvideBookInfo _bookInfo;
         private readonly IMetadataTagService _metadataTagService;
         private readonly IImportApprovedBooks _importApprovedBooks;
+        private readonly ICustomFormatCalculationService _formatCalculator;
         private readonly ITrackedDownloadService _trackedDownloadService;
         private readonly IDownloadedBooksImportService _downloadedTracksImportService;
         private readonly IProvideImportItemService _provideImportItemService;
@@ -60,6 +62,7 @@ namespace NzbDrone.Core.MediaFiles.BookImport.Manual
                                    IProvideBookInfo bookInfo,
                                    IMetadataTagService metadataTagService,
                                    IImportApprovedBooks importApprovedBooks,
+                                   ICustomFormatCalculationService formatCalculator,
                                    ITrackedDownloadService trackedDownloadService,
                                    IDownloadedBooksImportService downloadedTracksImportService,
                                    IProvideImportItemService provideImportItemService,
@@ -77,6 +80,7 @@ namespace NzbDrone.Core.MediaFiles.BookImport.Manual
             _bookInfo = bookInfo;
             _metadataTagService = metadataTagService;
             _importApprovedBooks = importApprovedBooks;
+            _formatCalculator = formatCalculator;
             _trackedDownloadService = trackedDownloadService;
             _downloadedTracksImportService = downloadedTracksImportService;
             _provideImportItemService = provideImportItemService;
@@ -156,7 +160,7 @@ namespace NzbDrone.Core.MediaFiles.BookImport.Manual
             var itemInfo = new ImportDecisionMakerInfo
             {
                 DownloadClientItem = downloadClientItem,
-                ParsedTrackInfo = Parser.Parser.ParseTitle(directoryInfo.Name)
+                ParsedBookInfo = Parser.Parser.ParseBookTitle(directoryInfo.Name)
             };
             var config = new ImportDecisionMakerConfig
             {
@@ -272,6 +276,8 @@ namespace NzbDrone.Core.MediaFiles.BookImport.Manual
             if (decision.Item.Author != null)
             {
                 item.Author = decision.Item.Author;
+
+                item.CustomFormats = _formatCalculator.ParseCustomFormat(decision.Item);
             }
 
             if (decision.Item.Book != null)

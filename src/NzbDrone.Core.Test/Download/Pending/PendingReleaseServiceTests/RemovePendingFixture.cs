@@ -52,7 +52,9 @@ namespace NzbDrone.Core.Test.Download.Pending.PendingReleaseServiceTests
             _pending.Add(new PendingRelease
             {
                 Id = id,
-                ParsedBookInfo = new ParsedBookInfo { BookTitle = book }
+                Title = "Author.Title-Book.Title.abc-Readarr",
+                ParsedBookInfo = new ParsedBookInfo { BookTitle = book },
+                Release = Builder<ReleaseInfo>.CreateNew().Build()
             });
         }
 

@@ -416,15 +416,15 @@ namespace NzbDrone.Core.Test.DecisionEngineTests
             var remoteBook1 = GivenRemoteBook(new List<Book> { GivenBook(1) }, new QualityModel(Quality.FLAC));
             var remoteBook2 = GivenRemoteBook(new List<Book> { GivenBook(1) }, new QualityModel(Quality.FLAC));
 
-            remoteBook1.PreferredWordScore = 10;
-            remoteBook2.PreferredWordScore = 0;
+            remoteBook1.CustomFormatScore = 10;
+            remoteBook2.CustomFormatScore = 0;
 
             var decisions = new List<DownloadDecision>();
             decisions.Add(new DownloadDecision(remoteBook1));
             decisions.Add(new DownloadDecision(remoteBook2));
 
             var qualifiedReports = Subject.PrioritizeDecisions(decisions);
-            qualifiedReports.First().RemoteBook.PreferredWordScore.Should().Be(10);
+            qualifiedReports.First().RemoteBook.CustomFormatScore.Should().Be(10);
         }
 
         [Test]
@@ -437,8 +437,8 @@ namespace NzbDrone.Core.Test.DecisionEngineTests
             var remoteBook1 = GivenRemoteBook(new List<Book> { GivenBook(1) }, new QualityModel(Quality.FLAC, new Revision(1)));
             var remoteBook2 = GivenRemoteBook(new List<Book> { GivenBook(1) }, new QualityModel(Quality.FLAC, new Revision(2)));
 
-            remoteBook1.PreferredWordScore = 10;
-            remoteBook2.PreferredWordScore = 0;
+            remoteBook1.CustomFormatScore = 10;
+            remoteBook2.CustomFormatScore = 0;
 
             var decisions = new List<DownloadDecision>();
             decisions.Add(new DownloadDecision(remoteBook1));
@@ -458,8 +458,8 @@ namespace NzbDrone.Core.Test.DecisionEngineTests
             var remoteBook1 = GivenRemoteBook(new List<Book> { GivenBook(1) }, new QualityModel(Quality.FLAC, new Revision(1)));
             var remoteBook2 = GivenRemoteBook(new List<Book> { GivenBook(1) }, new QualityModel(Quality.FLAC, new Revision(2)));
 
-            remoteBook1.PreferredWordScore = 10;
-            remoteBook2.PreferredWordScore = 0;
+            remoteBook1.CustomFormatScore = 10;
+            remoteBook2.CustomFormatScore = 0;
 
             var decisions = new List<DownloadDecision>();
             decisions.Add(new DownloadDecision(remoteBook1));
@@ -479,8 +479,8 @@ namespace NzbDrone.Core.Test.DecisionEngineTests
             var remoteBook1 = GivenRemoteBook(new List<Book> { GivenBook(1) }, new QualityModel(Quality.FLAC, new Revision(1)));
             var remoteBook2 = GivenRemoteBook(new List<Book> { GivenBook(1) }, new QualityModel(Quality.FLAC, new Revision(2)));
 
-            remoteBook1.PreferredWordScore = 10;
-            remoteBook2.PreferredWordScore = 0;
+            remoteBook1.CustomFormatScore = 10;
+            remoteBook2.CustomFormatScore = 0;
 
             var decisions = new List<DownloadDecision>();
             decisions.Add(new DownloadDecision(remoteBook1));
@@ -489,7 +489,7 @@ namespace NzbDrone.Core.Test.DecisionEngineTests
             var qualifiedReports = Subject.PrioritizeDecisions(decisions);
             qualifiedReports.First().RemoteBook.ParsedBookInfo.Quality.Quality.Should().Be(Quality.FLAC);
             qualifiedReports.First().RemoteBook.ParsedBookInfo.Quality.Revision.Version.Should().Be(1);
-            qualifiedReports.First().RemoteBook.PreferredWordScore.Should().Be(10);
+            qualifiedReports.First().RemoteBook.CustomFormatScore.Should().Be(10);
         }
 
         [Test]
@@ -536,8 +536,8 @@ namespace NzbDrone.Core.Test.DecisionEngineTests
             var remoteBook1 = GivenRemoteBook(new List<Book> { GivenBook(1) }, new QualityModel(Quality.FLAC, new Revision(1, 0)));
             var remoteBook2 = GivenRemoteBook(new List<Book> { GivenBook(1) }, new QualityModel(Quality.FLAC, new Revision(1, 1)));
 
-            remoteBook1.PreferredWordScore = 10;
-            remoteBook2.PreferredWordScore = 0;
+            remoteBook1.CustomFormatScore = 10;
+            remoteBook2.CustomFormatScore = 0;
 
             var decisions = new List<DownloadDecision>();
             decisions.Add(new DownloadDecision(remoteBook1));
@@ -548,7 +548,7 @@ namespace NzbDrone.Core.Test.DecisionEngineTests
             qualifiedReports.First().RemoteBook.ParsedBookInfo.Quality.Quality.Should().Be(Quality.FLAC);
             qualifiedReports.First().RemoteBook.ParsedBookInfo.Quality.Revision.Version.Should().Be(1);
             qualifiedReports.First().RemoteBook.ParsedBookInfo.Quality.Revision.Real.Should().Be(0);
-            qualifiedReports.First().RemoteBook.PreferredWordScore.Should().Be(10);
+            qualifiedReports.First().RemoteBook.CustomFormatScore.Should().Be(10);
         }
     }
 }

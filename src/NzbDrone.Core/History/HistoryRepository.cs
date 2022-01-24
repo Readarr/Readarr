@@ -118,14 +118,20 @@ namespace NzbDrone.Core.History
 
         public List<EntityHistory> Since(DateTime date, EntityHistoryEventType? eventType)
         {
-            var builder = Builder().Where<EntityHistory>(x => x.Date >= date);
+            var builder = Builder()
+                .Join<EntityHistory, Author>((h, a) => h.AuthorId == a.Id)
+                .Where<EntityHistory>(x => x.Date >= date);
 
             if (eventType.HasValue)
             {
                 builder.Where<EntityHistory>(h => h.EventType == eventType);
             }
 
-            return Query(builder).OrderBy(h => h.Date).ToList();
+            return _database.QueryJoined<EntityHistory, Author>(builder, (history, author) =>
+            {
+                history.Author = author;
+                return history;
+            }).OrderBy(h => h.Date).ToList();
         }
     }
 }
