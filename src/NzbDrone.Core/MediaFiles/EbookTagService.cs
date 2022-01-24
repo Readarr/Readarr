@@ -350,11 +350,13 @@ namespace NzbDrone.Core.MediaFiles
             try
             {
                 var book = PdfReader.Open(file, PdfDocumentOpenMode.InformationOnly);
-                result.Authors = new List<string> { book.Info.Author };
-                result.BookTitle = book.Info.Title;
+                if (book.Info != null)
+                {
+                    result.Authors = new List<string> { book.Info.Author };
+                    result.BookTitle = book.Info.Title;
 
-                _logger.Trace(book.Info.ToJson());
-                _logger.Trace(book.CustomValues.ToJson());
+                    _logger.Trace(book.Info.ToJson());
+                }
             }
             catch (Exception e)
             {
