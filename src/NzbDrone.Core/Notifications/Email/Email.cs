@@ -127,7 +127,7 @@ namespace NzbDrone.Core.Notifications.Email
                 builder.HtmlBody = body;
                 foreach (var url in attachmentUrls)
                 {
-                    if (MediaFileExtensions.AudioExtensions.Contains(System.IO.Path.GetExtension(url)))
+                    if (MediaFileExtensions.TextExtensions.Contains(System.IO.Path.GetExtension(url)))
                     {
                         byte[] bytes = System.IO.File.ReadAllBytes(url);
                         builder.Attachments.Add(url, bytes);
