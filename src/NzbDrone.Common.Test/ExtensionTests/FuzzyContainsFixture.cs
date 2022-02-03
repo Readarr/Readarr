@@ -59,22 +59,74 @@ namespace NzbDrone.Common.Test
             text.FuzzyContains(pattern).Should().BeApproximately(expectedScore, 1e-9);
         }
 
-        [TestCase("The quick brown fox jumps over the lazy dog", "ovr", " ", "over")]
-        [TestCase("The quick brown fox jumps over the lazy dog", "eover", " ", "over")]
-        [TestCase("The quick brown fox jumps over the lazy dog", "jmps over", " ", "jumps over")]
-        [TestCase("The quick brown fox jumps over the lazy dog", "jmps ovr", " ", "jumps over")]
-        [TestCase("The quick brown fox jumps over the lazy dog", "jumpss oveor", " ", "jumps over")]
-        [TestCase("The quick brown fox jumps over the lazy dog", "jummps ovver", " ", "jumps over")]
-        [TestCase("The quick brown fox jumps over the lazy dog", "hhumps over", " ", "jumps over")]
-        [TestCase("The quick brown fox jumps over the lazy dog", "hhumps ov", " ", "jumps over")]
-        [TestCase("The quick brown fox jumps over the lazy dog", "jumps ovea", " ", "jumps over")]
-        public void should_match_on_word_boundaries(string text, string pattern, string delimiters, string expected)
+        [TestCase("The quick brown fox jumps over the lazy dog", "The", " ", 0)]
+        [TestCase("The quick brown fox jumps over the lazy dog", "over", " ", 26)]
+        [TestCase("The quick brown fox jumps over the lazy dog", "dog", " ", 40)]
+        public void should_find_exact_words(string text, string pattern, string delimiters, int expected)
+        {
+            var match = text.FuzzyMatch(pattern, 1, new HashSet<char>(delimiters));
+            var result = match.Item1;
+
+            result.Should().Be(expected);
+        }
+
+        [TestCase("The quick brown fox jumps over the lazy dog", "Th", " ")]
+        [TestCase("The quick brown fox jumps over the lazy dog", "The q", " ")]
+        [TestCase("The quick brown fox jumps over the lazy dog", "own", " ")]
+        [TestCase("The quick brown fox jumps over the lazy dog", "brow", " ")]
+        [TestCase("The quick brown fox jumps over the lazy dog", "og", " ")]
+        [TestCase("The quick brown fox jumps over the lazy dog", "do", " ")]
+        public void should_not_find_exact_matches_that_are_not_words(string text, string pattern, string delimiters)
+        {
+            var match = text.FuzzyMatch(pattern, 1, new HashSet<char>(delimiters));
+            var result = match.Item1;
+
+            result.Should().Be(-1);
+        }
+
+        [TestCase("The quick brown fox jumps over the lazy dog", "Th", " ", 0)]
+        [TestCase("The quick brown fox jumps over the lazy dog", "Te", " ", 0)]
+        [TestCase("The quick brown fox jumps over the lazy dog", "ovr", " ", 26)]
+        [TestCase("The quick brown fox jumps over the lazy dog", "oveer", " ", 26)]
+        [TestCase("The quick brown fox jumps over the lazy dog", "dog", " ", 40)]
+        public void should_find_approximate_words(string text, string pattern, string delimiters, int expected)
+        {
+            var match = text.FuzzyMatch(pattern, 0.4, new HashSet<char>(delimiters));
+            var result = match.Item1;
+
+            result.Should().Be(expected);
+        }
+
+        [TestCase("The quick brown fox jumps over the lazy dog", "Th", " ", 0, 0.5)]
+        [TestCase("The quick brown fox jumps over the lazy dog", "The q", " ", 0, 0.6)]
+        [TestCase("The quick brown fox jumps over the lazy dog", "own", " ", 10, 0.3333)]
+        [TestCase("The quick brown fox jumps over the lazy dog", "brow", " ", 10, 0.75)]
+        [TestCase("The quick brown fox jumps over the lazy dog", "og", " ", 40, 0.5)]
+        [TestCase("The quick brown fox jumps over the lazy dog", "do", " ", 40, 0.5)]
+        public void should_find_approx_matches_that_are_not_words_with_lower_score(string text, string pattern, string delimiters, int expected, double score)
+        {
+            var match = text.FuzzyMatch(pattern, 0, new HashSet<char>(delimiters));
+            match.Item1.Should().Be(expected);
+            match.Item3.Should().BeApproximately(score, 0.001);
+        }
+
+        [TestCase("The quick brown fox jumps over the lazy dog", "ovr", " ", 26, 4, 0.6667)]
+        [TestCase("The quick brown fox jumps over the lazy dog", "eover", " ", 26, 4, 0.8)]
+        [TestCase("The quick brown fox jumps over the lazy dog", "jmps over", " ", 20, 10, 0.8888)]
+        [TestCase("The quick brown fox jumps over the lazy dog", "jmps ovr", " ", 20, 10, 0.75)]
+        [TestCase("The quick brown fox jumps over the lazy dog", "jumpss oveor", " ", 20, 10, 0.8334)]
+        [TestCase("The quick brown fox jumps over the lazy dog", "jummps ovver", " ", 20, 10, 0.8334)]
+        [TestCase("The quick brown fox jumps over the lazy dog", "hhumps over", " ", 20, 10, 0.8182)]
+        [TestCase("The quick brown fox jumps over the lazy dog", "hhumps ov", " ", 20, 10, 0.5556)]
+        [TestCase("The quick brown fox jumps over the lazy dog", "jumps ovea", " ", 20, 10, 0.9)]
+        [TestCase("The Hero George R R Martin", "George R.R. Martin", " .,_-=()[]|\"`'’", 9, 17, 0.8888)]
+        public void should_match_on_word_boundaries(string text, string pattern, string delimiters, int location, int length, double score)
         {
             var match = text.FuzzyMatch(pattern, wordDelimiters: new HashSet<char>(delimiters));
 
-            var result = match.Item1 != -1 ? text.Substring(match.Item1, match.Item2) : "";
-
-            result.Should().Be(expected);
+            match.Item1.Should().Be(location);
+            match.Item2.Should().Be(length);
+            match.Item3.Should().BeApproximately(score, 0.001);
         }
     }
 }

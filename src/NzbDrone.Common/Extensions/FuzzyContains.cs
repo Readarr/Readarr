@@ -1,27 +1,26 @@
-    /*
- * This file incorporates work covered by the following copyright and
- * permission notice:
- *
- * Diff Match and Patch
- * Copyright 2018 The diff-match-patch Authors.
- * https://github.com/google/diff-match-patch
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+/*
+* This file incorporates work covered by the following copyright and
+* permission notice:
+*
+* Diff Match and Patch
+* Copyright 2018 The diff-match-patch Authors.
+* https://github.com/google/diff-match-patch
+*
+* Licensed under the Apache License, Version 2.0 (the "License");
+* you may not use this file except in compliance with the License.
+* You may obtain a copy of the License at
+*
+*   http://www.apache.org/licenses/LICENSE-2.0
+*
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+* See the License for the specific language governing permissions and
+* limitations under the License.
+*/
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Numerics;
 
 namespace NzbDrone.Common.Extensions
@@ -95,12 +94,18 @@ namespace NzbDrone.Common.Extensions
             var scoreThreshold = matchThreshold;
 
             // Initialise the bit arrays.
-            var matchmask = calculator.LeftShift(calculator.One, pattern.Length - 1);
+            var one = calculator.One;
+            var allOnes = calculator.BitwiseComplement(calculator.Zero);
+            var one_comp = calculator.BitwiseComplement(one);
+            var matchmask = calculator.LeftShift(one, pattern.Length - 1);
+            var matchmask_comp = calculator.BitwiseComplement(matchmask);
             var bestLoc = -1;
             var bestLength = 0;
 
             var lastRd = Array.Empty<T>();
-            var lastMd = Array.Empty<List<int>>();
+            var r = new List<T[]>(pattern.Length);
+
+            var adjustForWordBoundary = wordDelimiters != null;
 
             for (var d = 0; d < pattern.Length; d++)
             {
@@ -109,110 +114,70 @@ namespace NzbDrone.Common.Extensions
                 var finish = text.Length + pattern.Length;
 
                 var rd = new T[finish + 2];
-                rd[finish + 1] = calculator.Subtract(calculator.LeftShift(calculator.One, d), calculator.One);
 
-                var md = new List<int>[finish + 2];
-                md[finish + 1] = new List<int>();
+                rd[finish + 1] = calculator.BitwiseComplement(calculator.Subtract(calculator.LeftShift(one, d), one));
+
+                if (wordDelimiters != null)
+                {
+                    r.Add(rd);
+                }
 
                 for (var j = finish; j >= start; j--)
                 {
-                    T charMatch;
-                    T rd_exact, rd_last, rd_curr, rd_a, rd_b;
-                    List<int> md_exact, md_last, md_curr, md_a, md_b;
-
-                    if (text.Length <= j - 1 || !s.TryGetValue(text[j - 1], out charMatch))
+                    if (text.Length <= j - 1 || !s.TryGetValue(text[j - 1], out var charMatch))
                     {
                         // Out of range.
-                        charMatch = calculator.Zero;
+                        charMatch = allOnes;
                     }
 
                     if (d == 0)
                     {
                         // First pass: exact match.
-                        rd[j] = calculator.BitwiseAnd(calculator.BitwiseOr(calculator.LeftShift(rd[j + 1], 1), calculator.One), charMatch);
+                        rd[j] = calculator.BitwiseOr(calculator.LeftShift(rd[j + 1], 1), charMatch);
 
-                        if (wordDelimiters != null)
+                        if (adjustForWordBoundary)
                         {
-                            if (calculator.NotEqual(rd[j], calculator.Zero))
-                            {
-                                md[j] = md[j + 1].Any() ? md[j + 1].SelectList(x => x + 1) : new List<int> { 1 };
-                            }
-                            else
-                            {
-                                md[j] = new List<int>();
-                            }
+                            rd[j] = AdjustForWordBoundary(rd[j], j, text, wordDelimiters, one_comp, allOnes, calculator);
                         }
                     }
                     else
                     {
                         // Subsequent passes: fuzzy match.
                         // state if we assume exact match on char j
-                        rd_exact = calculator.BitwiseAnd(calculator.BitwiseOr(calculator.LeftShift(rd[j + 1], 1), calculator.One), charMatch);
+                        var rd_match = calculator.BitwiseOr(calculator.LeftShift(rd[j + 1], 1), charMatch);
 
                         // state if we assume substitution on char j
-                        rd_a = calculator.LeftShift(lastRd[j + 1], 1);
+                        var rd_sub = calculator.LeftShift(lastRd[j + 1], 1);
 
-                        // state if we assume deletion on char j
-                        rd_b = calculator.LeftShift(lastRd[j], 1);
+                        // state if we assume insertion on char j
+                        var rd_ins = calculator.LeftShift(lastRd[j], 1);
 
-                        // state if we assume insertion at char j
-                        rd_last = lastRd[j + 1];
+                        // state if we assume deletion at char j
+                        var rd_del = calculator.BitwiseAnd(lastRd[j + 1],  one_comp);
+
+                        if (adjustForWordBoundary)
+                        {
+                            rd_match = AdjustForWordBoundary(rd_match, j, text, wordDelimiters, one_comp, allOnes, calculator);
+                            rd_sub = AdjustForWordBoundary(rd_sub, j, text, wordDelimiters, one_comp, allOnes, calculator);
+                            rd_ins = AdjustForWordBoundary(rd_ins, j + 1, text, wordDelimiters, one_comp, allOnes, calculator);
+                            rd_del = AdjustForWordBoundary(rd_del, j - 1, text, wordDelimiters, one_comp, allOnes, calculator);
+                        }
 
                         // the final state for this pass
-                        rd_curr = calculator.BitwiseOr(rd_exact,
-                            calculator.BitwiseOr(rd_a,
-                                calculator.BitwiseOr(rd_b,
-                                    calculator.BitwiseOr(calculator.One,
-                                        rd_last))));
-
-                        rd[j] = rd_curr;
-
-                        if (wordDelimiters != null)
-                        {
-                            // exact match
-                            if (calculator.NotEqual(rd_exact, calculator.Zero))
-                            {
-                                md_exact = md[j + 1].Any() ? md[j + 1].SelectList(x => x + 1) : new List<int> { 1 };
-                            }
-                            else
-                            {
-                                md_exact = new List<int>();
-                            }
-
-                            // substitution
-                            md_a = lastMd[j + 1].Any() ? lastMd[j + 1].SelectList(x => x + 1) : new List<int> { 1 };
-
-                            // deletion
-                            md_b = lastMd[j].Any() ? lastMd[j] : new List<int> { 1 };
-
-                            // insertion
-                            md_last = lastMd[j].Any() ? lastMd[j + 1].SelectList(x => x + 1) : new List<int> { 1 };
-
-                            // combined
-                            md_curr = md_exact.Concat(md_a).Concat(md_b).Concat(md_last).Distinct().ToList();
-
-                            md[j] = md_curr;
-                        }
+                        rd[j] = calculator.BitwiseAnd(rd_match, rd_sub, rd_ins, rd_del);
                     }
 
-                    if (calculator.NotEqual(calculator.BitwiseAnd(rd[j], matchmask), calculator.Zero))
+                    if (calculator.NotEqual(calculator.BitwiseOr(rd[j], matchmask_comp), allOnes))
                     {
                         // This match will almost certainly be better than any existing
                         // match.  But check anyway.
                         var score = BitapScore(d, pattern);
 
-                        bool isOnWordBoundary;
-                        var endsOnWordBoundaryLength = 0;
+                        bool isOnWordBoundary = true;
 
                         if (wordDelimiters != null)
                         {
-                            var startsOnWordBoundary = (j - 1 == 0 || wordDelimiters.Contains(text[j - 2])) && !wordDelimiters.Contains(text[j - 1]);
-                            endsOnWordBoundaryLength = md[j].FirstOrDefault(x => (j + x >= text.Length || wordDelimiters.Contains(text[j - 1 + x])) && !wordDelimiters.Contains(text[j - 1]));
-                            isOnWordBoundary = startsOnWordBoundary && endsOnWordBoundaryLength > 0;
-                        }
-                        else
-                        {
-                            isOnWordBoundary = true;
+                            isOnWordBoundary = (j - 1 == 0 || wordDelimiters.Contains(text[j - 2])) && !wordDelimiters.Contains(text[j - 1]);
                         }
 
                         if (score >= scoreThreshold && isOnWordBoundary)
@@ -220,22 +185,102 @@ namespace NzbDrone.Common.Extensions
                             // Told you so.
                             scoreThreshold = score;
                             bestLoc = j - 1;
-                            bestLength = endsOnWordBoundaryLength;
+
+                            if (wordDelimiters != null)
+                            {
+                                var match = GetMatch(j, d, 0, r, matchmask, text, s, calculator);
+                                bestLength = match.Count;
+                            }
                         }
                     }
                 }
+
+                lastRd = rd;
 
                 if (BitapScore(d + 1, pattern) < scoreThreshold)
                 {
                     // No hope for a (better) match at greater error levels.
                     break;
                 }
-
-                lastRd = rd;
-                lastMd = md;
             }
 
             return new Tuple<int, int, double>(bestLoc, bestLength, scoreThreshold);
+        }
+
+        private static T AdjustForWordBoundary<T>(T rdj, int j, string text, HashSet<char> delimiters, T one_comp, T allOnes, Calculator<T> calculator)
+        {
+            // if rdj == 1 then we are starting a new match. Only allow if on a word boundary
+            if (calculator.Equal(rdj, one_comp) && j < text.Length && !delimiters.Contains(text[j]))
+            {
+                return allOnes;
+            }
+
+            return rdj;
+        }
+
+        private static List<char> GetMatch<T>(int j, int d, int shift, List<T[]> r, T matchmask, string text, Dictionary<char, T> s, Calculator<T> calculator)
+        {
+            if (j > text.Length)
+            {
+                return new List<char>();
+            }
+
+            char curr = text[j - 1];
+            bool take = true;
+
+            if (!s.TryGetValue(curr, out var charMatch))
+            {
+                charMatch = calculator.BitwiseComplement(calculator.Zero);
+            }
+
+            var rd_match = calculator.LeftShift(calculator.BitwiseComplement(calculator.BitwiseOr(calculator.LeftShift(r[d][j + 1], 1), charMatch)), shift);
+
+            if (calculator.NotEqual(calculator.BitwiseAnd(rd_match, matchmask), calculator.Zero))
+            {
+                // an exact match on char j
+                j++;
+                shift++;
+            }
+            else if (d > 0)
+            {
+                var rd_ins = calculator.LeftShift(calculator.BitwiseComplement(r[d - 1][j]), shift + 1);
+                var rd_sub = calculator.LeftShift(calculator.BitwiseComplement(r[d - 1][j + 1]), shift + 1);
+                var rd_del = calculator.LeftShift(calculator.BitwiseComplement(r[d - 1][j + 1]), shift);
+
+                d--;
+
+                if (calculator.NotEqual(calculator.BitwiseAnd(rd_ins, matchmask), calculator.Zero))
+                {
+                    // actually insertion, don't take the character and run again with same j and bigger shift
+                    shift++;
+                    take = false;
+                }
+                else if (calculator.NotEqual(calculator.BitwiseAnd(rd_sub, matchmask), calculator.Zero))
+                {
+                    //substitution, take and carry on, just like exact
+                    shift++;
+                    j++;
+                }
+                else if (calculator.NotEqual(calculator.BitwiseAnd(rd_del, matchmask), calculator.Zero))
+                {
+                    //actually deletion
+                    //don't shift match mask?
+                    j++;
+                }
+            }
+            else
+            {
+                // matchmask is zero or not a match
+                return new List<char>();
+            }
+
+            var result = GetMatch<T>(j, d, shift, r, matchmask, text, s, calculator);
+            if (take)
+            {
+                result.Insert(0, curr);
+            }
+
+            return result;
         }
 
         /**
@@ -257,19 +302,21 @@ namespace NzbDrone.Common.Extensions
         private static Dictionary<char, T> Alphabet<T>(string pattern, Calculator<T> calculator)
         {
             var s = new Dictionary<char, T>();
-            var charPattern = pattern.ToCharArray();
-            foreach (var c in charPattern)
-            {
-                if (!s.ContainsKey(c))
-                {
-                    s.Add(c, calculator.Zero);
-                }
-            }
 
             var i = 0;
-            foreach (var c in charPattern)
+            foreach (var c in pattern)
             {
-                s[c] = calculator.BitwiseOr(s[c], calculator.LeftShift(calculator.One, pattern.Length - i - 1));
+                var mask = calculator.BitwiseComplement(calculator.LeftShift(calculator.One, pattern.Length - i - 1));
+
+                if (s.ContainsKey(c))
+                {
+                    s[c] = calculator.BitwiseAnd(s[c], mask);
+                }
+                else
+                {
+                    s.Add(c, mask);
+                }
+
                 i++;
             }
 
@@ -284,7 +331,10 @@ namespace NzbDrone.Common.Extensions
             public abstract T LeftShift(T a, int shift);
             public abstract T BitwiseOr(T a, T b);
             public abstract T BitwiseAnd(T a, T b);
+            public abstract T BitwiseAnd(T a, T b, T c, T d);
+            public abstract T BitwiseComplement(T a);
             public abstract bool NotEqual(T a, T b);
+            public abstract bool Equal(T a, T b);
         }
 
         private sealed class BigIntCalculator : Calculator<BigInteger>
@@ -295,7 +345,10 @@ namespace NzbDrone.Common.Extensions
             public override BigInteger LeftShift(BigInteger a, int shift) => a << shift;
             public override BigInteger BitwiseOr(BigInteger a, BigInteger b) => a | b;
             public override BigInteger BitwiseAnd(BigInteger a, BigInteger b) => a & b;
+            public override BigInteger BitwiseAnd(BigInteger a, BigInteger b, BigInteger c, BigInteger d) => a & b & c & d;
+            public override BigInteger BitwiseComplement(BigInteger a) => ~a;
             public override bool NotEqual(BigInteger a, BigInteger b) => a != b;
+            public override bool Equal(BigInteger a, BigInteger b) => a == b;
         }
 
         private sealed class IntCalculator : Calculator<int>
@@ -306,7 +359,10 @@ namespace NzbDrone.Common.Extensions
             public override int LeftShift(int a, int shift) => a << shift;
             public override int BitwiseOr(int a, int b) => a | b;
             public override int BitwiseAnd(int a, int b) => a & b;
+            public override int BitwiseAnd(int a, int b, int c, int d) => a & b & c & d;
+            public override int BitwiseComplement(int a) => ~a;
             public override bool NotEqual(int a, int b) => a != b;
+            public override bool Equal(int a, int b) => a == b;
         }
 
         private sealed class LongCalculator : Calculator<long>
@@ -317,7 +373,10 @@ namespace NzbDrone.Common.Extensions
             public override long LeftShift(long a, int shift) => a << shift;
             public override long BitwiseOr(long a, long b) => a | b;
             public override long BitwiseAnd(long a, long b) => a & b;
+            public override long BitwiseAnd(long a, long b, long c, long d) => a & b & c & d;
+            public override long BitwiseComplement(long a) => ~a;
             public override bool NotEqual(long a, long b) => a != b;
+            public override bool Equal(long a, long b) => a == b;
         }
     }
 }
