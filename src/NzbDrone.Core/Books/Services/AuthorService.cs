@@ -140,8 +140,8 @@ namespace NzbDrone.Core.Books
             Func<Func<Author, string, double>, string, Tuple<Func<Author, string, double>, string>> tc = Tuple.Create;
             var scoringFunctions = new List<Tuple<Func<Author, string, double>, string>>
             {
-                tc((a, t) => t.FuzzyContains(a.Metadata.Value.Name), reportTitle),
-                tc((a, t) => t.FuzzyContains(a.Metadata.Value.NameLastFirst), reportTitle)
+                tc((a, t) => t.FuzzyMatch(a.Metadata.Value.Name, 0.6).Item3, reportTitle),
+                tc((a, t) => t.FuzzyMatch(a.Metadata.Value.NameLastFirst, 0.6).Item3, reportTitle)
             };
 
             return scoringFunctions;

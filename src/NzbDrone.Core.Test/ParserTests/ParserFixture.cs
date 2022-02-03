@@ -234,6 +234,7 @@ namespace NzbDrone.Core.Test.ParserTests
             parseResult.Should().BeNull();
         }
 
+        [TestCase("George R.R. Martin", "The Hero", "The Hero George R R Martin", "George R R Martin", "The Hero")]
         [TestCase("James Herbert", "48", "James Hertbert Collection/'48 - James Herbert (epub)", "James Herbert", "48")]
         public void should_parse_with_search_criteria(string searchAuthor, string searchBook, string report, string expectedAuthor, string expectedBook)
         {
