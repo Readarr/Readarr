@@ -107,12 +107,24 @@ namespace NzbDrone.Common.Extensions
 
             var adjustForWordBoundary = wordDelimiters != null;
 
+            var start = 1;
+            var finish = text.Length + pattern.Length;
+            var charMatches = new T[finish];
+
+            for (var c = start; c <= finish; c++)
+            {
+                if (text.Length <= c - 1 || !s.TryGetValue(text[c - 1], out var mask))
+                {
+                    // Out of range.
+                    mask = allOnes;
+                }
+
+                charMatches[c - 1] = mask;
+            }
+
             for (var d = 0; d < pattern.Length; d++)
             {
                 // Scan for the best match; each iteration allows for one more error.
-                var start = 1;
-                var finish = text.Length + pattern.Length;
-
                 var rd = new T[finish + 2];
 
                 rd[finish + 1] = calculator.BitwiseComplement(calculator.Subtract(calculator.LeftShift(one, d), one));
@@ -124,11 +136,7 @@ namespace NzbDrone.Common.Extensions
 
                 for (var j = finish; j >= start; j--)
                 {
-                    if (text.Length <= j - 1 || !s.TryGetValue(text[j - 1], out var charMatch))
-                    {
-                        // Out of range.
-                        charMatch = allOnes;
-                    }
+                    T charMatch = charMatches[j - 1];
 
                     if (d == 0)
                     {
