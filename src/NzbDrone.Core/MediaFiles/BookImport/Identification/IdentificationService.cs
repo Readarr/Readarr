@@ -195,7 +195,7 @@ namespace NzbDrone.Core.MediaFiles.BookImport.Identification
             _logger.Debug("Matching {0} track files against candidates", localBookRelease.TrackCount);
             _logger.Trace("Processing files:\n{0}", string.Join("\n", localBookRelease.LocalBooks.Select(x => x.Path)));
 
-            double bestDistance = 1.0;
+            var bestDistance = localBookRelease.Edition != null ? localBookRelease.Distance.NormalizedDistance() : 1.0;
             seenCandidate = false;
 
             foreach (var candidateRelease in candidateReleases)
