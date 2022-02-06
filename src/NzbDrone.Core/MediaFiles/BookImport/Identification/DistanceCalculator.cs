@@ -22,6 +22,10 @@ namespace NzbDrone.Core.MediaFiles.BookImport.Identification
 
         private static readonly RegexReplace CleanTitleCruft = new RegexReplace(@"\((?:unabridged)\)", string.Empty, RegexOptions.IgnoreCase | RegexOptions.Compiled);
 
+        private static readonly List<string> EbookFormats = new List<string> { "Kindle Edition", "Nook", "ebook" };
+
+        private static readonly List<string> AudiobookFormats = new List<string> { "Audiobook", "Audio CD", "Audio Cassette", "Audible Audio", "CD-ROM", "MP3 CD" };
+
         public static Distance BookDistance(List<LocalBook> localTracks, Edition edition)
         {
             var dist = new Distance();
@@ -121,6 +125,35 @@ namespace NzbDrone.Core.MediaFiles.BookImport.Identification
             {
                 dist.AddBool("language", localLanguage != editionLanguage);
                 Logger.Trace($"language: {localLanguage} vs {editionLanguage}; {dist.NormalizedDistance()}");
+            }
+
+            // Publisher - only if set for both the local book and remote edition
+            var localPublisher = localTracks.MostCommon(x => x.FileTrackInfo.Publisher);
+            var editionPublisher = edition.Publisher;
+            if (localPublisher.IsNotNullOrWhiteSpace() && editionPublisher.IsNotNullOrWhiteSpace())
+            {
+                dist.AddString("publisher", localPublisher, editionPublisher);
+                Logger.Trace($"publisher: {localPublisher} vs {editionPublisher}; {dist.NormalizedDistance()}");
+            }
+
+            // try to tilt it towards the correct "type" of release
+            var isAudio = MediaFileExtensions.AudioExtensions.Contains(localTracks.First().Path.GetPathExtension());
+
+            if (edition.Format.IsNotNullOrWhiteSpace())
+            {
+                if (!isAudio)
+                {
+                    // text books should prefer ebook formats
+                    dist.AddBool("ebook_format", !EbookFormats.Contains(edition.Format));
+
+                    // text books should not match audio entries
+                    dist.AddBool("wrong_format", AudiobookFormats.Contains(edition.Format));
+                }
+                else
+                {
+                    // audio books should prefer audio formats
+                    dist.AddBool("audio_format", !AudiobookFormats.Contains(edition.Format));
+                }
             }
 
             return dist;
