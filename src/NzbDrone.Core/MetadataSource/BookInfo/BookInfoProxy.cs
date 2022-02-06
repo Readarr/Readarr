@@ -5,6 +5,9 @@ using System.Linq;
 using System.Net;
 using System.Text.Json;
 using System.Threading;
+using LazyCache;
+using LazyCache.Providers;
+using Microsoft.Extensions.Caching.Memory;
 using NLog;
 using NzbDrone.Common.Cache;
 using NzbDrone.Common.Extensions;
@@ -35,7 +38,7 @@ namespace NzbDrone.Core.MetadataSource.BookInfo
         private readonly Logger _logger;
         private readonly IMetadataRequestBuilder _requestBuilder;
         private readonly ICached<HashSet<string>> _cache;
-        private readonly ICached<Author> _authorCache;
+        private readonly CachingService _authorCache;
 
         public BookInfoProxy(IHttpClient httpClient,
                              ICachedHttpResponseService cachedHttpClient,
@@ -55,8 +58,13 @@ namespace NzbDrone.Core.MetadataSource.BookInfo
             _editionService = editionService;
             _requestBuilder = requestBuilder;
             _cache = cacheManager.GetCache<HashSet<string>>(GetType());
-            _authorCache = cacheManager.GetRollingCache<Author>(GetType(), "authorCache", TimeSpan.FromMinutes(5));
             _logger = logger;
+
+            _authorCache = new CachingService(new MemoryCacheProvider(new MemoryCache(new MemoryCacheOptions { SizeLimit = 10 })));
+            _authorCache.DefaultCachePolicy = new CacheDefaults
+            {
+                DefaultCacheDurationSeconds = 60
+            };
         }
 
         public HashSet<string> GetChangedAuthors(DateTime startTime)
@@ -532,7 +540,16 @@ namespace NzbDrone.Core.MetadataSource.BookInfo
 
         private Author PollAuthor(string foreignAuthorId)
         {
-            return _authorCache.Get(foreignAuthorId, () => PollAuthorUncached(foreignAuthorId));
+            return _authorCache.GetOrAdd(foreignAuthorId,
+                () => PollAuthorUncached(foreignAuthorId),
+                new LazyCacheEntryOptions
+                {
+                    AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(10),
+                    ImmediateAbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(10),
+                    Size = 1,
+                    SlidingExpiration = TimeSpan.FromMinutes(1),
+                    ExpirationMode = ExpirationMode.ImmediateEviction
+                }.RegisterPostEvictionCallback((key, value, reason, state) => _logger.Debug($"Clearing cache for {key} due to {reason}")));
         }
 
         private Author PollAuthorUncached(string foreignAuthorId)

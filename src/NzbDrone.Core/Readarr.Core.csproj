@@ -4,9 +4,11 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Dapper" />
+    <PackageReference Include="LazyCache" />
     <PackageReference Include="System.Text.Json" />
     <PackageReference Include="System.Text.Encoding.CodePages" />
     <PackageReference Include="System.Memory" />
+    <PackageReference Include="Microsoft.Extensions.Caching.Memory" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" />
     <PackageReference Include="Microsoft.Extensions.Logging" />
     <PackageReference Include="Microsoft.Extensions.Configuration" />

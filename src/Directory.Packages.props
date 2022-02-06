@@ -13,8 +13,10 @@
     <PackageVersion Include="FluentValidation" Version="8.6.2" />
     <PackageVersion Include="Ical.Net" Version="4.2.0" />
     <PackageVersion Include="ImpromptuInterface" Version="7.0.1" />
+    <PackageVersion Include="LazyCache" Version="2.4.0" />
     <PackageVersion Include="Mailkit" Version="3.1.0" />
     <PackageVersion Include="Microsoft.AspNetCore.SignalR.Client" Version="6.0.1" />
+    <PackageVersion Include="Microsoft.Extensions.Caching.Memory" Version="6.0.0" />
     <PackageVersion Include="Microsoft.Extensions.Configuration" Version="6.0.0" />
     <PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
     <PackageVersion Include="Microsoft.Extensions.Hosting.WindowsServices" Version="6.0.0" />

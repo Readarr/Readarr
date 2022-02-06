@@ -77,7 +77,9 @@ namespace NzbDrone.Core.Books
             RootFolderPath = other.RootFolderPath;
             Added = other.Added;
             QualityProfileId = other.QualityProfileId;
+            QualityProfile = other.QualityProfile;
             MetadataProfileId = other.MetadataProfileId;
+            MetadataProfile = other.MetadataProfile;
             Tags = other.Tags;
             AddOptions = other.AddOptions;
         }

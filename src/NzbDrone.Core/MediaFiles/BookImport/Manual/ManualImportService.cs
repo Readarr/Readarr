@@ -117,7 +117,8 @@ namespace NzbDrone.Core.MediaFiles.BookImport.Manual
                     NewDownload = true,
                     SingleRelease = false,
                     IncludeExisting = !replaceExistingFiles,
-                    AddNewAuthors = false
+                    AddNewAuthors = false,
+                    KeepAllEditions = true
                 };
 
                 var decision = _importDecisionMaker.GetImportDecisions(files, null, null, config);
@@ -162,7 +163,8 @@ namespace NzbDrone.Core.MediaFiles.BookImport.Manual
                 NewDownload = true,
                 SingleRelease = false,
                 IncludeExisting = !replaceExistingFiles,
-                AddNewAuthors = false
+                AddNewAuthors = false,
+                KeepAllEditions = true
             };
 
             var decisions = _importDecisionMaker.GetImportDecisions(authorFiles, idOverrides, itemInfo, config);
