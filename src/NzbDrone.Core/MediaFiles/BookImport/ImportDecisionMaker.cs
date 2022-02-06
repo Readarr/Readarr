@@ -42,6 +42,7 @@ namespace NzbDrone.Core.MediaFiles.BookImport
         public bool SingleRelease { get; set; }
         public bool IncludeExisting { get; set; }
         public bool AddNewAuthors { get; set; }
+        public bool KeepAllEditions { get; set; }
     }
 
     public class ImportDecisionMaker : IMakeImportDecision

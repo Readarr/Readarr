@@ -74,7 +74,7 @@ namespace NzbDrone.Core.MediaFiles.BookImport.Identification
             // 3 find best candidate
             var watch = System.Diagnostics.Stopwatch.StartNew();
 
-            _logger.Debug("Starting track identification");
+            _logger.Debug("Starting book identification");
 
             var releases = GetLocalBookReleases(localTracks, config.SingleRelease);
 
@@ -183,7 +183,7 @@ namespace NzbDrone.Core.MediaFiles.BookImport.Identification
 
             _logger.Debug($"Best release found in {watch.ElapsedMilliseconds}ms");
 
-            localBookRelease.PopulateMatch();
+            localBookRelease.PopulateMatch(config.KeepAllEditions);
 
             _logger.Debug($"IdentifyRelease done in {watch.ElapsedMilliseconds}ms");
         }
