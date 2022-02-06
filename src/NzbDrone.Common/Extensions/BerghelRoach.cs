@@ -217,7 +217,7 @@ namespace NzbDrone.Common.Extensions
             if (distance > limit)
             {
                 /* More than we wanted.  Give up right away */
-                return int.MaxValue;
+                return Math.Max(target.Length, pattern.Length);
             }
 
             /*
