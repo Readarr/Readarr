@@ -15,7 +15,7 @@ variables:
   buildName: '$(Build.SourceBranchName).$(readarrVersion)'
   sentryOrg: 'servarr'
   sentryUrl: 'https://sentry.servarr.com'
-  dotnetVersion: '6.0.101'
+  dotnetVersion: '6.0.102'
   innoVersion: '6.2.0'
   windowsImage: 'windows-2022'
   linuxImage: 'ubuntu-20.04'
