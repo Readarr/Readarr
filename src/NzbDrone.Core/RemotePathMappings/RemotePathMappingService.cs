@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -124,18 +124,28 @@ namespace NzbDrone.Core.RemotePathMappings
         {
             if (remotePath.IsEmpty)
             {
+                _logger.Trace("Remote path is empty");
                 return remotePath;
             }
 
             foreach (var mapping in All())
             {
-                if (host.Equals(mapping.Host, StringComparison.InvariantCultureIgnoreCase) && new OsPath(mapping.RemotePath).Contains(remotePath))
+                var hostEqual = host.Equals(mapping.Host, StringComparison.InvariantCultureIgnoreCase);
+                var remotePathMatch = new OsPath(mapping.RemotePath).Contains(remotePath);
+
+                _logger.Trace($"Trying map Host: {host} RemotePath: {mapping.RemotePath} LocalPath: {mapping.LocalPath} HostEqual: {hostEqual} RemotePathMatch: {remotePathMatch}");
+
+                if (hostEqual && remotePathMatch)
                 {
+                    _logger.Trace("Path map matched");
                     var localPath = new OsPath(mapping.LocalPath) + (remotePath - new OsPath(mapping.RemotePath));
+                    _logger.Trace($"Remapped to {localPath}");
 
                     return localPath;
                 }
             }
+
+            _logger.Trace("No matching remote path map found");
 
             return remotePath;
         }
