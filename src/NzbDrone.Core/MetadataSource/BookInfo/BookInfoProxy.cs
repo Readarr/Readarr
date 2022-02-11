@@ -153,7 +153,10 @@ namespace NzbDrone.Core.MetadataSource.BookInfo
         {
             var books = SearchForNewBook(title, null);
 
-            return books.Select(x => x.Author.Value).ToList();
+            return books
+                .Select(x => x.Author.Value)
+                .DistinctBy(x => x.ForeignAuthorId)
+                .ToList();
         }
 
         public List<Book> SearchForNewBook(string title, string author, bool getAllEditions = true)
