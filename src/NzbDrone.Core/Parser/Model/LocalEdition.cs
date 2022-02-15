@@ -1,10 +1,8 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using NzbDrone.Common.Extensions;
 using NzbDrone.Core.Books;
 using NzbDrone.Core.MediaFiles.BookImport.Identification;
-using SixLabors.ImageSharp.Processing;
 
 namespace NzbDrone.Core.Parser.Model
 {
@@ -49,6 +47,7 @@ namespace NzbDrone.Core.Parser.Model
                     var edition = new Edition();
                     edition.UseMetadataFrom(Edition);
                     edition.UseDbFieldsFrom(Edition);
+                    edition.BookFiles = Edition.BookFiles;
 
                     var fullBook = Edition.Book.Value;
 
