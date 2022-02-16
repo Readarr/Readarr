@@ -4,7 +4,7 @@
 #define AppName "Readarr"
 #define AppPublisher "Team Readarr"
 #define AppURL "https://readarr.com/"
-#define ForumsURL "https://forums.readarr.com/"
+#define ForumsURL "https://readarr.com/discord"
 #define AppExeName "Readarr.exe"
 #define BaseVersion GetEnv('MAJORVERSION')
 #define BuildNumber GetEnv('MINORVERSION')
@@ -21,7 +21,7 @@ AppPublisher={#AppPublisher}
 AppPublisherURL={#AppURL}
 AppSupportURL={#ForumsURL}
 AppUpdatesURL={#AppURL}
-DefaultDirName={commonappdata}\Readarr\bin
+DefaultDirName={commonappdata}\Readarr
 DisableDirPage=yes
 DefaultGroupName={#AppName}
 DisableProgramGroupPage=yes
@@ -29,7 +29,7 @@ OutputBaseFilename=Readarr.{#BuildVersion}.{#Runtime}
 SolidCompression=yes
 AppCopyright=Creative Commons 3.0 License
 AllowUNCPath=False
-UninstallDisplayIcon={app}\Readarr.exe
+UninstallDisplayIcon={app}\bin\Readarr.exe
 DisableReadyPage=True
 CompressionThreads=2
 Compression=lzma2/normal
@@ -48,28 +48,31 @@ Name: "windowsService"; Description: "Install Windows Service (Starts when the c
 Name: "startupShortcut"; Description: "Create shortcut in Startup folder (Starts when you log into Windows)"; GroupDescription: "Start automatically"; Flags: exclusive
 Name: "none"; Description: "Do not start automatically"; GroupDescription: "Start automatically"; Flags: exclusive unchecked
 
+[Dirs]
+Name: "{app}"; Permissions: users-modify
+
 [Files]
-Source: "..\_artifacts\{#Runtime}\{#Framework}\Readarr\Readarr.exe"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\_artifacts\{#Runtime}\{#Framework}\Readarr\*"; Excludes: "Readarr.Update"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "..\_artifacts\{#Runtime}\{#Framework}\Readarr\Readarr.exe"; DestDir: "{app}\bin"; Flags: ignoreversion
+Source: "..\_artifacts\{#Runtime}\{#Framework}\Readarr\*"; Excludes: "Readarr.Update"; DestDir: "{app}\bin"; Flags: ignoreversion recursesubdirs createallsubdirs
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]
-Name: "{group}\{#AppName}"; Filename: "{app}\{#AppExeName}"; Parameters: "/icon"
-Name: "{commondesktop}\{#AppName}"; Filename: "{app}\{#AppExeName}"; Parameters: "/icon"; Tasks: desktopIcon
-Name: "{userstartup}\{#AppName}"; Filename: "{app}\Readarr.exe"; WorkingDir: "{app}"; Tasks: startupShortcut
+Name: "{group}\{#AppName}"; Filename: "{app}\bin\{#AppExeName}"; Parameters: "/icon"
+Name: "{commondesktop}\{#AppName}"; Filename: "{app}\bin\{#AppExeName}"; Parameters: "/icon"; Tasks: desktopIcon
+Name: "{userstartup}\{#AppName}"; Filename: "{app}\bin\Readarr.exe"; WorkingDir: "{app}\bin"; Tasks: startupShortcut
 
 [InstallDelete]
-Name: "{app}"; Type: filesandordirs
+Name: "{app}\bin"; Type: filesandordirs
 
 [Run]
-Filename: "{app}\Readarr.Console.exe"; StatusMsg: "Removing previous Windows Service"; Parameters: "/u /exitimmediately"; Flags: runhidden waituntilterminated;
-Filename: "{app}\Readarr.Console.exe"; Description: "Enable Access from Other Devices"; StatusMsg: "Enabling Remote access"; Parameters: "/registerurl /exitimmediately"; Flags: postinstall runascurrentuser runhidden waituntilterminated; Tasks: startupShortcut none;
-Filename: "{app}\Readarr.Console.exe"; StatusMsg: "Installing Windows Service"; Parameters: "/i /exitimmediately"; Flags: runhidden waituntilterminated; Tasks: windowsService
-Filename: "{app}\Readarr.exe"; Description: "Open Readarr Web UI"; Flags: postinstall skipifsilent nowait; Tasks: windowsService;
-Filename: "{app}\Readarr.exe"; Description: "Start Readarr"; Flags: postinstall skipifsilent nowait; Tasks: startupShortcut none;
+Filename: "{app}\bin\Readarr.Console.exe"; StatusMsg: "Removing previous Windows Service"; Parameters: "/u /exitimmediately"; Flags: runhidden waituntilterminated;
+Filename: "{app}\bin\Readarr.Console.exe"; Description: "Enable Access from Other Devices"; StatusMsg: "Enabling Remote access"; Parameters: "/registerurl /exitimmediately"; Flags: postinstall runascurrentuser runhidden waituntilterminated; Tasks: startupShortcut none;
+Filename: "{app}\bin\Readarr.Console.exe"; StatusMsg: "Installing Windows Service"; Parameters: "/i /exitimmediately"; Flags: runhidden waituntilterminated; Tasks: windowsService
+Filename: "{app}\bin\Readarr.exe"; Description: "Open Readarr Web UI"; Flags: postinstall skipifsilent nowait; Tasks: windowsService;
+Filename: "{app}\bin\Readarr.exe"; Description: "Start Readarr"; Flags: postinstall skipifsilent nowait; Tasks: startupShortcut none;
 
 [UninstallRun]
-Filename: "{app}\readarr.console.exe"; Parameters: "/u"; Flags: waituntilterminated skipifdoesntexist
+Filename: "{app}\bin\Readarr.Console.exe"; Parameters: "/u"; Flags: waituntilterminated skipifdoesntexist
 
 [Code]
 function PrepareToInstall(var NeedsRestart: Boolean): String;
