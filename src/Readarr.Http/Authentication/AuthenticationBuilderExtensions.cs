@@ -29,6 +29,7 @@ namespace Readarr.Http.Authentication
                 .AddBasic(AuthenticationType.Basic.ToString())
                 .AddCookie(AuthenticationType.Forms.ToString(), options =>
                 {
+                    options.Cookie.Name = "ReadarrAuth";
                     options.AccessDeniedPath = "/login?loginFailed=true";
                     options.LoginPath = "/login";
                     options.ExpireTimeSpan = TimeSpan.FromDays(7);
