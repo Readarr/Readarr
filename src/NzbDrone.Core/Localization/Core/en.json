@@ -576,7 +576,7 @@
   "RemotePathMappingCheckFilesGenericPermissions": "Download client {0} reported files in {1} but Readarr cannot see this directory.  You may need to adjust the folder's permissions.",
   "RemotePathMappingCheckFilesLocalWrongOSPath": "Local download client {0} reported files in {1} but this is not a valid {2} path.  Review your download client settings.",
   "RemotePathMappingCheckFilesWrongOSPath": "Remote download client {0} reported files in {1} but this is not a valid {2} path.  Review your remote path mappings and download client settings.",
-  "RemotePathMappingCheckFolderPermissions": "Readarr can see but not access download directory {0}.  Likely permissions error.",
+  "RemotePathMappingCheckFolderPermissions": "Readarr can see but not access download directory {1}.  Likely permissions error.",
   "RemotePathMappingCheckGenericPermissions": "Download client {0} places downloads in {1} but Readarr cannot see this directory.  You may need to adjust the folder's permissions.",
   "RemotePathMappingCheckImportFailed": "Readarr failed to import a book.  Check your logs for details.",
   "RemotePathMappingCheckLocalFolderMissing": "Remote download client {0} places downloads in {1} but this directory does not appear to exist.  Likely missing or incorrect remote path mapping.",
