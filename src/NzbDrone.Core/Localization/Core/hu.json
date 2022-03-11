@@ -811,7 +811,7 @@
     "RemotePathMappingCheckFileRemoved": "A(z) {0} fájlt a feldolgozás során eltávolították.",
     "RemotePathMappingCheckFilesGenericPermissions": "A letöltőkliens {0} jelentett fájljait a(z) {1} fájlba, de a Readarr nem látja ezt a könyvtárat. Lehet, hogy módosítania kell a mappa engedélyeit.",
     "RemotePathMappingCheckFilesWrongOSPath": "A távoli letöltőkliens {0} fájlokat jelentett a(z) {1} fájlban, de ez nem érvényes {2} elérési út. Ellenőrizze a távoli elérési utak hozzárendelését és a letöltőkliens beállításait.",
-    "RemotePathMappingCheckFolderPermissions": "A Readarr láthatja, de nem fér hozzá a (z) {0} letöltési könyvtárhoz. Valószínűleg engedélyezési hiba.",
+    "RemotePathMappingCheckFolderPermissions": "A Readarr láthatja, de nem fér hozzá a (z) {1} letöltési könyvtárhoz. Valószínűleg engedélyezési hiba.",
     "RemotePathMappingCheckImportFailed": "A Readarr nem tudta importálni a filmet. A részletekért ellenőrizze a lognaplóit.",
     "RemotePathMappingCheckRemoteDownloadClient": "A távoli letöltőkliens {0} fájlokat jelentett a(z) {1} fájlban, de úgy tűnik, hogy ez a könyvtár nem létezik. Valószínűleg hiányzik a távoli útvonal-hozzárendelés.",
     "RestartReloadNote": "Megjegyzés: A Readarr automatikusan újraindul, és újratölti a felhasználói felületet a visszaállítási folyamat során.",
