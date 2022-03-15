@@ -1,4 +1,7 @@
 {
     "About": "关于",
-    "Analytics": "分析"
+    "Analytics": "分析",
+    "20MinutesTwenty": "20 分钟: {0}",
+    "45MinutesFourtyFive": "45 分钟: {0}",
+    "60MinutesSixty": "60 分钟: {0}"
 }

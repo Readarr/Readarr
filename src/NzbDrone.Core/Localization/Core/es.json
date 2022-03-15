@@ -484,5 +484,15 @@
     "ShowUnknownAuthorItems": "Mostrar Elementos Desconocidos",
     "UnselectAll": "Deseleccionar Todo",
     "UpdateSelected": "Actualizar Seleccionadas",
-    "Wanted": "Buscado"
+    "Wanted": "Buscado",
+    "AllAuthorBooks": "Todos los libros del autor",
+    "AllExpandedCollapseAll": "Cerrar todo",
+    "AllowAuthorChangeClickToChangeAuthor": "Click para cambiar el autor",
+    "AddedAuthorSettings": "Añadidas las opciones de Autor",
+    "AddImportListExclusionHelpText": "Evitar que el libro se añada a Readarr mediante listas de importación o la actualización del autor",
+    "AddMissing": "Añadir los que faltan",
+    "AllBooks": "Todos los libros",
+    "AddNewItem": "Añadir nuevo item",
+    "AllExpandedExpandAll": "Expandir todo",
+    "AllowedLanguages": "Idiomas permitidos"
 }

@@ -11,7 +11,7 @@
     "AdvancedSettingsShownClickToHide": "已显示，点击隐藏",
     "AgeWhenGrabbed": "发布时长",
     "AlreadyInYourLibrary": "已经在你的库中",
-    "AlternateTitles": "其他电影名称",
+    "AlternateTitles": "替代名称",
     "Analytics": "分析",
     "AnalyticsEnabledHelpText": "发送匿名使用信息和错误信息给我们，这些信息包括您的浏览器信息，使用的Web界面，错误报告，操作系统及运行版本。我们会根据这些信息来调整功能和修复问题的优先级。",
     "AnalyticsEnabledHelpTextWarning": "重启生效",
@@ -493,5 +493,8 @@
     "RemoveFromBlocklist": "从黑名单中移除",
     "Blocklist": "黑名单",
     "BlocklistHelpText": "防止Radarr再次自动抓取此版本",
-    "BlocklistRelease": "黑名单版本"
+    "BlocklistRelease": "黑名单版本",
+    "AllowFingerprinting": "允许指纹识别",
+    "AllExpandedCollapseAll": "收缩所有",
+    "AllExpandedExpandAll": "展开所有"
 }
