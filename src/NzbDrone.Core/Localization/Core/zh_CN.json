@@ -197,8 +197,8 @@
     "MediaManagementSettings": "媒体管理设置",
     "Message": "信息",
     "MetadataSettings": "元数据设置",
-    "MinimumAge": "最小年龄",
-    "MinimumAgeHelpText": "仅限Usenet：抓取NZB的最小年龄（分钟）。使用此功能可以使新版本有时间传播到您的Usenet提供程序。",
+    "MinimumAge": "发布时间最小值",
+    "MinimumAgeHelpText": "仅限Usenet：抓取NZB的发布时间最小值（分钟）。使用此功能可以使新版本有时间传播到您的Usenet提供程序。",
     "MinimumFreeSpace": "最小剩余空间",
     "MinimumFreeSpaceWhenImportingHelpText": "如果导入的磁盘空间不足，则禁止导入",
     "MinimumLimits": "最小限制",
@@ -496,5 +496,7 @@
     "BlocklistRelease": "黑名单版本",
     "AllowFingerprinting": "允许指纹识别",
     "AllExpandedCollapseAll": "收缩所有",
-    "AllExpandedExpandAll": "展开所有"
+    "AllExpandedExpandAll": "展开所有",
+    "Duration": "期间",
+    "Filters": "过滤器"
 }
