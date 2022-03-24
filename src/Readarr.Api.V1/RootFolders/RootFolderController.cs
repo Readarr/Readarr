@@ -25,6 +25,7 @@ namespace Readarr.Api.V1.RootFolders
         public RootFolderController(IRootFolderService rootFolderService,
                                 ICalibreProxy calibreProxy,
                                 IBroadcastSignalRMessage signalRBroadcaster,
+                                RecycleBinValidator recycleBinValidator,
                                 RootFolderValidator rootFolderValidator,
                                 PathExistsValidator pathExistsValidator,
                                 MappedNetworkDriveValidator mappedNetworkDriveValidator,
@@ -43,6 +44,7 @@ namespace Readarr.Api.V1.RootFolders
                 .IsValidPath()
                 .SetValidator(mappedNetworkDriveValidator)
                 .SetValidator(startupFolderValidator)
+                .SetValidator(recycleBinValidator)
                 .SetValidator(pathExistsValidator)
                 .SetValidator(systemFolderValidator)
                 .SetValidator(folderWritableValidator);

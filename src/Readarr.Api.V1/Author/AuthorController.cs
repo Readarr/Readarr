@@ -51,6 +51,7 @@ namespace Readarr.Api.V1.Author
                             IMapCoversToLocal coverMapper,
                             IManageCommandQueue commandQueueManager,
                             IRootFolderService rootFolderService,
+                            RecycleBinValidator recycleBinValidator,
                             RootFolderValidator rootFolderValidator,
                             MappedNetworkDriveValidator mappedNetworkDriveValidator,
                             AuthorPathValidator authorPathValidator,
@@ -80,6 +81,7 @@ namespace Readarr.Api.V1.Author
                            .SetValidator(mappedNetworkDriveValidator)
                            .SetValidator(authorPathValidator)
                            .SetValidator(authorAncestorValidator)
+                           .SetValidator(recycleBinValidator)
                            .SetValidator(systemFolderValidator)
                            .When(s => !s.Path.IsNullOrWhiteSpace());
 
