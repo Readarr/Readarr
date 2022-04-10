@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using NzbDrone.Common.Extensions;
@@ -145,7 +146,8 @@ namespace NzbDrone.Core.Indexers.Newznab
 
         private static string NewsnabifyTitle(string title)
         {
-            return title.Replace("+", "%20");
+            title = title.Replace("+", " ");
+            return Uri.EscapeDataString(title);
         }
     }
 }
