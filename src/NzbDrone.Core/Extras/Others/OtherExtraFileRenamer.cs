@@ -41,8 +41,8 @@ namespace NzbDrone.Core.Extras.Others
             }
 
             var relativePath = author.Path.GetRelativePath(path);
+            var otherExtraFile = _otherExtraFileService.FindByPath(author.Id, relativePath);
 
-            var otherExtraFile = _otherExtraFileService.FindByPath(relativePath);
             if (otherExtraFile != null)
             {
                 var newPath = path + "-orig";
@@ -66,8 +66,8 @@ namespace NzbDrone.Core.Extras.Others
             }
 
             var relativePath = author.Path.GetRelativePath(path);
+            var otherExtraFile = _otherExtraFileService.FindByPath(author.Id, relativePath);
 
-            var otherExtraFile = _otherExtraFileService.FindByPath(relativePath);
             if (otherExtraFile != null)
             {
                 var subfolder = Path.GetDirectoryName(relativePath);
