@@ -104,7 +104,7 @@ function InteractiveSearch(props) {
 
       {
         !isFetching && error ?
-          <div>
+          <div className={styles.blankpad}>
             Unable to load results for this book search. Try again later
           </div> :
           null
@@ -112,7 +112,7 @@ function InteractiveSearch(props) {
 
       {
         !isFetching && isPopulated && !totalReleasesCount ?
-          <div>
+          <div className={styles.blankpad}>
             No results found
           </div> :
           null
@@ -120,7 +120,7 @@ function InteractiveSearch(props) {
 
       {
         !!totalReleasesCount && isPopulated && !items.length ?
-          <div>
+          <div className={styles.blankpad}>
             All results are hidden by the applied filter
           </div> :
           null
