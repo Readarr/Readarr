@@ -198,7 +198,10 @@ PackageWindows()
     local folder=$artifactsFolder/$runtime/$framework/Readarr
     
     PackageFiles "$folder" "$framework" "$runtime"
-    cp -r $outputFolder/$framework-windows/$runtime/publish/* $folder
+
+    if [ "$os" = "windows" ]; then
+        cp -r $outputFolder/$framework-windows/$runtime/publish/* $folder
+    fi
 
     echo "Removing Readarr.Mono"
     rm -f $folder/Readarr.Mono.*
