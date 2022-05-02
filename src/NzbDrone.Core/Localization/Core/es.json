@@ -51,7 +51,7 @@
     "CalendarWeekColumnHeaderHelpText": "Mostrado sobre cada columna cuando la vista activa es semana",
     "Cancel": "Cancelar",
     "CancelMessageText": "Seguro que quieres cancelar esta tarea pendiente?",
-    "CertificateValidation": "Validación de certificado",
+    "CertificateValidation": "Validación del certificado",
     "CertificateValidationHelpText": "Cambiar la rigidez de la validación de la certificación HTTPS",
     "ChangeFileDate": "Cambiar Fecha de Archivo",
     "ChangeHasNotBeenSavedYet": "El cambio aún no se ha guardado",
@@ -514,5 +514,6 @@
     "RemotePathMappingCheckBadDockerPath": "Está utilizando docker; el cliente de descarga {0} coloca las descargas en {1} pero esta no es una ruta válida {2}.  Revisa tus mapeos de rutas remotas y la configuración del cliente de descarga.",
     "RemotePathMappingCheckDockerFolderMissing": "Está utilizando docker; el cliente de descarga {0} coloca las descargas en {1} pero este directorio no parece existir dentro del contenedor.  Revisa tus mapeos de rutas remotas y la configuración del volumen del contenedor.",
     "Filters": "Filtros",
-    "FileWasDeletedByViaUI": "El archivo se eliminó a través de la interfaz de usuario"
+    "FileWasDeletedByViaUI": "El archivo se eliminó a través de la interfaz de usuario",
+    "AllowFingerprinting": "Permitir impresión digital"
 }

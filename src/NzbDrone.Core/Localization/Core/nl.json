@@ -345,7 +345,7 @@
     "ShortDateFormat": "Korte Datumnotatie",
     "ShowCutoffUnmetIconHelpText": "Toon icoon voor bestanden waarbij de drempel niet behaald werd",
     "ShowDateAdded": "Toon Datum Toegevoegd",
-    "ShowMonitored": "Toon Bewaakte",
+    "ShowMonitored": "Toon Gemonitorde",
     "ShowMonitoredHelpText": "Toon bewakingsstatus onder de poster",
     "ShowPath": "Toon Pad",
     "ShowQualityProfile": "Toon Kwaliteitsprofielen",
@@ -495,5 +495,7 @@
     "AppDataLocationHealthCheckMessage": "Updaten zal niet mogelijk zijn om het verwijderen van AppData te voorkomen",
     "AddedAuthorSettings": "Auteur instellingen toegevoegd",
     "AddMissing": "Voeg ontbrekende toe",
-    "AllBooks": "Alle Boeken"
+    "AllBooks": "Alle Boeken",
+    "Duration": "Duur",
+    "Filters": "Filters"
 }
