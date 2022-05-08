@@ -46,5 +46,6 @@
     "Automatic": "Automatický",
     "AgeWhenGrabbed": "Vek (po uchopení)",
     "Analytics": "Analytika",
-    "BindAddressHelpText": "Platná adresa IP4 alebo '*' pre všetky rozhrania"
+    "BindAddressHelpText": "Platná adresa IP4 alebo '*' pre všetky rozhrania",
+    "AppDataLocationHealthCheckMessage": "Aktualizácia nebude možná, aby sa predišlo zmazaniu AppData v priebehu aktualizácie"
 }

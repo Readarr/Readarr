@@ -62,5 +62,6 @@
     "DeleteBackupMessageText": "Er du sikker på at du vil slette formattaggen {0}?",
     "Blocklist": "Svarteliste",
     "BlocklistHelpText": "Hindrer Radarr i å automatisk gripe denne utgivelsen igjen",
-    "BlocklistRelease": "Blacklist -utgivelse"
+    "BlocklistRelease": "Blacklist -utgivelse",
+    "AppDataLocationHealthCheckMessage": "Oppdatering vil ikke være mulig for å forhindre sletting av AppData på oppdateringen"
 }
