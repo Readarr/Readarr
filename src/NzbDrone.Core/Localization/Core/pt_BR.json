@@ -761,7 +761,7 @@
     "OnRename": "Ao Renomear",
     "OnUpgrade": "Ao Atualizar",
     "AppDataLocationHealthCheckMessage": "A atualização não será possível para evitar a exclusão de AppData na atualização",
-    "IndexerSearchCheckNoInteractiveMessage": "Nenhum indexador disponível com a pesquisa interativa ativada, o Readarr não fornecerá nenhum resultado de pesquisa interativo",
+    "IndexerSearchCheckNoInteractiveMessage": "Nenhum indexador disponível com a pesquisa interativa habilitada, o Readarr não fornecerá nenhum resultado de pesquisa interativo",
     "ConnectSettingsSummary": "Notificações, conexões com servidores/tocadores de mídia e scripts personalizados",
     "DownloadClientStatusCheckAllClientMessage": "Todos os clientes download não estão disponíveis devido a falhas",
     "DownloadClientsSettingsSummary": "Clientes de download, gerenciamento do download e mapeamento remoto de caminhos",
