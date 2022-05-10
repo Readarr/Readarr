@@ -346,7 +346,7 @@ function EditRootFolderModalContent(props) {
 
                       <FormGroup>
                         <FormLabel>
-                          Convert to format
+                          {translate('ConvertToFormat')}
                           <Popover
                             anchor={
                               <Icon
@@ -371,7 +371,7 @@ function EditRootFolderModalContent(props) {
 
                       <FormGroup>
                         <FormLabel>
-                          Calibre Output Profile
+                          {translate('CalibreOutputProfile')}
                           <Popover
                             anchor={
                               <Icon
@@ -423,14 +423,14 @@ function EditRootFolderModalContent(props) {
               kind={kinds.DANGER}
               onPress={onDeleteRootFolderPress}
             >
-              Delete
+              {translate('Delete')}
             </Button>
         }
 
         <Button
           onPress={onModalClose}
         >
-          Cancel
+          {translate('Cancel')}
         </Button>
 
         <SpinnerErrorButton
@@ -438,7 +438,7 @@ function EditRootFolderModalContent(props) {
           error={saveError}
           onPress={onSavePress}
         >
-          Save
+          {translate('Save')}
         </SpinnerErrorButton>
       </ModalFooter>
     </ModalContent>

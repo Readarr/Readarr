@@ -267,7 +267,7 @@ class AuthorEditorFooter extends Component {
                   isDisabled={!selectedCount || isOrganizingAuthor || isRetaggingAuthor}
                   onPress={onOrganizeAuthorPress}
                 >
-                  Rename Files
+                  {translate('RenameFiles')}
                 </SpinnerButton>
 
                 <SpinnerButton
@@ -277,7 +277,7 @@ class AuthorEditorFooter extends Component {
                   isDisabled={!selectedCount || isOrganizingAuthor || isRetaggingAuthor}
                   onPress={onRetagAuthorPress}
                 >
-                  Write Metadata Tags
+                  {translate('WriteMetadataTags')}
                 </SpinnerButton>
 
                 <SpinnerButton
@@ -286,7 +286,7 @@ class AuthorEditorFooter extends Component {
                   isDisabled={!selectedCount || isOrganizingAuthor || isRetaggingAuthor}
                   onPress={this.onTagsPress}
                 >
-                  Set Readarr Tags
+                  {translate('SetReadarrTags')}
                 </SpinnerButton>
 
                 <SpinnerButton
@@ -296,7 +296,7 @@ class AuthorEditorFooter extends Component {
                   isDisabled={!selectedCount || isDeleting}
                   onPress={this.onDeleteSelectedPress}
                 >
-                  Delete
+                  {translate('Delete')}
                 </SpinnerButton>
 
               </div>
