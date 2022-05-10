@@ -8,42 +8,42 @@ function AuthorMonitoringOptionsPopoverContent() {
   return (
     <>
       <Alert>
-        This is a one time adjustment to set which books are monitored
+        {translate('MonitoringOptionsHelpText')}
       </Alert>
       <DescriptionList>
         <DescriptionListItem
           title={translate('AllBooks')}
-          data="Monitor all books"
+          data={translate('DataAllBooks')}
         />
 
         <DescriptionListItem
           title={translate('FutureBooks')}
-          data="Monitor books that have not released yet"
+          data={translate('DataFutureBooks')}
         />
 
         <DescriptionListItem
           title={translate('MissingBooks')}
-          data="Monitor books that do not have files or have not released yet"
+          data={translate('DataMissingBooks')}
         />
 
         <DescriptionListItem
           title={translate('ExistingBooks')}
-          data="Monitor books that have files or have not released yet"
+          data={translate('DataExistingBooks')}
         />
 
         <DescriptionListItem
           title={translate('FirstBook')}
-          data="Monitor the first book. All other books will be ignored"
+          data={translate('DataFirstBook')}
         />
 
         <DescriptionListItem
           title={translate('LatestBook')}
-          data="Monitor the latest book and future books"
+          data={translate('DataLatestBook')}
         />
 
         <DescriptionListItem
           title={translate('None')}
-          data="No books will be monitored"
+          data={translate('DataNone')}
         />
       </DescriptionList>
     </>

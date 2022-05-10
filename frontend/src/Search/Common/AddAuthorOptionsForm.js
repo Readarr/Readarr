@@ -126,7 +126,7 @@ class AddAuthorOptionsForm extends Component {
 
         <FormGroup className={showMetadataProfile ? undefined : styles.hideMetadataProfile}>
           <FormLabel>
-            Metadata Profile
+            {translate('MetadataProfile')}
 
             {
               includeNoneMetadataProfile &&

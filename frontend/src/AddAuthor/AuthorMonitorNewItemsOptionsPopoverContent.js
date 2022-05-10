@@ -8,17 +8,17 @@ function AuthorMonitorNewItemsOptionsPopoverContent() {
     <DescriptionList>
       <DescriptionListItem
         title={translate('AllBooks')}
-        data="Monitor all new books"
+        data={translate('DataNewAllBooks')}
       />
 
       <DescriptionListItem
         title={translate('NewBooks')}
-        data="Monitor new books released after the newest existing book"
+        data={translate('DataNewBooks')}
       />
 
       <DescriptionListItem
         title={translate('None')}
-        data="Don't monitor any new books"
+        data={translate('DataNewNone')}
       />
     </DescriptionList>
   );

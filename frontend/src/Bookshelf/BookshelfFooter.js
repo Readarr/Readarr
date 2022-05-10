@@ -6,6 +6,7 @@ import SelectInput from 'Components/Form/SelectInput';
 import SpinnerButton from 'Components/Link/SpinnerButton';
 import PageContentFooter from 'Components/Page/PageContentFooter';
 import { kinds } from 'Helpers/Props';
+import translate from 'Utilities/String/translate';
 import styles from './BookshelfFooter.css';
 
 const NO_CHANGE = 'noChange';
@@ -114,7 +115,7 @@ class BookshelfFooter extends Component {
 
         <div className={styles.inputContainer}>
           <div className={styles.label}>
-            Monitor Existing Books
+            {translate('MonitorExistingBooks')}
           </div>
 
           <MonitorBooksSelectInput
@@ -128,7 +129,7 @@ class BookshelfFooter extends Component {
 
         <div className={styles.inputContainer}>
           <div className={styles.label}>
-            Monitor New Books
+            {translate('MonitorNewBooks')}
           </div>
 
           <MonitorNewItemsSelectInput
@@ -152,7 +153,7 @@ class BookshelfFooter extends Component {
             isDisabled={!selectedCount || noChanges}
             onPress={this.onUpdateSelectedPress}
           >
-            Update Selected
+            {translate('UpdateSelected')}
           </SpinnerButton>
         </div>
       </PageContentFooter>

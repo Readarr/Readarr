@@ -28,17 +28,17 @@ function ImportListMonitoringOptionsPopoverContent() {
     <DescriptionList>
       <DescriptionListItem
         title={translate('None')}
-        data="Do not monitor authors or books"
+        data={translate('DataListMonitorNone')}
       />
 
       <DescriptionListItem
         title={translate('SpecificBook')}
-        data="Monitor authors but only monitor books explicitly included in the list"
+        data={translate('DataListMonitorSpecificBook')}
       />
 
       <DescriptionListItem
         title={translate('AllAuthorBooks')}
-        data="Monitor authors and all books for each author included on the import list"
+        data={translate('DataListMonitorAll')}
       />
     </DescriptionList>
   );
@@ -89,7 +89,7 @@ function EditImportListModalContent(props) {
   return (
     <ModalContent onModalClose={onModalClose}>
       <ModalHeader>
-        {id ? 'Edit List' : 'Add List'}
+        {id ? translate('EditList') : translate('AddList')}
       </ModalHeader>
 
       <ModalBody>
@@ -148,7 +148,7 @@ function EditImportListModalContent(props) {
 
                 <FormGroup>
                   <FormLabel>
-                    Monitor
+                    {translate('Monitor')}
 
                     <Popover
                       anchor={
@@ -318,7 +318,7 @@ function EditImportListModalContent(props) {
               kind={kinds.DANGER}
               onPress={onDeleteImportListPress}
             >
-              Delete
+              {translate('Delete')}
             </Button>
         }
 
@@ -327,13 +327,13 @@ function EditImportListModalContent(props) {
           error={saveError}
           onPress={onTestPress}
         >
-          Test
+          {translate('Test')}
         </SpinnerErrorButton>
 
         <Button
           onPress={onModalClose}
         >
-          Cancel
+          {translate('Cancel')}
         </Button>
 
         <SpinnerErrorButton
@@ -341,7 +341,7 @@ function EditImportListModalContent(props) {
           error={saveError}
           onPress={onSavePress}
         >
-          Save
+          {translate('Save')}
         </SpinnerErrorButton>
       </ModalFooter>
     </ModalContent>
