@@ -1,0 +1,2 @@
+- Automated API Documentation Updates recently implemented
+- [Wiki Contributions](https://wiki.servarr.com/readarr) and updates welcome and encouraged on the Wiki  itself or via GitHub
