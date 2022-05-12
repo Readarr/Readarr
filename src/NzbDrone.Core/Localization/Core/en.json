@@ -336,6 +336,8 @@
   "IndexersSettingsSummary": "Indexers and release restrictions",
   "IndexerStatusCheckAllClientMessage": "All indexers are unavailable due to failures",
   "IndexerStatusCheckSingleClientMessage": "Indexers unavailable due to failures: {0}",
+  "InstanceName": "Instance Name",
+  "InstanceNameHelpText": "Instance name in tab and for Syslog app name",
   "Interval": "Interval",
   "ISBN": "ISBN",
   "IsCalibreLibraryHelpText": "Use Calibre Content Server to manipulate library",
@@ -805,6 +807,7 @@
   "UnselectAll": "Unselect All",
   "UpdateAll": "Update all",
   "UpdateAutomaticallyHelpText": "Automatically download and install updates. You will still be able to install from System: Updates",
+  "UpdateAvailable": "New update is available",
   "UpdateCheckStartupNotWritableMessage": "Cannot install update because startup folder '{0}' is not writable by the user '{1}'.",
   "UpdateCheckStartupTranslocationMessage": "Cannot install update because startup folder '{0}' is in an App Translocation folder.",
   "UpdateCheckUINotWritableMessage": "Cannot install update because UI folder '{0}' is not writable by the user '{1}'.",
@@ -848,6 +851,5 @@
   "WriteTagsSync": "All files; keep in sync with Goodreads",
   "Year": "Year",
   "YesCancel": "Yes, Cancel",
-  "Yesterday": "Yesterday",
-  "UpdateAvailable": "New update is available"
+  "Yesterday": "Yesterday"
 }
