@@ -1368,15 +1368,15 @@
   resolved "https://registry.yarnpkg.com/@humanwhocodes/object-schema/-/object-schema-1.2.0.tgz#87de7af9c231826fdd68ac7258f77c429e0e5fcf"
   integrity sha512-wdppn25U8z/2yiaT6YGquE6X8sSv7hNMWSXYSSU1jGv/yd6XqjXgTDJ8KP4NgjTXfJ3GbRjeeb8RTV7a/VpM+w==
 
-"@microsoft/signalr@6.0.3":
-  version "6.0.3"
-  resolved "https://registry.yarnpkg.com/@microsoft/signalr/-/signalr-6.0.3.tgz#9904efd48cd488e3c1c80930ff9fbb3c9f55895d"
-  integrity sha512-wWGVC2xi8OxNjyir8iQWuyxWHy3Dkakk2Q3VreCE7pDzFAgZ4pId6abJlRPMVIQxkUvUGc8knMW5l3sv2bJ/yw==
+"@microsoft/signalr@6.0.5":
+  version "6.0.5"
+  resolved "https://registry.yarnpkg.com/@microsoft/signalr/-/signalr-6.0.5.tgz#219f7fa10e94a75a841d3d7140d939fd2c2657e9"
+  integrity sha512-Y6Mny+z71wv2/FiuoqLcraojQRIbyeF/Ao4y+tcZK28JzGGieoulXBJIVQhoxzeM15Xe8xGOX0/5pVlOpwrI8Q==
   dependencies:
     abort-controller "^3.0.0"
     eventsource "^1.0.7"
     fetch-cookie "^0.11.0"
-    node-fetch "^2.6.1"
+    node-fetch "^2.6.7"
     ws "^7.4.5"
 
 "@mrmlnc/readdir-enhanced@^2.2.1":
@@ -5188,10 +5188,10 @@ no-case@^3.0.4:
     lower-case "^2.0.2"
     tslib "^2.0.3"
 
-node-fetch@^2.6.1:
-  version "2.6.6"
-  resolved "https://registry.yarnpkg.com/node-fetch/-/node-fetch-2.6.6.tgz#1751a7c01834e8e1697758732e9efb6eeadfaf89"
-  integrity sha512-Z8/6vRlTUChSdIgMa51jxQ4lrw/Jy5SOW10ObaA47/RElsAN2c5Pn8bTgFGWn/ibwzXTE8qwr1Yzx28vsecXEA==
+node-fetch@^2.6.7:
+  version "2.6.7"
+  resolved "https://registry.yarnpkg.com/node-fetch/-/node-fetch-2.6.7.tgz#24de9fba827e3b4ae44dc8b20256a379160052ad"
+  integrity sha512-ZjMPFEfVx5j+y2yF35Kzx5sF7kDzxuDj6ziH4FFbOp87zKDZNx8yExJIb05OGF4Nlt9IHFIMBkRl41VdvcNdbQ==
   dependencies:
     whatwg-url "^5.0.0"
 
