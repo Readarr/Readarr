@@ -15,16 +15,16 @@
     <PackageVersion Include="ImpromptuInterface" Version="7.0.1" />
     <PackageVersion Include="LazyCache" Version="2.4.0" />
     <PackageVersion Include="Mailkit" Version="3.1.1" />
-    <PackageVersion Include="Microsoft.AspNetCore.SignalR.Client" Version="6.0.3" />
+    <PackageVersion Include="Microsoft.AspNetCore.SignalR.Client" Version="6.0.5" />
     <PackageVersion Include="Microsoft.Extensions.Caching.Memory" Version="6.0.1" />
     <PackageVersion Include="Microsoft.Extensions.Configuration" Version="6.0.1" />
     <PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
     <PackageVersion Include="Microsoft.Extensions.Hosting.WindowsServices" Version="6.0.0" />
     <PackageVersion Include="Microsoft.Extensions.Logging" Version="6.0.0" />
-    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.1.0" />
+    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.2.0" />
     <PackageVersion Include="Microsoft.Win32.Registry" Version="5.0.0" />
-    <PackageVersion Include="Mono.Posix.NETStandard" Version="5.20.1.34-servarr18" />
-    <PackageVersion Include="MonoTorrent" Version="2.0.4" />
+    <PackageVersion Include="Mono.Posix.NETStandard" Version="5.20.1.34-servarr22" />
+    <PackageVersion Include="MonoTorrent" Version="2.0.5" />
     <PackageVersion Include="Moq" Version="4.17.2" />
     <PackageVersion Include="NBuilder" Version="6.1.0" />
     <PackageVersion Include="Newtonsoft.Json" Version="13.0.1" />
@@ -34,7 +34,7 @@
     <PackageVersion Include="NUnit3TestAdapter" Version="4.2.1" />
     <PackageVersion Include="NUnit" Version="3.13.2" />
     <PackageVersion Include="NunitXml.TestLogger" Version="3.0.117" />
-    <PackageVersion Include="PdfSharpCore" Version="1.3.13" />
+    <PackageVersion Include="PdfSharpCore" Version="1.3.18" />
     <PackageVersion Include="RestSharp.Serializers.SystemTextJson" Version="106.15.0" />
     <PackageVersion Include="RestSharp" Version="106.15.0" />
     <PackageVersion Include="Selenium.Support" Version="3.141.0" />
@@ -56,7 +56,7 @@
     <PackageVersion Include="System.Security.Principal.Windows" Version="5.0.0" />
     <PackageVersion Include="System.ServiceProcess.ServiceController" Version="6.0.0" />
     <PackageVersion Include="System.Text.Encoding.CodePages" Version="6.0.0" />
-    <PackageVersion Include="System.Text.Json" Version="6.0.2" />
+    <PackageVersion Include="System.Text.Json" Version="6.0.4" />
     <PackageVersion Include="System.ValueTuple" Version="4.5.0" />
     <PackageVersion Include="TagLibSharp-Lidarr" Version="2.2.0.19" />
     <PackageVersion Include="Unity" Version="5.11.10" />
