@@ -1,18 +1,16 @@
 import { createSelector } from 'reselect';
-import createBookSelector from './createBookSelector';
+import createBookAuthorSelector from './createBookAuthorSelector';
 
 function createBookQualityProfileSelector() {
   return createSelector(
     (state) => state.settings.qualityProfiles.items,
-    createBookSelector(),
-    (qualityProfiles, book) => {
-      if (!book) {
+    createBookAuthorSelector(),
+    (qualityProfiles, author) => {
+      if (!author) {
         return {};
       }
 
-      return qualityProfiles.find((profile) => {
-        return profile.id === book.author.qualityProfileId;
-      });
+      return qualityProfiles.find((profile) => profile.id === author.qualityProfileId);
     }
   );
 }

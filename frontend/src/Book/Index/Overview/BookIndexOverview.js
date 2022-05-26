@@ -12,6 +12,7 @@ import SpinnerIconButton from 'Components/Link/SpinnerIconButton';
 import { icons } from 'Helpers/Props';
 import dimensions from 'Styles/Variables/dimensions';
 import fonts from 'Styles/Variables/fonts';
+import createAjaxRequest from 'Utilities/createAjaxRequest';
 import stripHtml from 'Utilities/String/stripHtml';
 import translate from 'Utilities/String/translate';
 import BookIndexOverviewInfo from './BookIndexOverviewInfo';
@@ -42,8 +43,24 @@ class BookIndexOverview extends Component {
 
     this.state = {
       isEditAuthorModalOpen: false,
-      isDeleteAuthorModalOpen: false
+      isDeleteAuthorModalOpen: false,
+      overview: ''
     };
+  }
+
+  componentDidMount() {
+    const { id } = this.props;
+
+    // Note that this component is lazy loaded by the virtualised view.
+    // We want to avoid storing overviews for *all* books which is
+    // why it's not put into the redux store
+    const promise = createAjaxRequest({
+      url: `/book/${id}/overview`
+    }).request;
+
+    promise.done((data) => {
+      this.setState({ overview: data.overview });
+    });
   }
 
   //
@@ -84,7 +101,6 @@ class BookIndexOverview extends Component {
     const {
       id,
       title,
-      overview,
       monitored,
       titleSlug,
       nextAiring,
@@ -118,6 +134,7 @@ class BookIndexOverview extends Component {
     } = statistics;
 
     const {
+      overview,
       isEditAuthorModalOpen,
       isDeleteAuthorModalOpen
     } = this.state;
@@ -267,7 +284,6 @@ class BookIndexOverview extends Component {
 BookIndexOverview.propTypes = {
   id: PropTypes.number.isRequired,
   title: PropTypes.string.isRequired,
-  overview: PropTypes.string.isRequired,
   monitored: PropTypes.bool.isRequired,
   titleSlug: PropTypes.string.isRequired,
   nextAiring: PropTypes.string,

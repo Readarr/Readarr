@@ -138,6 +138,17 @@ namespace Readarr.Api.V1.Books
             return MapToResource(_bookService.GetBooks(bookIds), false);
         }
 
+        [HttpGet("{id:int}/overview")]
+        public object Overview(int id)
+        {
+            var overview = _editionService.GetEditionsByBook(id).Single(x => x.Monitored).Overview;
+            return new
+            {
+                id,
+                overview
+            };
+        }
+
         [RestPostById]
         public ActionResult<BookResource> AddBook(BookResource bookResource)
         {

@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
 import * as commandNames from 'Commands/commandNames';
 import { executeCommand } from 'Store/Actions/commandActions';
+import createBookAuthorSelector from 'Store/Selectors/createBookAuthorSelector';
 import createBookQualityProfileSelector from 'Store/Selectors/createBookQualityProfileSelector';
 import createBookSelector from 'Store/Selectors/createBookSelector';
 import createExecutingCommandsSelector from 'Store/Selectors/createExecutingCommandsSelector';
@@ -32,11 +33,13 @@ function selectShowSearchAction() {
 function createMapStateToProps() {
   return createSelector(
     createBookSelector(),
+    createBookAuthorSelector(),
     createBookQualityProfileSelector(),
     selectShowSearchAction(),
     createExecutingCommandsSelector(),
     (
       book,
+      author,
       qualityProfile,
       showSearchAction,
       executingCommands
@@ -54,7 +57,7 @@ function createMapStateToProps() {
       const isRefreshingBook = executingCommands.some((command) => {
         return (
           (command.name === commandNames.REFRESH_AUTHOR &&
-            command.body.authorId === book.author.id) ||
+            command.body.authorId === book.authorId) ||
           (command.name === commandNames.REFRESH_BOOK &&
             command.body.bookId === book.id)
         );
@@ -63,7 +66,7 @@ function createMapStateToProps() {
       const isSearchingBook = executingCommands.some((command) => {
         return (
           (command.name === commandNames.AUTHOR_SEARCH &&
-            command.body.authorId === book.author.id) ||
+            command.body.authorId === book.authorId) ||
           (command.name === commandNames.BOOK_SEARCH &&
             command.body.bookIds.includes(book.id))
         );
@@ -71,6 +74,7 @@ function createMapStateToProps() {
 
       return {
         ...book,
+        author,
         qualityProfile,
         showSearchAction,
         isRefreshingBook,

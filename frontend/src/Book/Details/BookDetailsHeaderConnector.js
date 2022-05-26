@@ -8,15 +8,25 @@ import createDimensionsSelector from 'Store/Selectors/createDimensionsSelector';
 import createUISettingsSelector from 'Store/Selectors/createUISettingsSelector';
 import BookDetailsHeader from './BookDetailsHeader';
 
+const selectOverview = createSelector(
+  (state) => state.editions,
+  (editions) => {
+    const monitored = editions.items.find((e) => e.monitored === true);
+    return monitored?.overview;
+  }
+);
+
 function createMapStateToProps() {
   return createSelector(
     createBookSelector(),
+    selectOverview,
     createUISettingsSelector(),
     createDimensionsSelector(),
-    (book, uiSettings, dimensions) => {
+    (book, overview, uiSettings, dimensions) => {
 
       return {
         ...book,
+        overview,
         shortDateFormat: uiSettings.shortDateFormat,
         isSmallScreen: dimensions.isSmallScreen
       };

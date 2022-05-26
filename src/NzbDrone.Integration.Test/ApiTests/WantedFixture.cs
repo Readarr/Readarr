@@ -52,10 +52,21 @@ namespace NzbDrone.Integration.Test.ApiTests
         {
             EnsureAuthor("14586394", "43765115", "Andrew Hunter Murray", true);
 
-            var result = WantedMissing.GetPaged(0, 15, "releaseDate", "desc");
+            var result = WantedMissing.GetPagedIncludeAuthor(0, 15, "releaseDate", "desc", includeAuthor: true);
 
             result.Records.First().Author.Should().NotBeNull();
             result.Records.First().Author.AuthorName.Should().Be("Andrew Hunter Murray");
+        }
+
+        [Test]
+        [Order(1)]
+        public void missing_should_not_have_author()
+        {
+            EnsureAuthor("14586394", "43765115", "Andrew Hunter Murray", true);
+
+            var result = WantedMissing.GetPagedIncludeAuthor(0, 15, "releaseDate", "desc", includeAuthor: false);
+
+            result.Records.First().Author.Should().BeNull();
         }
 
         [Test]
@@ -103,10 +114,23 @@ namespace NzbDrone.Integration.Test.ApiTests
             var author = EnsureAuthor("14586394", "43765115", "Andrew Hunter Murray", true);
             EnsureBookFile(author, 1, "43765115", Quality.MOBI);
 
-            var result = WantedCutoffUnmet.GetPaged(0, 15, "releaseDate", "desc");
+            var result = WantedCutoffUnmet.GetPagedIncludeAuthor(0, 15, "releaseDate", "desc", includeAuthor: true);
 
             result.Records.First().Author.Should().NotBeNull();
             result.Records.First().Author.AuthorName.Should().Be("Andrew Hunter Murray");
+        }
+
+        [Test]
+        [Order(2)]
+        public void cutoff_should_not_have_author()
+        {
+            EnsureProfileCutoff(1, Quality.AZW3);
+            var author = EnsureAuthor("14586394", "43765115", "Andrew Hunter Murray", true);
+            EnsureBookFile(author, 1, "43765115", Quality.MOBI);
+
+            var result = WantedCutoffUnmet.GetPagedIncludeAuthor(0, 15, "releaseDate", "desc", includeAuthor: false);
+
+            result.Records.First().Author.Should().BeNull();
         }
 
         [Test]

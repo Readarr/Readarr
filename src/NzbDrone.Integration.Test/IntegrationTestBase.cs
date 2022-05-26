@@ -53,8 +53,8 @@ namespace NzbDrone.Integration.Test
         public ClientBase<RootFolderResource> RootFolders;
         public AuthorClient Author;
         public ClientBase<TagResource> Tags;
-        public ClientBase<BookResource> WantedMissing;
-        public ClientBase<BookResource> WantedCutoffUnmet;
+        public WantedClient WantedMissing;
+        public WantedClient WantedCutoffUnmet;
 
         private List<SignalRMessage> _signalRReceived;
 
@@ -118,8 +118,8 @@ namespace NzbDrone.Integration.Test
             RootFolders = new ClientBase<RootFolderResource>(RestClient, ApiKey);
             Author = new AuthorClient(RestClient, ApiKey);
             Tags = new ClientBase<TagResource>(RestClient, ApiKey);
-            WantedMissing = new ClientBase<BookResource>(RestClient, ApiKey, "wanted/missing");
-            WantedCutoffUnmet = new ClientBase<BookResource>(RestClient, ApiKey, "wanted/cutoff");
+            WantedMissing = new WantedClient(RestClient, ApiKey, "wanted/missing");
+            WantedCutoffUnmet = new WantedClient(RestClient, ApiKey, "wanted/cutoff");
         }
 
         [OneTimeTearDown]
