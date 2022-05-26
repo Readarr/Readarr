@@ -1,6 +1,6 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
 using NzbDrone.Common.Extensions;
@@ -70,10 +70,13 @@ namespace Readarr.Api.V1.Books
         {
             if (!authorId.HasValue && !bookIds.Any() && titleSlug.IsNullOrWhiteSpace())
             {
+                var editionTask = Task.Run(() => _editionService.GetAllMonitoredEditions());
+                var metadataTask = Task.Run(() => _authorService.GetAllAuthors());
                 var books = _bookService.GetAllBooks();
 
-                var authors = _authorService.GetAllAuthors().ToDictionary(x => x.AuthorMetadataId);
-                var editions = _editionService.GetAllMonitoredEditions().GroupBy(x => x.BookId).ToDictionary(x => x.Key, y => y.ToList());
+                var editions = editionTask.GetAwaiter().GetResult().GroupBy(x => x.BookId).ToDictionary(x => x.Key, y => y.ToList());
+
+                var authors = metadataTask.GetAwaiter().GetResult().ToDictionary(x => x.AuthorMetadataId);
 
                 foreach (var book in books)
                 {

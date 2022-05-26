@@ -112,10 +112,14 @@ namespace Readarr.Api.V1.Books
 
         private void LinkAuthorStatistics(List<BookResource> resources, List<AuthorStatistics> authorStatistics)
         {
+            var bookStatsDict = authorStatistics.SelectMany(x => x.BookStatistics).ToDictionary(x => x.BookId);
+
             foreach (var book in resources)
             {
-                var stats = authorStatistics.SingleOrDefault(ss => ss.AuthorId == book.AuthorId);
-                LinkAuthorStatistics(book, stats);
+                if (bookStatsDict.TryGetValue(book.Id, out var stats))
+                {
+                    book.Statistics = stats.ToResource();
+                }
             }
         }
 
