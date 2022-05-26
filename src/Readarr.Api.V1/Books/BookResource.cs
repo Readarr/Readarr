@@ -72,13 +72,10 @@ namespace Readarr.Api.V1.Books
                 AuthorTitle = authorTitle,
                 SeriesTitle = seriesTitle,
                 Disambiguation = selectedEdition?.Disambiguation,
-                Overview = selectedEdition?.Overview,
                 Images = selectedEdition?.Images ?? new List<MediaCover>(),
                 Links = model.Links.Concat(selectedEdition?.Links ?? new List<Links>()).ToList(),
                 Ratings = selectedEdition?.Ratings ?? new Ratings(),
                 Added = model.Added,
-                Author = model.Author?.Value.ToResource(),
-                Editions = model.Editions?.Value.ToResource() ?? new List<EditionResource>()
             };
         }
 

@@ -8,6 +8,7 @@ import * as commandNames from 'Commands/commandNames';
 import { toggleBooksMonitored } from 'Store/Actions/bookActions';
 import { clearBookFiles, fetchBookFiles } from 'Store/Actions/bookFileActions';
 import { executeCommand } from 'Store/Actions/commandActions';
+import { clearEditions, fetchEditions } from 'Store/Actions/editionActions';
 import { cancelFetchReleases, clearReleases } from 'Store/Actions/releaseActions';
 import createAllAuthorSelector from 'Store/Selectors/createAllAuthorsSelector';
 import createCommandsSelector from 'Store/Selectors/createCommandsSelector';
@@ -43,11 +44,12 @@ function createMapStateToProps() {
     (state, { titleSlug }) => titleSlug,
     selectBookFiles,
     (state) => state.books,
+    (state) => state.editions,
     createAllAuthorSelector(),
     createCommandsSelector(),
     createUISettingsSelector(),
     createDimensionsSelector(),
-    (titleSlug, bookFiles, books, authors, commands, uiSettings, dimensions) => {
+    (titleSlug, bookFiles, books, editions, authors, commands, uiSettings, dimensions) => {
       const book = books.items.find((b) => b.titleSlug === titleSlug);
       const author = authors.find((a) => a.id === book.authorId);
       const sortedBooks = books.items.filter((b) => b.authorId === book.authorId);
@@ -79,8 +81,8 @@ function createMapStateToProps() {
         isRefreshingCommand.body.bookId === book.id
       );
 
-      const isFetching = isBookFilesFetching;
-      const isPopulated = isBookFilesPopulated;
+      const isFetching = isBookFilesFetching || editions.isFetching;
+      const isPopulated = isBookFilesPopulated && editions.isPopulated;
 
       return {
         ...book,
@@ -104,6 +106,8 @@ const mapDispatchToProps = {
   executeCommand,
   fetchBookFiles,
   clearBookFiles,
+  fetchEditions,
+  clearEditions,
   clearReleases,
   cancelFetchReleases,
   toggleBooksMonitored
@@ -121,7 +125,8 @@ class BookDetailsConnector extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (!_.isEqual(getMonitoredEditions(prevProps), getMonitoredEditions(this.props)) ||
+    if (prevProps.id !== this.props.id ||
+      !_.isEqual(getMonitoredEditions(prevProps), getMonitoredEditions(this.props)) ||
         (prevProps.anyReleaseOk === false && this.props.anyReleaseOk === true)) {
       this.unpopulate();
       this.populate();
@@ -140,12 +145,14 @@ class BookDetailsConnector extends Component {
     const bookId = this.props.id;
 
     this.props.fetchBookFiles({ bookId });
+    this.props.fetchEditions({ bookId });
   }
 
   unpopulate = () => {
     this.props.cancelFetchReleases();
     this.props.clearReleases();
     this.props.clearBookFiles();
+    this.props.clearEditions();
   }
 
   //
@@ -195,6 +202,8 @@ BookDetailsConnector.propTypes = {
   titleSlug: PropTypes.string.isRequired,
   fetchBookFiles: PropTypes.func.isRequired,
   clearBookFiles: PropTypes.func.isRequired,
+  fetchEditions: PropTypes.func.isRequired,
+  clearEditions: PropTypes.func.isRequired,
   clearReleases: PropTypes.func.isRequired,
   cancelFetchReleases: PropTypes.func.isRequired,
   toggleBooksMonitored: PropTypes.func.isRequired,

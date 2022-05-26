@@ -51,6 +51,9 @@ namespace Readarr.Api.V1.Search
                 {
                     var book = (NzbDrone.Core.Books.Book)result;
                     resource.Book = book.ToResource();
+                    resource.Book.Overview = book.Editions.Value.Single(x => x.Monitored).Overview;
+                    resource.Book.Author = book.Author.Value.ToResource();
+                    resource.Book.Editions = book.Editions.Value.ToResource();
                     resource.ForeignId = book.ForeignBookId;
 
                     var cover = book.Editions.Value.Single(x => x.Monitored).Images.FirstOrDefault(c => c.CoverType == MediaCoverTypes.Cover);

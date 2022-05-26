@@ -439,7 +439,7 @@ namespace NzbDrone.Core.MetadataSource.BookInfo
                 var edition = book.Editions.Value.SingleOrDefault(e => e.ForeignEditionId == id.ToString());
 
                 trimmed.Editions = new List<Edition> { edition };
-                return trimmed;
+                book = trimmed;
             }
 
             var authorDict = authors.ToDictionary(x => x.ForeignAuthorId);

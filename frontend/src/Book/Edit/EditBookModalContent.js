@@ -53,7 +53,7 @@ class EditBookModalContent extends Component {
       editions
     } = item;
 
-    const hasFile = statistics ? statistics.bookFileCount : 0;
+    const hasFile = statistics ? statistics.bookFileCount > 0 : false;
     const errorMessage = getErrorMessage(error, 'Unable to load editions');
 
     return (
