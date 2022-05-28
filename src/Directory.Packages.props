@@ -8,8 +8,8 @@
     <PackageVersion Include="DryIoc.Microsoft.DependencyInjection" Version="6.0.2" />
     <PackageVersion Include="Equ" Version="2.3.0" />
     <PackageVersion Include="FluentAssertions" Version="5.10.3" />
-    <PackageVersion Include="FluentMigrator.Runner.SQLite" Version="4.0.0-alpha.289" />
-    <PackageVersion Include="FluentMigrator.Runner" Version="4.0.0-alpha.289" />
+    <PackageVersion Include="FluentMigrator.Runner" Version="3.3.2" />
+    <PackageVersion Include="FluentMigrator.Runner.SQLite" Version="3.3.2" />
     <PackageVersion Include="FluentValidation" Version="8.6.2" />
     <PackageVersion Include="Ical.Net" Version="4.2.0" />
     <PackageVersion Include="ImpromptuInterface" Version="7.0.1" />
