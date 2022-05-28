@@ -8,10 +8,10 @@ namespace NzbDrone.Core.Datastore.Migration
     {
         protected override void MainDbUpgrade()
         {
-            Alter.Table("Notifications").AddColumn("OnAuthorDelete").AsBoolean().WithDefaultValue(0);
-            Alter.Table("Notifications").AddColumn("OnBookDelete").AsBoolean().WithDefaultValue(0);
-            Alter.Table("Notifications").AddColumn("OnBookFileDelete").AsBoolean().WithDefaultValue(0);
-            Alter.Table("Notifications").AddColumn("OnBookFileDeleteForUpgrade").AsBoolean().WithDefaultValue(0);
+            Alter.Table("Notifications").AddColumn("OnAuthorDelete").AsBoolean().WithDefaultValue(false);
+            Alter.Table("Notifications").AddColumn("OnBookDelete").AsBoolean().WithDefaultValue(false);
+            Alter.Table("Notifications").AddColumn("OnBookFileDelete").AsBoolean().WithDefaultValue(false);
+            Alter.Table("Notifications").AddColumn("OnBookFileDeleteForUpgrade").AsBoolean().WithDefaultValue(false);
         }
     }
 }

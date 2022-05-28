@@ -23,12 +23,12 @@ namespace NzbDrone.Core.Housekeeping.Housekeepers
         {
             using (var mapper = _database.OpenConnection())
             {
-                mapper.Execute(@"DELETE FROM MetadataFiles
-                                     WHERE Id IN (
-                                         SELECT Id FROM MetadataFiles
-                                         WHERE Type = 1
-                                         GROUP BY AuthorId, Consumer
-                                         HAVING COUNT(AuthorId) > 1
+                mapper.Execute(@"DELETE FROM ""MetadataFiles""
+                                     WHERE ""Id"" IN (
+                                         SELECT MIN(""Id"") FROM ""MetadataFiles""
+                                         WHERE ""Type"" = 1
+                                         GROUP BY ""AuthorId"", ""Consumer""
+                                         HAVING COUNT(""AuthorId"") > 1
                                      )");
             }
         }
@@ -37,12 +37,12 @@ namespace NzbDrone.Core.Housekeeping.Housekeepers
         {
             using (var mapper = _database.OpenConnection())
             {
-                mapper.Execute(@"DELETE FROM MetadataFiles
-                                         WHERE Id IN (
-                                         SELECT Id FROM MetadataFiles
-                                         WHERE Type IN (2, 4)
-                                         GROUP BY BookId, Consumer
-                                         HAVING COUNT(BookId) > 1
+                mapper.Execute(@"DELETE FROM ""MetadataFiles""
+                                         WHERE ""Id"" IN (
+                                         SELECT MIN(""Id"") FROM ""MetadataFiles""
+                                         WHERE ""Type"" IN (2, 4)
+                                         GROUP BY ""BookId"", ""Consumer""
+                                         HAVING COUNT(""BookId"") > 1
                                      )");
             }
         }
@@ -51,12 +51,12 @@ namespace NzbDrone.Core.Housekeeping.Housekeepers
         {
             using (var mapper = _database.OpenConnection())
             {
-                mapper.Execute(@"DELETE FROM MetadataFiles
-                                         WHERE Id IN (
-                                         SELECT Id FROM MetadataFiles
-                                         WHERE Type IN (2, 4)
-                                         GROUP BY BookFileId, Consumer
-                                         HAVING COUNT(BookFileId) > 1
+                mapper.Execute(@"DELETE FROM ""MetadataFiles""
+                                         WHERE ""Id"" IN (
+                                         SELECT MIN(""Id"") FROM ""MetadataFiles""
+                                         WHERE ""Type"" IN (2, 4)
+                                         GROUP BY ""BookFileId"", ""Consumer""
+                                         HAVING COUNT(""BookFileId"") > 1
                                      )");
             }
         }

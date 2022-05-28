@@ -106,7 +106,7 @@ namespace NzbDrone.Core.Test.MusicTests
         private void GivenBooksForRefresh(List<Book> books)
         {
             Mocker.GetMock<IBookService>(MockBehavior.Strict)
-                .Setup(s => s.GetBooksForRefresh(It.IsAny<int>(), It.IsAny<IEnumerable<string>>()))
+                .Setup(s => s.GetBooksForRefresh(It.IsAny<int>(), It.IsAny<List<string>>()))
                 .Returns(books);
         }
 
@@ -238,7 +238,7 @@ namespace NzbDrone.Core.Test.MusicTests
 
             Mocker.GetMock<IBookService>(MockBehavior.Strict)
                 .InSequence(seq)
-                .Setup(x => x.GetBooksForRefresh(It.IsAny<int>(), It.IsAny<IEnumerable<string>>()))
+                .Setup(x => x.GetBooksForRefresh(It.IsAny<int>(), It.IsAny<List<string>>()))
                 .Returns(new List<Book>());
 
             // Update called twice for a move/merge
@@ -298,7 +298,7 @@ namespace NzbDrone.Core.Test.MusicTests
 
             Mocker.GetMock<IBookService>(MockBehavior.Strict)
                 .InSequence(seq)
-                .Setup(x => x.GetBooksForRefresh(clash.AuthorMetadataId, It.IsAny<IEnumerable<string>>()))
+                .Setup(x => x.GetBooksForRefresh(clash.AuthorMetadataId, It.IsAny<List<string>>()))
                 .Returns(_books);
 
             // Update called twice for a move/merge

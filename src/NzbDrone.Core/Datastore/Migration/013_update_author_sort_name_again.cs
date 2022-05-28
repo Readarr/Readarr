@@ -21,7 +21,7 @@ namespace NzbDrone.Core.Datastore.Migration
 
         private void MigrateAuthorSortName(IDbConnection conn, IDbTransaction tran)
         {
-            var rows = conn.Query<AuthorName>("SELECT AuthorMetadata.Id, AuthorMetadata.Name FROM AuthorMetadata", transaction: tran);
+            var rows = conn.Query<AuthorName>("SELECT \"AuthorMetadata\".\"Id\", \"AuthorMetadata\".\"Name\" FROM \"AuthorMetadata\"", transaction: tran);
 
             foreach (var row in rows)
             {
@@ -30,7 +30,7 @@ namespace NzbDrone.Core.Datastore.Migration
                 row.SortNameLastFirst = row.Name.ToLastFirst().ToLower();
             }
 
-            var sql = "UPDATE AuthorMetadata SET NameLastFirst = @NameLastFirst, SortName = @SortName, SortNameLastFirst = @SortNameLastFirst WHERE Id = @Id";
+            var sql = "UPDATE \"AuthorMetadata\" SET \"NameLastFirst\" = @NameLastFirst, \"SortName\" = @SortName, \"SortNameLastFirst\" = @SortNameLastFirst WHERE \"Id\" = @Id";
             conn.Execute(sql, rows, transaction: tran);
         }
 

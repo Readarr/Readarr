@@ -54,13 +54,13 @@ namespace NzbDrone.Core.Datastore.Migration
                 _connection = conn;
                 _transaction = tran;
 
-                _profiles = _connection.Query<Profile10>(@"SELECT Id, Name, Cutoff, Items FROM QualityProfiles",
+                _profiles = _connection.Query<Profile10>(@"SELECT ""Id"", ""Name"", ""Cutoff"", ""Items"" FROM ""QualityProfiles""",
                     transaction: _transaction).ToList();
             }
 
             public void Commit()
             {
-                var sql = "UPDATE QualityProfiles SET Name = @Name, Cutoff = @Cutoff, Items = @Items WHERE Id = @Id";
+                var sql = "UPDATE \"QualityProfiles\" SET \"Name\" = @Name, \"Cutoff\" = @Cutoff, \"Items\" = @Items WHERE \"Id\" = @Id";
                 _connection.Execute(sql, _changedProfiles, transaction: _transaction);
 
                 _changedProfiles.Clear();

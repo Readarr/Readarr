@@ -246,7 +246,7 @@ namespace NzbDrone.Core.Books
 
         protected override List<Edition> GetLocalChildren(Book entity, List<Edition> remoteChildren)
         {
-            return _editionService.GetEditionsForRefresh(entity.Id, remoteChildren.Select(x => x.ForeignEditionId));
+            return _editionService.GetEditionsForRefresh(entity.Id, remoteChildren.Select(x => x.ForeignEditionId).ToList());
         }
 
         protected override Tuple<Edition, List<Edition>> GetMatchingExistingChildren(List<Edition> existingChildren, Edition remote)

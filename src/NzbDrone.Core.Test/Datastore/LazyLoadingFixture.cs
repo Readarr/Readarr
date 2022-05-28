@@ -78,7 +78,7 @@ namespace NzbDrone.Core.Test.Datastore
         public void should_lazy_load_author_for_trackfile()
         {
             var db = Mocker.Resolve<IDatabase>();
-            var tracks = db.Query<BookFile>(new SqlBuilder()).ToList();
+            var tracks = db.Query<BookFile>(new SqlBuilder(db.DatabaseType)).ToList();
 
             Assert.IsNotEmpty(tracks);
             foreach (var track in tracks)
@@ -94,7 +94,7 @@ namespace NzbDrone.Core.Test.Datastore
         public void should_lazy_load_trackfile_if_not_joined()
         {
             var db = Mocker.Resolve<IDatabase>();
-            var tracks = db.Query<Book>(new SqlBuilder()).ToList();
+            var tracks = db.Query<Book>(new SqlBuilder(db.DatabaseType)).ToList();
 
             foreach (var track in tracks)
             {
@@ -109,7 +109,7 @@ namespace NzbDrone.Core.Test.Datastore
         {
             var db = Mocker.Resolve<IDatabase>();
             var files = MediaFileRepository.Query(db,
-                                                  new SqlBuilder()
+                                                  new SqlBuilder(db.DatabaseType)
                                                   .Join<BookFile, Edition>((t, a) => t.EditionId == a.Id)
                                                   .Join<Edition, Book>((e, b) => e.BookId == b.Id)
                                                   .Join<Book, Author>((book, author) => book.AuthorMetadataId == author.AuthorMetadataId)

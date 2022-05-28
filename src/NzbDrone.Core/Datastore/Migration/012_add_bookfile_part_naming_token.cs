@@ -8,7 +8,7 @@ namespace NzbDrone.Core.Datastore.Migration
     {
         protected override void MainDbUpgrade()
         {
-            Execute.Sql("UPDATE NamingConfig SET StandardBookFormat = StandardBookFormat || '{ (PartNumber)}'");
+            Execute.Sql("UPDATE \"NamingConfig\" SET \"StandardBookFormat\" = \"StandardBookFormat\" || '{ (PartNumber)}'");
         }
     }
 }

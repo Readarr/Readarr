@@ -32,7 +32,7 @@ namespace NzbDrone.Core.MediaFiles
 
         // always join with all the other good stuff
         // needed more often than not so better to load it all now
-        protected override SqlBuilder Builder() => new SqlBuilder()
+        protected override SqlBuilder Builder() => new SqlBuilder(_database.DatabaseType)
             .LeftJoin<BookFile, Edition>((b, e) => b.EditionId == e.Id)
             .LeftJoin<Edition, Book>((e, b) => e.BookId == b.Id)
             .LeftJoin<Book, Author>((book, author) => book.AuthorMetadataId == author.AuthorMetadataId)
@@ -86,7 +86,7 @@ namespace NzbDrone.Core.MediaFiles
 
         public List<BookFile> GetUnmappedFiles()
         {
-            return _database.Query<BookFile>(new SqlBuilder().Select(typeof(BookFile))
+            return _database.Query<BookFile>(new SqlBuilder(_database.DatabaseType).Select(typeof(BookFile))
                                               .Where<BookFile>(t => t.EditionId == 0)).ToList();
         }
 
@@ -107,7 +107,7 @@ namespace NzbDrone.Core.MediaFiles
         {
             // ensure path ends with a single trailing path separator to avoid matching partial paths
             var safePath = path.TrimEnd(Path.DirectorySeparatorChar) + Path.DirectorySeparatorChar;
-            return _database.Query<BookFile>(new SqlBuilder().Where<BookFile>(x => x.Path.StartsWith(safePath))).ToList();
+            return _database.Query<BookFile>(new SqlBuilder(_database.DatabaseType).Where<BookFile>(x => x.Path.StartsWith(safePath))).ToList();
         }
 
         public BookFile GetFileWithPath(string path)
@@ -118,7 +118,7 @@ namespace NzbDrone.Core.MediaFiles
         public List<BookFile> GetFileWithPath(List<string> paths)
         {
             // use more limited join for speed
-            var builder = new SqlBuilder()
+            var builder = new SqlBuilder(_database.DatabaseType)
                 .LeftJoin<BookFile, Edition>((f, t) => f.EditionId == t.Id);
 
             var all = _database.QueryJoined<BookFile, Edition>(builder, (file, book) => MapTrack(file, book)).ToList();

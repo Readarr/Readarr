@@ -8,8 +8,8 @@ namespace NzbDrone.Core.Datastore.Migration
     {
         protected override void MainDbUpgrade()
         {
-            Delete.Index().OnTable("Books").OnColumn("AuthorId");
-            Delete.Index().OnTable("Books").OnColumns("AuthorId", "ReleaseDate");
+            IfDatabase("sqlite").Delete.Index().OnTable("Books").OnColumn("AuthorId");
+            IfDatabase("sqlite").Delete.Index().OnTable("Books").OnColumns("AuthorId", "ReleaseDate");
 
             Create.Index().OnTable("Editions").OnColumn("BookId");
         }

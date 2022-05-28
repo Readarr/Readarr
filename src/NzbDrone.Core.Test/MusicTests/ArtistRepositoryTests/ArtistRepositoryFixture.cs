@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Data.SQLite;
 using FizzWare.NBuilder;
 using FluentAssertions;
+using Npgsql;
 using NUnit.Framework;
 using NzbDrone.Common.Extensions;
 using NzbDrone.Core.Books;
+using NzbDrone.Core.Datastore;
 using NzbDrone.Core.Profiles.Metadata;
 using NzbDrone.Core.Profiles.Qualities;
 using NzbDrone.Core.Qualities;
@@ -145,7 +147,14 @@ namespace NzbDrone.Core.Test.MusicTests.AuthorRepositoryTests
             _authorRepo.Insert(author1);
 
             Action insertDupe = () => _authorRepo.Insert(author2);
-            insertDupe.Should().Throw<SQLiteException>();
+            if (Db.DatabaseType == DatabaseType.PostgreSQL)
+            {
+                insertDupe.Should().Throw<PostgresException>();
+            }
+            else
+            {
+                insertDupe.Should().Throw<SQLiteException>();
+            }
         }
     }
 }

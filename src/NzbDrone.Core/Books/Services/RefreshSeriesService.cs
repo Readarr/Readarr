@@ -132,7 +132,7 @@ namespace NzbDrone.Core.Books
             var updated = false;
 
             var existingByAuthor = _seriesService.GetByAuthorMetadataId(authorMetadataId);
-            var existingBySeries = _seriesService.FindById(remoteSeries.Select(x => x.ForeignSeriesId));
+            var existingBySeries = _seriesService.FindById(remoteSeries.Select(x => x.ForeignSeriesId).ToList());
             var existing = existingByAuthor.Concat(existingBySeries).GroupBy(x => x.ForeignSeriesId).Select(x => x.First()).ToList();
 
             var books = _bookService.GetBooksByAuthorMetadataId(authorMetadataId);

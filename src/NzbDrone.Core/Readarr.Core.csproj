@@ -14,11 +14,13 @@
     <PackageReference Include="Microsoft.Extensions.Configuration" />
     <PackageReference Include="FluentMigrator.Runner" />
     <PackageReference Include="FluentMigrator.Runner.SQLite" />
+    <PackageReference Include="FluentMigrator.Runner.Postgres" />
     <PackageReference Include="FluentValidation" />
     <PackageReference Include="MailKit" />
     <PackageReference Include="Newtonsoft.Json" />
     <PackageReference Include="NLog" />
     <PackageReference Include="NLog.Targets.Syslog" />
+    <PackageReference Include="Npgsql" />
     <PackageReference Include="RestSharp" />
     <PackageReference Include="System.IO.Abstractions" />
     <PackageReference Include="TagLibSharp-Lidarr" />

@@ -68,7 +68,7 @@ namespace NzbDrone.Core.Datastore
             _updateSql = GetUpdateSql(_properties);
         }
 
-        protected virtual SqlBuilder Builder() => new SqlBuilder();
+        protected virtual SqlBuilder Builder() => new SqlBuilder(_database.DatabaseType);
 
         protected virtual List<TModel> Query(SqlBuilder builder) => _database.Query<TModel>(builder).ToList();
 
@@ -80,7 +80,7 @@ namespace NzbDrone.Core.Datastore
         {
             using (var conn = _database.OpenConnection())
             {
-                return conn.ExecuteScalar<int>($"SELECT COUNT(*) FROM {_table}");
+                return conn.ExecuteScalar<int>($"SELECT COUNT(*) FROM \"{_table}\"");
             }
         }
 
@@ -176,6 +176,11 @@ namespace NzbDrone.Core.Datastore
                 }
             }
 
+            if (_database.DatabaseType == DatabaseType.PostgreSQL)
+            {
+                return $"INSERT INTO \"{_table}\" ({sbColumnList.ToString()}) VALUES ({sbParameterList.ToString()}) RETURNING \"Id\"";
+            }
+
             return $"INSERT INTO {_table} ({sbColumnList.ToString()}) VALUES ({sbParameterList.ToString()}); SELECT last_insert_rowid() id";
         }
 
@@ -194,7 +199,8 @@ namespace NzbDrone.Core.Datastore
                 throw;
             }
 
-            var id = (int)multi.Read().First().id;
+            var multiRead = multi.Read();
+            var id = (int)(multiRead.First().id ?? multiRead.First().Id);
             _keyProperty.SetValue(model, id);
 
             return model;
@@ -305,7 +311,7 @@ namespace NzbDrone.Core.Datastore
         {
             using (var conn = _database.OpenConnection())
             {
-                conn.Execute($"DELETE FROM [{_table}]");
+                conn.Execute($"DELETE FROM \"{_table}\"");
             }
 
             if (vacuum)
@@ -364,7 +370,7 @@ namespace NzbDrone.Core.Datastore
         private string GetUpdateSql(List<PropertyInfo> propertiesToUpdate)
         {
             var sb = new StringBuilder();
-            sb.AppendFormat("UPDATE {0} SET ", _table);
+            sb.AppendFormat("UPDATE \"{0}\" SET ", _table);
 
             for (var i = 0; i < propertiesToUpdate.Count; i++)
             {
@@ -446,9 +452,10 @@ namespace NzbDrone.Core.Datastore
                 pagingSpec.SortKey = $"{_table}.{_keyProperty.Name}";
             }
 
+            var sortKey = TableMapping.Mapper.GetSortKey(pagingSpec.SortKey);
             var sortDirection = pagingSpec.SortDirection == SortDirection.Descending ? "DESC" : "ASC";
-            var pagingOffset = (pagingSpec.Page - 1) * pagingSpec.PageSize;
-            builder.OrderBy($"{pagingSpec.SortKey} {sortDirection} LIMIT {pagingSpec.PageSize} OFFSET {pagingOffset}");
+            var pagingOffset = Math.Max(pagingSpec.Page - 1, 0) * pagingSpec.PageSize;
+            builder.OrderBy($"\"{sortKey}\" {sortDirection} LIMIT {pagingSpec.PageSize} OFFSET {pagingOffset}");
 
             return queryFunc(builder).ToList();
         }

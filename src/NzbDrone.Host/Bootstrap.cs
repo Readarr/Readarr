@@ -8,7 +8,6 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using DryIoc;
 using DryIoc.Microsoft.DependencyInjection;
-using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -26,6 +25,8 @@ using NzbDrone.Core.Configuration;
 using NzbDrone.Core.Datastore.Extensions;
 using NzbDrone.Core.Lifecycle;
 using NzbDrone.Core.Messaging.Events;
+using NzbDrone.Host;
+using PostgresOptions = NzbDrone.Core.Datastore.PostgresOptions;
 
 namespace NzbDrone.Host
 {
@@ -141,6 +142,10 @@ namespace NzbDrone.Host
                         .AddStartupContext(context)
                         .Resolve<IEventAggregator>().PublishEvent(new ApplicationStartingEvent());
                 })
+                .ConfigureServices(services =>
+                {
+                    services.Configure<PostgresOptions>(config.GetSection("Readarr:Postgres"));
+                })
                 .ConfigureWebHost(builder =>
                 {
                     builder.UseConfiguration(config);
@@ -213,6 +218,7 @@ namespace NzbDrone.Host
             return new ConfigurationBuilder()
                 .AddXmlFile(appFolder.GetConfigPath(), optional: true, reloadOnChange: false)
                 .AddInMemoryCollection(new List<KeyValuePair<string, string>> { new ("dataProtectionFolder", appFolder.GetDataProtectionPath()) })
+                .AddEnvironmentVariables()
                 .Build();
         }
 

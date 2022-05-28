@@ -11,7 +11,7 @@ namespace NzbDrone.Core.Datastore.Migration
     {
         protected override void MainDbUpgrade()
         {
-            Execute.Sql("DELETE FROM config WHERE Key IN ('folderchmod', 'chownuser')");
+            Execute.Sql("DELETE FROM \"Config\" WHERE \"Key\" IN ('folderchmod', 'chownuser')");
             Execute.WithConnection(ConvertFileChmodToFolderChmod);
         }
 
@@ -20,7 +20,7 @@ namespace NzbDrone.Core.Datastore.Migration
             using (IDbCommand getFileChmodCmd = conn.CreateCommand())
             {
                 getFileChmodCmd.Transaction = tran;
-                getFileChmodCmd.CommandText = @"SELECT Value FROM Config WHERE Key = 'filechmod'";
+                getFileChmodCmd.CommandText = @"SELECT ""Value"" FROM ""Config"" WHERE ""Key"" = 'filechmod'";
 
                 var fileChmod = getFileChmodCmd.ExecuteScalar() as string;
                 if (fileChmod != null)
@@ -35,7 +35,7 @@ namespace NzbDrone.Core.Datastore.Migration
                         using (IDbCommand insertCmd = conn.CreateCommand())
                         {
                             insertCmd.Transaction = tran;
-                            insertCmd.CommandText = "INSERT INTO Config (Key, Value) VALUES ('chmodfolder', ?)";
+                            insertCmd.CommandText = "INSERT INTO \"Config\" (\"Key\", \"Value\") VALUES ('chmodfolder', ?)";
                             insertCmd.AddParameter(folderChmod);
 
                             insertCmd.ExecuteNonQuery();
@@ -45,7 +45,7 @@ namespace NzbDrone.Core.Datastore.Migration
                     using (IDbCommand deleteCmd = conn.CreateCommand())
                     {
                         deleteCmd.Transaction = tran;
-                        deleteCmd.CommandText = "DELETE FROM Config WHERE Key = 'filechmod'";
+                        deleteCmd.CommandText = "DELETE FROM \"Config\" WHERE \"Key\" = 'filechmod'";
 
                         deleteCmd.ExecuteNonQuery();
                     }

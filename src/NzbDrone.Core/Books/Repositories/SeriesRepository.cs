@@ -8,7 +8,7 @@ namespace NzbDrone.Core.Books
     public interface ISeriesRepository : IBasicRepository<Series>
     {
         Series FindById(string foreignSeriesId);
-        List<Series> FindById(IEnumerable<string> foreignSeriesId);
+        List<Series> FindById(List<string> foreignSeriesId);
         List<Series> GetByAuthorMetadataId(int authorMetadataId);
         List<Series> GetByAuthorId(int authorId);
     }
@@ -25,7 +25,7 @@ namespace NzbDrone.Core.Books
             return Query(x => x.ForeignSeriesId == foreignSeriesId).SingleOrDefault();
         }
 
-        public List<Series> FindById(IEnumerable<string> foreignSeriesId)
+        public List<Series> FindById(List<string> foreignSeriesId)
         {
             return Query(x => foreignSeriesId.Contains(x.ForeignSeriesId));
         }

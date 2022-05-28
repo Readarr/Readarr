@@ -16,7 +16,7 @@ namespace NzbDrone.Core.Housekeeping.Housekeepers
         {
             using (var mapper = _database.OpenConnection())
             {
-                mapper.Execute(@"DELETE FROM HttpResponse WHERE Expiry < date('now')");
+                mapper.Execute(@"DELETE FROM ""HttpResponse"" WHERE ""Expiry"" < date('now')");
             }
 
             _database.Vacuum();

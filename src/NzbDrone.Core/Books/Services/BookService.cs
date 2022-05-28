@@ -19,7 +19,7 @@ namespace NzbDrone.Core.Books
         List<Book> GetNextBooksByAuthorMetadataId(IEnumerable<int> authorMetadataIds);
         List<Book> GetLastBooksByAuthorMetadataId(IEnumerable<int> authorMetadataIds);
         List<Book> GetBooksByAuthorMetadataId(int authorMetadataId);
-        List<Book> GetBooksForRefresh(int authorMetadataId, IEnumerable<string> foreignIds);
+        List<Book> GetBooksForRefresh(int authorMetadataId, List<string> foreignIds);
         List<Book> GetBooksByFileIds(IEnumerable<int> fileIds);
         Book AddBook(Book newBook, bool doRefresh = true);
         Book FindById(string foreignId);
@@ -206,7 +206,7 @@ namespace NzbDrone.Core.Books
             return _bookRepository.GetBooksByAuthorMetadataId(authorMetadataId).ToList();
         }
 
-        public List<Book> GetBooksForRefresh(int authorMetadataId, IEnumerable<string> foreignIds)
+        public List<Book> GetBooksForRefresh(int authorMetadataId, List<string> foreignIds)
         {
             return _bookRepository.GetBooksForRefresh(authorMetadataId, foreignIds);
         }

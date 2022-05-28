@@ -25,7 +25,7 @@ namespace NzbDrone.Core.Books
         {
         }
 
-        protected override SqlBuilder Builder() => new SqlBuilder()
+        protected override SqlBuilder Builder() => new SqlBuilder(_database.DatabaseType)
             .Join<Author, AuthorMetadata>((a, m) => a.AuthorMetadataId == m.Id);
 
         protected override List<Author> Query(SqlBuilder builder) => Query(_database, builder).ToList();
@@ -60,7 +60,7 @@ namespace NzbDrone.Core.Books
         {
             using (var conn = _database.OpenConnection())
             {
-                var strSql = "SELECT Id AS [Key], Path AS [Value] FROM Authors";
+                var strSql = "SELECT \"Id\" AS \"Key\", \"Path\" AS \"Value\" FROM \"Authors\"";
                 return conn.Query<KeyValuePair<int, string>>(strSql).ToDictionary(x => x.Key, x => x.Value);
             }
         }
