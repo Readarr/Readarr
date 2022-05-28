@@ -142,6 +142,7 @@
   "CutoffHelpText": "Once this quality is reached Readarr will no longer download books",
   "CutoffUnmet": "Cutoff Unmet",
   "DataAllBooks": "Monitor all books",
+  "Database": "Database",
   "DataExistingBooks": "Monitor books that have files or have not released yet",
   "DataFirstBook": "Monitor the first book. All other books will be ignored",
   "DataFuturebooks": "Monitor books that have not released yet",

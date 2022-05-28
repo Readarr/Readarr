@@ -15,7 +15,7 @@ namespace NzbDrone.Core.Books
         List<Edition> FindByAuthor(int id);
         List<Edition> FindByAuthorMetadataId(int id, bool onlyMonitored);
         Edition FindByTitle(int authorMetadataId, string title);
-        List<Edition> GetEditionsForRefresh(int bookId, IEnumerable<string> foreignEditionIds);
+        List<Edition> GetEditionsForRefresh(int bookId, List<string> foreignEditionIds);
         List<Edition> SetMonitored(Edition edition);
     }
 
@@ -38,7 +38,7 @@ namespace NzbDrone.Core.Books
             return edition;
         }
 
-        public List<Edition> GetEditionsForRefresh(int bookId, IEnumerable<string> foreignEditionIds)
+        public List<Edition> GetEditionsForRefresh(int bookId, List<string> foreignEditionIds)
         {
             return Query(r => r.BookId == bookId || foreignEditionIds.Contains(r.ForeignEditionId));
         }
@@ -47,7 +47,7 @@ namespace NzbDrone.Core.Books
         {
             // populate the books and author metadata also
             // this hopefully speeds up the track matching a lot
-            var builder = new SqlBuilder()
+            var builder = new SqlBuilder(_database.DatabaseType)
                 .LeftJoin<Edition, Book>((e, b) => e.BookId == b.Id)
                 .LeftJoin<Book, AuthorMetadata>((b, a) => b.AuthorMetadataId == a.Id)
                 .Where<Edition>(r => r.BookId == id);

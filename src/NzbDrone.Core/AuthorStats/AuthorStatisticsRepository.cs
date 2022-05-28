@@ -16,7 +16,7 @@ namespace NzbDrone.Core.AuthorStats
 
     public class AuthorStatisticsRepository : IAuthorStatisticsRepository
     {
-        private const string _selectTemplate = "SELECT /**select**/ FROM Editions /**join**/ /**innerjoin**/ /**leftjoin**/ /**where**/ /**groupby**/ /**having**/ /**orderby**/";
+        private const string _selectTemplate = "SELECT /**select**/ FROM \"Editions\" /**join**/ /**innerjoin**/ /**leftjoin**/ /**where**/ /**groupby**/ /**having**/ /**orderby**/";
 
         private readonly IMainDatabase _database;
 
@@ -45,14 +45,14 @@ namespace NzbDrone.Core.AuthorStats
             }
         }
 
-        private SqlBuilder Builder() => new SqlBuilder()
-            .Select(@"Authors.Id AS AuthorId,
-                     Books.Id AS BookId,
-                     SUM(COALESCE(BookFiles.Size, 0)) AS SizeOnDisk,
-                     1 AS TotalBookCount,
-                     CASE WHEN BookFiles.Id IS NULL THEN 0 ELSE 1 END AS AvailableBookCount,
-                     CASE WHEN (Books.Monitored = 1 AND (Books.ReleaseDate < @currentDate) OR Books.ReleaseDate IS NULL) OR BookFiles.Id IS NOT NULL THEN 1 ELSE 0 END AS BookCount,
-                     CASE WHEN BookFiles.Id IS NULL THEN 0 ELSE COUNT(BookFiles.Id) END AS BookFileCount")
+        private SqlBuilder Builder() => new SqlBuilder(_database.DatabaseType)
+            .Select(@"""Authors"".""Id"" AS ""AuthorId"",
+                     ""Books"".""Id"" AS ""BookId"",
+                     SUM(COALESCE(""BookFiles"".""Size"", 0)) AS ""SizeOnDisk"",
+                     1 AS ""TotalBookCount"",
+                     CASE WHEN MIN(""BookFiles"".""Id"") IS NULL THEN 0 ELSE 1 END AS ""AvailableBookCount"",
+                     CASE WHEN (""Books"".""Monitored"" = true AND (""Books"".""ReleaseDate"" < @currentDate) OR ""Books"".""ReleaseDate"" IS NULL) OR MIN(""BookFiles"".""Id"") IS NOT NULL THEN 1 ELSE 0 END AS ""BookCount"",
+                     CASE WHEN MIN(""BookFiles"".""Id"") IS NULL THEN 0 ELSE COUNT(""BookFiles"".""Id"") END AS ""BookFileCount""")
             .Join<Edition, Book>((e, b) => e.BookId == b.Id)
             .Join<Book, Author>((book, author) => book.AuthorMetadataId == author.AuthorMetadataId)
             .LeftJoin<Edition, BookFile>((t, f) => t.Id == f.EditionId)

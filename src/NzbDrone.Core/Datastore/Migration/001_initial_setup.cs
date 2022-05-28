@@ -37,6 +37,22 @@ namespace NzbDrone.Core.Datastore.Migration
                 .WithColumn("MetadataProfileId").AsInt32().WithDefaultValue(1)
                 .WithColumn("AuthorMetadataId").AsInt32().Unique();
 
+            Create.TableForModel("Books")
+                .WithColumn("AuthorMetadataId").AsInt32().WithDefaultValue(0)
+                .WithColumn("ForeignBookId").AsString().Indexed()
+                .WithColumn("TitleSlug").AsString().Unique()
+                .WithColumn("Title").AsString()
+                .WithColumn("ReleaseDate").AsDateTime().Nullable()
+                .WithColumn("Links").AsString().Nullable()
+                .WithColumn("Genres").AsString().Nullable()
+                .WithColumn("Ratings").AsString().Nullable()
+                .WithColumn("CleanTitle").AsString().Indexed()
+                .WithColumn("Monitored").AsBoolean()
+                .WithColumn("AnyEditionOk").AsBoolean()
+                .WithColumn("LastInfoSync").AsDateTime().Nullable()
+                .WithColumn("Added").AsDateTime().Nullable()
+                .WithColumn("AddOptions").AsString().Nullable();
+
             Create.TableForModel("Series")
                 .WithColumn("ForeignSeriesId").AsString().Unique()
                 .WithColumn("Title").AsString()
@@ -67,22 +83,6 @@ namespace NzbDrone.Core.Datastore.Migration
                 .WithColumn("Genres").AsString().Nullable()
                 .WithColumn("Ratings").AsString().Nullable()
                 .WithColumn("Aliases").AsString().WithDefaultValue("[]");
-
-            Create.TableForModel("Books")
-                .WithColumn("AuthorMetadataId").AsInt32().WithDefaultValue(0)
-                .WithColumn("ForeignBookId").AsString().Indexed()
-                .WithColumn("TitleSlug").AsString().Unique()
-                .WithColumn("Title").AsString()
-                .WithColumn("ReleaseDate").AsDateTime().Nullable()
-                .WithColumn("Links").AsString().Nullable()
-                .WithColumn("Genres").AsString().Nullable()
-                .WithColumn("Ratings").AsString().Nullable()
-                .WithColumn("CleanTitle").AsString().Indexed()
-                .WithColumn("Monitored").AsBoolean()
-                .WithColumn("AnyEditionOk").AsBoolean()
-                .WithColumn("LastInfoSync").AsDateTime().Nullable()
-                .WithColumn("Added").AsDateTime().Nullable()
-                .WithColumn("AddOptions").AsString().Nullable();
 
             Create.TableForModel("Editions")
                 .WithColumn("BookId").AsInt32().WithDefaultValue(0)
@@ -136,12 +136,12 @@ namespace NzbDrone.Core.Datastore.Migration
                 .WithColumn("OnUpgrade").AsBoolean().Nullable()
                 .WithColumn("Tags").AsString().Nullable()
                 .WithColumn("OnRename").AsBoolean().NotNullable()
-                .WithColumn("OnReleaseImport").AsBoolean().WithDefaultValue(0)
-                .WithColumn("OnHealthIssue").AsBoolean().WithDefaultValue(0)
-                .WithColumn("IncludeHealthWarnings").AsBoolean().WithDefaultValue(0)
-                .WithColumn("OnDownloadFailure").AsBoolean().WithDefaultValue(0)
-                .WithColumn("OnImportFailure").AsBoolean().WithDefaultValue(0)
-                .WithColumn("OnTrackRetag").AsBoolean().WithDefaultValue(0);
+                .WithColumn("OnReleaseImport").AsBoolean().WithDefaultValue(false)
+                .WithColumn("OnHealthIssue").AsBoolean().WithDefaultValue(false)
+                .WithColumn("IncludeHealthWarnings").AsBoolean().WithDefaultValue(false)
+                .WithColumn("OnDownloadFailure").AsBoolean().WithDefaultValue(false)
+                .WithColumn("OnImportFailure").AsBoolean().WithDefaultValue(false)
+                .WithColumn("OnTrackRetag").AsBoolean().WithDefaultValue(false);
 
             Create.TableForModel("ScheduledTasks")
                 .WithColumn("TypeName").AsString().Unique()
@@ -327,8 +327,8 @@ namespace NzbDrone.Core.Datastore.Migration
                 .WithColumn("Label").AsString().NotNullable()
                 .WithColumn("Filters").AsString().NotNullable();
 
-            Create.Index().OnTable("Books").OnColumn("AuthorId");
-            Create.Index().OnTable("Books").OnColumn("AuthorId").Ascending()
+            IfDatabase("sqlite").Create.Index().OnTable("Books").OnColumn("AuthorId");
+            IfDatabase("sqlite").Create.Index().OnTable("Books").OnColumn("AuthorId").Ascending()
                 .OnColumn("ReleaseDate").Ascending();
 
             Delete.Index().OnTable("History").OnColumn("BookId");
@@ -340,12 +340,15 @@ namespace NzbDrone.Core.Datastore.Migration
                                              .OnColumn("Date").Descending();
 
             Create.Index().OnTable("Authors").OnColumn("Monitored").Ascending();
+
             Create.Index().OnTable("Books").OnColumn("AuthorMetadataId").Ascending();
+            Create.Index().OnTable("Books").OnColumn("AuthorMetadataId").Ascending()
+                .OnColumn("ReleaseDate").Ascending();
 
             Insert.IntoTable("DelayProfiles").Row(new
             {
-                EnableUsenet = 1,
-                EnableTorrent = 1,
+                EnableUsenet = true,
+                EnableTorrent = true,
                 PreferredProtocol = 1,
                 UsenetDelay = 0,
                 TorrentDelay = 0,

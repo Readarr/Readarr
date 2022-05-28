@@ -34,7 +34,7 @@ namespace NzbDrone.Core.Blocklisting
             return Query(b => b.AuthorId == authorId);
         }
 
-        protected override SqlBuilder PagedBuilder() => new SqlBuilder()
+        protected override SqlBuilder PagedBuilder() => new SqlBuilder(_database.DatabaseType)
             .Join<Blocklist, Author>((b, m) => b.AuthorId == m.Id)
             .Join<Author, AuthorMetadata>((l, r) => l.AuthorMetadataId == r.Id);
         protected override IEnumerable<Blocklist> PagedQuery(SqlBuilder builder) => _database.QueryJoined<Blocklist, Author, AuthorMetadata>(builder,

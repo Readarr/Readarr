@@ -238,7 +238,7 @@ namespace NzbDrone.Core.Books
         protected override List<Book> GetLocalChildren(Author entity, List<Book> remoteChildren)
         {
             return _bookService.GetBooksForRefresh(entity.AuthorMetadataId,
-                                                     remoteChildren.Select(x => x.ForeignBookId));
+                                                     remoteChildren.Select(x => x.ForeignBookId).ToList());
         }
 
         protected override Tuple<Book, List<Book>> GetMatchingExistingChildren(List<Book> existingChildren, Book remote)

@@ -10,6 +10,7 @@
     <PackageVersion Include="FluentAssertions" Version="5.10.3" />
     <PackageVersion Include="FluentMigrator.Runner" Version="3.3.2" />
     <PackageVersion Include="FluentMigrator.Runner.SQLite" Version="3.3.2" />
+    <PackageVersion Include="FluentMigrator.Runner.Postgres" Version="3.3.2" />
     <PackageVersion Include="FluentValidation" Version="8.6.2" />
     <PackageVersion Include="Ical.Net" Version="4.2.0" />
     <PackageVersion Include="ImpromptuInterface" Version="7.0.1" />
@@ -31,6 +32,7 @@
     <PackageVersion Include="NLog.Extensions.Logging" Version="1.7.4" />
     <PackageVersion Include="NLog" Version="4.7.14" />
     <PackageVersion Include="NLog.Targets.Syslog" Version="6.0.2" />
+    <PackageVersion Include="Npgsql" Version="6.0.3" />
     <PackageVersion Include="NUnit3TestAdapter" Version="4.2.1" />
     <PackageVersion Include="NUnit" Version="3.13.3" />
     <PackageVersion Include="NunitXml.TestLogger" Version="3.0.117" />

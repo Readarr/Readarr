@@ -15,7 +15,7 @@ namespace NzbDrone.Core.Books
         List<Book> GetLastBooks(IEnumerable<int> authorMetadataIds);
         List<Book> GetNextBooks(IEnumerable<int> authorMetadataIds);
         List<Book> GetBooksByAuthorMetadataId(int authorMetadataId);
-        List<Book> GetBooksForRefresh(int authorMetadataId, IEnumerable<string> foreignIds);
+        List<Book> GetBooksForRefresh(int authorMetadataId, List<string> foreignIds);
         List<Book> GetBooksByFileIds(IEnumerable<int> fileIds);
         Book FindByTitle(int authorMetadataId, string title);
         Book FindById(string foreignBookId);
@@ -44,17 +44,35 @@ namespace NzbDrone.Core.Books
         public List<Book> GetLastBooks(IEnumerable<int> authorMetadataIds)
         {
             var now = DateTime.UtcNow;
-            return Query(Builder().Where<Book>(x => authorMetadataIds.Contains(x.AuthorMetadataId) && x.ReleaseDate < now)
-                         .GroupBy<Book>(x => x.AuthorMetadataId)
-                         .Having("Books.ReleaseDate = MAX(Books.ReleaseDate)"));
+
+            var inner = Builder()
+                .Select("MIN(\"Books\".\"Id\") as id, MAX(\"Books\".\"ReleaseDate\") as date")
+                .Where<Book>(x => authorMetadataIds.Contains(x.AuthorMetadataId) && x.ReleaseDate < now)
+                .GroupBy<Book>(x => x.AuthorMetadataId)
+                .AddSelectTemplate(typeof(Book));
+
+            var outer = Builder()
+                .Join($"({inner.RawSql}) ids on ids.id = \"Books\".\"Id\" and ids.date = \"Books\".\"ReleaseDate\"")
+                .AddParameters(inner.Parameters);
+
+            return Query(outer);
         }
 
         public List<Book> GetNextBooks(IEnumerable<int> authorMetadataIds)
         {
             var now = DateTime.UtcNow;
-            return Query(Builder().Where<Book>(x => authorMetadataIds.Contains(x.AuthorMetadataId) && x.ReleaseDate > now)
-                         .GroupBy<Book>(x => x.AuthorMetadataId)
-                         .Having("Books.ReleaseDate = MIN(Books.ReleaseDate)"));
+
+            var inner = Builder()
+                .Select("MIN(\"Books\".\"Id\") as id, MIN(\"Books\".\"ReleaseDate\") as date")
+                .Where<Book>(x => authorMetadataIds.Contains(x.AuthorMetadataId) && x.ReleaseDate > now)
+                .GroupBy<Book>(x => x.AuthorMetadataId)
+                .AddSelectTemplate(typeof(Book));
+
+            var outer = Builder()
+                .Join($"({inner.RawSql}) ids on ids.id = \"Books\".\"Id\" and ids.date = \"Books\".\"ReleaseDate\"")
+                .AddParameters(inner.Parameters);
+
+            return Query(outer);
         }
 
         public List<Book> GetBooksByAuthorMetadataId(int authorMetadataId)
@@ -62,14 +80,14 @@ namespace NzbDrone.Core.Books
             return Query(s => s.AuthorMetadataId == authorMetadataId);
         }
 
-        public List<Book> GetBooksForRefresh(int authorMetadataId, IEnumerable<string> foreignIds)
+        public List<Book> GetBooksForRefresh(int authorMetadataId, List<string> foreignIds)
         {
             return Query(a => a.AuthorMetadataId == authorMetadataId || foreignIds.Contains(a.ForeignBookId));
         }
 
         public List<Book> GetBooksByFileIds(IEnumerable<int> fileIds)
         {
-            return Query(new SqlBuilder()
+            return Query(new SqlBuilder(_database.DatabaseType)
                          .Join<Book, Edition>((b, e) => b.Id == e.BookId)
                          .Join<Edition, BookFile>((l, r) => l.Id == r.EditionId)
                          .Where<BookFile>(f => fileIds.Contains(f.Id)))
@@ -125,7 +143,7 @@ namespace NzbDrone.Core.Books
             {
                 foreach (var belowCutoff in profile.QualityIds)
                 {
-                    clauses.Add(string.Format("(Authors.[QualityProfileId] = {0} AND BookFiles.Quality LIKE '%_quality_: {1},%')", profile.ProfileId, belowCutoff));
+                    clauses.Add(string.Format("(\"Authors\".\"QualityProfileId\" = {0} AND \"BookFiles\".\"Quality\" LIKE '%_quality_: {1},%')", profile.ProfileId, belowCutoff));
                 }
             }
 
@@ -136,7 +154,7 @@ namespace NzbDrone.Core.Books
         {
             pagingSpec.Records = GetPagedRecords(BooksWhereCutoffUnmetBuilder(qualitiesBelowCutoff), pagingSpec, PagedQuery);
 
-            var countTemplate = $"SELECT COUNT(*) FROM (SELECT /**select**/ FROM {TableMapping.Mapper.TableNameMapping(typeof(Book))} /**join**/ /**innerjoin**/ /**leftjoin**/ /**where**/ /**groupby**/ /**having**/)";
+            var countTemplate = $"SELECT COUNT(*) FROM (SELECT /**select**/ FROM \"{TableMapping.Mapper.TableNameMapping(typeof(Book))}\" /**join**/ /**innerjoin**/ /**leftjoin**/ /**where**/ /**groupby**/ /**having**/) AS \"Inner\"";
             pagingSpec.TotalRecords = GetPagedRecordCount(BooksWhereCutoffUnmetBuilder(qualitiesBelowCutoff).Select(typeof(Book)), pagingSpec, countTemplate);
 
             return pagingSpec;
