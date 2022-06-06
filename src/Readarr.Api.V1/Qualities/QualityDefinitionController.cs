@@ -1,19 +1,23 @@
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
+using NzbDrone.Core.Datastore.Events;
+using NzbDrone.Core.Messaging.Events;
 using NzbDrone.Core.Qualities;
 using NzbDrone.Http.REST.Attributes;
+using NzbDrone.SignalR;
 using Readarr.Http;
 using Readarr.Http.REST;
 
 namespace Readarr.Api.V1.Qualities
 {
     [V1ApiController]
-    public class QualityDefinitionController : RestController<QualityDefinitionResource>
+    public class QualityDefinitionController : RestControllerWithSignalR<QualityDefinitionResource, QualityDefinition>, IHandle<CommandExecutedEvent>
     {
         private readonly IQualityDefinitionService _qualityDefinitionService;
 
-        public QualityDefinitionController(IQualityDefinitionService qualityDefinitionService)
+        public QualityDefinitionController(IQualityDefinitionService qualityDefinitionService, IBroadcastSignalRMessage signalRBroadcaster)
+            : base(signalRBroadcaster)
         {
             _qualityDefinitionService = qualityDefinitionService;
         }
@@ -49,6 +53,15 @@ namespace Readarr.Api.V1.Qualities
 
             return Accepted(_qualityDefinitionService.All()
                 .ToResource());
+        }
+
+        [NonAction]
+        public void Handle(CommandExecutedEvent message)
+        {
+            if (message.Command.Name == "ResetQualityDefinitions")
+            {
+                BroadcastResourceChange(ModelAction.Sync);
+            }
         }
     }
 }
