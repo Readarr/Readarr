@@ -601,5 +601,8 @@
     "BackupIntervalHelpText": "备份 Lidarr 数据库和设置的时间间隔",
     "Term": "项",
     "MetadataProfile": "元数据配置",
-    "MetadataProfiles": "元数据配置"
+    "MetadataProfiles": "元数据配置",
+    "InstanceName": "中文",
+    "InstanceNameHelpText": "选项卡及日志应用名称",
+    "AddList": "添加列表"
 }
