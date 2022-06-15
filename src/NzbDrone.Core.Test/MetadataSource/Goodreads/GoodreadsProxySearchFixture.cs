@@ -39,7 +39,7 @@ namespace NzbDrone.Core.Test.MetadataSource.Goodreads
         }
 
         [TestCase("Harry Potter and the sorcerer's stone", 3)]
-        [TestCase("B0192CTMYG", 42844155)]
+        [TestCase("B0192CTMYG", 61209488)]
         [TestCase("9780439554930", 48517161)]
         public void successful_book_search(string title, int expected)
         {
