@@ -12,9 +12,9 @@
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" />
     <PackageReference Include="Microsoft.Extensions.Logging" />
     <PackageReference Include="Microsoft.Extensions.Configuration" />
-    <PackageReference Include="FluentMigrator.Runner" />
-    <PackageReference Include="FluentMigrator.Runner.SQLite" />
-    <PackageReference Include="FluentMigrator.Runner.Postgres" />
+    <PackageReference Include="Servarr.FluentMigrator.Runner" />
+    <PackageReference Include="Servarr.FluentMigrator.Runner.SQLite" />
+    <PackageReference Include="Servarr.FluentMigrator.Runner.Postgres" />
     <PackageReference Include="FluentValidation" />
     <PackageReference Include="MailKit" />
     <PackageReference Include="Newtonsoft.Json" />
