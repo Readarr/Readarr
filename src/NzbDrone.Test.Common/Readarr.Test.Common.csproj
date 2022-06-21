@@ -12,7 +12,7 @@
     <PackageReference Include="RestSharp" />
     <PackageReference Include="RestSharp.Serializers.SystemTextJson" />
     <PackageReference Include="System.IO.Abstractions" />
-    <PackageReference Include="Unity" />
+    <PackageReference Include="System.IO.Abstractions.TestingHelpers" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\NzbDrone.Common\Readarr.Common.csproj" />
