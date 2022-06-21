@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.IO.Abstractions;
 using System.Linq;
 using FizzWare.NBuilder;
 using FluentAssertions;
@@ -132,6 +134,13 @@ namespace NzbDrone.Core.Test.MediaCoverTests
                         CoverType = MediaCoverTypes.Banner
                     }
                 };
+
+            var path = Path.Combine(TestContext.CurrentContext.TestDirectory, "Files", "Media", "NonExistant.mp4");
+            var fileInfo = new FileInfo(path);
+
+            Mocker.GetMock<IDiskProvider>()
+                .Setup(c => c.GetFileInfo(It.IsAny<string>()))
+                .Returns((FileInfoBase)fileInfo);
 
             Subject.ConvertToLocalUrls(12, MediaCoverEntity.Author, covers);
 
