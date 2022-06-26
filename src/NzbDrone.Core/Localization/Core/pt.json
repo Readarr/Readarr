@@ -798,5 +798,6 @@
     "UpdateCheckStartupTranslocationMessage": "Não é possível instalar a atualização porque a pasta de arranque \"{0}\" está em uma pasta de transposição de aplicações.",
     "ConnectSettingsSummary": "Notificações, ligações para servidores/leitores de multimédia e scripts personalizados",
     "FailedToLoadQueue": "Falha ao carregar fila",
-    "OnBookFileDelete": "Ao eliminar o ficheiro do filme"
+    "OnBookFileDelete": "Ao eliminar o ficheiro do filme",
+    "InstanceName": "Nome da Instancia"
 }

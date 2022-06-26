@@ -774,5 +774,8 @@
     "ReadarrSupportsMultipleListsForImportingBooksAndAuthorsIntoTheDatabase": "Lidarr unterstützt mehrere Listen für den Import von Alben und Künstlern in die Datenbank.",
     "TotalBookCountBooksTotalBookFileCountBooksWithFilesInterp": "{0} Titel insgesamt. {1} Titel mit Dateien.",
     "SearchFiltered": "Suche gefilterte",
-    "SkipredownloadHelpText": "Verhindert, dass Lidarr versucht alternative Veröffentlichungen für die entfernten Objekte herunterzuladen"
+    "SkipredownloadHelpText": "Verhindert, dass Lidarr versucht alternative Veröffentlichungen für die entfernten Objekte herunterzuladen",
+    "AddList": "Liste hinzufügen",
+    "InstanceName": "Instanzname",
+    "InstanceNameHelpText": "Instanzname im Browser-Tab und für Syslog-Anwendungsname"
 }

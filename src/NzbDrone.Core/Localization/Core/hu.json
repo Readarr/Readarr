@@ -873,5 +873,6 @@
     "WriteMetadataTags": "Írjon metaadat-címkéket",
     "EditList": "Lista szerkesztése",
     "MonitorExistingBooks": "Meglévő könyvek monitorozása",
-    "RenameFiles": "Fájl(ok) átnevezése"
+    "RenameFiles": "Fájl(ok) átnevezése",
+    "InstanceNameHelpText": "Példánynév a böngésző lapon és a syslog alkalmazás neve"
 }
