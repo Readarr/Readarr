@@ -70,7 +70,7 @@ namespace NzbDrone.Core.HealthCheck
                 .ToDictionary(g => g.Key, g => g.ToArray());
         }
 
-        private void PerformHealthCheck(IProvideHealthCheck[] healthChecks, IEvent message = null)
+        private void PerformHealthCheck(IProvideHealthCheck[] healthChecks, IEvent message = null, bool performServerChecks = false)
         {
             var results = new List<HealthCheck>();
 
@@ -86,7 +86,10 @@ namespace NzbDrone.Core.HealthCheck
                 }
             }
 
-            results.AddRange(_serverSideNotificationService.GetServerChecks());
+            if (performServerChecks)
+            {
+                results.AddRange(_serverSideNotificationService.GetServerChecks());
+            }
 
             foreach (var result in results)
             {
@@ -112,17 +115,17 @@ namespace NzbDrone.Core.HealthCheck
         {
             if (message.Trigger == CommandTrigger.Manual)
             {
-                PerformHealthCheck(_healthChecks);
+                PerformHealthCheck(_healthChecks, null, true);
             }
             else
             {
-                PerformHealthCheck(_scheduledHealthChecks);
+                PerformHealthCheck(_scheduledHealthChecks, null, true);
             }
         }
 
         public void HandleAsync(ApplicationStartedEvent message)
         {
-            PerformHealthCheck(_startupHealthChecks);
+            PerformHealthCheck(_startupHealthChecks, null, true);
         }
 
         public void HandleAsync(IEvent message)
