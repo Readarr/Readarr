@@ -552,5 +552,9 @@
     "UpdateCheckStartupTranslocationMessage": "Не може да се инсталира актуализация, защото стартовата папка „{0}“ е в папка за преместване на приложения.",
     "MountCheckMessage": "Монтажът, съдържащ път на филм, е монтиран само за четене: ",
     "CouldntFindAnyResultsForTerm": "Не можах да намеря резултати за „{0}“",
-    "TheAuthorFolderAndAllOfItsContentWillBeDeleted": "Папката с филма „{0}“ и цялото й съдържание ще бъдат изтрити."
+    "TheAuthorFolderAndAllOfItsContentWillBeDeleted": "Папката с филма „{0}“ и цялото й съдържание ще бъдат изтрити.",
+    "RestartRequiredHelpTextWarning": "Изисква рестартиране, за да влезе в сила",
+    "Test": "Тест",
+    "AddList": "Добавяне на списък",
+    "RenameFiles": "Преименувайте файловете"
 }

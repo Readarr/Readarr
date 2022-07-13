@@ -552,5 +552,21 @@
     "SearchFiltered": "חיפוש מסונן",
     "SettingsRemotePathMappingLocalPath": "נתיב מקומי",
     "TheAuthorFolderAndAllOfItsContentWillBeDeleted": "תיקיית הסרטים '{0}' וכל תוכן זה יימחקו.",
-    "Yesterday": "אתמול"
+    "Yesterday": "אתמול",
+    "RestartRequiredHelpTextWarning": "נדרש הפעלה מחדש כדי להיכנס לתוקף",
+    "Duration": "אורך",
+    "WriteTagsNo": "אף פעם",
+    "InstanceNameHelpText": "שם מופע בטאב ובשביל שם אפליקציית סיסלוג",
+    "RemotePathMappingCheckBadDockerPath": "אתה משתמש בדוקר; קליינט ההורדות {0} שם הורדות ב-{1} אבל הנתיב לא תקין {2}. בחן מחדש את ניתוב התיקיות והגדרות קליינט ההורדות.",
+    "AddList": "הוסף רשימה",
+    "BlocklistHelpText": "מנע מראדרר להוסיף את ההוצאה הזאת שוב",
+    "RemotePathMappingCheckDownloadPermissions": "ראדארר יכול לראות אבל לא לגשת לסרטים שירדו {0}. ככל הנראה בעיית הרשאות.",
+    "RemotePathMappingCheckFileRemoved": "הקובץ {0} הוסר תוך כדי התהליך.",
+    "RemotePathMappingCheckFilesBadDockerPath": "אתה משתמש בדוקר; קליינט ההורדות {0} שם הורדות ב-{1} אבל הנתיב לא תקין {2}. בחן מחדש את ניתוב התיקיות והגדרות קליינט ההורדות.",
+    "RemotePathMappingCheckFilesWrongOSPath": "אתה משתמש בדוקר; קליינט ההורדות {0} שם הורדות ב-{1} אבל הנתיב לא תקין {2}. בחן מחדש את ניתוב התיקיות והגדרות קליינט ההורדות.",
+    "RemotePathMappingCheckFolderPermissions": "ראדארר יכול לראות אבל לא לגשת לסרטים שירדו {0}. ככל הנראה בעיית הרשאות.",
+    "RenameFiles": "שנה את שם הקבצים",
+    "Test": "מִבְחָן",
+    "InstanceName": "שם מופע",
+    "RemotePathMappingCheckWrongOSPath": "אתה משתמש בדוקר; קליינט ההורדות {0} שם הורדות ב-{1} אבל הנתיב לא תקין {2}. בחן מחדש את ניתוב התיקיות והגדרות קליינט ההורדות."
 }

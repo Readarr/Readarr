@@ -552,5 +552,9 @@
     "UpdateCheckUINotWritableMessage": "Không thể cài đặt bản cập nhật vì thư mục giao diện người dùng '{0}' không thể ghi bởi người dùng '{1}'.",
     "Yesterday": "Hôm qua",
     "QualitySettingsSummary": "Kích thước chất lượng và cách đặt tên",
-    "QueueIsEmpty": "Hàng đợi trống"
+    "QueueIsEmpty": "Hàng đợi trống",
+    "RestartRequiredHelpTextWarning": "Yêu cầu khởi động lại để có hiệu lực",
+    "AddList": "Thêm vào danh sách",
+    "Test": "Kiểm tra",
+    "RenameFiles": "Đổi tên tệp"
 }

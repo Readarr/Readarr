@@ -582,5 +582,11 @@
     "AllBooks": "Все книги",
     "AllAuthorBooks": "Все книги автора",
     "AllowAuthorChangeClickToChangeAuthor": "Нажмите, чтобы изменить автора",
-    "AllExpandedExpandAll": "Развернуть Все"
+    "AllExpandedExpandAll": "Развернуть Все",
+    "RestartRequiredHelpTextWarning": "Для вступления в силу требуется перезапуск",
+    "Label": "Ярлык",
+    "AddList": "Добавить список",
+    "Publisher": "Издатель",
+    "RenameFiles": "Файлы переименованы",
+    "Test": "Тест"
 }

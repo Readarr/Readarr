@@ -552,5 +552,9 @@
     "FileWasDeletedByUpgrade": "アップグレードをインポートするためにファイルが削除されました",
     "Filters": "フィルタ",
     "GeneralSettingsSummary": "ポート、SSL、ユーザー名/パスワード、プロキシ、分析、更新",
-    "UISettingsSummary": "カレンダー、日付、色が損なわれたオプション"
+    "UISettingsSummary": "カレンダー、日付、色が損なわれたオプション",
+    "RestartRequiredHelpTextWarning": "有効にするには再起動が必要です",
+    "RenameFiles": "ファイルの名前を変更する",
+    "Test": "テスト",
+    "AddList": "リストを追加"
 }

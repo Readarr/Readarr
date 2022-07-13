@@ -799,5 +799,9 @@
     "ConnectSettingsSummary": "Notificações, ligações para servidores/leitores de multimédia e scripts personalizados",
     "FailedToLoadQueue": "Falha ao carregar fila",
     "OnBookFileDelete": "Ao eliminar o ficheiro do filme",
-    "InstanceName": "Nome da Instancia"
+    "InstanceName": "Nome da Instancia",
+    "RestartRequiredHelpTextWarning": "Requer reinício para aplicar alterações",
+    "AddList": "Adicionar lista",
+    "RenameFiles": "Renomear ficheiros",
+    "Test": "Testar"
 }

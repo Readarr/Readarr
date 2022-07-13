@@ -553,5 +553,9 @@
     "TimeLeft": "Kalan zaman",
     "UISettingsSummary": "Takvim, tarih ve renk engelli seçenekler",
     "Yesterday": "Dün",
-    "FailedToLoadQueue": "Sıra yüklenemedi"
+    "FailedToLoadQueue": "Sıra yüklenemedi",
+    "RestartRequiredHelpTextWarning": "Etkili olması için yeniden başlatma gerektirir",
+    "AddList": "Liste ekle",
+    "RenameFiles": "Yeniden Adlandır",
+    "Test": "Ölçek"
 }

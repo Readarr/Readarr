@@ -552,5 +552,9 @@
     "UpdateCheckStartupNotWritableMessage": "अपडेट स्थापित नहीं किया जा सकता क्योंकि स्टार्टअप फ़ोल्डर '{0}' उपयोगकर्ता '{1}' द्वारा लिखने योग्य नहीं है।",
     "MaintenanceRelease": "रखरखाव रिलीज: बग फिक्स और अन्य सुधार। अधिक जानकारी के लिए गितुब कमिट इतिहास देखें",
     "TimeLeft": "शेष समय",
-    "CreateEmptyAuthorFolders": "खाली मूवी फोल्डर बनाएं"
+    "CreateEmptyAuthorFolders": "खाली मूवी फोल्डर बनाएं",
+    "RenameFiles": "फ़ाइलों का नाम बदलें",
+    "RestartRequiredHelpTextWarning": "प्रभावी करने के लिए पुनरारंभ की आवश्यकता है",
+    "AddList": "सूची में जोड़ने",
+    "Test": "परीक्षा"
 }
