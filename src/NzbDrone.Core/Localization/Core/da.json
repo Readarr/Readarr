@@ -552,5 +552,9 @@
     "ConnectSettingsSummary": "Notifikationer, forbindelser til media servere/afspillere og custom scripts",
     "CouldntFindAnyResultsForTerm": "Kunne ikke finde nogen resultater for '{0}'",
     "IndexersSettingsSummary": "Indexer og ugivelses restriktioner",
-    "Yesterday": "I går"
+    "Yesterday": "I går",
+    "RestartRequiredHelpTextWarning": "Kræver genstart for at træde i kraft",
+    "AddList": "Tilføj Liste",
+    "Test": "Prøve",
+    "RenameFiles": "Omdøb filer"
 }

@@ -585,5 +585,9 @@
     "UpdateCheckStartupNotWritableMessage": "Kan de update niet installeren omdat de map '{0}' niet schrijfbaar is voor de gebruiker '{1}'.",
     "CouldntFindAnyResultsForTerm": "Kon geen resultaten vinden voor '{0}'",
     "CreateEmptyAuthorFolders": "Lege film mappen aanmaken",
-    "FileWasDeletedByViaUI": "File werd verwijderd via de UI"
+    "FileWasDeletedByViaUI": "File werd verwijderd via de UI",
+    "RestartRequiredHelpTextWarning": "Herstarten vereist om in werking te treden",
+    "AddList": "Lijst Toevoegen",
+    "RenameFiles": "Hernoem Bestanden",
+    "Test": "Test"
 }

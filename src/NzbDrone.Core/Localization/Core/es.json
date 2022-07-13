@@ -593,5 +593,9 @@
     "WriteTagsNo": "Nunca",
     "FileWasDeletedByUpgrade": "Se eliminó el archivo para importar una actualización",
     "IndexersSettingsSummary": "Indexers y restricciones de lanzamientos",
-    "Term": "Término"
+    "Term": "Término",
+    "RestartRequiredHelpTextWarning": "Requiere reiniciar para que surta efecto",
+    "AddList": "Añadir lista",
+    "RenameFiles": "Renombrar Archivos",
+    "Test": "Test"
 }

@@ -94,5 +94,6 @@
     "AutoUnmonitorPreviouslyDownloadedBooksHelpText": "Фільми, видалені з диска, автоматично не відстежуються в Radarr",
     "BackupFolderHelpText": "Відносні шляхи будуть у каталозі AppData Radarr",
     "BlocklistHelpText": "Забороняє Radarr знову автоматично захопити цей випуск",
-    "UsingExternalUpdateMechanismBranchUsedByExternalUpdateMechanism": "Гілка, що використовується зовнішнім механізмом оновлення"
+    "UsingExternalUpdateMechanismBranchUsedByExternalUpdateMechanism": "Гілка, що використовується зовнішнім механізмом оновлення",
+    "AddList": "Додати список"
 }

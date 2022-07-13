@@ -795,5 +795,13 @@
     "UISettingsSummary": "Alternativ för kalender, datum och färgblindhet",
     "UpdateCheckStartupNotWritableMessage": "Ej möjligt att installera uppdatering då uppstartsmappen '{0}' inte är skrivbar för användaren '{1}'.",
     "UpdateCheckStartupTranslocationMessage": "Ej möjligt att installera uppdatering då uppstartsmappen '{0}' är i en \"App translocation\"-mapp.",
-    "Yesterday": "Igår"
+    "Yesterday": "Igår",
+    "RestartRequiredHelpTextWarning": "Kräver omstart för att träda i kraft",
+    "RenameFiles": "Byt namn på filer",
+    "Test": "Test",
+    "AddList": "Lägg till lista",
+    "DataExistingBooks": "Bevaka album som har filer eller inte har släppts än",
+    "DataFirstBook": "Bevaka första album. Alla andra album kommer bli ignorerade",
+    "DataFuturebooks": "Bevaka albums som inte har släppts än",
+    "DataMissingBooks": "Bevaka album som har filer eller inte har släppts än"
 }

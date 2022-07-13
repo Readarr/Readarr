@@ -553,5 +553,9 @@
     "UpdateCheckStartupTranslocationMessage": "لا يمكن تثبيت التحديث لأن مجلد بدء التشغيل \"{0}\" موجود في مجلد App Translocation.",
     "ShowUnknownAuthorItems": "إظهار عناصر الفيلم غير المعروفة",
     "GeneralSettingsSummary": "المنفذ ، SSL ، اسم المستخدم / كلمة المرور ، الوكيل ، التحليلات والتحديثات",
-    "TheAuthorFolderAndAllOfItsContentWillBeDeleted": "سيتم حذف مجلد الفيلم \"{0}\" وجميع محتوياته."
+    "TheAuthorFolderAndAllOfItsContentWillBeDeleted": "سيتم حذف مجلد الفيلم \"{0}\" وجميع محتوياته.",
+    "RestartRequiredHelpTextWarning": "يتطلب إعادة التشغيل ليصبح ساري المفعول",
+    "AddList": "اضف قائمة",
+    "RenameFiles": "إعادة تسمية الملفات",
+    "Test": "اختبار"
 }

@@ -552,5 +552,9 @@
     "SettingsRemotePathMappingLocalPath": "Local Path",
     "ShowUnknownAuthorItems": "Sýna óþekktar kvikmyndir",
     "TheAuthorFolderAndAllOfItsContentWillBeDeleted": "Kvikmyndamöppunni „{0}“ og öllu innihaldi hennar verður eytt.",
-    "TimeLeft": "Tími eftir"
+    "TimeLeft": "Tími eftir",
+    "RestartRequiredHelpTextWarning": "Krefst endurræsingar til að taka gildi",
+    "AddList": "Bæta við lista",
+    "RenameFiles": "Endurnefna skrár",
+    "Test": "Próf"
 }

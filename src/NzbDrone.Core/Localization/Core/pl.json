@@ -569,5 +569,17 @@
     "RemotePathMappingCheckLocalWrongOSPath": "Lokalny klient pobierania {0} umieszcza pobrane pliki w {1}, lecz nie jest to poprawna ścieżka {2}. Zmień ustawienia klienta pobierania.",
     "RemotePathMappingCheckFilesBadDockerPath": "Korzystasz z Dockera. Klient pobierania {0} zgłosił pliki w {1}, lecz nie jest to poprawna ścieżka {2}. Zmień ustawienia zdalnego mapowania ścieżek i klienta pobierania.",
     "RemotePathMappingCheckFilesWrongOSPath": "Zdalny klient pobierania {0} zgłosił pliki w {1}, lecz nie jest to poprawna ścieżka {2}. Zmień ustawienia zdalnego mapowania ścieżek i klienta pobierania.",
-    "RemotePathMappingCheckRemoteDownloadClient": "Zdalny klient pobierania {0} zgłosił pliki w {1}, lecz ten folder nie istnieje. Prawdopodobnie to wynik brakującego zdalnego mapowania ścieżki."
+    "RemotePathMappingCheckRemoteDownloadClient": "Zdalny klient pobierania {0} zgłosił pliki w {1}, lecz ten folder nie istnieje. Prawdopodobnie to wynik brakującego zdalnego mapowania ścieżki.",
+    "RestartRequiredHelpTextWarning": "Wymaga ponownego uruchomienia, aby odniosło skutek",
+    "UserAgentProvidedByTheAppThatCalledTheAPI": "User-Agent podawany przez aplikację wywołującą API",
+    "AddList": "Dodaj listę",
+    "BlocklistHelpText": "Zapobiega ponownemu pobraniu tej wersji przez Radarr",
+    "RemotePathMappingCheckDownloadPermissions": "Radarr widzi film {0}, lecz nie ma do niego dostępu. Najprawdopodobniej to wynik błędu w uprawnieniach dostępu.",
+    "RemotePathMappingCheckFilesGenericPermissions": "Klient pobierania {0} zgłosił pliki w {1}, lecz Radarr nie widzi tego folderu. Być może musisz zmienić uprawnienia dostępu do tego folderu.",
+    "RemotePathMappingCheckFolderPermissions": "Radarr widzi folder {0}, lecz nie ma do niego dostępu. Prawdopodobnie to wynik błędu uprawnień dostępu.",
+    "RemotePathMappingCheckGenericPermissions": "Klient pobierania {0} umieszcza pobrane pliki w {1}, lecz Radarr nie widzi tego folderu. Być może należy zmienić uprawnienia dostępu do folderu.",
+    "RemotePathMappingCheckImportFailed": "Radarr nie mógł zaimportować filmu. Szczegóły znajdziesz w dzienniku.",
+    "RenameFiles": "Zmień nazwy plików",
+    "Test": "Test",
+    "WriteTagsNo": "Nigdy"
 }

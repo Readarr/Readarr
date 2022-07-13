@@ -552,5 +552,9 @@
     "UpdateCheckStartupTranslocationMessage": "시작 폴더 '{0}'이 (가) App Translocation 폴더에 있으므로 업데이트를 설치할 수 없습니다.",
     "Wanted": "구함",
     "Yesterday": "어제",
-    "OnGrab": "잡기"
+    "OnGrab": "잡기",
+    "RestartRequiredHelpTextWarning": "적용하려면 다시 시작해야합니다.",
+    "AddList": "목록 추가",
+    "RenameFiles": "파일 이름 바꾸기",
+    "Test": "테스트"
 }

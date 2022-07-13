@@ -552,5 +552,9 @@
     "UpdateCheckUINotWritableMessage": "Δεν είναι δυνατή η εγκατάσταση της ενημέρωσης επειδή ο φάκελος διεπαφής χρήστη \"{0}\" δεν είναι εγγράψιμος από τον χρήστη \"{1}\".",
     "ConnectSettingsSummary": "Ειδοποιήσεις, συνδέσεις σε media servers/players και custom scripts",
     "CouldntFindAnyResultsForTerm": "Δεν ήταν δυνατή η εύρεση αποτελεσμάτων για το \"{0}\"",
-    "FailedToLoadQueue": "Αποτυχία φόρτωσης ουράς"
+    "FailedToLoadQueue": "Αποτυχία φόρτωσης ουράς",
+    "RestartRequiredHelpTextWarning": "Απαιτείται επανεκκίνηση για να τεθεί σε ισχύ",
+    "Test": "Δοκιμή",
+    "AddList": "Προσθήκη Λίστας",
+    "RenameFiles": "Μετονομασία αρχείων"
 }

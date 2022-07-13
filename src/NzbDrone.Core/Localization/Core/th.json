@@ -552,5 +552,9 @@
     "RestartReloadNote": "หมายเหตุ: Radarr จะรีสตาร์ทและโหลด UI ใหม่โดยอัตโนมัติในระหว่างกระบวนการกู้คืน",
     "SettingsRemotePathMappingLocalPath": "เส้นทางท้องถิ่น",
     "ShowUnknownAuthorItems": "แสดงรายการภาพยนตร์ที่ไม่รู้จัก",
-    "Yesterday": "เมื่อวานนี้"
+    "Yesterday": "เมื่อวานนี้",
+    "RestartRequiredHelpTextWarning": "ต้องรีสตาร์ทเพื่อให้มีผล",
+    "AddList": "เพิ่มรายการ",
+    "RenameFiles": "เปลี่ยนชื่อไฟล์",
+    "Test": "ทดสอบ"
 }

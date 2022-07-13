@@ -589,7 +589,7 @@
     "MissingBooksAuthorMonitored": "Puuttuvat kirjat (kirjailijaa valvotaan)",
     "MissingBooksAuthorNotMonitored": "Puuttuvat kirjat (kirjailijaa ei valvota)",
     "MonitorBookExistingOnlyWarning": "Tämä on kirjakohtaisen valvonnan kertaluontoinen määritys. Käytä Kirjailija/Muokkaa-valintaa hallinnoidaksesi mitä uusille kirjalisäyksille tehdään.",
-    "MonitorNewItems": "Uusien kirjojen valvonta",
+    "MonitorNewItems": "Valvo uusia kirjoja",
     "MonitorNewItemsHelpText": "Uusien kirjojen valvontatapa.",
     "MonitoringOptionsHelpText": "Kansiosta löydetyille kirjailijoille oletusarvoisesti asetettava kirjojen valvontataso (kertaluontoinen määritys).",
     "OutputFormatHelpText": "Voit halutessasi pyytää Calibrea muuntamaan kirjat eri muotoihin tuonnin yhteydessä. Pilkulla eroteltu lista.",
@@ -690,5 +690,13 @@
     "SystemTimeCheckMessage": "Järjestelmän aika on heittä yli vuorokauden verran. Ajoitetut tehtävät eivät luultavasti toimi oikein ennen ajan korjausta.",
     "UISettingsSummary": "Kalenterin, päiväyksen ja kellonajan sekä kielen ja heikentyneelle värinäölle sopivan tilan asetukset.",
     "UserAgentProvidedByTheAppThatCalledTheAPI": "User-Agent-tiedon ilmoitti sovellus, joka kommunikoi API:n kanssa",
-    "WatchLibraryForChangesHelpText": "Suorita automaattinen uudelleentutkinta, kun juurikansiossa havaitaan tiedostomuutoksia."
+    "WatchLibraryForChangesHelpText": "Suorita automaattinen uudelleentutkinta, kun juurikansiossa havaitaan tiedostomuutoksia.",
+    "RestartRequiredHelpTextWarning": "Käyttöönotto vaatii uudelleenkäynnistyksen.",
+    "AddList": "Lisää tuontilista",
+    "InstanceName": "Instanssin nimi",
+    "InstanceNameHelpText": "Instanssin nimi välilehdellä ja järjestelmälokissa",
+    "MonitorExistingBooks": "Valvo olemassa olevia kirjoja",
+    "MonitorNewBooks": "Valvo uusia kirjoja",
+    "RenameFiles": "Uudelleennimeä tiedostot",
+    "Test": "Kokeile"
 }

@@ -777,5 +777,14 @@
     "SkipredownloadHelpText": "Verhindert, dass Lidarr versucht alternative Veröffentlichungen für die entfernten Objekte herunterzuladen",
     "AddList": "Liste hinzufügen",
     "InstanceName": "Instanzname",
-    "InstanceNameHelpText": "Instanzname im Browser-Tab und für Syslog-Anwendungsname"
+    "InstanceNameHelpText": "Instanzname im Browser-Tab und für Syslog-Anwendungsname",
+    "RestartRequiredHelpTextWarning": "Erfordert einen Neustart",
+    "UseCalibreContentServer": "Calibre-Content-Server",
+    "DataExistingBooks": "Beobachte Alben die Dateien haben oder noch nicht veröffentlicht wurden",
+    "DataFirstBook": "Beobachte die ersten Alben. Alle anderen Alben werden ignoriert",
+    "DataFuturebooks": "Überwachung von Alben die noch nicht veröffentlicht wurden",
+    "DataMissingBooks": "Beobachte Alben, die noch keine Dateien haben oder noch nicht veröffentlicht wurden",
+    "Test": "Testen",
+    "DataNone": "Es werden keine Alben beobachtet",
+    "RenameFiles": "Dateien umbenennen"
 }

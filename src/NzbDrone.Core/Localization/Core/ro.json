@@ -552,5 +552,9 @@
     "UpdateCheckUINotWritableMessage": "Nu pot instala actualizarea pentru că dosarul UI '{0}' nu poate fi scris de către utilizatorul '{1}'.",
     "CouldntFindAnyResultsForTerm": "Nu s-au găsit rezultate pentru „{0}”",
     "Yesterday": "Ieri",
-    "MaintenanceRelease": "Versiune de întreținere: remedieri de erori și alte îmbunătățiri. Consultați Istoricul comiterilor Github pentru mai multe detalii"
+    "MaintenanceRelease": "Versiune de întreținere: remedieri de erori și alte îmbunătățiri. Consultați Istoricul comiterilor Github pentru mai multe detalii",
+    "RestartRequiredHelpTextWarning": "Necesită repornire pentru a intra în vigoare",
+    "Test": "Testează",
+    "AddList": "Adaugă listă",
+    "RenameFiles": "Redenumește Fișiere"
 }
