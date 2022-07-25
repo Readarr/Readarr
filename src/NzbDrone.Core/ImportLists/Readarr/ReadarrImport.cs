@@ -35,20 +35,28 @@ namespace NzbDrone.Core.ImportLists.Readarr
             try
             {
                 var remoteBooks = _readarrV1Proxy.GetBooks(Settings);
+                var remoteAuthors = _readarrV1Proxy.GetAuthors(Settings);
+
+                var authorDict = remoteAuthors.ToDictionary(x => x.Id);
 
                 foreach (var remoteBook in remoteBooks)
                 {
-                    if ((!Settings.ProfileIds.Any() || Settings.ProfileIds.Contains(remoteBook.Author.QualityProfileId)) &&
-                        (!Settings.TagIds.Any() || Settings.TagIds.Any(x => remoteBook.Author.Tags.Any(y => y == x))) &&
-                         remoteBook.Monitored && remoteBook.Author.Monitored)
+                    var remoteAuthor = authorDict[remoteBook.AuthorId];
+
+                    if ((!Settings.ProfileIds.Any() || Settings.ProfileIds.Contains(remoteAuthor.QualityProfileId)) &&
+                        (!Settings.TagIds.Any() || Settings.TagIds.Any(x => remoteAuthor.Tags.Any(y => y == x))) &&
+                         remoteBook.Monitored && remoteAuthor.Monitored)
                     {
                         authorsAndBooks.Add(new ImportListItemInfo
                         {
                             BookGoodreadsId = remoteBook.ForeignBookId,
                             Book = remoteBook.Title,
-                            EditionGoodreadsId = remoteBook.Editions.Single(x => x.Monitored).ForeignEditionId,
-                            Author = remoteBook.Author.AuthorName,
-                            AuthorGoodreadsId = remoteBook.Author.ForeignAuthorId
+
+                            // ToDo: Fix me. Edition is no longer in the book resource; rethink edition logic
+                            // Bandaid fix for now...This will cause the imported book to possibly not be same edition as the source
+                            // EditionGoodreadsId = remoteBook.Editions.Single(x => x.Monitored).ForeignEditionId,
+                            Author = remoteAuthor.AuthorName,
+                            AuthorGoodreadsId = remoteAuthor.ForeignAuthorId
                         });
                     }
                 }
@@ -57,6 +65,7 @@ namespace NzbDrone.Core.ImportLists.Readarr
             }
             catch
             {
+                _logger.Warn("List Import Sync Task Failed for List [{0}]", Definition.Name);
                 _importListStatusService.RecordFailure(Definition.Id);
             }
 
