@@ -5,6 +5,7 @@ namespace NzbDrone.Core.ImportLists.Readarr
     public class ReadarrAuthor
     {
         public string AuthorName { get; set; }
+        public int Id { get; set; }
         public string ForeignAuthorId { get; set; }
         public string Overview { get; set; }
         public List<MediaCover.MediaCover> Images { get; set; }
@@ -30,6 +31,7 @@ namespace NzbDrone.Core.ImportLists.Readarr
         public List<MediaCover.MediaCover> Images { get; set; }
         public bool Monitored { get; set; }
         public ReadarrAuthor Author { get; set; }
+        public int AuthorId { get; set; }
         public List<ReadarrEdition> Editions { get; set; }
     }
 
