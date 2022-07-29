@@ -183,12 +183,13 @@ namespace NzbDrone.Core.ImportLists
                     return;
                 }
 
-                _logger.Trace($"Mapped {report.EditionGoodreadsId} to [{mappedBook.WorkId}] {mappedBook.BookTitleBare}");
+                _logger.Trace($"Mapped Book {report.Book} by Author {report.Author} to [{mappedBook.WorkId}] {mappedBook.BookTitleBare}");
 
                 report.BookGoodreadsId = mappedBook.WorkId.ToString();
                 report.Book = mappedBook.BookTitleBare;
                 report.Author ??= mappedBook.Author.Name;
                 report.AuthorGoodreadsId ??= mappedBook.Author.Id.ToString();
+                report.EditionGoodreadsId = mappedBook.BookId.ToString();
             }
         }
 
@@ -196,6 +197,7 @@ namespace NzbDrone.Core.ImportLists
         {
             if (report.EditionGoodreadsId == null)
             {
+                _logger.Trace("Skipping report [{0}] due to missing EditionGoodreadsId", report.Book);
                 return;
             }
 
