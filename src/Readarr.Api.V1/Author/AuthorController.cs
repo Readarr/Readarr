@@ -29,6 +29,7 @@ namespace Readarr.Api.V1.Author
                                 IHandle<BookImportedEvent>,
                                 IHandle<BookEditedEvent>,
                                 IHandle<BookFileDeletedEvent>,
+                                IHandle<AuthorAddedEvent>,
                                 IHandle<AuthorUpdatedEvent>,
                                 IHandle<AuthorEditedEvent>,
                                 IHandle<AuthorDeletedEvent>,
@@ -253,6 +254,12 @@ namespace Readarr.Api.V1.Author
             }
 
             BroadcastResourceChange(ModelAction.Updated, GetAuthorResource(message.BookFile.Author.Value));
+        }
+
+        [NonAction]
+        public void Handle(AuthorAddedEvent message)
+        {
+            BroadcastResourceChange(ModelAction.Updated, GetAuthorResource(message.Author));
         }
 
         [NonAction]
