@@ -14,6 +14,7 @@ using NzbDrone.Core.MediaFiles;
 using NzbDrone.Core.Messaging.Commands;
 using NzbDrone.Core.Messaging.Events;
 using NzbDrone.Core.MetadataSource;
+using NzbDrone.Core.RootFolders;
 
 namespace NzbDrone.Core.Books
 {
@@ -30,6 +31,7 @@ namespace NzbDrone.Core.Books
     {
         private readonly IBookService _bookService;
         private readonly IAuthorService _authorService;
+        private readonly IRootFolderService _rootFolderService;
         private readonly IAddAuthorService _addAuthorService;
         private readonly IEditionService _editionService;
         private readonly IProvideAuthorInfo _authorInfo;
@@ -44,6 +46,7 @@ namespace NzbDrone.Core.Books
 
         public RefreshBookService(IBookService bookService,
                                   IAuthorService authorService,
+                                  IRootFolderService rootFolderService,
                                   IAddAuthorService addAuthorService,
                                   IEditionService editionService,
                                   IAuthorMetadataService authorMetadataService,
@@ -60,6 +63,7 @@ namespace NzbDrone.Core.Books
         {
             _bookService = bookService;
             _authorService = authorService;
+            _rootFolderService = rootFolderService;
             _addAuthorService = addAuthorService;
             _editionService = editionService;
             _authorInfo = authorInfo;
@@ -142,7 +146,7 @@ namespace NzbDrone.Core.Books
                     Metadata = remote.AuthorMetadata.Value,
                     MetadataProfileId = oldAuthor.MetadataProfileId,
                     QualityProfileId = oldAuthor.QualityProfileId,
-                    RootFolderPath = oldAuthor.RootFolderPath,
+                    RootFolderPath = _rootFolderService.GetBestRootFolderPath(oldAuthor.Path),
                     Monitored = oldAuthor.Monitored,
                     Tags = oldAuthor.Tags
                 };
