@@ -34,6 +34,8 @@
   "ApiKeyHelpTextWarning": "Requires restart to take effect",
   "AppDataDirectory": "AppData directory",
   "AppDataLocationHealthCheckMessage": "Updating will not be possible to prevent deleting AppData on Update",
+  "ApplicationURL": "Application URL",
+  "ApplicationUrlHelpText": "This application's external URL including http(s)://, port and URL base",
   "ApplyTags": "Apply Tags",
   "ApplyTagsHelpTexts1": "How to apply tags to the selected author",
   "ApplyTagsHelpTexts2": "Add: Add the tags the existing list of tags",

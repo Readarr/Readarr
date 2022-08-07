@@ -97,5 +97,6 @@ namespace NzbDrone.Core.Configuration
         int BackupRetention { get; }
 
         CertificateValidationType CertificateValidation { get; }
+        string ApplicationUrl { get; }
     }
 }
