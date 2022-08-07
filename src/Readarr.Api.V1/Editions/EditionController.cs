@@ -17,7 +17,7 @@ namespace NzbDrone.Api.V1.Editions
         }
 
         [HttpGet]
-        public List<EditionResource> GetEditions(int bookId)
+        public List<EditionResource> GetEditions([FromQuery]List<int> bookId)
         {
             var editions = _editionService.GetEditionsByBook(bookId);
 

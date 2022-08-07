@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import Alert from 'Components/Alert';
 import Button from 'Components/Link/Button';
+import LoadingIndicator from 'Components/Loading/LoadingIndicator';
 import ModalBody from 'Components/Modal/ModalBody';
 import ModalContent from 'Components/Modal/ModalContent';
 import ModalFooter from 'Components/Modal/ModalFooter';
@@ -9,7 +10,8 @@ import ModalHeader from 'Components/Modal/ModalHeader';
 import Table from 'Components/Table/Table';
 import TableBody from 'Components/Table/TableBody';
 import { scrollDirections } from 'Helpers/Props';
-import SelectEditionRow from './SelectEditionRow';
+import translate from 'Utilities/String/translate';
+import SelectEditionRowConnector from './SelectEditionRowConnector';
 import styles from './SelectEditionModalContent.css';
 
 const columns = [
@@ -33,15 +35,30 @@ class SelectEditionModalContent extends Component {
   render() {
     const {
       books,
+      isPopulated,
+      isFetching,
+      error,
       onEditionSelect,
       onModalClose,
       ...otherProps
     } = this.props;
 
+    if (!isPopulated && !error) {
+      return (<LoadingIndicator />);
+    }
+
+    if (!isFetching && error) {
+      return (
+        <div>
+          {translate('LoadingEditionsFailed')}
+        </div>
+      );
+    }
+
     return (
       <ModalContent onModalClose={onModalClose}>
         <ModalHeader>
-          Manual Import - Select Edition
+          {translate('ManualImportSelectEdition')}
         </ModalHeader>
 
         <ModalBody
@@ -60,7 +77,7 @@ class SelectEditionModalContent extends Component {
               {
                 books.map((item) => {
                   return (
-                    <SelectEditionRow
+                    <SelectEditionRowConnector
                       key={item.book.id}
                       matchedEditionId={item.matchedEditionId}
                       columns={columns}
@@ -76,7 +93,7 @@ class SelectEditionModalContent extends Component {
 
         <ModalFooter>
           <Button onPress={onModalClose}>
-            Cancel
+            {translate('Cancel')}
           </Button>
         </ModalFooter>
       </ModalContent>
@@ -86,6 +103,9 @@ class SelectEditionModalContent extends Component {
 
 SelectEditionModalContent.propTypes = {
   books: PropTypes.arrayOf(PropTypes.object).isRequired,
+  isFetching: PropTypes.bool,
+  isPopulated: PropTypes.bool,
+  error: PropTypes.object,
   onEditionSelect: PropTypes.func.isRequired,
   onModalClose: PropTypes.func.isRequired
 };
