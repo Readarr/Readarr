@@ -11,7 +11,7 @@ namespace NzbDrone.Core.Books
     {
         List<Edition> GetAllMonitoredEditions();
         Edition FindByForeignEditionId(string foreignEditionId);
-        List<Edition> FindByBook(int id);
+        List<Edition> FindByBook(IEnumerable<int> ids);
         List<Edition> FindByAuthor(int id);
         List<Edition> FindByAuthorMetadataId(int id, bool onlyMonitored);
         Edition FindByTitle(int authorMetadataId, string title);
@@ -43,14 +43,14 @@ namespace NzbDrone.Core.Books
             return Query(r => r.BookId == bookId || foreignEditionIds.Contains(r.ForeignEditionId));
         }
 
-        public List<Edition> FindByBook(int id)
+        public List<Edition> FindByBook(IEnumerable<int> ids)
         {
             // populate the books and author metadata also
             // this hopefully speeds up the track matching a lot
             var builder = new SqlBuilder(_database.DatabaseType)
                 .LeftJoin<Edition, Book>((e, b) => e.BookId == b.Id)
                 .LeftJoin<Book, AuthorMetadata>((b, a) => b.AuthorMetadataId == a.Id)
-                .Where<Edition>(r => r.BookId == id);
+                .Where<Edition>(r => ids.Contains(r.BookId));
 
             return _database.QueryJoined<Edition, Book, AuthorMetadata>(builder, (edition, book, metadata) =>
                     {
@@ -96,7 +96,7 @@ namespace NzbDrone.Core.Books
 
         public List<Edition> SetMonitored(Edition edition)
         {
-            var allEditions = FindByBook(edition.BookId);
+            var allEditions = FindByBook(new[] { edition.BookId });
             allEditions.ForEach(r => r.Monitored = r.Id == edition.Id);
             Ensure.That(allEditions.Count(x => x.Monitored) == 1).IsTrue();
             UpdateMany(allEditions);

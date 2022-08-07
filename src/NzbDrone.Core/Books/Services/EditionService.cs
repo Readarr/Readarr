@@ -18,6 +18,7 @@ namespace NzbDrone.Core.Books
         void DeleteMany(List<Edition> editions);
         List<Edition> GetEditionsForRefresh(int bookId, List<string> foreignEditionIds);
         List<Edition> GetEditionsByBook(int bookId);
+        List<Edition> GetEditionsByBook(IEnumerable<int> bookIds);
         List<Edition> GetEditionsByAuthor(int authorId);
         Edition FindByTitle(int authorMetadataId, string title);
         Edition FindByTitleInexact(int authorMetadataId, string title);
@@ -79,7 +80,12 @@ namespace NzbDrone.Core.Books
 
         public List<Edition> GetEditionsByBook(int bookId)
         {
-            return _editionRepository.FindByBook(bookId);
+            return _editionRepository.FindByBook(new[] { bookId });
+        }
+
+        public List<Edition> GetEditionsByBook(IEnumerable<int> bookIds)
+        {
+            return _editionRepository.FindByBook(bookIds);
         }
 
         public List<Edition> GetEditionsByAuthor(int authorId)
