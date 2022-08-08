@@ -1,10 +1,10 @@
 import { createSelector, createSelectorCreator, defaultMemoize } from 'reselect';
 import hasDifferentItemsOrOrder from 'Utilities/Object/hasDifferentItemsOrOrder';
-import createClientSideCollectionSelector from './createClientSideCollectionSelector';
+import createBooksClientSideCollectionSelector from './createBooksClientSideCollectionSelector';
 
 function createUnoptimizedSelector(uiSection) {
   return createSelector(
-    createClientSideCollectionSelector('books', uiSection),
+    createBooksClientSideCollectionSelector(uiSection),
     (books) => {
       const items = books.items.map((s) => {
         const {
