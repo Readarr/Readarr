@@ -44,7 +44,7 @@
     "BackupRetentionHelpText": "Автоматические резервные копии старше указанного периода будут автоматически удалены",
     "Backups": "Резервные копии",
     "BindAddress": "Привязать адрес",
-    "BindAddressHelpText": "Действительный IP4-адрес или '*' для всех интерфейсов",
+    "BindAddressHelpText": "Действительный IPv4-адрес или '*' для всех интерфейсов",
     "BindAddressHelpTextWarning": "Для вступления в силу требуется перезапуск",
     "BookIsDownloading": "Фильм скачивается",
     "BookIsDownloadingInterp": "Фильм скачивается - {0}% {1}",
@@ -55,7 +55,7 @@
     "Cancel": "Отменить",
     "CancelMessageText": "Вы уверены, что хотите убрать данную задачу из очереди?",
     "CertificateValidation": "Проверка сертификата",
-    "CertificateValidationHelpText": "Изменить строгое подтверждение сертификации НТТР",
+    "CertificateValidationHelpText": "Измените строгую проверку сертификации HTTPS. Не меняйте, если вы не понимаете риски.",
     "ChangeFileDate": "Изменить дату файла",
     "ChangeHasNotBeenSavedYet": "Изменения ещё не вступили в силу",
     "ChmodFolder": "chmod Папка",
@@ -471,7 +471,7 @@
     "ReleaseBranchCheckOfficialBranchMessage": "Ветка {0} не является допустимой веткой выпуска Radarr, вы не будете получать обновления",
     "SelectedCountBooksSelectedInterp": "{0} фильм(ов) выбрано",
     "TheAuthorFolderAndAllOfItsContentWillBeDeleted": "Папка '{0}' и всё её содержимое будет удалено.",
-    "ThisCannotBeCancelled": "Нельзя отменить после запуска без перезапуска Radarr.",
+    "ThisCannotBeCancelled": "Это действие нельзя отменить после запуска без отключения всех ваших индексаторов.",
     "UnselectAll": "Снять все выделения",
     "UpdateSelected": "Обновление выбрано",
     "Wanted": "Разыскиваемый",
@@ -588,5 +588,9 @@
     "AddList": "Добавить список",
     "Publisher": "Издатель",
     "RenameFiles": "Файлы переименованы",
-    "Test": "Тест"
+    "Test": "Тест",
+    "Started": "Запущено",
+    "Database": "База данных",
+    "InstanceName": "Имя экземпляра",
+    "InstanceNameHelpText": "Имя экземпляра на вкладке и для имени приложения системного журнала"
 }

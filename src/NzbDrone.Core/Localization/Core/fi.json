@@ -698,5 +698,7 @@
     "MonitorExistingBooks": "Valvo olemassa olevia kirjoja",
     "MonitorNewBooks": "Valvo uusia kirjoja",
     "RenameFiles": "Uudelleennimeä tiedostot",
-    "Test": "Kokeile"
+    "Test": "Kokeile",
+    "AllowFingerprintingHelpText": "Käytä piiloleimausta kirjojen täsmäyksen tarkennukseen",
+    "AllowFingerprinting": "Salli piiloleimaus"
 }

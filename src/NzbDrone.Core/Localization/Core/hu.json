@@ -874,5 +874,8 @@
     "EditList": "Lista szerkesztése",
     "MonitorExistingBooks": "Meglévő könyvek monitorozása",
     "RenameFiles": "Fájl(ok) átnevezése",
-    "InstanceNameHelpText": "Példánynév a böngésző lapon és a syslog alkalmazás neve"
+    "InstanceNameHelpText": "Példánynév a böngésző lapon és a syslog alkalmazás neve",
+    "LoadingEditionsFailed": "A kiadások betöltése nem sikerült",
+    "ManualImportSelectEdition": "Kézi importálás – Válaszd ki a Kiadást",
+    "Database": "Adatbázis"
 }
