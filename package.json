@@ -134,5 +134,8 @@
     "webpack-cli": "4.7.2",
     "webpack-livereload-plugin": "3.0.1",
     "worker-loader": "3.0.8"
+  },
+  "volta": {
+    "node": "16.17.0"
   }
 }
