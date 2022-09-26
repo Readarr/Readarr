@@ -176,7 +176,7 @@ namespace Readarr.Api.V1.Queue
                 case "status":
                     return q => q.Status;
                 case "authors.sortName":
-                    return q => q.Author?.Metadata.Value.SortName ?? string.Empty;
+                    return q => q.Author?.Metadata.Value.SortName ?? q.Title;
                 case "authors.sortNameLastFirst":
                     return q => q.Author?.Metadata.Value.SortNameLastFirst ?? string.Empty;
                 case "title":
