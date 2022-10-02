@@ -30,13 +30,13 @@ public class KavitaSettings : IProviderConfig
     [FieldDefinition(1, Label = "Port")]
     public int Port { get; set; }
 
-    [FieldDefinition(3, Label = "API Key", Privacy = PrivacyLevel.ApiKey, HelpLink = "https://wiki.kavitareader.com/en/guides/settings/opds")]
+    [FieldDefinition(2, Label = "API Key", Privacy = PrivacyLevel.ApiKey, HelpLink = "https://wiki.kavitareader.com/en/guides/settings/opds")]
     public string ApiKey { get; set; }
 
-    [FieldDefinition(4, Label = "Use SSL", Type = FieldType.Checkbox, HelpText = "Connect to Kavita over HTTPS instead of HTTP")]
+    [FieldDefinition(3, Label = "Use SSL", Type = FieldType.Checkbox, HelpText = "Connect to Kavita over HTTPS instead of HTTP")]
     public bool UseSsl { get; set; }
 
-    [FieldDefinition(5, Label = "Have Kavita kick off a scan", Type = FieldType.Checkbox)]
+    [FieldDefinition(4, Label = "Update Library", Type = FieldType.Checkbox)]
     public bool Notify { get; set; }
 
     public NzbDroneValidationResult Validate()

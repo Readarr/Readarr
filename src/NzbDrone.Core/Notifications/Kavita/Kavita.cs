@@ -25,19 +25,19 @@ public class Kavita : NotificationBase<KavitaSettings>
     {
         var allPaths = message.BookFiles.Select(v => v.Path).Distinct();
         var path = Directory.GetParent(allPaths.First())?.FullName;
-        Notify(Settings, "Readarr - Downloaded", path);
+        Notify(Settings, BOOK_DOWNLOADED_TITLE_BRANDED, path);
     }
 
     public override void OnBookDelete(BookDeleteMessage deleteMessage)
     {
         var allPaths = deleteMessage.Book.BookFiles.Value.Select(v => v.Path).Distinct();
         var path = Directory.GetParent(allPaths.First())?.FullName;
-        Notify(Settings, "Readarr - Book Deleted", path);
+        Notify(Settings, BOOK_FILE_DELETED_TITLE_BRANDED, path);
     }
 
     public override void OnBookFileDelete(BookFileDeleteMessage message)
     {
-        Notify(Settings, "Readarr - Book File Deleted", Directory.GetParent(message.BookFile.Path)?.FullName);
+        Notify(Settings, BOOK_FILE_DELETED_TITLE_BRANDED, Directory.GetParent(message.BookFile.Path)?.FullName);
     }
 
     public override void OnBookRetag(BookRetagMessage message)
