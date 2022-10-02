@@ -19,7 +19,7 @@ public class Kavita : NotificationBase<KavitaSettings>
         _logger = logger;
     }
 
-    public override string Link => "https://kavitareader.com/";
+    public override string Link => "https://www.kavitareader.com/";
 
     public override void OnReleaseImport(BookDownloadMessage message)
     {

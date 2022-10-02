@@ -36,7 +36,7 @@ public class KavitaSettings : IProviderConfig
     [FieldDefinition(4, Label = "Use SSL", Type = FieldType.Checkbox, HelpText = "Connect to Kavita over HTTPS instead of HTTP")]
     public bool UseSsl { get; set; }
 
-    [FieldDefinition(5, Label = "Have Kavita kick off scan on change", Type = FieldType.Checkbox)]
+    [FieldDefinition(5, Label = "Have Kavita kick off a scan", Type = FieldType.Checkbox)]
     public bool Notify { get; set; }
 
     public NzbDroneValidationResult Validate()
