@@ -4,6 +4,7 @@ using NLog;
 using NzbDrone.Common.EnvironmentInfo;
 using NzbDrone.Common.Extensions;
 using NzbDrone.Common.Http;
+using NzbDrone.Common.Serializer;
 
 namespace NzbDrone.Core.Notifications.Kavita;
 
@@ -35,12 +36,17 @@ public class KavitaServiceProxy : IKavitaServiceProxy
 
     public void Notify(KavitaSettings settings, string folderPath)
     {
-        var request = GetKavitaServerRequest("library/scan-folder-with-file", HttpMethod.Post, settings);
-        request.AddQueryParam("apiKey", settings.ApiKey);
-        request.AddQueryParam("folderPath", folderPath);
-        var response = _httpClient.Execute(request.Build());
+        var request = GetKavitaServerRequest("library/scan-folder", HttpMethod.Post, settings);
+        request.Headers.ContentType = "application/json";
+        var postRequest = request.Build();
+        postRequest.SetContent(new
+        {
+            ApiKey = settings.ApiKey,
+            FolderPath = folderPath.Replace("/", "//")
+        }.ToJson());
 
-        _logger.Trace("Update response: {0}", response.Content);
+        var response = _httpClient.Post(postRequest);
+        _logger.Trace("Update response: {0}", string.IsNullOrEmpty(response.Content) ? "Success" : response.Content);
     }
 
     public string GetToken(KavitaSettings settings)
