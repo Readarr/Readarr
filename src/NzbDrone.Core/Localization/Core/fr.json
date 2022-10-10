@@ -666,5 +666,15 @@
     "DefaultMonitorOptionHelpText": "Quels livres doivent être surveillés lors de l'ajout initial pour les auteurs détectés dans ce dossier",
     "DefaultQualityProfileIdHelpText": "Profil de qualité par défaut pour les auteurs détectés dans ce dossier",
     "AddMissing": "Ajouter les manquants",
-    "BookFileCountBookCountTotalTotalBookCountInterp": "{0} / {1} (Total  : {2})"
+    "BookFileCountBookCountTotalTotalBookCountInterp": "{0} / {1} (Total  : {2})",
+    "InstanceName": "Nom de l'instance",
+    "InstanceNameHelpText": "Nom de l'instance dans l'onglet du navigateur et pour le nom d'application dans Syslog",
+    "UseCalibreContentServer": "Serveur de contenu Calibre",
+    "DefaultTagsHelpText": "Profil de métadonnées par défaut pour les auteurs détectés dans ce dossier",
+    "MetadataProfiles": "profil de métadonnées",
+    "ManualImportSelectEdition": "Importation manuelle - Sélectionnez un film",
+    "Term": "Terme",
+    "MetadataProfile": "profil de métadonnées",
+    "StatusEndedContinuing": "Continuant",
+    "Database": "Base de données"
 }

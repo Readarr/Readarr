@@ -556,5 +556,6 @@
     "RestartRequiredHelpTextWarning": "Vyžaduje restart, aby se projevilo",
     "RenameFiles": "Přejmenovat soubory",
     "Test": "Test",
-    "AddList": "Přidat seznam"
+    "AddList": "Přidat seznam",
+    "ManualImportSelectEdition": "Ruční import - vyberte Film"
 }

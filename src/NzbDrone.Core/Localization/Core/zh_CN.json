@@ -434,8 +434,8 @@
     "WeekColumnHeader": "日期格式",
     "Year": "年",
     "YesCancel": "是，取消",
-    "20MinutesTwenty": "60分钟: {0}",
-    "45MinutesFourtyFive": "60分钟: {0}",
+    "20MinutesTwenty": "20分钟: {0}",
+    "45MinutesFourtyFive": "45分钟: {0}",
     "60MinutesSixty": "60分钟: {0}",
     "APIKey": "API Key",
     "About": "关于",
@@ -604,5 +604,15 @@
     "MetadataProfiles": "元数据配置",
     "InstanceName": "中文",
     "InstanceNameHelpText": "选项卡及日志应用名称",
-    "AddList": "添加列表"
+    "AddList": "添加列表",
+    "BookList": "书籍清单",
+    "Books": "书籍",
+    "BookFileCountBookCountTotalTotalBookCountInterp": "{0} / {1} (全部: {2})",
+    "BookFileCounttotalBookCountBooksDownloadedInterp": "{0}/{1} 书籍已下载",
+    "BookFilesCountMessage": "无书籍文件",
+    "AutomaticallySwitchEdition": "自动切换版本",
+    "AllAuthorBooks": "该作者所有书籍",
+    "AllBooks": "所有书籍",
+    "AllowedLanguages": "允许的语言",
+    "Book": "书籍"
 }

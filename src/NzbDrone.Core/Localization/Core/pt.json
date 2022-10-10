@@ -306,7 +306,7 @@
     "LogLevel": "Nível de log",
     "LogLevelvalueTraceTraceLoggingShouldOnlyBeEnabledTemporarily": "O registo de rastreio somente deve ser ativado temporariamente",
     "Logging": "guardar nos registos",
-    "Logs": "Logs",
+    "Logs": "Registos",
     "LongDateFormat": "Formato longo de data",
     "MIA": "Desaparecidos",
     "ManualImport": "Importação manual",
@@ -355,7 +355,7 @@
     "Preferred": "Preferido",
     "PreviewRename": "Pré-visualizar renomeação",
     "Profiles": "Perfis",
-    "Proper": "Proper",
+    "Proper": "Correta",
     "PropersAndRepacks": "Propers e Repacks",
     "Protocol": "Protocolo",
     "ProtocolHelpText": "Escolha que protocolo(s) utilizar e qual o preferido ao escolher entre versões iguais",
@@ -803,5 +803,7 @@
     "RestartRequiredHelpTextWarning": "Requer reinício para aplicar alterações",
     "AddList": "Adicionar lista",
     "RenameFiles": "Renomear ficheiros",
-    "Test": "Testar"
+    "Test": "Testar",
+    "InstanceNameHelpText": "Nome da instância na aba e nome da aplicação para Syslog",
+    "Database": "Base de dados"
 }

@@ -589,5 +589,7 @@
     "RestartRequiredHelpTextWarning": "Herstarten vereist om in werking te treden",
     "AddList": "Lijst Toevoegen",
     "RenameFiles": "Hernoem Bestanden",
-    "Test": "Test"
+    "Test": "Test",
+    "ManualImportSelectEdition": "Manuele import - Selecteer Film",
+    "Database": "Databasis"
 }

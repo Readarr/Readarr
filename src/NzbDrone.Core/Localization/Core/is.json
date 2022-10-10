@@ -556,5 +556,6 @@
     "RestartRequiredHelpTextWarning": "Krefst endurræsingar til að taka gildi",
     "AddList": "Bæta við lista",
     "RenameFiles": "Endurnefna skrár",
-    "Test": "Próf"
+    "Test": "Próf",
+    "ManualImportSelectEdition": "Handvirkur innflutningur - Veldu kvikmynd"
 }
