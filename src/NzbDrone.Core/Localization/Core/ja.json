@@ -556,5 +556,6 @@
     "RestartRequiredHelpTextWarning": "有効にするには再起動が必要です",
     "RenameFiles": "ファイルの名前を変更する",
     "Test": "テスト",
-    "AddList": "リストを追加"
+    "AddList": "リストを追加",
+    "ManualImportSelectEdition": "手動インポート-ムービーを選択"
 }

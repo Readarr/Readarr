@@ -619,5 +619,7 @@
     "InstanceName": "Nome Istanza",
     "InstanceNameHelpText": "Nome dell'istanza nella scheda e per il nome dell'applicazione Syslog",
     "LogRotateHelpText": "Numero massimo di file di log da tenere salvati nella cartella log",
-    "LogRotation": "Rotazione Log"
+    "LogRotation": "Rotazione Log",
+    "ManualImportSelectEdition": "Importazione manuale: seleziona Film",
+    "Database": "Database"
 }

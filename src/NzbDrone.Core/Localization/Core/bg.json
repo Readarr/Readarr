@@ -556,5 +556,6 @@
     "RestartRequiredHelpTextWarning": "Изисква рестартиране, за да влезе в сила",
     "Test": "Тест",
     "AddList": "Добавяне на списък",
-    "RenameFiles": "Преименувайте файловете"
+    "RenameFiles": "Преименувайте файловете",
+    "ManualImportSelectEdition": "Ръчно импортиране - Изберете филм"
 }

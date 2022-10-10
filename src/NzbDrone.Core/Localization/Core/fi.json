@@ -20,11 +20,11 @@
     "Analytics": "Analytiikka",
     "AnalyticsEnabledHelpText": "Lähetä nimettömiä käyttö- ja virhetietoja sovelluksen palvelimille. Tämä sisältää tietoja selaimestasi, verkkokäyttöliittymän sivujen käytöstä, virheraportoinnista sekä käyttöjärjestelmästäsi ja versiosta. Käytämme näitä tietoja ominaisuuksien ja virhekorjauksien painotukseen.",
     "AppDataDirectory": "AppData-kansio",
-    "ApplyTags": "Toimenpide tunnisteille",
+    "ApplyTags": "Tunnistetoimenpide",
     "ApplyTagsHelpTexts1": "Miten tunnisteita sovelletaan valittuun kirjailijaan",
     "ApplyTagsHelpTexts2": "– 'Lisää' syötetyt tunnisteet aiempiin tunnisteisiin",
-    "ApplyTagsHelpTexts3": "– 'Poista' ainoastaan syötetyt tunnisteet",
-    "ApplyTagsHelpTexts4": "– 'Korvaa' kaikki aiemmat tunnisteet tai poista kaikki tunnisteet jättämällä tyhjäksi",
+    "ApplyTagsHelpTexts3": "- \"Poista\" tyhjentää syötetyt tunnisteet.",
+    "ApplyTagsHelpTexts4": "- \"Korvaa\" nykyiset tunnisteet syötetyillä tai tyhjennä kaikki tunnisteet jättämällä tyhjäksi.",
     "Authentication": "Todennus",
     "AuthenticationMethodHelpText": "Vaadi käyttäjätunnus ja salasana.",
     "AuthorClickToChangeBook": "Vaihda kirjaa painamalla",
@@ -700,5 +700,7 @@
     "RenameFiles": "Uudelleennimeä tiedostot",
     "Test": "Kokeile",
     "AllowFingerprintingHelpText": "Käytä piiloleimausta kirjojen täsmäyksen tarkennukseen",
-    "AllowFingerprinting": "Salli piiloleimaus"
+    "AllowFingerprinting": "Salli piiloleimaus",
+    "Database": "Tietokanta",
+    "ManualImportSelectEdition": "Manuaalinen tuonti - Valitse versio"
 }

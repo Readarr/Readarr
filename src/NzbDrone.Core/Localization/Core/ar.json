@@ -557,5 +557,6 @@
     "RestartRequiredHelpTextWarning": "يتطلب إعادة التشغيل ليصبح ساري المفعول",
     "AddList": "اضف قائمة",
     "RenameFiles": "إعادة تسمية الملفات",
-    "Test": "اختبار"
+    "Test": "اختبار",
+    "ManualImportSelectEdition": "استيراد يدوي - حدد فيلم"
 }

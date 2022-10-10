@@ -556,5 +556,6 @@
     "RestartRequiredHelpTextWarning": "Απαιτείται επανεκκίνηση για να τεθεί σε ισχύ",
     "Test": "Δοκιμή",
     "AddList": "Προσθήκη Λίστας",
-    "RenameFiles": "Μετονομασία αρχείων"
+    "RenameFiles": "Μετονομασία αρχείων",
+    "ManualImportSelectEdition": "Μη αυτόματη εισαγωγή - Επιλέξτε ταινία"
 }

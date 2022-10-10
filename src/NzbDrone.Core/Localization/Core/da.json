@@ -556,5 +556,6 @@
     "RestartRequiredHelpTextWarning": "Kræver genstart for at træde i kraft",
     "AddList": "Tilføj Liste",
     "Test": "Prøve",
-    "RenameFiles": "Omdøb filer"
+    "RenameFiles": "Omdøb filer",
+    "ManualImportSelectEdition": "Manuel import - Vælg film"
 }
