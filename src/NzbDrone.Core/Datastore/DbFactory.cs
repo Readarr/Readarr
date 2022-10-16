@@ -154,13 +154,13 @@ namespace NzbDrone.Core.Datastore
                                 continue;
                             }
 
-                            throw new RadarrStartupException(ex, "Error creating main database");
+                            throw new ReadarrStartupException(ex, "Error creating main database");
                         }
                     }
                 }
                 else
                 {
-                    throw new RadarrStartupException(e, "Error creating main database");
+                    throw new ReadarrStartupException(e, "Error creating main database");
                 }
             }
             catch (Exception e)
