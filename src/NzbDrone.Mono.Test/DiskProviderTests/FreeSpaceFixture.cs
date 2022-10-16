@@ -10,11 +10,6 @@ namespace NzbDrone.Mono.Test.DiskProviderTests
     [Platform(Exclude = "Win")]
     public class FreeSpaceFixture : FreeSpaceFixtureBase<DiskProvider>
     {
-        public FreeSpaceFixture()
-        {
-            MonoOnly();
-        }
-
         [SetUp]
         public void Setup()
         {
@@ -24,6 +19,7 @@ namespace NzbDrone.Mono.Test.DiskProviderTests
                   .Returns<string>(s => s);
         }
 
+        [Ignore("Docker")]
         [Test]
         public void should_be_able_to_check_space_on_ramdrive()
         {

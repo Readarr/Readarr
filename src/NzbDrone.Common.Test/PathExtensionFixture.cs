@@ -279,7 +279,7 @@ namespace NzbDrone.Common.Test
         [Test]
         public void GetUpdateClientExePath()
         {
-            GetIAppDirectoryInfo().GetUpdateClientExePath(PlatformType.DotNet).Should().BeEquivalentTo(@"C:\Temp\readarr_update\Readarr.Update.exe".AsOsAgnostic());
+            GetIAppDirectoryInfo().GetUpdateClientExePath().Should().BeEquivalentTo(@"C:\Temp\readarr_update\Readarr.Update".AsOsAgnostic().ProcessNameToExe());
         }
 
         [Test]

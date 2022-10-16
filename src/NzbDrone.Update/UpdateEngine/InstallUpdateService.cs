@@ -125,8 +125,8 @@ namespace NzbDrone.Update.UpdateEngine
                     _logger.Info("Copying new files to target folder");
                     _diskTransferService.MirrorFolder(_appFolderInfo.GetUpdatePackageFolder(), installationFolder);
 
-                    // Set executable flag on Readarr app
-                    if (OsInfo.IsOsx || (OsInfo.IsLinux && PlatformInfo.IsNetCore))
+                    // Set executable flag on app
+                    if (OsInfo.IsOsx || OsInfo.IsLinux)
                     {
                         _diskProvider.SetFilePermissions(Path.Combine(installationFolder, "Readarr"), "755", null);
                     }

@@ -50,10 +50,6 @@ namespace NzbDrone.Test.Common
             {
                 readarrConsoleExe = "Readarr.Console.exe";
             }
-            else if (PlatformInfo.IsMono)
-            {
-                readarrConsoleExe = "Readarr.exe";
-            }
             else
             {
                 readarrConsoleExe = "Readarr";

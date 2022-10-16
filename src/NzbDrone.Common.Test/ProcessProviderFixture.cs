@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
@@ -171,7 +171,7 @@ namespace NzbDrone.Common.Test
             var processStarted = new ManualResetEventSlim();
 
             string suffix;
-            if (OsInfo.IsWindows || PlatformInfo.IsMono)
+            if (OsInfo.IsWindows)
             {
                 suffix = ".exe";
             }

@@ -20,7 +20,6 @@ class About extends Component {
       packageVersion,
       packageAuthor,
       isNetCore,
-      isMono,
       isDocker,
       runtimeVersion,
       migrationVersion,
@@ -47,14 +46,6 @@ class About extends Component {
               <DescriptionListItem
                 title={translate('PackageVersion')}
                 data={(packageAuthor ? <span> {packageVersion} {' by '} <InlineMarkdown data={packageAuthor} /> </span> : packageVersion)}
-              />
-          }
-
-          {
-            isMono &&
-              <DescriptionListItem
-                title={translate('MonoVersion')}
-                data={runtimeVersion}
               />
           }
 
@@ -121,7 +112,6 @@ About.propTypes = {
   packageVersion: PropTypes.string,
   packageAuthor: PropTypes.string,
   isNetCore: PropTypes.bool.isRequired,
-  isMono: PropTypes.bool.isRequired,
   runtimeVersion: PropTypes.string.isRequired,
   isDocker: PropTypes.bool.isRequired,
   migrationVersion: PropTypes.number.isRequired,
