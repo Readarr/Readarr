@@ -9,7 +9,7 @@
 }
 
 .metadataMessage {
-  color: $helpTextColor;
+  color: var(--helpTextColor);
   text-align: center;
   font-weight: 300;
   font-size: 20px;
@@ -22,7 +22,7 @@
 .tabList {
   margin: 0;
   padding: 0;
-  border-bottom: 1px solid $lightGray;
+  border-bottom: 1px solid var(--lightGray);
 }
 
 .tab {
@@ -37,7 +37,7 @@
 }
 
 .selectedTab {
-  border-bottom: 4px solid $linkColor;
+  border-bottom: 4px solid var(--linkColor);
 }
 
 .tabContent {
@@ -63,7 +63,7 @@
   white-space: nowrap;
 
   &:hover {
-    color: $iconButtonHoverLightColor;
+    color: var(--iconButtonHoverLightColor);
   }
 }
 

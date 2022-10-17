@@ -17,11 +17,12 @@ namespace Readarr.Api.V1.Config
 
         public bool EnableColorImpairedMode { get; set; }
         public int UILanguage { get; set; }
+        public string Theme { get; set; }
     }
 
     public static class UiConfigResourceMapper
     {
-        public static UiConfigResource ToResource(IConfigService model)
+        public static UiConfigResource ToResource(IConfigFileProvider config, IConfigService model)
         {
             return new UiConfigResource
             {
@@ -35,6 +36,8 @@ namespace Readarr.Api.V1.Config
 
                 EnableColorImpairedMode = model.EnableColorImpairedMode,
                 UILanguage = model.UILanguage,
+
+                Theme = config.Theme
             };
         }
     }

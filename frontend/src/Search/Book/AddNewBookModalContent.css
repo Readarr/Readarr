@@ -30,7 +30,7 @@
 
 .disambiguation {
   margin-bottom: 20px;
-  color: $disabledColor;
+  color: var(--disabledColor);
   font-weight: 300;
   font-size: 20px;
 }
@@ -60,9 +60,9 @@
 
 .bookType {
   margin-bottom: 20px;
-  border: 1px solid $borderColor;
+  border: 1px solid var(--borderColor);
   border-radius: 4px;
-  background-color: $white;
+  background-color: var(--white);
 
   &:last-of-type {
     margin-bottom: 0;
