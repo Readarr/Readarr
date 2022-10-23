@@ -494,7 +494,7 @@
     "MetadataConsumers": "Consumidores de metadados",
     "MetadataProfile": "Perfil de metadados",
     "ReleaseProfiles": "Perfis de versão",
-    "AddImportListExclusionHelpText": "Impedir que o livro seja adicionado ao Readarr por listas de importação ou atualização do autor",
+    "AddImportListExclusionHelpText": "Impedir que o livro seja adicionado ao Readarr por Listas de Importação ou Atualização do Autor",
     "AddMissing": "Adicionar ausentes",
     "AddNewItem": "Adicionar novo item",
     "AllAuthorBooks": "Todos os livros do autor",
@@ -805,5 +805,6 @@
     "RenameFiles": "Renomear ficheiros",
     "Test": "Testar",
     "InstanceNameHelpText": "Nome da instância na aba e nome da aplicação para Syslog",
-    "Database": "Base de dados"
+    "Database": "Base de dados",
+    "AddedAuthorSettings": "Definições de Autor adicionadas"
 }
