@@ -173,7 +173,7 @@ class AddAuthorOptionsForm extends Component {
 AddAuthorOptionsForm.propTypes = {
   rootFolderPath: PropTypes.object,
   monitor: PropTypes.object.isRequired,
-  monitorNewItems: PropTypes.string.isRequired,
+  monitorNewItems: PropTypes.object.isRequired,
   qualityProfileId: PropTypes.object,
   metadataProfileId: PropTypes.object,
   showMetadataProfile: PropTypes.bool.isRequired,

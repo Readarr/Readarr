@@ -138,17 +138,20 @@ class AddNewBookSearchResult extends Component {
                     null
                 }
 
-                <Link
-                  className={styles.mbLink}
-                  to={`https://goodreads.com/book/show/${editions[0].foreignEditionId}`}
-                  onPress={this.onTVDBLinkPress}
-                >
-                  <Icon
-                    className={styles.mbLinkIcon}
-                    name={icons.EXTERNAL_LINK}
-                    size={28}
-                  />
-                </Link>
+                {
+                  editions && editions.length > 1 ?
+                    <Link
+                      className={styles.mbLink}
+                      to={`https://goodreads.com/book/show/${editions[0].foreignEditionId}`}
+                      onPress={this.onTVDBLinkPress}
+                    >
+                      <Icon
+                        className={styles.mbLinkIcon}
+                        name={icons.EXTERNAL_LINK}
+                        size={28}
+                      />
+                    </Link> : null
+                }
               </div>
             </div>
 
@@ -218,7 +221,7 @@ AddNewBookSearchResult.propTypes = {
   overview: PropTypes.string,
   ratings: PropTypes.object.isRequired,
   author: PropTypes.object,
-  editions: PropTypes.arrayOf(PropTypes.object).isRequired,
+  editions: PropTypes.arrayOf(PropTypes.object),
   images: PropTypes.arrayOf(PropTypes.object).isRequired,
   isExistingBook: PropTypes.bool.isRequired,
   isExistingAuthor: PropTypes.bool.isRequired,
