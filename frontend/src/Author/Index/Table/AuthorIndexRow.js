@@ -297,7 +297,7 @@ class AuthorIndexRow extends Component {
                     progress={progress}
                     kind={getProgressBarKind(status, monitored, progress)}
                     showText={true}
-                    text={`${bookFileCount} / ${bookCount}`}
+                    text={`${bookCount} / ${totalBookCount}`}
                     title={translate('BookFileCountBookCountTotalTotalBookCountInterp', [bookFileCount, bookCount, totalBookCount])}
                     width={125}
                   />

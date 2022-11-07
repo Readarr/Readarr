@@ -17,8 +17,8 @@ function AuthorIndexProgressBar(props) {
     detailedProgressBar
   } = props;
 
-  const progress = bookCount ? bookFileCount / bookCount * 100 : 100;
-  const text = `${bookFileCount} / ${bookCount}`;
+  const progress = bookCount ? bookCount / totalBookCount * 100 : 100;
+  const text = `${bookCount} / ${totalBookCount}`;
 
   return (
     <ProgressBar
