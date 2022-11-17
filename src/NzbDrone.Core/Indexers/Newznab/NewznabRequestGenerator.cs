@@ -61,7 +61,7 @@ namespace NzbDrone.Core.Indexers.Newznab
             {
                 AddBookPageableRequests(pageableRequests,
                     searchCriteria,
-                    NewsnabifyTitle($"&author={searchCriteria.AuthorQuery}&title={searchCriteria.BookQuery}"));
+                    $"&author={NewsnabifyTitle(searchCriteria.AuthorQuery)}&title={NewsnabifyTitle(searchCriteria.BookQuery)}");
             }
 
             if (SupportsSearch)
@@ -71,12 +71,12 @@ namespace NzbDrone.Core.Indexers.Newznab
                 pageableRequests.Add(GetPagedRequests(MaxPages,
                     Settings.Categories,
                     "search",
-                    NewsnabifyTitle($"&q={searchCriteria.BookQuery}+{searchCriteria.AuthorQuery}")));
+                    $"&q={NewsnabifyTitle(searchCriteria.BookQuery)}+{NewsnabifyTitle(searchCriteria.AuthorQuery)}"));
 
                 pageableRequests.Add(GetPagedRequests(MaxPages,
                     Settings.Categories,
                     "search",
-                    NewsnabifyTitle($"&q={searchCriteria.AuthorQuery}+{searchCriteria.BookQuery}")));
+                    $"&q={NewsnabifyTitle(searchCriteria.AuthorQuery)}+{NewsnabifyTitle(searchCriteria.BookQuery)}"));
             }
 
             return pageableRequests;
@@ -90,7 +90,7 @@ namespace NzbDrone.Core.Indexers.Newznab
             {
                 AddBookPageableRequests(pageableRequests,
                     searchCriteria,
-                    NewsnabifyTitle($"&author={searchCriteria.AuthorQuery}"));
+                    $"&author={NewsnabifyTitle(searchCriteria.AuthorQuery)}");
             }
 
             if (SupportsSearch)
@@ -100,7 +100,7 @@ namespace NzbDrone.Core.Indexers.Newznab
                 pageableRequests.Add(GetPagedRequests(MaxPages,
                     Settings.Categories,
                     "search",
-                    NewsnabifyTitle($"&q={searchCriteria.AuthorQuery}")));
+                    $"&q={NewsnabifyTitle(searchCriteria.AuthorQuery)}"));
             }
 
             return pageableRequests;
