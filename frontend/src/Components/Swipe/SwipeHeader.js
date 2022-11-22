@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import Measure from 'Components/Measure';
-import { isMobile as isMobileUtil } from 'Utilities/mobile';
+import { isMobile as isMobileUtil } from 'Utilities/browser';
 import styles from './SwipeHeader.css';
 
 function cursorPosition(event) {
