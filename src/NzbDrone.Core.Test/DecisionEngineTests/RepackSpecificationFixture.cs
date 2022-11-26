@@ -285,9 +285,10 @@ namespace NzbDrone.Core.Test.DecisionEngineTests
 
             _trackFiles.Select(c =>
             {
-                c.ReleaseGroup = "Lidarr";
+                c.ReleaseGroup = "Readarr";
                 return c;
             }).ToList();
+
             _trackFiles.Select(c =>
             {
                 c.Quality = new QualityModel(Quality.FLAC);
@@ -313,7 +314,7 @@ namespace NzbDrone.Core.Test.DecisionEngineTests
 
             _trackFiles.Select(c =>
             {
-                c.ReleaseGroup = "Lidarr";
+                c.ReleaseGroup = "Readarr";
                 return c;
             }).ToList();
             _trackFiles.Select(c =>
