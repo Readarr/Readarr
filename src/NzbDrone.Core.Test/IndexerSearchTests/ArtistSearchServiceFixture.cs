@@ -25,7 +25,7 @@ namespace NzbDrone.Core.Test.IndexerSearchTests
                 .Setup(s => s.GetAuthor(It.IsAny<int>()))
                 .Returns(_author);
 
-            Mocker.GetMock<ISearchForNzb>()
+            Mocker.GetMock<ISearchForReleases>()
                 .Setup(s => s.AuthorSearch(_author.Id, false, true, false))
                 .Returns(new List<DownloadDecision>());
 
@@ -45,7 +45,7 @@ namespace NzbDrone.Core.Test.IndexerSearchTests
 
             Subject.Execute(new AuthorSearchCommand { AuthorId = _author.Id, Trigger = CommandTrigger.Manual });
 
-            Mocker.GetMock<ISearchForNzb>()
+            Mocker.GetMock<ISearchForReleases>()
                 .Verify(v => v.AuthorSearch(_author.Id, false, true, false),
                     Times.Exactly(_author.Books.Value.Count(s => s.Monitored)));
         }

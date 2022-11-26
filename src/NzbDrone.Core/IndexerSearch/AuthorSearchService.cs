@@ -7,22 +7,22 @@ namespace NzbDrone.Core.IndexerSearch
 {
     public class AuthorSearchService : IExecute<AuthorSearchCommand>
     {
-        private readonly ISearchForNzb _nzbSearchService;
+        private readonly ISearchForReleases _releaseSearchService;
         private readonly IProcessDownloadDecisions _processDownloadDecisions;
         private readonly Logger _logger;
 
-        public AuthorSearchService(ISearchForNzb nzbSearchService,
+        public AuthorSearchService(ISearchForReleases releaseSearchService,
             IProcessDownloadDecisions processDownloadDecisions,
             Logger logger)
         {
-            _nzbSearchService = nzbSearchService;
+            _releaseSearchService = releaseSearchService;
             _processDownloadDecisions = processDownloadDecisions;
             _logger = logger;
         }
 
         public void Execute(AuthorSearchCommand message)
         {
-            var decisions = _nzbSearchService.AuthorSearch(message.AuthorId, false, message.Trigger == CommandTrigger.Manual, false);
+            var decisions = _releaseSearchService.AuthorSearch(message.AuthorId, false, message.Trigger == CommandTrigger.Manual, false);
             var processed = _processDownloadDecisions.ProcessDecisions(decisions);
 
             _logger.ProgressInfo("Author search completed. {0} reports downloaded.", processed.Grabbed.Count);

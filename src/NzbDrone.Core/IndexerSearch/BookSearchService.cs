@@ -17,21 +17,21 @@ namespace NzbDrone.Core.IndexerSearch
                                IExecute<MissingBookSearchCommand>,
                                IExecute<CutoffUnmetBookSearchCommand>
     {
-        private readonly ISearchForNzb _nzbSearchService;
+        private readonly ISearchForReleases _releaseSearchService;
         private readonly IBookService _bookService;
         private readonly IBookCutoffService _bookCutoffService;
         private readonly IQueueService _queueService;
         private readonly IProcessDownloadDecisions _processDownloadDecisions;
         private readonly Logger _logger;
 
-        public BookSearchService(ISearchForNzb nzbSearchService,
+        public BookSearchService(ISearchForReleases releaseSearchService,
             IBookService bookService,
             IBookCutoffService bookCutoffService,
             IQueueService queueService,
             IProcessDownloadDecisions processDownloadDecisions,
             Logger logger)
         {
-            _nzbSearchService = nzbSearchService;
+            _releaseSearchService = releaseSearchService;
             _bookService = bookService;
             _bookCutoffService = bookCutoffService;
             _queueService = queueService;
@@ -47,7 +47,7 @@ namespace NzbDrone.Core.IndexerSearch
             foreach (var book in books)
             {
                 List<DownloadDecision> decisions;
-                decisions = _nzbSearchService.BookSearch(book.Id, false, userInvokedSearch, false);
+                decisions = _releaseSearchService.BookSearch(book.Id, false, userInvokedSearch, false);
                 var processed = _processDownloadDecisions.ProcessDecisions(decisions);
 
                 downloadedCount += processed.Grabbed.Count;
@@ -61,7 +61,7 @@ namespace NzbDrone.Core.IndexerSearch
             foreach (var bookId in message.BookIds)
             {
                 var decisions =
-                    _nzbSearchService.BookSearch(bookId, false, message.Trigger == CommandTrigger.Manual, false);
+                    _releaseSearchService.BookSearch(bookId, false, message.Trigger == CommandTrigger.Manual, false);
                 var processed = _processDownloadDecisions.ProcessDecisions(decisions);
 
                 _logger.ProgressInfo("Book search completed. {0} reports downloaded.", processed.Grabbed.Count);

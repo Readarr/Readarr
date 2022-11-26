@@ -24,7 +24,7 @@ namespace Readarr.Api.V1.Indexers
     public class ReleaseController : ReleaseControllerBase
     {
         private readonly IFetchAndParseRss _rssFetcherAndParser;
-        private readonly ISearchForNzb _nzbSearchService;
+        private readonly ISearchForReleases _releaseSearchService;
         private readonly IMakeDownloadDecision _downloadDecisionMaker;
         private readonly IPrioritizeDownloadDecision _prioritizeDownloadDecision;
         private readonly IDownloadService _downloadService;
@@ -36,7 +36,7 @@ namespace Readarr.Api.V1.Indexers
         private readonly ICached<RemoteBook> _remoteBookCache;
 
         public ReleaseController(IFetchAndParseRss rssFetcherAndParser,
-                             ISearchForNzb nzbSearchService,
+                             ISearchForReleases releaseSearchService,
                              IMakeDownloadDecision downloadDecisionMaker,
                              IPrioritizeDownloadDecision prioritizeDownloadDecision,
                              IDownloadService downloadService,
@@ -47,7 +47,7 @@ namespace Readarr.Api.V1.Indexers
                              Logger logger)
         {
             _rssFetcherAndParser = rssFetcherAndParser;
-            _nzbSearchService = nzbSearchService;
+            _releaseSearchService = releaseSearchService;
             _downloadDecisionMaker = downloadDecisionMaker;
             _prioritizeDownloadDecision = prioritizeDownloadDecision;
             _downloadService = downloadService;
@@ -155,7 +155,7 @@ namespace Readarr.Api.V1.Indexers
         {
             try
             {
-                var decisions = _nzbSearchService.BookSearch(bookId, true, true, true);
+                var decisions = _releaseSearchService.BookSearch(bookId, true, true, true);
                 var prioritizedDecisions = _prioritizeDownloadDecision.PrioritizeDecisions(decisions);
 
                 return MapDecisions(prioritizedDecisions);
@@ -171,7 +171,7 @@ namespace Readarr.Api.V1.Indexers
         {
             try
             {
-                var decisions = _nzbSearchService.AuthorSearch(authorId, false, true, true);
+                var decisions = _releaseSearchService.AuthorSearch(authorId, false, true, true);
                 var prioritizedDecisions = _prioritizeDownloadDecision.PrioritizeDecisions(decisions);
 
                 return MapDecisions(prioritizedDecisions);

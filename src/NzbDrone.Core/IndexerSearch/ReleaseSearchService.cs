@@ -14,13 +14,13 @@ using NzbDrone.Core.Parser.Model;
 
 namespace NzbDrone.Core.IndexerSearch
 {
-    public interface ISearchForNzb
+    public interface ISearchForReleases
     {
         List<DownloadDecision> BookSearch(int bookId, bool missingOnly, bool userInvokedSearch, bool interactiveSearch);
         List<DownloadDecision> AuthorSearch(int authorId, bool missingOnly, bool userInvokedSearch, bool interactiveSearch);
     }
 
-    public class NzbSearchService : ISearchForNzb
+    public class ReleaseSearchService : ISearchForReleases
     {
         private readonly IIndexerFactory _indexerFactory;
         private readonly IBookService _bookService;
@@ -28,7 +28,7 @@ namespace NzbDrone.Core.IndexerSearch
         private readonly IMakeDownloadDecision _makeDownloadDecision;
         private readonly Logger _logger;
 
-        public NzbSearchService(IIndexerFactory indexerFactory,
+        public ReleaseSearchService(IIndexerFactory indexerFactory,
                                 IBookService bookService,
                                 IAuthorService authorService,
                                 IMakeDownloadDecision makeDownloadDecision,
