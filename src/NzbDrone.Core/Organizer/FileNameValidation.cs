@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -25,7 +25,7 @@ namespace NzbDrone.Core.Organizer
         {
             ruleBuilder.SetValidator(new NotEmptyValidator(null));
             ruleBuilder.SetValidator(new IllegalCharactersValidator());
-            
+
             return ruleBuilder.SetValidator(new RegularExpressionValidator(FileNameBuilder.AuthorNameRegex)).WithMessage("Must contain Author name");
         }
     }
@@ -58,7 +58,6 @@ namespace NzbDrone.Core.Organizer
         public IllegalCharactersValidator()
             : base("Contains illegal characters: {InvalidCharacters}")
         {
-
         }
 
         protected override bool IsValid(PropertyValidatorContext context)

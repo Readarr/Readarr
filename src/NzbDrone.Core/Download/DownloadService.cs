@@ -110,7 +110,7 @@ namespace NzbDrone.Core.Download
                 bookGrabbedEvent.DownloadId = downloadClientId;
             }
 
-            _logger.ProgressInfo("Report sent to {0} from indexer {1}. {2}", downloadClient.Definition.Name, remoteAlbum.Release.Indexer, downloadTitle);
+            _logger.ProgressInfo("Report sent to {0} from indexer {1}. {2}", downloadClient.Definition.Name, remoteBook.Release.Indexer, downloadTitle);
             _eventAggregator.PublishEvent(bookGrabbedEvent);
         }
     }
