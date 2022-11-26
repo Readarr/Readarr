@@ -400,11 +400,11 @@ namespace NzbDrone.Core.MediaFiles
             }
             catch (Exception ex)
             {
-                Logger.Warn()
+                Logger.ForWarnEvent()
                     .Exception(ex)
                     .Message($"Tag writing failed for {path}")
                     .WriteSentryWarn("Tag writing failed")
-                    .Write();
+                    .Log();
             }
             finally
             {

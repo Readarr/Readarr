@@ -65,10 +65,10 @@ namespace NzbDrone.Core.MediaFiles
             }
             else
             {
-                Logger.Debug()
+                Logger.ForDebugEvent()
                     .Message("Unknown audio format: '{0}'.", string.Join(", ", mediaInfo.AudioFormat))
                     .WriteSentryWarn("UnknownAudioFormat", mediaInfo.AudioFormat)
-                    .Write();
+                    .Log();
 
                 return "Unknown";
             }

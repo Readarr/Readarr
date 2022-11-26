@@ -29,9 +29,9 @@
     <PackageVersion Include="MonoTorrent" Version="2.0.6" />
     <PackageVersion Include="NBuilder" Version="6.1.0" />
     <PackageVersion Include="Newtonsoft.Json" Version="13.0.1" />
-    <PackageVersion Include="NLog.Extensions.Logging" Version="1.7.4" />
-    <PackageVersion Include="NLog" Version="4.7.14" />
-    <PackageVersion Include="NLog.Targets.Syslog" Version="6.0.2" />
+    <PackageVersion Include="NLog.Extensions.Logging" Version="5.1.0" />
+    <PackageVersion Include="NLog" Version="5.0.5" />
+    <PackageVersion Include="NLog.Targets.Syslog" Version="7.0.0" />
     <PackageVersion Include="Npgsql" Version="6.0.3" />
     <PackageVersion Include="NUnit3TestAdapter" Version="4.2.1" />
     <PackageVersion Include="NUnit" Version="3.13.3" />
