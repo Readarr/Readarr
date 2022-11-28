@@ -60,7 +60,7 @@ namespace Readarr.Api.V1
         [RestPostById]
         public ActionResult<TProviderResource> CreateProvider(TProviderResource providerResource)
         {
-            var providerDefinition = GetDefinition(providerResource, false);
+            var providerDefinition = GetDefinition(providerResource, true, false, false);
 
             if (providerDefinition.Enable)
             {
@@ -75,8 +75,8 @@ namespace Readarr.Api.V1
         [RestPutById]
         public ActionResult<TProviderResource> UpdateProvider(TProviderResource providerResource)
         {
-            var providerDefinition = GetDefinition(providerResource, false);
-            var existingDefinition = _providerFactory.Get(providerDefinition.Id);
+            var providerDefinition = GetDefinition(providerResource, true, false, false);
+            var forceSave = Request.GetBooleanQueryParameter("forceSave");
 
             // Only test existing definitions if it was previously disabled
             if (providerDefinition.Enable && !existingDefinition.Enable)
@@ -89,11 +89,11 @@ namespace Readarr.Api.V1
             return Accepted(providerResource.Id);
         }
 
-        private TProviderDefinition GetDefinition(TProviderResource providerResource, bool includeWarnings = false, bool validate = true)
+        private TProviderDefinition GetDefinition(TProviderResource providerResource, bool validate, bool includeWarnings, bool forceValidate)
         {
             var definition = _resourceMapper.ToModel(providerResource);
 
-            if (validate)
+            if (validate && (definition.Enable || forceValidate))
             {
                 Validate(definition, includeWarnings);
             }
@@ -134,7 +134,7 @@ namespace Readarr.Api.V1
         [HttpPost("test")]
         public object Test([FromBody] TProviderResource providerResource)
         {
-            var providerDefinition = GetDefinition(providerResource, true);
+            var providerDefinition = GetDefinition(providerResource, true, true, true);
 
             Test(providerDefinition, true);
 
@@ -167,7 +167,7 @@ namespace Readarr.Api.V1
         [HttpPost("action/{name}")]
         public IActionResult RequestAction(string name, [FromBody] TProviderResource resource)
         {
-            var providerDefinition = GetDefinition(resource, true, false);
+            var providerDefinition = GetDefinition(resource, false, false, false);
 
             var query = Request.Query.ToDictionary(x => x.Key, x => x.Value.ToString());
 
@@ -176,7 +176,7 @@ namespace Readarr.Api.V1
             return Content(data.ToJson(), "application/json");
         }
 
-        protected virtual void Validate(TProviderDefinition definition, bool includeWarnings)
+        private void Validate(TProviderDefinition definition, bool includeWarnings)
         {
             var validationResult = definition.Settings.Validate();
 
