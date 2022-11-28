@@ -7,6 +7,7 @@ using NzbDrone.Common.Serializer;
 using NzbDrone.Core.ThingiProvider;
 using NzbDrone.Core.Validation;
 using NzbDrone.Http.REST.Attributes;
+using Readarr.Http.Extensions;
 using Readarr.Http.REST;
 
 namespace Readarr.Api.V1
@@ -78,8 +79,8 @@ namespace Readarr.Api.V1
             var providerDefinition = GetDefinition(providerResource, true, false, false);
             var forceSave = Request.GetBooleanQueryParameter("forceSave");
 
-            // Only test existing definitions if it was previously disabled
-            if (providerDefinition.Enable && !existingDefinition.Enable)
+            // Only test existing definitions if it is enabled and forceSave isn't set.
+            if (providerDefinition.Enable && !forceSave)
             {
                 Test(providerDefinition, false);
             }
@@ -113,7 +114,7 @@ namespace Readarr.Api.V1
         {
             var defaultDefinitions = _providerFactory.GetDefaultDefinitions().OrderBy(p => p.ImplementationName).ToList();
 
-            var result = new List<TProviderResource>(defaultDefinitions.Count());
+            var result = new List<TProviderResource>(defaultDefinitions.Count);
 
             foreach (var providerDefinition in defaultDefinitions)
             {
