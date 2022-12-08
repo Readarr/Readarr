@@ -18,6 +18,7 @@ namespace NzbDrone.Core.ImportLists.Goodreads
 
         public override string Name => "Goodreads Series";
         public override ImportListType ListType => ImportListType.Goodreads;
+        public override TimeSpan MinRefreshInterval => TimeSpan.FromHours(12);
 
         public GoodreadsSeriesImportList(IProvideSeriesInfo seriesInfo,
             IImportListStatusService importListStatusService,

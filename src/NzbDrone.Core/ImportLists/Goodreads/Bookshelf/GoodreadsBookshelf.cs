@@ -24,6 +24,7 @@ namespace NzbDrone.Core.ImportLists.Goodreads
         }
 
         public override string Name => "Goodreads Bookshelves";
+        public override TimeSpan MinRefreshInterval => TimeSpan.FromHours(12);
 
         public override IList<ImportListItemInfo> Fetch()
         {

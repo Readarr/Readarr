@@ -17,6 +17,7 @@ namespace NzbDrone.Core.ImportLists.Readarr
         public override string Name => "Readarr";
 
         public override ImportListType ListType => ImportListType.Program;
+        public override TimeSpan MinRefreshInterval => TimeSpan.FromMinutes(15);
 
         public ReadarrImport(IReadarrV1Proxy readarrV1Proxy,
                             IImportListStatusService importListStatusService,

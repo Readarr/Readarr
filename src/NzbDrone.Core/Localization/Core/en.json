@@ -401,6 +401,8 @@
   "LaunchBrowserHelpText": " Open a web browser and navigate to Readarr homepage on app start.",
   "Level": "Level",
   "LibraryHelpText": "Calibre content server library name.  Leave blank for default.",
+  "ListRefreshInterval": "List Refresh Interval",
+  "ListWillRefreshEveryInterp": "List will refresh every {0}",
   "Lists": "Lists",
   "ListsSettingsSummary": "Import Lists",
   "Loading": "loading",
