@@ -62,6 +62,15 @@ Support this project by becoming a sponsor. Your logo will show up here with a l
 
 [![Mega Sponsors List](https://opencollective.com/Readarr/tiers/mega-sponsor.svg?width=890)](https://opencollective.com/readarr#mega-sponsor)
 
+## DigitalOcean
+
+This project is also supported by DigitalOcean
+<p>
+  <a href="https://www.digitalocean.com/">
+    <img src="https://opensource.nyc3.cdn.digitaloceanspaces.com/attribution/assets/SVG/DO_Logo_horizontal_blue.svg" width="201px">
+  </a>
+</p>
+
 ### License
 
 * [GNU GPL v3](http://www.gnu.org/licenses/gpl.html)
