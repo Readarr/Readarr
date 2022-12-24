@@ -61,7 +61,7 @@ namespace NzbDrone.Core.Books
 
                 _diskTransferService.TransferFolder(sourcePath, destinationPath, TransferMode.Move);
 
-                _logger.ProgressInfo("{0} moved successfully to {1}", author.Name, author.Path);
+                _logger.ProgressInfo("{0} moved successfully to {1}", author.Name, destinationPath);
 
                 _eventAggregator.PublishEvent(new AuthorMovedEvent(author, sourcePath, destinationPath));
             }
