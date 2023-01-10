@@ -877,5 +877,7 @@
     "InstanceNameHelpText": "Példánynév a böngésző lapon és a syslog alkalmazás neve",
     "LoadingEditionsFailed": "A kiadások betöltése nem sikerült",
     "ManualImportSelectEdition": "Kézi importálás – Válaszd ki a Kiadást",
-    "Database": "Adatbázis"
+    "Database": "Adatbázis",
+    "ApplicationURL": "Alkalmazás URL-je",
+    "ApplicationUrlHelpText": "Az alkalmazás külső URL-címe, beleértve a http(s)://-t, a portot és az URL-alapot"
 }

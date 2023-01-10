@@ -592,5 +592,8 @@
     "Started": "Запущено",
     "Database": "База данных",
     "InstanceName": "Имя экземпляра",
-    "InstanceNameHelpText": "Имя экземпляра на вкладке и для имени приложения системного журнала"
+    "InstanceNameHelpText": "Имя экземпляра на вкладке и для имени приложения системного журнала",
+    "AllowedLanguages": "Разрешенные языки",
+    "ApplicationURL": "URL-адрес приложения",
+    "ApplicationUrlHelpText": "Внешний URL-адрес этого приложения, включая http(s)://, порт и базовый URL-адрес"
 }

@@ -803,5 +803,7 @@
     "DataExistingBooks": "Bevaka album som har filer eller inte har släppts än",
     "DataFirstBook": "Bevaka första album. Alla andra album kommer bli ignorerade",
     "DataFuturebooks": "Bevaka albums som inte har släppts än",
-    "DataMissingBooks": "Bevaka album som har filer eller inte har släppts än"
+    "DataMissingBooks": "Bevaka album som har filer eller inte har släppts än",
+    "ApplicationURL": "Applikations-URL",
+    "ApplicationUrlHelpText": "Denna applikations externa URL inklusive http(s)://, port och URL-bas"
 }
