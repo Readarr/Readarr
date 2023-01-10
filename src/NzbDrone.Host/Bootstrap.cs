@@ -47,7 +47,9 @@ namespace NzbDrone.Host
         {
             try
             {
-                Logger.Info("Starting Readarr - {0} - Version {1}", Assembly.GetCallingAssembly().Location, Assembly.GetExecutingAssembly().GetName().Version);
+                Logger.Info("Starting Readarr - {0} - Version {1}",
+                            Environment.ProcessPath,
+                            Assembly.GetExecutingAssembly().GetName().Version);
 
                 var startupContext = new StartupContext(args);
 
