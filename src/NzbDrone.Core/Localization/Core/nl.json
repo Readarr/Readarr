@@ -42,7 +42,7 @@
     "BackupRetentionHelpText": "Automatische veiligheidskopieën ouder dan de retentie periode zullen worden opgeruimd",
     "Backups": "Veiligheidskopieën",
     "BindAddress": "Gebonden Adres",
-    "BindAddressHelpText": "Geldig IPv4 adres of '*' voor alle interfaces",
+    "BindAddressHelpText": "Geldig IPv4-adres of '*' voor alle interfaces",
     "BindAddressHelpTextWarning": "Herstarten vereist om in werking te treden",
     "BookIsDownloading": "Film is aan het downloaden",
     "BookIsDownloadingInterp": "Film is aan het downloaden - {0}% {1}",
@@ -53,7 +53,7 @@
     "Cancel": "Annuleer",
     "CancelMessageText": "Bent u zeker dat u deze taak in afwachting wilt annuleren?",
     "CertificateValidation": "Certificaat Validatie",
-    "CertificateValidationHelpText": "Wijzig hoe strikt HTTPS certificaat validatie is",
+    "CertificateValidationHelpText": "Wijzig hoe strict HTTPS certificaat validatie is. Wijzig dit niet behalve als je de risico's begrijpt.",
     "ChangeFileDate": "Wijzig Bestandsdatum",
     "ChangeHasNotBeenSavedYet": "Wijziging is nog niet opgeslagen",
     "ChmodFolder": "chmod Map",
@@ -591,5 +591,12 @@
     "RenameFiles": "Hernoem Bestanden",
     "Test": "Test",
     "ManualImportSelectEdition": "Manuele import - Selecteer Film",
-    "Database": "Databasis"
+    "Database": "Databasis",
+    "AddNewItem": "Voeg nieuwe toe",
+    "AddImportListExclusionHelpText": "Voorkom dat Readarr het boek toevoegt met Import Lijsten of Auteur Verversing",
+    "AllAuthorBooks": "Alle boeken van deze auteur",
+    "AllExpandedCollapseAll": "Klap alles in",
+    "AllExpandedExpandAll": "Klap alles uit",
+    "AllowAuthorChangeClickToChangeAuthor": "Klik om auteur aan te passen",
+    "AllowedLanguages": "Toegestane talen"
 }

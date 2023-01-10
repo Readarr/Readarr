@@ -83,7 +83,7 @@
     "DeleteImportListMessageText": "您确定要删除列表 '{0}'？",
     "DeleteIndexer": "删除索引",
     "DeleteIndexerMessageText": "您确定要删除索引 '{0}'吗？",
-    "DeleteMetadataProfileMessageText": "确定要删除影片质量配置“{0}”",
+    "DeleteMetadataProfileMessageText": "确定要删除元数据配置吗‘{0}’？",
     "DeleteNotification": "删除消息推送",
     "DeleteNotificationMessageText": "您确定要删除推送 '{0}' 吗？",
     "DeleteQualityProfile": "删除电影质量配置",
@@ -433,7 +433,7 @@
     "WeekColumnHeader": "日期格式",
     "Year": "年",
     "YesCancel": "是，取消",
-    "20MinutesTwenty": "20分钟: {0}",
+    "20MinutesTwenty": "20 分钟：{0}",
     "45MinutesFourtyFive": "45分钟: {0}",
     "60MinutesSixty": "60分钟: {0}",
     "APIKey": "API Key",
@@ -877,5 +877,7 @@
     "CollapseMultipleBooksHelpText": "折叠在同日发行的多本书籍",
     "ASIN": "亚马逊标准识别码",
     "NoTagsHaveBeenAddedYet": "尚未添加标签，添加标签以链接具有延迟配置文件、限制或通知的作者。单击{0}以了解有关Readarr中标签的更多信息。",
-    "BindAddressHelpText": "有效的 IPv4 地址或以'*'代表所有接口"
+    "BindAddressHelpText": "有效的 IPv4 地址或以'*'代表所有接口",
+    "ApplicationURL": "程序URL",
+    "ApplicationUrlHelpText": "此应用的外部URL，包含 http(s)://、端口和基本URL"
 }

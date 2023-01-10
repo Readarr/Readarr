@@ -6,8 +6,8 @@
     "Size": " Μέγεθος",
     "Source": "Πηγή",
     "Uptime": "Ώρα",
-    "20MinutesTwenty": "60 λεπτά: {0}",
-    "45MinutesFourtyFive": "60 λεπτά: {0}",
+    "20MinutesTwenty": "20 λεπτά: {0}",
+    "45MinutesFourtyFive": "45 λεπτά: {0}",
     "60MinutesSixty": "60 λεπτά: {0}",
     "APIKey": "Κλειδί API",
     "About": "Σχετικά",
@@ -557,5 +557,9 @@
     "Test": "Δοκιμή",
     "AddList": "Προσθήκη Λίστας",
     "RenameFiles": "Μετονομασία αρχείων",
-    "ManualImportSelectEdition": "Μη αυτόματη εισαγωγή - Επιλέξτε ταινία"
+    "ManualImportSelectEdition": "Μη αυτόματη εισαγωγή - Επιλέξτε ταινία",
+    "AllExpandedCollapseAll": "Σύμπτυξη Όλων",
+    "AllExpandedExpandAll": "Ανάπτυξη Όλων",
+    "AddNewItem": "Προσθήκη Νέου",
+    "AddMissing": "Προσθήκη Στοιχείου Που Λείπει"
 }
