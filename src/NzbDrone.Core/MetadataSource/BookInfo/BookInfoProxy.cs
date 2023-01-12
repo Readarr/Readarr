@@ -125,7 +125,7 @@ namespace NzbDrone.Core.MetadataSource.BookInfo
             catch (BookInfoException e)
             {
                 _logger.Warn(e, "Unexpected error getting book info");
-                throw new AuthorNotFoundException(foreignBookId);
+                throw new BookNotFoundException(foreignBookId);
             }
         }
 
@@ -398,9 +398,9 @@ namespace NzbDrone.Core.MetadataSource.BookInfo
             }
 
             var location = httpResponse.Headers.GetSingleValue("Location");
-            var split = location.Split('/');
-            var type = split[0];
-            var newId = split[1];
+            var split = location.Split('/').Reverse().ToList();
+            var newId = split[0];
+            var type = split[1];
 
             Book book;
             List<AuthorMetadata> authors;
@@ -437,6 +437,10 @@ namespace NzbDrone.Core.MetadataSource.BookInfo
                 trimmed.AuthorMetadata = book.AuthorMetadata.Value;
                 trimmed.SeriesLinks = book.SeriesLinks;
                 var edition = book.Editions.Value.SingleOrDefault(e => e.ForeignEditionId == id.ToString());
+                if (edition != null)
+                {
+                    edition.Monitored = true;
+                }
 
                 trimmed.Editions = new List<Edition> { edition };
                 book = trimmed;
@@ -632,9 +636,9 @@ namespace NzbDrone.Core.MetadataSource.BookInfo
                 if (httpResponse.HasHttpRedirect)
                 {
                     var location = httpResponse.Headers.GetSingleValue("Location");
-                    var split = location.Split('/');
-                    var type = split[0];
-                    var newId = split[1];
+                    var split = location.Split('/').Reverse().ToList();
+                    var newId = split[0];
+                    var type = split[1];
 
                     if (type == "author")
                     {
