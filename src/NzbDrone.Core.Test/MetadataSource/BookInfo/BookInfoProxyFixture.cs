@@ -75,7 +75,7 @@ namespace NzbDrone.Core.Test.MetadataSource.Goodreads
         [Test]
         public void getting_details_of_invalid_book()
         {
-            Assert.Throws<BookNotFoundException>(() => Subject.GetBookInfo("99999999"));
+            Assert.Throws<BookNotFoundException>(() => Subject.GetBookInfo("1"));
         }
 
         private void ValidateAuthor(Author author)
