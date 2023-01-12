@@ -378,14 +378,29 @@ namespace NzbDrone.Core.MetadataSource.BookInfo
 
         private Book GetEditionInfo(int id, bool getAllEditions)
         {
-            var httpRequest = _requestBuilder.GetRequestBuilder().Create()
-                .SetSegment("route", $"book/{id}")
-                .Build();
+            HttpRequest httpRequest;
+            HttpResponse httpResponse;
 
-            httpRequest.SuppressHttpError = true;
+            while (true)
+            {
+                httpRequest = _requestBuilder.GetRequestBuilder().Create()
+                    .SetSegment("route", $"book/{id}")
+                    .Build();
 
-            // we expect a redirect
-            var httpResponse = _httpClient.Get(httpRequest);
+                httpRequest.SuppressHttpError = true;
+
+                // we expect a redirect
+                httpResponse = _httpClient.Get(httpRequest);
+
+                if (httpResponse.StatusCode == HttpStatusCode.TooManyRequests)
+                {
+                    WaitUntilRetry(httpResponse);
+                }
+                else
+                {
+                    break;
+                }
+            }
 
             if (httpResponse.StatusCode == HttpStatusCode.NotFound)
             {
@@ -454,16 +469,32 @@ namespace NzbDrone.Core.MetadataSource.BookInfo
 
         private List<Book> MapSearchResult(List<int> ids)
         {
-            var httpRequest = _requestBuilder.GetRequestBuilder().Create()
-                .SetSegment("route", $"book/bulk")
-                .SetHeader("Content-Type", "application/json")
-                .Build();
+            HttpRequest httpRequest;
+            HttpResponse<BulkBookResource> httpResponse;
 
-            httpRequest.SetContent(ids.ToJson());
+            while (true)
+            {
+                httpRequest = _requestBuilder.GetRequestBuilder().Create()
+                    .SetSegment("route", $"book/bulk")
+                    .SetHeader("Content-Type", "application/json")
+                    .Build();
 
-            httpRequest.AllowAutoRedirect = true;
+                httpRequest.SetContent(ids.ToJson());
 
-            var httpResponse = _httpClient.Post<BulkBookResource>(httpRequest);
+                httpRequest.AllowAutoRedirect = true;
+                httpRequest.SuppressHttpError = true;
+
+                httpResponse = _httpClient.Post<BulkBookResource>(httpRequest);
+
+                if (httpResponse.StatusCode == HttpStatusCode.TooManyRequests)
+                {
+                    WaitUntilRetry(httpResponse);
+                }
+                else
+                {
+                    break;
+                }
+            }
 
             var mapped = MapBulkBook(httpResponse.Resource);
 
@@ -578,7 +609,12 @@ namespace NzbDrone.Core.MetadataSource.BookInfo
 
                 if (httpResponse.HasHttpError)
                 {
-                    if (httpResponse.StatusCode == HttpStatusCode.NotFound)
+                    if (httpResponse.StatusCode == HttpStatusCode.TooManyRequests)
+                    {
+                        WaitUntilRetry(httpResponse);
+                        continue;
+                    }
+                    else if (httpResponse.StatusCode == HttpStatusCode.NotFound)
                     {
                         throw new AuthorNotFoundException(foreignAuthorId);
                     }
@@ -627,6 +663,12 @@ namespace NzbDrone.Core.MetadataSource.BookInfo
 
                 // this may redirect to an author
                 var httpResponse = _httpClient.Get(httpRequest);
+
+                if (httpResponse.StatusCode == HttpStatusCode.TooManyRequests)
+                {
+                    WaitUntilRetry(httpResponse);
+                    continue;
+                }
 
                 if (httpResponse.StatusCode == HttpStatusCode.NotFound)
                 {
@@ -695,6 +737,25 @@ namespace NzbDrone.Core.MetadataSource.BookInfo
             MapSeriesLinks(series, new List<Book> { book }, resource.Series);
 
             return Tuple.Create(authorId, book, metadata);
+        }
+
+        private void WaitUntilRetry(HttpResponse response)
+        {
+            var seconds = 5;
+
+            if (response.Headers.ContainsKey("Retry-After"))
+            {
+                var retryAfter = response.Headers["Retry-After"];
+
+                if (!int.TryParse(retryAfter, out seconds))
+                {
+                    seconds = 5;
+                }
+            }
+
+            _logger.Info("BookInfo returned 429, backing off for {0}s", seconds);
+
+            Thread.Sleep(TimeSpan.FromSeconds(seconds));
         }
 
         private static AuthorMetadata MapAuthorMetadata(AuthorResource resource)
