@@ -60,7 +60,8 @@ namespace NzbDrone.Core.Datastore
                   .Ignore(r => r.FreeSpace)
                   .Ignore(r => r.TotalSpace);
 
-            Mapper.Entity<ScheduledTask>("ScheduledTasks").RegisterModel();
+            Mapper.Entity<ScheduledTask>("ScheduledTasks").RegisterModel()
+                  .Ignore(i => i.Priority);
 
             Mapper.Entity<IndexerDefinition>("Indexers").RegisterModel()
                   .Ignore(x => x.ImplementationName)
@@ -71,9 +72,9 @@ namespace NzbDrone.Core.Datastore
                   .Ignore(d => d.Tags);
 
             Mapper.Entity<ImportListDefinition>("ImportLists").RegisterModel()
-                .Ignore(x => x.ImplementationName)
-                .Ignore(i => i.Enable)
-                .Ignore(i => i.ListType);
+                  .Ignore(x => x.ImplementationName)
+                  .Ignore(i => i.Enable)
+                  .Ignore(i => i.ListType);
 
             Mapper.Entity<NotificationDefinition>("Notifications").RegisterModel()
                   .Ignore(x => x.ImplementationName)
@@ -102,13 +103,13 @@ namespace NzbDrone.Core.Datastore
             Mapper.Entity<EntityHistory>("History").RegisterModel();
 
             Mapper.Entity<Author>("Authors")
-                .Ignore(s => s.RootFolderPath)
-                .Ignore(s => s.Name)
-                .Ignore(s => s.ForeignAuthorId)
-                .HasOne(a => a.Metadata, a => a.AuthorMetadataId)
-                .HasOne(a => a.QualityProfile, a => a.QualityProfileId)
-                .HasOne(s => s.MetadataProfile, s => s.MetadataProfileId)
-                .LazyLoad(a => a.Books, (db, a) => db.Query<Book>(new SqlBuilder(db.DatabaseType).Where<Book>(b => b.AuthorMetadataId == a.AuthorMetadataId)).ToList(), a => a.AuthorMetadataId > 0);
+                  .Ignore(s => s.RootFolderPath)
+                  .Ignore(s => s.Name)
+                  .Ignore(s => s.ForeignAuthorId)
+                  .HasOne(a => a.Metadata, a => a.AuthorMetadataId)
+                  .HasOne(a => a.QualityProfile, a => a.QualityProfileId)
+                  .HasOne(s => s.MetadataProfile, s => s.MetadataProfileId)
+                  .LazyLoad(a => a.Books, (db, a) => db.Query<Book>(new SqlBuilder(db.DatabaseType).Where<Book>(b => b.AuthorMetadataId == a.AuthorMetadataId)).ToList(), a => a.AuthorMetadataId > 0);
 
             Mapper.Entity<Series>("Series").RegisterModel()
                 .Ignore(s => s.ForeignAuthorId)
@@ -123,8 +124,8 @@ namespace NzbDrone.Core.Datastore
                           s => s.Id > 0);
 
             Mapper.Entity<SeriesBookLink>("SeriesBookLink").RegisterModel()
-                .HasOne(l => l.Book, l => l.BookId)
-                .HasOne(l => l.Series, l => l.SeriesId);
+                  .HasOne(l => l.Book, l => l.BookId)
+                  .HasOne(l => l.Series, l => l.SeriesId);
 
             Mapper.Entity<AuthorMetadata>("AuthorMetadata").RegisterModel();
 
