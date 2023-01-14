@@ -112,7 +112,7 @@ namespace NzbDrone.Core.MediaFiles
                 {
                     if (!_diskProvider.FolderExists(rootFolder.Path))
                     {
-                        _logger.Warn("Authors' root folder ({0}) doesn't exist.", rootFolder);
+                        _logger.Warn("Authors' root folder ({0}) doesn't exist.", rootFolder.Path);
                         var skippedAuthors = _authorService.GetAuthors(authorIds);
                         skippedAuthors.ForEach(x => _eventAggregator.PublishEvent(new AuthorScanSkippedEvent(x, AuthorScanSkippedReason.RootFolderDoesNotExist)));
                         return;
@@ -120,7 +120,7 @@ namespace NzbDrone.Core.MediaFiles
 
                     if (_diskProvider.FolderEmpty(rootFolder.Path))
                     {
-                        _logger.Warn("Authors' root folder ({0}) is empty.", rootFolder);
+                        _logger.Warn("Authors' root folder ({0}) is empty.", rootFolder.Path);
                         var skippedAuthors = _authorService.GetAuthors(authorIds);
                         skippedAuthors.ForEach(x => _eventAggregator.PublishEvent(new AuthorScanSkippedEvent(x, AuthorScanSkippedReason.RootFolderIsEmpty)));
                         return;
