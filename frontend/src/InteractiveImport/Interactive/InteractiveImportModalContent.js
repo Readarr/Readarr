@@ -21,7 +21,9 @@ import SelectBookModal from 'InteractiveImport/Book/SelectBookModal';
 import ConfirmImportModal from 'InteractiveImport/Confirmation/ConfirmImportModal';
 import SelectEditionModal from 'InteractiveImport/Edition/SelectEditionModal';
 import SelectQualityModal from 'InteractiveImport/Quality/SelectQualityModal';
+import SelectReleaseGroupModal from 'InteractiveImport/ReleaseGroup/SelectReleaseGroupModal';
 import getErrorMessage from 'Utilities/Object/getErrorMessage';
+import translate from 'Utilities/String/translate';
 import getSelectedIds from 'Utilities/Table/getSelectedIds';
 import selectAll from 'Utilities/Table/selectAll';
 import toggleSelected from 'Utilities/Table/toggleSelected';
@@ -44,6 +46,11 @@ const columns = [
   {
     name: 'book',
     label: 'Book',
+    isVisible: true
+  },
+  {
+    name: 'releaseGroup',
+    label: 'Release Group',
     isVisible: true
   },
   {
@@ -75,14 +82,16 @@ const filterExistingFilesOptions = {
 };
 
 const importModeOptions = [
-  { key: 'move', value: 'Move Files' },
-  { key: 'copy', value: 'Hardlink/Copy Files' }
+  { key: 'chooseImportMode', value: translate('ChooseImportMethod'), disabled: true },
+  { key: 'move', value: translate('MoveFiles') },
+  { key: 'copy', value: translate('HardlinkCopyFiles') }
 ];
 
 const SELECT = 'select';
 const AUTHOR = 'author';
 const BOOK = 'book';
 const EDITION = 'edition';
+const RELEASE_GROUP = 'releaseGroup';
 const QUALITY = 'quality';
 
 const replaceExistingFilesOptions = {
@@ -280,7 +289,8 @@ class InteractiveImportModalContent extends Component {
       { key: SELECT, value: 'Select...', disabled: true },
       { key: BOOK, value: 'Select Book' },
       { key: EDITION, value: 'Select Edition' },
-      { key: QUALITY, value: 'Select Quality' }
+      { key: QUALITY, value: 'Select Quality' },
+      { key: RELEASE_GROUP, value: 'Select ReleaseGroup' }
     ];
 
     if (allowAuthorChange) {
@@ -480,6 +490,13 @@ class InteractiveImportModalContent extends Component {
           isOpen={selectModalOpen === EDITION}
           importIdsByBook={importIdsByBook}
           books={editions}
+          onModalClose={this.onSelectModalClose}
+        />
+
+        <SelectReleaseGroupModal
+          isOpen={selectModalOpen === RELEASE_GROUP}
+          ids={selectedIds}
+          releaseGroup=""
           onModalClose={this.onSelectModalClose}
         />
 

@@ -20,6 +20,7 @@ namespace NzbDrone.Core.MediaFiles.BookImport.Manual
         public Book Book { get; set; }
         public Edition Edition { get; set; }
         public QualityModel Quality { get; set; }
+        public string ReleaseGroup { get; set; }
         public string DownloadId { get; set; }
         public IEnumerable<Rejection> Rejections { get; set; }
         public ParsedTrackInfo Tags { get; set; }

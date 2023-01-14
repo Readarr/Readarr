@@ -32,8 +32,8 @@ namespace Readarr.Api.V1.ManualImport
             _logger = logger;
         }
 
-        [HttpPut]
-        public IActionResult UpdateItems(List<ManualImportResource> resource)
+        [HttpPost]
+        public IActionResult UpdateItems(List<ManualImportUpdateResource> resource)
         {
             return Accepted(UpdateImportItems(resource));
         }
@@ -65,7 +65,7 @@ namespace Readarr.Api.V1.ManualImport
             return item;
         }
 
-        private List<ManualImportResource> UpdateImportItems(List<ManualImportResource> resources)
+        private List<ManualImportResource> UpdateImportItems(List<ManualImportUpdateResource> resources)
         {
             var items = new List<ManualImportItem>();
             foreach (var resource in resources)
@@ -75,11 +75,11 @@ namespace Readarr.Api.V1.ManualImport
                     Id = resource.Id,
                     Path = resource.Path,
                     Name = resource.Name,
-                    Size = resource.Size,
-                    Author = resource.Author == null ? null : _authorService.GetAuthor(resource.Author.Id),
-                    Book = resource.Book == null ? null : _bookService.GetBook(resource.Book.Id),
+                    Author = resource.AuthorId.HasValue ? _authorService.GetAuthor(resource.AuthorId.Value) : null,
+                    Book = resource.BookId.HasValue ? _bookService.GetBook(resource.BookId.Value) : null,
                     Edition = resource.ForeignEditionId == null ? null : _editionService.GetEditionByForeignEditionId(resource.ForeignEditionId),
                     Quality = resource.Quality,
+                    ReleaseGroup = resource.ReleaseGroup,
                     DownloadId = resource.DownloadId,
                     AdditionalFile = resource.AdditionalFile,
                     ReplaceExistingFiles = resource.ReplaceExistingFiles,

@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import BookQuality from 'Book/BookQuality';
 import FileDetails from 'BookFile/FileDetails';
 import Icon from 'Components/Icon';
-import LoadingIndicator from 'Components/Loading/LoadingIndicator';
 import ConfirmModal from 'Components/Modal/ConfirmModal';
 import TableRowCell from 'Components/Table/Cells/TableRowCell';
 import TableRowCellButton from 'Components/Table/Cells/TableRowCellButton';
@@ -15,6 +14,7 @@ import { icons, kinds, sizes, tooltipPositions } from 'Helpers/Props';
 import SelectAuthorModal from 'InteractiveImport/Author/SelectAuthorModal';
 import SelectBookModal from 'InteractiveImport/Book/SelectBookModal';
 import SelectQualityModal from 'InteractiveImport/Quality/SelectQualityModal';
+import SelectReleaseGroupModal from 'InteractiveImport/ReleaseGroup/SelectReleaseGroupModal';
 import formatBytes from 'Utilities/Number/formatBytes';
 import translate from 'Utilities/String/translate';
 import InteractiveImportRowCellPlaceholder from './InteractiveImportRowCellPlaceholder';
@@ -32,6 +32,7 @@ class InteractiveImportRow extends Component {
       isDetailsModalOpen: false,
       isSelectAuthorModalOpen: false,
       isSelectBookModalOpen: false,
+      isSelectReleaseGroupModalOpen: false,
       isSelectQualityModalOpen: false
     };
   }
@@ -123,6 +124,10 @@ class InteractiveImportRow extends Component {
     this.setState({ isSelectBookModalOpen: true });
   };
 
+  onSelectReleaseGroupPress = () => {
+    this.setState({ isSelectReleaseGroupModalOpen: true });
+  };
+
   onSelectQualityPress = () => {
     this.setState({ isSelectQualityModalOpen: true });
   };
@@ -134,6 +139,11 @@ class InteractiveImportRow extends Component {
 
   onSelectBookModalClose = (changed) => {
     this.setState({ isSelectBookModalOpen: false });
+    this.selectRowAfterChange(changed);
+  };
+
+  onSelectReleaseGroupModalClose = (changed) => {
+    this.setState({ isSelectReleaseGroupModalOpen: false });
     this.selectRowAfterChange(changed);
   };
 
@@ -153,19 +163,21 @@ class InteractiveImportRow extends Component {
       author,
       book,
       quality,
+      releaseGroup,
       size,
       rejections,
       additionalFile,
       isSelected,
+      isReprocessing,
       onSelectedChange,
-      audioTags,
-      isSaving
+      audioTags
     } = this.props;
 
     const {
       isDetailsModalOpen,
       isSelectAuthorModalOpen,
       isSelectBookModalOpen,
+      isSelectReleaseGroupModalOpen,
       isSelectQualityModalOpen
     } = this.state;
 
@@ -176,7 +188,8 @@ class InteractiveImportRow extends Component {
     }
 
     const showAuthorPlaceholder = isSelected && !author;
-    const showBookNumberPlaceholder = isSelected && !!author && !book;
+    const showBookNumberPlaceholder = !isReprocessing && isSelected && !!author && !book;
+    const showReleaseGroupPlaceholder = isSelected && !releaseGroup;
     const showQualityPlaceholder = isSelected && !quality;
 
     const pathCellContents = (
@@ -238,6 +251,17 @@ class InteractiveImportRow extends Component {
         </TableRowCellButton>
 
         <TableRowCellButton
+          title={translate('ClickToChangeReleaseGroup')}
+          onPress={this.onSelectReleaseGroupPress}
+        >
+          {
+            showReleaseGroupPlaceholder ?
+              <InteractiveImportRowCellPlaceholder /> :
+              releaseGroup
+          }
+        </TableRowCellButton>
+
+        <TableRowCellButton
           className={styles.quality}
           title={translate('ClickToChangeQuality')}
           onPress={this.onSelectQualityPress}
@@ -262,14 +286,7 @@ class InteractiveImportRow extends Component {
 
         <TableRowCell>
           {
-            isSaving &&
-              <LoadingIndicator
-                className={styles.loading}
-                size={20}
-              />
-          }
-          {
-            !isSaving && rejections && rejections.length ?
+            rejections && rejections.length ?
               <Popover
                 anchor={
                   <Icon
@@ -292,6 +309,7 @@ class InteractiveImportRow extends Component {
                   </ul>
                 }
                 position={tooltipPositions.LEFT}
+                canFlip={false}
               /> :
               null
           }
@@ -322,6 +340,13 @@ class InteractiveImportRow extends Component {
           onModalClose={this.onSelectBookModalClose}
         />
 
+        <SelectReleaseGroupModal
+          isOpen={isSelectReleaseGroupModalOpen}
+          ids={[id]}
+          releaseGroup={releaseGroup ?? ''}
+          onModalClose={this.onSelectReleaseGroupModalClose}
+        />
+
         <SelectQualityModal
           isOpen={isSelectQualityModalOpen}
           ids={[id]}
@@ -343,13 +368,14 @@ InteractiveImportRow.propTypes = {
   author: PropTypes.object,
   book: PropTypes.object,
   foreignEditionId: PropTypes.string,
+  releaseGroup: PropTypes.string,
   quality: PropTypes.object,
   size: PropTypes.number.isRequired,
   rejections: PropTypes.arrayOf(PropTypes.object).isRequired,
   audioTags: PropTypes.object.isRequired,
   additionalFile: PropTypes.bool.isRequired,
+  isReprocessing: PropTypes.bool,
   isSelected: PropTypes.bool,
-  isSaving: PropTypes.bool.isRequired,
   onSelectedChange: PropTypes.func.isRequired,
   onValidRowChange: PropTypes.func.isRequired
 };
