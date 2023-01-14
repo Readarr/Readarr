@@ -19,6 +19,7 @@ namespace Readarr.Api.V1.ManualImport
         public BookResource Book { get; set; }
         public string ForeignEditionId { get; set; }
         public QualityModel Quality { get; set; }
+        public string ReleaseGroup { get; set; }
         public int QualityWeight { get; set; }
         public string DownloadId { get; set; }
         public IEnumerable<Rejection> Rejections { get; set; }
@@ -47,6 +48,7 @@ namespace Readarr.Api.V1.ManualImport
                 Book = model.Book.ToResource(),
                 ForeignEditionId = model.Edition?.ForeignEditionId ?? model.Book?.Editions.Value.Single(x => x.Monitored).ForeignEditionId,
                 Quality = model.Quality,
+                ReleaseGroup = model.ReleaseGroup,
 
                 //QualityWeight
                 DownloadId = model.DownloadId,

@@ -78,7 +78,7 @@ class SelectEditionModalContentConnector extends Component {
       });
     });
 
-    this.props.saveInteractiveImportItem({ id: ids });
+    this.props.saveInteractiveImportItem({ ids });
 
     this.props.onModalClose(true);
   };

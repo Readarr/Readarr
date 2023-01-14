@@ -19,6 +19,7 @@ using NzbDrone.Core.Messaging.Events;
 using NzbDrone.Core.MetadataSource;
 using NzbDrone.Core.Parser;
 using NzbDrone.Core.Parser.Model;
+using NzbDrone.Core.Qualities;
 using NzbDrone.Core.RootFolders;
 
 namespace NzbDrone.Core.MediaFiles.BookImport.Manual
@@ -236,7 +237,18 @@ namespace NzbDrone.Core.MediaFiles.BookImport.Manual
                         item.Edition = decision.Item.Edition;
                     }
 
+                    if (item.Quality?.Quality == Quality.Unknown)
+                    {
+                        item.Quality = decision.Item.Quality;
+                    }
+
+                    if (item.ReleaseGroup.IsNullOrWhiteSpace())
+                    {
+                        item.ReleaseGroup = decision.Item.ReleaseGroup;
+                    }
+
                     item.Rejections = decision.Rejections;
+                    item.Size = decision.Item.Size;
 
                     result.Add(item);
                 }
