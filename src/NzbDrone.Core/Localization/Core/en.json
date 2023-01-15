@@ -242,6 +242,7 @@
   "DeleteRemotePathMappingMessageText": "Are you sure you want to delete this remote path mapping?",
   "DeleteRootFolder": "Delete Root Folder",
   "DeleteRootFolderMessageText": "Are you sure you want to delete the root folder '{name}'?",
+  "DeleteSelected": "Delete Selected",
   "DeleteSelectedBookFiles": "Delete Selected Book Files",
   "DeleteSelectedBookFilesMessageText": "Are you sure you want to delete the selected book files?",
   "DeleteSelectedDownloadClients": "Delete Download Client(s)",
