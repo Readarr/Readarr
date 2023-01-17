@@ -45,13 +45,17 @@ namespace NzbDrone.Core.AuthorStats
             }
         }
 
-        private SqlBuilder Builder() => new SqlBuilder(_database.DatabaseType)
-            .Select(@"""Authors"".""Id"" AS ""AuthorId"",
+        private SqlBuilder Builder()
+        {
+            var trueIndicator = _database.DatabaseType == DatabaseType.PostgreSQL ? "true" : "1";
+
+            return new SqlBuilder(_database.DatabaseType)
+            .Select($@"""Authors"".""Id"" AS ""AuthorId"",
                      ""Books"".""Id"" AS ""BookId"",
                      SUM(COALESCE(""BookFiles"".""Size"", 0)) AS ""SizeOnDisk"",
                      1 AS ""TotalBookCount"",
                      CASE WHEN MIN(""BookFiles"".""Id"") IS NULL THEN 0 ELSE 1 END AS ""AvailableBookCount"",
-                     CASE WHEN (""Books"".""Monitored"" = true AND (""Books"".""ReleaseDate"" < @currentDate) OR ""Books"".""ReleaseDate"" IS NULL) OR MIN(""BookFiles"".""Id"") IS NOT NULL THEN 1 ELSE 0 END AS ""BookCount"",
+                     CASE WHEN (""Books"".""Monitored"" = {trueIndicator} AND (""Books"".""ReleaseDate"" < @currentDate) OR ""Books"".""ReleaseDate"" IS NULL) OR MIN(""BookFiles"".""Id"") IS NOT NULL THEN 1 ELSE 0 END AS ""BookCount"",
                      CASE WHEN MIN(""BookFiles"".""Id"") IS NULL THEN 0 ELSE COUNT(""BookFiles"".""Id"") END AS ""BookFileCount""")
             .Join<Edition, Book>((e, b) => e.BookId == b.Id)
             .Join<Book, Author>((book, author) => book.AuthorMetadataId == author.AuthorMetadataId)
@@ -60,5 +64,6 @@ namespace NzbDrone.Core.AuthorStats
             .GroupBy<Author>(x => x.Id)
             .GroupBy<Book>(x => x.Id)
             .AddParameters(new Dictionary<string, object> { { "currentDate", DateTime.UtcNow } });
+        }
     }
 }
