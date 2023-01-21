@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using NzbDrone.Common.Extensions;
 using NzbDrone.Core.Datastore;
 using NzbDrone.Core.Profiles.Qualities;
 using NzbDrone.Core.Qualities;
@@ -37,6 +38,13 @@ namespace NzbDrone.Core.Books
                 {
                     qualitiesBelowCutoff.Add(new QualitiesBelowCutoff(profile.Id, belowCutoff.SelectMany(i => i.GetQualities().Select(q => q.Id))));
                 }
+            }
+
+            if (qualitiesBelowCutoff.Empty())
+            {
+                pagingSpec.Records = new List<Book>();
+
+                return pagingSpec;
             }
 
             return _bookRepository.BooksWhereCutoffUnmet(pagingSpec, qualitiesBelowCutoff);
