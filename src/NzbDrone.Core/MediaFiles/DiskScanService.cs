@@ -148,7 +148,7 @@ namespace NzbDrone.Core.MediaFiles
                     {
                         if (_configService.DeleteEmptyFolders)
                         {
-                            _logger.Debug("Not creating missing author folder: {0} because delete empty series folders is enabled", folder);
+                            _logger.Debug("Not creating missing author folder: {0} because delete empty author folders is enabled", folder);
                         }
                         else
                         {
