@@ -89,6 +89,19 @@ namespace NzbDrone.Core.MediaFiles
             {
                 authorIds = new List<int>();
             }
+            else
+            {
+                folders = new List<string>();
+                foreach (var authorId in authorIds)
+                {
+                    var author = _authorService.GetAuthor(authorId);
+
+                    if (author != null)
+                    {
+                        folders.Add(author.Path);
+                    }
+                }
+            }
 
             var mediaFileList = new List<IFileInfo>();
 
