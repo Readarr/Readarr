@@ -26,7 +26,7 @@
     <PackageVersion Include="Microsoft.Win32.Registry" Version="5.0.0" />
     <PackageVersion Include="Mono.Posix.NETStandard" Version="5.20.1.34-servarr22" />
     <PackageVersion Include="Moq" Version="4.17.2" />
-    <PackageVersion Include="MonoTorrent" Version="2.0.6" />
+    <PackageVersion Include="MonoTorrent" Version="2.0.7" />
     <PackageVersion Include="NBuilder" Version="6.1.0" />
     <PackageVersion Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageVersion Include="NLog.Extensions.Logging" Version="5.1.0" />
