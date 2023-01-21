@@ -144,6 +144,25 @@ namespace NzbDrone.Core.MediaFiles
                 {
                     _logger.Debug("Specified scan folder ({0}) doesn't exist.", folder);
 
+                    if (_configService.CreateEmptyAuthorFolders)
+                    {
+                        if (_configService.DeleteEmptyFolders)
+                        {
+                            _logger.Debug("Not creating missing author folder: {0} because delete empty series folders is enabled", folder);
+                        }
+                        else
+                        {
+                            _logger.Debug("Creating missing author folder: {0}", folder);
+
+                            _diskProvider.CreateFolder(folder);
+                            SetPermissions(folder);
+                        }
+                    }
+                    else
+                    {
+                        _logger.Debug("Author folder doesn't exist: {0}", rootFolder.Path);
+                    }
+
                     CleanMediaFiles(folder, new List<string>());
                     continue;
                 }
@@ -312,6 +331,24 @@ namespace NzbDrone.Core.MediaFiles
             return paths.Where(file => !ExcludedSubFoldersRegex.IsMatch(basePath.GetRelativePath(file)))
                         .Where(file => !ExcludedFilesRegex.IsMatch(Path.GetFileName(file)))
                         .ToList();
+        }
+
+        private void SetPermissions(string path)
+        {
+            if (!_configService.SetPermissionsLinux)
+            {
+                return;
+            }
+
+            try
+            {
+                _diskProvider.SetPermissions(path, _configService.ChmodFolder, _configService.ChownGroup);
+            }
+            catch (Exception ex)
+            {
+                _logger.Warn(ex, "Unable to apply permissions to: " + path);
+                _logger.Debug(ex, ex.Message);
+            }
         }
 
         public List<IFileInfo> FilterFiles(string basePath, IEnumerable<IFileInfo> files)
