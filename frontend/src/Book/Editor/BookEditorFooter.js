@@ -62,15 +62,15 @@ class BookEditorFooter extends Component {
       default:
         this.props.onSaveSelected({ [name]: value });
     }
-  }
+  };
 
   onDeleteSelectedPress = () => {
     this.setState({ isDeleteBookModalOpen: true });
-  }
+  };
 
   onDeleteBookModalClose = () => {
     this.setState({ isDeleteBookModalOpen: false });
-  }
+  };
 
   //
   // Render

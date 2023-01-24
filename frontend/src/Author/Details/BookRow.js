@@ -30,23 +30,23 @@ class BookRow extends Component {
 
   onManualSearchPress = () => {
     this.setState({ isDetailsModalOpen: true });
-  }
+  };
 
   onDetailsModalClose = () => {
     this.setState({ isDetailsModalOpen: false });
-  }
+  };
 
   onEditBookPress = () => {
     this.setState({ isEditBookModalOpen: true });
-  }
+  };
 
   onEditBookModalClose = () => {
     this.setState({ isEditBookModalOpen: false });
-  }
+  };
 
   onMonitorBookPress = (monitored, options) => {
     this.props.onMonitorBookPress(this.props.id, monitored, options);
-  }
+  };
 
   //
   // Render

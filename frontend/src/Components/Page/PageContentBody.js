@@ -16,7 +16,7 @@ class PageContentBody extends Component {
     if (this.props.onScroll && !isLocked()) {
       onScroll(props);
     }
-  }
+  };
 
   //
   // Render

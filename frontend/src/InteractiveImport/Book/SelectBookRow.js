@@ -27,7 +27,7 @@ class SelectBookRow extends Component {
 
   onPress = () => {
     this.props.onBookSelect(this.props.id);
-  }
+  };
 
   //
   // Render

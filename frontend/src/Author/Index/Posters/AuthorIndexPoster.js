@@ -35,34 +35,34 @@ class AuthorIndexPoster extends Component {
 
   onEditAuthorPress = () => {
     this.setState({ isEditAuthorModalOpen: true });
-  }
+  };
 
   onEditAuthorModalClose = () => {
     this.setState({ isEditAuthorModalOpen: false });
-  }
+  };
 
   onDeleteAuthorPress = () => {
     this.setState({
       isEditAuthorModalOpen: false,
       isDeleteAuthorModalOpen: true
     });
-  }
+  };
 
   onDeleteAuthorModalClose = () => {
     this.setState({ isDeleteAuthorModalOpen: false });
-  }
+  };
 
   onPosterLoad = () => {
     if (this.state.hasPosterError) {
       this.setState({ hasPosterError: false });
     }
-  }
+  };
 
   onPosterLoadError = () => {
     if (!this.state.hasPosterError) {
       this.setState({ hasPosterError: true });
     }
-  }
+  };
 
   onChange = ({ value, shiftKey }) => {
     const {
@@ -71,7 +71,7 @@ class AuthorIndexPoster extends Component {
     } = this.props;
 
     onSelectedChange({ id, value, shiftKey });
-  }
+  };
 
   //
   // Render

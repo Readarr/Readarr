@@ -78,7 +78,7 @@ class AuthorIndexTable extends Component {
         />
       </VirtualTableRow>
     );
-  }
+  };
 
   //
   // Render

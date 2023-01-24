@@ -120,7 +120,7 @@ class Bookshelf extends Component {
 
   setScrollerRef = (ref) => {
     this.setState({ scroller: ref });
-  }
+  };
 
   setJumpBarItems() {
     const {
@@ -171,7 +171,7 @@ class Bookshelf extends Component {
       return [];
     }
     return getSelectedIds(this.state.selectedState);
-  }
+  };
 
   setSelectedState = () => {
     const {
@@ -206,7 +206,7 @@ class Bookshelf extends Component {
     }
 
     this.setState({ selectedState: newSelectedState, allSelected: isAllSelected, allUnselected: isAllUnselected });
-  }
+  };
 
   estimateRowHeight = (width) => {
     const {
@@ -226,7 +226,7 @@ class Bookshelf extends Component {
 
     // each row is 23px per book row plus 16px padding
     return bookRowsPerAuthor * 23 + 16;
-  }
+  };
 
   rowRenderer = ({ key, rowIndex, parent, style }) => {
     const {
@@ -262,31 +262,31 @@ class Bookshelf extends Component {
         )}
       </CellMeasurer>
     );
-  }
+  };
 
   //
   // Listeners
 
   onSelectAllChange = ({ value }) => {
     this.setState(selectAll(this.state.selectedState, value));
-  }
+  };
 
   onSelectedChange = ({ id, value, shiftKey = false }) => {
     this.setState((state) => {
       return toggleSelected(state, this.props.items, id, value, shiftKey);
     });
-  }
+  };
 
   onSelectAllPress = () => {
     this.onSelectAllChange({ value: !this.state.allSelected });
-  }
+  };
 
   onUpdateSelectedPress = (changes) => {
     this.props.onUpdateSelectedPress({
       authorIds: this.getSelectedIds(),
       ...changes
     });
-  }
+  };
 
   onJumpBarItemPress = (jumpToCharacter) => {
     const {
@@ -299,14 +299,14 @@ class Bookshelf extends Component {
     if (scrollIndex != null) {
       this.setState({ scrollIndex });
     }
-  }
+  };
 
   onGridRecompute = (width) => {
     this.setJumpBarItems();
     this.setSelectedState();
     this.setState({ estimatedRowSize: this.estimateRowHeight(width) });
     this.cache.clearAll();
-  }
+  };
 
   //
   // Render

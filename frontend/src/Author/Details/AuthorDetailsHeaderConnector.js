@@ -48,7 +48,7 @@ class AuthorDetailsHeaderConnector extends Component {
       authorId: this.props.authorId,
       monitored
     });
-  }
+  };
 
   //
   // Render

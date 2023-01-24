@@ -46,7 +46,7 @@ class BookshelfFooter extends Component {
 
   onInputChange = ({ name, value }) => {
     this.setState({ [name]: value });
-  }
+  };
 
   onUpdateSelectedPress = () => {
     const {
@@ -70,7 +70,7 @@ class BookshelfFooter extends Component {
     }
 
     this.props.onUpdateSelectedPress(changes);
-  }
+  };
 
   //
   // Render

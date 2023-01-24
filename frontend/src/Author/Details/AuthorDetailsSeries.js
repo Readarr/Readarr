@@ -73,7 +73,7 @@ class AuthorDetailsSeries extends Component {
     } = this.props;
 
     this.props.onExpandPress(id, !isExpanded);
-  }
+  };
 
   onMonitorBookPress = (bookId, monitored, { shiftKey }) => {
     const lastToggled = this.state.lastToggledBook;
@@ -91,13 +91,13 @@ class AuthorDetailsSeries extends Component {
     this.setState({ lastToggledBook: bookId });
 
     this.props.onMonitorBookPress(_.uniq(bookIds), monitored);
-  }
+  };
 
   onMonitorSeriesPress = (monitored, { shiftKey }) => {
     const bookIds = this.props.items.map((book) => book.id);
 
     this.props.onMonitorBookPress(_.uniq(bookIds), monitored);
-  }
+  };
 
   //
   // Render

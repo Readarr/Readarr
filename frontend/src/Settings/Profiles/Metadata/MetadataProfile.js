@@ -27,26 +27,26 @@ class MetadataProfile extends Component {
 
   onEditMetadataProfilePress = () => {
     this.setState({ isEditMetadataProfileModalOpen: true });
-  }
+  };
 
   onEditMetadataProfileModalClose = () => {
     this.setState({ isEditMetadataProfileModalOpen: false });
-  }
+  };
 
   onDeleteMetadataProfilePress = () => {
     this.setState({
       isEditMetadataProfileModalOpen: false,
       isDeleteMetadataProfileModalOpen: true
     });
-  }
+  };
 
   onDeleteMetadataProfileModalClose = () => {
     this.setState({ isDeleteMetadataProfileModalOpen: false });
-  }
+  };
 
   onConfirmDeleteMetadataProfile = () => {
     this.props.onConfirmDeleteMetadataProfile(this.props.id);
-  }
+  };
 
   onCloneMetadataProfilePress = () => {
     const {
@@ -55,7 +55,7 @@ class MetadataProfile extends Component {
     } = this.props;
 
     onCloneMetadataProfilePress(id);
-  }
+  };
 
   //
   // Render

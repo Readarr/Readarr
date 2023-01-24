@@ -93,7 +93,7 @@ class BookIndexPosterOptionsModalContent extends Component {
     }, () => {
       this.props.onChangePosterOption({ [name]: value });
     });
-  }
+  };
 
   //
   // Render

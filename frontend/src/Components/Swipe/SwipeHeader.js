@@ -54,14 +54,14 @@ class SwipeHeader extends Component {
     window.addEventListener('touchmove', this.onMouseMove);
     window.addEventListener('mouseup', this.onMouseUp);
     window.addEventListener('touchend', this.onMouseUp);
-  }
+  };
 
   removeEventListeners = () => {
     window.removeEventListener('mousemove', this.onMouseMove);
     window.removeEventListener('touchmove', this.onMouseMove);
     window.removeEventListener('mouseup', this.onMouseUp);
     window.removeEventListener('touchend', this.onMouseUp);
-  }
+  };
 
   onMouseMove = (e) => {
     const {
@@ -121,7 +121,7 @@ class SwipeHeader extends Component {
     });
 
     this.removeEventListeners();
-  }
+  };
 
   onNavClick = (url, callTransition) => {
     const {
@@ -138,7 +138,7 @@ class SwipeHeader extends Component {
         this.onTransitionEnd();
       }
     });
-  }
+  };
 
   onTransitionEnd = (e) => {
     const {
@@ -156,19 +156,19 @@ class SwipeHeader extends Component {
         this.setState({ stage: null });
       });
     }
-  }
+  };
 
   onNext = () => {
     this.onNavClick(this.props.nextLink);
-  }
+  };
 
   onPrev = () => {
     this.onNavClick(this.props.prevLink);
-  }
+  };
 
   onContainerMeasure = ({ width }) => {
     this.setState({ containerWidth: width });
-  }
+  };
 
   //
   // Render

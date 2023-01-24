@@ -56,7 +56,7 @@ class SelectAuthorModalContentConnector extends Component {
     this.props.saveInteractiveImportItem({ id: ids });
 
     this.props.onModalClose(true);
-  }
+  };
 
   //
   // Render

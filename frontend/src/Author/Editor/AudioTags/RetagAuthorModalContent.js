@@ -30,11 +30,11 @@ class RetagAuthorModalContent extends Component {
 
   onCheckInputChange = ({ name, value }) => {
     this.setState({ [name]: value });
-  }
+  };
 
   onRetagAuthorPress = () => {
     this.props.onRetagAuthorPress(this.state.updateCovers, this.state.embedMetadata);
-  }
+  };
 
   //
   // Render

@@ -38,7 +38,7 @@ class Naming extends Component {
         additional: true
       }
     });
-  }
+  };
 
   onAuthorFolderNamingModalOpenClick = () => {
     this.setState({
@@ -47,11 +47,11 @@ class Naming extends Component {
         name: 'authorFolderFormat'
       }
     });
-  }
+  };
 
   onNamingModalClose = () => {
     this.setState({ isNamingModalOpen: false });
-  }
+  };
 
   //
   // Render

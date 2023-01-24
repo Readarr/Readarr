@@ -30,11 +30,11 @@ class AddNewAuthorModalContent extends Component {
 
   onSearchForMissingBooksChange = ({ value }) => {
     this.setState({ searchForMissingBooks: value });
-  }
+  };
 
   onAddAuthorPress = () => {
     this.props.onAddAuthorPress(this.state.searchForMissingBooks);
-  }
+  };
 
   //
   // Render

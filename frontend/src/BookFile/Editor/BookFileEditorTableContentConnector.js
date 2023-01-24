@@ -106,7 +106,7 @@ class BookFileEditorTableContentConnector extends Component {
     };
 
     this.props.dispatchUpdateBookFiles({ bookFileIds, quality });
-  }
+  };
 
   //
   // Render

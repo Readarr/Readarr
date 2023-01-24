@@ -127,11 +127,11 @@ class EditRemotePathMappingModalContentConnector extends Component {
 
   onInputChange = ({ name, value }) => {
     this.props.dispatchSetRemotePathMappingValue({ name, value });
-  }
+  };
 
   onSavePress = () => {
     this.props.dispatchSaveRemotePathMapping({ id: this.props.id });
-  }
+  };
 
   //
   // Render

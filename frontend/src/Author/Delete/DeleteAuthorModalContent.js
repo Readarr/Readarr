@@ -33,11 +33,11 @@ class DeleteAuthorModalContent extends Component {
 
   onDeleteFilesChange = ({ value }) => {
     this.setState({ deleteFiles: value });
-  }
+  };
 
   onAddImportListExclusionChange = ({ value }) => {
     this.setState({ addImportListExclusion: value });
-  }
+  };
 
   onDeleteAuthorConfirmed = () => {
     const deleteFiles = this.state.deleteFiles;
@@ -46,7 +46,7 @@ class DeleteAuthorModalContent extends Component {
     this.setState({ deleteFiles: false });
     this.setState({ addImportListExclusion: false });
     this.props.onDeletePress(deleteFiles, addImportListExclusion);
-  }
+  };
 
   //
   // Render

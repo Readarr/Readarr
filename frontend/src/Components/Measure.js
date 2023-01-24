@@ -9,7 +9,7 @@ class Measure extends Component {
 
   onMeasure = (payload) => {
     this.props.onMeasure(payload.bounds);
-  }
+  };
 
   //
   // Render

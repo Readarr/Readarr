@@ -270,7 +270,7 @@ class AuthorDetailsConnector extends Component {
     this.props.fetchSeries({ authorId });
     this.props.fetchBookFiles({ authorId });
     this.props.fetchQueueDetails({ authorId });
-  }
+  };
 
   unpopulate = () => {
     this.props.cancelFetchReleases();
@@ -278,7 +278,7 @@ class AuthorDetailsConnector extends Component {
     this.props.clearBookFiles();
     this.props.clearQueueDetails();
     this.props.clearReleases();
-  }
+  };
 
   //
   // Listeners
@@ -288,25 +288,25 @@ class AuthorDetailsConnector extends Component {
       authorId: this.props.id,
       monitored
     });
-  }
+  };
 
   onRefreshPress = () => {
     this.props.executeCommand({
       name: commandNames.REFRESH_AUTHOR,
       authorId: this.props.id
     });
-  }
+  };
 
   onSearchPress = () => {
     this.props.executeCommand({
       name: commandNames.AUTHOR_SEARCH,
       authorId: this.props.id
     });
-  }
+  };
 
   onSaveSelected = (payload) => {
     this.props.saveBookEditor(payload);
-  }
+  };
 
   //
   // Render

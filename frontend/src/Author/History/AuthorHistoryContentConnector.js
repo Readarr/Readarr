@@ -54,7 +54,7 @@ class AuthorHistoryContentConnector extends Component {
       authorId,
       bookId
     });
-  }
+  };
 
   //
   // Render

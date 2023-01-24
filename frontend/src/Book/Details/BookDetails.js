@@ -45,42 +45,42 @@ class BookDetails extends Component {
 
   onOrganizePress = () => {
     this.setState({ isOrganizeModalOpen: true });
-  }
+  };
 
   onOrganizeModalClose = () => {
     this.setState({ isOrganizeModalOpen: false });
-  }
+  };
 
   onRetagPress = () => {
     this.setState({ isRetagModalOpen: true });
-  }
+  };
 
   onRetagModalClose = () => {
     this.setState({ isRetagModalOpen: false });
-  }
+  };
 
   onEditBookPress = () => {
     this.setState({ isEditBookModalOpen: true });
-  }
+  };
 
   onEditBookModalClose = () => {
     this.setState({ isEditBookModalOpen: false });
-  }
+  };
 
   onDeleteBookPress = () => {
     this.setState({
       isEditBookModalOpen: false,
       isDeleteBookModalOpen: true
     });
-  }
+  };
 
   onDeleteBookModalClose = () => {
     this.setState({ isDeleteBookModalOpen: false });
-  }
+  };
 
   onTabSelect = (index, lastIndex) => {
     this.setState({ selectedTabIndex: index });
-  }
+  };
 
   //
   // Render

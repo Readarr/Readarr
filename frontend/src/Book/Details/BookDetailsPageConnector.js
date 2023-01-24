@@ -64,7 +64,7 @@ class BookDetailsPageConnector extends Component {
 
   populate = () => {
     this.setState({ hasMounted: true });
-  }
+  };
 
   //
   // Render

@@ -93,7 +93,7 @@ class AuthorIndexPosterOptionsModalContent extends Component {
     }, () => {
       this.props.onChangePosterOption({ [name]: value });
     });
-  }
+  };
 
   //
   // Render

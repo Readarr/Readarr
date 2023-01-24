@@ -29,14 +29,14 @@ class DeleteAuthorModalContent extends Component {
 
   onDeleteFilesChange = ({ value }) => {
     this.setState({ deleteFiles: value });
-  }
+  };
 
   onDeleteAuthorConfirmed = () => {
     const deleteFiles = this.state.deleteFiles;
 
     this.setState({ deleteFiles: false });
     this.props.onDeleteSelectedPress(deleteFiles);
-  }
+  };
 
   //
   // Render

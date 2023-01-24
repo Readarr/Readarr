@@ -62,26 +62,26 @@ class CutoffUnmet extends Component {
 
   getSelectedIds = () => {
     return getSelectedIds(this.state.selectedState);
-  }
+  };
 
   //
   // Listeners
 
   onSelectAllChange = ({ value }) => {
     this.setState(selectAll(this.state.selectedState, value));
-  }
+  };
 
   onSelectedChange = ({ id, value, shiftKey = false }) => {
     this.setState((state) => {
       return toggleSelected(state, this.props.items, id, value, shiftKey);
     });
-  }
+  };
 
   onSearchSelectedPress = () => {
     const selected = this.getSelectedIds();
 
     this.props.onSearchSelectedPress(selected);
-  }
+  };
 
   onToggleSelectedPress = () => {
     const bookIds = this.getSelectedIds();
@@ -90,20 +90,20 @@ class CutoffUnmet extends Component {
       bookIds,
       monitored: !getMonitoredValue(this.props)
     });
-  }
+  };
 
   onSearchAllCutoffUnmetPress = () => {
     this.setState({ isConfirmSearchAllCutoffUnmetModalOpen: true });
-  }
+  };
 
   onSearchAllCutoffUnmetConfirmed = () => {
     this.props.onSearchAllCutoffUnmetPress();
     this.setState({ isConfirmSearchAllCutoffUnmetModalOpen: false });
-  }
+  };
 
   onConfirmSearchAllCutoffUnmetModalClose = () => {
     this.setState({ isConfirmSearchAllCutoffUnmetModalOpen: false });
-  }
+  };
 
   //
   // Render

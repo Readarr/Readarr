@@ -55,15 +55,15 @@ class AddNewAuthorSearchResult extends Component {
 
   onPress = () => {
     this.setState({ isNewAddAuthorModalOpen: true });
-  }
+  };
 
   onAddAuthorModalClose = () => {
     this.setState({ isNewAddAuthorModalOpen: false });
-  }
+  };
 
   onMBLinkPress = (event) => {
     event.stopPropagation();
-  }
+  };
 
   //
   // Render

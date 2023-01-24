@@ -146,14 +146,14 @@ class BookDetailsConnector extends Component {
 
     this.props.fetchBookFiles({ bookId });
     this.props.fetchEditions({ bookId });
-  }
+  };
 
   unpopulate = () => {
     this.props.cancelFetchReleases();
     this.props.clearReleases();
     this.props.clearBookFiles();
     this.props.clearEditions();
-  }
+  };
 
   //
   // Listeners
@@ -163,21 +163,21 @@ class BookDetailsConnector extends Component {
       bookIds: [this.props.id],
       monitored
     });
-  }
+  };
 
   onRefreshPress = () => {
     this.props.executeCommand({
       name: commandNames.REFRESH_BOOK,
       bookId: this.props.id
     });
-  }
+  };
 
   onSearchPress = () => {
     this.props.executeCommand({
       name: commandNames.BOOK_SEARCH,
       bookIds: [this.props.id]
     });
-  }
+  };
 
   //
   // Render

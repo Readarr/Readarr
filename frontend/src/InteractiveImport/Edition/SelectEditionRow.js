@@ -14,7 +14,7 @@ class SelectEditionRow extends Component {
 
   onInputChange = ({ name, value }) => {
     this.props.onEditionSelect(parseInt(name), value);
-  }
+  };
 
   //
   // Render

@@ -56,15 +56,15 @@ class AddNewBookSearchResult extends Component {
 
   onPress = () => {
     this.setState({ isNewAddBookModalOpen: true });
-  }
+  };
 
   onAddBookModalClose = () => {
     this.setState({ isNewAddBookModalOpen: false });
-  }
+  };
 
   onMBLinkPress = (event) => {
     event.stopPropagation();
-  }
+  };
 
   //
   // Render

@@ -44,7 +44,7 @@ class MonitoringOptionsModalContent extends Component {
 
   onInputChange = ({ name, value }) => {
     this.setState({ [name]: value });
-  }
+  };
 
   //
   // Listeners
@@ -65,11 +65,11 @@ class MonitoringOptionsModalContent extends Component {
     if (!isSaving) {
       this.onModalClose();
     }
-  }
+  };
 
   onModalClose = () => {
     this.props.onModalClose();
-  }
+  };
 
   //
   // Render

@@ -71,7 +71,7 @@ class BookEditionSelectInputConnector extends Component {
     _.find(updatedEditions, { foreignEditionId: value }).monitored = true;
 
     this.props.onChange({ name, value: updatedEditions });
-  }
+  };
 
   render() {
 

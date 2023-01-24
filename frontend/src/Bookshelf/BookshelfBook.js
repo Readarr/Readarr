@@ -17,7 +17,7 @@ class BookshelfBook extends Component {
     } = this.props;
 
     this.props.onBookMonitoredPress(id, !monitored);
-  }
+  };
 
   //
   // Render

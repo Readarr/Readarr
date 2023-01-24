@@ -99,69 +99,69 @@ class AuthorDetails extends Component {
     }
 
     this.setState({ selectedState: newSelectedState, allSelected: isAllSelected, allUnselected: isAllUnselected });
-  }
+  };
 
   getSelectedIds = () => {
     return getSelectedIds(this.state.selectedState);
-  }
+  };
 
   //
   // Listeners
 
   onOrganizePress = () => {
     this.setState({ isOrganizeModalOpen: true });
-  }
+  };
 
   onOrganizeModalClose = () => {
     this.setState({ isOrganizeModalOpen: false });
-  }
+  };
 
   onRetagPress = () => {
     this.setState({ isRetagModalOpen: true });
-  }
+  };
 
   onRetagModalClose = () => {
     this.setState({ isRetagModalOpen: false });
-  }
+  };
 
   onInteractiveImportPress = () => {
     this.setState({ isInteractiveImportModalOpen: true });
-  }
+  };
 
   onInteractiveImportModalClose = () => {
     this.setState({ isInteractiveImportModalOpen: false });
-  }
+  };
 
   onEditAuthorPress = () => {
     this.setState({ isEditAuthorModalOpen: true });
-  }
+  };
 
   onEditAuthorModalClose = () => {
     this.setState({ isEditAuthorModalOpen: false });
-  }
+  };
 
   onDeleteAuthorPress = () => {
     this.setState({
       isEditAuthorModalOpen: false,
       isDeleteAuthorModalOpen: true
     });
-  }
+  };
 
   onDeleteAuthorModalClose = () => {
     this.setState({ isDeleteAuthorModalOpen: false });
-  }
+  };
 
   onMonitorOptionsPress = () => {
     this.setState({ isMonitorOptionsModalOpen: true });
-  }
+  };
 
   onMonitorOptionsClose = () => {
     this.setState({ isMonitorOptionsModalOpen: false });
-  }
+  };
 
   onBookEditorTogglePress = () => {
     this.setState({ isEditorActive: !this.state.isEditorActive });
-  }
+  };
 
   onExpandAllPress = () => {
     const {
@@ -170,7 +170,7 @@ class AuthorDetails extends Component {
     } = this.state;
 
     this.setState(getExpandedState(selectAll(expandedState, !allExpanded)));
-  }
+  };
 
   onExpandPress = (bookId, isExpanded) => {
     this.setState((state) => {
@@ -184,32 +184,32 @@ class AuthorDetails extends Component {
 
       return getExpandedState(newState);
     });
-  }
+  };
 
   onSelectAllChange = ({ value }) => {
     this.setState(selectAll(this.state.selectedState, value));
-  }
+  };
 
   onSelectAllPress = () => {
     this.onSelectAllChange({ value: !this.state.allSelected });
-  }
+  };
 
   onSelectedChange = (items, id, value, shiftKey = false) => {
     this.setState((state) => {
       return toggleSelected(state, items, id, value, shiftKey);
     });
-  }
+  };
 
   onSaveSelected = (changes) => {
     this.props.onSaveSelected({
       bookIds: this.getSelectedIds(),
       ...changes
     });
-  }
+  };
 
   onTabSelect = (index, lastIndex) => {
     this.setState({ selectedTabIndex: index });
-  }
+  };
 
   //
   // Render

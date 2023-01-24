@@ -61,7 +61,7 @@ class AuthorDetailsSeason extends Component {
     this.setState({ lastToggledBook: bookId });
 
     this.props.onMonitorBookPress(_.uniq(bookIds), monitored);
-  }
+  };
 
   onSelectedChange = ({ id, value, shiftKey = false }) => {
     const {
@@ -70,7 +70,7 @@ class AuthorDetailsSeason extends Component {
     } = this.props;
 
     return onSelectedChange(items, id, value, shiftKey);
-  }
+  };
 
   //
   // Render

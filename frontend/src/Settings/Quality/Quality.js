@@ -32,11 +32,11 @@ class Quality extends Component {
 
   onChildMounted = (saveCallback) => {
     this._saveCallback = saveCallback;
-  }
+  };
 
   onChildStateChange = (payload) => {
     this.setState(payload);
-  }
+  };
 
   onResetQualityDefinitionsPress = () => {
     this.setState({ isConfirmQualityDefinitionResetModalOpen: true });
@@ -50,7 +50,7 @@ class Quality extends Component {
     if (this._saveCallback) {
       this._saveCallback();
     }
-  }
+  };
 
   //
   // Render
