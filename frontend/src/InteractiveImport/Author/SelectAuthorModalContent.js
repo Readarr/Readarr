@@ -30,7 +30,7 @@ class SelectAuthorModalContent extends Component {
 
   onFilterChange = ({ value }) => {
     this.setState({ filter: value.toLowerCase() });
-  }
+  };
 
   //
   // Render

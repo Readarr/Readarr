@@ -56,11 +56,11 @@ class SelectEditionModalContentConnector extends Component {
     const bookId = this.props.books.map((b) => b.book.id);
 
     this.props.fetchEditions({ bookId });
-  }
+  };
 
   unpopulate = () => {
     this.props.clearEditions();
-  }
+  };
 
   //
   // Listeners
@@ -81,7 +81,7 @@ class SelectEditionModalContentConnector extends Component {
     this.props.saveInteractiveImportItem({ id: ids });
 
     this.props.onModalClose(true);
-  }
+  };
 
   //
   // Render

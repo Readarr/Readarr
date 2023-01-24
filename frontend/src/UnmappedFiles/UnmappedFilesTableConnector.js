@@ -87,7 +87,7 @@ class UnmappedFilesTableConnector extends Component {
 
   repopulate = () => {
     this.props.fetchUnmappedFiles();
-  }
+  };
 
   //
   // Render

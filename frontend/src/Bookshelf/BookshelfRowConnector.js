@@ -60,7 +60,7 @@ class BookshelfRowConnector extends Component {
       authorId,
       monitored: !monitored
     });
-  }
+  };
 
   onBookMonitoredPress = (bookId, monitored) => {
     const bookIds = [bookId];
@@ -68,7 +68,7 @@ class BookshelfRowConnector extends Component {
       bookIds,
       monitored
     });
-  }
+  };
 
   //
   // Render

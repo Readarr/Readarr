@@ -48,33 +48,33 @@ class BookFileEditorTableContent extends Component {
   getSelectedIds = () => {
     const ids = getSelectedIds(this.state.selectedState);
     return ids;
-  }
+  };
 
   //
   // Listeners
 
   onSelectAllChange = ({ value }) => {
     this.setState(selectAll(this.state.selectedState, value));
-  }
+  };
 
   onSelectedChange = ({ id, value, shiftKey = false }) => {
     this.setState((state) => {
       return toggleSelected(state, this.props.items, id, value, shiftKey);
     });
-  }
+  };
 
   onDeletePress = () => {
     this.setState({ isConfirmDeleteModalOpen: true });
-  }
+  };
 
   onConfirmDelete = () => {
     this.setState({ isConfirmDeleteModalOpen: false });
     this.props.onDeletePress(this.getSelectedIds());
-  }
+  };
 
   onConfirmDeleteModalClose = () => {
     this.setState({ isConfirmDeleteModalOpen: false });
-  }
+  };
 
   onQualityChange = ({ value }) => {
     const selectedIds = this.getSelectedIds();
@@ -84,7 +84,7 @@ class BookFileEditorTableContent extends Component {
     }
 
     this.props.onQualityChange(selectedIds, parseInt(value));
-  }
+  };
 
   //
   // Render

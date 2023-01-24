@@ -31,11 +31,11 @@ class DeleteBookModalContent extends Component {
 
   onDeleteFilesChange = ({ value }) => {
     this.setState({ deleteFiles: value });
-  }
+  };
 
   onAddImportListExclusionChange = ({ value }) => {
     this.setState({ addImportListExclusion: value });
-  }
+  };
 
   onDeleteBookConfirmed = () => {
     const {
@@ -45,7 +45,7 @@ class DeleteBookModalContent extends Component {
 
     this.setState({ deleteFiles: false });
     this.props.onDeleteSelectedPress(deleteFiles, addImportListExclusion);
-  }
+  };
 
   //
   // Render

@@ -59,7 +59,7 @@ class RetagPreviewModalContentConnector extends Component {
     });
 
     this.props.onModalClose();
-  }
+  };
 
   //
   // Render

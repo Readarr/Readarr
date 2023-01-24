@@ -57,11 +57,11 @@ class EditMetadataProfileModalContentConnector extends Component {
 
   onInputChange = ({ name, value }) => {
     this.props.setMetadataProfileValue({ name, value });
-  }
+  };
 
   onSavePress = () => {
     this.props.saveMetadataProfile({ id: this.props.id });
-  }
+  };
 
   //
   // Render

@@ -132,20 +132,20 @@ class InteractiveImportModalContent extends Component {
 
   getSelectedIds = () => {
     return getSelectedIds(this.state.selectedState);
-  }
+  };
 
   //
   // Listeners
 
   onSelectAllChange = ({ value }) => {
     this.setState(selectAll(this.state.selectedState, value));
-  }
+  };
 
   onSelectedChange = ({ id, value, shiftKey = false }) => {
     this.setState((state) => {
       return toggleSelected(state, this.props.items, id, value, shiftKey);
     });
-  }
+  };
 
   onValidRowChange = (id, isValid) => {
     this.setState((state, props) => {
@@ -155,7 +155,7 @@ class InteractiveImportModalContent extends Component {
       const newstate = isValid ? _.without(currentInvalid, id) : _.union(currentInvalid, [id]);
       return { invalidRowsSelected: newstate };
     });
-  }
+  };
 
   onImportSelectedPress = () => {
     if (!this.props.replaceExistingFiles) {
@@ -177,7 +177,7 @@ class InteractiveImportModalContent extends Component {
       booksImported,
       isConfirmImportModalOpen: true
     });
-  }
+  };
 
   onConfirmImportPress = () => {
     const {
@@ -191,23 +191,23 @@ class InteractiveImportModalContent extends Component {
     const finalImportMode = downloadId || !showImportMode ? 'auto' : importMode;
 
     onImportSelectedPress(selected, finalImportMode);
-  }
+  };
 
   onFilterExistingFilesChange = (value) => {
     this.props.onFilterExistingFilesChange(value !== filterExistingFilesOptions.ALL);
-  }
+  };
 
   onReplaceExistingFilesChange = (value) => {
     this.props.onReplaceExistingFilesChange(value === replaceExistingFilesOptions.DELETE);
-  }
+  };
 
   onImportModeChange = ({ value }) => {
     this.props.onImportModeChange(value);
-  }
+  };
 
   onSelectModalSelect = ({ value }) => {
     this.setState({ selectModalOpen: value });
-  }
+  };
 
   onClearBookMappingPress = () => {
     const selectedIds = this.getSelectedIds();
@@ -218,19 +218,19 @@ class InteractiveImportModalContent extends Component {
         rejections: []
       });
     });
-  }
+  };
 
   onGetBookMappingPress = () => {
     this.props.saveInteractiveImportItem({ id: this.getSelectedIds() });
-  }
+  };
 
   onSelectModalClose = () => {
     this.setState({ selectModalOpen: null });
-  }
+  };
 
   onConfirmImportModalClose = () => {
     this.setState({ isConfirmImportModalOpen: false });
-  }
+  };
 
   //
   // Render

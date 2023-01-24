@@ -47,7 +47,7 @@ class BookIndexTableOptions extends Component {
         }
       });
     });
-  }
+  };
 
   //
   // Render

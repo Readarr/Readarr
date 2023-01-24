@@ -83,14 +83,14 @@ class EditAuthorModalContentConnector extends Component {
 
   onInputChange = ({ name, value }) => {
     this.props.dispatchSetAuthorValue({ name, value });
-  }
+  };
 
   onSavePress = (moveFiles) => {
     this.props.dispatchSaveAuthor({
       id: this.props.authorId,
       moveFiles
     });
-  }
+  };
 
   //
   // Render

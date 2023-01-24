@@ -25,11 +25,11 @@ class BookSearchCell extends Component {
 
   onManualSearchPress = () => {
     this.setState({ isDetailsModalOpen: true });
-  }
+  };
 
   onDetailsModalClose = () => {
     this.setState({ isDetailsModalOpen: false });
-  }
+  };
 
   //
   // Render

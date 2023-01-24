@@ -39,7 +39,7 @@ class BookshelfInputConnector extends Component {
     if (this._getAccessToken(this.props)) {
       this._populate();
     }
-  }
+  };
 
   componentDidUpdate(prevProps, prevState) {
     const newToken = this._getAccessToken(this.props);
@@ -51,7 +51,7 @@ class BookshelfInputConnector extends Component {
 
   componentWillUnmount = () => {
     this.props.dispatchClearOptions({ section: 'bookshelves' });
-  }
+  };
 
   //
   // Control

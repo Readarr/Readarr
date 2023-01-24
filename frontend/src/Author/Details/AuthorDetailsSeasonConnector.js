@@ -66,18 +66,18 @@ class AuthorDetailsSeasonConnector extends Component {
 
   onTableOptionChange = (payload) => {
     this.props.setBooksTableOption(payload);
-  }
+  };
 
   onSortPress = (sortKey) => {
     this.props.setAuthorDetailsSort({ sortKey });
-  }
+  };
 
   onMonitorBookPress = (bookIds, monitored) => {
     this.props.toggleBooksMonitored({
       bookIds,
       monitored
     });
-  }
+  };
 
   //
   // Render

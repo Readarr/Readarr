@@ -43,23 +43,23 @@ class CalendarPage extends Component {
     const days = Math.max(3, Math.min(7, Math.floor(width / MINIMUM_DAY_WIDTH)));
 
     this.props.onDaysCountChange(days);
-  }
+  };
 
   onGetCalendarLinkPress = () => {
     this.setState({ isCalendarLinkModalOpen: true });
-  }
+  };
 
   onGetCalendarLinkModalClose = () => {
     this.setState({ isCalendarLinkModalOpen: false });
-  }
+  };
 
   onOptionsPress = () => {
     this.setState({ isOptionsModalOpen: true });
-  }
+  };
 
   onOptionsModalClose = () => {
     this.setState({ isOptionsModalOpen: false });
-  }
+  };
 
   onSearchMissingPress = () => {
     const {
@@ -68,7 +68,7 @@ class CalendarPage extends Component {
     } = this.props;
 
     onSearchMissingPress(missingBookIds);
-  }
+  };
 
   //
   // Render

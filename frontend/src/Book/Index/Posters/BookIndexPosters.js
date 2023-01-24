@@ -175,7 +175,7 @@ class BookIndexPosters extends Component {
 
   setGridRef = (ref) => {
     this._grid = ref;
-  }
+  };
 
   calculateGrid = (width = this.state.width, isSmallScreen) => {
     const {
@@ -197,7 +197,7 @@ class BookIndexPosters extends Component {
       posterHeight,
       rowHeight
     });
-  }
+  };
 
   cellRenderer = ({ key, rowIndex, columnIndex, style }) => {
     const {
@@ -264,14 +264,14 @@ class BookIndexPosters extends Component {
         />
       </div>
     );
-  }
+  };
 
   //
   // Listeners
 
   onMeasure = ({ width }) => {
     this.calculateGrid(width, this.props.isSmallScreen);
-  }
+  };
 
   //
   // Render

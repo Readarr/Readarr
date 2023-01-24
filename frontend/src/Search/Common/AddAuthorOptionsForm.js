@@ -20,11 +20,11 @@ class AddAuthorOptionsForm extends Component {
 
   onQualityProfileIdChange = ({ value }) => {
     this.props.onInputChange({ name: 'qualityProfileId', value: parseInt(value) });
-  }
+  };
 
   onMetadataProfileIdChange = ({ value }) => {
     this.props.onInputChange({ name: 'metadataProfileId', value: parseInt(value) });
-  }
+  };
 
   //
   // Render

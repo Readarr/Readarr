@@ -50,7 +50,7 @@ class AddNewAuthorModalContentConnector extends Component {
 
   onInputChange = ({ name, value }) => {
     this.props.setAuthorAddDefault({ [name]: value });
-  }
+  };
 
   onAddAuthorPress = (searchForMissingBooks) => {
     const {
@@ -73,7 +73,7 @@ class AddNewAuthorModalContentConnector extends Component {
       tags: tags.value,
       searchForMissingBooks
     });
-  }
+  };
 
   //
   // Render

@@ -51,7 +51,7 @@ class AddNewBookModalContentConnector extends Component {
 
   onInputChange = ({ name, value }) => {
     this.props.setBookAddDefault({ [name]: value });
-  }
+  };
 
   onAddBookPress = (searchForNewBook) => {
     const {
@@ -74,7 +74,7 @@ class AddNewBookModalContentConnector extends Component {
       tags: tags.value,
       searchForNewBook
     });
-  }
+  };
 
   //
   // Render

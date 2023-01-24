@@ -16,7 +16,7 @@ class EditAuthorModalConnector extends Component {
   onModalClose = () => {
     this.props.clearPendingChanges({ section: 'author' });
     this.props.onModalClose();
-  }
+  };
 
   //
   // Render

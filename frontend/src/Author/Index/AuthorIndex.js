@@ -99,14 +99,14 @@ class AuthorIndex extends Component {
 
   setScrollerRef = (ref) => {
     this.setState({ scroller: ref });
-  }
+  };
 
   getSelectedIds = () => {
     if (this.state.allUnselected) {
       return [];
     }
     return getSelectedIds(this.state.selectedState);
-  }
+  };
 
   setSelectedState() {
     const {
@@ -192,19 +192,19 @@ class AuthorIndex extends Component {
 
   onPosterOptionsPress = () => {
     this.setState({ isPosterOptionsModalOpen: true });
-  }
+  };
 
   onPosterOptionsModalClose = () => {
     this.setState({ isPosterOptionsModalOpen: false });
-  }
+  };
 
   onOverviewOptionsPress = () => {
     this.setState({ isOverviewOptionsModalOpen: true });
-  }
+  };
 
   onOverviewOptionsModalClose = () => {
     this.setState({ isOverviewOptionsModalOpen: false });
-  }
+  };
 
   onEditorTogglePress = () => {
     if (this.state.isEditorActive) {
@@ -214,36 +214,36 @@ class AuthorIndex extends Component {
       newState.isEditorActive = true;
       this.setState(newState);
     }
-  }
+  };
 
   onJumpBarItemPress = (jumpToCharacter) => {
     this.setState({ jumpToCharacter });
-  }
+  };
 
   onSelectAllChange = ({ value }) => {
     this.setState(selectAll(this.state.selectedState, value));
-  }
+  };
 
   onSelectAllPress = () => {
     this.onSelectAllChange({ value: !this.state.allSelected });
-  }
+  };
 
   onSelectedChange = ({ id, value, shiftKey = false }) => {
     this.setState((state) => {
       return toggleSelected(state, this.props.items, id, value, shiftKey);
     });
-  }
+  };
 
   onSaveSelected = (changes) => {
     this.props.onSaveSelected({
       authorIds: this.getSelectedIds(),
       ...changes
     });
-  }
+  };
 
   onOrganizeAuthorPress = () => {
     this.setState({ isOrganizingAuthorModalOpen: true });
-  }
+  };
 
   onOrganizeAuthorModalClose = (organized) => {
     this.setState({ isOrganizingAuthorModalOpen: false });
@@ -251,11 +251,11 @@ class AuthorIndex extends Component {
     if (organized === true) {
       this.onSelectAllChange({ value: false });
     }
-  }
+  };
 
   onRetagAuthorPress = () => {
     this.setState({ isRetaggingAuthorModalOpen: true });
-  }
+  };
 
   onRetagAuthorModalClose = (organized) => {
     this.setState({ isRetaggingAuthorModalOpen: false });
@@ -263,14 +263,14 @@ class AuthorIndex extends Component {
     if (organized === true) {
       this.onSelectAllChange({ value: false });
     }
-  }
+  };
 
   onRefreshAuthorPress = () => {
     const selectedIds = this.getSelectedIds();
     const refreshIds = this.state.isEditorActive && selectedIds.length > 0 ? selectedIds : [];
 
     this.props.onRefreshAuthorPress(refreshIds);
-  }
+  };
 
   //
   // Render

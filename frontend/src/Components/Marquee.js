@@ -65,7 +65,7 @@ class Marquee extends Component {
     if (animationState === null && overflowWidth > 0) {
       this.setState({ animationState: 'toLeft' });
     }
-  }
+  };
 
   onTransitionEnd = (payload) => {
     const {
@@ -79,11 +79,11 @@ class Marquee extends Component {
     if (animationState === 'toRight') {
       this.setState({ animationState: null });
     }
-  }
+  };
 
   onContainerMeasure = ({ width }) => {
     this.setState({ containerWidth: width });
-  }
+  };
 
   //
   // Render

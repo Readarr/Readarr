@@ -80,7 +80,7 @@ class AuthorEditorFooter extends Component {
       default:
         this.props.onSaveSelected({ [name]: value });
     }
-  }
+  };
 
   onApplyTagsPress = (tags, applyTags) => {
     this.setState({
@@ -92,23 +92,23 @@ class AuthorEditorFooter extends Component {
       tags,
       applyTags
     });
-  }
+  };
 
   onDeleteSelectedPress = () => {
     this.setState({ isDeleteAuthorModalOpen: true });
-  }
+  };
 
   onDeleteAuthorModalClose = () => {
     this.setState({ isDeleteAuthorModalOpen: false });
-  }
+  };
 
   onTagsPress = () => {
     this.setState({ isTagsModalOpen: true });
-  }
+  };
 
   onTagsModalClose = () => {
     this.setState({ isTagsModalOpen: false });
-  }
+  };
 
   onSaveRootFolderPress = () => {
     this.setState({
@@ -117,7 +117,7 @@ class AuthorEditorFooter extends Component {
     });
 
     this.props.onSaveSelected({ rootFolderPath: this.state.destinationRootFolder });
-  }
+  };
 
   onMoveAuthorPress = () => {
     this.setState({
@@ -129,7 +129,7 @@ class AuthorEditorFooter extends Component {
       rootFolderPath: this.state.destinationRootFolder,
       moveFiles: true
     });
-  }
+  };
 
   //
   // Render

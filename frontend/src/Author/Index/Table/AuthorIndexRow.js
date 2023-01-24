@@ -40,39 +40,39 @@ class AuthorIndexRow extends Component {
 
   onEditAuthorPress = () => {
     this.setState({ isEditAuthorModalOpen: true });
-  }
+  };
 
   onEditAuthorModalClose = () => {
     this.setState({ isEditAuthorModalOpen: false });
-  }
+  };
 
   onDeleteAuthorPress = () => {
     this.setState({
       isEditAuthorModalOpen: false,
       isDeleteAuthorModalOpen: true
     });
-  }
+  };
 
   onDeleteAuthorModalClose = () => {
     this.setState({ isDeleteAuthorModalOpen: false });
-  }
+  };
 
   onUseSceneNumberingChange = () => {
     // Mock handler to satisfy `onChange` being required for `CheckInput`.
     //
-  }
+  };
 
   onBannerLoad = () => {
     if (this.state.hasBannerError) {
       this.setState({ hasBannerError: false });
     }
-  }
+  };
 
   onBannerLoadError = () => {
     if (!this.state.hasBannerError) {
       this.setState({ hasBannerError: true });
     }
-  }
+  };
 
   //
   // Render

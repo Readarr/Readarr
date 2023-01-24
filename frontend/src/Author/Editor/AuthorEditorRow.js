@@ -16,7 +16,7 @@ class AuthorEditorRow extends Component {
   onBookFolderChange = () => {
     // Mock handler to satisfy `onChange` being required for `CheckInput`.
     //
-  }
+  };
 
   //
   // Render

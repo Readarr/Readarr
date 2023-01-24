@@ -85,15 +85,15 @@ class AuthorIndexConnector extends Component {
 
   onViewSelect = (view) => {
     this.props.dispatchSetAuthorView(view);
-  }
+  };
 
   onSaveSelected = (payload) => {
     this.props.dispatchSaveAuthorEditor(payload);
-  }
+  };
 
   onScroll = ({ scrollTop }) => {
     scrollPositions.authorIndex = scrollTop;
-  }
+  };
 
   //
   // Render

@@ -52,11 +52,11 @@ class AuthorDetailsHeader extends Component {
 
   onOverviewMeasure = ({ height }) => {
     this.setState({ overviewHeight: height });
-  }
+  };
 
   onTitleMeasure = ({ width }) => {
     this.setState({ titleWidth: width });
-  }
+  };
 
   //
   // Render

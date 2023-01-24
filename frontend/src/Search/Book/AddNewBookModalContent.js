@@ -31,11 +31,11 @@ class AddNewBookModalContent extends Component {
 
   onSearchForNewBookChange = ({ value }) => {
     this.setState({ searchForNewBook: value });
-  }
+  };
 
   onAddBookPress = () => {
     this.props.onAddBookPress(this.state.searchForNewBook);
-  }
+  };
 
   //
   // Render

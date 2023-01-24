@@ -60,7 +60,7 @@ class AuthorIndexTableOptions extends Component {
         }
       });
     });
-  }
+  };
 
   //
   // Render

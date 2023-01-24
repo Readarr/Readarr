@@ -27,22 +27,22 @@ class AuthorIndexActionsCell extends Component {
 
   onEditAuthorPress = () => {
     this.setState({ isEditAuthorModalOpen: true });
-  }
+  };
 
   onEditAuthorModalClose = () => {
     this.setState({ isEditAuthorModalOpen: false });
-  }
+  };
 
   onDeleteAuthorPress = () => {
     this.setState({
       isEditAuthorModalOpen: false,
       isDeleteAuthorModalOpen: true
     });
-  }
+  };
 
   onDeleteAuthorModalClose = () => {
     this.setState({ isDeleteAuthorModalOpen: false });
-  }
+  };
 
   //
   // Render

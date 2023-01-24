@@ -37,42 +37,42 @@ class BookIndexPoster extends Component {
 
   onEditAuthorPress = () => {
     this.setState({ isEditAuthorModalOpen: true });
-  }
+  };
 
   onEditAuthorModalClose = () => {
     this.setState({ isEditAuthorModalOpen: false });
-  }
+  };
 
   onDeleteAuthorPress = () => {
     this.setState({
       isEditAuthorModalOpen: false,
       isDeleteAuthorModalOpen: true
     });
-  }
+  };
 
   onDeleteAuthorModalClose = () => {
     this.setState({ isDeleteAuthorModalOpen: false });
-  }
+  };
 
   onEditBookPress = () => {
     this.setState({ isEditBookModalOpen: true });
-  }
+  };
 
   onEditBookModalClose = () => {
     this.setState({ isEditBookModalOpen: false });
-  }
+  };
 
   onPosterLoad = () => {
     if (this.state.hasPosterError) {
       this.setState({ hasPosterError: false });
     }
-  }
+  };
 
   onPosterLoadError = () => {
     if (!this.state.hasPosterError) {
       this.setState({ hasPosterError: true });
     }
-  }
+  };
 
   onChange = ({ value, shiftKey }) => {
     const {
@@ -81,7 +81,7 @@ class BookIndexPoster extends Component {
     } = this.props;
 
     onSelectedChange({ id, value, shiftKey });
-  }
+  };
 
   //
   // Render

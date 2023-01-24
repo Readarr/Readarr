@@ -53,7 +53,7 @@ class SelectBookModalContentConnector extends Component {
 
   onSortPress = (sortKey, sortDirection) => {
     this.props.setInteractiveImportBooksSort({ sortKey, sortDirection });
-  }
+  };
 
   onBookSelect = (bookId) => {
     const book = _.find(this.props.items, { id: bookId });
@@ -72,7 +72,7 @@ class SelectBookModalContentConnector extends Component {
     this.props.saveInteractiveImportItem({ id: ids });
 
     this.props.onModalClose(true);
-  }
+  };
 
   //
   // Render

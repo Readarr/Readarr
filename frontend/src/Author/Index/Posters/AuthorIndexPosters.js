@@ -171,7 +171,7 @@ class AuthorIndexPosters extends Component {
 
   setGridRef = (ref) => {
     this._grid = ref;
-  }
+  };
 
   calculateGrid = (width = this.state.width, isSmallScreen) => {
     const {
@@ -193,7 +193,7 @@ class AuthorIndexPosters extends Component {
       posterHeight,
       rowHeight
     });
-  }
+  };
 
   cellRenderer = ({ key, rowIndex, columnIndex, style }) => {
     const {
@@ -259,14 +259,14 @@ class AuthorIndexPosters extends Component {
         />
       </div>
     );
-  }
+  };
 
   //
   // Listeners
 
   onMeasure = ({ width }) => {
     this.calculateGrid(width, this.props.isSmallScreen);
-  }
+  };
 
   //
   // Render

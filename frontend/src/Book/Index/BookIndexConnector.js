@@ -94,15 +94,15 @@ class BookIndexConnector extends Component {
 
   onViewSelect = (view) => {
     this.props.dispatchSetBookView(view);
-  }
+  };
 
   onSaveSelected = (payload) => {
     this.props.dispatchSaveBookEditor(payload);
-  }
+  };
 
   onScroll = ({ scrollTop }) => {
     scrollPositions.bookIndex = scrollTop;
-  }
+  };
 
   //
   // Render

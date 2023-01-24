@@ -98,14 +98,14 @@ class BookIndexItemConnector extends Component {
       name: commandNames.REFRESH_BOOK,
       bookId: this.props.id
     });
-  }
+  };
 
   onSearchPress = () => {
     this.props.dispatchExecuteCommand({
       name: commandNames.BOOK_SEARCH,
       bookIds: [this.props.id]
     });
-  }
+  };
 
   //
   // Render

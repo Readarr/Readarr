@@ -98,14 +98,14 @@ class AuthorIndexItemConnector extends Component {
       name: commandNames.REFRESH_AUTHOR,
       authorId: this.props.id
     });
-  }
+  };
 
   onSearchPress = () => {
     this.props.dispatchExecuteCommand({
       name: commandNames.AUTHOR_SEARCH,
       authorId: this.props.id
     });
-  }
+  };
 
   //
   // Render

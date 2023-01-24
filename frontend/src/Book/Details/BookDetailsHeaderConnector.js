@@ -48,7 +48,7 @@ class BookDetailsHeaderConnector extends Component {
       bookIds: [this.props.bookId],
       monitored
     });
-  }
+  };
 
   //
   // Render

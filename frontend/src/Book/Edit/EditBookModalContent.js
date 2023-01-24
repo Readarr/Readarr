@@ -27,7 +27,7 @@ class EditBookModalContent extends Component {
 
     onSavePress(false);
 
-  }
+  };
 
   //
   // Render

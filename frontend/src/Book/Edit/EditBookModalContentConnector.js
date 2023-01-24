@@ -76,7 +76,7 @@ class EditBookModalContentConnector extends Component {
 
   onInputChange = ({ name, value }) => {
     this.props.dispatchSetBookValue({ name, value });
-  }
+  };
 
   onSavePress = () => {
     this.props.dispatchSaveBook({
@@ -85,7 +85,7 @@ class EditBookModalContentConnector extends Component {
     this.props.dispatchSaveEditions({
       id: this.props.bookId
     });
-  }
+  };
 
   //
   // Render

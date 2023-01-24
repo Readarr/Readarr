@@ -144,16 +144,16 @@ class NamingModal extends Component {
 
   onTokenSeparatorChange = (event) => {
     this.setState({ separator: event.value });
-  }
+  };
 
   onTokenCaseChange = (event) => {
     this.setState({ case: event.value });
-  }
+  };
 
   onInputSelectionChange = (selectionStart, selectionEnd) => {
     this._selectionStart = selectionStart;
     this._selectionEnd = selectionEnd;
-  }
+  };
 
   onOptionPress = ({ isFullFilename, tokenValue }) => {
     const {
@@ -181,7 +181,7 @@ class NamingModal extends Component {
       this._selectionStart = newValue.length - 1;
       this._selectionEnd = newValue.length - 1;
     }
-  }
+  };
 
   //
   // Render

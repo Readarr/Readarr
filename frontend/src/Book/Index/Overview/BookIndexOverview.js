@@ -68,22 +68,22 @@ class BookIndexOverview extends Component {
 
   onEditAuthorPress = () => {
     this.setState({ isEditAuthorModalOpen: true });
-  }
+  };
 
   onEditAuthorModalClose = () => {
     this.setState({ isEditAuthorModalOpen: false });
-  }
+  };
 
   onDeleteAuthorPress = () => {
     this.setState({
       isEditAuthorModalOpen: false,
       isDeleteAuthorModalOpen: true
     });
-  }
+  };
 
   onDeleteAuthorModalClose = () => {
     this.setState({ isDeleteAuthorModalOpen: false });
-  }
+  };
 
   onChange = ({ value, shiftKey }) => {
     const {
@@ -92,7 +92,7 @@ class BookIndexOverview extends Component {
     } = this.props;
 
     onSelectedChange({ id, value, shiftKey });
-  }
+  };
 
   //
   // Render

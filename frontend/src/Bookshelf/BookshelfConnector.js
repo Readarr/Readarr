@@ -55,15 +55,15 @@ class BookshelfConnector extends Component {
 
   onSortPress = (sortKey) => {
     this.props.setBookshelfSort({ sortKey });
-  }
+  };
 
   onFilterSelect = (selectedFilterKey) => {
     this.props.setBookshelfFilter({ selectedFilterKey });
-  }
+  };
 
   onUpdateSelectedPress = (payload) => {
     this.props.saveBookshelf(payload);
-  }
+  };
 
   //
   // Render

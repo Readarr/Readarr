@@ -48,13 +48,13 @@ class EditAuthorModalContent extends Component {
 
       onSavePress(false);
     }
-  }
+  };
 
   onMoveAuthorPress = () => {
     this.setState({ isConfirmMoveModalOpen: false });
 
     this.props.onSavePress(true);
-  }
+  };
 
   //
   // Render
