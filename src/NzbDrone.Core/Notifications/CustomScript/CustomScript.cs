@@ -88,6 +88,7 @@ namespace NzbDrone.Core.Notifications.CustomScript
             if (message.OldFiles.Any())
             {
                 environmentVariables.Add("Readarr_DeletedPaths", string.Join("|", message.OldFiles.Select(e => e.Path)));
+                environmentVariables.Add("Readarr_DeletedDateAdded", string.Join("|", message.OldFiles.Select(e => e.DateAdded)));
             }
 
             ExecuteScript(environmentVariables);
