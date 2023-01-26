@@ -259,6 +259,8 @@ namespace NzbDrone.Core.Parser
 
                 var releaseTitle = RemoveFileExtension(title);
 
+                releaseTitle = releaseTitle.Replace("【", "[").Replace("】", "]");
+
                 var simpleTitle = SimpleTitleRegex.Replace(releaseTitle);
 
                 // TODO: Quick fix stripping [url] - prefixes.
