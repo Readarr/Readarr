@@ -252,8 +252,8 @@ class BookIndex extends Component {
   };
 
   onSearchConfirmed = () => {
-    const selectedMovieIds = this.getSelectedIds();
-    const searchIds = this.state.isMovieEditorActive && selectedMovieIds.length > 0 ? selectedMovieIds : this.props.items.map((m) => m.id);
+    const selectedBookIds = this.getSelectedIds();
+    const searchIds = this.state.isEditorActive && selectedBookIds.length > 0 ? selectedBookIds : this.props.items.map((m) => m.id);
 
     this.props.onSearchPress(searchIds);
     this.setState({ isConfirmSearchModalOpen: false });
