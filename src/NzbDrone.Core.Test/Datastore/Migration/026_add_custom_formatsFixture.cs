@@ -361,6 +361,68 @@ namespace NzbDrone.Core.Test.Datastore.Migration
         }
 
         [Test]
+        public void should_migrate_case_sensitive_regex()
+        {
+            var db = WithMigrationTestDb(c =>
+            {
+                c.Insert.IntoTable("ReleaseProfiles").Row(new
+                {
+                    Preferred = new[]
+                    {
+                        new
+                        {
+                            Key = "/somestring/",
+                            Value = 2
+                        }
+                    }.ToJson(),
+                    Required = "[]",
+                    Ignored = "[]",
+                    Tags = "[]",
+                    IncludePreferredWhenRenaming = true,
+                    Enabled = true,
+                    IndexerId = 0
+                });
+            });
+
+            var customFormats = db.Query<CustomFormat026>("SELECT \"Id\", \"Name\", \"IncludeCustomFormatWhenRenaming\", \"Specifications\" FROM \"CustomFormats\"");
+
+            customFormats.Should().HaveCount(1);
+            customFormats.First().Specifications.Should().HaveCount(1);
+            customFormats.First().Specifications.First().Body.Value.Should().Be("somestring");
+        }
+
+        [Test]
+        public void should_migrate_case_insensitive_regex()
+        {
+            var db = WithMigrationTestDb(c =>
+            {
+                c.Insert.IntoTable("ReleaseProfiles").Row(new
+                {
+                    Preferred = new[]
+                    {
+                        new
+                        {
+                            Key = "/somestring/i",
+                            Value = 2
+                        }
+                    }.ToJson(),
+                    Required = "[]",
+                    Ignored = "[]",
+                    Tags = "[]",
+                    IncludePreferredWhenRenaming = true,
+                    Enabled = true,
+                    IndexerId = 0
+                });
+            });
+
+            var customFormats = db.Query<CustomFormat026>("SELECT \"Id\", \"Name\", \"IncludeCustomFormatWhenRenaming\", \"Specifications\" FROM \"CustomFormats\"");
+
+            customFormats.Should().HaveCount(1);
+            customFormats.First().Specifications.Should().HaveCount(1);
+            customFormats.First().Specifications.First().Body.Value.Should().Be("somestring");
+        }
+
+        [Test]
         public void should_migrate_naming_configs()
         {
             var db = WithMigrationTestDb(c =>
