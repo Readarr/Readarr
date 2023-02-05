@@ -11,6 +11,7 @@ using NzbDrone.Core.ImportLists.Exclusions;
 using NzbDrone.Core.IndexerSearch;
 using NzbDrone.Core.Messaging.Commands;
 using NzbDrone.Core.Messaging.Events;
+using NzbDrone.Core.MetadataSource;
 using NzbDrone.Core.MetadataSource.Goodreads;
 using NzbDrone.Core.Parser.Model;
 
@@ -23,6 +24,7 @@ namespace NzbDrone.Core.ImportLists
         private readonly IFetchAndParseImportList _listFetcherAndParser;
         private readonly IGoodreadsProxy _goodreadsProxy;
         private readonly IGoodreadsSearchProxy _goodreadsSearchProxy;
+        private readonly IProvideBookInfo _bookInfoProxy;
         private readonly IAuthorService _authorService;
         private readonly IBookService _bookService;
         private readonly IEditionService _editionService;
@@ -37,6 +39,7 @@ namespace NzbDrone.Core.ImportLists
                                      IFetchAndParseImportList listFetcherAndParser,
                                      IGoodreadsProxy goodreadsProxy,
                                      IGoodreadsSearchProxy goodreadsSearchProxy,
+                                     IProvideBookInfo bookInfoProxy,
                                      IAuthorService authorService,
                                      IBookService bookService,
                                      IEditionService editionService,
@@ -51,6 +54,7 @@ namespace NzbDrone.Core.ImportLists
             _listFetcherAndParser = listFetcherAndParser;
             _goodreadsProxy = goodreadsProxy;
             _goodreadsSearchProxy = goodreadsSearchProxy;
+            _bookInfoProxy = bookInfoProxy;
             _authorService = authorService;
             _bookService = bookService;
             _editionService = editionService;
@@ -141,6 +145,11 @@ namespace NzbDrone.Core.ImportLists
 
         private void MapBookReport(ImportListItemInfo report)
         {
+            if (report.AuthorGoodreadsId.IsNotNullOrWhiteSpace() && report.BookGoodreadsId.IsNotNullOrWhiteSpace())
+            {
+                return;
+            }
+
             if (report.EditionGoodreadsId.IsNotNullOrWhiteSpace() && int.TryParse(report.EditionGoodreadsId, out var goodreadsId))
             {
                 // check the local DB
@@ -173,6 +182,14 @@ namespace NzbDrone.Core.ImportLists
                     report.EditionGoodreadsId = null;
                 }
             }
+            else if (report.BookGoodreadsId.IsNotNullOrWhiteSpace())
+            {
+                var mappedBook = _bookInfoProxy.GetBookInfo(report.BookGoodreadsId);
+
+                report.BookGoodreadsId = mappedBook.Item2.ForeignBookId;
+                report.Book = mappedBook.Item2.Title;
+                report.AuthorGoodreadsId = mappedBook.Item3.First().ForeignAuthorId;
+            }
             else
             {
                 var mappedBook = _goodreadsSearchProxy.Search($"{report.Book} {report.Author}").FirstOrDefault();
@@ -195,12 +212,6 @@ namespace NzbDrone.Core.ImportLists
 
         private void ProcessBookReport(ImportListDefinition importList, ImportListItemInfo report, List<ImportListExclusion> listExclusions, List<Book> booksToAdd, List<Author> authorsToAdd)
         {
-            if (report.EditionGoodreadsId == null)
-            {
-                _logger.Trace("Skipping report [{0}] due to missing EditionGoodreadsId", report.Book);
-                return;
-            }
-
             // Check to see if book in DB
             var existingBook = _bookService.FindById(report.BookGoodreadsId);
 
@@ -297,14 +308,7 @@ namespace NzbDrone.Core.ImportLists
                     ForeignBookId = report.BookGoodreadsId,
                     Monitored = monitored,
                     AnyEditionOk = true,
-                    Editions = new List<Edition>
-                    {
-                        new Edition
-                        {
-                            ForeignEditionId = report.EditionGoodreadsId,
-                            Monitored = true
-                        }
-                    },
+                    Editions = new List<Edition>(),
                     Author = toAddAuthor,
                     AddOptions = new AddBookOptions
                     {
@@ -313,6 +317,15 @@ namespace NzbDrone.Core.ImportLists
                         SearchForNewBook = importList.ShouldSearch && toAddAuthor.Id > 0
                     }
                 };
+
+                if (report.EditionGoodreadsId.IsNotNullOrWhiteSpace() && int.TryParse(report.EditionGoodreadsId, out var goodreadsId))
+                {
+                    toAdd.Editions.Value.Add(new Edition
+                    {
+                        ForeignEditionId = report.EditionGoodreadsId,
+                        Monitored = true
+                    });
+                }
 
                 if (importList.ShouldMonitor == ImportListMonitorType.SpecificBook && toAddAuthor.AddOptions != null)
                 {
