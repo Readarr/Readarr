@@ -557,5 +557,8 @@
     "RenameFiles": "ファイルの名前を変更する",
     "Test": "テスト",
     "AddList": "リストを追加",
-    "ManualImportSelectEdition": "手動インポート-ムービーを選択"
+    "ManualImportSelectEdition": "手動インポート-ムービーを選択",
+    "ImportListExclusions": "インポートリストの除外を削除する",
+    "MoveFiles": "ファイルの移動",
+    "HardlinkCopyFiles": "ファイルのハードリンク/コピー"
 }

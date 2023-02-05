@@ -556,5 +556,9 @@
     "RestartRequiredHelpTextWarning": "ต้องรีสตาร์ทเพื่อให้มีผล",
     "AddList": "เพิ่มรายการ",
     "RenameFiles": "เปลี่ยนชื่อไฟล์",
-    "Test": "ทดสอบ"
+    "Test": "ทดสอบ",
+    "ManualImportSelectEdition": "นำเข้าด้วยตนเอง - เลือกภาพยนตร์",
+    "ImportListExclusions": "ลบการยกเว้นรายการนำเข้า",
+    "HardlinkCopyFiles": "ฮาร์ดลิงค์ / คัดลอกไฟล์",
+    "MoveFiles": "ย้ายไฟล์"
 }

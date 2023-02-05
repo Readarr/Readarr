@@ -879,5 +879,14 @@
     "ManualImportSelectEdition": "Kézi importálás – Válaszd ki a Kiadást",
     "Database": "Adatbázis",
     "ApplicationURL": "Alkalmazás URL-je",
-    "ApplicationUrlHelpText": "Az alkalmazás külső URL-címe, beleértve a http(s)://-t, a portot és az URL-alapot"
+    "ApplicationUrlHelpText": "Az alkalmazás külső URL-címe, beleértve a http(s)://-t, a portot és az URL-alapot",
+    "ChooseImportMethod": "Importálási mód kiválasztása",
+    "ClickToChangeReleaseGroup": "Kiadási csoport módosítása",
+    "HardlinkCopyFiles": "Hardlinkelés/Fájl(ok) Másolása",
+    "MoveFiles": "Fájl(ok) mozgatása",
+    "OnApplicationUpdate": "Alkalmazásfrissítésről",
+    "OnApplicationUpdateHelpText": "Alkalmazásfrissítésről",
+    "Theme": "Téma",
+    "ThemeHelpText": "Változtasd meg az alkalmazás felhasználói felület témáját, az „Auto” téma az operációs rendszer témáját használja a Világos vagy Sötét mód beállításához. A Theme.Park ihlette",
+    "EnableRssHelpText": "Akkor használatos, amikor a Radarr rendszeresen keres kiadásokat az RSS Sync segítségével"
 }

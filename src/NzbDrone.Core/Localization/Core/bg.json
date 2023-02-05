@@ -557,5 +557,8 @@
     "Test": "Тест",
     "AddList": "Добавяне на списък",
     "RenameFiles": "Преименувайте файловете",
-    "ManualImportSelectEdition": "Ръчно импортиране - Изберете филм"
+    "ManualImportSelectEdition": "Ръчно импортиране - Изберете филм",
+    "ImportListExclusions": "Изтриване на изключването на списъка за импортиране",
+    "HardlinkCopyFiles": "Твърда връзка / копиране на файлове",
+    "MoveFiles": "Преместване на файлове"
 }

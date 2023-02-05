@@ -581,5 +581,16 @@
     "RemotePathMappingCheckImportFailed": "Radarr nie mógł zaimportować filmu. Szczegóły znajdziesz w dzienniku.",
     "RenameFiles": "Zmień nazwy plików",
     "Test": "Test",
-    "WriteTagsNo": "Nigdy"
+    "WriteTagsNo": "Nigdy",
+    "ImportListExclusions": "Usuń wykluczenie listy importu",
+    "ManualImportSelectEdition": "Import ręczny - wybierz film",
+    "ApplicationURL": "Link do aplikacji",
+    "ApplicationUrlHelpText": "Zewnętrzny URL tej aplikacji zawiera http(s)://, port i adres URL",
+    "Database": "Baza danych",
+    "ChooseImportMethod": "Wybierz tryb importu",
+    "ClickToChangeReleaseGroup": "Kliknij, by zmienić grupę wydającą",
+    "MoveFiles": "Przenieś pliki",
+    "OnApplicationUpdate": "Przy aktualizacji aplikacji",
+    "HardlinkCopyFiles": "Hardlink / Kopiuj pliki",
+    "OnApplicationUpdateHelpText": "Przy aktualizacji aplikacji"
 }

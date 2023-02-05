@@ -557,5 +557,8 @@
     "AddList": "Bæta við lista",
     "RenameFiles": "Endurnefna skrár",
     "Test": "Próf",
-    "ManualImportSelectEdition": "Handvirkur innflutningur - Veldu kvikmynd"
+    "ManualImportSelectEdition": "Handvirkur innflutningur - Veldu kvikmynd",
+    "ImportListExclusions": "Eyða útilokun innflutningslista",
+    "HardlinkCopyFiles": "Hardlink / afrita skrár",
+    "MoveFiles": "Færa skrár"
 }

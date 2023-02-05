@@ -557,5 +557,8 @@
     "RenameFiles": "Přejmenovat soubory",
     "Test": "Test",
     "AddList": "Přidat seznam",
-    "ManualImportSelectEdition": "Ruční import - vyberte Film"
+    "ManualImportSelectEdition": "Ruční import - vyberte Film",
+    "ImportListExclusions": "Odstranit vyloučení seznamu importů",
+    "HardlinkCopyFiles": "Pevný odkaz / kopírování souborů",
+    "MoveFiles": "Přesouvat soubory"
 }

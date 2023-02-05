@@ -806,5 +806,14 @@
     "Test": "Testar",
     "InstanceNameHelpText": "Nome da instância na aba e nome da aplicação para Syslog",
     "Database": "Base de dados",
-    "AddedAuthorSettings": "Definições de Autor adicionadas"
+    "AddedAuthorSettings": "Definições de Autor adicionadas",
+    "ManualImportSelectEdition": "Importação manual - Seleciona o filme",
+    "ApplicationUrlHelpText": "O URL desta aplicação externa, incluindo http(s)://, porta e URL base",
+    "ApplicationURL": "URL da aplicação",
+    "ChooseImportMethod": "Selecionar Modo de Importação",
+    "HardlinkCopyFiles": "Realizar ligação fixa/copiar ficheiros",
+    "MoveFiles": "Mover ficheiros",
+    "OnApplicationUpdate": "Quando a aplicação atualizar",
+    "ClickToChangeReleaseGroup": "Clique para mudar o grupo de lançamento",
+    "OnApplicationUpdateHelpText": "Quando a aplicação atualizar"
 }
