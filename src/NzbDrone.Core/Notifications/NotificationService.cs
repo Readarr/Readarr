@@ -124,8 +124,9 @@ namespace NzbDrone.Core.Notifications
                 Message = GetMessage(message.Book.Author, message.Book.Books, message.Book.ParsedBookInfo.Quality),
                 Author = message.Book.Author,
                 Quality = message.Book.ParsedBookInfo.Quality,
-                Book = message.Book,
-                DownloadClient = message.DownloadClient,
+                RemoteBook = message.Book,
+                DownloadClientName = message.DownloadClientName,
+                DownloadClientType = message.DownloadClient,
                 DownloadId = message.DownloadId
             };
 
@@ -159,7 +160,7 @@ namespace NzbDrone.Core.Notifications
                 Message = GetBookDownloadMessage(message.Author, message.Book, message.ImportedBooks),
                 Author = message.Author,
                 Book = message.Book,
-                DownloadClient = message.DownloadClientInfo?.Name,
+                DownloadClientInfo = message.DownloadClientInfo,
                 DownloadId = message.DownloadId,
                 BookFiles = message.ImportedBooks,
                 OldFiles = message.OldFiles,
@@ -192,7 +193,7 @@ namespace NzbDrone.Core.Notifications
                 {
                     if (ShouldHandleAuthor(notification.Definition, message.Author))
                     {
-                        notification.OnRename(message.Author);
+                        notification.OnRename(message.Author, message.RenamedFiles);
                     }
                 }
                 catch (Exception ex)

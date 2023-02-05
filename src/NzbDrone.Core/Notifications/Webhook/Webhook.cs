@@ -3,147 +3,67 @@ using System.Linq;
 using FluentValidation.Results;
 using NzbDrone.Common.Extensions;
 using NzbDrone.Core.Books;
+using NzbDrone.Core.Configuration;
+using NzbDrone.Core.MediaFiles;
 using NzbDrone.Core.Validation;
 
 namespace NzbDrone.Core.Notifications.Webhook
 {
-    public class Webhook : NotificationBase<WebhookSettings>
+    public class Webhook : WebhookBase<WebhookSettings>
     {
         private readonly IWebhookProxy _proxy;
 
-        public Webhook(IWebhookProxy proxy)
+        public Webhook(IWebhookProxy proxy, IConfigFileProvider configFileProvider)
+            : base(configFileProvider)
         {
             _proxy = proxy;
         }
 
-        public override string Link => "https://wiki.servarr.com/readarr/settings#connect";
+        public override string Link => "https://wiki.servarr.com/readarr/settings#connections";
 
         public override void OnGrab(GrabMessage message)
         {
-            var remoteBook = message.Book;
-            var quality = message.Quality;
-
-            var payload = new WebhookGrabPayload
-            {
-                EventType = WebhookEventType.Grab,
-                Author = new WebhookAuthor(message.Author),
-                Books = remoteBook.Books.ConvertAll(x => new WebhookBook(x)
-                {
-                    // TODO: Stop passing these parameters inside an book v3
-                    Quality = quality.Quality.Name,
-                    QualityVersion = quality.Revision.Version,
-                    ReleaseGroup = remoteBook.ParsedBookInfo.ReleaseGroup
-                }),
-                Release = new WebhookRelease(quality, remoteBook),
-                DownloadClient = message.DownloadClient,
-                DownloadId = message.DownloadId
-            };
-
-            _proxy.SendWebhook(payload, Settings);
+            _proxy.SendWebhook(BuildOnGrabPayload(message), Settings);
         }
 
         public override void OnReleaseImport(BookDownloadMessage message)
         {
-            var bookFiles = message.BookFiles;
-
-            var payload = new WebhookImportPayload
-            {
-                EventType = WebhookEventType.Download,
-                Author = new WebhookAuthor(message.Author),
-                Book = new WebhookBook(message.Book),
-                BookFiles = bookFiles.ConvertAll(x => new WebhookBookFile(x)),
-                IsUpgrade = message.OldFiles.Any(),
-                DownloadClient = message.DownloadClient,
-                DownloadId = message.DownloadId
-            };
-
-            _proxy.SendWebhook(payload, Settings);
+            _proxy.SendWebhook(BuildOnReleaseImportPayload(message), Settings);
         }
 
-        public override void OnRename(Author author)
+        public override void OnRename(Author author, List<RenamedBookFile> renamedFiles)
         {
-            var payload = new WebhookRenamePayload
-            {
-                EventType = WebhookEventType.Rename,
-                Author = new WebhookAuthor(author)
-            };
-
-            _proxy.SendWebhook(payload, Settings);
+            _proxy.SendWebhook(BuildOnRenamePayload(author, renamedFiles), Settings);
         }
 
         public override void OnAuthorDelete(AuthorDeleteMessage deleteMessage)
         {
-            var payload = new WebhookAuthorDeletePayload
-            {
-                EventType = WebhookEventType.Delete,
-                Author = new WebhookAuthor(deleteMessage.Author),
-                DeletedFiles = deleteMessage.DeletedFiles
-            };
-
-            _proxy.SendWebhook(payload, Settings);
+            _proxy.SendWebhook(BuildOnAuthorDelete(deleteMessage), Settings);
         }
 
         public override void OnBookDelete(BookDeleteMessage deleteMessage)
         {
-            var payload = new WebhookBookDeletePayload
-            {
-                EventType = WebhookEventType.Delete,
-                Author = new WebhookAuthor(deleteMessage.Book.Author),
-                Book = new WebhookBook(deleteMessage.Book)
-            };
-
-            _proxy.SendWebhook(payload, Settings);
+            _proxy.SendWebhook(BuildOnBookDelete(deleteMessage), Settings);
         }
 
         public override void OnBookFileDelete(BookFileDeleteMessage deleteMessage)
         {
-            var payload = new WebhookBookFileDeletePayload
-            {
-                EventType = WebhookEventType.Delete,
-                Author = new WebhookAuthor(deleteMessage.Book.Author),
-                Book = new WebhookBook(deleteMessage.Book),
-                BookFile = new WebhookBookFile(deleteMessage.BookFile)
-            };
-
-            _proxy.SendWebhook(payload, Settings);
+            _proxy.SendWebhook(BuildOnBookFileDelete(deleteMessage), Settings);
         }
 
         public override void OnBookRetag(BookRetagMessage message)
         {
-            var payload = new WebhookRetagPayload
-            {
-                EventType = WebhookEventType.Retag,
-                Author = new WebhookAuthor(message.Author)
-            };
-
-            _proxy.SendWebhook(payload, Settings);
+            _proxy.SendWebhook(BuildOnBookRetagPayload(message), Settings);
         }
 
         public override void OnHealthIssue(HealthCheck.HealthCheck healthCheck)
         {
-            var payload = new WebhookHealthPayload
-                          {
-                              EventType = WebhookEventType.Health,
-                              Level = healthCheck.Type,
-                              Message = healthCheck.Message,
-                              Type = healthCheck.Source.Name,
-                              WikiUrl = healthCheck.WikiUrl?.ToString()
-                          };
-
-            _proxy.SendWebhook(payload, Settings);
+            _proxy.SendWebhook(BuildHealthPayload(healthCheck), Settings);
         }
 
         public override void OnApplicationUpdate(ApplicationUpdateMessage updateMessage)
         {
-            var payload = new WebhookApplicationUpdatePayload
-            {
-                EventType = WebhookEventType.ApplicationUpdate,
-                Message = updateMessage.Message,
-                PreviousVersion = updateMessage.PreviousVersion.ToString(),
-                NewVersion = updateMessage.NewVersion.ToString()
-            };
-
-            _proxy.SendWebhook(payload, Settings);
+            _proxy.SendWebhook(BuildApplicationUpdatePayload(updateMessage), Settings);
         }
 
         public override string Name => "Webhook";
@@ -161,27 +81,7 @@ namespace NzbDrone.Core.Notifications.Webhook
         {
             try
             {
-                var payload = new WebhookGrabPayload
-                {
-                    EventType = WebhookEventType.Test,
-                    Author = new WebhookAuthor()
-                    {
-                        Id = 1,
-                        Name = "Test Name",
-                        Path = "C:\\testpath",
-                        MBId = "aaaaa-aaa-aaaa-aaaaaa"
-                    },
-                    Books = new List<WebhookBook>()
-                    {
-                            new WebhookBook()
-                            {
-                                Id = 123,
-                                Title = "Test title"
-                            }
-                    }
-                };
-
-                _proxy.SendWebhook(payload, Settings);
+                _proxy.SendWebhook(BuildTestPayload(), Settings);
             }
             catch (WebhookException ex)
             {

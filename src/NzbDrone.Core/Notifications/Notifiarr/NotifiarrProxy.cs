@@ -1,98 +1,68 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.Net;
-using FluentValidation.Results;
-using NLog;
-using NzbDrone.Common.EnvironmentInfo;
+using System.Net.Http;
 using NzbDrone.Common.Http;
+using NzbDrone.Common.Serializer;
+using NzbDrone.Core.Notifications.Webhook;
 
 namespace NzbDrone.Core.Notifications.Notifiarr
 {
     public interface INotifiarrProxy
     {
-        void SendNotification(StringDictionary message, NotifiarrSettings settings);
-        ValidationFailure Test(NotifiarrSettings settings);
+        void SendNotification(WebhookPayload payload, NotifiarrSettings settings);
     }
 
     public class NotifiarrProxy : INotifiarrProxy
     {
-        private const string URL = "https://notifiarr.com/notifier.php";
+        private const string URL = "https://notifiarr.com";
         private readonly IHttpClient _httpClient;
-        private readonly Logger _logger;
 
-        public NotifiarrProxy(IHttpClient httpClient, Logger logger)
+        public NotifiarrProxy(IHttpClient httpClient)
         {
             _httpClient = httpClient;
-            _logger = logger;
         }
 
-        public void SendNotification(StringDictionary message, NotifiarrSettings settings)
+        public void SendNotification(WebhookPayload payload, NotifiarrSettings settings)
+        {
+            ProcessNotification(payload, settings);
+        }
+
+        private void ProcessNotification(WebhookPayload payload, NotifiarrSettings settings)
         {
             try
             {
-                ProcessNotification(message, settings);
-            }
-            catch (NotifiarrException ex)
-            {
-                _logger.Error(ex, "Unable to send notification");
-                throw new NotifiarrException("Unable to send notification");
-            }
-        }
+                var request = new HttpRequestBuilder(URL + "/api/v1/notification/readarr")
+                    .Accept(HttpAccept.Json)
+                    .SetHeader("X-API-Key", settings.APIKey)
+                    .Build();
 
-        public ValidationFailure Test(NotifiarrSettings settings)
-        {
-            try
-            {
-                var variables = new StringDictionary();
-                variables.Add("Readarr_EventType", "Test");
+                request.Method = HttpMethod.Post;
 
-                SendNotification(variables, settings);
-                return null;
-            }
-            catch (HttpException ex)
-            {
-                if (ex.Response.StatusCode == HttpStatusCode.Unauthorized)
-                {
-                    _logger.Error(ex, "API key is invalid: " + ex.Message);
-                    return new ValidationFailure("APIKey", "API key is invalid");
-                }
-
-                _logger.Error(ex, "Unable to send test message: " + ex.Message);
-                return new ValidationFailure("APIKey", "Unable to send test notification");
-            }
-            catch (Exception ex)
-            {
-                _logger.Error(ex, "Unable to send test notification: " + ex.Message);
-                return new ValidationFailure("", "Unable to send test notification");
-            }
-        }
-
-        private void ProcessNotification(StringDictionary message, NotifiarrSettings settings)
-        {
-            try
-            {
-                var requestBuilder = new HttpRequestBuilder(URL).Post();
-                requestBuilder.AddFormParameter("api", settings.APIKey).Build();
-
-                foreach (string key in message.Keys)
-                {
-                    requestBuilder.AddFormParameter(key, message[key]);
-                }
-
-                var request = requestBuilder.Build();
+                request.Headers.ContentType = "application/json";
+                request.SetContent(payload.ToJson());
 
                 _httpClient.Post(request);
             }
             catch (HttpException ex)
             {
-                if (ex.Response.StatusCode == HttpStatusCode.BadRequest)
+                var responseCode = ex.Response.StatusCode;
+                switch ((int)responseCode)
                 {
-                    _logger.Error(ex, "API key is invalid");
-                    throw;
+                    case 401:
+                        throw new NotifiarrException("API key is invalid");
+                    case 400:
+                        throw new NotifiarrException("Unable to send notification. Ensure Readarr Integration is enabled & assigned a channel on Notifiarr");
+                    case 502:
+                    case 503:
+                    case 504:
+                        throw new NotifiarrException("Unable to send notification. Service Unavailable", ex);
+                    case 520:
+                    case 521:
+                    case 522:
+                    case 523:
+                    case 524:
+                        throw new NotifiarrException("Cloudflare Related HTTP Error - Unable to send notification", ex);
+                    default:
+                        throw new NotifiarrException("Unknown HTTP Error - Unable to send notification", ex);
                 }
-
-                throw new NotifiarrException("Unable to send notification", ex);
             }
         }
     }

@@ -1,8 +1,10 @@
 using System;
+using System.Collections.Generic;
 using FluentAssertions;
 using FluentValidation.Results;
 using NUnit.Framework;
 using NzbDrone.Core.Books;
+using NzbDrone.Core.MediaFiles;
 using NzbDrone.Core.Notifications;
 using NzbDrone.Core.ThingiProvider;
 using NzbDrone.Core.Validation;
@@ -57,7 +59,7 @@ namespace NzbDrone.Core.Test.NotificationTests
                 TestLogger.Info("OnDownload was called");
             }
 
-            public override void OnRename(Author author)
+            public override void OnRename(Author author, List<RenamedBookFile> renamedFiles)
             {
                 TestLogger.Info("OnRename was called");
             }

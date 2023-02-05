@@ -1,4 +1,6 @@
+using System.Collections.Generic;
 using NzbDrone.Core.Books;
+using NzbDrone.Core.MediaFiles;
 using NzbDrone.Core.ThingiProvider;
 
 namespace NzbDrone.Core.Notifications
@@ -9,7 +11,7 @@ namespace NzbDrone.Core.Notifications
 
         void OnGrab(GrabMessage grabMessage);
         void OnReleaseImport(BookDownloadMessage message);
-        void OnRename(Author author);
+        void OnRename(Author author, List<RenamedBookFile> renamedFiles);
         void OnAuthorDelete(AuthorDeleteMessage deleteMessage);
         void OnBookDelete(BookDeleteMessage deleteMessage);
         void OnBookFileDelete(BookFileDeleteMessage deleteMessage);
