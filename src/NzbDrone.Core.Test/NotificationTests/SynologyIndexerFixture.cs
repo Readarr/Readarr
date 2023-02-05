@@ -65,7 +65,7 @@ namespace NzbDrone.Core.Test.NotificationTests
         {
             (Subject.Definition.Settings as SynologyIndexerSettings).UpdateLibrary = false;
 
-            Subject.OnRename(_author);
+            Subject.OnRename(_author, new List<RenamedBookFile>());
 
             Mocker.GetMock<ISynologyIndexerProxy>()
                 .Verify(v => v.UpdateFolder(_author.Path), Times.Never());
@@ -95,7 +95,7 @@ namespace NzbDrone.Core.Test.NotificationTests
         [Test]
         public void should_update_entire_series_folder_on_rename()
         {
-            Subject.OnRename(_author);
+            Subject.OnRename(_author, new List<RenamedBookFile>());
 
             Mocker.GetMock<ISynologyIndexerProxy>()
                 .Verify(v => v.UpdateFolder(@"C:\Test\".AsOsAgnostic()), Times.Once());

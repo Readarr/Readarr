@@ -3,6 +3,7 @@ using FluentValidation.Results;
 using NzbDrone.Common.EnvironmentInfo;
 using NzbDrone.Common.Extensions;
 using NzbDrone.Core.Books;
+using NzbDrone.Core.MediaFiles;
 
 namespace NzbDrone.Core.Notifications.Synology
 {
@@ -38,7 +39,7 @@ namespace NzbDrone.Core.Notifications.Synology
             }
         }
 
-        public override void OnRename(Author author)
+        public override void OnRename(Author author, List<RenamedBookFile> renamedFiles)
         {
             if (Settings.UpdateLibrary)
             {

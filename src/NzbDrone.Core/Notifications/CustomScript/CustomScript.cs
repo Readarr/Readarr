@@ -10,6 +10,7 @@ using NzbDrone.Common.Processes;
 using NzbDrone.Common.Serializer;
 using NzbDrone.Core.Books;
 using NzbDrone.Core.HealthCheck;
+using NzbDrone.Core.MediaFiles;
 using NzbDrone.Core.ThingiProvider;
 using NzbDrone.Core.Validation;
 
@@ -37,7 +38,7 @@ namespace NzbDrone.Core.Notifications.CustomScript
         public override void OnGrab(GrabMessage message)
         {
             var author = message.Author;
-            var remoteBook = message.Book;
+            var remoteBook = message.RemoteBook;
             var releaseGroup = remoteBook.ParsedBookInfo.ReleaseGroup;
             var environmentVariables = new StringDictionary();
 
@@ -56,7 +57,8 @@ namespace NzbDrone.Core.Notifications.CustomScript
             environmentVariables.Add("Readarr_Release_Quality", remoteBook.ParsedBookInfo.Quality.Quality.Name);
             environmentVariables.Add("Readarr_Release_QualityVersion", remoteBook.ParsedBookInfo.Quality.Revision.Version.ToString());
             environmentVariables.Add("Readarr_Release_ReleaseGroup", releaseGroup ?? string.Empty);
-            environmentVariables.Add("Readarr_Download_Client", message.DownloadClient ?? string.Empty);
+            environmentVariables.Add("Readarr_Download_Client", message.DownloadClientName ?? string.Empty);
+            environmentVariables.Add("Readarr_Download_Client_Type", message.DownloadClientType ?? string.Empty);
             environmentVariables.Add("Readarr_Download_Id", message.DownloadId ?? string.Empty);
 
             ExecuteScript(environmentVariables);
@@ -77,7 +79,8 @@ namespace NzbDrone.Core.Notifications.CustomScript
             environmentVariables.Add("Readarr_Book_Title", book.Title);
             environmentVariables.Add("Readarr_Book_GRId", book.Editions.Value.Single(e => e.Monitored).ForeignEditionId.ToString());
             environmentVariables.Add("Readarr_Book_ReleaseDate", book.ReleaseDate.ToString());
-            environmentVariables.Add("Readarr_Download_Client", message.DownloadClient ?? string.Empty);
+            environmentVariables.Add("Readarr_Download_Client", message.DownloadClientInfo?.Name ?? string.Empty);
+            environmentVariables.Add("Readarr_Download_Client_Type", message.DownloadClientInfo?.Type ?? string.Empty);
             environmentVariables.Add("Readarr_Download_Id", message.DownloadId ?? string.Empty);
 
             if (message.BookFiles.Any())
@@ -94,7 +97,7 @@ namespace NzbDrone.Core.Notifications.CustomScript
             ExecuteScript(environmentVariables);
         }
 
-        public override void OnRename(Author author)
+        public override void OnRename(Author author, List<RenamedBookFile> renamedFiles)
         {
             var environmentVariables = new StringDictionary();
 

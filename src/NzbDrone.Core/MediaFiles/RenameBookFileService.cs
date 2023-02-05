@@ -115,12 +115,12 @@ namespace NzbDrone.Core.MediaFiles
         {
             var allFiles = _mediaFileService.GetFilesByAuthor(author.Id);
             var counts = allFiles.GroupBy(x => x.EditionId).ToDictionary(g => g.Key, g => g.Count());
-            var renamed = new List<BookFile>();
+            var renamed = new List<RenamedBookFile>();
 
             // Don't rename Calibre files
             foreach (var bookFile in bookFiles.Where(x => x.CalibreId == 0))
             {
-                var bookFilePath = bookFile.Path;
+                var previousPath = bookFile.Path;
                 bookFile.PartCount = counts[bookFile.EditionId];
 
                 try
@@ -129,11 +129,16 @@ namespace NzbDrone.Core.MediaFiles
                     _bookFileMover.MoveBookFile(bookFile, author);
 
                     _mediaFileService.Update(bookFile);
-                    renamed.Add(bookFile);
+
+                    renamed.Add(new RenamedBookFile
+                    {
+                        BookFile = bookFile,
+                        PreviousPath = previousPath
+                    });
 
                     _logger.Debug("Renamed book file: {0}", bookFile);
 
-                    _eventAggregator.PublishEvent(new BookFileRenamedEvent(author, bookFile, bookFilePath));
+                    _eventAggregator.PublishEvent(new BookFileRenamedEvent(author, bookFile, previousPath));
                 }
                 catch (FileAlreadyExistsException ex)
                 {
@@ -145,13 +150,13 @@ namespace NzbDrone.Core.MediaFiles
                 }
                 catch (Exception ex)
                 {
-                    _logger.Error(ex, "Failed to rename file {0}", bookFilePath);
+                    _logger.Error(ex, "Failed to rename file {0}", previousPath);
                 }
             }
 
             if (renamed.Any())
             {
-                _eventAggregator.PublishEvent(new AuthorRenamedEvent(author));
+                _eventAggregator.PublishEvent(new AuthorRenamedEvent(author, renamed));
 
                 _logger.Debug("Removing Empty Subfolders from: {0}", author.Path);
                 _diskProvider.RemoveEmptySubfolders(author.Path);

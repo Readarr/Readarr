@@ -4,6 +4,7 @@ using FluentValidation.Results;
 using NLog;
 using NzbDrone.Common.Extensions;
 using NzbDrone.Core.Books;
+using NzbDrone.Core.MediaFiles;
 
 namespace NzbDrone.Core.Notifications.Subsonic
 {
@@ -35,7 +36,7 @@ namespace NzbDrone.Core.Notifications.Subsonic
             Update();
         }
 
-        public override void OnRename(Author author)
+        public override void OnRename(Author author, List<RenamedBookFile> renamedFiles)
         {
             Update();
         }

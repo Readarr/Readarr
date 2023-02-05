@@ -4,5 +4,6 @@ namespace NzbDrone.Core.Notifications.Webhook
     {
         public WebhookAuthor Author { get; set; }
         public WebhookBook Book { get; set; }
+        public bool DeletedFiles { get; set; }
     }
 }
