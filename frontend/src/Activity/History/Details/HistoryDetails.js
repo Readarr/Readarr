@@ -69,12 +69,15 @@ function HistoryDetails(props) {
       customFormatScore,
       nzbInfoUrl,
       downloadClient,
+      downloadClientName,
       downloadId,
       age,
       ageHours,
       ageMinutes,
       publishedDate
     } = data;
+
+    const downloadClientNameInfo = downloadClientName ?? downloadClient;
 
     return (
       <DescriptionList>
@@ -125,11 +128,12 @@ function HistoryDetails(props) {
         }
 
         {
-          !!downloadClient &&
+          downloadClientNameInfo ?
             <DescriptionListItem
               title={translate('DownloadClient')}
-              data={downloadClient}
-            />
+              data={downloadClientNameInfo}
+            /> :
+            null
         }
 
         {
