@@ -16,14 +16,14 @@ function BookIndexProgressBar(props) {
     detailedProgressBar
   } = props;
 
-  const progress = bookCount ? bookFileCount / bookCount * 100 : 100;
+  const progress = bookCount ? bookFileCount / totalBookCount * 100 : 0;
   const text = `${bookFileCount} / ${bookCount}`;
 
   return (
     <ProgressBar
       className={styles.progressBar}
       containerClassName={styles.progress}
-      progress={progress}
+      progress={100}
       kind={getProgressBarKind('ended', monitored, progress)}
       size={detailedProgressBar ? sizes.MEDIUM : sizes.SMALL}
       showText={detailedProgressBar}
