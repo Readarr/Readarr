@@ -878,7 +878,8 @@ namespace NzbDrone.Core.MetadataSource.BookInfo
 
             if (resource.Books != null)
             {
-                book.Editions = resource.Books.Select(x => MapEdition(x)).ToList();
+                // "ForeignWorkId != null" to prevent retriving unref Goodreads' books (alias editions), and invoquing duplicates (gh #2153, #2082, #1573, #1514)
+                book.Editions = resource.Books.Where(x => x.ForeignWorkId != null).Select(x => MapEdition(x)).ToList();
 
                 // monitor the most popular release
                 var mostPopular = book.Editions.Value.OrderByDescending(x => x.Ratings.Popularity).FirstOrDefault();
