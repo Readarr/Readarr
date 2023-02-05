@@ -556,5 +556,10 @@
     "RestartRequiredHelpTextWarning": "Necesită repornire pentru a intra în vigoare",
     "Test": "Testează",
     "AddList": "Adaugă listă",
-    "RenameFiles": "Redenumește Fișiere"
+    "RenameFiles": "Redenumește Fișiere",
+    "Label": "Etichetă",
+    "ImportListExclusions": "Ștergeți excluderea listei de import",
+    "ManualImportSelectEdition": "Import manual - Selectați film",
+    "HardlinkCopyFiles": "Hardlink/Copiază Fișiere",
+    "MoveFiles": "Mută Fișiere"
 }

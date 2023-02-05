@@ -879,5 +879,14 @@
     "TagsHelpText": "Gilt für Autoren mit mindestens einem passenden Tag. Leer lassen, um auf alle Autoren anzuwenden",
     "TagsSettingsSummary": "Verwalten von Autoren-, Profil-, Beschränkungs- und Benachrichtigungs-Tags",
     "ApplicationURL": "Anwendungs-URL",
-    "ApplicationUrlHelpText": "Die externe URL der Anwendung inklusive http(s)://, Port und URL-Basis"
+    "ApplicationUrlHelpText": "Die externe URL der Anwendung inklusive http(s)://, Port und URL-Basis",
+    "HardlinkCopyFiles": "Hardlink/Dateien kopieren",
+    "MoveFiles": "Dateien verschieben",
+    "OnApplicationUpdate": "Bei Anwendungsaktualisierung",
+    "OnApplicationUpdateHelpText": "Bei Anwendungsaktualisierung",
+    "ChooseImportMethod": "Wähle eine Importmethode",
+    "ClickToChangeReleaseGroup": "Releasegruppe ändern",
+    "EnableRssHelpText": "Wird benutzt, wenn Radarr mittels RSS-Sync regelmäßig nach Releases schaut",
+    "Theme": "Design",
+    "ThemeHelpText": "Anwendungsdesign ändern, das 'Auto' Design passt sich an den Light/Dark-Mode deines Systems an. Inspiriert von Theme.Park"
 }

@@ -558,5 +558,8 @@
     "AddList": "اضف قائمة",
     "RenameFiles": "إعادة تسمية الملفات",
     "Test": "اختبار",
-    "ManualImportSelectEdition": "استيراد يدوي - حدد فيلم"
+    "ManualImportSelectEdition": "استيراد يدوي - حدد فيلم",
+    "ImportListExclusions": "حذف استبعاد قائمة الاستيراد",
+    "HardlinkCopyFiles": "Hardlink / نسخ الملفات",
+    "MoveFiles": "نقل الملفات"
 }

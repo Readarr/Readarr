@@ -601,5 +601,12 @@
     "InstanceName": "Nombre de Instancia",
     "InstanceNameHelpText": "Nombre de instancia en pestaña y para nombre de aplicación en Syslog",
     "Database": "Base de Datos",
-    "ManualImportSelectEdition": "Importar Manualmente - Seleccionar Película"
+    "ManualImportSelectEdition": "Importar Manualmente - Seleccionar Película",
+    "ImportListExclusions": "Borrar exclusión de lista de importación",
+    "ChooseImportMethod": "Elegir Modo de Importación",
+    "ClickToChangeReleaseGroup": "Clic para cambiar el grupo de lanzamiento",
+    "HardlinkCopyFiles": "Hardlink/Copia de Archivos",
+    "MoveFiles": "Mover Archivos",
+    "OnApplicationUpdate": "Al Actualizar La Aplicación",
+    "OnApplicationUpdateHelpText": "Al Actualizar La Aplicación"
 }

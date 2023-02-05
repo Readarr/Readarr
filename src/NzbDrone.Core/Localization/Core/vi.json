@@ -556,5 +556,9 @@
     "RestartRequiredHelpTextWarning": "Yêu cầu khởi động lại để có hiệu lực",
     "AddList": "Thêm vào danh sách",
     "Test": "Kiểm tra",
-    "RenameFiles": "Đổi tên tệp"
+    "RenameFiles": "Đổi tên tệp",
+    "ManualImportSelectEdition": "Nhập thủ công - Chọn phim",
+    "ImportListExclusions": "Xóa loại trừ danh sách nhập",
+    "HardlinkCopyFiles": "Hardlink / Sao chép tệp",
+    "MoveFiles": "Di chuyển tệp"
 }

@@ -557,5 +557,9 @@
     "RestartRequiredHelpTextWarning": "Etkili olması için yeniden başlatma gerektirir",
     "AddList": "Liste ekle",
     "RenameFiles": "Yeniden Adlandır",
-    "Test": "Ölçek"
+    "Test": "Ölçek",
+    "ImportListExclusions": "İçe Aktarma Listesi Hariç Tutmasını Sil",
+    "ManualImportSelectEdition": "Manuel İçe Aktarma - Film Seçin",
+    "HardlinkCopyFiles": "Hardlink / Dosyaları Kopyala",
+    "MoveFiles": "Dosyaları Taşı"
 }

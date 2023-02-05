@@ -805,5 +805,8 @@
     "DataFuturebooks": "Bevaka albums som inte har släppts än",
     "DataMissingBooks": "Bevaka album som har filer eller inte har släppts än",
     "ApplicationURL": "Applikations-URL",
-    "ApplicationUrlHelpText": "Denna applikations externa URL inklusive http(s)://, port och URL-bas"
+    "ApplicationUrlHelpText": "Denna applikations externa URL inklusive http(s)://, port och URL-bas",
+    "ManualImportSelectEdition": "Manuell import - Välj film",
+    "HardlinkCopyFiles": "Hardlink/kopiera filer",
+    "MoveFiles": "Flytta filer"
 }

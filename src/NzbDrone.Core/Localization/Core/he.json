@@ -570,5 +570,11 @@
     "InstanceName": "שם מופע",
     "RemotePathMappingCheckWrongOSPath": "אתה משתמש בדוקר; קליינט ההורדות {0} שם הורדות ב-{1} אבל הנתיב לא תקין {2}. בחן מחדש את ניתוב התיקיות והגדרות קליינט ההורדות.",
     "ManualImportSelectEdition": "ייבוא ידני - בחר סרט",
-    "Database": "מסד נתונים"
+    "Database": "מסד נתונים",
+    "ImportListExclusions": "מחק אי הכללת רשימות ייבוא",
+    "ClickToChangeReleaseGroup": "לחץ כדי לשנות קבוצת שחרור",
+    "HardlinkCopyFiles": "קישור קשיח / העתק קבצים",
+    "MoveFiles": "העבר קבצים",
+    "OnApplicationUpdate": "כשהאפליקציה מעדכנת גרסא",
+    "OnApplicationUpdateHelpText": "כשהאפליקציה מעדכנת גרסא"
 }

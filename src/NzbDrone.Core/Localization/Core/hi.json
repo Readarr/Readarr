@@ -557,5 +557,8 @@
     "RestartRequiredHelpTextWarning": "प्रभावी करने के लिए पुनरारंभ की आवश्यकता है",
     "AddList": "सूची में जोड़ने",
     "Test": "परीक्षा",
-    "ManualImportSelectEdition": "मैनुअल आयात - मूवी का चयन करें"
+    "ManualImportSelectEdition": "मैनुअल आयात - मूवी का चयन करें",
+    "ImportListExclusions": "आयात सूची बहिष्करण हटाएं",
+    "HardlinkCopyFiles": "हार्डलिंक / कॉपी फाइलें",
+    "MoveFiles": "फ़ाइलें ले जाएँ"
 }

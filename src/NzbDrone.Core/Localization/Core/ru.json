@@ -595,5 +595,17 @@
     "InstanceNameHelpText": "Имя экземпляра на вкладке и для имени приложения системного журнала",
     "AllowedLanguages": "Разрешенные языки",
     "ApplicationURL": "URL-адрес приложения",
-    "ApplicationUrlHelpText": "Внешний URL-адрес этого приложения, включая http(s)://, порт и базовый URL-адрес"
+    "ApplicationUrlHelpText": "Внешний URL-адрес этого приложения, включая http(s)://, порт и базовый URL-адрес",
+    "WriteTagsNo": "Никогда",
+    "ImportListExclusions": "Удалить лист исключения для импорта",
+    "ManualImportSelectEdition": "Ручной импорт - выбрать фильм",
+    "HardlinkCopyFiles": "Встроенные ссылки/копирование файлов",
+    "MoveFiles": "Переместить файлы",
+    "OnApplicationUpdate": "О обновлении приложения",
+    "ChooseImportMethod": "Выберите режим импорта",
+    "ClickToChangeReleaseGroup": "Нажмите, чтобы изменить релиз-группу",
+    "OnApplicationUpdateHelpText": "О обновлении приложения",
+    "Theme": "Тема",
+    "ThemeHelpText": "Измените тему пользовательского интерфейса приложения, тема «Авто» будет использовать тему вашей ОС для установки светлого или темного режима. Вдохновленный Theme.Park",
+    "EnableRssHelpText": "Будет использоваться, когда Radarr будет периодически искать выпуски через RSS Sync"
 }
