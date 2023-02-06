@@ -676,5 +676,14 @@
     "Term": "Terme",
     "MetadataProfile": "profil de métadonnées",
     "StatusEndedContinuing": "Continuant",
-    "Database": "Base de données"
+    "Database": "Base de données",
+    "ApplicationUrlHelpText": "URL externe de cette application, y compris http(s)://, le port et l'URL de base",
+    "ApplicationURL": "URL de l'application",
+    "ImportListExclusions": "Supprimer les exclusions de liste d'imports",
+    "ChooseImportMethod": "Mode d'importation",
+    "ClickToChangeReleaseGroup": "Cliquer pour changer le groupe de publication",
+    "HardlinkCopyFiles": "Lier/copier les fichiers",
+    "MoveFiles": "Déplacer les fichiers",
+    "OnApplicationUpdate": "Lors de la mise à jour de l'app",
+    "OnApplicationUpdateHelpText": "Lors de la mise à jour de l'app"
 }

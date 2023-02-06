@@ -598,5 +598,16 @@
     "AllExpandedCollapseAll": "Klap alles in",
     "AllExpandedExpandAll": "Klap alles uit",
     "AllowAuthorChangeClickToChangeAuthor": "Klik om auteur aan te passen",
-    "AllowedLanguages": "Toegestane talen"
+    "AllowedLanguages": "Toegestane talen",
+    "MetadataProfiles": "Metadata profiel toevoegen",
+    "ApplicationURL": "Applicatie URL",
+    "ApplicationUrlHelpText": "De externe URL van deze applicatie inclusief http(s)://,Port en URL base",
+    "ImportListExclusions": "Verwijder van Uitzonderingenlijst",
+    "MetadataProfile": "Metadata profiel toevoegen",
+    "ChooseImportMethod": "Kies Importmodus",
+    "ClickToChangeReleaseGroup": "Klik om de releasegroep te wijzigen",
+    "HardlinkCopyFiles": "Hardlink/Kopieer Bestanden",
+    "OnApplicationUpdate": "Bij applicatie update",
+    "MoveFiles": "Verplaats Bestanden",
+    "OnApplicationUpdateHelpText": "Bij applicatie update"
 }
