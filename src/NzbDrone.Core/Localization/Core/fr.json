@@ -49,7 +49,7 @@
     "BackupRetentionHelpText": "Les sauvegardes automatiques plus anciennes que la période de conservation seront automatiquement effacées",
     "Backups": "Sauvegardes",
     "BindAddress": "Adresse d'attache",
-    "BindAddressHelpText": "Adresse IPv4 valide ou '*' pour toutes les interfaces",
+    "BindAddressHelpText": "Adresse IPv4 valide, localhost ou '*' pour toutes les interfaces",
     "BookIsDownloading": "Le film est en cours de téléchargement",
     "BookIsDownloadingInterp": "Le film est en cours de téléchargement - {0}% {1}",
     "BypassProxyForLocalAddresses": "Contourner le proxy pour les adresses locales",
@@ -58,7 +58,7 @@
     "Cancel": "Annuler",
     "CancelMessageText": "Êtes-vous sur de vouloir annuler cette tâche en attente ?",
     "CertificateValidation": "Validation du certificat",
-    "CertificateValidationHelpText": "Modifier le degré de rigueur de la validation de la certification HTTPS. Ne pas changer à moins que vous ne compreniez les risques.",
+    "CertificateValidationHelpText": "Modifier le degré de rigueur de la validation de la certification HTTPS. Ne changez rien si vous ne comprenez pas les risques.",
     "ChangeFileDate": "Changer la date du fichier",
     "ChangeHasNotBeenSavedYet": "Les changements n'ont pas encore été sauvegardés",
     "ChmodFolder": "chmod Dossier",
@@ -680,10 +680,13 @@
     "ApplicationUrlHelpText": "URL externe de cette application, y compris http(s)://, le port et l'URL de base",
     "ApplicationURL": "URL de l'application",
     "ImportListExclusions": "Supprimer les exclusions de liste d'imports",
-    "ChooseImportMethod": "Mode d'importation",
+    "ChooseImportMethod": "Choisir une méthode d'importation",
     "ClickToChangeReleaseGroup": "Cliquer pour changer le groupe de publication",
     "HardlinkCopyFiles": "Lier/copier les fichiers",
     "MoveFiles": "Déplacer les fichiers",
     "OnApplicationUpdate": "Lors de la mise à jour de l'app",
-    "OnApplicationUpdateHelpText": "Lors de la mise à jour de l'app"
+    "OnApplicationUpdateHelpText": "Lors de la mise à jour de l'app",
+    "BypassIfAboveCustomFormatScore": "Contourner si au-dessus du score du format personnalisé",
+    "BypassIfHighestQuality": "Contourner si la qualité est la plus élevée",
+    "BypassIfAboveCustomFormatScoreHelpText": "Activez le contournement lorsque la version a un score supérieur au score minimum configuré pour le format personnalisé"
 }
