@@ -306,6 +306,7 @@
   "Ended": "Ended",
   "EndedAllBooksDownloaded": "Ended (All books downloaded)",
   "EntityName": "Entity Name",
+  "ErrorLoadingContent": "There was an error loading this content",
   "ErrorLoadingContents": "Error loading contents",
   "ErrorLoadingPreviews": "Error loading previews",
   "Events": "Events",
