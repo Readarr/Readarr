@@ -93,7 +93,7 @@ namespace NzbDrone.Core.Notifications.Webhook
         {
             return new WebhookBookDeletePayload
             {
-                EventType = WebhookEventType.Delete,
+                EventType = WebhookEventType.BookDelete,
                 InstanceName = _configFileProvider.InstanceName,
                 Author = new WebhookAuthor(deleteMessage.Book.Author),
                 Book = new WebhookBook(deleteMessage.Book),
@@ -105,7 +105,7 @@ namespace NzbDrone.Core.Notifications.Webhook
         {
             return new WebhookBookFileDeletePayload
             {
-                EventType = WebhookEventType.Delete,
+                EventType = WebhookEventType.BookFileDelete,
                 InstanceName = _configFileProvider.InstanceName,
                 Author = new WebhookAuthor(deleteMessage.Book.Author),
                 Book = new WebhookBook(deleteMessage.Book),
@@ -117,7 +117,7 @@ namespace NzbDrone.Core.Notifications.Webhook
         {
             return new WebhookAuthorDeletePayload
             {
-                EventType = WebhookEventType.Delete,
+                EventType = WebhookEventType.AuthorDelete,
                 InstanceName = _configFileProvider.InstanceName,
                 Author = new WebhookAuthor(deleteMessage.Author),
                 DeletedFiles = deleteMessage.DeletedFiles

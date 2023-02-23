@@ -12,7 +12,9 @@ namespace NzbDrone.Core.Notifications.Webhook
         Grab,
         Download,
         Rename,
-        Delete,
+        AuthorDelete,
+        BookDelete,
+        BookFileDelete,
         Health,
         Retag,
         ApplicationUpdate
