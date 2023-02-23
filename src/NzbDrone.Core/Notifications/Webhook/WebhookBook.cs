@@ -12,11 +12,13 @@ namespace NzbDrone.Core.Notifications.Webhook
         public WebhookBook(Book book)
         {
             Id = book.Id;
+            GoodreadsId = book.ForeignBookId;
             Title = book.Title;
             ReleaseDate = book.ReleaseDate;
         }
 
         public int Id { get; set; }
+        public string GoodreadsId { get; set; }
         public string Title { get; set; }
         public DateTime? ReleaseDate { get; set; }
 
