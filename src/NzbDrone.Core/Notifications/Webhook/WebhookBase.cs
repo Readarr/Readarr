@@ -28,13 +28,7 @@ namespace NzbDrone.Core.Notifications.Webhook
                 EventType = WebhookEventType.Grab,
                 InstanceName = _configFileProvider.InstanceName,
                 Author = new WebhookAuthor(message.Author),
-                Books = remoteBook.Books.ConvertAll(x => new WebhookBook(x)
-                {
-                    // TODO: Stop passing these parameters inside an book v3
-                    Quality = quality.Quality.Name,
-                    QualityVersion = quality.Revision.Version,
-                    ReleaseGroup = remoteBook.ParsedBookInfo.ReleaseGroup
-                }),
+                Books = remoteBook.Books.ConvertAll(x => new WebhookBook(x)),
                 Release = new WebhookRelease(quality, remoteBook),
                 DownloadClient = message.DownloadClientName,
                 DownloadClientType = message.DownloadClientType,

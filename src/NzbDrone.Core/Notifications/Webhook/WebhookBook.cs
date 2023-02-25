@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using NzbDrone.Core.Books;
 
 namespace NzbDrone.Core.Notifications.Webhook
@@ -7,6 +9,7 @@ namespace NzbDrone.Core.Notifications.Webhook
     {
         public WebhookBook()
         {
+            Editions = new List<WebhookBookEdition>();
         }
 
         public WebhookBook(Book book)
@@ -15,16 +18,13 @@ namespace NzbDrone.Core.Notifications.Webhook
             GoodreadsId = book.ForeignBookId;
             Title = book.Title;
             ReleaseDate = book.ReleaseDate;
+            Editions = book.Editions.Value.Select(x => new WebhookBookEdition(x)).ToList();
         }
 
         public int Id { get; set; }
         public string GoodreadsId { get; set; }
         public string Title { get; set; }
+        public List<WebhookBookEdition> Editions { get; set; }
         public DateTime? ReleaseDate { get; set; }
-
-        public string Quality { get; set; }
-        public int QualityVersion { get; set; }
-        public string ReleaseGroup { get; set; }
-        public string SceneName { get; set; }
     }
 }
