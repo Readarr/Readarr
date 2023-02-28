@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
 import createAuthorSelector from 'Store/Selectors/createAuthorSelector';
@@ -10,15 +9,11 @@ function createMapStateToProps() {
     createAuthorSelector(),
     createTagsSelector(),
     (author, tagList) => {
-      const tags = _.reduce(author.tags, (acc, tag) => {
-        const matchingTag = _.find(tagList, { id: tag });
-
-        if (matchingTag) {
-          acc.push(matchingTag.label);
-        }
-
-        return acc;
-      }, []);
+      const tags = author.tags
+        .map((tagId) => tagList.find((tag) => tag.id === tagId))
+        .filter((tag) => !!tag)
+        .map((tag) => tag.label)
+        .sort((a, b) => a.localeCompare(b));
 
       return {
         tags
