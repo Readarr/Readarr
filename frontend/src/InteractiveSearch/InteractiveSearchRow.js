@@ -153,10 +153,12 @@ class InteractiveSearchRow extends Component {
           {formatAge(age, ageHours, ageMinutes)}
         </TableRowCell>
 
-        <TableRowCell className={styles.title}>
-          <Link to={infoUrl}>
-            {title}
-          </Link>
+        <TableRowCell>
+          <div className={styles.titleContent}>
+            <Link to={infoUrl}>
+              {title}
+            </Link>
+          </div>
         </TableRowCell>
 
         <TableRowCell className={styles.indexer}>

@@ -8,12 +8,11 @@
   width: 80px;
 }
 
-.title {
-  composes: cell;
-}
-
-.title div {
-  overflow-wrap: break-word;
+.titleContent {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  word-break: break-all;
 }
 
 .indexer {
