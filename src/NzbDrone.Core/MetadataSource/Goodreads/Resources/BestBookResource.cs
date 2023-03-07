@@ -51,7 +51,7 @@ namespace NzbDrone.Core.MetadataSource.Goodreads
             }
 
             ImageUrl = element.ElementAsString("image_url");
-            ImageUrl = element.ElementAsString("large_image_url");
+            LargeImageUrl = element.ElementAsString("large_image_url");
         }
     }
 }
