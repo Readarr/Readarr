@@ -94,6 +94,11 @@ namespace NzbDrone.Core.MetadataSource.Goodreads
 
         public override void Parse(XElement element)
         {
+            if (element.AncestorsAndSelf().First().Name != "work")
+            {
+                element = element.Element("work");
+            }
+
             Id = element.ElementAsLong("id");
 
             var bestBookElement = element.Element("best_book");
