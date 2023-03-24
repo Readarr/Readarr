@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using NzbDrone.Common.Extensions;
 
 namespace NzbDrone.Common.Disk
@@ -162,7 +161,7 @@ namespace NzbDrone.Common.Disk
             }
         }
 
-        public bool IsValid => _path.IsPathValid();
+        public bool IsValid => _path.IsPathValid(PathValidationType.CurrentOs);
 
         private int GetFileNameIndex()
         {

@@ -104,7 +104,7 @@ namespace NzbDrone.Core.MediaFiles
         {
             Ensure.That(bookFile, () => bookFile).IsNotNull();
             Ensure.That(author, () => author).IsNotNull();
-            Ensure.That(destinationFilePath, () => destinationFilePath).IsValidPath();
+            Ensure.That(destinationFilePath, () => destinationFilePath).IsValidPath(PathValidationType.CurrentOs);
 
             var bookFilePath = bookFile.Path;
 

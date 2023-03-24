@@ -39,7 +39,7 @@ namespace NzbDrone.Windows.Disk
 
         public override long? GetAvailableSpace(string path)
         {
-            Ensure.That(path, () => path).IsValidPath();
+            Ensure.That(path, () => path).IsValidPath(PathValidationType.CurrentOs);
 
             var root = GetPathRoot(path);
 
@@ -53,7 +53,7 @@ namespace NzbDrone.Windows.Disk
 
         public override void InheritFolderPermissions(string filename)
         {
-            Ensure.That(filename, () => filename).IsValidPath();
+            Ensure.That(filename, () => filename).IsValidPath(PathValidationType.CurrentOs);
 
             var fileInfo = new FileInfo(filename);
             var fs = fileInfo.GetAccessControl(AccessControlSections.Access);
@@ -116,7 +116,7 @@ namespace NzbDrone.Windows.Disk
 
         public override long? GetTotalSize(string path)
         {
-            Ensure.That(path, () => path).IsValidPath();
+            Ensure.That(path, () => path).IsValidPath(PathValidationType.CurrentOs);
 
             var root = GetPathRoot(path);
 
@@ -130,7 +130,7 @@ namespace NzbDrone.Windows.Disk
 
         private static long DriveFreeSpaceEx(string folderName)
         {
-            Ensure.That(folderName, () => folderName).IsValidPath();
+            Ensure.That(folderName, () => folderName).IsValidPath(PathValidationType.CurrentOs);
 
             if (!folderName.EndsWith("\\"))
             {
@@ -151,7 +151,7 @@ namespace NzbDrone.Windows.Disk
 
         private static long DriveTotalSizeEx(string folderName)
         {
-            Ensure.That(folderName, () => folderName).IsValidPath();
+            Ensure.That(folderName, () => folderName).IsValidPath(PathValidationType.CurrentOs);
 
             if (!folderName.EndsWith("\\"))
             {
