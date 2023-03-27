@@ -78,7 +78,7 @@ namespace NzbDrone.Core.Test.HealthCheck.Checks
                 .Setup(x => x.FolderExists(It.IsAny<string>()))
                 .Returns((string path) =>
                 {
-                    Ensure.That(path, () => path).IsValidPath();
+                    Ensure.That(path, () => path).IsValidPath(PathValidationType.CurrentOs);
                     return false;
                 });
 
@@ -86,7 +86,7 @@ namespace NzbDrone.Core.Test.HealthCheck.Checks
                 .Setup(x => x.FileExists(It.IsAny<string>()))
                 .Returns((string path) =>
                 {
-                    Ensure.That(path, () => path).IsValidPath();
+                    Ensure.That(path, () => path).IsValidPath(PathValidationType.CurrentOs);
                     return false;
                 });
 
