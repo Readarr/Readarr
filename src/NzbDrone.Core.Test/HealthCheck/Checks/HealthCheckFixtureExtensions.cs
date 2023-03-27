@@ -47,7 +47,7 @@ namespace NzbDrone.Core.Test.HealthCheck.Checks
 
             if (wikiFragment.IsNotNullOrWhiteSpace())
             {
-                result.WikiUrl.ToString().Should().Contain(wikiFragment);
+                result.WikiUrl.Fragment.Should().Be(wikiFragment);
             }
         }
     }

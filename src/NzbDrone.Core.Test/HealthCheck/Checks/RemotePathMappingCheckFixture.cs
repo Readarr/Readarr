@@ -66,10 +66,6 @@ namespace NzbDrone.Core.Test.HealthCheck.Checks
                   .Setup(s => s.GetDownloadClients(It.IsAny<bool>()))
                   .Returns(new IDownloadClient[] { _downloadClient.Object });
 
-            Mocker.GetMock<IProvideDownloadClient>()
-                .Setup(s => s.Get(It.IsAny<int>()))
-                .Returns(_downloadClient.Object);
-
             Mocker.GetMock<IConfigService>()
                   .Setup(s => s.EnableCompletedDownloadHandling)
                   .Returns(true);
@@ -180,7 +176,7 @@ namespace NzbDrone.Core.Test.HealthCheck.Checks
         public void should_return_ok_on_book_imported_event()
         {
             GivenFolderExists(_downloadRootPath);
-            var importEvent = new TrackImportedEvent(new LocalBook(), new BookFile(), new List<BookFile>(), true, _downloadItem);
+            var importEvent = new TrackImportedEvent(new LocalBook(), new BookFile(), new List<BookFile>(), true, new DownloadClientItem());
 
             Subject.Check(importEvent).ShouldBeOk();
         }
@@ -194,7 +190,7 @@ namespace NzbDrone.Core.Test.HealthCheck.Checks
             };
             GivenFileExists(localBook.Path);
 
-            var importEvent = new TrackImportFailedEvent(new Exception(), localBook, true, _downloadItem);
+            var importEvent = new TrackImportFailedEvent(new Exception(), localBook, true, new DownloadClientItem());
 
             Subject.Check(importEvent).ShouldBeError(wikiFragment: "permissions-error");
         }
