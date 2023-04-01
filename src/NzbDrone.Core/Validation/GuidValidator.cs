@@ -5,10 +5,7 @@ namespace NzbDrone.Core.Validation
 {
     public class GuidValidator : PropertyValidator
     {
-        public GuidValidator()
-            : base("String is not a valid Guid")
-        {
-        }
+        protected override string GetDefaultMessageTemplate() => "String is not a valid Guid";
 
         protected override bool IsValid(PropertyValidatorContext context)
         {
@@ -17,7 +14,7 @@ namespace NzbDrone.Core.Validation
                 return false;
             }
 
-            return Guid.TryParse(context.PropertyValue.ToString(), out Guid guidOutput);
+            return Guid.TryParse(context.PropertyValue.ToString(), out _);
         }
     }
 }

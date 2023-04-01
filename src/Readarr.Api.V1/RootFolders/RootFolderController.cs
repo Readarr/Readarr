@@ -40,7 +40,7 @@ namespace Readarr.Api.V1.RootFolders
             _calibreProxy = calibreProxy;
 
             SharedValidator.RuleFor(c => c.Path)
-                .Cascade(CascadeMode.StopOnFirstFailure)
+                .Cascade(CascadeMode.Stop)
                 .IsValidPath()
                 .SetValidator(mappedNetworkDriveValidator)
                 .SetValidator(startupFolderValidator)

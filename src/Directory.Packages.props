@@ -11,7 +11,7 @@
     <PackageVersion Include="Servarr.FluentMigrator.Runner" Version="3.3.2.9" />
     <PackageVersion Include="Servarr.FluentMigrator.Runner.SQLite" Version="3.3.2.9" />
     <PackageVersion Include="Servarr.FluentMigrator.Runner.Postgres" Version="3.3.2.9" />
-    <PackageVersion Include="FluentValidation" Version="8.6.2" />
+    <PackageVersion Include="FluentValidation" Version="9.5.4" />
     <PackageVersion Include="Ical.Net" Version="4.2.0" />
     <PackageVersion Include="ImpromptuInterface" Version="7.0.1" />
     <PackageVersion Include="LazyCache" Version="2.4.0" />

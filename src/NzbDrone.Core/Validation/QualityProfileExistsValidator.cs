@@ -8,10 +8,11 @@ namespace NzbDrone.Core.Validation
         private readonly IProfileService _profileService;
 
         public QualityProfileExistsValidator(IProfileService profileService)
-            : base("Quality Profile does not exist")
         {
             _profileService = profileService;
         }
+
+        protected override string GetDefaultMessageTemplate() => "Quality Profile does not exist";
 
         protected override bool IsValid(PropertyValidatorContext context)
         {
