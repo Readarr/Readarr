@@ -40,7 +40,7 @@ namespace NzbDrone.Core.Books
                 return true;
             }
 
-            var lastBook = _bookService.GetBooksByAuthor(author.Id).OrderByDescending(e => e.ReleaseDate).FirstOrDefault();
+            var lastBook = _bookService.GetBooksByAuthor(author.Id).MaxBy(e => e.ReleaseDate);
 
             if (lastBook != null && lastBook.ReleaseDate > DateTime.UtcNow.AddDays(-30))
             {

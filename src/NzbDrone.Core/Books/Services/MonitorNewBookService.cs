@@ -33,7 +33,7 @@ namespace NzbDrone.Core.Books
 
             if (monitorNewItems == NewItemMonitorTypes.New)
             {
-                var newest = existingBooks.OrderByDescending(x => x.ReleaseDate ?? DateTime.MinValue).FirstOrDefault()?.ReleaseDate ?? DateTime.MinValue;
+                var newest = existingBooks.MaxBy(x => x.ReleaseDate ?? DateTime.MinValue)?.ReleaseDate ?? DateTime.MinValue;
 
                 return (addedBook.ReleaseDate ?? DateTime.MinValue) >= newest;
             }

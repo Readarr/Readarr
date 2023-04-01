@@ -881,7 +881,7 @@ namespace NzbDrone.Core.MetadataSource.BookInfo
                 book.Editions = resource.Books.Select(x => MapEdition(x)).ToList();
 
                 // monitor the most popular release
-                var mostPopular = book.Editions.Value.OrderByDescending(x => x.Ratings.Popularity).FirstOrDefault();
+                var mostPopular = book.Editions.Value.MaxBy(x => x.Ratings.Popularity);
                 if (mostPopular != null)
                 {
                     mostPopular.Monitored = true;

@@ -29,16 +29,12 @@ namespace NzbDrone.Core.History
 
         public EntityHistory MostRecentForBook(int bookId)
         {
-            return Query(h => h.BookId == bookId)
-                .OrderByDescending(h => h.Date)
-                .FirstOrDefault();
+            return Query(h => h.BookId == bookId).MaxBy(h => h.Date);
         }
 
         public EntityHistory MostRecentForDownloadId(string downloadId)
         {
-            return Query(h => h.DownloadId == downloadId)
-                .OrderByDescending(h => h.Date)
-                .FirstOrDefault();
+            return Query(h => h.DownloadId == downloadId).MaxBy(h => h.Date);
         }
 
         public List<EntityHistory> FindByDownloadId(string downloadId)

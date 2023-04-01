@@ -96,7 +96,7 @@ namespace NzbDrone.Core.Download.Pending
 
                     var bookIds = decision.RemoteBook.Books.Select(e => e.Id);
 
-                    var existingReports = bookIds.SelectMany(v => alreadyPendingByBook[v] ?? Enumerable.Empty<PendingRelease>())
+                    var existingReports = bookIds.SelectMany(v => alreadyPendingByBook[v])
                                                     .Distinct().ToList();
 
                     var matchingReports = existingReports.Where(MatchingReleasePredicate(decision.RemoteBook.Release)).ToList();
@@ -239,8 +239,7 @@ namespace NzbDrone.Core.Download.Pending
 
             return authorReleases.Select(r => r.RemoteBook)
                                  .Where(r => r.Books.Select(e => e.Id).Intersect(bookIds).Any())
-                                 .OrderByDescending(p => p.Release.AgeHours)
-                                 .FirstOrDefault();
+                                 .MaxBy(p => p.Release.AgeHours);
         }
 
         private ILookup<int, PendingRelease> CreateBookLookup(IEnumerable<PendingRelease> alreadyPending)
