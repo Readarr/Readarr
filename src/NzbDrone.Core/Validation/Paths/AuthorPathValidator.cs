@@ -10,10 +10,11 @@ namespace NzbDrone.Core.Validation.Paths
         private readonly IAuthorService _authorService;
 
         public AuthorPathValidator(IAuthorService authorService)
-            : base("Path is already configured for another author")
         {
             _authorService = authorService;
         }
+
+        protected override string GetDefaultMessageTemplate() => "Path is already configured for another author";
 
         protected override bool IsValid(PropertyValidatorContext context)
         {

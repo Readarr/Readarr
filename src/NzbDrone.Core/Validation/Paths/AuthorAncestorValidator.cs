@@ -10,10 +10,11 @@ namespace NzbDrone.Core.Validation.Paths
         private readonly IAuthorService _authorService;
 
         public AuthorAncestorValidator(IAuthorService authorService)
-            : base("Path is an ancestor of an existing author")
         {
             _authorService = authorService;
         }
+
+        protected override string GetDefaultMessageTemplate() => "Path is an ancestor of an existing author";
 
         protected override bool IsValid(PropertyValidatorContext context)
         {

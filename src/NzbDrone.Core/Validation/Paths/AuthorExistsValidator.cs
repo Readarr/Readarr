@@ -8,10 +8,11 @@ namespace NzbDrone.Core.Validation.Paths
         private readonly IAuthorService _authorService;
 
         public AuthorExistsValidator(IAuthorService authorService)
-            : base("This author has already been added.")
         {
             _authorService = authorService;
         }
+
+        protected override string GetDefaultMessageTemplate() => "This author has already been added";
 
         protected override bool IsValid(PropertyValidatorContext context)
         {
