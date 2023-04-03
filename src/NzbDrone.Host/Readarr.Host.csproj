@@ -6,6 +6,7 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.Hosting.WindowsServices" />
     <PackageReference Include="DryIoc.dll" />
+    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" />
     <PackageReference Include="DryIoc.Microsoft.DependencyInjection" />
     <PackageReference Include="System.Text.Encoding.CodePages" />
   </ItemGroup>
