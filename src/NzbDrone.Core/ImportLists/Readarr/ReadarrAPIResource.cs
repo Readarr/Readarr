@@ -25,6 +25,7 @@ namespace NzbDrone.Core.ImportLists.Readarr
 
     public class ReadarrBook
     {
+        public int Id { get; set; }
         public string Title { get; set; }
         public string ForeignBookId { get; set; }
         public string Overview { get; set; }
@@ -32,7 +33,6 @@ namespace NzbDrone.Core.ImportLists.Readarr
         public bool Monitored { get; set; }
         public ReadarrAuthor Author { get; set; }
         public int AuthorId { get; set; }
-        public List<ReadarrEdition> Editions { get; set; }
     }
 
     public class ReadarrProfile

@@ -52,9 +52,8 @@ namespace NzbDrone.Core.ImportLists.Readarr
                             BookGoodreadsId = remoteBook.ForeignBookId,
                             Book = remoteBook.Title,
 
-                            // ToDo: Fix me. Edition is no longer in the book resource; rethink edition logic
-                            // Bandaid fix for now...This will cause the imported book to possibly not be same edition as the source
-                            // EditionGoodreadsId = remoteBook.Editions.Single(x => x.Monitored).ForeignEditionId,
+                            // Grab the remote Readarr's edition.
+                            EditionGoodreadsId = _readarrV1Proxy.GetEdition(Settings, remoteBook.Id).ForeignEditionId,
                             Author = remoteAuthor.AuthorName,
                             AuthorGoodreadsId = remoteAuthor.ForeignAuthorId
                         });

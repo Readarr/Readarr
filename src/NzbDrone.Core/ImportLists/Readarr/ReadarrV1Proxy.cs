@@ -15,6 +15,7 @@ namespace NzbDrone.Core.ImportLists.Readarr
         List<ReadarrBook> GetBooks(ReadarrSettings settings);
         List<ReadarrProfile> GetProfiles(ReadarrSettings settings);
         List<ReadarrTag> GetTags(ReadarrSettings settings);
+        ReadarrEdition GetEdition(ReadarrSettings settings, int bookId);
         ValidationFailure Test(ReadarrSettings settings);
     }
 
@@ -47,6 +48,11 @@ namespace NzbDrone.Core.ImportLists.Readarr
         public List<ReadarrTag> GetTags(ReadarrSettings settings)
         {
             return Execute<ReadarrTag>("/api/v1/tag", settings);
+        }
+
+        public ReadarrEdition GetEdition(ReadarrSettings settings, int bookId)
+        {
+            return Execute<ReadarrEdition>($"api/v1/edition?bookId={bookId}", settings).Find(x => x.Monitored);
         }
 
         public ValidationFailure Test(ReadarrSettings settings)
