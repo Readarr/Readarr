@@ -12,6 +12,7 @@ using NzbDrone.Common.Extensions;
 using NzbDrone.Common.Http;
 using NzbDrone.Common.Instrumentation;
 using NzbDrone.Core.Indexers.Exceptions;
+using NzbDrone.Core.Languages;
 using NzbDrone.Core.Parser.Model;
 
 namespace NzbDrone.Core.Indexers
@@ -159,6 +160,7 @@ namespace NzbDrone.Core.Indexers
             releaseInfo.InfoUrl = GetInfoUrl(item);
             releaseInfo.CommentUrl = GetCommentUrl(item);
             releaseInfo.Categories = GetCategories(item);
+            releaseInfo.Languages = GetLanguages(item);
 
             try
             {
@@ -228,6 +230,11 @@ namespace NzbDrone.Core.Indexers
         protected virtual List<int> GetCategories(XElement item)
         {
             return new List<int>();
+        }
+
+        protected virtual List<Language> GetLanguages(XElement item)
+        {
+            return new List<Language>();
         }
 
         protected virtual long GetSize(XElement item)
