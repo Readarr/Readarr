@@ -6,6 +6,7 @@ namespace Readarr.Api.V1.Config
     {
         public bool RenameBooks { get; set; }
         public bool ReplaceIllegalCharacters { get; set; }
+        public int ColonReplacementFormat { get; set; }
         public string StandardBookFormat { get; set; }
         public string AuthorFolderFormat { get; set; }
         public bool IncludeAuthorName { get; set; }

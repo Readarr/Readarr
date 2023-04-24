@@ -19,6 +19,7 @@ namespace Readarr.Api.V1.Config
 
                 RenameBooks = model.RenameBooks,
                 ReplaceIllegalCharacters = model.ReplaceIllegalCharacters,
+                ColonReplacementFormat = (int)model.ColonReplacementFormat,
                 StandardBookFormat = model.StandardBookFormat,
                 AuthorFolderFormat = model.AuthorFolderFormat
             };
@@ -42,6 +43,7 @@ namespace Readarr.Api.V1.Config
 
                 RenameBooks = resource.RenameBooks,
                 ReplaceIllegalCharacters = resource.ReplaceIllegalCharacters,
+                ColonReplacementFormat = (ColonReplacementFormat)resource.ColonReplacementFormat,
                 StandardBookFormat = resource.StandardBookFormat,
                 AuthorFolderFormat = resource.AuthorFolderFormat,
             };
