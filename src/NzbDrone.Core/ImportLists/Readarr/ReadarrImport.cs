@@ -43,22 +43,37 @@ namespace NzbDrone.Core.ImportLists.Readarr
                 {
                     var remoteAuthor = authorDict[remoteBook.AuthorId];
 
-                    if ((!Settings.ProfileIds.Any() || Settings.ProfileIds.Contains(remoteAuthor.QualityProfileId)) &&
-                        (!Settings.TagIds.Any() || Settings.TagIds.Any(x => remoteAuthor.Tags.Any(y => y == x))) &&
-                         remoteBook.Monitored && remoteAuthor.Monitored)
+                    if (Settings.ProfileIds.Any() && !Settings.ProfileIds.Contains(remoteAuthor.QualityProfileId))
                     {
-                        authorsAndBooks.Add(new ImportListItemInfo
-                        {
-                            BookGoodreadsId = remoteBook.ForeignBookId,
-                            Book = remoteBook.Title,
-
-                            // ToDo: Fix me. Edition is no longer in the book resource; rethink edition logic
-                            // Bandaid fix for now...This will cause the imported book to possibly not be same edition as the source
-                            // EditionGoodreadsId = remoteBook.Editions.Single(x => x.Monitored).ForeignEditionId,
-                            Author = remoteAuthor.AuthorName,
-                            AuthorGoodreadsId = remoteAuthor.ForeignAuthorId
-                        });
+                        continue;
                     }
+
+                    if (Settings.TagIds.Any() && !Settings.TagIds.Any(x => remoteAuthor.Tags.Any(y => y == x)))
+                    {
+                        continue;
+                    }
+
+                    if (Settings.RootFolderPaths.Any() && !Settings.RootFolderPaths.Any(rootFolderPath => remoteAuthor.RootFolderPath.ContainsIgnoreCase(rootFolderPath)))
+                    {
+                        continue;
+                    }
+
+                    if (!remoteBook.Monitored || !remoteAuthor.Monitored)
+                    {
+                        continue;
+                    }
+
+                    authorsAndBooks.Add(new ImportListItemInfo
+                    {
+                        BookGoodreadsId = remoteBook.ForeignBookId,
+                        Book = remoteBook.Title,
+
+                        // ToDo: Fix me. Edition is no longer in the book resource; rethink edition logic
+                        // Bandaid fix for now...This will cause the imported book to possibly not be same edition as the source
+                        // EditionGoodreadsId = remoteBook.Editions.Single(x => x.Monitored).ForeignEditionId,
+                        Author = remoteAuthor.AuthorName,
+                        AuthorGoodreadsId = remoteAuthor.ForeignAuthorId
+                    });
                 }
 
                 _importListStatusService.RecordSuccess(Definition.Id);
@@ -112,6 +127,23 @@ namespace NzbDrone.Core.ImportLists.Readarr
                                                 Value = d.Id,
                                                 Name = d.Label
                                             })
+                };
+            }
+
+            if (action == "getRootFolders")
+            {
+                Settings.Validate().Filter("ApiKey").ThrowOnError();
+
+                var remoteRootfolders = _readarrV1Proxy.GetRootFolders(Settings);
+
+                return new
+                {
+                    options = remoteRootfolders.OrderBy(d => d.Path, StringComparer.InvariantCultureIgnoreCase)
+                                               .Select(d => new
+                                               {
+                                                   value = d.Path,
+                                                   name = d.Path
+                                               })
                 };
             }
 

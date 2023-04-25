@@ -14,6 +14,7 @@ namespace NzbDrone.Core.ImportLists.Readarr
         List<ReadarrAuthor> GetAuthors(ReadarrSettings settings);
         List<ReadarrBook> GetBooks(ReadarrSettings settings);
         List<ReadarrProfile> GetProfiles(ReadarrSettings settings);
+        List<ReadarrRootFolder> GetRootFolders(ReadarrSettings settings);
         List<ReadarrTag> GetTags(ReadarrSettings settings);
         ValidationFailure Test(ReadarrSettings settings);
     }
@@ -42,6 +43,11 @@ namespace NzbDrone.Core.ImportLists.Readarr
         public List<ReadarrProfile> GetProfiles(ReadarrSettings settings)
         {
             return Execute<ReadarrProfile>("/api/v1/qualityprofile", settings);
+        }
+
+        public List<ReadarrRootFolder> GetRootFolders(ReadarrSettings settings)
+        {
+            return Execute<ReadarrRootFolder>("api/v1/rootfolder", settings);
         }
 
         public List<ReadarrTag> GetTags(ReadarrSettings settings)

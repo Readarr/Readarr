@@ -11,6 +11,7 @@ namespace NzbDrone.Core.ImportLists.Readarr
         public List<MediaCover.MediaCover> Images { get; set; }
         public bool Monitored { get; set; }
         public int QualityProfileId { get; set; }
+        public string RootFolderPath { get; set; }
         public HashSet<int> Tags { get; set; }
     }
 
@@ -44,6 +45,12 @@ namespace NzbDrone.Core.ImportLists.Readarr
     public class ReadarrTag
     {
         public string Label { get; set; }
+        public int Id { get; set; }
+    }
+
+    public class ReadarrRootFolder
+    {
+        public string Path { get; set; }
         public int Id { get; set; }
     }
 }
