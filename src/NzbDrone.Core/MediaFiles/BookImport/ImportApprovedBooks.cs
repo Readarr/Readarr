@@ -267,6 +267,13 @@ namespace NzbDrone.Core.MediaFiles.BookImport
 
                     importResults.Add(new ImportResult(importDecision, "Failed to import book, permissions error"));
                 }
+                catch (RecycleBinException e)
+                {
+                    _logger.Warn(e, "Couldn't import book " + localTrack);
+                    _eventAggregator.PublishEvent(new TrackImportFailedEvent(e, localTrack, !localTrack.ExistingFile, downloadClientItem));
+
+                    importResults.Add(new ImportResult(importDecision, "Failed to import book, unable to move existing file to the Recycle Bin."));
+                }
                 catch (CalibreException e)
                 {
                     _logger.Warn(e, "Couldn't import book " + localTrack);
