@@ -421,7 +421,7 @@
     "ApplyTagsHelpTexts3": "Eliminar: elimina les etiquetes introduïdes",
     "Authentication": "Autenticació",
     "BackupNow": "Fes ara la còpia de seguretat",
-    "BindAddressHelpText": "Adreça IPv4 vàlida o '*' per a totes les interfícies",
+    "BindAddressHelpText": "Adreça IP vàlida, localhost o '*' per a totes les interfícies",
     "AddingTag": "Afegint etiqueta",
     "AddListExclusion": "Afegeix l'exclusió de la llista",
     "AgeWhenGrabbed": "Edat (quan es captura)",
@@ -596,5 +596,11 @@
     "MoveFiles": "Mou arxius",
     "OnApplicationUpdate": "A l'actualitzar de l'aplicació",
     "OnApplicationUpdateHelpText": "A l'actualitzar de l'aplicació",
-    "LoadingBooksFailed": "No s'han pogut carregar els fitxers de pel·lícules"
+    "LoadingBooksFailed": "No s'han pogut carregar els fitxers de pel·lícules",
+    "BypassIfHighestQuality": "Bypass si és de màxima qualitat",
+    "Custom": "personalitzat",
+    "CustomFilters": "Filtres personalitzats",
+    "MinimumCustomFormatScore": "Puntuació mínima de format personalitzat",
+    "UnableToLoadInteractiveSerach": "No es poden carregar els resultats d'aquesta cerca de pel·lícules. Torna-ho a provar més tard",
+    "CustomFormatScore": "Puntuació de format personalitzat"
 }

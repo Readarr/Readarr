@@ -560,5 +560,10 @@
     "ManualImportSelectEdition": "นำเข้าด้วยตนเอง - เลือกภาพยนตร์",
     "ImportListExclusions": "ลบการยกเว้นรายการนำเข้า",
     "HardlinkCopyFiles": "ฮาร์ดลิงค์ / คัดลอกไฟล์",
-    "MoveFiles": "ย้ายไฟล์"
+    "MoveFiles": "ย้ายไฟล์",
+    "Custom": "กำหนดเอง",
+    "CustomFilters": "ตัวกรองที่กำหนดเอง",
+    "MinimumCustomFormatScore": "คะแนนรูปแบบที่กำหนดเองขั้นต่ำ",
+    "UnableToLoadInteractiveSerach": "ไม่สามารถโหลดผลการค้นหาภาพยนตร์นี้ โปรดลองอีกครั้งในภายหลัง",
+    "CustomFormatScore": "คะแนนรูปแบบที่กำหนดเอง"
 }

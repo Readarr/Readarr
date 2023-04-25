@@ -61,7 +61,7 @@
     "45MinutesFourtyFive": "45 minutos: {0}",
     "60MinutesSixty": "60 minutos: {0}",
     "APIKey": "Chave da API",
-    "About": "Informações",
+    "About": "Sobre",
     "ConnectSettings": "Definições de ligação",
     "Connections": "Ligações",
     "FileDateHelpText": "Mudar data do ficheiro ao importar/analisar",
@@ -166,7 +166,7 @@
     "BackupNow": "Criar cópia de segurança",
     "BackupRetentionHelpText": "Cópias de segurança automáticas anteriores ao período de retenção serão eliminadas automaticamente",
     "BindAddress": "Endereço de vínculo",
-    "BindAddressHelpText": "Endereço IP4 válido ou \"*\" para todas as interfaces",
+    "BindAddressHelpText": "Endereço de IP válido, localhost ou \"*\" para todas as interfaces",
     "BindAddressHelpTextWarning": "Requer reinício para aplicar alterações",
     "BookIsDownloading": "O livro está transferindo",
     "BookIsDownloadingInterp": "O livro está transferindo - {0}% {1}",
@@ -815,5 +815,11 @@
     "MoveFiles": "Mover ficheiros",
     "OnApplicationUpdate": "Quando a aplicação atualizar",
     "ClickToChangeReleaseGroup": "Clique para mudar o grupo de lançamento",
-    "OnApplicationUpdateHelpText": "Quando a aplicação atualizar"
+    "OnApplicationUpdateHelpText": "Quando a aplicação atualizar",
+    "BypassIfHighestQuality": "Ignorar se a qualidade for mais alta",
+    "Custom": "Personalizado",
+    "MinimumCustomFormatScore": "Pontuação mínima de formato personalizado",
+    "CustomFilters": "Filtros personalizados",
+    "CustomFormatScore": "Pontuação do formato personalizados",
+    "UnableToLoadInteractiveSerach": "Não foi possível carregar os resultados para esta pesquisa de filme. Tenta novamente mais tarde"
 }

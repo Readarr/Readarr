@@ -561,5 +561,10 @@
     "ImportListExclusions": "Ștergeți excluderea listei de import",
     "ManualImportSelectEdition": "Import manual - Selectați film",
     "HardlinkCopyFiles": "Hardlink/Copiază Fișiere",
-    "MoveFiles": "Mută Fișiere"
+    "MoveFiles": "Mută Fișiere",
+    "Custom": "Personalizat",
+    "MinimumCustomFormatScore": "Scor minim format personalizat",
+    "UnableToLoadInteractiveSerach": "Nu se pot încărca rezultatele pentru această căutare de filme. Încercați mai târziu",
+    "CustomFilters": "Filtre personalizate",
+    "CustomFormatScore": "Scorul formatului personalizat"
 }

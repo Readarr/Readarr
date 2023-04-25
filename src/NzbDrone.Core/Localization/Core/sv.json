@@ -808,5 +808,10 @@
     "ApplicationUrlHelpText": "Denna applikations externa URL inklusive http(s)://, port och URL-bas",
     "ManualImportSelectEdition": "Manuell import - Välj film",
     "HardlinkCopyFiles": "Hardlink/kopiera filer",
-    "MoveFiles": "Flytta filer"
+    "MoveFiles": "Flytta filer",
+    "Custom": "Beställnings",
+    "CustomFilters": "Anpassade Filter",
+    "CustomFormatScore": "Poäng för Anpassade format",
+    "MinimumCustomFormatScore": "Lägsta anpassade formatpoäng",
+    "UnableToLoadInteractiveSerach": "Det gick inte att ladda resultat för den här filmsökningen. Försök igen senare"
 }

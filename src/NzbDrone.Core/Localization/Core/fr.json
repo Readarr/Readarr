@@ -434,7 +434,7 @@
     "UpdateMechanismHelpText": "Utiliser le programme de mise à jour intégré de Radarr ou un script",
     "UpdateScriptPathHelpText": "Chemin vers un script personnalisé qui prend un package de mise à jour extraite et gère le reste du processus de mise à jour",
     "Updates": "Mises à jour",
-    "UpgradeAllowedHelpText": "Ne sera pas mis à jour si la qualité est désactivée",
+    "UpgradeAllowedHelpText": "Si désactivé, la qualité ne sera pas améliorée",
     "Uptime": "Durée de fonctionnent",
     "UrlBaseHelpTextWarning": "Nécessite un redémarrage pour prendre effet",
     "UseHardlinksInsteadOfCopy": "Utiliser des liens physiques au lieu de copier",
@@ -688,5 +688,13 @@
     "OnApplicationUpdateHelpText": "Lors de la mise à jour de l'app",
     "BypassIfAboveCustomFormatScore": "Contourner si au-dessus du score du format personnalisé",
     "BypassIfHighestQuality": "Contourner si la qualité est la plus élevée",
-    "BypassIfAboveCustomFormatScoreHelpText": "Activez le contournement lorsque la version a un score supérieur au score minimum configuré pour le format personnalisé"
+    "BypassIfAboveCustomFormatScoreHelpText": "Activez le contournement lorsque la version a un score supérieur au score minimum configuré pour le format personnalisé",
+    "CustomFormatScore": "Score du format personnalisé",
+    "MinimumCustomFormatScore": "Score de format personnalisé minimum",
+    "UnableToLoadInteractiveSerach": "Impossible de charger les résultats de cette recherche de films. Réessayez plus tard",
+    "Custom": "Personnalisé",
+    "CustomFilters": "Filtres personnalisés",
+    "Theme": "Thème",
+    "ThemeHelpText": "Changez le thème de l'interface de l'application. Le thème \"Auto\" utilisera celui de votre système d'exploitation pour définir le mode clair ou foncé. Inspiré par Theme.Park",
+    "EnableRssHelpText": "Sera utilisé lorsque Radarr recherche périodiquement des sorties via la synchronisation RSS"
 }

@@ -18,7 +18,7 @@
     "AddingTag": "Přidávání značky",
     "AdvancedSettingsHiddenClickToShow": "Skryté, kliknutím zobrazíte",
     "AdvancedSettingsShownClickToHide": "Zobrazeno, kliknutím se skryjete",
-    "AgeWhenGrabbed": "Věk (po uchopení)",
+    "AgeWhenGrabbed": "Stáří (při zachycení)",
     "AlreadyInYourLibrary": "Již ve vaší knihovně",
     "AlternateTitles": "Alternativní název",
     "Analytics": "Analytics",
@@ -476,7 +476,7 @@
     "ThisCannotBeCancelled": "Toto nelze zrušit po spuštění bez restartování Radarru.",
     "UnselectAll": "Odznačit vše",
     "UpdateSelected": "Aktualizace vybrána",
-    "All": "Všechno",
+    "All": "Vše",
     "Wanted": "Chtěl",
     "RescanAfterRefreshHelpText": "Po obnovení filmu znovu prohledejte složku filmu",
     "CreateEmptyAuthorFolders": "Vytvořte prázdné složky s filmy",
@@ -560,5 +560,10 @@
     "ManualImportSelectEdition": "Ruční import - vyberte Film",
     "ImportListExclusions": "Odstranit vyloučení seznamu importů",
     "HardlinkCopyFiles": "Pevný odkaz / kopírování souborů",
-    "MoveFiles": "Přesouvat soubory"
+    "MoveFiles": "Přesouvat soubory",
+    "Custom": "Zvyk",
+    "CustomFilters": "Vlastní filtry",
+    "CustomFormatScore": "Skóre vlastního formátu",
+    "MinimumCustomFormatScore": "Minimální skóre vlastního formátu",
+    "UnableToLoadInteractiveSerach": "Nelze načíst výsledky pro toto hledání filmu. Zkuste to později"
 }

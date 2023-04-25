@@ -504,7 +504,7 @@
     "Yesterday": "Ayer",
     "UpdateAvailable": "La nueva actualización está disponible",
     "Duration": "Duración",
-    "AppDataLocationHealthCheckMessage": "La actualización no será posible para evitar que se elimine AppData durante la actualización",
+    "AppDataLocationHealthCheckMessage": "No será posible actualizar para prevenir que AppData se borre durante la actualización",
     "Lists": "Listas",
     "SizeLimit": "Tamaño límite",
     "IndexerJackettAll": "Indexadores que utilizan el Endpoint Jackett 'all' no están soportados: {0}",
@@ -608,5 +608,13 @@
     "HardlinkCopyFiles": "Hardlink/Copia de Archivos",
     "MoveFiles": "Mover Archivos",
     "OnApplicationUpdate": "Al Actualizar La Aplicación",
-    "OnApplicationUpdateHelpText": "Al Actualizar La Aplicación"
+    "OnApplicationUpdateHelpText": "Al Actualizar La Aplicación",
+    "BypassIfHighestQuality": "Pasar sí es la calidad más alta",
+    "CustomFilters": "Filtros Personalizados",
+    "CustomFormatScore": "Puntuación de Formato personalizado",
+    "Custom": "Personalizado",
+    "MinimumCustomFormatScore": "Puntuación mínima de formato personalizado",
+    "UnableToLoadInteractiveSerach": "No se pueden cargar los resultados de esta búsqueda de películas. Vuelve a intentarlo más tarde",
+    "ApplicationURL": "78.30.42.111:7878",
+    "ApplicationUrlHelpText": "78.30.42.111:7878"
 }

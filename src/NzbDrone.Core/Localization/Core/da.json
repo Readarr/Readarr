@@ -563,5 +563,10 @@
     "DeleteBookFileMessageText": "Er du sikker på at du vil fjerne {0}?",
     "MoveFiles": "Flyt filer",
     "Label": "Etiket",
-    "HardlinkCopyFiles": "Hardlink/Kopir Filer"
+    "HardlinkCopyFiles": "Hardlink/Kopir Filer",
+    "CustomFormatScore": "Bruger Tilpasset Format score",
+    "Custom": "Brugerdefinerede",
+    "CustomFilters": "Bruger Tilpassede Filtere",
+    "MinimumCustomFormatScore": "Minimum tilpasset format score",
+    "UnableToLoadInteractiveSerach": "Kunne ikke indlæse resultater for denne filmsøgning. Prøv igen senere"
 }

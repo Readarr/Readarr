@@ -561,5 +561,10 @@
     "ManualImportSelectEdition": "استيراد يدوي - حدد فيلم",
     "ImportListExclusions": "حذف استبعاد قائمة الاستيراد",
     "HardlinkCopyFiles": "Hardlink / نسخ الملفات",
-    "MoveFiles": "نقل الملفات"
+    "MoveFiles": "نقل الملفات",
+    "CustomFilters": "مرشحات مخصصة",
+    "CustomFormatScore": "درجة التنسيق المخصص",
+    "MinimumCustomFormatScore": "الحد الأدنى من نقاط التنسيق المخصص",
+    "Custom": "مخصص",
+    "UnableToLoadInteractiveSerach": "تعذر تحميل نتائج بحث هذا الفيلم. حاول مرة أخرى في وقت لاحق"
 }
