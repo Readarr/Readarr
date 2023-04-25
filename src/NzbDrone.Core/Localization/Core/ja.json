@@ -560,5 +560,10 @@
     "ManualImportSelectEdition": "手動インポート-ムービーを選択",
     "ImportListExclusions": "インポートリストの除外を削除する",
     "MoveFiles": "ファイルの移動",
-    "HardlinkCopyFiles": "ファイルのハードリンク/コピー"
+    "HardlinkCopyFiles": "ファイルのハードリンク/コピー",
+    "Custom": "カスタム",
+    "CustomFilters": "カスタムフィルター",
+    "MinimumCustomFormatScore": "最小カスタムフォーマットスコア",
+    "CustomFormatScore": "カスタムフォーマットスコア",
+    "UnableToLoadInteractiveSerach": "この映画検索の結果を読み込めません。あとでもう一度試してみてください"
 }

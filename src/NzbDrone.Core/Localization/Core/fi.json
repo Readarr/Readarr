@@ -794,5 +794,11 @@
     "OnApplicationUpdateHelpText": "Sovelluksen päivittyessä",
     "Theme": "Teema",
     "ThemeHelpText": "Vaihda sovelluksen käyttöliittymän ulkoasua. \"Automaattinen\" vaihtaa vaalean ja tumman tilan käyttöjärjestelmäsi teemaa vastaavaksi. Innoittanut Theme.Park.",
-    "EnableRssHelpText": "Käytetään etsittäessä julkaisuja RSS-syötteistä ajoitetusti."
+    "EnableRssHelpText": "Käytetään etsittäessä julkaisuja RSS-syötteistä ajoitetusti.",
+    "BypassIfHighestQuality": "Ohita, jos korkein laatu",
+    "Custom": "Mukautettu",
+    "CustomFilters": "Mukautetut suodattimet",
+    "CustomFormatScore": "Mukautetun muodon pisteytys",
+    "MinimumCustomFormatScore": "Mukautetun muodon vähimmäispisteytys",
+    "UnableToLoadInteractiveSerach": "Albumihaun tuloksien lataus epäonnistui. Yritä myöhemmin uudelleen."
 }

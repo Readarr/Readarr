@@ -888,5 +888,11 @@
     "OnApplicationUpdateHelpText": "Alkalmazásfrissítésről",
     "Theme": "Téma",
     "ThemeHelpText": "Változtasd meg az alkalmazás felhasználói felület témáját, az „Auto” téma az operációs rendszer témáját használja a Világos vagy Sötét mód beállításához. A Theme.Park ihlette",
-    "EnableRssHelpText": "Akkor használatos, amikor a Radarr rendszeresen keres kiadásokat az RSS Sync segítségével"
+    "EnableRssHelpText": "Akkor használatos, amikor a Radarr rendszeresen keres kiadásokat az RSS Sync segítségével",
+    "MinimumCustomFormatScore": "Minimum Egyéni Formátum száma",
+    "BypassIfHighestQuality": "Kihagyás ha a legjobb minőség elérhető",
+    "Custom": "Egyedi",
+    "CustomFilters": "Egyéni Szűrők",
+    "CustomFormatScore": "Egyéni formátum pontszám",
+    "UnableToLoadInteractiveSerach": "Nem lehetséges betölteni a film keresés eredményeit. Próbálja meg később"
 }

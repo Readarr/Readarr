@@ -561,5 +561,10 @@
     "ImportListExclusions": "İçe Aktarma Listesi Hariç Tutmasını Sil",
     "ManualImportSelectEdition": "Manuel İçe Aktarma - Film Seçin",
     "HardlinkCopyFiles": "Hardlink / Dosyaları Kopyala",
-    "MoveFiles": "Dosyaları Taşı"
+    "MoveFiles": "Dosyaları Taşı",
+    "Custom": "Özel",
+    "MinimumCustomFormatScore": "Minimum Özel Biçim Puanı",
+    "UnableToLoadInteractiveSerach": "Bu film araması için sonuçlar yüklenemiyor. Daha sonra tekrar deneyin",
+    "CustomFilters": "Özel Filtreler",
+    "CustomFormatScore": "Özel Biçim Puanı"
 }

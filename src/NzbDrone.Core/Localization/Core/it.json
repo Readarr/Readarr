@@ -48,7 +48,7 @@
     "BackupRetentionHelpText": "I backup automatici più vecchi del periodo di conservazione verranno eliminati automaticamente",
     "Backups": "I Backup",
     "BindAddress": "Indirizzo di Bind",
-    "BindAddressHelpText": "Indirizzo IPV4 valido o '*' per tutte le interfacce di rete",
+    "BindAddressHelpText": "Indirizzo IP valido, localhost o '*' per tutte le interfacce di rete",
     "BindAddressHelpTextWarning": "Richiede il riavvio per avere effetto",
     "BookIsDownloading": "Libro in download",
     "BookIsDownloadingInterp": "Libro in download - {0}% {1}",
@@ -662,5 +662,11 @@
     "MoveFiles": "Sposta Files",
     "OnApplicationUpdate": "All'aggiornamento dell'applicazione",
     "OnApplicationUpdateHelpText": "All'aggiornamento dell'applicazione",
-    "ThemeHelpText": "Cambia il Tema dell'interfaccia dell’applicazione, il Tema 'Auto' userà il suo Tema di Sistema per impostare la modalità Chiara o Scura. Ispirato da {0}"
+    "ThemeHelpText": "Cambia il Tema dell'interfaccia dell’applicazione, il Tema 'Auto' userà il suo Tema di Sistema per impostare la modalità Chiara o Scura. Ispirato da {0}",
+    "BypassIfHighestQuality": "Aggira se è di Qualità Massima",
+    "Custom": "Personalizzato",
+    "CustomFilters": "Filtri Personalizzati",
+    "CustomFormatScore": "Punteggio del Formato Personalizzato",
+    "MinimumCustomFormatScore": "Punteggio formato personalizzato minimo",
+    "UnableToLoadInteractiveSerach": "Impossibile caricare i risultati per questa ricerca di film. Riprovare più tardi"
 }

@@ -609,5 +609,11 @@
     "HardlinkCopyFiles": "Hardlink/Kopieer Bestanden",
     "OnApplicationUpdate": "Bij applicatie update",
     "MoveFiles": "Verplaats Bestanden",
-    "OnApplicationUpdateHelpText": "Bij applicatie update"
+    "OnApplicationUpdateHelpText": "Bij applicatie update",
+    "BypassIfHighestQuality": "Omzeilen indien de hoogste kwaliteit",
+    "Custom": "Aangepast",
+    "CustomFilters": "Aangepaste Filters",
+    "CustomFormatScore": "Eigen Formaat Score",
+    "MinimumCustomFormatScore": "Minimum Eigen Formaat Score",
+    "UnableToLoadInteractiveSerach": "Kan resultaten voor deze filmzoekopdracht niet laden. Probeer het later nogmaals"
 }

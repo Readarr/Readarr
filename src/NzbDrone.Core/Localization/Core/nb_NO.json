@@ -30,7 +30,7 @@
     "BackupNow": "Sikkerhetskopier nå",
     "BackupRetentionHelpText": "Automatiske sikkerhetskopier som er eldre enn oppbevaringsperioden, blir ryddet opp automatisk",
     "BindAddress": "Bind adresse",
-    "BindAddressHelpText": "Gyldig IPv4 -adresse eller \"*\" for alle grensesnitt",
+    "BindAddressHelpText": "Gyldig IPv4 -adresse, localhost eller \"*\" for alle grensesnitt",
     "BypassProxyForLocalAddresses": "Omgå proxy for lokale adresser",
     "Cancel": "Avbryt",
     "CancelMessageText": "Er du sikker på at du vil avbryte denne ventende oppgaven?",
@@ -135,5 +135,7 @@
     "RemotePathMappings": "Ekstern portmapping",
     "AddList": "Legg til liste",
     "ChooseImportMethod": "Velg importeringsmodus",
-    "ClickToChangeReleaseGroup": "Klikk for å endre utgivelsegruppe"
+    "ClickToChangeReleaseGroup": "Klikk for å endre utgivelsegruppe",
+    "ApplicationURL": "Applikasjon URL",
+    "ApplicationUrlHelpText": "Denne applikasjonens eksterne URL inkludert http(s)://, port og URL base"
 }

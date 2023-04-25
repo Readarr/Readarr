@@ -592,5 +592,11 @@
     "MoveFiles": "Przenieś pliki",
     "OnApplicationUpdate": "Przy aktualizacji aplikacji",
     "HardlinkCopyFiles": "Hardlink / Kopiuj pliki",
-    "OnApplicationUpdateHelpText": "Przy aktualizacji aplikacji"
+    "OnApplicationUpdateHelpText": "Przy aktualizacji aplikacji",
+    "BypassIfHighestQuality": "Pomiń, jeśli najwyższa jakość",
+    "Custom": "Zwyczaj",
+    "CustomFilters": "Filtry niestandardowe",
+    "CustomFormatScore": "Wynik w formacie niestandardowym",
+    "MinimumCustomFormatScore": "Minimalny wynik w formacie niestandardowym",
+    "UnableToLoadInteractiveSerach": "Nie można załadować wyników dla tego wyszukiwania filmów. Spróbuj ponownie później"
 }

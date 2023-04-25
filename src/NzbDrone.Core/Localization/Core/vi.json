@@ -560,5 +560,10 @@
     "ManualImportSelectEdition": "Nhập thủ công - Chọn phim",
     "ImportListExclusions": "Xóa loại trừ danh sách nhập",
     "HardlinkCopyFiles": "Hardlink / Sao chép tệp",
-    "MoveFiles": "Di chuyển tệp"
+    "MoveFiles": "Di chuyển tệp",
+    "Custom": "Tập quán",
+    "MinimumCustomFormatScore": "Điểm định dạng tùy chỉnh tối thiểu",
+    "CustomFilters": "Bộ lọc tùy chỉnh",
+    "CustomFormatScore": "Điểm định dạng tùy chỉnh",
+    "UnableToLoadInteractiveSerach": "Không thể tải kết quả cho tìm kiếm phim này. Thử lại sau"
 }

@@ -560,5 +560,10 @@
     "ManualImportSelectEdition": "मैनुअल आयात - मूवी का चयन करें",
     "ImportListExclusions": "आयात सूची बहिष्करण हटाएं",
     "HardlinkCopyFiles": "हार्डलिंक / कॉपी फाइलें",
-    "MoveFiles": "फ़ाइलें ले जाएँ"
+    "MoveFiles": "फ़ाइलें ले जाएँ",
+    "Custom": "रिवाज",
+    "CustomFilters": "कस्टम फ़िल्टर",
+    "CustomFormatScore": "कस्टम प्रारूप स्कोर",
+    "MinimumCustomFormatScore": "न्यूनतम कस्टम प्रारूप स्कोर",
+    "UnableToLoadInteractiveSerach": "इस मूवी खोज के लिए परिणाम लोड करने में असमर्थ। बाद में पुन: प्रयास करें"
 }

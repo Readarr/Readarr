@@ -23,7 +23,7 @@
     "BackupRetentionHelpText": "גיבויים אוטומטיים ישנים יותר מתקופת השמירה ינוקו אוטומטית",
     "Backups": "גיבויים",
     "BindAddress": "כתובת איגוד",
-    "BindAddressHelpText": "כתובת IP4 תקפה או '*' לכל הממשקים",
+    "BindAddressHelpText": "יש להזין localhost, כתובת IP או '*' כדי לאפשר הכל",
     "BindAddressHelpTextWarning": "נדרש הפעלה מחדש כדי להיכנס לתוקף",
     "BookIsDownloading": "הסרט מוריד",
     "BookIsDownloadingInterp": "הסרט מוריד - {0}% {1}",
@@ -576,5 +576,12 @@
     "HardlinkCopyFiles": "קישור קשיח / העתק קבצים",
     "MoveFiles": "העבר קבצים",
     "OnApplicationUpdate": "כשהאפליקציה מעדכנת גרסא",
-    "OnApplicationUpdateHelpText": "כשהאפליקציה מעדכנת גרסא"
+    "OnApplicationUpdateHelpText": "כשהאפליקציה מעדכנת גרסא",
+    "CustomFormatScore": "ציון פורמט מותאם אישית",
+    "DeleteBookFileMessageText": "האם למחוק את {0}?",
+    "BypassIfHighestQuality": "עקוף במידה והאיכות גבוהה יותר",
+    "Custom": "המותאם אישית",
+    "CustomFilters": "מסננים מותאמים אישית",
+    "MinimumCustomFormatScore": "ציון פורמט מותאם אישית מינימלי",
+    "UnableToLoadInteractiveSerach": "לא ניתן לטעון תוצאות לחיפוש הסרט הזה. נסה שוב מאוחר יותר"
 }
