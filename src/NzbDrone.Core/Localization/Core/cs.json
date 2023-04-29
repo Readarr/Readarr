@@ -559,5 +559,22 @@
     "HardlinkCopyFiles": "Pevný odkaz / kopírování souborů",
     "MoveFiles": "Přesouvat soubory",
     "CustomFormatScore": "Skóre vlastního formátu",
-    "MinimumCustomFormatScore": "Minimální skóre vlastního formátu"
+    "MinimumCustomFormatScore": "Minimální skóre vlastního formátu",
+    "CloneCustomFormat": "Klonovat vlastní formát",
+    "Conditions": "Podmínky",
+    "CopyToClipboard": "Zkopírovat do schránky",
+    "CustomFormat": "Vlastní formát",
+    "DeleteCustomFormat": "Odstranit vlastní formát",
+    "DeleteCustomFormatMessageText": "Opravdu chcete odstranit indexer „{0}“?",
+    "ExportCustomFormat": "Exportovat vlastní formát",
+    "Formats": "Formáty",
+    "IncludeCustomFormatWhenRenamingHelpText": "Zahrnout do {Custom Formats} formátu přejmenování",
+    "MinFormatScoreHelpText": "Minimální skóre vlastního formátu povoleno ke stažení",
+    "NegateHelpText": "Pokud je zaškrtnuto, vlastní formát se nepoužije, pokud se tato podmínka {0} shoduje.",
+    "UnableToLoadCustomFormats": "Nelze načíst vlastní formáty",
+    "UpgradesAllowed": "Upgrady povoleny",
+    "CustomFormatSettings": "Nastavení vlastních formátů",
+    "CustomFormats": "Vlastní formáty",
+    "CutoffFormatScoreHelpText": "Jakmile je dosaženo tohoto skóre vlastního formátu, Radarr již nebude stahovat filmy",
+    "DeleteFormatMessageText": "Opravdu chcete smazat značku formátu {0}?"
 }

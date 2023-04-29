@@ -559,5 +559,22 @@
     "HardlinkCopyFiles": "Hardlink / afrita skrár",
     "MoveFiles": "Færa skrár",
     "CustomFormatScore": "Sérsniðið snið",
-    "MinimumCustomFormatScore": "Lágmarkseinkunn fyrir sérsniðið snið"
+    "MinimumCustomFormatScore": "Lágmarkseinkunn fyrir sérsniðið snið",
+    "CloneCustomFormat": "Klón sérsniðið snið",
+    "Conditions": "Aðstæður",
+    "CopyToClipboard": "Afritaðu á klemmuspjald",
+    "DeleteCustomFormat": "Eyða sérsniðnu sniði",
+    "DeleteCustomFormatMessageText": "Ertu viss um að þú viljir eyða vísitölunni '{0}'?",
+    "DeleteFormatMessageText": "Ertu viss um að þú viljir eyða sniðmerkinu {0}?",
+    "ExportCustomFormat": "Flytja út sérsniðið snið",
+    "Formats": "Snið",
+    "IncludeCustomFormatWhenRenamingHelpText": "Taktu til með {sérsniðnu sniði} endurnefnissniðinu",
+    "MinFormatScoreHelpText": "Lágmarkseinkunn fyrir sérsniðið snið leyfilegt að hlaða niður",
+    "NegateHelpText": "Ef þetta er hakað við mun sérsniðna sniðið ekki eiga við ef þetta {0} skilyrði samsvarar.",
+    "UnableToLoadCustomFormats": "Ekki er hægt að hlaða sérsniðin snið",
+    "UpgradesAllowed": "Uppfærsla leyfð",
+    "CustomFormat": "Sérsniðið snið",
+    "CustomFormatSettings": "Stillingar sérsniðinna sniða",
+    "CustomFormats": "Sérsniðin snið",
+    "CutoffFormatScoreHelpText": "Þegar þessu sérsniðna sniði hefur verið náð mun Radarr ekki lengur hlaða niður kvikmyndum"
 }

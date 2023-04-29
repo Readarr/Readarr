@@ -559,5 +559,22 @@
     "MoveFiles": "ファイルの移動",
     "HardlinkCopyFiles": "ファイルのハードリンク/コピー",
     "MinimumCustomFormatScore": "最小カスタムフォーマットスコア",
-    "CustomFormatScore": "カスタムフォーマットスコア"
+    "CustomFormatScore": "カスタムフォーマットスコア",
+    "CloneCustomFormat": "カスタムフォーマットのクローン",
+    "Conditions": "条件",
+    "CopyToClipboard": "クリップボードにコピー",
+    "CutoffFormatScoreHelpText": "このカスタムフォーマットのスコアに達すると、Radarrは映画をダウンロードしなくなります",
+    "ExportCustomFormat": "カスタムフォーマットのエクスポート",
+    "Formats": "フォーマット",
+    "MinFormatScoreHelpText": "ダウンロードできる最小カスタムフォーマットスコア",
+    "NegateHelpText": "オンにすると、この{0}条件が一致する場合、カスタム形式は適用されません。",
+    "CustomFormat": "カスタムフォーマット",
+    "CustomFormatSettings": "カスタムフォーマット設定",
+    "CustomFormats": "カスタムフォーマット",
+    "DeleteCustomFormat": "カスタムフォーマットを削除する",
+    "DeleteCustomFormatMessageText": "インデクサー「{0}」を削除してもよろしいですか？",
+    "DeleteFormatMessageText": "フォーマットタグ{0}を削除してもよろしいですか？",
+    "IncludeCustomFormatWhenRenamingHelpText": "{カスタムフォーマット}の名前変更フォーマットに含める",
+    "UnableToLoadCustomFormats": "カスタムフォーマットを読み込めません",
+    "UpgradesAllowed": "許可されるアップグレード"
 }

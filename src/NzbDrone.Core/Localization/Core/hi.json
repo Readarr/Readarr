@@ -559,5 +559,22 @@
     "HardlinkCopyFiles": "हार्डलिंक / कॉपी फाइलें",
     "MoveFiles": "फ़ाइलें ले जाएँ",
     "CustomFormatScore": "कस्टम प्रारूप स्कोर",
-    "MinimumCustomFormatScore": "न्यूनतम कस्टम प्रारूप स्कोर"
+    "MinimumCustomFormatScore": "न्यूनतम कस्टम प्रारूप स्कोर",
+    "DeleteCustomFormatMessageText": "क्या आप वाकई '{0}' इंडेक्स को हटाना चाहते हैं?",
+    "DeleteFormatMessageText": "क्या आप वाकई {0} प्रारूप टैग को हटाना चाहते हैं?",
+    "ExportCustomFormat": "निर्यात कस्टम प्रारूप",
+    "Formats": "प्रारूप",
+    "IncludeCustomFormatWhenRenamingHelpText": "{कस्टम प्रारूप} नामकरण प्रारूप में शामिल करें",
+    "UnableToLoadCustomFormats": "कस्टम प्रारूप लोड करने में असमर्थ",
+    "UpgradesAllowed": "अपग्रेड की अनुमति है",
+    "CloneCustomFormat": "क्लोन कस्टम प्रारूप",
+    "Conditions": "शर्तेँ",
+    "CopyToClipboard": "क्लिपबोर्ड पर कॉपी करें",
+    "CustomFormat": "कस्टम प्रारूप",
+    "CustomFormatSettings": "कस्टम प्रारूप सेटिंग्स",
+    "CustomFormats": "कस्टम प्रारूप",
+    "CutoffFormatScoreHelpText": "एक बार जब यह कस्टम प्रारूप स्कोर रेडर तक पहुँच जाता है तो फिल्में डाउनलोड नहीं करेगा",
+    "DeleteCustomFormat": "कस्टम प्रारूप हटाएं",
+    "MinFormatScoreHelpText": "न्यूनतम कस्टम प्रारूप स्कोर डाउनलोड करने की अनुमति दी",
+    "NegateHelpText": "यदि जाँच की जाती है, तो कस्टम प्रारूप लागू नहीं होगा यदि यह {0} स्थिति से मेल खाता है।"
 }

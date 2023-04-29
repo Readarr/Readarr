@@ -592,5 +592,22 @@
     "OnApplicationUpdateHelpText": "Przy aktualizacji aplikacji",
     "BypassIfHighestQuality": "Pomiń, jeśli najwyższa jakość",
     "CustomFormatScore": "Wynik w formacie niestandardowym",
-    "MinimumCustomFormatScore": "Minimalny wynik w formacie niestandardowym"
+    "MinimumCustomFormatScore": "Minimalny wynik w formacie niestandardowym",
+    "CloneCustomFormat": "Klonuj format niestandardowy",
+    "CopyToClipboard": "Skopiuj do schowka",
+    "CustomFormat": "Format niestandardowy",
+    "ExportCustomFormat": "Eksportuj format niestandardowy",
+    "Formats": "Formaty",
+    "IncludeCustomFormatWhenRenamingHelpText": "Uwzględnij w formacie zmiany nazwy {Custom Formats}",
+    "NegateHelpText": "Jeśli zaznaczone, format niestandardowy nie będzie stosowany, jeśli ten {0} warunek będzie zgodny.",
+    "UpgradesAllowed": "Uaktualnienia dozwolone",
+    "Conditions": "Warunki",
+    "CustomFormatSettings": "Ustawienia niestandardowych formatów",
+    "CustomFormats": "Formaty niestandardowe",
+    "CutoffFormatScoreHelpText": "Po osiągnięciu tego wyniku w niestandardowym formacie Radarr nie będzie już pobierał filmów",
+    "DeleteCustomFormat": "Usuń format niestandardowy",
+    "DeleteCustomFormatMessageText": "Czy na pewno chcesz usunąć indeksator „{0}”?",
+    "DeleteFormatMessageText": "Czy na pewno chcesz usunąć tag formatu {0}?",
+    "MinFormatScoreHelpText": "Minimalny wynik w formacie niestandardowym, który można pobrać",
+    "UnableToLoadCustomFormats": "Nie można załadować formatów niestandardowych"
 }

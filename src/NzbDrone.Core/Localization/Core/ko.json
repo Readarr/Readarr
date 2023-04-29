@@ -559,5 +559,22 @@
     "HardlinkCopyFiles": "하드 링크 / 복사 파일",
     "MoveFiles": "파일 이동",
     "CustomFormatScore": "사용자 지정 형식 점수",
-    "MinimumCustomFormatScore": "최소 사용자 지정 형식 점수"
+    "MinimumCustomFormatScore": "최소 사용자 지정 형식 점수",
+    "CloneCustomFormat": "사용자 지정 형식 복제",
+    "CopyToClipboard": "클립 보드에 복사",
+    "CustomFormat": "사용자 정의 형식",
+    "CustomFormatSettings": "사용자 정의 형식 설정",
+    "CustomFormats": "사용자 정의 형식",
+    "DeleteCustomFormat": "사용자 지정 형식 삭제",
+    "DeleteCustomFormatMessageText": "인덱서 '{0}'을 (를) 삭제 하시겠습니까?",
+    "DeleteFormatMessageText": "형식 태그 {0}을(를) 삭제하시겠습니까?",
+    "ExportCustomFormat": "사용자 지정 형식 내보내기",
+    "IncludeCustomFormatWhenRenamingHelpText": "{Custom Formats} 이름 변경 형식에 포함",
+    "MinFormatScoreHelpText": "다운 불러올 수있는 최소 사용자 지정 형식 점수",
+    "NegateHelpText": "선택하면이 {0} 조건이 일치하면 맞춤 형식이 적용되지 않습니다.",
+    "UnableToLoadCustomFormats": "사용자 정의 형식을 불러올 수 없습니다.",
+    "Conditions": "조건",
+    "CutoffFormatScoreHelpText": "이 사용자 지정 형식 점수에 도달하면 Radarr는 더 이상 영화를 다운로드 하지 않습니다.",
+    "Formats": "형식",
+    "UpgradesAllowed": "허용되는 업그레이드"
 }

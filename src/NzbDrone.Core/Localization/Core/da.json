@@ -562,5 +562,22 @@
     "Label": "Etiket",
     "HardlinkCopyFiles": "Hardlink/Kopir Filer",
     "CustomFormatScore": "Bruger Tilpasset Format score",
-    "MinimumCustomFormatScore": "Minimum tilpasset format score"
+    "MinimumCustomFormatScore": "Minimum tilpasset format score",
+    "CloneCustomFormat": "Klon brugerdefineret format",
+    "Conditions": "Betingelser",
+    "CopyToClipboard": "Kopier til udklipsholder",
+    "CustomFormat": "Bruger Tilpasset Formater",
+    "DeleteCustomFormat": "Slet brugerdefineret format",
+    "DeleteFormatMessageText": "Er du sikker på, at du vil slette formattag {0}?",
+    "ExportCustomFormat": "Eksporter brugerdefineret format",
+    "Formats": "Formater",
+    "IncludeCustomFormatWhenRenamingHelpText": "Inkluder i {Custom Formats} omdøbningsformat",
+    "MinFormatScoreHelpText": "Minimum tilpasset format score tilladt at downloade",
+    "NegateHelpText": "Hvis dette er markeret, gælder det tilpassede format ikke, hvis denne {0} betingelse stemmer overens.",
+    "UnableToLoadCustomFormats": "Kan ikke indlæse brugerdefinerede formater",
+    "UpgradesAllowed": "Opgraderinger tilladt",
+    "CustomFormatSettings": "Indstillinger for brugerdefinerede formater",
+    "CustomFormats": "Bruger Tilpasset Formater",
+    "CutoffFormatScoreHelpText": "Når denne score til brugerdefineret format er nået, downloader Radarr ikke længere film",
+    "DeleteCustomFormatMessageText": "Er du sikker på, at du vil slette indeksøren '{0}'?"
 }

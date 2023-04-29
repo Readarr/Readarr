@@ -559,5 +559,22 @@
     "HardlinkCopyFiles": "ฮาร์ดลิงค์ / คัดลอกไฟล์",
     "MoveFiles": "ย้ายไฟล์",
     "MinimumCustomFormatScore": "คะแนนรูปแบบที่กำหนดเองขั้นต่ำ",
-    "CustomFormatScore": "คะแนนรูปแบบที่กำหนดเอง"
+    "CustomFormatScore": "คะแนนรูปแบบที่กำหนดเอง",
+    "Conditions": "เงื่อนไข",
+    "CopyToClipboard": "คัดลอกไปที่คลิปบอร์ด",
+    "ExportCustomFormat": "ส่งออกรูปแบบที่กำหนดเอง",
+    "Formats": "รูปแบบ",
+    "IncludeCustomFormatWhenRenamingHelpText": "รวมในรูปแบบการเปลี่ยนชื่อ {Custom Formats}",
+    "MinFormatScoreHelpText": "คะแนนรูปแบบกำหนดเองขั้นต่ำที่อนุญาตให้ดาวน์โหลด",
+    "UpgradesAllowed": "อนุญาตให้อัปเกรดได้",
+    "CloneCustomFormat": "รูปแบบที่กำหนดเองโคลน",
+    "CustomFormat": "รูปแบบที่กำหนดเอง",
+    "CustomFormatSettings": "การตั้งค่ารูปแบบที่กำหนดเอง",
+    "CustomFormats": "รูปแบบที่กำหนดเอง",
+    "CutoffFormatScoreHelpText": "เมื่อถึงคะแนนรูปแบบที่กำหนดเองนี้แล้ว Radarr จะไม่ดาวน์โหลดภาพยนตร์อีกต่อไป",
+    "DeleteCustomFormat": "ลบรูปแบบที่กำหนดเอง",
+    "DeleteCustomFormatMessageText": "แน่ใจไหมว่าต้องการลบตัวสร้างดัชนี \"{0}\"",
+    "DeleteFormatMessageText": "แน่ใจไหมว่าต้องการลบแท็กรูปแบบ {0}",
+    "NegateHelpText": "หากเลือกรูปแบบที่กำหนดเองจะใช้ไม่ได้หากเงื่อนไข {0} นี้ตรง",
+    "UnableToLoadCustomFormats": "ไม่สามารถโหลดรูปแบบที่กำหนดเอง"
 }

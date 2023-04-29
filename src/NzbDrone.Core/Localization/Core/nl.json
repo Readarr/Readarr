@@ -609,5 +609,22 @@
     "OnApplicationUpdateHelpText": "Bij applicatie update",
     "BypassIfHighestQuality": "Omzeilen indien de hoogste kwaliteit",
     "CustomFormatScore": "Eigen Formaat Score",
-    "MinimumCustomFormatScore": "Minimum Eigen Formaat Score"
+    "MinimumCustomFormatScore": "Minimum Eigen Formaat Score",
+    "Conditions": "Condities",
+    "DeleteCustomFormat": "Verwijder Eigen Formaat",
+    "DeleteCustomFormatMessageText": "Bent u zeker dat u de indexeerder '{0}' wilt verwijderen?",
+    "DeleteFormatMessageText": "Weet je zeker dat je formaat tag {0} wilt verwijderen?",
+    "ExportCustomFormat": "Exporteer Eigen Formaat",
+    "Formats": "Formaten",
+    "MinFormatScoreHelpText": "Minimum eigen formaat score toegelaten om te downloaden",
+    "NegateHelpText": "Indien aangevinkt, zal het eigen formaat niet worden toegepast indien deze {0} conditie overeenstemt.",
+    "UnableToLoadCustomFormats": "Eigen formaten kunnen niet worden geladen",
+    "UpgradesAllowed": "Upgrades toegestaan",
+    "CloneCustomFormat": "Dupliceer Eigen Formaat",
+    "CopyToClipboard": "Kopieer naar Klembord",
+    "CustomFormat": "Eigen Formaat",
+    "CustomFormatSettings": "Eigen Formaten Instellingen",
+    "CustomFormats": "Eigen Formaten",
+    "CutoffFormatScoreHelpText": "Wanneer deze eigen formaat score is behaald, zal Radarr niet langer films downloaden",
+    "IncludeCustomFormatWhenRenamingHelpText": "Voeg toe aan het {Eigen Formaten} hernoemingsformaat"
 }

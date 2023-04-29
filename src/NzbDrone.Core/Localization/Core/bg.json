@@ -559,5 +559,22 @@
     "HardlinkCopyFiles": "Твърда връзка / копиране на файлове",
     "MoveFiles": "Преместване на файлове",
     "CustomFormatScore": "Резултат от персонализиран формат",
-    "MinimumCustomFormatScore": "Минимален резултат от персонализиран формат"
+    "MinimumCustomFormatScore": "Минимален резултат от персонализиран формат",
+    "CloneCustomFormat": "Клониране на персонализиран формат",
+    "Conditions": "Условия",
+    "CopyToClipboard": "Копиране в клипборда",
+    "CustomFormat": "Персонализиран формат",
+    "CustomFormatSettings": "Настройки на персонализирани формати",
+    "CustomFormats": "Персонализирани формати",
+    "CutoffFormatScoreHelpText": "След като бъде постигнат резултатът от този персонализиран формат, Radarr вече няма да изтегля филми",
+    "DeleteCustomFormat": "Изтриване на потребителски формат",
+    "DeleteFormatMessageText": "Наистина ли искате да изтриете маркер за формат {0}?",
+    "ExportCustomFormat": "Експортиране на потребителски формат",
+    "Formats": "Формати",
+    "IncludeCustomFormatWhenRenamingHelpText": "Включете във формат за преименуване на {Custom Formats}",
+    "MinFormatScoreHelpText": "Разрешено е изтегляне на минимален резултат от персонализиран формат",
+    "NegateHelpText": "Ако е отметнато, персонализираният формат няма да се прилага, ако това {0} условие съвпада.",
+    "UnableToLoadCustomFormats": "Не може да се заредят персонализирани формати",
+    "UpgradesAllowed": "Позволени надстройки",
+    "DeleteCustomFormatMessageText": "Наистина ли искате да изтриете индексатора „{0}“?"
 }
