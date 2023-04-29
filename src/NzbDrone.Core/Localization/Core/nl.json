@@ -220,7 +220,6 @@
     "Missing": "Ontbrekend",
     "Mode": "Modus",
     "Monitored": "Bewaakt",
-    "MonoVersion": "Mono Versie",
     "MoreInfo": "Meer Info",
     "MustContain": "Moet Bevatten",
     "MustNotContain": "Mag Niet Bevatten",
@@ -254,7 +253,6 @@
     "PortHelpTextWarning": "Herstarten vereist om in werking te treden",
     "PortNumber": "Poort Nummer",
     "PosterSize": "Affiche Grootte",
-    "Preferred": "Voorkeur gegeven",
     "PreviewRename": "Voorbeeldweergave Naamswijziging",
     "Profiles": "Profielen",
     "Proper": "PROPER",
@@ -330,7 +328,6 @@
     "SSLCertPath": "SSL Certificaat Pad",
     "SSLPort": "SSL Poort",
     "Scheduled": "Gepland",
-    "Score": "Score",
     "ScriptPath": "Script Pad",
     "Search": "Zoeken",
     "SearchAll": "Alles Zoeken",
@@ -611,9 +608,7 @@
     "MoveFiles": "Verplaats Bestanden",
     "OnApplicationUpdateHelpText": "Bij applicatie update",
     "BypassIfHighestQuality": "Omzeilen indien de hoogste kwaliteit",
-    "Custom": "Aangepast",
     "CustomFilters": "Aangepaste Filters",
     "CustomFormatScore": "Eigen Formaat Score",
-    "MinimumCustomFormatScore": "Minimum Eigen Formaat Score",
-    "UnableToLoadInteractiveSerach": "Kan resultaten voor deze filmzoekopdracht niet laden. Probeer het later nogmaals"
+    "MinimumCustomFormatScore": "Minimum Eigen Formaat Score"
 }

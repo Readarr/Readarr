@@ -221,7 +221,6 @@
     "Missing": "Còn thiếu",
     "Mode": "Chế độ",
     "Monitored": "Giám sát",
-    "MonoVersion": "Phiên bản Mono",
     "MoreInfo": "Thêm thông tin",
     "MustContain": "Phải chứa",
     "MustNotContain": "Không được chứa",
@@ -255,7 +254,6 @@
     "PortHelpTextWarning": "Yêu cầu khởi động lại để có hiệu lực",
     "PortNumber": "Số cổng",
     "PosterSize": "Kích thước áp phích",
-    "Preferred": "Ưu tiên",
     "PreviewRename": "Xem trước Đổi tên",
     "ProxyBypassFilterHelpText": "Sử dụng ',' làm dấu phân tách và '*.' làm ký tự đại diện cho các miền phụ",
     "ProxyType": "Loại proxy",
@@ -326,7 +324,6 @@
     "SSLCertPath": "Đường dẫn cảnh báo SSL",
     "SSLPort": "Cổng SSL",
     "Scheduled": "Lên kế hoạch",
-    "Score": "Ghi bàn",
     "ScriptPath": "Đường dẫn tập lệnh",
     "Search": "Tìm kiếm",
     "SearchAll": "Tìm kiếm tất cả",
@@ -561,9 +558,6 @@
     "ImportListExclusions": "Xóa loại trừ danh sách nhập",
     "HardlinkCopyFiles": "Hardlink / Sao chép tệp",
     "MoveFiles": "Di chuyển tệp",
-    "Custom": "Tập quán",
     "MinimumCustomFormatScore": "Điểm định dạng tùy chỉnh tối thiểu",
-    "CustomFilters": "Bộ lọc tùy chỉnh",
-    "CustomFormatScore": "Điểm định dạng tùy chỉnh",
-    "UnableToLoadInteractiveSerach": "Không thể tải kết quả cho tìm kiếm phim này. Thử lại sau"
+    "CustomFormatScore": "Điểm định dạng tùy chỉnh"
 }

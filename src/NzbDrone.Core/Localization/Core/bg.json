@@ -211,7 +211,6 @@
     "Missing": "Липсва",
     "Mode": "Режим",
     "Monitored": "Наблюдавани",
-    "MonoVersion": "Моно версия",
     "MoreInfo": "Повече информация",
     "MustContain": "Трябва да съдържа",
     "MustNotContain": "Не трябва да съдържа",
@@ -245,7 +244,6 @@
     "PortHelpTextWarning": "Изисква рестартиране, за да влезе в сила",
     "PortNumber": "Номер на пристанище",
     "PosterSize": "Размер на плаката",
-    "Preferred": "Предпочитан",
     "PreviewRename": "Визуализация Преименуване",
     "Profiles": "Профили",
     "Proper": "Правилно",
@@ -322,7 +320,6 @@
     "SSLCertPath": "SSL Cert Path",
     "SSLPort": "SSL порт",
     "Scheduled": "Планиран",
-    "Score": "Резултат",
     "ScriptPath": "Път на скрипта",
     "Search": "Търсене",
     "SearchAll": "Търсене във всички",
@@ -562,8 +559,6 @@
     "HardlinkCopyFiles": "Твърда връзка / копиране на файлове",
     "MoveFiles": "Преместване на файлове",
     "CustomFormatScore": "Резултат от персонализиран формат",
-    "Custom": "Персонализиран",
     "CustomFilters": "Персонализирани филтри",
-    "MinimumCustomFormatScore": "Минимален резултат от персонализиран формат",
-    "UnableToLoadInteractiveSerach": "Не могат да се заредят резултати за това търсене на филм. Опитайте отново по-късно"
+    "MinimumCustomFormatScore": "Минимален резултат от персонализиран формат"
 }

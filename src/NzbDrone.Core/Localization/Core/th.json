@@ -218,7 +218,6 @@
     "Missing": "หายไป",
     "Mode": "โหมด",
     "Monitored": "ตรวจสอบ",
-    "MonoVersion": "เวอร์ชันโมโน",
     "MoreInfo": "ข้อมูลเพิ่มเติม",
     "MustContain": "ต้องมี",
     "MustNotContain": "ต้องไม่มี",
@@ -250,7 +249,6 @@
     "PortHelpTextWarning": "ต้องรีสตาร์ทเพื่อให้มีผล",
     "PortNumber": "หมายเลขพอร์ต",
     "PosterSize": "ขนาดโปสเตอร์",
-    "Preferred": "ที่ต้องการ",
     "PreviewRename": "ดูตัวอย่างการเปลี่ยนชื่อ",
     "Profiles": "โปรไฟล์",
     "Proper": "เหมาะสม",
@@ -327,7 +325,6 @@
     "SSLCertPath": "เส้นทางใบรับรอง SSL",
     "SSLPort": "พอร์ต SSL",
     "Scheduled": "กำหนดเวลา",
-    "Score": "คะแนน",
     "ScriptPath": "เส้นทางสคริปต์",
     "Search": "ค้นหา",
     "SearchAll": "ค้นหาทั้งหมด",
@@ -561,9 +558,7 @@
     "ImportListExclusions": "ลบการยกเว้นรายการนำเข้า",
     "HardlinkCopyFiles": "ฮาร์ดลิงค์ / คัดลอกไฟล์",
     "MoveFiles": "ย้ายไฟล์",
-    "Custom": "กำหนดเอง",
     "CustomFilters": "ตัวกรองที่กำหนดเอง",
     "MinimumCustomFormatScore": "คะแนนรูปแบบที่กำหนดเองขั้นต่ำ",
-    "UnableToLoadInteractiveSerach": "ไม่สามารถโหลดผลการค้นหาภาพยนตร์นี้ โปรดลองอีกครั้งในภายหลัง",
     "CustomFormatScore": "คะแนนรูปแบบที่กำหนดเอง"
 }

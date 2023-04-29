@@ -120,7 +120,6 @@
     "SearchAll": "بحث عن",
     "Search": "بحث",
     "ScriptPath": "مسار البرنامج النصي",
-    "Score": "أحرز هدفا",
     "Scheduled": "المقرر",
     "SSLPort": "منفذ SSL",
     "SSLCertPath": "مسار شهادة SSL",
@@ -197,7 +196,6 @@
     "Proper": "لائق",
     "Profiles": "مظهر",
     "PreviewRename": "معاينة إعادة تسمية",
-    "Preferred": "يفضل",
     "PosterSize": "حجم الملصق",
     "GrabReleaseMessageText": "لم يتمكن Radarr من تحديد الفيلم الذي كان هذا الإصدار من أجله. قد يتعذر على Radarr استيراد هذا الإصدار تلقائيًا. هل تريد انتزاع \"{0}\"؟",
     "GrabRelease": "انتزاع الإصدار",
@@ -379,7 +377,6 @@
     "MustNotContain": "يجب ألا يحتوي",
     "MustContain": "يجب أن يحتوي على",
     "MoreInfo": "مزيد من المعلومات",
-    "MonoVersion": "نسخة أحادية",
     "Monitored": "مراقب",
     "Mode": "الوضع",
     "Missing": "مفقود",
@@ -562,9 +559,7 @@
     "ImportListExclusions": "حذف استبعاد قائمة الاستيراد",
     "HardlinkCopyFiles": "Hardlink / نسخ الملفات",
     "MoveFiles": "نقل الملفات",
-    "CustomFilters": "مرشحات مخصصة",
     "CustomFormatScore": "درجة التنسيق المخصص",
     "MinimumCustomFormatScore": "الحد الأدنى من نقاط التنسيق المخصص",
-    "Custom": "مخصص",
     "UnableToLoadInteractiveSerach": "تعذر تحميل نتائج بحث هذا الفيلم. حاول مرة أخرى في وقت لاحق"
 }

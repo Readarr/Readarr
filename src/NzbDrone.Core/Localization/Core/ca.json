@@ -12,7 +12,6 @@
     "New": "Nou",
     "Queued": "En cua",
     "RestartRequiredHelpTextWarning": "Cal reiniciar perquè tingui efecte",
-    "Score": "Puntuació",
     "SearchForMissing": "Cerca absents",
     "Scheduled": "Programat",
     "SearchSelected": "Cerca seleccionada",
@@ -48,7 +47,6 @@
     "MoreInfo": "Més informació",
     "NoLimitForAnyRuntime": "Sense límit de temps d'execució",
     "PosterSize": "Mida del pòster",
-    "Preferred": "Preferit",
     "Quality": "Qualitat",
     "RefreshAndScan": "Actualitza i escaneja",
     "RemotePathMappingCheckFilesBadDockerPath": "Esteu utilitzant docker; el client de baixada{0} ha informat de fitxers a {1}, però el camí {2} no és vàlid. Reviseu els mapes de camins remots i la configuració del client de baixada.",
@@ -492,7 +490,6 @@
     "StatusEndedEnded": "S'ha acabat",
     "SuccessMyWorkIsDoneNoFilesToRename": "Èxit! La feina està acabada, no hi ha fitxers per canviar el nom.",
     "SuccessMyWorkIsDoneNoFilesToRetag": "Èxit! La feina està acabada, no hi ha fitxers per canviar el nom.",
-    "Term": "Terme",
     "TimeLeft": "Temps restant",
     "UnableToLoadImportListExclusions": "No es poden carregar les exclusions de la llista",
     "UsingExternalUpdateMechanismBranchToUseToUpdateReadarr": "Branca que s'utilitza per actualitzar Radarr",
@@ -598,9 +595,7 @@
     "OnApplicationUpdateHelpText": "A l'actualitzar de l'aplicació",
     "LoadingBooksFailed": "No s'han pogut carregar els fitxers de pel·lícules",
     "BypassIfHighestQuality": "Bypass si és de màxima qualitat",
-    "Custom": "personalitzat",
     "CustomFilters": "Filtres personalitzats",
     "MinimumCustomFormatScore": "Puntuació mínima de format personalitzat",
-    "UnableToLoadInteractiveSerach": "No es poden carregar els resultats d'aquesta cerca de pel·lícules. Torna-ho a provar més tard",
     "CustomFormatScore": "Puntuació de format personalitzat"
 }

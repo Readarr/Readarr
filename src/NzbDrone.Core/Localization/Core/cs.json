@@ -217,7 +217,6 @@
     "Missing": "Chybějící",
     "Mode": "Režim",
     "Monitored": "Monitorováno",
-    "MonoVersion": "Mono verze",
     "MoreInfo": "Více informací",
     "MustContain": "Musí obsahovat",
     "MustNotContain": "Nesmí obsahovat",
@@ -250,7 +249,6 @@
     "PortHelpTextWarning": "Vyžaduje restart, aby se projevilo",
     "PortNumber": "Číslo portu",
     "PosterSize": "Velikost plakátu",
-    "Preferred": "Upřednostňováno",
     "PreviewRename": "Náhled Přejmenovat",
     "Profiles": "Profily",
     "Proper": "Správně",
@@ -327,7 +325,6 @@
     "SSLCertPath": "Cesta certifikátu SSL",
     "SSLPort": "Port SSL",
     "Scheduled": "Naplánováno",
-    "Score": "Skóre",
     "ScriptPath": "Cesta skriptu",
     "Search": "Vyhledávání",
     "SearchAll": "Hledat vše",
@@ -561,9 +558,7 @@
     "ImportListExclusions": "Odstranit vyloučení seznamu importů",
     "HardlinkCopyFiles": "Pevný odkaz / kopírování souborů",
     "MoveFiles": "Přesouvat soubory",
-    "Custom": "Zvyk",
     "CustomFilters": "Vlastní filtry",
     "CustomFormatScore": "Skóre vlastního formátu",
-    "MinimumCustomFormatScore": "Minimální skóre vlastního formátu",
-    "UnableToLoadInteractiveSerach": "Nelze načíst výsledky pro toto hledání filmu. Zkuste to později"
+    "MinimumCustomFormatScore": "Minimální skóre vlastního formátu"
 }

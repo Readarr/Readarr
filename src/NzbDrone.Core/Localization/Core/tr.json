@@ -218,7 +218,6 @@
     "Missing": "Eksik",
     "Mode": "Mod",
     "Monitored": "İzlendi",
-    "MonoVersion": "Mono Versiyon",
     "MoreInfo": "Daha fazla bilgi",
     "MustContain": "İçermek zorundadır",
     "MustNotContain": "İçermemelidir",
@@ -250,7 +249,6 @@
     "PortHelpTextWarning": "Etkili olması için yeniden başlatma gerektirir",
     "PortNumber": "Port numarası",
     "PosterSize": "Poster Boyutu",
-    "Preferred": "Tercihli",
     "PreviewRename": "Ad değiştirmeyi ön izle",
     "Profiles": "Profiller",
     "Proper": "Uygun",
@@ -327,7 +325,6 @@
     "SSLCertPath": "SSL Sertifika Yolu",
     "SSLPort": "SSL Bağlantı Noktası",
     "Scheduled": "Tarifeli",
-    "Score": "Puan",
     "ScriptPath": "Komut Dosyası Yolu",
     "Search": "Ara",
     "SearchAll": "Tümünü ara",
@@ -562,9 +559,7 @@
     "ManualImportSelectEdition": "Manuel İçe Aktarma - Film Seçin",
     "HardlinkCopyFiles": "Hardlink / Dosyaları Kopyala",
     "MoveFiles": "Dosyaları Taşı",
-    "Custom": "Özel",
     "MinimumCustomFormatScore": "Minimum Özel Biçim Puanı",
-    "UnableToLoadInteractiveSerach": "Bu film araması için sonuçlar yüklenemiyor. Daha sonra tekrar deneyin",
     "CustomFilters": "Özel Filtreler",
     "CustomFormatScore": "Özel Biçim Puanı"
 }
