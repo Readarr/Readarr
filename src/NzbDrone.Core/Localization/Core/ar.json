@@ -560,5 +560,22 @@
     "HardlinkCopyFiles": "Hardlink / نسخ الملفات",
     "MoveFiles": "نقل الملفات",
     "CustomFormatScore": "درجة التنسيق المخصص",
-    "MinimumCustomFormatScore": "الحد الأدنى من نقاط التنسيق المخصص"
+    "MinimumCustomFormatScore": "الحد الأدنى من نقاط التنسيق المخصص",
+    "CloneCustomFormat": "استنساخ تنسيق مخصص",
+    "Conditions": "الظروف",
+    "CopyToClipboard": "نسخ إلى الحافظة",
+    "CustomFormatSettings": "إعدادات التنسيقات المخصصة",
+    "CustomFormat": "تنسيق مخصص",
+    "CustomFormats": "تنسيقات مخصصة",
+    "CutoffFormatScoreHelpText": "بمجرد الوصول إلى درجة التنسيق المخصص هذه ، لن يقوم Radarr بتنزيل الأفلام",
+    "DeleteCustomFormat": "حذف التنسيق المخصص",
+    "DeleteCustomFormatMessageText": "هل أنت متأكد أنك تريد حذف المفهرس \"{0}\"؟",
+    "DeleteFormatMessageText": "هل تريد بالتأكيد حذف علامة التنسيق {0}؟",
+    "ExportCustomFormat": "تصدير تنسيق مخصص",
+    "Formats": "التنسيقات",
+    "IncludeCustomFormatWhenRenamingHelpText": "تضمين في تنسيق إعادة تسمية {تنسيقات مخصصة}",
+    "MinFormatScoreHelpText": "الحد الأدنى لدرجة التنسيق المخصص المسموح به للتنزيل",
+    "NegateHelpText": "إذا تم تحديده ، فلن يتم تطبيق التنسيق المخصص إذا تطابق شرط {0} هذا.",
+    "UnableToLoadCustomFormats": "تعذر تحميل التنسيقات المخصصة",
+    "UpgradesAllowed": "الترقيات المسموح بها"
 }
