@@ -148,3 +148,6 @@ _temp_*/**/*
 ## Merge any idea folder
 */**/.idea
 *.iml
+
+# API doc generation
+.config/
