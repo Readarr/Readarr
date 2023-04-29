@@ -958,13 +958,8 @@ stages:
       
     - job: Api_Docs
       displayName: API Docs
-      dependsOn: Prepare
       condition: |
-        and
-        (
-          and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/develop')),
-          and(succeeded(), eq(dependencies.Prepare.outputs['setVar.backendNotUpdated'], '0'))
-        )
+        and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/develop'))
 
       pool:
         vmImage: ${{ variables.windowsImage }}
