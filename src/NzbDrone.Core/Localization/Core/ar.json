@@ -560,6 +560,5 @@
     "HardlinkCopyFiles": "Hardlink / نسخ الملفات",
     "MoveFiles": "نقل الملفات",
     "CustomFormatScore": "درجة التنسيق المخصص",
-    "MinimumCustomFormatScore": "الحد الأدنى من نقاط التنسيق المخصص",
-    "UnableToLoadInteractiveSerach": "تعذر تحميل نتائج بحث هذا الفيلم. حاول مرة أخرى في وقت لاحق"
+    "MinimumCustomFormatScore": "الحد الأدنى من نقاط التنسيق المخصص"
 }

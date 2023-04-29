@@ -595,7 +595,6 @@
     "OnApplicationUpdateHelpText": "A l'actualitzar de l'aplicació",
     "LoadingBooksFailed": "No s'han pogut carregar els fitxers de pel·lícules",
     "BypassIfHighestQuality": "Bypass si és de màxima qualitat",
-    "CustomFilters": "Filtres personalitzats",
     "MinimumCustomFormatScore": "Puntuació mínima de format personalitzat",
     "CustomFormatScore": "Puntuació de format personalitzat"
 }

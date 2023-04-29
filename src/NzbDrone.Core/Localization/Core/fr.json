@@ -686,7 +686,6 @@
     "BypassIfAboveCustomFormatScoreHelpText": "Activez le contournement lorsque la version a un score supérieur au score minimum configuré pour le format personnalisé",
     "CustomFormatScore": "Score du format personnalisé",
     "MinimumCustomFormatScore": "Score de format personnalisé minimum",
-    "Custom": "Personnalisé",
     "Theme": "Thème",
     "ThemeHelpText": "Changez le thème de l'interface de l'application. Le thème \"Auto\" utilisera celui de votre système d'exploitation pour définir le mode clair ou foncé. Inspiré par Theme.Park",
     "EnableRssHelpText": "Sera utilisé lorsque Radarr recherche périodiquement des sorties via la synchronisation RSS"

@@ -503,7 +503,6 @@
     "QualityProfileIdHelpText": "Adicionar itens na lista Perfil de qualidade com",
     "Publisher": "Editora",
     "PreviewRetag": "Visualizar adição de nova tag",
-    "PreferredHelpTexts2": "Uma pontuação positiva terá maior preferência",
     "PortHelpText": "Porta do servidor de conteúdo do Calibre",
     "PathHelpTextWarning": "Isto deve ser diferente do diretório em que o cliente de download coloca os arquivos",
     "PathHelpText": "Pasta raiz que contém sua biblioteca de livros",
@@ -560,7 +559,6 @@
     "IsExpandedHideFileInfo": "Ocultar informações do arquivo",
     "IsExpandedHideBooks": "Ocultar livros",
     "IsCalibreLibraryHelpText": "Usar o Servidor de Conteúdo do Calibre para gerenciar a biblioteca",
-    "IndexerIdvalue0IncludeInPreferredWordsRenamingFormat": "Incluir no formato de renomeação {Palavras preferidas}",
     "IndexerIdHelpText": "Especificar a qual indexador o perfil se aplica",
     "ImportLists": "Listas de importação",
     "ImportListSettings": "Configurações Gerais da Lista de Importação",
@@ -884,7 +882,6 @@
     "BypassIfAboveCustomFormatScoreHelpText": "Ativar ignorar quando a versão tiver uma pontuação maior que a pontuação mínima configurada do formato personalizado",
     "BypassIfHighestQuality": "Ignorar se a qualidade mais alta",
     "BypassIfHighestQualityHelpText": "Ignorar o atraso quando o lançamento tiver a qualidade habilitada mais alta no perfil de qualidade",
-    "CustomFilters": "Filtros Personalizados",
     "CustomFormatScore": "Pontuação de formato personalizado",
     "MinimumCustomFormatScore": "Pontuação mínima de formato personalizado",
     "MinimumCustomFormatScoreHelpText": "Pontuação mínima de formato personalizado necessária para ignorar o atraso do protocolo preferido"

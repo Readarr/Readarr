@@ -558,7 +558,6 @@
     "ManualImportSelectEdition": "수동 가져오기 - 동영상 선택",
     "HardlinkCopyFiles": "하드 링크 / 복사 파일",
     "MoveFiles": "파일 이동",
-    "CustomFilters": "사용자 지정 필터",
     "CustomFormatScore": "사용자 지정 형식 점수",
     "MinimumCustomFormatScore": "최소 사용자 지정 형식 점수"
 }

@@ -591,7 +591,6 @@
     "HardlinkCopyFiles": "Hardlink / Kopiuj pliki",
     "OnApplicationUpdateHelpText": "Przy aktualizacji aplikacji",
     "BypassIfHighestQuality": "Pomiń, jeśli najwyższa jakość",
-    "CustomFilters": "Filtry niestandardowe",
     "CustomFormatScore": "Wynik w formacie niestandardowym",
     "MinimumCustomFormatScore": "Minimalny wynik w formacie niestandardowym"
 }

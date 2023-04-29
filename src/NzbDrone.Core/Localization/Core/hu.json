@@ -533,7 +533,6 @@
     "ImportListSettings": "Általános importálási lista beállításai",
     "ImportLists": "Listák importálása",
     "IndexerIdHelpText": "Adja meg, hogy a profil milyen indexelőre vonatkozik",
-    "IndexerIdvalue0OnlySupportedWhenIndexerIsSetToAll": "Csak akkor támogatott, ha az Indexer beállítása (Összes)",
     "IsCalibreLibraryHelpText": "A könyvtár manipulálásához használja a Calibre Tartalomszervert",
     "IsExpandedHideBooks": "Könyvek elrejtése",
     "IsExpandedHideFileInfo": "A fájl adatainak elrejtése",
@@ -642,7 +641,6 @@
     "QualityProfileIdHelpText": "A Minőségi profil listaelemeket hozzá kell adni a következővel",
     "Publisher": "Kiadó",
     "PreviewRetag": "Előnézet újrataggelése",
-    "PreferredHelpTexts2": "A pozitív pontszám lesz az előnyösebb",
     "PortHelpText": "Calibre tartalomszerver portja",
     "PathHelpTextWarning": "Ennek különböznie kell attól a könyvtártól, ahová a letöltési kliens fájlokat tesz",
     "PathHelpText": "A könyvtáradat tartalmazó gyökérmappa",
@@ -882,6 +880,5 @@
     "EnableRssHelpText": "Akkor használatos, amikor a Radarr rendszeresen keres kiadásokat az RSS Sync segítségével",
     "MinimumCustomFormatScore": "Minimum Egyéni Formátum száma",
     "BypassIfHighestQuality": "Kihagyás ha a legjobb minőség elérhető",
-    "CustomFilters": "Egyéni Szűrők",
     "CustomFormatScore": "Egyéni formátum pontszám"
 }
