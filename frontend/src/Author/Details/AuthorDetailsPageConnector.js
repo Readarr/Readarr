@@ -74,7 +74,7 @@ class AuthorDetailsPageConnector extends Component {
 
     if (isFetching && !isPopulated) {
       return (
-        <PageContent title='loading'>
+        <PageContent title={translate('Loading')}>
           <PageContentBody>
             <LoadingIndicator />
           </PageContentBody>
