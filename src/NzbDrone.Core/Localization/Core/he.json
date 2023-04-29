@@ -577,5 +577,22 @@
     "CustomFormatScore": "ציון פורמט מותאם אישית",
     "DeleteBookFileMessageText": "האם למחוק את {0}?",
     "BypassIfHighestQuality": "עקוף במידה והאיכות גבוהה יותר",
-    "MinimumCustomFormatScore": "ציון פורמט מותאם אישית מינימלי"
+    "MinimumCustomFormatScore": "ציון פורמט מותאם אישית מינימלי",
+    "CloneCustomFormat": "תבנית מותאמת אישית של שיבוט",
+    "Conditions": "תנאים",
+    "CopyToClipboard": "העתק ללוח",
+    "CustomFormat": "פורמט מותאם אישית",
+    "Formats": "פורמטים",
+    "MinFormatScoreHelpText": "ציון פורמט מותאם אישית מינימלי מורשה להורדה",
+    "UnableToLoadCustomFormats": "לא ניתן לטעון פורמטים מותאמים אישית",
+    "UpgradesAllowed": "שדרוגים מותרים",
+    "CustomFormatSettings": "הגדרות תבניות מותאמות אישית",
+    "CustomFormats": "פורמטים מותאמים אישית",
+    "CutoffFormatScoreHelpText": "לאחר שהציון בפורמט מותאם אישית זה יגיע, Radarr כבר לא יוריד סרטים",
+    "DeleteCustomFormat": "מחק פורמט מותאם אישית",
+    "DeleteCustomFormatMessageText": "האם אתה בטוח שברצונך למחוק את האינדקס '{0}'?",
+    "DeleteFormatMessageText": "האם אתה בטוח שברצונך למחוק את תג הפורמט {0}?",
+    "ExportCustomFormat": "ייצא פורמט מותאם אישית",
+    "IncludeCustomFormatWhenRenamingHelpText": "כלול בתבנית שינוי שם של {פורמטים מותאמים אישית}",
+    "NegateHelpText": "אם מסומן, הפורמט המותאם אישית לא יחול אם תנאי זה {0} תואם."
 }
