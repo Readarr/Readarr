@@ -560,22 +560,5 @@
     "HardlinkCopyFiles": "Hardlink / Dosyaları Kopyala",
     "MoveFiles": "Dosyaları Taşı",
     "MinimumCustomFormatScore": "Minimum Özel Biçim Puanı",
-    "CustomFormatScore": "Özel Biçim Puanı",
-    "CloneCustomFormat": "Özel Formatı Klonla",
-    "Conditions": "Koşullar",
-    "CopyToClipboard": "Panoya kopyala",
-    "CustomFormats": "Özel Biçimler",
-    "CutoffFormatScoreHelpText": "Bu özel format puanına ulaşıldığında, Radarr artık film indirmeyecektir",
-    "DeleteCustomFormat": "Özel Formatı Sil",
-    "UnableToLoadCustomFormats": "Özel Biçimler yüklenemiyor",
-    "UpgradesAllowed": "Yükseltmelere İzin Verildi",
-    "CustomFormat": "Özel Biçimler",
-    "CustomFormatSettings": "Özel Biçim Ayarları",
-    "DeleteCustomFormatMessageText": "Dizin oluşturucuyu '{0}' silmek istediğinizden emin misiniz?",
-    "DeleteFormatMessageText": "{0} biçim etiketini silmek istediğinizden emin misiniz?",
-    "ExportCustomFormat": "Özel Formatı Dışa Aktar",
-    "Formats": "Biçimler",
-    "IncludeCustomFormatWhenRenamingHelpText": "{Özel Biçimler} yeniden adlandırma biçimine dahil et",
-    "MinFormatScoreHelpText": "İndirmeye izin verilen minimum özel biçim puanı",
-    "NegateHelpText": "İşaretlenirse, bu {0} koşulu eşleşirse özel biçim uygulanmaz."
+    "CustomFormatScore": "Özel Biçim Puanı"
 }
