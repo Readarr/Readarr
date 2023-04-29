@@ -222,7 +222,6 @@
     "Missing": "Mancante",
     "Mode": "Modo",
     "Monitored": "Monitorato",
-    "MonoVersion": "Versione Mono",
     "MoreInfo": "Maggiori Info",
     "MustContain": "Deve contenere",
     "MustNotContain": "Non deve contenere",
@@ -256,7 +255,6 @@
     "PortHelpTextWarning": "Richiede il riavvio per avere effetti",
     "PortNumber": "Numero di porta",
     "PosterSize": "Dimensione del poster",
-    "Preferred": "Preferito",
     "PreviewRename": "Anteprima Rinomina",
     "Profiles": "Profili",
     "Proper": "Proper",
@@ -332,7 +330,6 @@
     "SSLCertPath": "Percorso Certificato SSL",
     "SSLPort": "Porta SSL",
     "Scheduled": "Programmato",
-    "Score": "Punto",
     "ScriptPath": "Percorso dello script",
     "Search": "Cerca",
     "SearchAll": "Cerca Tutto",
@@ -604,7 +601,6 @@
     "Duration": "Durata",
     "AddList": "Aggiungi Lista",
     "RestartRequiredHelpTextWarning": "Richiede il riavvio per avere effetti",
-    "Term": "Termine",
     "ConsoleLogLevel": "Livello di Log della Console",
     "DeleteBookFileMessageText": "Sicuro di voler eliminare {0}?",
     "FilterAnalyticsEvents": "Filtrare gli eventi analitici",
@@ -664,9 +660,7 @@
     "OnApplicationUpdateHelpText": "All'aggiornamento dell'applicazione",
     "ThemeHelpText": "Cambia il Tema dell'interfaccia dell’applicazione, il Tema 'Auto' userà il suo Tema di Sistema per impostare la modalità Chiara o Scura. Ispirato da {0}",
     "BypassIfHighestQuality": "Aggira se è di Qualità Massima",
-    "Custom": "Personalizzato",
     "CustomFilters": "Filtri Personalizzati",
     "CustomFormatScore": "Punteggio del Formato Personalizzato",
-    "MinimumCustomFormatScore": "Punteggio formato personalizzato minimo",
-    "UnableToLoadInteractiveSerach": "Impossibile caricare i risultati per questa ricerca di film. Riprovare più tardi"
+    "MinimumCustomFormatScore": "Punteggio formato personalizzato minimo"
 }

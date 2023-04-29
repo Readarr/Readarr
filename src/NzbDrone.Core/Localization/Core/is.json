@@ -219,7 +219,6 @@
     "Missing": "Vantar",
     "Mode": "Mode",
     "Monitored": "Fylgst með",
-    "MonoVersion": "Mónóútgáfa",
     "MoreInfo": "Meiri upplýsingar",
     "MustContain": "Verður að innihalda",
     "MustNotContain": "Má ekki innihalda",
@@ -252,7 +251,6 @@
     "PortHelpTextWarning": "Krefst endurræsingar til að taka gildi",
     "PortNumber": "Portnúmer",
     "PosterSize": "Veggspjaldastærð",
-    "Preferred": "Æskilegt",
     "PreviewRename": "Forskoða Endurnefna",
     "Profiles": "Snið",
     "Proper": "Rétt",
@@ -329,7 +327,6 @@
     "SSLCertPath": "SSL vottunarleið",
     "SSLPort": "SSL höfn",
     "Scheduled": "Tímaáætlun",
-    "Score": "Mark",
     "ScriptPath": "Handritaleið",
     "Search": "Leitaðu",
     "SearchAll": "Leitaðu allra",
@@ -562,8 +559,6 @@
     "HardlinkCopyFiles": "Hardlink / afrita skrár",
     "MoveFiles": "Færa skrár",
     "CustomFormatScore": "Sérsniðið snið",
-    "UnableToLoadInteractiveSerach": "Ekki er hægt að hlaða niðurstöðum fyrir þessa kvikmyndaleit. Reyndu aftur seinna",
     "Custom": "Sérsniðin",
-    "CustomFilters": "Sérsniðin síur",
     "MinimumCustomFormatScore": "Lágmarkseinkunn fyrir sérsniðið snið"
 }

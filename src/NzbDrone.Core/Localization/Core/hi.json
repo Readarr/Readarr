@@ -204,7 +204,6 @@
     "Missing": "लापता",
     "Mode": "मोड",
     "Monitored": "नजर रखी",
-    "MonoVersion": "मोनो संस्करण",
     "MoreInfo": "और जानकारी",
     "MustContain": "शामिल होना चाहिए",
     "MustNotContain": "कंटेनर नहीं होना चाहिए",
@@ -238,7 +237,6 @@
     "PortHelpTextWarning": "प्रभावी करने के लिए पुनरारंभ की आवश्यकता है",
     "PortNumber": "पोर्ट संख्या",
     "PosterSize": "पोस्टर का आकार",
-    "Preferred": "पसंदीदा",
     "PreviewRename": "नाम बदलें",
     "Profiles": "प्रोफाइल",
     "Proper": "उचित",
@@ -315,7 +313,6 @@
     "SSLCertPath": "एसएसएल सर्टिफिकेट पाथ",
     "SSLPort": "एसएसएल पोर्ट",
     "Scheduled": "अनुसूचित",
-    "Score": "स्कोर",
     "ScriptPath": "पटकथा पथ",
     "Search": "खोज",
     "SearchAll": "सभी खोजें",
@@ -561,9 +558,7 @@
     "ImportListExclusions": "आयात सूची बहिष्करण हटाएं",
     "HardlinkCopyFiles": "हार्डलिंक / कॉपी फाइलें",
     "MoveFiles": "फ़ाइलें ले जाएँ",
-    "Custom": "रिवाज",
     "CustomFilters": "कस्टम फ़िल्टर",
     "CustomFormatScore": "कस्टम प्रारूप स्कोर",
-    "MinimumCustomFormatScore": "न्यूनतम कस्टम प्रारूप स्कोर",
-    "UnableToLoadInteractiveSerach": "इस मूवी खोज के लिए परिणाम लोड करने में असमर्थ। बाद में पुन: प्रयास करें"
+    "MinimumCustomFormatScore": "न्यूनतम कस्टम प्रारूप स्कोर"
 }

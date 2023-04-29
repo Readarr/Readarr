@@ -224,7 +224,6 @@
     "MinimumFreeSpaceWhenImportingHelpText": "Zapobiegaj importowaniu, jeśli spowodowałoby to pozostawienie mniejszej ilości dostępnego miejsca na dysku niż ta",
     "Missing": "Brakujący",
     "Monitored": "Monitorowane",
-    "MonoVersion": "Wersja mono",
     "MoreInfo": "Więcej informacji",
     "MustContain": "Musi zawierać",
     "MustNotContain": "Nie może zawierać",
@@ -256,7 +255,6 @@
     "Port": "Port",
     "PortHelpTextWarning": "Wymaga ponownego uruchomienia, aby odniosło skutek",
     "PosterSize": "Rozmiar plakatu",
-    "Preferred": "Preferowane",
     "PreviewRename": "Podgląd Zmień nazwę",
     "Profiles": "Profile",
     "Proper": "Właściwy",
@@ -330,7 +328,6 @@
     "SSLCertPath": "Ścieżka certyfikatu SSL",
     "SSLPort": "Port SSL",
     "Scheduled": "Planowy",
-    "Score": "Wynik",
     "ScriptPath": "Ścieżka do Skryptu",
     "Search": "Szukaj",
     "SearchAll": "Wyszukaj wszystko",
@@ -594,9 +591,7 @@
     "HardlinkCopyFiles": "Hardlink / Kopiuj pliki",
     "OnApplicationUpdateHelpText": "Przy aktualizacji aplikacji",
     "BypassIfHighestQuality": "Pomiń, jeśli najwyższa jakość",
-    "Custom": "Zwyczaj",
     "CustomFilters": "Filtry niestandardowe",
     "CustomFormatScore": "Wynik w formacie niestandardowym",
-    "MinimumCustomFormatScore": "Minimalny wynik w formacie niestandardowym",
-    "UnableToLoadInteractiveSerach": "Nie można załadować wyników dla tego wyszukiwania filmów. Spróbuj ponownie później"
+    "MinimumCustomFormatScore": "Minimalny wynik w formacie niestandardowym"
 }

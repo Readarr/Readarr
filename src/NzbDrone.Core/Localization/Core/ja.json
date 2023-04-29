@@ -156,7 +156,6 @@
     "Missing": "行方不明",
     "Mode": "モード",
     "Monitored": "監視",
-    "MonoVersion": "モノバージョン",
     "MoreInfo": "より詳しい情報",
     "MustContain": "含まれている必要があります",
     "MustNotContain": "含まれてはならない",
@@ -191,7 +190,6 @@
     "PortHelpTextWarning": "有効にするには再起動が必要です",
     "PortNumber": "ポート番号",
     "PosterSize": "ポスターサイズ",
-    "Preferred": "優先",
     "PreviewRename": "プレビューの名前変更",
     "ShowMonitored": "監視対象を表示",
     "ShowMonitoredHelpText": "ポスターの下に監視ステータスを表示する",
@@ -319,7 +317,6 @@
     "SSLCertPassword": "SSL証明書のパスワード",
     "SSLCertPath": "SSL証明書パス",
     "SSLPort": "SSLポート",
-    "Score": "スコア",
     "ScriptPath": "スクリプトパス",
     "Search": "探す",
     "SearchAll": "すべて検索",
@@ -561,9 +558,7 @@
     "ImportListExclusions": "インポートリストの除外を削除する",
     "MoveFiles": "ファイルの移動",
     "HardlinkCopyFiles": "ファイルのハードリンク/コピー",
-    "Custom": "カスタム",
     "CustomFilters": "カスタムフィルター",
     "MinimumCustomFormatScore": "最小カスタムフォーマットスコア",
-    "CustomFormatScore": "カスタムフォーマットスコア",
-    "UnableToLoadInteractiveSerach": "この映画検索の結果を読み込めません。あとでもう一度試してみてください"
+    "CustomFormatScore": "カスタムフォーマットスコア"
 }

@@ -198,7 +198,6 @@
     "Missing": "חָסֵר",
     "Mode": "מצב",
     "Monitored": "מנוטר",
-    "MonoVersion": "גרסת מונו",
     "MoreInfo": "עוד מידע",
     "MustContain": "חייב להכיל",
     "MustNotContain": "אסור להכיל",
@@ -231,7 +230,6 @@
     "PortHelpTextWarning": "נדרש הפעלה מחדש כדי להיכנס לתוקף",
     "PortNumber": "מספר יציאה",
     "PosterSize": "גודל פוסטר",
-    "Preferred": "מועדף",
     "PreviewRename": "תצוגה מקדימה של שינוי שם",
     "Profiles": "פרופילים",
     "Proper": "תָקִין",
@@ -308,7 +306,6 @@
     "SSLCertPath": "נתיב אישורי SSL",
     "SSLPort": "יציאת SSL",
     "Scheduled": "מתוזמן",
-    "Score": "ציון",
     "ScriptPath": "נתיב סקריפט",
     "Search": "לחפש",
     "SearchAll": "חפש הכל",
@@ -580,8 +577,6 @@
     "CustomFormatScore": "ציון פורמט מותאם אישית",
     "DeleteBookFileMessageText": "האם למחוק את {0}?",
     "BypassIfHighestQuality": "עקוף במידה והאיכות גבוהה יותר",
-    "Custom": "המותאם אישית",
     "CustomFilters": "מסננים מותאמים אישית",
-    "MinimumCustomFormatScore": "ציון פורמט מותאם אישית מינימלי",
-    "UnableToLoadInteractiveSerach": "לא ניתן לטעון תוצאות לחיפוש הסרט הזה. נסה שוב מאוחר יותר"
+    "MinimumCustomFormatScore": "ציון פורמט מותאם אישית מינימלי"
 }

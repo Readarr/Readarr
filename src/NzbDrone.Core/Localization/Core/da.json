@@ -213,7 +213,6 @@
     "Missing": "Mangler",
     "Mode": "Mode",
     "Monitored": "Overvåget",
-    "MonoVersion": "Mono-version",
     "MoreInfo": "Mere info",
     "MustContain": "Skal indeholde",
     "MustNotContain": "Må ikke indeholde",
@@ -247,7 +246,6 @@
     "PortHelpTextWarning": "Kræver genstart for at træde i kraft",
     "PortNumber": "Portnummer",
     "PosterSize": "Plakatstørrelse",
-    "Preferred": "Foretrukket",
     "PreviewRename": "Vis eksempel Omdøb",
     "Profiles": "Profiler",
     "Proper": "Passende",
@@ -324,7 +322,6 @@
     "SSLCertPath": "SSL-certificeret sti",
     "SSLPort": "SSL-port",
     "Scheduled": "Planlagt",
-    "Score": "Score",
     "ScriptPath": "Script sti",
     "Search": "Søg",
     "SearchAll": "Søg i alle",
@@ -565,8 +562,6 @@
     "Label": "Etiket",
     "HardlinkCopyFiles": "Hardlink/Kopir Filer",
     "CustomFormatScore": "Bruger Tilpasset Format score",
-    "Custom": "Brugerdefinerede",
     "CustomFilters": "Bruger Tilpassede Filtere",
-    "MinimumCustomFormatScore": "Minimum tilpasset format score",
-    "UnableToLoadInteractiveSerach": "Kunne ikke indlæse resultater for denne filmsøgning. Prøv igen senere"
+    "MinimumCustomFormatScore": "Minimum tilpasset format score"
 }

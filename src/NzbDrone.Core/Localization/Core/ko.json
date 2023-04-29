@@ -234,7 +234,6 @@
     "Missing": "잃어버린",
     "Mode": "방법",
     "Monitored": "모니터링",
-    "MonoVersion": "모노 버전",
     "MoreInfo": "더 많은 정보",
     "MustContain": "포함해야 함",
     "MustNotContain": "포함해서는 안 됨",
@@ -267,7 +266,6 @@
     "PortHelpTextWarning": "적용하려면 다시 시작해야합니다.",
     "PortNumber": "포트 번호",
     "PosterSize": "포스터 크기",
-    "Preferred": "선호",
     "PreviewRename": "이름 변경 미리보기",
     "Profiles": "프로필",
     "Proper": "적절한",
@@ -344,7 +342,6 @@
     "SSLCertPath": "SSL 인증서 경로",
     "SSLPort": "SSL 포트",
     "Scheduled": "예정",
-    "Score": "점수",
     "ScriptPath": "스크립트 경로",
     "Search": "검색",
     "SearchAll": "모두 검색",
@@ -561,9 +558,7 @@
     "ManualImportSelectEdition": "수동 가져오기 - 동영상 선택",
     "HardlinkCopyFiles": "하드 링크 / 복사 파일",
     "MoveFiles": "파일 이동",
-    "Custom": "사용자 지정",
     "CustomFilters": "사용자 지정 필터",
     "CustomFormatScore": "사용자 지정 형식 점수",
-    "UnableToLoadInteractiveSerach": "이 영화 검색 결과를 불러올 수 없습니다. 나중에 다시 시도",
     "MinimumCustomFormatScore": "최소 사용자 지정 형식 점수"
 }
