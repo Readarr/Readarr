@@ -560,5 +560,22 @@
     "HardlinkCopyFiles": "Hardlink/Copiază Fișiere",
     "MoveFiles": "Mută Fișiere",
     "MinimumCustomFormatScore": "Scor minim format personalizat",
-    "CustomFormatScore": "Scorul formatului personalizat"
+    "CustomFormatScore": "Scorul formatului personalizat",
+    "CloneCustomFormat": "Clonați format personalizat",
+    "Conditions": "Condiții",
+    "DeleteCustomFormat": "Ștergeți formatul personalizat",
+    "DeleteCustomFormatMessageText": "Sigur doriți să ștergeți indexatorul „{0}”?",
+    "ExportCustomFormat": "Exportați formatul personalizat",
+    "Formats": "Formate",
+    "MinFormatScoreHelpText": "Scorul minim de format personalizat permis pentru descărcare",
+    "NegateHelpText": "Dacă este bifat, formatul personalizat nu se va aplica dacă această {0} condiție se potrivește.",
+    "UnableToLoadCustomFormats": "Nu se pot încărca formate personalizate",
+    "UpgradesAllowed": "Sunt permise upgrade-uri",
+    "CopyToClipboard": "Copiați în clipboard",
+    "CustomFormat": "Formate personalizate",
+    "CustomFormatSettings": "Setări de formate personalizate",
+    "CustomFormats": "Formate personalizate",
+    "CutoffFormatScoreHelpText": "Odată ce acest scor personalizat este atins, Radarr nu va mai descărca filme",
+    "DeleteFormatMessageText": "Sigur doriți să ștergeți eticheta format {0}?",
+    "IncludeCustomFormatWhenRenamingHelpText": "Includeți în formatul de redenumire {Formate personalizate}"
 }
