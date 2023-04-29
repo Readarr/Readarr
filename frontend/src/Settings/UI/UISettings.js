@@ -198,7 +198,9 @@ class UISettings extends Component {
                   </FormGroup>
 
                   <FormGroup>
-                    <FormLabel>Enable Color-Impaired Mode</FormLabel>
+                    <FormLabel>
+                      {translate('EnableColorImpairedMode')}
+                    </FormLabel>
                     <FormInputGroup
                       type={inputTypes.CHECK}
                       name="enableColorImpairedMode"

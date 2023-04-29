@@ -214,7 +214,7 @@ class EditQualityProfileModalContent extends Component {
                               type={inputTypes.NUMBER}
                               name="minFormatScore"
                               {...minFormatScore}
-                              helpText="Minimum custom format score allowed to download"
+                              helpText={translate('MinFormatScoreHelpText')}
                               onChange={onInputChange}
                             />
                           </FormGroup>
@@ -231,7 +231,7 @@ class EditQualityProfileModalContent extends Component {
                               type={inputTypes.NUMBER}
                               name="cutoffFormatScore"
                               {...cutoffFormatScore}
-                              helpText="Once this custom format score is reached Readarr will no longer grab book releases"
+                              helpText={translate('CutoffFormatScoreHelpText')}
                               onChange={onInputChange}
                             />
                           </FormGroup>

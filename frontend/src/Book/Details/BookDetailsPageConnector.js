@@ -87,7 +87,7 @@ class BookDetailsPageConnector extends Component {
     if ((isFetching || !this.state.hasMounted) ||
         (!isFetching && !isPopulated)) {
       return (
-        <PageContent title='loading'>
+        <PageContent title={translate('Loading')}>
           <PageContentBody>
             <LoadingIndicator />
           </PageContentBody>
