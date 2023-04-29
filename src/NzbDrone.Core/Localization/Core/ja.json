@@ -558,7 +558,6 @@
     "ImportListExclusions": "インポートリストの除外を削除する",
     "MoveFiles": "ファイルの移動",
     "HardlinkCopyFiles": "ファイルのハードリンク/コピー",
-    "CustomFilters": "カスタムフィルター",
     "MinimumCustomFormatScore": "最小カスタムフォーマットスコア",
     "CustomFormatScore": "カスタムフォーマットスコア"
 }

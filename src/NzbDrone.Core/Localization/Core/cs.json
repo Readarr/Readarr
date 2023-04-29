@@ -558,7 +558,6 @@
     "ImportListExclusions": "Odstranit vyloučení seznamu importů",
     "HardlinkCopyFiles": "Pevný odkaz / kopírování souborů",
     "MoveFiles": "Přesouvat soubory",
-    "CustomFilters": "Vlastní filtry",
     "CustomFormatScore": "Skóre vlastního formátu",
     "MinimumCustomFormatScore": "Minimální skóre vlastního formátu"
 }

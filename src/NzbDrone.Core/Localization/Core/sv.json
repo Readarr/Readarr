@@ -601,7 +601,6 @@
     "FutureDaysHelpText": "Dagar för iCal feed att kolla in i framtiden",
     "ImportListExclusions": "Importera List-Exkluderingar",
     "IndexerIdHelpText": "Specificera vilken indexer profilen appliceras på",
-    "IndexerIdvalue0OnlySupportedWhenIndexerIsSetToAll": "Stödjer endast när Indexer är inställt på (Alla)",
     "ISBN": "ISBN",
     "IsCalibreLibraryHelpText": "Använd Calibre innehållsserver för att manipulera bibliotek",
     "IsExpandedHideFileInfo": "Dölj fil-info",
@@ -626,7 +625,6 @@
     "PathHelpText": "Rotmappen innehåller ditt bok-bibliotek",
     "PathHelpTextWarning": "Det här måste vara en annan mapp-plats där dina nedladdningsklienter stoppar sina filer",
     "PortHelpText": "Calibre innehållsserver port",
-    "PreferredHelpTexts3": "En negativ poäng kommer bli mindre föredragen",
     "PreviewRetag": "För-granska Omtaggning",
     "Publisher": "Utgivare",
     "QualityProfileIdHelpText": "Kvalitet Profil lista saker borde bli tillagda med",
@@ -800,7 +798,6 @@
     "ManualImportSelectEdition": "Manuell import - Välj film",
     "HardlinkCopyFiles": "Hardlink/kopiera filer",
     "MoveFiles": "Flytta filer",
-    "CustomFilters": "Anpassade Filter",
     "CustomFormatScore": "Poäng för Anpassade format",
     "MinimumCustomFormatScore": "Lägsta anpassade formatpoäng"
 }

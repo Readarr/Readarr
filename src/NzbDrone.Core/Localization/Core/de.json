@@ -581,7 +581,6 @@
     "FutureDaysHelpText": "Tage die iCal-Feed in die Zukunft schauen soll",
     "FutureBooks": "Zukünftige Bücher",
     "GeneralSettingsSummary": "Port, SSL, Benutzername/Passwort, Proxy, Analytik und Updates",
-    "IndexerIdvalue0IncludeInPreferredWordsRenamingFormat": "In das Umbenennungsformat {Preferred Word} einbeziehen",
     "IndexerJackettAll": "Indexer, welche den nicht unterstützten 'all'-Endpoint von Jackett verwenden: {0}",
     "IndexerLongTermStatusCheckAllClientMessage": "Alle Indexer sind wegen über 6 Stunden langen bestehender Fehler nicht verfügbar",
     "IsExpandedShowFileInfo": "Dateiinformationen anzeigen",
@@ -632,7 +631,6 @@
     "OnRename": "Bei Umbenennen",
     "PastDaysHelpText": "Tage für iCal-Feed, um in die Vergangenheit zu schauen",
     "PathHelpTextWarning": "Dies muss ein anderes Verzeichnis sein als das, in dem der Download Client die Dateien ablegt",
-    "PreferredHelpTexts2": "Eine positive Wertung wird bevorzugt",
     "ReleaseProfiles": "Veröffentlichungsprofile",
     "RootFolderPathHelpText": "Die Elemente im Stammverzeichnis werden hinzugefügt zu",
     "SearchMonitored": "Suche beobachtete",
@@ -882,6 +880,5 @@
     "ThemeHelpText": "Anwendungsdesign ändern, das 'Auto' Design passt sich an den Light/Dark-Mode deines Systems an. Inspiriert von Theme.Park",
     "BypassIfHighestQuality": "Ignoriere wenn höchste Qualität",
     "MinimumCustomFormatScore": "Minimum der eigenen Formate Bewertungspunkte",
-    "CustomFilters": "Filter anpassen",
     "CustomFormatScore": "Eigenes Format Bewertungspunkte"
 }

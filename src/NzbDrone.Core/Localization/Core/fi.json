@@ -788,7 +788,6 @@
     "ThemeHelpText": "Vaihda sovelluksen käyttöliittymän ulkoasua. \"Automaattinen\" vaihtaa vaalean ja tumman tilan käyttöjärjestelmäsi teemaa vastaavaksi. Innoittanut Theme.Park.",
     "EnableRssHelpText": "Käytetään etsittäessä julkaisuja RSS-syötteistä ajoitetusti.",
     "BypassIfHighestQuality": "Ohita, jos korkein laatu",
-    "CustomFilters": "Mukautetut suodattimet",
     "CustomFormatScore": "Mukautetun muodon pisteytys",
     "MinimumCustomFormatScore": "Mukautetun muodon vähimmäispisteytys"
 }

@@ -558,7 +558,6 @@
     "ImportListExclusions": "ลบการยกเว้นรายการนำเข้า",
     "HardlinkCopyFiles": "ฮาร์ดลิงค์ / คัดลอกไฟล์",
     "MoveFiles": "ย้ายไฟล์",
-    "CustomFilters": "ตัวกรองที่กำหนดเอง",
     "MinimumCustomFormatScore": "คะแนนรูปแบบที่กำหนดเองขั้นต่ำ",
     "CustomFormatScore": "คะแนนรูปแบบที่กำหนดเอง"
 }
