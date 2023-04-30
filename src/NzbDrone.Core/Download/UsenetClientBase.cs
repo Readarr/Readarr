@@ -35,7 +35,7 @@ namespace NzbDrone.Core.Download
 
         protected abstract string AddFromNzbFile(RemoteBook remoteBook, string filename, byte[] fileContent);
 
-        public override string Download(RemoteBook remoteBook)
+        public override string Download(RemoteBook remoteBook, IIndexer indexer)
         {
             var url = remoteBook.Release.DownloadUrl;
             var filename = FileNameBuilder.CleanFileName(remoteBook.Release.Title) + ".nzb";
@@ -44,7 +44,7 @@ namespace NzbDrone.Core.Download
 
             try
             {
-                var request = new HttpRequest(url);
+                var request = indexer.GetDownloadRequest(url);
                 request.RateLimitKey = remoteBook?.Release?.IndexerId.ToString();
 
                 // TODO: Look into moving download request handling to indexer

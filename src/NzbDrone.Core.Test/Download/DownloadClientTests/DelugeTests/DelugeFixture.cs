@@ -206,7 +206,7 @@ namespace NzbDrone.Core.Test.Download.DownloadClientTests.DelugeTests
 
             var remoteBook = CreateRemoteBook();
 
-            var id = Subject.Download(remoteBook);
+            var id = Subject.Download(remoteBook, CreateIndexer());
 
             id.Should().NotBeNullOrEmpty();
         }
@@ -219,7 +219,7 @@ namespace NzbDrone.Core.Test.Download.DownloadClientTests.DelugeTests
             var remoteBook = CreateRemoteBook();
             remoteBook.Release.DownloadUrl = magnetUrl;
 
-            var id = Subject.Download(remoteBook);
+            var id = Subject.Download(remoteBook, CreateIndexer());
 
             id.Should().Be(expectedHash);
         }

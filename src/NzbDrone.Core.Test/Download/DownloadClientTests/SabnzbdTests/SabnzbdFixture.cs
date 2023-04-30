@@ -308,7 +308,7 @@ namespace NzbDrone.Core.Test.Download.DownloadClientTests.SabnzbdTests
             var remoteBook = CreateRemoteBook();
             remoteBook.Release.Title = title;
 
-            var id = Subject.Download(remoteBook);
+            var id = Subject.Download(remoteBook, CreateIndexer());
 
             Mocker.GetMock<ISabnzbdProxy>()
                 .Verify(v => v.DownloadNzb(It.IsAny<byte[]>(), filename, It.IsAny<string>(), It.IsAny<int>(), It.IsAny<SabnzbdSettings>()), Times.Once());
@@ -321,7 +321,7 @@ namespace NzbDrone.Core.Test.Download.DownloadClientTests.SabnzbdTests
 
             var remoteBook = CreateRemoteBook();
 
-            var id = Subject.Download(remoteBook);
+            var id = Subject.Download(remoteBook, CreateIndexer());
 
             id.Should().NotBeNullOrEmpty();
         }
@@ -367,7 +367,7 @@ namespace NzbDrone.Core.Test.Download.DownloadClientTests.SabnzbdTests
                                                       .Build()
                                                       .ToList();
 
-            Subject.Download(remoteBook);
+            Subject.Download(remoteBook, CreateIndexer());
 
             Mocker.GetMock<ISabnzbdProxy>()
                   .Verify(v => v.DownloadNzb(It.IsAny<byte[]>(), It.IsAny<string>(), It.IsAny<string>(), (int)SabnzbdPriority.High, It.IsAny<SabnzbdSettings>()), Times.Once());
