@@ -151,7 +151,7 @@ namespace NzbDrone.Core.Test.Download.DownloadClientTests.Blackhole
         {
             var remoteBook = CreateRemoteBook();
 
-            Subject.Download(remoteBook);
+            Subject.Download(remoteBook, CreateIndexer());
 
             Mocker.GetMock<IHttpClient>().Verify(c => c.Get(It.Is<HttpRequest>(v => v.Url.FullUri == _downloadUrl)), Times.Once());
             Mocker.GetMock<IDiskProvider>().Verify(c => c.OpenWriteStream(_filePath), Times.Once());
@@ -163,9 +163,12 @@ namespace NzbDrone.Core.Test.Download.DownloadClientTests.Blackhole
         {
             GivenMagnetFilePath();
             Subject.Definition.Settings.As<TorrentBlackholeSettings>().SaveMagnetFiles = true;
+
             var remoteBook = CreateRemoteBook();
             remoteBook.Release.DownloadUrl = null;
-            Subject.Download(remoteBook);
+
+            Subject.Download(remoteBook, CreateIndexer());
+
             Mocker.GetMock<IHttpClient>().Verify(c => c.Get(It.Is<HttpRequest>(v => v.Url.FullUri == _downloadUrl)), Times.Never());
             Mocker.GetMock<IDiskProvider>().Verify(c => c.OpenWriteStream(_filePath), Times.Never());
             Mocker.GetMock<IDiskProvider>().Verify(c => c.OpenWriteStream(_magnetFilePath), Times.Once());
@@ -184,7 +187,7 @@ namespace NzbDrone.Core.Test.Download.DownloadClientTests.Blackhole
             var remoteBook = CreateRemoteBook();
             remoteBook.Release.DownloadUrl = null;
 
-            Subject.Download(remoteBook);
+            Subject.Download(remoteBook, CreateIndexer());
 
             Mocker.GetMock<IHttpClient>().Verify(c => c.Get(It.Is<HttpRequest>(v => v.Url.FullUri == _downloadUrl)), Times.Never());
             Mocker.GetMock<IDiskProvider>().Verify(c => c.OpenWriteStream(_filePath), Times.Never());
@@ -199,7 +202,7 @@ namespace NzbDrone.Core.Test.Download.DownloadClientTests.Blackhole
             var remoteBook = CreateRemoteBook();
             remoteBook.Release.DownloadUrl = null;
 
-            Assert.Throws<ReleaseDownloadException>(() => Subject.Download(remoteBook));
+            Assert.Throws<ReleaseDownloadException>(() => Subject.Download(remoteBook, CreateIndexer()));
 
             Mocker.GetMock<IHttpClient>().Verify(c => c.Get(It.Is<HttpRequest>(v => v.Url.FullUri == _downloadUrl)), Times.Never());
             Mocker.GetMock<IDiskProvider>().Verify(c => c.OpenWriteStream(_filePath), Times.Never());
@@ -214,7 +217,7 @@ namespace NzbDrone.Core.Test.Download.DownloadClientTests.Blackhole
 
             var remoteBook = CreateRemoteBook();
 
-            Subject.Download(remoteBook);
+            Subject.Download(remoteBook, CreateIndexer());
 
             Mocker.GetMock<IHttpClient>().Verify(c => c.Get(It.Is<HttpRequest>(v => v.Url.FullUri == _downloadUrl)), Times.Once());
             Mocker.GetMock<IDiskProvider>().Verify(c => c.OpenWriteStream(_filePath), Times.Once());
@@ -231,7 +234,7 @@ namespace NzbDrone.Core.Test.Download.DownloadClientTests.Blackhole
             var remoteBook = CreateRemoteBook();
             remoteBook.Release.Title = illegalTitle;
 
-            Subject.Download(remoteBook);
+            Subject.Download(remoteBook, CreateIndexer());
 
             Mocker.GetMock<IHttpClient>().Verify(c => c.Get(It.Is<HttpRequest>(v => v.Url.FullUri == _downloadUrl)), Times.Once());
             Mocker.GetMock<IDiskProvider>().Verify(c => c.OpenWriteStream(expectedFilename), Times.Once());
@@ -244,7 +247,7 @@ namespace NzbDrone.Core.Test.Download.DownloadClientTests.Blackhole
             var remoteBook = CreateRemoteBook();
             remoteBook.Release.DownloadUrl = null;
 
-            Assert.Throws<ReleaseDownloadException>(() => Subject.Download(remoteBook));
+            Assert.Throws<ReleaseDownloadException>(() => Subject.Download(remoteBook, CreateIndexer()));
         }
 
         [Test]
@@ -318,7 +321,7 @@ namespace NzbDrone.Core.Test.Download.DownloadClientTests.Blackhole
         {
             var remoteBook = CreateRemoteBook();
 
-            Subject.Download(remoteBook).Should().BeNull();
+            Subject.Download(remoteBook, CreateIndexer()).Should().BeNull();
         }
     }
 }

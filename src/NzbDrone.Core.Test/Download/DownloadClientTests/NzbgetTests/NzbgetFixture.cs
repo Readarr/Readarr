@@ -345,7 +345,7 @@ namespace NzbDrone.Core.Test.Download.DownloadClientTests.NzbgetTests
 
             var remoteBook = CreateRemoteBook();
 
-            var id = Subject.Download(remoteBook);
+            var id = Subject.Download(remoteBook, CreateIndexer());
 
             id.Should().NotBeNullOrEmpty();
         }
@@ -357,7 +357,7 @@ namespace NzbDrone.Core.Test.Download.DownloadClientTests.NzbgetTests
 
             var remoteBook = CreateRemoteBook();
 
-            Assert.Throws<DownloadClientRejectedReleaseException>(() => Subject.Download(remoteBook));
+            Assert.Throws<DownloadClientRejectedReleaseException>(() => Subject.Download(remoteBook, CreateIndexer()));
         }
 
         [Test]

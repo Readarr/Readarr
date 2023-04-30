@@ -127,7 +127,7 @@ namespace NzbDrone.Core.Test.Download.DownloadClientTests.RTorrentTests
 
             var remoteBook = CreateRemoteBook();
 
-            var id = Subject.Download(remoteBook);
+            var id = Subject.Download(remoteBook, CreateIndexer());
 
             id.Should().NotBeNullOrEmpty();
         }

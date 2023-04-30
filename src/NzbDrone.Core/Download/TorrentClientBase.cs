@@ -41,7 +41,7 @@ namespace NzbDrone.Core.Download
         protected abstract string AddFromMagnetLink(RemoteBook remoteBook, string hash, string magnetLink);
         protected abstract string AddFromTorrentFile(RemoteBook remoteBook, string hash, string filename, byte[] fileContent);
 
-        public override string Download(RemoteBook remoteBook)
+        public override string Download(RemoteBook remoteBook, IIndexer indexer)
         {
             var torrentInfo = remoteBook.Release as TorrentInfo;
 
@@ -68,7 +68,7 @@ namespace NzbDrone.Core.Download
                 {
                     try
                     {
-                        return DownloadFromWebUrl(remoteBook, torrentUrl);
+                        return DownloadFromWebUrl(remoteBook, indexer, torrentUrl);
                     }
                     catch (Exception ex)
                     {
@@ -114,20 +114,20 @@ namespace NzbDrone.Core.Download
 
                 if (torrentUrl.IsNotNullOrWhiteSpace())
                 {
-                    return DownloadFromWebUrl(remoteBook, torrentUrl);
+                    return DownloadFromWebUrl(remoteBook, indexer, torrentUrl);
                 }
             }
 
             return null;
         }
 
-        private string DownloadFromWebUrl(RemoteBook remoteBook, string torrentUrl)
+        private string DownloadFromWebUrl(RemoteBook remoteBook, IIndexer indexer, string torrentUrl)
         {
             byte[] torrentFile = null;
 
             try
             {
-                var request = new HttpRequest(torrentUrl);
+                var request = indexer.GetDownloadRequest(torrentUrl);
                 request.RateLimitKey = remoteBook?.Release?.IndexerId.ToString();
                 request.Headers.Accept = "application/x-bittorrent";
                 request.AllowAutoRedirect = false;
@@ -149,7 +149,9 @@ namespace NzbDrone.Core.Download
                             return DownloadFromMagnetUrl(remoteBook, locationHeader);
                         }
 
-                        return DownloadFromWebUrl(remoteBook, locationHeader);
+                        request.Url += new HttpUri(locationHeader);
+
+                        return DownloadFromWebUrl(remoteBook, indexer, request.Url.ToString());
                     }
 
                     throw new WebException("Remote website tried to redirect without providing a location.");
