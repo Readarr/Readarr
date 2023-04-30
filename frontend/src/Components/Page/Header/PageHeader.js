@@ -61,6 +61,7 @@ class PageHeader extends Component {
             <img
               className={styles.logo}
               src={`${window.Readarr.urlBase}/Content/Images/logo.svg`}
+              alt="Readarr Logo"
             />
           </Link>
         </div>
@@ -79,6 +80,7 @@ class PageHeader extends Component {
           <IconButton
             className={styles.donate}
             name={icons.HEART}
+            aria-label="Donate"
             to="https://opencollective.com/readarr"
             size={14}
           />
