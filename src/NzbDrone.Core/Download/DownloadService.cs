@@ -63,13 +63,19 @@ namespace NzbDrone.Core.Download
 
             // Get the seed configuration for this release.
             remoteBook.SeedConfiguration = _seedConfigProvider.GetSeedConfiguration(remoteBook);
-            var indexer = _indexerFactory.GetInstance(_indexerFactory.Get(remoteBook.Release.IndexerId));
 
             // Limit grabs to 2 per second.
             if (remoteBook.Release.DownloadUrl.IsNotNullOrWhiteSpace() && !remoteBook.Release.DownloadUrl.StartsWith("magnet:"))
             {
                 var url = new HttpUri(remoteBook.Release.DownloadUrl);
                 _rateLimitService.WaitAndPulse(url.Host, TimeSpan.FromSeconds(2));
+            }
+
+            IIndexer indexer = null;
+
+            if (remoteBook.Release.IndexerId > 0)
+            {
+                indexer = _indexerFactory.GetInstance(_indexerFactory.Get(remoteBook.Release.IndexerId));
             }
 
             string downloadClientId;
