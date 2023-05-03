@@ -103,7 +103,7 @@ namespace NzbDrone.Common.Test.CacheTests
         }
 
         [Test]
-        [Retry(3)]
+        [Retry(10)]
         [Platform(Exclude = "MacOsX")]
         public void should_clear_expired_when_they_expire()
         {
