@@ -19,6 +19,7 @@ namespace Readarr.Api.V1.Books
         public string Overview { get; set; }
         public int AuthorId { get; set; }
         public string ForeignBookId { get; set; }
+        public string ForeignEditionId { get; set; }
         public string TitleSlug { get; set; }
         public bool Monitored { get; set; }
         public bool AnyEditionOk { get; set; }
@@ -62,6 +63,7 @@ namespace Readarr.Api.V1.Books
                 Id = model.Id,
                 AuthorId = model.AuthorId,
                 ForeignBookId = model.ForeignBookId,
+                ForeignEditionId = model.Editions?.Value?.SingleOrDefault(x => x.Monitored)?.ForeignEditionId,
                 TitleSlug = model.TitleSlug,
                 Monitored = model.Monitored,
                 AnyEditionOk = model.AnyEditionOk,
@@ -92,6 +94,7 @@ namespace Readarr.Api.V1.Books
             {
                 Id = resource.Id,
                 ForeignBookId = resource.ForeignBookId,
+                ForeignEditionId = resource.ForeignEditionId,
                 TitleSlug = resource.TitleSlug,
                 Title = resource.Title,
                 Monitored = resource.Monitored,

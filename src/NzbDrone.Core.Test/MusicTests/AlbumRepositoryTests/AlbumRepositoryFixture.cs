@@ -166,6 +166,7 @@ namespace NzbDrone.Core.Test.MusicTests.BookRepositoryTests
 
         private EquivalencyAssertionOptions<Book> BookComparerOptions(EquivalencyAssertionOptions<Book> opts) => opts.ComparingByMembers<Book>()
                 .Excluding(ctx => ctx.SelectedMemberInfo.MemberType.IsGenericType && ctx.SelectedMemberInfo.MemberType.GetGenericTypeDefinition() == typeof(LazyLoaded<>))
-                .Excluding(x => x.AuthorId);
+                .Excluding(x => x.AuthorId)
+                .Excluding(x => x.ForeignEditionId);
     }
 }

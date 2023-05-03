@@ -26,6 +26,7 @@ namespace NzbDrone.Core.Books
         // These are metadata entries
         public int AuthorMetadataId { get; set; }
         public string ForeignBookId { get; set; }
+        public string ForeignEditionId { get; set; }
         public string TitleSlug { get; set; }
         public string Title { get; set; }
         public DateTime? ReleaseDate { get; set; }
@@ -71,6 +72,7 @@ namespace NzbDrone.Core.Books
         public override void UseMetadataFrom(Book other)
         {
             ForeignBookId = other.ForeignBookId;
+            ForeignEditionId = other.ForeignEditionId;
             TitleSlug = other.TitleSlug;
             Title = other.Title;
             ReleaseDate = other.ReleaseDate;
@@ -95,6 +97,7 @@ namespace NzbDrone.Core.Books
         public override void ApplyChanges(Book other)
         {
             ForeignBookId = other.ForeignBookId;
+            ForeignEditionId = other.ForeignEditionId;
             AddOptions = other.AddOptions;
             Monitored = other.Monitored;
             AnyEditionOk = other.AnyEditionOk;
