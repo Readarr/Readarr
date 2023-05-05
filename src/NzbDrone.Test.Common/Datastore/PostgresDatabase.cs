@@ -14,6 +14,7 @@ namespace NzbDrone.Test.Common.Datastore
             var uid = TestBase.GetUID();
             options.MainDb = uid + "_main";
             options.LogDb = uid + "_log";
+            options.CacheDb = uid + "_cache";
 
             return options;
         }
@@ -62,6 +63,7 @@ namespace NzbDrone.Test.Common.Datastore
             {
                 MigrationType.Main => options.MainDb,
                 MigrationType.Log => options.LogDb,
+                MigrationType.Cache => options.CacheDb,
                 _ => throw new NotImplementedException("Unknown migration type")
             };
         }

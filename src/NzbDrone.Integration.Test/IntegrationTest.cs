@@ -84,12 +84,14 @@ namespace NzbDrone.Integration.Test
         {
             PostgresDatabase.Create(options, MigrationType.Main);
             PostgresDatabase.Create(options, MigrationType.Log);
+            PostgresDatabase.Create(options, MigrationType.Cache);
         }
 
         private static void DropPostgresDb(PostgresOptions options)
         {
             PostgresDatabase.Drop(options, MigrationType.Main);
             PostgresDatabase.Drop(options, MigrationType.Log);
+            PostgresDatabase.Drop(options, MigrationType.Cache);
         }
     }
 }

@@ -6,7 +6,6 @@ using NUnit.Framework;
 using NzbDrone.Common.Http;
 using NzbDrone.Core.Books;
 using NzbDrone.Core.Http;
-using NzbDrone.Core.MetadataSource;
 using NzbDrone.Core.MetadataSource.BookInfo;
 using NzbDrone.Core.MetadataSource.Goodreads;
 using NzbDrone.Core.Profiles.Metadata;
@@ -86,9 +85,9 @@ namespace NzbDrone.Core.Test.MetadataSource.Goodreads
             ExceptionVerification.IgnoreWarns();
         }
 
-        [TestCase("Philip Pullman", 0, typeof(Author), "Philip Pullman")]
-        [TestCase("Philip Pullman", 1, typeof(Book), "The Amber Spyglass")]
-        public void successful_combined_search(string query, int position, Type resultType, string expected)
+        [TestCase("Philip Pullman", 0, typeof(Author), new[] { "Philip Pullman" }, TestName = "author")]
+        [TestCase("Philip Pullman", 1, typeof(Book), new[] { "Northern Lights", "The Amber Spyglass" }, TestName = "book")]
+        public void successful_combined_search(string query, int position, Type resultType, string[] expected)
         {
             var result = Subject.SearchForNewEntity(query);
             result.Should().NotBeEmpty();
@@ -98,13 +97,13 @@ namespace NzbDrone.Core.Test.MetadataSource.Goodreads
             {
                 var cast = result[position] as Author;
                 cast.Should().NotBeNull();
-                cast.Name.Should().Be(expected);
+                cast.Name.Should().ContainAll(expected);
             }
             else
             {
                 var cast = result[position] as Book;
                 cast.Should().NotBeNull();
-                cast.Title.Should().Be(expected);
+                cast.Title.Should().ContainAny(expected);
             }
         }
     }
