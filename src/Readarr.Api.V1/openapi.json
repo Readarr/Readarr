@@ -13770,6 +13770,14 @@
             },
             "nullable": true
           },
+          "indexerIds": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "nullable": true
+          },
           "authorIds": {
             "type": "array",
             "items": {
