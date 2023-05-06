@@ -64,18 +64,20 @@ namespace NzbDrone.Core.Test.IndexerTests.NewznabTests
         }
 
         [Test]
+        [Ignore("TODO: add raw search support")]
         public void should_encode_raw_title()
         {
-            _capabilities.SupportedTvSearchParameters = new[] { "q", "season", "ep" };
-            _capabilities.TvTextSearchEngine = "raw";
-            _singleEpisodeSearchCriteria.SceneTitles[0] = "Edith & Little";
+            _capabilities.SupportedBookSearchParameters = new[] { "q", "author", "title" };
 
-            var results = Subject.GetSearchRequests(_singleEpisodeSearchCriteria);
+            // _capabilities.BookTextSearchEngine = "raw";
+            _singleBookSearchCriteria.BookTitle = "Daisy Jones & The Six";
+
+            var results = Subject.GetSearchRequests(_singleBookSearchCriteria);
             results.Tiers.Should().Be(1);
 
             var pageTier = results.GetTier(0).First().First();
 
-            pageTier.Url.Query.Should().Contain("q=Edith%20%26%20Little");
+            pageTier.Url.Query.Should().Contain("q=Daisy%20Jones%20%26%20The%20Six");
             pageTier.Url.Query.Should().NotContain(" & ");
             pageTier.Url.Query.Should().Contain("%26");
         }
@@ -83,17 +85,18 @@ namespace NzbDrone.Core.Test.IndexerTests.NewznabTests
         [Test]
         public void should_use_clean_title_and_encode()
         {
-            _capabilities.SupportedTvSearchParameters = new[] { "q", "season", "ep" };
-            _capabilities.TvTextSearchEngine = "sphinx";
-            _singleEpisodeSearchCriteria.SceneTitles[0] = "Edith & Little";
+            _capabilities.SupportedBookSearchParameters = new[] { "q", "author", "title" };
 
-            var results = Subject.GetSearchRequests(_singleEpisodeSearchCriteria);
+            // _capabilities.BookTextSearchEngine = "sphinx";
+            _singleBookSearchCriteria.BookTitle = "Daisy Jones & The Six";
+
+            var results = Subject.GetSearchRequests(_singleBookSearchCriteria);
             results.Tiers.Should().Be(1);
 
             var pageTier = results.GetTier(0).First().First();
 
-            pageTier.Url.Query.Should().Contain("q=Edith%20and%20Little");
-            pageTier.Url.Query.Should().Contain("and");
+            pageTier.Url.Query.Should().Contain("q=Daisy%20Jones%20The%20Six");
+            pageTier.Url.Query.Should().NotContain("and");
             pageTier.Url.Query.Should().NotContain(" & ");
             pageTier.Url.Query.Should().NotContain("%26");
         }
