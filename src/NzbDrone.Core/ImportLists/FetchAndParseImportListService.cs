@@ -107,8 +107,6 @@ namespace NzbDrone.Core.ImportLists
 
                         result.AddRange(importListReports);
                     }
-
-                    _importListStatusService.UpdateListSyncStatus(importList.Definition.Id);
                 }
                 catch (Exception e)
                 {
