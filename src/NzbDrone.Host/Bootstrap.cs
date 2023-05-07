@@ -26,7 +26,6 @@ using NzbDrone.Core.Configuration;
 using NzbDrone.Core.Datastore.Extensions;
 using NzbDrone.Core.Lifecycle;
 using NzbDrone.Core.Messaging.Events;
-using NzbDrone.Host;
 using PostgresOptions = NzbDrone.Core.Datastore.PostgresOptions;
 
 namespace NzbDrone.Host
@@ -240,6 +239,8 @@ namespace NzbDrone.Host
             }
             catch (InvalidDataException ex)
             {
+                Logger.Error(ex, ex.Message);
+
                 throw new InvalidConfigFileException($"{configPath} is corrupt or invalid. Please delete the config file and Readarr will recreate it.", ex);
             }
         }
