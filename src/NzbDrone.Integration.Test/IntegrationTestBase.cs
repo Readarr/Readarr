@@ -18,7 +18,6 @@ using NzbDrone.Test.Common;
 using NzbDrone.Test.Common.Categories;
 using Readarr.Api.V1.Author;
 using Readarr.Api.V1.Blocklist;
-using Readarr.Api.V1.Books;
 using Readarr.Api.V1.Config;
 using Readarr.Api.V1.DownloadClient;
 using Readarr.Api.V1.History;

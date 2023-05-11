@@ -1,8 +1,6 @@
-using System.Linq;
 using FizzWare.NBuilder;
 using FluentAssertions;
 using NUnit.Framework;
-using NzbDrone.Core.Books;
 using NzbDrone.Core.Housekeeping.Housekeepers;
 using NzbDrone.Core.MediaFiles;
 using NzbDrone.Core.Qualities;

@@ -1,11 +1,9 @@
-using System.Collections.Generic;
 using System.Linq;
 using FizzWare.NBuilder;
 using FluentAssertions;
 using NUnit.Framework;
 using NzbDrone.Core.MediaFiles;
 using NzbDrone.Core.Test.Framework;
-using NzbDrone.Test.Common;
 using VersOne.Epub.Schema;
 
 namespace NzbDrone.Core.Test.MediaFiles.AudioTagServiceFixture

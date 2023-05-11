@@ -1,5 +1,4 @@
 using FluentAssertions;
-using Microsoft.VisualStudio.TestPlatform.ObjectModel;
 using NUnit.Framework;
 using NzbDrone.Common.Extensions;
 

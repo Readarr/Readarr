@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using FluentValidation.Results;
 using NzbDrone.Common.Extensions;
 using NzbDrone.Core.Books;

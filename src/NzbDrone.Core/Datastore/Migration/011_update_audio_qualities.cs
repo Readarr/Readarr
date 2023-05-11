@@ -5,7 +5,6 @@ using Dapper;
 using FluentMigrator;
 using NzbDrone.Core.Datastore.Converters;
 using NzbDrone.Core.Datastore.Migration.Framework;
-using NzbDrone.Core.Profiles.Qualities;
 
 namespace NzbDrone.Core.Datastore.Migration
 {

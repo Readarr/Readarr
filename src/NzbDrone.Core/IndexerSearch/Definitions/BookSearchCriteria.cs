@@ -1,4 +1,3 @@
-using NzbDrone.Common.Extensions;
 using NzbDrone.Core.Parser;
 
 namespace NzbDrone.Core.IndexerSearch.Definitions

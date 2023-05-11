@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using NzbDrone.Common.Extensions;
 using NzbDrone.Core.Books;
 using NzbDrone.Core.Datastore;

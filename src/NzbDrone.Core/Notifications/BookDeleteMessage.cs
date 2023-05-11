@@ -1,5 +1,4 @@
 using NzbDrone.Core.Books;
-using NzbDrone.Core.MediaFiles;
 
 namespace NzbDrone.Core.Notifications
 {

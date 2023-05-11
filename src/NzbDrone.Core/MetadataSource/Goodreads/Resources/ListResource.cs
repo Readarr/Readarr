@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Xml.Linq;
-using NzbDrone.Core.Books;
 
 namespace NzbDrone.Core.MetadataSource.Goodreads
 {

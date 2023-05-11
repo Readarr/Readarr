@@ -1,11 +1,3 @@
-using System.Collections.Generic;
-using FizzWare.NBuilder;
-using FluentAssertions;
-using NUnit.Framework;
-using NzbDrone.Core.ImportLists;
-using NzbDrone.Core.Lifecycle;
-using NzbDrone.Core.Test.Framework;
-
 namespace NzbDrone.Core.Test.ImportListTests
 {
     /*

@@ -12,7 +12,6 @@ using NzbDrone.Core.Books;
 using NzbDrone.Core.CustomFormats;
 using NzbDrone.Core.MediaFiles;
 using NzbDrone.Core.Parser;
-using NzbDrone.Core.Profiles.Releases;
 using NzbDrone.Core.Qualities;
 
 namespace NzbDrone.Core.Organizer

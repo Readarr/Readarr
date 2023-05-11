@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using NLog;
-using NLog.Fluent;
 using NzbDrone.Common.Instrumentation;
 using NzbDrone.Common.Instrumentation.Extensions;
 using NzbDrone.Core.Parser;

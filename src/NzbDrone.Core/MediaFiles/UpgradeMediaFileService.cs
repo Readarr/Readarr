@@ -1,11 +1,8 @@
-using System;
-using System.IO;
 using System.Linq;
 using NLog;
 using NzbDrone.Common.Disk;
 using NzbDrone.Common.Extensions;
 using NzbDrone.Core.Books.Calibre;
-using NzbDrone.Core.Configuration;
 using NzbDrone.Core.MediaFiles.BookImport;
 using NzbDrone.Core.Parser.Model;
 using NzbDrone.Core.RootFolders;

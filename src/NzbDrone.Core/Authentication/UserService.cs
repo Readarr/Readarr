@@ -1,11 +1,7 @@
-﻿using System;
-using System.Linq;
-using System.Xml.Linq;
+using System;
 using NzbDrone.Common.Disk;
 using NzbDrone.Common.EnvironmentInfo;
 using NzbDrone.Common.Extensions;
-using NzbDrone.Core.Lifecycle;
-using NzbDrone.Core.Messaging.Events;
 
 namespace NzbDrone.Core.Authentication
 {

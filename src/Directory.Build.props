@@ -2,6 +2,7 @@
   <!-- Common to all Readarr Projects -->
   <PropertyGroup>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
     <ErrorOnDuplicatePublishOutputFiles>false</ErrorOnDuplicatePublishOutputFiles>
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
 
@@ -51,7 +52,7 @@
 
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
-  
+
   <!-- Test projects need bindingRedirects -->
   <PropertyGroup Condition="'$(ReadarrOutputType)'=='Test'">
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -64,7 +65,7 @@
     <Product>Readarr</Product>
     <Company>readarr.com</Company>
     <Copyright>Copyright 2017-$([System.DateTime]::Now.ToString('yyyy')) readarr.com (GNU General Public v3)</Copyright>
-    
+
     <!-- Should be replaced by CI -->
     <AssemblyVersion>10.0.0.*</AssemblyVersion>
     <AssemblyConfiguration>$(Configuration)-dev</AssemblyConfiguration>
@@ -73,7 +74,7 @@
     <GenerateAssemblyFileVersionAttribute>false</GenerateAssemblyFileVersionAttribute>
     <GenerateAssemblyInformationalVersionAttribute>false</GenerateAssemblyInformationalVersionAttribute>
     <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
-    
+
     <Deterministic Condition="$(AssemblyVersion.EndsWith('*'))">False</Deterministic>
   </PropertyGroup>
 

@@ -1,5 +1,4 @@
 using System.Data;
-using System.Linq;
 using Dapper;
 using FluentMigrator;
 using NzbDrone.Common.Extensions;

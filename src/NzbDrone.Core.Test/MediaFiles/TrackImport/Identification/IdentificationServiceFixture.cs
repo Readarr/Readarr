@@ -19,8 +19,6 @@ using NzbDrone.Core.MediaFiles.BookImport.Identification;
 using NzbDrone.Core.Messaging.Commands;
 using NzbDrone.Core.MetadataSource;
 using NzbDrone.Core.MetadataSource.BookInfo;
-using NzbDrone.Core.MetadataSource.Goodreads;
-using NzbDrone.Core.Parser;
 using NzbDrone.Core.Parser.Model;
 using NzbDrone.Core.Profiles.Metadata;
 using NzbDrone.Core.Test.Framework;
