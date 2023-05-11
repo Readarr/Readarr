@@ -17,10 +17,6 @@ namespace NzbDrone.Core.Notifications.Goodreads
     {
         private static readonly GoodreadsSettingsBaseValidator<GoodreadsOwnedBooksNotificationSettings> Validator = new GoodreadsSettingsBaseValidator<GoodreadsOwnedBooksNotificationSettings>();
 
-        public GoodreadsOwnedBooksNotificationSettings()
-        {
-        }
-
         [FieldDefinition(1, Label = "Condition", Type = FieldType.Select, SelectOptions = typeof(OwnedBookCondition))]
         public int Condition { get; set; } = (int)OwnedBookCondition.BrandNew;
 

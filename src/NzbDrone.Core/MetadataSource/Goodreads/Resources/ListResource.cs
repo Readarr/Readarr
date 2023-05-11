@@ -11,10 +11,6 @@ namespace NzbDrone.Core.MetadataSource.Goodreads
     [DebuggerDisplay("{DebuggerDisplay,nq}")]
     public sealed class ListResource : GoodreadsResource
     {
-        public ListResource()
-        {
-        }
-
         public override string ElementName => "list";
 
         public int Page { get; private set; }
