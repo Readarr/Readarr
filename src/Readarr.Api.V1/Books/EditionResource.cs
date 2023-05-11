@@ -109,7 +109,7 @@ namespace Readarr.Api.V1.Books
 
         public static List<Edition> ToModel(this IEnumerable<EditionResource> resources)
         {
-            return resources.Select(ToModel).ToList();
+            return resources?.Select(ToModel).ToList();
         }
     }
 }

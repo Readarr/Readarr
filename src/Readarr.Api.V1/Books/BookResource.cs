@@ -49,7 +49,7 @@ namespace Readarr.Api.V1.Books
                 return null;
             }
 
-            var selectedEdition = model.Editions?.Value.Where(x => x.Monitored).SingleOrDefault();
+            var selectedEdition = model.Editions?.Value?.SingleOrDefault(x => x.Monitored);
 
             var title = selectedEdition?.Title ?? model.Title;
             var authorTitle = $"{model.Author?.Value?.Metadata?.Value?.SortNameLastFirst} {title}";
@@ -120,7 +120,7 @@ namespace Readarr.Api.V1.Books
 
         public static List<Book> ToModel(this IEnumerable<BookResource> resources)
         {
-            return resources.Select(ToModel).ToList();
+            return resources?.Select(ToModel).ToList();
         }
     }
 }
