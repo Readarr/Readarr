@@ -62,6 +62,10 @@ namespace NzbDrone.Core.Indexers.Newznab
                 AddBookPageableRequests(pageableRequests,
                     searchCriteria,
                     $"&author={NewsnabifyTitle(searchCriteria.AuthorQuery)}&title={NewsnabifyTitle(searchCriteria.BookQuery)}");
+
+                AddBookPageableRequests(pageableRequests,
+                    searchCriteria,
+                    $"&title={NewsnabifyTitle(searchCriteria.BookQuery)}");
             }
 
             if (SupportsSearch)
@@ -77,6 +81,8 @@ namespace NzbDrone.Core.Indexers.Newznab
                     Settings.Categories,
                     "search",
                     $"&q={NewsnabifyTitle(searchCriteria.AuthorQuery)}+{NewsnabifyTitle(searchCriteria.BookQuery)}"));
+
+                pageableRequests.AddTier();
 
                 pageableRequests.Add(GetPagedRequests(MaxPages,
                     Settings.Categories,
