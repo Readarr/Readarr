@@ -91,7 +91,7 @@ namespace NzbDrone.Core.Test.IndexerTests.NewznabTests
             _singleBookSearchCriteria.BookTitle = "Daisy Jones & The Six";
 
             var results = Subject.GetSearchRequests(_singleBookSearchCriteria);
-            results.Tiers.Should().Be(1);
+            results.Tiers.Should().Be(2);
 
             var pageTier = results.GetTier(0).First().First();
 
