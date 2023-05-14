@@ -19,7 +19,6 @@ using NzbDrone.Core.Validation.Paths;
 using NzbDrone.Http.REST.Attributes;
 using NzbDrone.SignalR;
 using Readarr.Http;
-using Readarr.Http.Extensions;
 
 namespace Readarr.Api.V1.Books
 {
@@ -176,11 +175,8 @@ namespace Readarr.Api.V1.Books
         }
 
         [RestDeleteById]
-        public void DeleteBook(int id)
+        public void DeleteBook(int id, bool deleteFiles = false, bool addImportListExclusion = false)
         {
-            var deleteFiles = Request.GetBooleanQueryParameter("deleteFiles");
-            var addImportListExclusion = Request.GetBooleanQueryParameter("addImportListExclusion");
-
             _bookService.DeleteBook(id, deleteFiles, addImportListExclusion);
         }
 

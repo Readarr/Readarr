@@ -19,7 +19,6 @@ using NzbDrone.Core.Validation.Paths;
 using NzbDrone.Http.REST.Attributes;
 using NzbDrone.SignalR;
 using Readarr.Http;
-using Readarr.Http.Extensions;
 using Readarr.Http.REST;
 
 namespace Readarr.Api.V1.Author
@@ -143,9 +142,8 @@ namespace Readarr.Api.V1.Author
         }
 
         [RestPutById]
-        public ActionResult<AuthorResource> UpdateAuthor(AuthorResource authorResource)
+        public ActionResult<AuthorResource> UpdateAuthor(AuthorResource authorResource, bool moveFiles = false)
         {
-            var moveFiles = Request.GetBooleanQueryParameter("moveFiles");
             var author = _authorService.GetAuthor(authorResource.Id);
 
             if (moveFiles)
@@ -172,10 +170,8 @@ namespace Readarr.Api.V1.Author
         }
 
         [RestDeleteById]
-        public void DeleteAuthor(int id)
+        public void DeleteAuthor(int id, bool deleteFiles = false, bool addImportListExclusion = false)
         {
-            var deleteFiles = Request.GetBooleanQueryParameter("deleteFiles");
-            var addImportListExclusion = Request.GetBooleanQueryParameter("addImportListExclusion");
             _authorService.DeleteAuthor(id, deleteFiles, addImportListExclusion);
         }
 
