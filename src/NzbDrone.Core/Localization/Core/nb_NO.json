@@ -136,5 +136,16 @@
     "ChooseImportMethod": "Velg importeringsmodus",
     "ClickToChangeReleaseGroup": "Klikk for å endre utgivelsegruppe",
     "ApplicationURL": "Applikasjon URL",
-    "ApplicationUrlHelpText": "Denne applikasjonens eksterne URL inkludert http(s)://, port og URL base"
+    "ApplicationUrlHelpText": "Denne applikasjonens eksterne URL inkludert http(s)://, port og URL base",
+    "CloneCustomFormat": "Klon egendefinert format",
+    "DeleteCustomFormat": "Klon egendefinert format",
+    "DeleteCustomFormatMessageText": "Er du sikker på at du vil slette formattaggen {0}?",
+    "DeleteFormatMessageText": "Er du sikker på at du vil slette formattaggen {0}?",
+    "ExportCustomFormat": "Legg til egendefinert format",
+    "Conditions": "Tilstander",
+    "CopyToClipboard": "Kopier til utklippstavle",
+    "CustomFormat": "Egendefinert format",
+    "CustomFormats": "Egendefinert format",
+    "BypassIfHighestQuality": "Omgå hvis høyeste kvalitet",
+    "Formats": "Format"
 }

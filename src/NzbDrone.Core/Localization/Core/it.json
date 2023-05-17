@@ -679,5 +679,8 @@
     "UpgradesAllowed": "Aggiornamenti consentiti",
     "Theme": "Tema",
     "CustomFormat": "Formati Personalizzati",
-    "CustomFormatSettings": "Impostazioni dei Formati Personalizzati"
+    "CustomFormatSettings": "Impostazioni dei Formati Personalizzati",
+    "IndexerTagsHelpText": "Usa questo indicizzatore per i film con almeno un tag corrispondente. Lascia in bianco per usarlo con tutti i film.",
+    "ImportListMissingRoot": "Persa la cartella principale per l’importazione delle liste : {0}",
+    "ImportListMultipleMissingRoots": "Diverse cartelle principale sono perse per l’importazione: {0}"
 }

@@ -901,5 +901,9 @@
     "UpgradesAllowed": "Frissítések Engedélyezve",
     "CutoffFormatScoreHelpText": "Amint eléri ezt az egyéni minőséget, a Radarr többé nem fogja tovább keresni a filmet",
     "ResetDefinitionTitlesHelpText": "A definíciócímek és értékek visszaállítása",
-    "ResetTitles": "Címek visszaállítása"
+    "ResetTitles": "Címek visszaállítása",
+    "ImportListMissingRoot": "Hiányzó gyökérmappa az importálási listá(k)hoz: {0}",
+    "ImportListMultipleMissingRoots": "Több gyökérmappa hiányzik az importálási listákhoz: {0}",
+    "IndexerDownloadClientHelpText": "Adja meg, hogy melyik letöltési kliens használja az indexelőből történő megfogásokat",
+    "IndexerTagsHelpText": "Csak olyan filmekhez használja ezt az indexelőt, amelyek legalább egy megfelelő címkével rendelkeznek. Hagyja üresen az összes filmhez való használathoz."
 }

@@ -626,5 +626,9 @@
     "CustomFormatSettings": "Eigen Formaten Instellingen",
     "CustomFormats": "Eigen Formaten",
     "CutoffFormatScoreHelpText": "Wanneer deze eigen formaat score is behaald, zal Radarr niet langer films downloaden",
-    "IncludeCustomFormatWhenRenamingHelpText": "Voeg toe aan het {Eigen Formaten} hernoemingsformaat"
+    "IncludeCustomFormatWhenRenamingHelpText": "Voeg toe aan het {Eigen Formaten} hernoemingsformaat",
+    "ImportListMissingRoot": "Ontbrekende hoofdmap voor importlijst(en): {0}",
+    "ImportListMultipleMissingRoots": "Er ontbreken meerdere hoofdmappen voor importlijsten: {0}",
+    "IndexerDownloadClientHelpText": "Specificeer welke download cliënt wordt gebruikt voor deze indexer",
+    "IndexerTagsHelpText": "Gebruik deze indexer alleen voor films met ten minste één overeenkomende tag. Laat leeg om te gebruiken met alle films."
 }

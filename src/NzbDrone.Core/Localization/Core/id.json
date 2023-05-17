@@ -1,1 +1,27 @@
-{}
+{
+    "Actions": "Tindakan",
+    "AgeWhenGrabbed": "Usia (saat diperoleh)",
+    "All": "Semua",
+    "AlreadyInYourLibrary": "Sudah ada di pustaka kamu",
+    "Analytics": "Analitik",
+    "AnalyticsEnabledHelpText": "Kirimkan informasi penggunaan secara anonim ke server Radarr. Informasi tersebut mengandung browser kamu, halaman WebUI Radarr yang kamu gunakan, pelaporan masalah serta OS dan versi runtime. Kami akan memanfaatkan informasi ini untuk memprioritaskan fitur dan perbaikan bug.",
+    "ApplicationURL": "URL Aplikasi",
+    "ApplicationUrlHelpText": "URL eksternal aplikasi termasuk http(s)://, port, dan dasar URL",
+    "CustomFormat": "Format Khusus",
+    "CustomFormats": "Format Khusus",
+    "Docker": "Docker",
+    "Formats": "Format",
+    "Host": "Host",
+    "Indexer": "Pengindeks",
+    "Indexers": "Pengindeks",
+    "About": "Tentang",
+    "Authentication": "Autentikasi",
+    "AuthenticationMethodHelpText": "Perlukan Nama Pengguna dan Sandi untuk mengakses Radarr",
+    "BackupNow": "Cadangkan Sekarang",
+    "Backups": "Cadangan",
+    "Blocklist": "Daftar Blokir",
+    "Calendar": "Kalender",
+    "Cancel": "Batal",
+    "Grab": "Peroleh",
+    "Hostname": "Hostname"
+}

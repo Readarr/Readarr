@@ -810,5 +810,9 @@
     "CutoffFormatScoreHelpText": "Kun tämä mukautetun muodon pisteytys saavutetaan, ei elokuvia enää ladata.",
     "ResetDefinitionTitlesHelpText": "Palauta määritysten nimet ja arvot.",
     "ResetDefinitions": "Palauta määritykset",
-    "ResetTitles": "Palauta nimet"
+    "ResetTitles": "Palauta nimet",
+    "ImportListMissingRoot": "Tuontilistalta tai -listoilta puuttuu juurikansio: {0}",
+    "ImportListMultipleMissingRoots": "Tuontilistoilta puuttuu useita juurikansioita: {0}",
+    "IndexerDownloadClientHelpText": "Määritä tämän tietolähteen kanssa käytettävä lataustyökalu",
+    "IndexerTagsHelpText": "Tietolähdettä käytetään vähintään yhdellä täsmäävällä tunnisteella merkityille elokuville. Käytä kaikille jättämällä tyhjäksi."
 }

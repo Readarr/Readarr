@@ -632,5 +632,9 @@
     "ExportCustomFormat": "Exportar Formato Personalizado",
     "ResetTitles": "Restablecer títulos",
     "UpgradesAllowed": "Mejoras permitidas",
-    "EnableRssHelpText": "Se utilizará cuando Radarr busque periódicamente publicaciones a través de RSS Sync"
+    "EnableRssHelpText": "Se utilizará cuando Radarr busque periódicamente publicaciones a través de RSS Sync",
+    "IndexerTagsHelpText": "Solo utilizar este indexador para películas que coincidan con al menos una etiqueta. Déjelo en blanco para utilizarlo con todas las películas.",
+    "ImportListMissingRoot": "Falta la capeta raíz para las listas: {0}",
+    "ImportListMultipleMissingRoots": "Múltiples carpetas raíz faltan para las listas de importación: {0}",
+    "IndexerDownloadClientHelpText": "Especifica qué cliente de descargas se utiliza para las descargas de este indexador"
 }
