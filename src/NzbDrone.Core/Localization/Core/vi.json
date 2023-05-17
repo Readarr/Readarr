@@ -559,5 +559,22 @@
     "HardlinkCopyFiles": "Hardlink / Sao chép tệp",
     "MoveFiles": "Di chuyển tệp",
     "MinimumCustomFormatScore": "Điểm định dạng tùy chỉnh tối thiểu",
-    "CustomFormatScore": "Điểm định dạng tùy chỉnh"
+    "CustomFormatScore": "Điểm định dạng tùy chỉnh",
+    "CloneCustomFormat": "Định dạng tùy chỉnh sao chép",
+    "CustomFormats": "Định dạng tùy chỉnh",
+    "DeleteFormatMessageText": "Bạn có chắc chắn muốn xóa thẻ định dạng {0} không?",
+    "IncludeCustomFormatWhenRenamingHelpText": "Bao gồm trong định dạng đổi tên {Custom Formats}",
+    "NegateHelpText": "Nếu được chọn, định dạng tùy chỉnh sẽ không áp dụng nếu điều kiện {0} này phù hợp.",
+    "Conditions": "Điều kiện",
+    "CopyToClipboard": "Sao chép vào clipboard",
+    "CustomFormat": "Định dạng tùy chỉnh",
+    "CustomFormatSettings": "Cài đặt định dạng tùy chỉnh",
+    "CutoffFormatScoreHelpText": "Khi đạt đến điểm định dạng tùy chỉnh này, Radarr sẽ không tải phim xuống nữa",
+    "DeleteCustomFormat": "Xóa định dạng tùy chỉnh",
+    "DeleteCustomFormatMessageText": "Bạn có chắc chắn muốn xóa trình lập chỉ mục '{0}' không?",
+    "ExportCustomFormat": "Xuất định dạng tùy chỉnh",
+    "Formats": "Định dạng",
+    "MinFormatScoreHelpText": "Điểm định dạng tùy chỉnh tối thiểu được phép tải xuống",
+    "UnableToLoadCustomFormats": "Không thể tải các Định dạng Tùy chỉnh",
+    "UpgradesAllowed": "Nâng cấp được phép"
 }

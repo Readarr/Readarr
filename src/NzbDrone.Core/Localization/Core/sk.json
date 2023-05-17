@@ -131,5 +131,15 @@
     "Queue": "Fronta",
     "BlocklistHelpText": "Zabráni Radarru, aby znova automaticky grabol toto vydanie",
     "ClickToChangeReleaseGroup": "Kliknutím zmeníte skupinu vydania",
-    "ChooseImportMethod": "Zvoliť Import mód"
+    "ChooseImportMethod": "Zvoliť Import mód",
+    "CustomFormats": "Vlastný formát",
+    "DeleteFormatMessageText": "Naozaj chcete zmazať značku formátu {0} ?",
+    "CloneCustomFormat": "Klonovať vlastný formát",
+    "CustomFormat": "Vlastný formát",
+    "DeleteCustomFormat": "Klonovať vlastný formát",
+    "DeleteCustomFormatMessageText": "Naozaj chcete zmazať značku formátu {0} ?",
+    "ExportCustomFormat": "Pridať vlastný formát",
+    "Formats": "Formát",
+    "BypassIfHighestQuality": "Obísť pri najvyššej kvalite",
+    "Conditions": "Podmienky"
 }

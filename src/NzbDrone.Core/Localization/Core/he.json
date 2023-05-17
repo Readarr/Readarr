@@ -594,5 +594,9 @@
     "DeleteFormatMessageText": "האם אתה בטוח שברצונך למחוק את תג הפורמט {0}?",
     "ExportCustomFormat": "ייצא פורמט מותאם אישית",
     "IncludeCustomFormatWhenRenamingHelpText": "כלול בתבנית שינוי שם של {פורמטים מותאמים אישית}",
-    "NegateHelpText": "אם מסומן, הפורמט המותאם אישית לא יחול אם תנאי זה {0} תואם."
+    "NegateHelpText": "אם מסומן, הפורמט המותאם אישית לא יחול אם תנאי זה {0} תואם.",
+    "ImportListMissingRoot": "תיקיית אב חסרה, לא ניתן לעשות ייבוא מרשימה(ות): {0}",
+    "ImportListMultipleMissingRoots": "מספר תיקיות אב חסרות לייבוא רשימות: {0}",
+    "IndexerDownloadClientHelpText": "ציין איזה קליינט הורדה משתמש באינדקסר הזה להורדה",
+    "IndexerTagsHelpText": "השתמש באינדקסר זה רק לסרטים שתואמים לתויות. השאר ריק כדי לחפש את כל הסרטים."
 }
