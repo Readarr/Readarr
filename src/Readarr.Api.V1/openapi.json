@@ -2528,6 +2528,14 @@
         ],
         "parameters": [
           {
+            "name": "forceSave",
+            "in": "query",
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
+          },
+          {
             "name": "id",
             "in": "path",
             "required": true,
@@ -3529,6 +3537,14 @@
         ],
         "parameters": [
           {
+            "name": "forceSave",
+            "in": "query",
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
+          },
+          {
             "name": "id",
             "in": "path",
             "required": true,
@@ -4052,6 +4068,14 @@
           "Indexer"
         ],
         "parameters": [
+          {
+            "name": "forceSave",
+            "in": "query",
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
+          },
           {
             "name": "id",
             "in": "path",
@@ -5014,6 +5038,14 @@
           "Metadata"
         ],
         "parameters": [
+          {
+            "name": "forceSave",
+            "in": "query",
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
+          },
           {
             "name": "id",
             "in": "path",
@@ -5995,6 +6027,14 @@
           "Notification"
         ],
         "parameters": [
+          {
+            "name": "forceSave",
+            "in": "query",
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
+          },
           {
             "name": "id",
             "in": "path",
