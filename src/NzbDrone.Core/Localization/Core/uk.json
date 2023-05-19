@@ -520,7 +520,6 @@
     "UserAgentProvidedByTheAppThatCalledTheAPI": "Агент користувача, наданий програмою, яка викликала API",
     "ReadarrSupportsAnyIndexerThatUsesTheNewznabStandardAsWellAsOtherIndexersListedBelow": "Radarr підтримує будь-який індексатор, який використовує стандарт Newznab, а також інші індексатори, перелічені нижче.",
     "RecycleBinHelpText": "Файли фільмів потраплять сюди після видалення, а не назавжди",
-    "AdvancedSettingsHiddenClickToShow": "Приховано, натисніть, щоб показати",
     "AdvancedSettingsShownClickToHide": "Показано, натисніть, щоб приховати",
     "ApiKeyHelpTextWarning": "Щоб набуло чинності, потрібно перезапустити",
     "IconTooltip": "За розкладом",
