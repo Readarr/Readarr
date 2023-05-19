@@ -834,5 +834,9 @@
     "ThemeHelpText": "Alterar o tema da interface do usuário. O tema 'Auto' usará o tema do sistema operacional para definir o modo Claro ou Escuro. Inspirado por Theme.Park",
     "EnableRssHelpText": "Será usado quando o Radarr procurar periodicamente releases via RSS Sync",
     "CustomFormat": "Formatos personalizados",
-    "ImportListMissingRoot": "Pasta de raiz ausente para a(s) lista(s) de importação: {0}"
+    "ImportListMissingRoot": "Pasta de raiz ausente para a(s) lista(s) de importação: {0}",
+    "HiddenClickToShow": "Oculto, clique para mostrar",
+    "HideAdvanced": "Ocultar avançado",
+    "ShowAdvanced": "Mostrar avançado",
+    "ShownClickToHide": "Visível, clique para ocultar"
 }

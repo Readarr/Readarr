@@ -629,5 +629,9 @@
     "ImportListMissingRoot": "Ontbrekende hoofdmap voor importlijst(en): {0}",
     "ImportListMultipleMissingRoots": "Er ontbreken meerdere hoofdmappen voor importlijsten: {0}",
     "IndexerDownloadClientHelpText": "Specificeer welke download cliënt wordt gebruikt voor deze indexer",
-    "IndexerTagsHelpText": "Gebruik deze indexer alleen voor films met ten minste één overeenkomende tag. Laat leeg om te gebruiken met alle films."
+    "IndexerTagsHelpText": "Gebruik deze indexer alleen voor films met ten minste één overeenkomende tag. Laat leeg om te gebruiken met alle films.",
+    "HiddenClickToShow": "Verborgen, klik om te tonen",
+    "HideAdvanced": "Verberg Gevorderd",
+    "ShowAdvanced": "Toon Geavanceerd",
+    "ShownClickToHide": "Getoond, klik om te verbergen"
 }

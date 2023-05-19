@@ -904,5 +904,9 @@
     "ImportListMissingRoot": "Hiányzó gyökérmappa az importálási listá(k)hoz: {0}",
     "ImportListMultipleMissingRoots": "Több gyökérmappa hiányzik az importálási listákhoz: {0}",
     "IndexerDownloadClientHelpText": "Adja meg, hogy melyik letöltési kliens használja az indexelőből történő megfogásokat",
-    "IndexerTagsHelpText": "Csak olyan filmekhez használja ezt az indexelőt, amelyek legalább egy megfelelő címkével rendelkeznek. Hagyja üresen az összes filmhez való használathoz."
+    "IndexerTagsHelpText": "Csak olyan filmekhez használja ezt az indexelőt, amelyek legalább egy megfelelő címkével rendelkeznek. Hagyja üresen az összes filmhez való használathoz.",
+    "HiddenClickToShow": "Rejtett, kattints a megjelenítéshez",
+    "HideAdvanced": "Haladó Elrejtése",
+    "ShowAdvanced": "Haladó nézet",
+    "ShownClickToHide": "Kattints, hogy elrejtsd"
 }

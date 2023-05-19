@@ -575,5 +575,9 @@
     "CustomFormatSettings": "Nastavení vlastních formátů",
     "CustomFormats": "Vlastní formáty",
     "CutoffFormatScoreHelpText": "Jakmile je dosaženo tohoto skóre vlastního formátu, Radarr již nebude stahovat filmy",
-    "DeleteFormatMessageText": "Opravdu chcete smazat značku formátu {0}?"
+    "DeleteFormatMessageText": "Opravdu chcete smazat značku formátu {0}?",
+    "HiddenClickToShow": "Skryté, kliknutím zobrazíte",
+    "HideAdvanced": "Skrýt pokročilé",
+    "ShowAdvanced": "Zobrazit pokročilé",
+    "ShownClickToHide": "Zobrazeno, kliknutím se skryjete"
 }

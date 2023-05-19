@@ -613,5 +613,9 @@
     "IncludeCustomFormatWhenRenamingHelpText": "Включіть у формат перейменування {Custom Formats}",
     "MinFormatScoreHelpText": "Мінімальна оцінка спеціального формату, дозволена для завантаження",
     "Conditions": "Умови",
-    "CopyToClipboard": "Копіювати в буфер обміну"
+    "CopyToClipboard": "Копіювати в буфер обміну",
+    "HiddenClickToShow": "Приховано, натисніть, щоб показати",
+    "HideAdvanced": "Сховати додаткові",
+    "ShowAdvanced": "Показати Додатково",
+    "ShownClickToHide": "Показано, натисніть, щоб приховати"
 }

@@ -813,5 +813,9 @@
     "ImportListMissingRoot": "Tuontilistalta tai -listoilta puuttuu juurikansio: {0}",
     "ImportListMultipleMissingRoots": "Tuontilistoilta puuttuu useita juurikansioita: {0}",
     "IndexerDownloadClientHelpText": "Määritä tämän tietolähteen kanssa käytettävä lataustyökalu",
-    "IndexerTagsHelpText": "Tietolähdettä käytetään vähintään yhdellä täsmäävällä tunnisteella merkityille elokuville. Käytä kaikille jättämällä tyhjäksi."
+    "IndexerTagsHelpText": "Tietolähdettä käytetään vähintään yhdellä täsmäävällä tunnisteella merkityille elokuville. Käytä kaikille jättämällä tyhjäksi.",
+    "HiddenClickToShow": "Piilotettu, näytä painalla",
+    "HideAdvanced": "Piilota edistyneet",
+    "ShowAdvanced": "Näytä lisäasetukset",
+    "ShownClickToHide": "Näkyvissä, piilota painamalla"
 }

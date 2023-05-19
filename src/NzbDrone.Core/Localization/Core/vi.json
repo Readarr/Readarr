@@ -575,5 +575,9 @@
     "Formats": "Định dạng",
     "MinFormatScoreHelpText": "Điểm định dạng tùy chỉnh tối thiểu được phép tải xuống",
     "UnableToLoadCustomFormats": "Không thể tải các Định dạng Tùy chỉnh",
-    "UpgradesAllowed": "Nâng cấp được phép"
+    "UpgradesAllowed": "Nâng cấp được phép",
+    "HiddenClickToShow": "Ẩn, bấm để hiển thị",
+    "HideAdvanced": "Ẩn nâng cao",
+    "ShowAdvanced": "Hiển thị nâng cao",
+    "ShownClickToHide": "Hiển thị, nhấp để ẩn"
 }

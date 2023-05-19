@@ -576,5 +576,9 @@
     "MinFormatScoreHelpText": "الحد الأدنى لدرجة التنسيق المخصص المسموح به للتنزيل",
     "NegateHelpText": "إذا تم تحديده ، فلن يتم تطبيق التنسيق المخصص إذا تطابق شرط {0} هذا.",
     "UnableToLoadCustomFormats": "تعذر تحميل التنسيقات المخصصة",
-    "UpgradesAllowed": "الترقيات المسموح بها"
+    "UpgradesAllowed": "الترقيات المسموح بها",
+    "HiddenClickToShow": "مخفي ، انقر للعرض",
+    "HideAdvanced": "إخفاء الإعدادات المتقدمة",
+    "ShowAdvanced": "عرض متقدمة",
+    "ShownClickToHide": "يظهر ، انقر للإخفاء"
 }

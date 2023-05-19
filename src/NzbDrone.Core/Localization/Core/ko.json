@@ -575,5 +575,8 @@
     "Conditions": "조건",
     "CutoffFormatScoreHelpText": "이 사용자 지정 형식 점수에 도달하면 Radarr는 더 이상 영화를 다운로드 하지 않습니다.",
     "Formats": "형식",
-    "UpgradesAllowed": "허용되는 업그레이드"
+    "UpgradesAllowed": "허용되는 업그레이드",
+    "HideAdvanced": "고급 숨기기",
+    "HiddenClickToShow": "숨김, 클릭하여 표시",
+    "ShowAdvanced": "고급보기"
 }

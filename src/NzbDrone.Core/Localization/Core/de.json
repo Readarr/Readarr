@@ -905,5 +905,9 @@
     "ImportListMultipleMissingRoots": "Mehrere Stammverzeichnisse fehlen für Importlist: {0}",
     "IndexerDownloadClientHelpText": "Wähle aus, welcher Download-Client für diesen Indexer verwendet wird",
     "IndexerTagsHelpText": "Benutze den Indexer nur für Filme mit mindesens einen zutreffenden Tag. Leer lassen für alle Filme.",
-    "RecycleBinUnableToWriteHealthCheck": "Schreiben in konfigurierten Papierkorbordner nicht möglich: {0}. Stelle sicher, dass dieser Pfad existiert und von dem Benutzer, der Radarr ausführt, beschreibbar ist"
+    "RecycleBinUnableToWriteHealthCheck": "Schreiben in konfigurierten Papierkorbordner nicht möglich: {0}. Stelle sicher, dass dieser Pfad existiert und von dem Benutzer, der Radarr ausführt, beschreibbar ist",
+    "HiddenClickToShow": "Versteckt, klicken zum anzeigen",
+    "HideAdvanced": "Erweiterte Ansicht",
+    "ShowAdvanced": "Einfache Ansicht",
+    "ShownClickToHide": "Angezeigt, zum verstecken klicken"
 }

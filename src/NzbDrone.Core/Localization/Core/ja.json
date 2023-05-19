@@ -575,5 +575,9 @@
     "DeleteFormatMessageText": "フォーマットタグ{0}を削除してもよろしいですか？",
     "IncludeCustomFormatWhenRenamingHelpText": "{カスタムフォーマット}の名前変更フォーマットに含める",
     "UnableToLoadCustomFormats": "カスタムフォーマットを読み込めません",
-    "UpgradesAllowed": "許可されるアップグレード"
+    "UpgradesAllowed": "許可されるアップグレード",
+    "HiddenClickToShow": "非表示、クリックして表示",
+    "HideAdvanced": "高度な非表示",
+    "ShowAdvanced": "高度な表示",
+    "ShownClickToHide": "表示、クリックして非表示"
 }

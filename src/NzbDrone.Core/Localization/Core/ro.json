@@ -576,5 +576,9 @@
     "CustomFormats": "Formate personalizate",
     "CutoffFormatScoreHelpText": "Odată ce acest scor personalizat este atins, Radarr nu va mai descărca filme",
     "DeleteFormatMessageText": "Sigur doriți să ștergeți eticheta format {0}?",
-    "IncludeCustomFormatWhenRenamingHelpText": "Includeți în formatul de redenumire {Formate personalizate}"
+    "IncludeCustomFormatWhenRenamingHelpText": "Includeți în formatul de redenumire {Formate personalizate}",
+    "HiddenClickToShow": "Ascuns, faceți clic pentru a afișa",
+    "HideAdvanced": "Ascunde Avansat",
+    "ShowAdvanced": "Arată setări avansate",
+    "ShownClickToHide": "Afișat, faceți clic pentru a ascunde"
 }

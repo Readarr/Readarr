@@ -575,5 +575,9 @@
     "Formats": "Biçimler",
     "IncludeCustomFormatWhenRenamingHelpText": "{Özel Biçimler} yeniden adlandırma biçimine dahil et",
     "MinFormatScoreHelpText": "İndirmeye izin verilen minimum özel biçim puanı",
-    "NegateHelpText": "İşaretlenirse, bu {0} koşulu eşleşirse özel biçim uygulanmaz."
+    "NegateHelpText": "İşaretlenirse, bu {0} koşulu eşleşirse özel biçim uygulanmaz.",
+    "HiddenClickToShow": "Gizli, göstermek için tıklayın",
+    "HideAdvanced": "Gelişmiş'i Gizle",
+    "ShowAdvanced": "Gelişmiş'i Göster",
+    "ShownClickToHide": "Gösterildi, gizlemek için tıklayın"
 }

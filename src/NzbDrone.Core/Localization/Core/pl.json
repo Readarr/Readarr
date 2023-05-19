@@ -611,5 +611,9 @@
     "ImportListMultipleMissingRoots": "Brak wielu katalogów głównych dla list importu: {0}",
     "IndexerTagsHelpText": "Korzystaj z tego indeksera wyłącznie w przypadku filmów z co najmniej jednym pasującym tagiem. Pozostaw pole puste, by używać do wszystkich filmów.",
     "ImportListMissingRoot": "Brak katalogu głównego dla list importu: {0}",
-    "IndexerDownloadClientHelpText": "Określ, który klient pobiera będzie łapał filmy z tego indeksera"
+    "IndexerDownloadClientHelpText": "Określ, który klient pobiera będzie łapał filmy z tego indeksera",
+    "HiddenClickToShow": "Ukryty, kliknij, aby pokazać",
+    "HideAdvanced": "Ukryj zaawansowane",
+    "ShowAdvanced": "Pokaż zaawansowane",
+    "ShownClickToHide": "Pokazane, kliknij, aby ukryć"
 }

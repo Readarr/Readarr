@@ -577,5 +577,9 @@
     "CustomFormatSettings": "Indstillinger for brugerdefinerede formater",
     "CustomFormats": "Bruger Tilpasset Formater",
     "CutoffFormatScoreHelpText": "Når denne score til brugerdefineret format er nået, downloader Radarr ikke længere film",
-    "DeleteCustomFormatMessageText": "Er du sikker på, at du vil slette indeksøren '{0}'?"
+    "DeleteCustomFormatMessageText": "Er du sikker på, at du vil slette indeksøren '{0}'?",
+    "HiddenClickToShow": "Skjult, klik for at vise",
+    "ShownClickToHide": "Vist, klik for at skjule",
+    "HideAdvanced": "Gemt Avancerede",
+    "ShowAdvanced": "Vis avanceret"
 }

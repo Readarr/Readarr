@@ -575,5 +575,9 @@
     "DeleteCustomFormatMessageText": "แน่ใจไหมว่าต้องการลบตัวสร้างดัชนี \"{0}\"",
     "DeleteFormatMessageText": "แน่ใจไหมว่าต้องการลบแท็กรูปแบบ {0}",
     "NegateHelpText": "หากเลือกรูปแบบที่กำหนดเองจะใช้ไม่ได้หากเงื่อนไข {0} นี้ตรง",
-    "UnableToLoadCustomFormats": "ไม่สามารถโหลดรูปแบบที่กำหนดเอง"
+    "UnableToLoadCustomFormats": "ไม่สามารถโหลดรูปแบบที่กำหนดเอง",
+    "ShowAdvanced": "แสดงขั้นสูง",
+    "HiddenClickToShow": "ซ่อนอยู่คลิกเพื่อแสดง",
+    "HideAdvanced": "ซ่อนขั้นสูง",
+    "ShownClickToHide": "แสดงคลิกเพื่อซ่อน"
 }

@@ -597,5 +597,9 @@
     "ImportListMissingRoot": "תיקיית אב חסרה, לא ניתן לעשות ייבוא מרשימה(ות): {0}",
     "ImportListMultipleMissingRoots": "מספר תיקיות אב חסרות לייבוא רשימות: {0}",
     "IndexerDownloadClientHelpText": "ציין איזה קליינט הורדה משתמש באינדקסר הזה להורדה",
-    "IndexerTagsHelpText": "השתמש באינדקסר זה רק לסרטים שתואמים לתויות. השאר ריק כדי לחפש את כל הסרטים."
+    "IndexerTagsHelpText": "השתמש באינדקסר זה רק לסרטים שתואמים לתויות. השאר ריק כדי לחפש את כל הסרטים.",
+    "HiddenClickToShow": "מוסתר, לחץ להצגה",
+    "HideAdvanced": "הסתר מתקדם",
+    "ShowAdvanced": "הצג מתקדם",
+    "ShownClickToHide": "מוצג, לחץ כדי להסתיר"
 }

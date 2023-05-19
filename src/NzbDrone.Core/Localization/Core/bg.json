@@ -575,5 +575,9 @@
     "NegateHelpText": "Ако е отметнато, персонализираният формат няма да се прилага, ако това {0} условие съвпада.",
     "UnableToLoadCustomFormats": "Не може да се заредят персонализирани формати",
     "UpgradesAllowed": "Позволени надстройки",
-    "DeleteCustomFormatMessageText": "Наистина ли искате да изтриете индексатора „{0}“?"
+    "DeleteCustomFormatMessageText": "Наистина ли искате да изтриете индексатора „{0}“?",
+    "HiddenClickToShow": "Скрито, кликнете за показване",
+    "HideAdvanced": "Скрий Разширено",
+    "ShowAdvanced": "Показване на напреднали",
+    "ShownClickToHide": "Показано, щракнете, за да се скриете"
 }

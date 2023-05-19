@@ -917,5 +917,9 @@
     "ResetDefinitionTitlesHelpText": "Redefinir títulos de definição, bem como valores",
     "ResetDefinitions": "Redefinir Definições",
     "ResetTitles": "Redefinir Títulos",
-    "UnableToLoadCustomFormats": "Não foi possível carregar formatos personalizados"
+    "UnableToLoadCustomFormats": "Não foi possível carregar formatos personalizados",
+    "HiddenClickToShow": "Oculto, clique para mostrar",
+    "HideAdvanced": "Ocultar avançado",
+    "ShowAdvanced": "Mostrar opções avançadas",
+    "ShownClickToHide": "Exibido, clique para ocultar"
 }

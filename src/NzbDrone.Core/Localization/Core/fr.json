@@ -719,5 +719,9 @@
     "ThereWasAnErrorLoadingThisItem": "Une erreur s'est produite lors du chargement de cet élément",
     "ThereWasAnErrorLoadingThisPage": "Une erreur s'est produite lors du chargement de cette page",
     "ApiKeyValidationHealthCheckMessage": "Merci de mettre à jour votre clé API afin qu'elle fasse plus de 20 caractères. Rendez vous dans les paramètres ou dans le fichier de configuration",
-    "DeleteBookFile": "Effacer le fichier du livre"
+    "DeleteBookFile": "Effacer le fichier du livre",
+    "HiddenClickToShow": "Caché, cliquez pour afficher",
+    "HideAdvanced": "Masquer avancé",
+    "ShowAdvanced": "Afficher avancés",
+    "ShownClickToHide": "Montré, cliquez pour masquer"
 }

@@ -575,5 +575,9 @@
     "CustomFormat": "Sérsniðið snið",
     "CustomFormatSettings": "Stillingar sérsniðinna sniða",
     "CustomFormats": "Sérsniðin snið",
-    "CutoffFormatScoreHelpText": "Þegar þessu sérsniðna sniði hefur verið náð mun Radarr ekki lengur hlaða niður kvikmyndum"
+    "CutoffFormatScoreHelpText": "Þegar þessu sérsniðna sniði hefur verið náð mun Radarr ekki lengur hlaða niður kvikmyndum",
+    "HiddenClickToShow": "Falinn, smelltu til að sýna",
+    "HideAdvanced": "Fela lengra komna",
+    "ShowAdvanced": "Sýna lengra komna",
+    "ShownClickToHide": "Sýnt, smelltu til að fela"
 }
