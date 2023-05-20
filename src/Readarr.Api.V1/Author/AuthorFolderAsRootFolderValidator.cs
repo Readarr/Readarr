@@ -15,7 +15,7 @@ namespace Readarr.Api.V1.Author
             _fileNameBuilder = fileNameBuilder;
         }
 
-        protected override string GetDefaultMessageTemplate() => "Root folder path contains author folder";
+        protected override string GetDefaultMessageTemplate() => "Root folder path '{rootFolderPath}' contains author folder '{authorFolder}'";
 
         protected override bool IsValid(PropertyValidatorContext context)
         {
@@ -24,9 +24,7 @@ namespace Readarr.Api.V1.Author
                 return true;
             }
 
-            var authorResource = context.ParentContext.InstanceToValidate as AuthorResource;
-
-            if (authorResource == null)
+            if (context.ParentContext.InstanceToValidate is not AuthorResource authorResource)
             {
                 return true;
             }
@@ -35,6 +33,9 @@ namespace Readarr.Api.V1.Author
             var rootFolder = new DirectoryInfo(rootFolderPath).Name;
             var author = authorResource.ToModel();
             var authorFolder = _fileNameBuilder.GetAuthorFolder(author);
+
+            context.MessageFormatter.AppendArgument("rootFolderPath", rootFolderPath);
+            context.MessageFormatter.AppendArgument("authorFolder", authorFolder);
 
             if (authorFolder == rootFolder)
             {
