@@ -5859,6 +5859,14 @@
             }
           },
           {
+            "name": "ColonReplacementFormat",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
             "name": "StandardBookFormat",
             "in": "query",
             "schema": {
@@ -12145,6 +12153,10 @@
           },
           "replaceIllegalCharacters": {
             "type": "boolean"
+          },
+          "colonReplacementFormat": {
+            "type": "integer",
+            "format": "int32"
           },
           "standardBookFormat": {
             "type": "string",
