@@ -121,6 +121,11 @@ namespace NzbDrone.Core.MediaCover
 
             foreach (var cover in author.Metadata.Value.Images)
             {
+                if (cover.CoverType == MediaCoverTypes.Unknown)
+                {
+                    continue;
+                }
+
                 var fileName = GetCoverPath(author.Id, MediaCoverEntity.Author, cover.CoverType, cover.Extension);
                 var alreadyExists = false;
 
@@ -166,8 +171,14 @@ namespace NzbDrone.Core.MediaCover
         {
             foreach (var cover in book.Editions.Value.Single(x => x.Monitored).Images.Where(e => e.CoverType == MediaCoverTypes.Cover))
             {
+                if (cover.CoverType == MediaCoverTypes.Unknown)
+                {
+                    continue;
+                }
+
                 var fileName = GetCoverPath(book.Id, MediaCoverEntity.Book, cover.CoverType, cover.Extension, null);
                 var alreadyExists = false;
+
                 try
                 {
                     var serverFileHeaders = GetServerHeaders(cover.Url);
