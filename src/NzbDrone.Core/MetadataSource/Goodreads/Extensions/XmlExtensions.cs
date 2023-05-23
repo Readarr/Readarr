@@ -73,13 +73,12 @@ namespace NzbDrone.Core.MetadataSource.Goodreads
                 // This regex corrects the format and hopefully doesn't mess anything else up...
                 var validDateFormat = Regex.Replace(value, @"(.*) ([+-]\d{2})(\d{2}) (.*)", "$1 $2:$3 $4");
 
-                DateTime localDate;
                 if (DateTime.TryParseExact(
-                    validDateFormat,
-                    "ddd MMM dd HH:mm:ss zzz yyyy",
-                    CultureInfo.InvariantCulture,
-                    DateTimeStyles.None,
-                    out localDate))
+                        validDateFormat,
+                        "ddd MMM dd HH:mm:ss zzz yyyy",
+                        CultureInfo.InvariantCulture,
+                        DateTimeStyles.None,
+                        out var localDate))
                 {
                     return localDate.ToUniversalTime();
                 }

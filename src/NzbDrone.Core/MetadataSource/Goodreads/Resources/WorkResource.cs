@@ -144,9 +144,8 @@ namespace NzbDrone.Core.MetadataSource.Goodreads
 
                     foreach (var rating in ratings)
                     {
-                        int star = 0, count = 0;
-                        int.TryParse(rating[0], out star);
-                        int.TryParse(rating[1], out count);
+                        int.TryParse(rating[0], out var star);
+                        int.TryParse(rating[1], out var count);
 
                         ratingDistribution.Add(star, count);
                     }

@@ -227,8 +227,7 @@ namespace NzbDrone.Core.MetadataSource.Goodreads
                 var shelfName = shelfElement?.Attribute("name")?.Value;
                 var shelfCountValue = shelfElement?.Attribute("count")?.Value;
 
-                int shelfCount = 0;
-                int.TryParse(shelfCountValue, out shelfCount);
+                int.TryParse(shelfCountValue, out var shelfCount);
                 return new KeyValuePair<string, int>(shelfName, shelfCount);
             });
 

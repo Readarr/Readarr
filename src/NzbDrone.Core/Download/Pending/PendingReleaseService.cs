@@ -307,8 +307,7 @@ namespace NzbDrone.Core.Download.Pending
 
                 List<Book> books;
 
-                RemoteBook knownRemoteBook;
-                if (knownRemoteBooks != null && knownRemoteBooks.TryGetValue(release.Release.Title, out knownRemoteBook))
+                if (knownRemoteBooks != null && knownRemoteBooks.TryGetValue(release.Release.Title, out var knownRemoteBook))
                 {
                     books = knownRemoteBook.Books;
                 }

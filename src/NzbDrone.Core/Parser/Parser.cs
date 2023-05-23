@@ -647,9 +647,8 @@ namespace NzbDrone.Core.Parser
             if (matches.Count != 0)
             {
                 var group = matches.OfType<Match>().Last().Groups["releasegroup"].Value;
-                int groupIsNumeric;
 
-                if (int.TryParse(group, out groupIsNumeric))
+                if (int.TryParse(group, out _))
                 {
                     return null;
                 }
@@ -792,8 +791,7 @@ namespace NzbDrone.Core.Parser
             bookTitle = RequestInfoRegex.Replace(bookTitle, "").Trim(' ');
             releaseVersion = RequestInfoRegex.Replace(releaseVersion, "").Trim(' ');
 
-            int releaseYear;
-            int.TryParse(matchCollection[0].Groups["releaseyear"].Value, out releaseYear);
+            int.TryParse(matchCollection[0].Groups["releaseyear"].Value, out var releaseYear);
 
             ParsedBookInfo result;
 
@@ -810,10 +808,8 @@ namespace NzbDrone.Core.Parser
 
             if (matchCollection[0].Groups["discography"].Success)
             {
-                int discStart;
-                int discEnd;
-                int.TryParse(matchCollection[0].Groups["startyear"].Value, out discStart);
-                int.TryParse(matchCollection[0].Groups["endyear"].Value, out discEnd);
+                int.TryParse(matchCollection[0].Groups["startyear"].Value, out var discStart);
+                int.TryParse(matchCollection[0].Groups["endyear"].Value, out var discEnd);
                 result.Discography = true;
 
                 if (discStart > 0 && discEnd > 0)
@@ -891,9 +887,7 @@ namespace NzbDrone.Core.Parser
 
         private static int ParseNumber(string value)
         {
-            int number;
-
-            if (int.TryParse(value, out number))
+            if (int.TryParse(value, out var number))
             {
                 return number;
             }
