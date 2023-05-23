@@ -136,7 +136,7 @@ namespace NzbDrone.Common.Extensions
 
                 for (var j = finish; j >= start; j--)
                 {
-                    T charMatch = charMatches[j - 1];
+                    var charMatch = charMatches[j - 1];
 
                     if (d == 0)
                     {
@@ -181,7 +181,7 @@ namespace NzbDrone.Common.Extensions
                         // match.  But check anyway.
                         var score = BitapScore(d, pattern);
 
-                        bool isOnWordBoundary = true;
+                        var isOnWordBoundary = true;
 
                         if (wordDelimiters != null)
                         {
@@ -233,8 +233,8 @@ namespace NzbDrone.Common.Extensions
                 return new List<char>();
             }
 
-            char curr = text[j - 1];
-            bool take = true;
+            var curr = text[j - 1];
+            var take = true;
 
             if (!s.TryGetValue(curr, out var charMatch))
             {

@@ -45,9 +45,9 @@ namespace NzbDrone.Core.MetadataSource.Goodreads
                 endAttribute != null &&
                 totalAttribute != null)
             {
-                int.TryParse(startAttribute.Value, out int start);
-                int.TryParse(endAttribute.Value, out int end);
-                int.TryParse(totalAttribute.Value, out int total);
+                int.TryParse(startAttribute.Value, out var start);
+                int.TryParse(endAttribute.Value, out var end);
+                int.TryParse(totalAttribute.Value, out var total);
 
                 Start = start;
                 End = end;

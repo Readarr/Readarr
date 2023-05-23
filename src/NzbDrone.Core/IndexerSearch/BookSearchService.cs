@@ -74,7 +74,7 @@ namespace NzbDrone.Core.IndexerSearch
 
             if (message.AuthorId.HasValue)
             {
-                int authorId = message.AuthorId.Value;
+                var authorId = message.AuthorId.Value;
 
                 var pagingSpec = new PagingSpec<Book>
                 {

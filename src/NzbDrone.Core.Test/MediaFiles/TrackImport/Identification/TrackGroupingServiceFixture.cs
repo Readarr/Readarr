@@ -30,17 +30,17 @@ namespace NzbDrone.Core.Test.MediaFiles.BookImport.Identification
         static RandomValueNamerShortStrings()
         {
             AllowedChars = new List<char>();
-            for (char c = 'a'; c < 'z'; c++)
+            for (var c = 'a'; c < 'z'; c++)
             {
                 AllowedChars.Add(c);
             }
 
-            for (char c = 'A'; c < 'Z'; c++)
+            for (var c = 'A'; c < 'Z'; c++)
             {
                 AllowedChars.Add(c);
             }
 
-            for (char c = '0'; c < '9'; c++)
+            for (var c = '0'; c < '9'; c++)
             {
                 AllowedChars.Add(c);
             }
@@ -48,17 +48,17 @@ namespace NzbDrone.Core.Test.MediaFiles.BookImport.Identification
 
         protected override string GetString(MemberInfo memberInfo)
         {
-            int length = _generator.Next(1, 100);
+            var length = _generator.Next(1, 100);
 
-            char[] chars = new char[length];
+            var chars = new char[length];
 
-            for (int i = 0; i < length; i++)
+            for (var i = 0; i < length; i++)
             {
-                int index = _generator.Next(0, AllowedChars.Count - 1);
+                var index = _generator.Next(0, AllowedChars.Count - 1);
                 chars[i] = AllowedChars[index];
             }
 
-            byte[] bytes = Encoding.UTF8.GetBytes(chars);
+            var bytes = Encoding.UTF8.GetBytes(chars);
             return Encoding.UTF8.GetString(bytes, 0, bytes.Length);
         }
     }
@@ -90,7 +90,7 @@ namespace NzbDrone.Core.Test.MediaFiles.BookImport.Identification
         {
             var outp = new List<LocalBook>();
 
-            for (int i = 0; i < count; i++)
+            for (var i = 0; i < count; i++)
             {
                 var track = Builder<LocalBook>
                     .CreateNew()
@@ -283,7 +283,7 @@ namespace NzbDrone.Core.Test.MediaFiles.BookImport.Identification
         public void should_separate_many_books_in_same_directory()
         {
             var tracks = new List<LocalBook>();
-            for (int i = 0; i < 100; i++)
+            for (var i = 0; i < 100; i++)
             {
                 tracks.AddRange(GivenTracks($"C:\\music".AsOsAgnostic(), "author" + i, "book" + i, 10));
             }

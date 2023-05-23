@@ -21,43 +21,43 @@ namespace NzbDrone.Core.MetadataSource.Goodreads
         public static long ElementAsLong(this XElement element, XName name)
         {
             var el = element.Element(name);
-            return long.TryParse(el?.Value, out long value) ? value : default(long);
+            return long.TryParse(el?.Value, out var value) ? value : default(long);
         }
 
         public static long? ElementAsNullableLong(this XElement element, XName name)
         {
             var el = element.Element(name);
-            return long.TryParse(el?.Value, out long value) ? new long?(value) : null;
+            return long.TryParse(el?.Value, out var value) ? new long?(value) : null;
         }
 
         public static int ElementAsInt(this XElement element, XName name)
         {
             var el = element.Element(name);
-            return int.TryParse(el?.Value, out int value) ? value : default(int);
+            return int.TryParse(el?.Value, out var value) ? value : default(int);
         }
 
         public static int? ElementAsNullableInt(this XElement element, XName name)
         {
             var el = element.Element(name);
-            return int.TryParse(el?.Value, out int value) ? new int?(value) : null;
+            return int.TryParse(el?.Value, out var value) ? new int?(value) : null;
         }
 
         public static decimal ElementAsDecimal(this XElement element, XName name)
         {
             var el = element.Element(name);
-            return decimal.TryParse(el?.Value, out decimal value) ? value : default(decimal);
+            return decimal.TryParse(el?.Value, out var value) ? value : default(decimal);
         }
 
         public static decimal? ElementAsNullableDecimal(this XElement element, XName name)
         {
             var el = element.Element(name);
-            return decimal.TryParse(el?.Value, out decimal value) ? new decimal?(value) : null;
+            return decimal.TryParse(el?.Value, out var value) ? new decimal?(value) : null;
         }
 
         public static DateTime? ElementAsDate(this XElement element, XName name)
         {
             var el = element.Element(name);
-            return DateTime.TryParseExact(el?.Value, "yyyy/MM/dd", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime date)
+            return DateTime.TryParseExact(el?.Value, "yyyy/MM/dd", CultureInfo.InvariantCulture, DateTimeStyles.None, out var date)
                 ? new DateTime?(date)
                 : null;
         }
@@ -99,7 +99,7 @@ namespace NzbDrone.Core.MetadataSource.Goodreads
         public static DateTime? ElementAsMonthYear(this XElement element, XName name)
         {
             var el = element.Element(name);
-            return DateTime.TryParseExact(el?.Value, "MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime date)
+            return DateTime.TryParseExact(el?.Value, "MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out var date)
                 ? new DateTime?(date)
                 : null;
         }
@@ -152,7 +152,7 @@ namespace NzbDrone.Core.MetadataSource.Goodreads
         public static bool ElementAsBool(this XElement element, XName name)
         {
             var el = element.Element(name);
-            return bool.TryParse(el?.Value, out bool value) ? value : false;
+            return bool.TryParse(el?.Value, out var value) ? value : false;
         }
 
         public static List<T> ParseChildren<T>(this XElement element, XName parentName, XName childName)
@@ -222,19 +222,19 @@ namespace NzbDrone.Core.MetadataSource.Goodreads
         public static int AttributeAsInt(this XElement element, XName attributeName)
         {
             var attr = element.Attribute(attributeName);
-            return int.TryParse(attr?.Value, out int value) ? value : default(int);
+            return int.TryParse(attr?.Value, out var value) ? value : default(int);
         }
 
         public static long? AttributeAsNullableLong(this XElement element, XName attributeName)
         {
             var attr = element.Attribute(attributeName);
-            return long.TryParse(attr?.Value, out long value) ? new long?(value) : null;
+            return long.TryParse(attr?.Value, out var value) ? new long?(value) : null;
         }
 
         public static bool AttributeAsBool(this XElement element, XName attributeName)
         {
             var attr = element.Attribute(attributeName);
-            return bool.TryParse(attr?.Value, out bool value) ? value : false;
+            return bool.TryParse(attr?.Value, out var value) ? value : false;
         }
     }
 }

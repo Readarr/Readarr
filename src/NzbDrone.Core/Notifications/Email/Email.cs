@@ -135,7 +135,7 @@ namespace NzbDrone.Core.Notifications.Email
                 {
                     if (MediaFileExtensions.TextExtensions.Contains(System.IO.Path.GetExtension(url)))
                     {
-                        byte[] bytes = System.IO.File.ReadAllBytes(url);
+                        var bytes = System.IO.File.ReadAllBytes(url);
                         builder.Attachments.Add(url, bytes);
                         _logger.Trace("Attaching ebook file: {0}", url);
                     }

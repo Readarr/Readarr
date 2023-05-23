@@ -109,7 +109,7 @@ namespace NzbDrone.Core.MediaFiles.BookImport.Identification
             var diff = Math.Abs(value - target);
             if (diff > 0)
             {
-                for (int i = 0; i < diff; i++)
+                for (var i = 0; i < diff; i++)
                 {
                     Add(key, 1.0);
                 }
@@ -122,7 +122,7 @@ namespace NzbDrone.Core.MediaFiles.BookImport.Identification
 
         private static string Clean(string input)
         {
-            char[] arr = input.ToLower().RemoveAccent().ToCharArray();
+            var arr = input.ToLower().RemoveAccent().ToCharArray();
 
             arr = Array.FindAll<char>(arr, c => char.IsLetterOrDigit(c));
 
@@ -223,7 +223,7 @@ namespace NzbDrone.Core.MediaFiles.BookImport.Identification
         public void AddPriority<T>(string key, List<T> values, List<T> options)
             where T : IEquatable<T>
         {
-            for (int i = 0; i < options.Count; i++)
+            for (var i = 0; i < options.Count; i++)
             {
                 if (values.Contains(options[i]))
                 {

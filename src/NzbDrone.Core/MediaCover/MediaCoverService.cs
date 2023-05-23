@@ -240,7 +240,7 @@ namespace NzbDrone.Core.MediaCover
 
         private void EnsureResizedCovers(Author author, MediaCover cover, bool forceResize, Book book = null)
         {
-            int[] heights = GetDefaultHeights(cover.CoverType);
+            var heights = GetDefaultHeights(cover.CoverType);
 
             foreach (var height in heights)
             {
@@ -319,7 +319,7 @@ namespace NzbDrone.Core.MediaCover
             }
 
             var split = range.Split('/');
-            if (split.Length == 2 && long.TryParse(split[1], out long length))
+            if (split.Length == 2 && long.TryParse(split[1], out var length))
             {
                 return length;
             }
@@ -332,7 +332,7 @@ namespace NzbDrone.Core.MediaCover
             EnsureAuthorCovers(message.Author);
 
             var books = _bookService.GetBooksByAuthor(message.Author.Id);
-            foreach (Book book in books)
+            foreach (var book in books)
             {
                 EnsureBookCovers(book);
             }

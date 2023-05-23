@@ -716,9 +716,9 @@ namespace NzbDrone.Core.Parser
             // TODO: Split into separate method and write unit tests for.
             var parts = authorName.Split('.');
             authorName = "";
-            int n = 0;
-            bool previousAcronym = false;
-            string nextPart = "";
+            var n = 0;
+            var previousAcronym = false;
+            var nextPart = "";
             foreach (var part in parts)
             {
                 if (parts.Length >= n + 2)

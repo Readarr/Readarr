@@ -71,7 +71,7 @@ namespace NzbDrone.Core.Test.MediaFiles.BookImport.Identification
             Mocker.SetConstant<ICandidateService>(Mocker.Resolve<CandidateService>());
 
             // set up the augmenters
-            List<IAggregate<LocalEdition>> aggregators = new List<IAggregate<LocalEdition>>
+            var aggregators = new List<IAggregate<LocalEdition>>
             {
                 Mocker.Resolve<AggregateFilenameInfo>()
             };
@@ -89,7 +89,7 @@ namespace NzbDrone.Core.Test.MediaFiles.BookImport.Identification
         private List<Author> GivenAuthors(List<AuthorTestCase> authors)
         {
             var outp = new List<Author>();
-            for (int i = 0; i < authors.Count; i++)
+            for (var i = 0; i < authors.Count; i++)
             {
                 var meta = authors[i].MetadataProfile;
                 meta.Id = i + 1;

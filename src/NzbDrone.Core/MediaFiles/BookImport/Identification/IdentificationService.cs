@@ -78,7 +78,7 @@ namespace NzbDrone.Core.MediaFiles.BookImport.Identification
 
             var releases = GetLocalBookReleases(localTracks, config.SingleRelease);
 
-            int i = 0;
+            var i = 0;
             foreach (var localRelease in releases)
             {
                 i++;
@@ -126,7 +126,7 @@ namespace NzbDrone.Core.MediaFiles.BookImport.Identification
         private void IdentifyRelease(LocalEdition localBookRelease, IdentificationOverrides idOverrides, ImportDecisionMakerConfig config)
         {
             var watch = System.Diagnostics.Stopwatch.StartNew();
-            bool usedRemote = false;
+            var usedRemote = false;
 
             IEnumerable<CandidateEdition> candidateReleases = _candidateService.GetDbCandidatesFromTags(localBookRelease, idOverrides, config.IncludeExisting);
 

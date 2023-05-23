@@ -24,7 +24,7 @@ namespace NzbDrone.Core.Parser.Model
 
         public override string ToString()
         {
-            string bookString = "[Unknown Book]";
+            var bookString = "[Unknown Book]";
 
             if (BookTitle != null)
             {

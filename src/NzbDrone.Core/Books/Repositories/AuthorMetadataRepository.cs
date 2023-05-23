@@ -32,7 +32,7 @@ namespace NzbDrone.Core.Books
             var existingMetadata = FindById(data.Select(x => x.ForeignAuthorId).ToList());
             var updateMetadataList = new List<AuthorMetadata>();
             var addMetadataList = new List<AuthorMetadata>();
-            int upToDateMetadataCount = 0;
+            var upToDateMetadataCount = 0;
 
             foreach (var meta in data)
             {

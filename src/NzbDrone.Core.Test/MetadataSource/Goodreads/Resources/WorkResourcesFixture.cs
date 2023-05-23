@@ -14,8 +14,8 @@ namespace NzbDrone.Core.Test.MetadataSource.Goodreads.Resources
         [Test]
         public void parse_non_work()
         {
-            XElement element = new XElement("Dummy", "entry");
-            WorkResource work = new WorkResource();
+            var element = new XElement("Dummy", "entry");
+            var work = new WorkResource();
 
             Assert.Throws<NullReferenceException>(() => work.Parse(element));
 
@@ -27,11 +27,11 @@ namespace NzbDrone.Core.Test.MetadataSource.Goodreads.Resources
         [Test]
         public void parse_minimal_work()
         {
-            XElement element = new XElement("work",
+            var element = new XElement("work",
                 new XElement("original_title", "Book Title"),
                 new XElement("id", "123456789"));
 
-            WorkResource work = new WorkResource();
+            var work = new WorkResource();
 
             work.Parse(element);
 
@@ -44,12 +44,12 @@ namespace NzbDrone.Core.Test.MetadataSource.Goodreads.Resources
         [Test]
         public void parse_minimal_work_with_surrounding_tags()
         {
-            XElement element = new XElement("series_works",
+            var element = new XElement("series_works",
                 new XElement("work",
                     new XElement("original_title", "Book Title"),
                     new XElement("id", "123456789")));
 
-            WorkResource work = new WorkResource();
+            var work = new WorkResource();
 
             work.Parse(element);
 

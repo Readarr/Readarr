@@ -132,7 +132,7 @@ namespace NzbDrone.Core.Books
                 if (_authorService.AuthorPathExists(path))
                 {
                     var basepath = path;
-                    int i = 0;
+                    var i = 0;
                     do
                     {
                         i++;
