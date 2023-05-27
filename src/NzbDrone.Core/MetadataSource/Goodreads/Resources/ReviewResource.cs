@@ -40,9 +40,9 @@ namespace NzbDrone.Core.MetadataSource.Goodreads
         /// </summary>
         public string SpoilersState { get; protected set; }
 
-        /// <summary>
-        /// The shelves the user has added this review to.
-        /// </summary>
+        // /// <summary>
+        // /// The shelves the user has added this review to.
+        // /// </summary>
         // public IReadOnlyList<ReviewShelf> Shelves { get; protected set; }
 
         /// <summary>

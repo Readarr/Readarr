@@ -41,9 +41,9 @@ namespace NzbDrone.Core.MetadataSource.Goodreads
         /// </summary>
         public string Sort { get; private set; }
 
-        /// <summary>
-        /// Determines the default sort order of this user shelf.
-        /// </summary>
+        // /// <summary>
+        // /// Determines the default sort order of this user shelf.
+        // /// </summary>
         // public Order? Order { get; private set; }
 
         /// <summary>

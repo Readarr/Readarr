@@ -356,34 +356,34 @@ namespace NzbDrone.Common.Extensions
         }
 
         /**
- * Computes the highest row in which the distance {@code p} appears
- * in diagonal {@code k} of the edit distance computation for
- * strings {@code a} and {@code b}.  The diagonal number is
- * represented by the difference in the indices for the two strings;
- * it can range from {@code -b.length()} through {@code a.length()}.
- *
- * More precisely, this computes the highest value x such that
- * <pre>
- *     p = edit-distance(a[0:(x+k)), b[0:x)).
- * </pre>
- *
- * This is the "f" function described by Ukkonen.
- *
- * The caller must assure that abs(k) &le; p, the only values for
- * which this is well-defined.
- *
- * The implementation depends on the cached results of prior
- * computeRow calls for diagonals k-1, k, and k+1 for distance p-1.
- * These must be supplied in {@code knownLeft}, {@code knownAbove},
- * and {@code knownRight}, respectively.
- * @param k diagonal number
- * @param p edit distance
- * @param a one string to be compared
- * @param b other string to be compared
- * @param knownLeft value of {@code computeRow(k-1, p-1, ...)}
- * @param knownAbove value of {@code computeRow(k, p-1, ...)}
- * @param knownRight value of {@code computeRow(k+1, p-1, ...)}
- */
+         * Computes the highest row in which the distance {@code p} appears
+         * in diagonal {@code k} of the edit distance computation for
+         * strings {@code a} and {@code b}.  The diagonal number is
+         * represented by the difference in the indices for the two strings;
+         * it can range from {@code -b.length()} through {@code a.length()}.
+         *
+         * More precisely, this computes the highest value x such that
+         * <pre>
+         *     p = edit-distance(a[0:(x+k)), b[0:x)).
+         * </pre>
+         *
+         * This is the "f" function described by Ukkonen.
+         *
+         * The caller must assure that abs(k) &#x2264; p, the only values for
+         * which this is well-defined.
+         *
+         * The implementation depends on the cached results of prior
+         * computeRow calls for diagonals k-1, k, and k+1 for distance p-1.
+         * These must be supplied in {@code knownLeft}, {@code knownAbove},
+         * and {@code knownRight}, respectively.
+         * @param k diagonal number
+         * @param p edit distance
+         * @param a one string to be compared
+         * @param b other string to be compared
+         * @param knownLeft value of {@code computeRow(k-1, p-1, ...)}
+         * @param knownAbove value of {@code computeRow(k, p-1, ...)}
+         * @param knownRight value of {@code computeRow(k+1, p-1, ...)}
+         */
         private static int ComputeRow(int k,
             int p,
             char[] a,
