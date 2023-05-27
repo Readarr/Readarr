@@ -24,6 +24,7 @@ namespace NzbDrone.Core.Books
         List<Author> GetReportCandidates(string reportTitle);
         void DeleteAuthor(int authorId, bool deleteFiles, bool addImportListExclusion = false);
         List<Author> GetAllAuthors();
+        Dictionary<int, List<int>> GetAllAuthorTags();
         List<Author> AllForTag(int tagId);
         Author UpdateAuthor(Author author);
         List<Author> UpdateAuthors(List<Author> authors, bool useExistingRelativeFolder);
@@ -183,6 +184,11 @@ namespace NzbDrone.Core.Books
         public List<Author> GetAllAuthors()
         {
             return _cache.Get("GetAllAuthors", () => _authorRepository.All().ToList(), TimeSpan.FromSeconds(30));
+        }
+
+        public Dictionary<int, List<int>> GetAllAuthorTags()
+        {
+            return _authorRepository.AllAuthorTags();
         }
 
         public Dictionary<int, string> AllAuthorPaths()

@@ -106,7 +106,7 @@ namespace NzbDrone.Core.Tags
             var importLists = _importListFactory.All();
             var notifications = _notificationFactory.All();
             var restrictions = _releaseProfileService.All();
-            var authors = _authorService.GetAllAuthors();
+            var authors = _authorService.GetAllAuthorTags();
             var indexers = _indexerService.All();
             var rootFolders = _rootFolderService.All();
 
@@ -122,7 +122,7 @@ namespace NzbDrone.Core.Tags
                     ImportListIds = importLists.Where(c => c.Tags.Contains(tag.Id)).Select(c => c.Id).ToList(),
                     NotificationIds = notifications.Where(c => c.Tags.Contains(tag.Id)).Select(c => c.Id).ToList(),
                     RestrictionIds = restrictions.Where(c => c.Tags.Contains(tag.Id)).Select(c => c.Id).ToList(),
-                    AuthorIds = authors.Where(c => c.Tags.Contains(tag.Id)).Select(c => c.Id).ToList(),
+                    AuthorIds = authors.Where(c => c.Value.Contains(tag.Id)).Select(c => c.Key).ToList(),
                     IndexerIds = indexers.Where(c => c.Tags.Contains(tag.Id)).Select(c => c.Id).ToList(),
                     RootFolderIds = rootFolders.Where(c => c.DefaultTags.Contains(tag.Id)).Select(c => c.Id).ToList()
                 });
