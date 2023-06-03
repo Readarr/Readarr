@@ -62,6 +62,7 @@ function ProviderFieldFormGroup(props) {
     name,
     label,
     helpText,
+    helpTextWarning,
     helpLink,
     placeholder,
     value,
@@ -95,6 +96,7 @@ function ProviderFieldFormGroup(props) {
         name={name}
         label={label}
         helpText={helpText}
+        helpTextWarning={helpTextWarning}
         helpLink={helpLink}
         placeholder={placeholder}
         value={value}
@@ -121,6 +123,7 @@ ProviderFieldFormGroup.propTypes = {
   name: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
   helpText: PropTypes.string,
+  helpTextWarning: PropTypes.string,
   helpLink: PropTypes.string,
   placeholder: PropTypes.string,
   value: PropTypes.any,
