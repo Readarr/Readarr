@@ -108,11 +108,11 @@ namespace NzbDrone.Core.ImportLists.Readarr
                 return new
                 {
                     options = devices.OrderBy(d => d.Name, StringComparer.InvariantCultureIgnoreCase)
-                                            .Select(d => new
-                                            {
-                                                Value = d.Id,
-                                                Name = d.Name
-                                            })
+                        .Select(d => new
+                        {
+                            Value = d.Id,
+                            Name = d.Name
+                        })
                 };
             }
 
@@ -123,28 +123,26 @@ namespace NzbDrone.Core.ImportLists.Readarr
                 return new
                 {
                     options = devices.OrderBy(d => d.Label, StringComparer.InvariantCultureIgnoreCase)
-                                            .Select(d => new
-                                            {
-                                                Value = d.Id,
-                                                Name = d.Label
-                                            })
+                        .Select(d => new
+                        {
+                            Value = d.Id,
+                            Name = d.Label
+                        })
                 };
             }
 
             if (action == "getRootFolders")
             {
-                Settings.Validate().Filter("ApiKey").ThrowOnError();
-
-                var remoteRootfolders = _readarrV1Proxy.GetRootFolders(Settings);
+                var remoteRootFolders = _readarrV1Proxy.GetRootFolders(Settings);
 
                 return new
                 {
-                    options = remoteRootfolders.OrderBy(d => d.Path, StringComparer.InvariantCultureIgnoreCase)
-                                               .Select(d => new
-                                               {
-                                                   value = d.Path,
-                                                   name = d.Path
-                                               })
+                    options = remoteRootFolders.OrderBy(d => d.Path, StringComparer.InvariantCultureIgnoreCase)
+                        .Select(d => new
+                        {
+                            value = d.Path,
+                            name = d.Path
+                        })
                 };
             }
 
