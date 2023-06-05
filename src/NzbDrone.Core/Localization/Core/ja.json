@@ -578,5 +578,9 @@
     "HiddenClickToShow": "非表示、クリックして表示",
     "HideAdvanced": "高度な非表示",
     "ShowAdvanced": "高度な表示",
-    "ShownClickToHide": "表示、クリックして非表示"
+    "ShownClickToHide": "表示、クリックして非表示",
+    "ColonReplacement": "結腸の置換",
+    "ReplaceWithDash": "ダッシュに置き換えます",
+    "ReplaceWithSpaceDash": "スペースダッシュに置き換えます",
+    "ReplaceWithSpaceDashSpace": "スペースダッシュスペースに置き換えます"
 }

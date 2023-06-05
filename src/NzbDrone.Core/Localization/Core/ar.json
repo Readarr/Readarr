@@ -579,5 +579,9 @@
     "HiddenClickToShow": "مخفي ، انقر للعرض",
     "HideAdvanced": "إخفاء الإعدادات المتقدمة",
     "ShowAdvanced": "عرض متقدمة",
-    "ShownClickToHide": "يظهر ، انقر للإخفاء"
+    "ShownClickToHide": "يظهر ، انقر للإخفاء",
+    "ColonReplacement": "استبدال القولون",
+    "ReplaceWithDash": "استبدل بـ داش",
+    "ReplaceWithSpaceDash": "استبدل بـ Space Dash",
+    "ReplaceWithSpaceDashSpace": "استبدل بـ Space Dash Space"
 }

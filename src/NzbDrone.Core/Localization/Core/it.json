@@ -684,5 +684,9 @@
     "HiddenClickToShow": "Nascosto, premi per mostrare",
     "HideAdvanced": "Nascondi Avanzate",
     "ShowAdvanced": "Mostra Avanzate",
-    "ShownClickToHide": "Visibile, clicca per nascondere"
+    "ShownClickToHide": "Visibile, clicca per nascondere",
+    "ColonReplacement": "Sostituzione Due Punti",
+    "ReplaceWithDash": "Sostituisci con Dash",
+    "ReplaceWithSpaceDash": "Sostituisci con Space Dash",
+    "ReplaceWithSpaceDashSpace": "Sostituisci con Space Dash Space"
 }

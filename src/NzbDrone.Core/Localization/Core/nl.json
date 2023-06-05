@@ -479,7 +479,7 @@
     "SelectAll": "Alles Selecteren",
     "SelectedCountBooksSelectedInterp": "{0} Film(s) Geselecteerd",
     "Series": "Series",
-    "ThisCannotBeCancelled": "Eenmaal gestart kan dit niet worden geannuleerd zonder Radarr opnieuw te starten.",
+    "ThisCannotBeCancelled": "Eenmaal gestart kan dit niet worden geannuleerd zonder al je indexeerders uit te schakelen.",
     "UnableToLoadBlocklist": "Kon zwarte lijst niet laden",
     "UnselectAll": "Alles Deselecteren",
     "UpdateSelected": "Selectie Bijwerken",
@@ -632,5 +632,16 @@
     "HiddenClickToShow": "Verborgen, klik om te tonen",
     "HideAdvanced": "Verberg Gevorderd",
     "ShowAdvanced": "Toon Geavanceerd",
-    "ShownClickToHide": "Getoond, klik om te verbergen"
+    "ShownClickToHide": "Getoond, klik om te verbergen",
+    "ColonReplacement": "Dubbelepunt Vervanging",
+    "IndexerJackettAll": "Indexeerders die het niet ondersteunde 'all' endpoint van Jacket gebruiken: {0}",
+    "ReplaceWithDash": "Vervang met Streepje",
+    "ReplaceWithSpaceDash": "Vervang met Spatie Streepje",
+    "ReplaceWithSpaceDashSpace": "Vervang met Spatie Streepje Spatie",
+    "InstanceName": "Naam van de instantie",
+    "ThereWasAnErrorLoadingThisItem": "Er ging iets fout bij het laden van dit item",
+    "ThereWasAnErrorLoadingThisPage": "Er ging iets fout bij het laden van deze pagina",
+    "ApiKeyValidationHealthCheckMessage": "Maak je API sleutel alsjeblieft minimaal {0} karakters lang. Dit kan gedaan worden via de instellingen of het configuratiebestand",
+    "ResetDefinitions": "Reset definities",
+    "ResetTitles": "Reset titels"
 }

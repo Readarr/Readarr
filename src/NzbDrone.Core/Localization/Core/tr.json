@@ -579,5 +579,9 @@
     "HiddenClickToShow": "Gizli, göstermek için tıklayın",
     "HideAdvanced": "Gelişmiş'i Gizle",
     "ShowAdvanced": "Gelişmiş'i Göster",
-    "ShownClickToHide": "Gösterildi, gizlemek için tıklayın"
+    "ShownClickToHide": "Gösterildi, gizlemek için tıklayın",
+    "ColonReplacement": "Kolon Değiştirme",
+    "ReplaceWithDash": "Dash ile değiştir",
+    "ReplaceWithSpaceDash": "Space Dash ile değiştirin",
+    "ReplaceWithSpaceDashSpace": "Space Dash Space ile değiştirin"
 }

@@ -23,5 +23,13 @@
     "Calendar": "Kalender",
     "Cancel": "Batal",
     "Grab": "Peroleh",
-    "Hostname": "Hostname"
+    "Hostname": "Hostname",
+    "ChangeHasNotBeenSavedYet": "Perubahan belum disimpan",
+    "ClickToChangeQuality": "Klik untuk mengubah kualitas",
+    "AlternateTitles": "Judul Lain",
+    "AppDataDirectory": "Direktori AppData",
+    "Connections": "Koleksi",
+    "ExportCustomFormat": "Tambahkan Format Khusus",
+    "AuthorClickToChangeBook": "Klik untuk mengubah film",
+    "Automatic": "Otomatis"
 }

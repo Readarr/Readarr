@@ -907,5 +907,9 @@
     "HiddenClickToShow": "Rejtett, kattints a megjelenítéshez",
     "HideAdvanced": "Haladó Elrejtése",
     "ShowAdvanced": "Haladó nézet",
-    "ShownClickToHide": "Kattints, hogy elrejtsd"
+    "ShownClickToHide": "Kattints, hogy elrejtsd",
+    "ColonReplacement": "Kettőspont Helyettesítés",
+    "ReplaceWithDash": "Cserélés kötőjelre",
+    "ReplaceWithSpaceDash": "Cserélje szóközre",
+    "ReplaceWithSpaceDashSpace": "Cserélje Szóköz kötőjel szóközre"
 }

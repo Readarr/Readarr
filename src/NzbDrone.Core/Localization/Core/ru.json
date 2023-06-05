@@ -633,5 +633,9 @@
     "ShownClickToHide": "Показано, нажмите чтобы скрыть",
     "HiddenClickToShow": "Скрыто, нажмите чтобы показать",
     "HideAdvanced": "Скрыть расширенные",
-    "ShowAdvanced": "Показать расширенные"
+    "ShowAdvanced": "Показать расширенные",
+    "ColonReplacement": "Замена двоеточий",
+    "ReplaceWithDash": "Заменить на тире",
+    "ReplaceWithSpaceDash": "Заменить на пробел тире",
+    "ReplaceWithSpaceDashSpace": "Заменить на пробел тире пробел"
 }

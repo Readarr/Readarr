@@ -578,5 +578,9 @@
     "HiddenClickToShow": "Skryté, kliknutím zobrazíte",
     "HideAdvanced": "Skrýt pokročilé",
     "ShowAdvanced": "Zobrazit pokročilé",
-    "ShownClickToHide": "Zobrazeno, kliknutím se skryjete"
+    "ShownClickToHide": "Zobrazeno, kliknutím se skryjete",
+    "ColonReplacement": "Výměna tlustého střeva",
+    "ReplaceWithDash": "Nahraďte Dash",
+    "ReplaceWithSpaceDashSpace": "Nahraďte Space Dash Space",
+    "ReplaceWithSpaceDash": "Nahraďte Space Dash"
 }

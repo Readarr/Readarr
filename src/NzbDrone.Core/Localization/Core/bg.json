@@ -578,5 +578,9 @@
     "HiddenClickToShow": "Скрито, кликнете за показване",
     "HideAdvanced": "Скрий Разширено",
     "ShowAdvanced": "Показване на напреднали",
-    "ShownClickToHide": "Показано, щракнете, за да се скриете"
+    "ShownClickToHide": "Показано, щракнете, за да се скриете",
+    "ColonReplacement": "Подмяна на дебелото черво",
+    "ReplaceWithDash": "Заменете с Dash",
+    "ReplaceWithSpaceDash": "Заменете с Space Dash",
+    "ReplaceWithSpaceDashSpace": "Заменете с Space Dash Space"
 }

@@ -698,7 +698,7 @@
     "IndexerJackettAll": "Indexadores que usam o ponto de extremidade não suportado do Jackett 'all (tudo)' : {0}",
     "Duration": "Duração",
     "Filters": "Filtros",
-    "AppDataLocationHealthCheckMessage": "Não será possível atualizar para evitar a exclusão da pasta AppData durante a atualização",
+    "AppDataLocationHealthCheckMessage": "Não foi possivél actualizar para prevenir apagar a AppData durante a actualização",
     "FileWasDeletedByViaUI": "O ficheiro foi eliminado por meio da IU",
     "SizeLimit": "Tamanho Limite",
     "Started": "Começado",
@@ -837,5 +837,10 @@
     "HiddenClickToShow": "Oculto, clique para mostrar",
     "HideAdvanced": "Ocultar avançado",
     "ShowAdvanced": "Mostrar avançado",
-    "ShownClickToHide": "Visível, clique para ocultar"
+    "ShownClickToHide": "Visível, clique para ocultar",
+    "ColonReplacement": "Substituição de dois-pontos",
+    "ReplaceWithDash": "Substituir por travessão",
+    "ReplaceWithSpaceDash": "Substituir por espaço e travessão",
+    "ReplaceWithSpaceDashSpace": "Substituir por espaço, travessão e espaço",
+    "ApiKeyValidationHealthCheckMessage": "Por favor, actualize a sua API Key para ter no minimo {0} caracteres. Pode fazer através das definições ou do ficheiro de configuração"
 }

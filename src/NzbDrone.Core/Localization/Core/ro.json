@@ -579,5 +579,9 @@
     "HiddenClickToShow": "Ascuns, faceți clic pentru a afișa",
     "HideAdvanced": "Ascunde Avansat",
     "ShowAdvanced": "Arată setări avansate",
-    "ShownClickToHide": "Afișat, faceți clic pentru a ascunde"
+    "ShownClickToHide": "Afișat, faceți clic pentru a ascunde",
+    "ReplaceWithDash": "Înlocuiți cu Dash",
+    "ReplaceWithSpaceDash": "Înlocuiți cu Space Dash",
+    "ColonReplacement": "Înlocuirea colonului",
+    "ReplaceWithSpaceDashSpace": "Înlocuiți cu Space Dash Space"
 }
