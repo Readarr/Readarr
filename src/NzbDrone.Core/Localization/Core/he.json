@@ -600,5 +600,9 @@
     "HiddenClickToShow": "מוסתר, לחץ להצגה",
     "HideAdvanced": "הסתר מתקדם",
     "ShowAdvanced": "הצג מתקדם",
-    "ShownClickToHide": "מוצג, לחץ כדי להסתיר"
+    "ShownClickToHide": "מוצג, לחץ כדי להסתיר",
+    "ColonReplacement": "החלפת המעי הגס",
+    "ReplaceWithDash": "החלף ב- Dash",
+    "ReplaceWithSpaceDash": "החלף במקף החלל",
+    "ReplaceWithSpaceDashSpace": "החלף במרחב מקף החלל"
 }

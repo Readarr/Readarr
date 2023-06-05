@@ -113,12 +113,12 @@
     "Edition": "Auflage",
     "Enable": "Aktivieren",
     "EnableAutomaticAdd": "Automatisch hinzufügen",
-    "EnableAutomaticSearch": "Automatisch suchen",
+    "EnableAutomaticSearch": "Automatische Suche einschalten",
     "EnableColorImpairedMode": "Farbbeeinträchtigter Modus aktivieren",
     "EnableColorImpairedModeHelpText": "Alternativer Stil, um farbbeeinträchtigten Benutzern eine bessere Unterscheidung farbcodierter Informationen zu ermöglichen",
     "EnableCompletedDownloadHandlingHelpText": "Importiere fertige Downloads vom Downloader automatisch",
     "EnableHelpText": "Metadaten Dateien erstellen für diesen Metadata Typ",
-    "EnableInteractiveSearch": "Interaktive Suche",
+    "EnableInteractiveSearch": "Interaktive Suche einschalten",
     "EnableRSS": "RSS aktivieren",
     "EnableSSL": "SSL",
     "EnableSslHelpText": " Erfordert einen Neustart als Administrator",
@@ -908,5 +908,12 @@
     "HiddenClickToShow": "Versteckt, klicken zum anzeigen",
     "HideAdvanced": "Erweiterte Ansicht",
     "ShowAdvanced": "Einfache Ansicht",
-    "ShownClickToHide": "Angezeigt, zum verstecken klicken"
+    "ShownClickToHide": "Angezeigt, zum verstecken klicken",
+    "ColonReplacement": "Doppelpunkt-Ersatz",
+    "ReplaceWithDash": "Mit Bindestrich ersetzen",
+    "ReplaceWithSpaceDash": "Mit Leerzeichen Bindestrich ersetzen",
+    "ReplaceWithSpaceDashSpace": "Mit Leerzeichen Bindestrich Leerzeichen ersetzen",
+    "ApiKeyValidationHealthCheckMessage": "Bitte den API Schlüssel korrigieren, dieser muss mindestens {0} Zeichen lang sein. Die Änderung kann über die Einstellungen oder die Konfigurationsdatei erfolgen",
+    "ThereWasAnErrorLoadingThisItem": "Beim Laden des Eintrags ist ein Fehler aufgetreten",
+    "ThereWasAnErrorLoadingThisPage": "Beim Laden der Seite ist ein Fehler aufgetreten"
 }

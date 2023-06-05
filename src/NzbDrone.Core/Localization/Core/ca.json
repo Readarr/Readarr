@@ -621,5 +621,13 @@
     "CutoffFormatScoreHelpText": "Un cop s'arribi a aquesta puntuació de format personalitzat, Radarr ja no baixarà pel·lícules",
     "DeleteCustomFormatMessageText": "Esteu segur que voleu suprimir l'indexador '{0}'?",
     "ImportListMissingRoot": "Falta la carpeta arrel per a les llistes d'importació: {0}",
-    "IndexerTagsHelpText": "Utilitzeu aquest indexador només per a pel·lícules amb almenys una etiqueta coincident. Deixeu-ho en blanc per utilitzar-ho amb totes les pel·lícules."
+    "IndexerTagsHelpText": "Utilitzeu aquest indexador només per a pel·lícules amb almenys una etiqueta coincident. Deixeu-ho en blanc per utilitzar-ho amb totes les pel·lícules.",
+    "ColonReplacement": "Substitució de dos punts",
+    "HiddenClickToShow": "Amagat, feu clic per mostrar",
+    "HideAdvanced": "Amaga avançat",
+    "ReplaceWithDash": "Substitueix per guió",
+    "ReplaceWithSpaceDash": "Substitueix per espai i guió",
+    "ReplaceWithSpaceDashSpace": "Substitueix per espai, guió i espai",
+    "ShowAdvanced": "Mostra característiques avançades",
+    "ShownClickToHide": "Es mostra, feu clic per amagar"
 }

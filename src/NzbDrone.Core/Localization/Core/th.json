@@ -578,5 +578,9 @@
     "ShowAdvanced": "แสดงขั้นสูง",
     "HiddenClickToShow": "ซ่อนอยู่คลิกเพื่อแสดง",
     "HideAdvanced": "ซ่อนขั้นสูง",
-    "ShownClickToHide": "แสดงคลิกเพื่อซ่อน"
+    "ShownClickToHide": "แสดงคลิกเพื่อซ่อน",
+    "ColonReplacement": "การเปลี่ยนลำไส้ใหญ่",
+    "ReplaceWithDash": "แทนที่ด้วย Dash",
+    "ReplaceWithSpaceDash": "แทนที่ด้วย Space Dash",
+    "ReplaceWithSpaceDashSpace": "แทนที่ด้วย Space Dash Space"
 }

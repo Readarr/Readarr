@@ -143,5 +143,6 @@
     "DeleteRootFolderMessageText": "Jeste li sigurni da želite obrisati oznaku formata {0}?",
     "RemoveSelectedMessageText": "Jeste li sigurni da želite izbrisati odabrane stavke iz blok liste?",
     "UsingExternalUpdateMechanismBranchToUseToUpdateReadarr": "Grana korištena za ažuriranje Radarra",
-    "UsingExternalUpdateMechanismBranchUsedByExternalUpdateMechanism": "Grana korištena od strane vanjskog mehanizma za ažuriranje"
+    "UsingExternalUpdateMechanismBranchUsedByExternalUpdateMechanism": "Grana korištena od strane vanjskog mehanizma za ažuriranje",
+    "ColonReplacement": "Zamjena Zareza"
 }

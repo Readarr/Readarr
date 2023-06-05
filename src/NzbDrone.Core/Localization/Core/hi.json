@@ -578,5 +578,9 @@
     "HiddenClickToShow": "छिपा हुआ, दिखाने के लिए क्लिक करें",
     "HideAdvanced": "उन्नत छिपाएँ",
     "ShowAdvanced": "शो पहले होगा",
-    "ShownClickToHide": "दिखाया, छिपाने के लिए क्लिक करें"
+    "ShownClickToHide": "दिखाया, छिपाने के लिए क्लिक करें",
+    "ColonReplacement": "कोलन रिप्लेसमेंट",
+    "ReplaceWithDash": "डैश के साथ बदलें",
+    "ReplaceWithSpaceDash": "स्पेस डैश के साथ बदलें",
+    "ReplaceWithSpaceDashSpace": "स्पेस डैश स्पेस के साथ बदलें"
 }

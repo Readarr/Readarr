@@ -616,5 +616,9 @@
     "HiddenClickToShow": "Приховано, натисніть, щоб показати",
     "HideAdvanced": "Сховати додаткові",
     "ShowAdvanced": "Показати Додатково",
-    "ShownClickToHide": "Показано, натисніть, щоб приховати"
+    "ShownClickToHide": "Показано, натисніть, щоб приховати",
+    "ColonReplacement": "Заміна двокрапок",
+    "ReplaceWithDash": "Замінити тире",
+    "ReplaceWithSpaceDash": "Замінити пробілом",
+    "ReplaceWithSpaceDashSpace": "Замінити на Пробіл Тире Пробіл"
 }

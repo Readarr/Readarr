@@ -816,5 +816,9 @@
     "HiddenClickToShow": "Piilotettu, näytä painalla",
     "HideAdvanced": "Piilota edistyneet",
     "ShowAdvanced": "Näytä lisäasetukset",
-    "ShownClickToHide": "Näkyvissä, piilota painamalla"
+    "ShownClickToHide": "Näkyvissä, piilota painamalla",
+    "ColonReplacement": "Kaksoispisteen käsittely",
+    "ReplaceWithDash": "Korvaus: väliviiva",
+    "ReplaceWithSpaceDash": "Korvaus: välilyönti-väliviiva",
+    "ReplaceWithSpaceDashSpace": "Korvus: välilyönti-väliviiva-välilyönti"
 }

@@ -615,5 +615,9 @@
     "HiddenClickToShow": "Ukryty, kliknij, aby pokazać",
     "HideAdvanced": "Ukryj zaawansowane",
     "ShowAdvanced": "Pokaż zaawansowane",
-    "ShownClickToHide": "Pokazane, kliknij, aby ukryć"
+    "ShownClickToHide": "Pokazane, kliknij, aby ukryć",
+    "ColonReplacement": "Wymiana okrężnicy",
+    "ReplaceWithDash": "Zastąp Dash",
+    "ReplaceWithSpaceDash": "Zastąp spacją Dash",
+    "ReplaceWithSpaceDashSpace": "Zastąp spacją Dash Space"
 }

@@ -147,5 +147,6 @@
     "CustomFormat": "Egendefinert format",
     "CustomFormats": "Egendefinert format",
     "BypassIfHighestQuality": "Omgå hvis høyeste kvalitet",
-    "Formats": "Format"
+    "Formats": "Format",
+    "ColonReplacement": "Kolon erstatntning"
 }

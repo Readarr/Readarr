@@ -581,5 +581,9 @@
     "HiddenClickToShow": "Skjult, klik for at vise",
     "ShownClickToHide": "Vist, klik for at skjule",
     "HideAdvanced": "Gemt Avancerede",
-    "ShowAdvanced": "Vis avanceret"
+    "ShowAdvanced": "Vis avanceret",
+    "ColonReplacement": "Udskiftning af tyktarm",
+    "ReplaceWithDash": "Udskift med Dash",
+    "ReplaceWithSpaceDash": "Udskift med Space Dash",
+    "ReplaceWithSpaceDashSpace": "Udskift med Space Dash Space"
 }

@@ -819,5 +819,9 @@
     "HiddenClickToShow": "Dold, klicka för att visa",
     "HideAdvanced": "Dölj avancerat",
     "ShownClickToHide": "Visad, klicka för att dölja",
-    "ShowAdvanced": "Visa avancerat"
+    "ShowAdvanced": "Visa avancerat",
+    "ColonReplacement": "Kolonbyte",
+    "ReplaceWithDash": "Ersätt med bindestreck",
+    "ReplaceWithSpaceDash": "Byt ut med Space Dash",
+    "ReplaceWithSpaceDashSpace": "Byt ut med Space Dash Space"
 }

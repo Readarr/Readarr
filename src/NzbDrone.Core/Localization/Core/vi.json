@@ -578,5 +578,9 @@
     "HiddenClickToShow": "Ẩn, bấm để hiển thị",
     "HideAdvanced": "Ẩn nâng cao",
     "ShowAdvanced": "Hiển thị nâng cao",
-    "ShownClickToHide": "Hiển thị, nhấp để ẩn"
+    "ShownClickToHide": "Hiển thị, nhấp để ẩn",
+    "ColonReplacement": "Thay thế ruột kết",
+    "ReplaceWithDash": "Thay thế bằng Dấu gạch ngang",
+    "ReplaceWithSpaceDash": "Thay thế bằng Dấu gạch ngang",
+    "ReplaceWithSpaceDashSpace": "Thay thế bằng Space Dash Space"
 }
