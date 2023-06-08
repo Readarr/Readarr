@@ -637,5 +637,6 @@
     "ColonReplacement": "Замена двоеточий",
     "ReplaceWithDash": "Заменить на тире",
     "ReplaceWithSpaceDash": "Заменить на пробел тире",
-    "ReplaceWithSpaceDashSpace": "Заменить на пробел тире пробел"
+    "ReplaceWithSpaceDashSpace": "Заменить на пробел тире пробел",
+    "ApiKeyValidationHealthCheckMessage": "Пожалуйста, обновите свой ключ API, чтобы он был длиной не менее {0} символов. Вы можете сделать это через настройки или файл конфигурации"
 }
