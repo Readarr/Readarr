@@ -31,5 +31,7 @@
     "Connections": "Koleksi",
     "ExportCustomFormat": "Tambahkan Format Khusus",
     "AuthorClickToChangeBook": "Klik untuk mengubah film",
-    "Automatic": "Otomatis"
+    "Automatic": "Otomatis",
+    "Close": "Tutup",
+    "Delete": "Hapus"
 }
