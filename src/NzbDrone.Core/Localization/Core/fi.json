@@ -289,7 +289,6 @@
     "RemoveFromQueue": "Poista jonosta",
     "RemoveHelpTextWarning": "Poistaminen poistaa latauksen ja tiedostot latausohjelmasta.",
     "RemoveSelected": "Poista valitut",
-    "RemoveSelectedMessageText": "Haluatko varmasti poistaa valitut kohteet estolistalta?",
     "RemoveTagExistingTag": "Olemassa oleva tunniste",
     "RemoveTagRemovingTag": "Tunniste poistetaan",
     "RemovedFromTaskQueue": "Poistettu tehtäväjonosta",

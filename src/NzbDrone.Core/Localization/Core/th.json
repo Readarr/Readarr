@@ -293,7 +293,6 @@
     "RemoveFromQueue": "ลบออกจากคิว",
     "RemoveHelpTextWarning": "การลบจะลบการดาวน์โหลดและไฟล์ออกจากไคลเอนต์ดาวน์โหลด",
     "RemoveSelected": "ลบรายการที่เลือก",
-    "RemoveSelectedMessageText": "แน่ใจหรือไม่ว่าต้องการลบรายการที่เลือกออกจากบัญชีดำ?",
     "RemoveTagExistingTag": "แท็กที่มีอยู่",
     "RemoveTagRemovingTag": "กำลังลบแท็ก",
     "RemovedFromTaskQueue": "ลบออกจากคิวงาน",

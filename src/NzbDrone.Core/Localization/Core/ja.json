@@ -288,7 +288,6 @@
     "RemoveHelpTextWarning": "削除すると、ダウンロードとファイルがダウンロードクライアントから削除されます。",
     "RemoveSelected": "削除選択",
     "UpdateMechanismHelpText": "Radarrの組み込みアップデーターまたはスクリプトを使用する",
-    "RemoveSelectedMessageText": "選択したアイテムをブラックリストから削除してもよろしいですか？",
     "RemoveTagExistingTag": "既存のタグ",
     "RemoveTagRemovingTag": "タグの削除",
     "RemovedFromTaskQueue": "タスクキューから削除されました",

@@ -298,7 +298,6 @@
     "RemoveFromQueue": "Удалить из очереди",
     "RemoveHelpTextWarning": "Удаление приведет к удалению загрузки и файла(ов) из клиента загрузки.",
     "RemoveSelected": "Удалить выбранное",
-    "RemoveSelectedMessageText": "Удалить выбранные элементы из черного списка?",
     "RemoveTagExistingTag": "Существующий тэг",
     "RemoveTagRemovingTag": "Удаление тега",
     "RemovedFromTaskQueue": "Удалено из очереди задач",

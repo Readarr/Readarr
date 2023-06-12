@@ -46,7 +46,6 @@
     "DeleteImportListExclusionMessageText": "Er du sikker på at du vil slette denne ekskluderingen av importlister?",
     "DeleteReleaseProfileMessageText": "Er du sikker på at du vil slette denne forsinkelsesprofilen?",
     "DeleteTagMessageText": "Er du sikker på at du vil slette formattaggen {0}?",
-    "RemoveSelectedMessageText": "Er du sikker på at du vil fjerne de valgte elementene fra svartelisten?",
     "ResetAPIKeyMessageText": "Er du sikker på at du vil tilbakestille API -nøkkelen din?",
     "ShowQualityProfile": "Legg til kvalitetsprofil",
     "UsingExternalUpdateMechanismBranchToUseToUpdateReadarr": "Gren som skal brukes til å oppdatere Radarr",

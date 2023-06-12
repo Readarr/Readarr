@@ -513,7 +513,6 @@
     "APIKey": "Clau API",
     "ApiKeyHelpTextWarning": "Cal reiniciar perquè tingui efecte",
     "ApplyTagsHelpTexts1": "Com aplicar etiquetes a les pel·lícules seleccionades",
-    "RemoveSelectedMessageText": "Esteu segur que voleu suprimir els elements seleccionats de la llista de blocs?",
     "RescanAfterRefreshHelpTextWarning": "Radarr no detectarà automàticament els canvis als fitxers quan no estigui configurat com a \"Sempre\"",
     "ShowUnknownAuthorItems": "Mostra elements de pel·lícula desconeguda",
     "Size": " Mida",

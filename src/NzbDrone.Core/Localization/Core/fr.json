@@ -294,7 +294,6 @@
     "RemoveFromQueue": "Supprimer de la file d'attente",
     "RemoveHelpTextWarning": "La suppression supprimera le téléchargement et le(s) fichier(s) du client de téléchargement.",
     "RemoveSelected": "Supprimer la sélection",
-    "RemoveSelectedMessageText": "Êtes-vous sûr de vouloir supprimer les éléments sélectionnés de la liste noire ?",
     "RemoveTagExistingTag": "Tag existant",
     "RemoveTagRemovingTag": "Suppression du tag",
     "RemovedFromTaskQueue": "Supprimé de la file d'attente des tâches",

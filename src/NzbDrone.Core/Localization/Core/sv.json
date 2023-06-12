@@ -301,7 +301,6 @@
     "RemoveFromQueue": "Ta bort från kön",
     "RemoveHelpTextWarning": "Om du tar bort tas nedladdningen och filen (filerna) bort från nedladdningsklienten.",
     "RemoveSelected": "Radera markerade",
-    "RemoveSelectedMessageText": "Är du säker på att du vill ta bort de markerade objekten från blockeringslistan?",
     "RemoveTagExistingTag": "Befintlig tagg",
     "RemoveTagRemovingTag": "Ta bort taggen",
     "RemovedFromTaskQueue": "Borttagen från uppgiftskön",
