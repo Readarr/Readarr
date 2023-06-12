@@ -299,7 +299,6 @@
     "RemoveFromQueue": "Usuń z kolejki",
     "RemoveHelpTextWarning": "Usunięcie spowoduje usunięcie pobierania i plików z klienta pobierania.",
     "RemoveSelected": "Usuń zaznaczone",
-    "RemoveSelectedMessageText": "Czy na pewno chcesz usunąć wybrane elementy z czarnej listy?",
     "RenameBooksHelpText": "Radarr użyje istniejącej nazwy pliku, jeśli zmiana nazwy jest wyłączona",
     "Reorder": "Zmień kolejność",
     "ReplaceIllegalCharacters": "Zastąp niedozwolone znaki",

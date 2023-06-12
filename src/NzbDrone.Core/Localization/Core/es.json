@@ -294,7 +294,6 @@
     "RemoveFromQueue": "Eliminar de la cola",
     "RemoveHelpTextWarning": "Eliminar borrará la descarga y el/los fichero(s) del gestor de descargas.",
     "RemoveSelected": "Borrar Seleccionados",
-    "RemoveSelectedMessageText": "¿Está seguro de que desea eliminar los elementos seleccionados de la lista negra?",
     "RemoveTagExistingTag": "Etiqueta existente",
     "RemoveTagRemovingTag": "Eliminando etiqueta",
     "RemovedFromTaskQueue": "Eliminar de la cola de tareas",

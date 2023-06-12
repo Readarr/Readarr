@@ -287,7 +287,6 @@
     "RemoveFromQueue": "Aus der Warteschlage entfernen",
     "RemoveHelpTextWarning": "Dies wird den Download und alle bereits heruntergeladenen Dateien aus dem Downloader entfernen.",
     "RemoveSelected": "Auswahl entfernen",
-    "RemoveSelectedMessageText": "Sind sie sicher, dass die ausgewählten Einträge aus der Sperrliste entfernt werden sollen?",
     "RemoveTagExistingTag": "Vorhandener Tag",
     "RemoveTagRemovingTag": "Tag entfernen",
     "RemovedFromTaskQueue": "Aus der Aufgabenwarteschlage entfernt",

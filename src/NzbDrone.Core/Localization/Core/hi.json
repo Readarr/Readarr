@@ -281,7 +281,6 @@
     "RemoveFromQueue": "कतार से निकालें",
     "RemoveHelpTextWarning": "हटाने से डाउनलोड और फ़ाइल को डाउनलोड क्लाइंट से निकाल दिया जाएगा।",
     "RemoveSelected": "चुना हुआ हटाओ",
-    "RemoveSelectedMessageText": "क्या आप वाकई चयनित आइटम को ब्लैकलिस्ट से हटाना चाहते हैं?",
     "RemoveTagExistingTag": "मौजूदा टैग",
     "RemoveTagRemovingTag": "टैग हटाना",
     "RemovedFromTaskQueue": "कार्य कतार से हटा दिया गया",

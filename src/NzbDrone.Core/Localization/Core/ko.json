@@ -310,7 +310,6 @@
     "RemoveFromQueue": "대기열에서 제거",
     "RemoveHelpTextWarning": "제거하면 다운로드 클라이언트에서 다운로드 및 파일이 제거됩니다.",
     "RemoveSelected": "선택된 것을 지워 라",
-    "RemoveSelectedMessageText": "블랙리스트에서 선택한 항목을 제거 하시겠습니까?",
     "RemoveTagExistingTag": "기존 태그",
     "RemoveTagRemovingTag": "태그 제거",
     "RemovedFromTaskQueue": "작업 대기열에서 제거됨",

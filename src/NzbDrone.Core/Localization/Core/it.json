@@ -298,7 +298,6 @@
     "RemoveFromQueue": "Rimuovi dalla coda",
     "RemoveHelpTextWarning": "La rimozione eliminerà il download e i file dal client di download.",
     "RemoveSelected": "Rimuovi Selezionato",
-    "RemoveSelectedMessageText": "Sei sicuro di voler rimuovere gli elementi selezionati della blacklist?",
     "RemoveTagExistingTag": "Tag esistente",
     "RemoveTagRemovingTag": "Sto eliminando il tag",
     "RemovedFromTaskQueue": "Rimosso dalla coda lavori",

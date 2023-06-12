@@ -275,7 +275,6 @@
     "RemoveFromQueue": "Eltávolítás a sorból",
     "RemoveHelpTextWarning": "Az eltávolítás eltávolítja a letöltést és a fájl(oka)t a letöltési kliensből.",
     "RemoveSelected": "Kiválaszottak törlése",
-    "RemoveSelectedMessageText": "Biztosan eltávolítja a kijelölt elemeket a feketelistáról?",
     "RemoveTagExistingTag": "Meglévő Címke",
     "RemoveTagRemovingTag": "Címke eltávolítása",
     "RemovedFromTaskQueue": "Eltávolítva a feladatsorról",
