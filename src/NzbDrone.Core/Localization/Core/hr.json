@@ -130,7 +130,6 @@
     "AuthorClickToChangeBook": "Klikni za promjenu filma",
     "AutoUnmonitorPreviouslyDownloadedBooksHelpText": "U Radarru se automatski isključuje nadzor za filmove koji su izbrisani sa diska",
     "BackupFolderHelpText": "Relativne putanje će biti unutar Radarrovog AppData direktorija",
-    "BlocklistHelpText": "Spriječi Radarr da automatski dohvaća ovu verziju ponovno",
     "BypassIfHighestQuality": "Zaobiđi ako je Najviši Kvalitet",
     "CancelMessageText": "Jeste li sigurni da želite otkazati ovaj zadatak na čekanju?",
     "ChmodFolderHelpTextWarning": "Ovo jedino radi ako je korisnik koji je pokrenuo Radarr vlasnik datoteke. Bolje je osigurati da klijent za preuzimanje postavi dozvolu ispravno.",

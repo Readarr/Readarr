@@ -485,7 +485,6 @@
     "Time": "Tijd",
     "Label": "Label",
     "Wanted": "Gezocht",
-    "BlocklistHelpText": "Voorkom dat Radarr deze release nogmaals automatisch ophaalt",
     "AppDataLocationHealthCheckMessage": "Updaten zal niet mogelijk zijn om het verwijderen van AppData te voorkomen",
     "AddedAuthorSettings": "Auteur instellingen toegevoegd",
     "AddMissing": "Voeg ontbrekende toe",

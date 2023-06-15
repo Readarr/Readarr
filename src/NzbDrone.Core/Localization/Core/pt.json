@@ -692,7 +692,6 @@
     "RemoveFromBlocklist": "Remover da lista de bloqueio",
     "Wanted": "Desejado",
     "Blocklist": "Lista de bloqueio",
-    "BlocklistHelpText": "Impede o Readarr de capturar automaticamente estes ficheiros novamente",
     "BlocklistRelease": "Bloquear versão",
     "IndexerJackettAll": "Indexadores que usam o ponto de extremidade não suportado do Jackett 'all (tudo)' : {0}",
     "Duration": "Duração",

@@ -553,7 +553,6 @@
     "InstanceNameHelpText": "שם מופע בטאב ובשביל שם אפליקציית סיסלוג",
     "RemotePathMappingCheckBadDockerPath": "אתה משתמש בדוקר; קליינט ההורדות {0} שם הורדות ב-{1} אבל הנתיב לא תקין {2}. בחן מחדש את ניתוב התיקיות והגדרות קליינט ההורדות.",
     "AddList": "הוסף רשימה",
-    "BlocklistHelpText": "מנע מראדרר להוסיף את ההוצאה הזאת שוב",
     "RemotePathMappingCheckDownloadPermissions": "ראדארר יכול לראות אבל לא לגשת לסרטים שירדו {0}. ככל הנראה בעיית הרשאות.",
     "RemotePathMappingCheckFileRemoved": "הקובץ {0} הוסר תוך כדי התהליך.",
     "RemotePathMappingCheckFilesBadDockerPath": "אתה משתמש בדוקר; קליינט ההורדות {0} שם הורדות ב-{1} אבל הנתיב לא תקין {2}. בחן מחדש את ניתוב התיקיות והגדרות קליינט ההורדות.",
@@ -603,5 +602,14 @@
     "ColonReplacement": "החלפת המעי הגס",
     "ReplaceWithDash": "החלף ב- Dash",
     "ReplaceWithSpaceDash": "החלף במקף החלל",
-    "ReplaceWithSpaceDashSpace": "החלף במרחב מקף החלל"
+    "ReplaceWithSpaceDashSpace": "החלף במרחב מקף החלל",
+    "DeleteRemotePathMapping": "ערוך מיפוי נתיבים מרחוק",
+    "DeleteRemotePathMappingMessageText": "האם אתה בטוח שברצונך למחוק את מיפוי הנתיבים המרוחק הזה?",
+    "BlocklistReleases": "שחרור הרשימה השחורה",
+    "DeleteConditionMessageText": "האם אתה בטוח שברצונך למחוק את התג '{0}'?",
+    "Negated": "שלילי",
+    "Required": "נדרש",
+    "RemoveSelectedItemBlocklistMessageText": "האם אתה בטוח שברצונך להסיר את הפריטים שנבחרו מהרשימה השחורה?",
+    "RemoveSelectedItemQueueMessageText": "האם אתה בטוח שברצונך להסיר את {0} פריט {1} מהתור?",
+    "RemoveSelectedItemsQueueMessageText": "האם אתה בטוח שברצונך להסיר את {0} פריט {1} מהתור?"
 }

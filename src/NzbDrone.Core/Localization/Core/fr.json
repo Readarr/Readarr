@@ -477,7 +477,6 @@
     "ReleaseBranchCheckOfficialBranchMessage": "La branche {0} n'est pas une branche de version Readarr valide, vous ne recevrez pas de mises à jour",
     "Time": "Heure",
     "Blocklist": "Liste noire",
-    "BlocklistHelpText": "Empêche Readarr de récupérer automatiquement ces fichiers de nouveau",
     "BlocklistRelease": "Mettre cette release sur la liste noire",
     "RescanAfterRefreshHelpText": "Réanalyser le dossier de l'auteur après avoir actualisé l'auteur",
     "ShowUnknownAuthorItems": "Afficher les éléments avec auteur inconnu",
@@ -725,5 +724,18 @@
     "ColonReplacement": "Remplacement pour le 'deux-points'",
     "ReplaceWithDash": "Remplacer par Dash",
     "ReplaceWithSpaceDash": "Remplacer par Space Dash",
-    "ReplaceWithSpaceDashSpace": "Remplacer par Space Dash Space"
+    "ReplaceWithSpaceDashSpace": "Remplacer par Space Dash Space",
+    "DeleteRemotePathMapping": "Éditer le chemin distant",
+    "DeleteRemotePathMappingMessageText": "Êtes-vous sûr de vouloir effacer ce chemin ?",
+    "BlocklistReleases": "Mettre cette release sur la liste noire",
+    "DeleteConditionMessageText": "Voulez-vous vraiment supprimer la liste '{0}' ?",
+    "Negated": "Inversé",
+    "RemoveSelectedItem": "Supprimer l'élément sélectionné",
+    "RemoveSelectedItemBlocklistMessageText": "Êtes-vous sûr de vouloir supprimer les films sélectionnés de la liste noire ?",
+    "RemoveSelectedItemQueueMessageText": "Êtes-vous sûr de vouloir désinstaller {0} objet{1} de la file d'attente ?",
+    "RemoveSelectedItems": "Supprimer les éléments sélectionnés",
+    "RemoveSelectedItemsQueueMessageText": "Êtes-vous sûr de vouloir supprimer {0} objet(s) de la file d'attente ?",
+    "Required": "Obligatoire",
+    "ResetQualityDefinitions": "Réinitialiser les définitions de qualité",
+    "ResetQualityDefinitionsMessageText": "Êtes-vous sûr de vouloir réinitialiser les définitions de qualité ?"
 }

@@ -589,7 +589,6 @@
     "MoveFiles": "Μετακίνηση αρχείων",
     "OnApplicationUpdate": "Στην ενημέρωση της εφαρμογής",
     "OnApplicationUpdateHelpText": "Στην ενημέρωση της εφαρμογής",
-    "BlocklistHelpText": "Αποτρέπει το Radarr από το να πάρει ξανά αυτόματα αυτήν την έκδοση",
     "LoadingEditionsFailed": "Η φόρτωση των εκδόσεων απέτυχε",
     "ManualDownload": "Χειροκίνητη λήψη",
     "MetadataConsumers": "Καταναλωτές μεταδεδομένων",

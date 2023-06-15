@@ -581,5 +581,14 @@
     "ColonReplacement": "Výměna tlustého střeva",
     "ReplaceWithDash": "Nahraďte Dash",
     "ReplaceWithSpaceDashSpace": "Nahraďte Space Dash Space",
-    "ReplaceWithSpaceDash": "Nahraďte Space Dash"
+    "ReplaceWithSpaceDash": "Nahraďte Space Dash",
+    "DeleteRemotePathMapping": "Upravit vzdálené mapování cesty",
+    "DeleteRemotePathMappingMessageText": "Opravdu chcete toto vzdálené mapování cesty odstranit?",
+    "Negated": "Negovaný",
+    "BlocklistReleases": "Vydání černé listiny",
+    "DeleteConditionMessageText": "Opravdu chcete smazat značku „{0}“?",
+    "RemoveSelectedItemBlocklistMessageText": "Opravdu chcete odebrat vybrané položky z černé listiny?",
+    "RemoveSelectedItemQueueMessageText": "Opravdu chcete odebrat {0} položku {1} z fronty?",
+    "RemoveSelectedItemsQueueMessageText": "Opravdu chcete odebrat {0} položku {1} z fronty?",
+    "Required": "Požadované"
 }

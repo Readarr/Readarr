@@ -581,5 +581,14 @@
     "ColonReplacement": "Подмяна на дебелото черво",
     "ReplaceWithDash": "Заменете с Dash",
     "ReplaceWithSpaceDash": "Заменете с Space Dash",
-    "ReplaceWithSpaceDashSpace": "Заменете с Space Dash Space"
+    "ReplaceWithSpaceDashSpace": "Заменете с Space Dash Space",
+    "DeleteRemotePathMapping": "Редактиране на отдалечено картографиране на пътя",
+    "DeleteRemotePathMappingMessageText": "Наистина ли искате да изтриете това отдалечено картографиране на пътя?",
+    "BlocklistReleases": "Освобождаване на черния списък",
+    "DeleteConditionMessageText": "Наистина ли искате да изтриете маркера '{0}'?",
+    "RemoveSelectedItemQueueMessageText": "Наистина ли искате да премахнете {0} елемент {1} от опашката?",
+    "Required": "Задължително",
+    "Negated": "Отрицателно",
+    "RemoveSelectedItemBlocklistMessageText": "Наистина ли искате да премахнете избраните елементи от черния списък?",
+    "RemoveSelectedItemsQueueMessageText": "Наистина ли искате да премахнете {0} елемент {1} от опашката?"
 }

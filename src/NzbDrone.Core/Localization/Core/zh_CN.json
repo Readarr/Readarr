@@ -485,7 +485,6 @@
     "Level": "等级",
     "RemoveFromBlocklist": "从黑名单中移除",
     "Blocklist": "阻止列表",
-    "BlocklistHelpText": "防止Radarr再次自动抓取此版本",
     "BlocklistRelease": "黑名单版本",
     "AllowFingerprinting": "允许指纹识别",
     "AllExpandedCollapseAll": "收缩所有",

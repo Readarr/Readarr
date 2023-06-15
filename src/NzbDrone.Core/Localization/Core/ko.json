@@ -576,5 +576,11 @@
     "UpgradesAllowed": "허용되는 업그레이드",
     "HideAdvanced": "고급 숨기기",
     "HiddenClickToShow": "숨김, 클릭하여 표시",
-    "ShowAdvanced": "고급보기"
+    "ShowAdvanced": "고급보기",
+    "DeleteRemotePathMapping": "원격 경로 매핑 편집",
+    "BlocklistReleases": "블랙리스트 릴리스",
+    "DeleteConditionMessageText": "'{0}' 태그를 삭제하시겠습니까?",
+    "RemoveSelectedItemQueueMessageText": "대기열에서 {0} 항목 {1}을 제거하시겠습니까?",
+    "RemoveSelectedItemBlocklistMessageText": "블랙리스트에서 선택한 항목을 제거 하시겠습니까?",
+    "RemoveSelectedItemsQueueMessageText": "대기열에서 {0} 항목 {1}을 제거하시겠습니까?"
 }

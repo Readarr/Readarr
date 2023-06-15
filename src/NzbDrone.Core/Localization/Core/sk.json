@@ -128,7 +128,6 @@
     "RemotePathMappings": "Vzdialené mapovanie cesty",
     "SettingsRemotePathMappingLocalPath": "Miestna cesta",
     "Queue": "Fronta",
-    "BlocklistHelpText": "Zabráni Radarru, aby znova automaticky grabol toto vydanie",
     "ClickToChangeReleaseGroup": "Kliknutím zmeníte skupinu vydania",
     "ChooseImportMethod": "Zvoliť Import mód",
     "CustomFormats": "Vlastný formát",

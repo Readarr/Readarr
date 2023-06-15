@@ -582,5 +582,13 @@
     "ReplaceWithDash": "Înlocuiți cu Dash",
     "ReplaceWithSpaceDash": "Înlocuiți cu Space Dash",
     "ColonReplacement": "Înlocuirea colonului",
-    "ReplaceWithSpaceDashSpace": "Înlocuiți cu Space Dash Space"
+    "ReplaceWithSpaceDashSpace": "Înlocuiți cu Space Dash Space",
+    "BlocklistReleases": "Lansare pe lista neagră",
+    "DeleteConditionMessageText": "Sigur doriți să ștergeți eticheta „{0}”?",
+    "DeleteRemotePathMapping": "Editați maparea căilor la distanță",
+    "Negated": "Negat",
+    "Required": "Necesar",
+    "RemoveSelectedItemBlocklistMessageText": "Sigur doriți să eliminați elementele selectate din lista neagră?",
+    "RemoveSelectedItemQueueMessageText": "Sigur doriți să eliminați {0} elementul {1} din coadă?",
+    "RemoveSelectedItemsQueueMessageText": "Sigur doriți să eliminați {0} elementul {1} din coadă?"
 }

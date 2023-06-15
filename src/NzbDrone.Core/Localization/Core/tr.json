@@ -472,7 +472,6 @@
     "UnableToLoadBlocklist": "Kara liste yüklenemiyor",
     "Wanted": "İstenenler",
     "Blocklist": "Kara liste",
-    "BlocklistHelpText": "Radarr'ın bu sürümü otomatik olarak tekrar yakalamasını engeller",
     "BlocklistRelease": "Kara Liste Yayını",
     "AppDataLocationHealthCheckMessage": "Güncellemede AppData'nın silinmesini önlemek için güncelleme mümkün olmayacak",
     "Filters": "Filtre",
@@ -582,5 +581,14 @@
     "ColonReplacement": "Kolon Değiştirme",
     "ReplaceWithDash": "Dash ile değiştir",
     "ReplaceWithSpaceDash": "Space Dash ile değiştirin",
-    "ReplaceWithSpaceDashSpace": "Space Dash Space ile değiştirin"
+    "ReplaceWithSpaceDashSpace": "Space Dash Space ile değiştirin",
+    "DeleteRemotePathMapping": "Uzak Yol Eşlemeyi Düzenle",
+    "DeleteRemotePathMappingMessageText": "Bu uzak yol eşlemesini silmek istediğinizden emin misiniz?",
+    "BlocklistReleases": "Kara Liste Yayını",
+    "DeleteConditionMessageText": "'{0}' etiketini silmek istediğinizden emin misiniz?",
+    "Negated": "Reddedildi",
+    "RemoveSelectedItemBlocklistMessageText": "Kara listeden seçili öğeleri kaldırmak istediğinizden emin misiniz?",
+    "RemoveSelectedItemQueueMessageText": "Sıradan {0} öğeyi {1} kaldırmak istediğinizden emin misiniz?",
+    "RemoveSelectedItemsQueueMessageText": "Sıradan {0} öğeyi {1} kaldırmak istediğinizden emin misiniz?",
+    "Required": "gereklidir"
 }

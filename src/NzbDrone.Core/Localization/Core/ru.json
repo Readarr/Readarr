@@ -473,7 +473,6 @@
     "UnableToLoadBlocklist": "Не удалось загрузить черный список",
     "Time": "Время",
     "Blocklist": "Черный список",
-    "BlocklistHelpText": "Запрещает Radarr автоматически получать этот релиз повторно",
     "BlocklistRelease": "Релиз из черного списка",
     "Disabled": "Выключено",
     "Duration": "Длительность",
