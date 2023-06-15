@@ -10926,6 +10926,10 @@
             "type": "string",
             "nullable": true
           },
+          "helpTextWarning": {
+            "type": "string",
+            "nullable": true
+          },
           "helpLink": {
             "type": "string",
             "nullable": true
