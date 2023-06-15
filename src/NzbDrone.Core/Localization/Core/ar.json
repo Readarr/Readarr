@@ -465,7 +465,6 @@
     "Time": "زمن",
     "Component": "مكون",
     "Blocklist": "القائمة السوداء",
-    "BlocklistHelpText": "يمنع Radarr من الاستيلاء على هذا الإصدار تلقائيًا مرة أخرى",
     "BlocklistRelease": "إصدار القائمة السوداء",
     "ThisCannotBeCancelled": "لا يمكن إلغاء هذا بمجرد البدء دون إعادة تشغيل Radarr.",
     "UnselectAll": "إلغاء تحديد الكل",
@@ -582,5 +581,14 @@
     "ColonReplacement": "استبدال القولون",
     "ReplaceWithDash": "استبدل بـ داش",
     "ReplaceWithSpaceDash": "استبدل بـ Space Dash",
-    "ReplaceWithSpaceDashSpace": "استبدل بـ Space Dash Space"
+    "ReplaceWithSpaceDashSpace": "استبدل بـ Space Dash Space",
+    "DeleteRemotePathMapping": "تحرير تعيين المسار البعيد",
+    "BlocklistReleases": "إصدار القائمة السوداء",
+    "DeleteRemotePathMappingMessageText": "هل أنت متأكد أنك تريد حذف تعيين المسار البعيد هذا؟",
+    "Negated": "نفي",
+    "RemoveSelectedItemBlocklistMessageText": "هل أنت متأكد أنك تريد إزالة العناصر المحددة من القائمة السوداء؟",
+    "RemoveSelectedItemQueueMessageText": "هل تريد بالتأكيد إزالة {0} عنصر {1} من قائمة الانتظار؟",
+    "Required": "مطلوب",
+    "DeleteConditionMessageText": "هل أنت متأكد أنك تريد حذف العلامة \"{0}\"؟",
+    "RemoveSelectedItemsQueueMessageText": "هل تريد بالتأكيد إزالة {0} عنصر {1} من قائمة الانتظار؟"
 }

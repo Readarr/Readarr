@@ -581,5 +581,14 @@
     "ColonReplacement": "Skipt um ristil",
     "ReplaceWithDash": "Skiptu um með Dash",
     "ReplaceWithSpaceDash": "Skiptu um með Space Dash",
-    "ReplaceWithSpaceDashSpace": "Skiptu um með Space Dash Space"
+    "ReplaceWithSpaceDashSpace": "Skiptu um með Space Dash Space",
+    "DeleteRemotePathMapping": "Breyta kortlagningu fjarstígs",
+    "DeleteRemotePathMappingMessageText": "Ertu viss um að þú viljir eyða þessari ytri slóðakortun?",
+    "BlocklistReleases": "Útgáfa svartalista",
+    "DeleteConditionMessageText": "Ertu viss um að þú viljir eyða merkinu '{0}'?",
+    "Negated": "Negated",
+    "RemoveSelectedItemBlocklistMessageText": "Ertu viss um að þú viljir fjarlægja valda hluti af svörtum lista?",
+    "RemoveSelectedItemQueueMessageText": "Ertu viss um að þú viljir fjarlægja {0} hlut {1} úr biðröðinni?",
+    "RemoveSelectedItemsQueueMessageText": "Ertu viss um að þú viljir fjarlægja {0} hlut {1} úr biðröðinni?",
+    "Required": "Nauðsynlegt"
 }

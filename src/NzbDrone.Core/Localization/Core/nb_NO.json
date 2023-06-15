@@ -60,7 +60,6 @@
     "All": "Alle",
     "DeleteBackupMessageText": "Er du sikker på at du vil slette formattaggen {0}?",
     "Blocklist": "Svarteliste",
-    "BlocklistHelpText": "Hindrer Radarr i å automatisk gripe denne utgivelsen igjen",
     "BlocklistRelease": "Blacklist -utgivelse",
     "AppDataLocationHealthCheckMessage": "Oppdatering vil ikke være mulig for å forhindre sletting av AppData på oppdateringen",
     "CopyUsingHardlinksHelpText": "Bruk harde lenker ved forsøk på å kopiere filer fra torrents som fortsatt blir delt",
@@ -147,5 +146,10 @@
     "CustomFormats": "Egendefinert format",
     "BypassIfHighestQuality": "Omgå hvis høyeste kvalitet",
     "Formats": "Format",
-    "ColonReplacement": "Kolon erstatntning"
+    "ColonReplacement": "Kolon erstatntning",
+    "20MinutesTwenty": "20 Minutter: {0}",
+    "AddMissing": "Legg til manglende",
+    "AddNewItem": "Legg til nytt item",
+    "45MinutesFourtyFive": "45 Minutter: {0}",
+    "60MinutesSixty": "60 Minutter: {0}"
 }

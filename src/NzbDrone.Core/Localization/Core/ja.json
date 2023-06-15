@@ -581,5 +581,13 @@
     "ColonReplacement": "結腸の置換",
     "ReplaceWithDash": "ダッシュに置き換えます",
     "ReplaceWithSpaceDash": "スペースダッシュに置き換えます",
-    "ReplaceWithSpaceDashSpace": "スペースダッシュスペースに置き換えます"
+    "ReplaceWithSpaceDashSpace": "スペースダッシュスペースに置き換えます",
+    "DeleteRemotePathMapping": "リモートパスマッピングの編集",
+    "Negated": "否定",
+    "RemoveSelectedItemBlocklistMessageText": "選択したアイテムをブラックリストから削除してもよろしいですか？",
+    "RemoveSelectedItemQueueMessageText": "キューから{0}アイテム{1}を削除してもよろしいですか？",
+    "RemoveSelectedItemsQueueMessageText": "キューから{0}アイテム{1}を削除してもよろしいですか？",
+    "Required": "必須",
+    "BlocklistReleases": "ブラックリストリリース",
+    "DeleteConditionMessageText": "リスト「{0}」を削除してもよろしいですか？"
 }

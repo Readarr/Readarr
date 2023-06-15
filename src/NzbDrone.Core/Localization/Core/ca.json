@@ -583,7 +583,6 @@
     "BookIsDownloading": "La pel·lícula s'està baixant",
     "BookIsDownloadingInterp": "La pel·lícula s'està baixant - {0}% {1}",
     "Label": "Etiqueta",
-    "BlocklistHelpText": "Impedeix que Lidarr torni a capturar aquesta versió automàticament",
     "ChooseImportMethod": "Trieu el mode d'importació",
     "ClickToChangeReleaseGroup": "Feu clic per canviar el grup de llançaments",
     "HardlinkCopyFiles": "Enllaç dur/Copia fitxers",

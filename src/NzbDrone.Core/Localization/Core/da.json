@@ -584,5 +584,14 @@
     "ColonReplacement": "Udskiftning af tyktarm",
     "ReplaceWithDash": "Udskift med Dash",
     "ReplaceWithSpaceDash": "Udskift med Space Dash",
-    "ReplaceWithSpaceDashSpace": "Udskift med Space Dash Space"
+    "ReplaceWithSpaceDashSpace": "Udskift med Space Dash Space",
+    "DeleteRemotePathMapping": "Rediger kortlægning af fjernsti",
+    "DeleteRemotePathMappingMessageText": "Er du sikker på, at du vil slette denne kortlægning af fjernstien?",
+    "DeleteConditionMessageText": "Er du sikker på, at du vil slette listen '{0}'?",
+    "Negated": "Negeret",
+    "RemoveSelectedItemBlocklistMessageText": "Er du sikker på, at du vil fjerne de valgte emner fra sortlisten?",
+    "BlocklistReleases": "Udgivelse af sortliste",
+    "RemoveSelectedItemQueueMessageText": "Er du sikker på, at du vil fjerne {0} element {1} fra køen?",
+    "RemoveSelectedItemsQueueMessageText": "Er du sikker på, at du vil fjerne {0} element {1} fra køen?",
+    "Required": "Påkrævet"
 }

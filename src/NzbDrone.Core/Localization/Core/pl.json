@@ -567,7 +567,6 @@
     "RestartRequiredHelpTextWarning": "Wymaga ponownego uruchomienia, aby odniosło skutek",
     "UserAgentProvidedByTheAppThatCalledTheAPI": "User-Agent podawany przez aplikację wywołującą API",
     "AddList": "Dodaj listę",
-    "BlocklistHelpText": "Zapobiega ponownemu pobraniu tej wersji przez Radarr",
     "RemotePathMappingCheckDownloadPermissions": "Radarr widzi film {0}, lecz nie ma do niego dostępu. Najprawdopodobniej to wynik błędu w uprawnieniach dostępu.",
     "RemotePathMappingCheckFilesGenericPermissions": "Klient pobierania {0} zgłosił pliki w {1}, lecz Radarr nie widzi tego folderu. Być może musisz zmienić uprawnienia dostępu do tego folderu.",
     "RemotePathMappingCheckFolderPermissions": "Radarr widzi folder {0}, lecz nie ma do niego dostępu. Prawdopodobnie to wynik błędu uprawnień dostępu.",
@@ -618,5 +617,16 @@
     "ColonReplacement": "Wymiana okrężnicy",
     "ReplaceWithDash": "Zastąp Dash",
     "ReplaceWithSpaceDash": "Zastąp spacją Dash",
-    "ReplaceWithSpaceDashSpace": "Zastąp spacją Dash Space"
+    "ReplaceWithSpaceDashSpace": "Zastąp spacją Dash Space",
+    "DeleteRemotePathMapping": "Edytuj zdalne mapowanie ścieżki",
+    "DeleteRemotePathMappingMessageText": "Czy na pewno chcesz usunąć to mapowanie zdalnej ścieżki?",
+    "BlocklistReleases": "Wydanie czarnej listy",
+    "DeleteConditionMessageText": "Czy na pewno chcesz usunąć tag „{0}”?",
+    "Negated": "Zanegowane",
+    "RemoveSelectedItem": "Usuń wybrane",
+    "RemoveSelectedItemBlocklistMessageText": "Czy na pewno chcesz usunąć wybrane elementy z czarnej listy?",
+    "RemoveSelectedItemQueueMessageText": "Czy na pewno chcesz usunąć {0} element {1} z kolejki?",
+    "RemoveSelectedItems": "Usuń wybrane",
+    "RemoveSelectedItemsQueueMessageText": "Czy na pewno chcesz usunąć elementy ({0}) z kolejki?",
+    "Required": "wymagany"
 }

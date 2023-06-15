@@ -477,7 +477,6 @@
     "UrlBaseHelpText": "Lisää Calibren URL-osoitteeseen etuliitteen, (esim. 'http://[host]:[port]/[urlBase]').",
     "Author": "Kirjailija",
     "BackupIntervalHelpText": "Readarrin tietokannan ja asetusten automaattisen varmuuskopioinnin suoritusaikaväli.",
-    "BlocklistHelpText": "Estää julkaisun automaattisen uudelleensieppauksen.",
     "TagsHelpText": "Käytetään vähintään yhdellä täsmäävällä tunnisteella merkityille kirjailijoille. Käytä kaikille jättämällä tyhjäksi.",
     "WriteAudioTagsScrubHelp": "Poista olemassa olevat tagit tiedostoista säilyttäen vain Readarrin lisäämät tagit.",
     "DefaultTagsHelpText": "Kansiosta löydetyille kirjailijoille oletusarvoisesti määritettävät tunnisteet.",
@@ -819,5 +818,17 @@
     "ColonReplacement": "Kaksoispisteen käsittely",
     "ReplaceWithDash": "Korvaus: väliviiva",
     "ReplaceWithSpaceDash": "Korvaus: välilyönti-väliviiva",
-    "ReplaceWithSpaceDashSpace": "Korvus: välilyönti-väliviiva-välilyönti"
+    "ReplaceWithSpaceDashSpace": "Korvus: välilyönti-väliviiva-välilyönti",
+    "DeleteRemotePathMapping": "Muokkaa etäreittien kartoitusta",
+    "BlocklistReleases": "Lisää julkaisut estolistalle",
+    "DeleteConditionMessageText": "Haluatko varmasti poistaa tunnisteen '{0}'?",
+    "Negated": "Mitätöity",
+    "RemoveSelectedItem": "Poista valittu kohde",
+    "RemoveSelectedItemBlocklistMessageText": "Haluatko varmasti poistaa valitut kohteet estolistalta?",
+    "RemoveSelectedItemQueueMessageText": "Haluatko varmasti poistaa jonosta 1 kohteen?",
+    "RemoveSelectedItems": "Poista valitut kohteet",
+    "RemoveSelectedItemsQueueMessageText": "Haluatko varmasti poistaa jonosta {0} kohdetta?",
+    "Required": "Vaaditaan",
+    "ResetQualityDefinitions": "Palauta laatumääritykset",
+    "ResetQualityDefinitionsMessageText": "Haluatko varmasti palauttaa laatumääritykset?"
 }

@@ -581,5 +581,13 @@
     "ColonReplacement": "कोलन रिप्लेसमेंट",
     "ReplaceWithDash": "डैश के साथ बदलें",
     "ReplaceWithSpaceDash": "स्पेस डैश के साथ बदलें",
-    "ReplaceWithSpaceDashSpace": "स्पेस डैश स्पेस के साथ बदलें"
+    "ReplaceWithSpaceDashSpace": "स्पेस डैश स्पेस के साथ बदलें",
+    "DeleteRemotePathMapping": "दूरस्थ पथ मानचित्रण संपादित करें",
+    "BlocklistReleases": "ब्लैकलिस्ट रिलीज़",
+    "Negated": "नकार दिया गया",
+    "Required": "अपेक्षित",
+    "DeleteConditionMessageText": "क्या आप वाकई '{0}' सूची को हटाना चाहते हैं?",
+    "RemoveSelectedItemBlocklistMessageText": "क्या आप वाकई चयनित आइटम को ब्लैकलिस्ट से हटाना चाहते हैं?",
+    "RemoveSelectedItemQueueMessageText": "क्या आप वाकई {0} आइटम {1} को कतार से हटाना चाहते हैं?",
+    "RemoveSelectedItemsQueueMessageText": "क्या आप वाकई {0} आइटम {1} को कतार से हटाना चाहते हैं?"
 }

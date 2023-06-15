@@ -515,7 +515,6 @@
     "UnableToLoadBlocklist": "Sperrliste konnte nicht geladen werden",
     "ReleaseBranchCheckOfficialBranchMessage": "Zweig {0} ist kein gültiger Radarr-Release-Zweig. Sie erhalten keine Updates",
     "Blocklist": "Sperrliste",
-    "BlocklistHelpText": "Dieses Release nicht automatisch erneut erfassen",
     "BlocklistRelease": "Release sperren",
     "RescanAfterRefreshHelpText": "Nach dem aktualisieren des Films, den Filmordner neu scannen",
     "ShowUnknownAuthorItems": "Unzugeordente Filmeinträge anzeigen",

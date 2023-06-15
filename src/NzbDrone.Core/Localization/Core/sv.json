@@ -505,7 +505,6 @@
     "ContinuingAllBooksDownloaded": "Fortsätter (Alla böcker nedladdade)",
     "ContinuingMoreBooksAreExpected": "Fler böcker är väntade",
     "NoHistoryBlocklist": "Ingen blocklista-historik",
-    "BlocklistHelpText": "Förhindra Readarr att automatiskt hämta denna utgåva igen",
     "BlocklistRelease": "Svartlista Utgåva",
     "DiscNumber": "Disk Nummer",
     "LatestBook": "Senaste Bok",
