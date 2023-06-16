@@ -939,5 +939,6 @@
     "RemoveSelectedItemsQueueMessageText": "Tem certeza de que deseja remover {0} itens da fila?",
     "Required": "Requerido",
     "ResetQualityDefinitions": "Redefinir Configurações de Qualidade",
-    "ResetQualityDefinitionsMessageText": "Tem certeza de que deseja redefinir as configurações de qualidade?"
+    "ResetQualityDefinitionsMessageText": "Tem certeza de que deseja redefinir as configurações de qualidade?",
+    "BlocklistReleaseHelpText": "Evita que o Readarr pegue automaticamente esses arquivos novamente"
 }
