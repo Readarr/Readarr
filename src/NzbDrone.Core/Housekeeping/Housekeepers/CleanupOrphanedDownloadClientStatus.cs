@@ -14,7 +14,7 @@ namespace NzbDrone.Core.Housekeeping.Housekeepers
 
         public void Clean()
         {
-            var mapper = _database.OpenConnection();
+            using var mapper = _database.OpenConnection();
 
             mapper.Execute(@"DELETE FROM ""DownloadClientStatus""
                                      WHERE ""Id"" IN (

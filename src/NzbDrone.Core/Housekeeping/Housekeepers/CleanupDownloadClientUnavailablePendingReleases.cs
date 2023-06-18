@@ -16,7 +16,7 @@ namespace NzbDrone.Core.Housekeeping.Housekeepers
 
         public void Clean()
         {
-            var mapper = _database.OpenConnection();
+            using var mapper = _database.OpenConnection();
 
             if (_database.DatabaseType == DatabaseType.PostgreSQL)
             {
@@ -31,7 +31,7 @@ namespace NzbDrone.Core.Housekeeping.Housekeepers
             }
             else
             {
-            mapper.Execute(@"DELETE FROM ""PendingReleases""
+                mapper.Execute(@"DELETE FROM ""PendingReleases""
                             WHERE ""Added"" < @TwoWeeksAgo
                             AND ""REASON"" IN @Reasons",
                           new
