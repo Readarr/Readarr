@@ -762,7 +762,7 @@
     "UpdateAvailable": "Nova atualização está disponível",
     "UserAgentProvidedByTheAppThatCalledTheAPI": "User-Agent fornecido pelo aplicativo que chamou a API",
     "UpdateCheckUINotWritableMessage": "Não é possível instalar a atualização porque a pasta de IU '{0}' não pode ser gravada pelo usuário '{1}'.",
-    "FailedToLoadQueue": "Falha ao carregar fila",
+    "FailedToLoadQueue": "Falha ao carregar a fila",
     "DownloadClientStatusCheckSingleClientMessage": "Clientes de download indisponíveis devido a falhas: {0}",
     "EditBook": "Editar Livro",
     "FileWasDeletedByUpgrade": "Arquivo foi excluído para importar uma atualização",
