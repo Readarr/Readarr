@@ -14,17 +14,16 @@ namespace NzbDrone.Core.Housekeeping.Housekeepers
 
         public void Clean()
         {
-            using (var mapper = _database.OpenConnection())
-            {
-                // Unlink where track no longer exists
-                mapper.Execute(@"UPDATE ""BookFiles""
-                                     SET ""EditionId"" = 0
-                                     WHERE ""Id"" IN (
-                                     SELECT ""BookFiles"".""Id"" FROM ""BookFiles""
-                                     LEFT OUTER JOIN ""Editions""
-                                     ON ""BookFiles"".""EditionId"" = ""Editions"".""Id""
-                                     WHERE ""Editions"".""Id"" IS NULL)");
-            }
+            using var mapper = _database.OpenConnection();
+
+            // Unlink where books no longer exists
+            mapper.Execute(@"UPDATE ""BookFiles""
+                             SET ""EditionId"" = 0
+                             WHERE ""Id"" IN (
+                             SELECT ""BookFiles"".""Id"" FROM ""BookFiles""
+                             LEFT OUTER JOIN ""Editions""
+                             ON ""BookFiles"".""EditionId"" = ""Editions"".""Id""
+                             WHERE ""Editions"".""Id"" IS NULL)");
         }
     }
 }

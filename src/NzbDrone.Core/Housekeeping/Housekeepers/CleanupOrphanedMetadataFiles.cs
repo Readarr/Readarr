@@ -23,67 +23,57 @@ namespace NzbDrone.Core.Housekeeping.Housekeepers
 
         private void DeleteOrphanedByAuthor()
         {
-            using (var mapper = _database.OpenConnection())
-            {
-                mapper.Execute(@"DELETE FROM ""MetadataFiles""
-                                     WHERE ""Id"" IN (
-                                     SELECT ""MetadataFiles"".""Id"" FROM ""MetadataFiles""
-                                     LEFT OUTER JOIN ""Authors""
-                                     ON ""MetadataFiles"".""AuthorId"" = ""Authors"".""Id""
-                                     WHERE ""Authors"".""Id"" IS NULL)");
-            }
+            using var mapper = _database.OpenConnection();
+            mapper.Execute(@"DELETE FROM ""MetadataFiles""
+                             WHERE ""Id"" IN (
+                             SELECT ""MetadataFiles"".""Id"" FROM ""MetadataFiles""
+                             LEFT OUTER JOIN ""Authors""
+                             ON ""MetadataFiles"".""AuthorId"" = ""Authors"".""Id""
+                             WHERE ""Authors"".""Id"" IS NULL)");
         }
 
         private void DeleteOrphanedByBook()
         {
-            using (var mapper = _database.OpenConnection())
-            {
-                mapper.Execute(@"DELETE FROM ""MetadataFiles""
-                                     WHERE ""Id"" IN (
-                                     SELECT ""MetadataFiles"".""Id"" FROM ""MetadataFiles""
-                                     LEFT OUTER JOIN ""Books""
-                                     ON ""MetadataFiles"".""BookId"" = ""Books"".""Id""
-                                     WHERE ""MetadataFiles"".""BookId"" > 0
-                                     AND ""Books"".""Id"" IS NULL)");
-            }
+            using var mapper = _database.OpenConnection();
+            mapper.Execute(@"DELETE FROM ""MetadataFiles""
+                             WHERE ""Id"" IN (
+                             SELECT ""MetadataFiles"".""Id"" FROM ""MetadataFiles""
+                             LEFT OUTER JOIN ""Books""
+                             ON ""MetadataFiles"".""BookId"" = ""Books"".""Id""
+                             WHERE ""MetadataFiles"".""BookId"" > 0
+                             AND ""Books"".""Id"" IS NULL)");
         }
 
         private void DeleteOrphanedByTrackFile()
         {
-            using (var mapper = _database.OpenConnection())
-            {
-                mapper.Execute(@"DELETE FROM ""MetadataFiles""
-                                     WHERE ""Id"" IN (
-                                     SELECT ""MetadataFiles"".""Id"" FROM ""MetadataFiles""
-                                     LEFT OUTER JOIN ""BookFiles""
-                                     ON ""MetadataFiles"".""BookFileId"" = ""BookFiles"".""Id""
-                                     WHERE ""MetadataFiles"".""BookFileId"" > 0
-                                     AND ""BookFiles"".""Id"" IS NULL)");
-            }
+            using var mapper = _database.OpenConnection();
+            mapper.Execute(@"DELETE FROM ""MetadataFiles""
+                             WHERE ""Id"" IN (
+                             SELECT ""MetadataFiles"".""Id"" FROM ""MetadataFiles""
+                             LEFT OUTER JOIN ""BookFiles""
+                             ON ""MetadataFiles"".""BookFileId"" = ""BookFiles"".""Id""
+                             WHERE ""MetadataFiles"".""BookFileId"" > 0
+                             AND ""BookFiles"".""Id"" IS NULL)");
         }
 
         private void DeleteWhereBookIdIsZero()
         {
-            using (var mapper = _database.OpenConnection())
-            {
-                mapper.Execute(@"DELETE FROM ""MetadataFiles""
-                                     WHERE ""Id"" IN (
-                                     SELECT ""Id"" FROM ""MetadataFiles""
-                                     WHERE ""Type"" IN (2, 4)
-                                     AND ""BookId"" = 0)");
-            }
+            using var mapper = _database.OpenConnection();
+            mapper.Execute(@"DELETE FROM ""MetadataFiles""
+                             WHERE ""Id"" IN (
+                             SELECT ""Id"" FROM ""MetadataFiles""
+                             WHERE ""Type"" IN (2, 4)
+                             AND ""BookId"" = 0)");
         }
 
         private void DeleteWhereTrackFileIsZero()
         {
-            using (var mapper = _database.OpenConnection())
-            {
-                mapper.Execute(@"DELETE FROM ""MetadataFiles""
-                                     WHERE ""Id"" IN (
-                                     SELECT ""Id"" FROM ""MetadataFiles""
-                                     WHERE ""Type"" IN (2, 4)
-                                     AND ""BookFileId"" = 0)");
-            }
+            using var mapper = _database.OpenConnection();
+            mapper.Execute(@"DELETE FROM ""MetadataFiles""
+                             WHERE ""Id"" IN (
+                             SELECT ""Id"" FROM ""MetadataFiles""
+                             WHERE ""Type"" IN (2, 4)
+                             AND ""BookFileId"" = 0)");
         }
     }
 }

@@ -14,15 +14,13 @@ namespace NzbDrone.Core.Housekeeping.Housekeepers
 
         public void Clean()
         {
-            using (var mapper = _database.OpenConnection())
-            {
-                mapper.Execute(@"DELETE FROM ""AuthorMetadata""
-                                     WHERE ""Id"" IN (
-                                     SELECT ""AuthorMetadata"".""Id"" FROM ""AuthorMetadata""
-                                     LEFT OUTER JOIN ""Books"" ON ""Books"".""AuthorMetadataId"" = ""AuthorMetadata"".""Id""
-                                     LEFT OUTER JOIN ""Authors"" ON ""Authors"".""AuthorMetadataId"" = ""AuthorMetadata"".""Id""
-                                     WHERE ""Books"".""Id"" IS NULL AND ""Authors"".""Id"" IS NULL)");
-            }
+            using var mapper = _database.OpenConnection();
+            mapper.Execute(@"DELETE FROM ""AuthorMetadata""
+                             WHERE ""Id"" IN (
+                             SELECT ""AuthorMetadata"".""Id"" FROM ""AuthorMetadata""
+                             LEFT OUTER JOIN ""Books"" ON ""Books"".""AuthorMetadataId"" = ""AuthorMetadata"".""Id""
+                             LEFT OUTER JOIN ""Authors"" ON ""Authors"".""AuthorMetadataId"" = ""AuthorMetadata"".""Id""
+                             WHERE ""Books"".""Id"" IS NULL AND ""Authors"".""Id"" IS NULL)");
         }
     }
 }
