@@ -26,6 +26,7 @@ function createCleanAuthorSelector() {
           sortName,
           titleSlug,
           images,
+          firstCharacter: authorName.charAt(0).toLowerCase(),
           tags: tags.reduce((acc, id) => {
             const matchingTag = allTags.find((tag) => tag.id === id);
 
@@ -58,6 +59,7 @@ function createCleanBookSelector() {
           sortName: title,
           titleSlug,
           images,
+          firstCharacter: title.charAt(0).toLowerCase(),
           tags: []
         };
       });

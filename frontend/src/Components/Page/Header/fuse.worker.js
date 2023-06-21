@@ -15,9 +15,36 @@ const fuseOptions = {
 
 function getSuggestions(items, value) {
   const limit = 10;
+  let suggestions = [];
 
-  const fuse = new Fuse(items, fuseOptions);
-  return fuse.search(value, { limit });
+  if (value.length === 1) {
+    for (let i = 0; i < items.length; i++) {
+      const s = items[i];
+      if (s.firstCharacter === value.toLowerCase()) {
+        suggestions.push({
+          item: items[i],
+          indices: [
+            [0, 0]
+          ],
+          matches: [
+            {
+              value: s.title,
+              key: 'title'
+            }
+          ],
+          arrayIndex: 0
+        });
+        if (suggestions.length > limit) {
+          break;
+        }
+      }
+    }
+  } else {
+    const fuse = new Fuse(items, fuseOptions);
+    suggestions = fuse.search(value, { limit });
+  }
+
+  return suggestions;
 }
 
 onmessage = function(e) {
