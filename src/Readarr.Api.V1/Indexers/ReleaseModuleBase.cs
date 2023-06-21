@@ -9,6 +9,11 @@ namespace Readarr.Api.V1.Indexers
     public abstract class ReleaseControllerBase : RestController<ReleaseResource>
     {
         [NonAction]
+        public override ActionResult<ReleaseResource> GetResourceByIdWithErrorHandler(int id)
+        {
+            return base.GetResourceByIdWithErrorHandler(id);
+        }
+
         protected override ReleaseResource GetResourceById(int id)
         {
             throw new NotImplementedException();

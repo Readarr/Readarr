@@ -39,7 +39,8 @@ namespace Readarr.Http.REST
         }
 
         [RestGetById]
-        public ActionResult<TResource> GetResourceByIdWithErrorHandler(int id)
+        [Produces("application/json")]
+        public virtual ActionResult<TResource> GetResourceByIdWithErrorHandler(int id)
         {
             try
             {

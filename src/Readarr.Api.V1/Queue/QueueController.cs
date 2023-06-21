@@ -58,6 +58,11 @@ namespace Readarr.Api.V1.Queue
         }
 
         [NonAction]
+        public override ActionResult<QueueResource> GetResourceByIdWithErrorHandler(int id)
+        {
+            return base.GetResourceByIdWithErrorHandler(id);
+        }
+
         protected override QueueResource GetResourceById(int id)
         {
             throw new NotImplementedException();
