@@ -26,6 +26,7 @@ namespace Readarr.Api.V1.Queue
             _pendingReleaseService = pendingReleaseService;
         }
 
+        [NonAction]
         protected override QueueResource GetResourceById(int id)
         {
             throw new NotImplementedException();

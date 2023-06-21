@@ -22,6 +22,7 @@ namespace Readarr.Api.V1.Health
             _healthCheckService = healthCheckService;
         }
 
+        [NonAction]
         protected override HealthResource GetResourceById(int id)
         {
             throw new NotImplementedException();

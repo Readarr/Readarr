@@ -57,6 +57,7 @@ namespace Readarr.Api.V1.Queue
             _qualityComparer = new QualityModelComparer(qualityProfileService.GetDefaultProfile(string.Empty));
         }
 
+        [NonAction]
         protected override QueueResource GetResourceById(int id)
         {
             throw new NotImplementedException();

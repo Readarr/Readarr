@@ -41,6 +41,7 @@ namespace Readarr.Api.V1
         }
 
         [HttpGet]
+        [Produces("application/json")]
         public List<TProviderResource> GetAll()
         {
             var providerDefinitions = _providerFactory.All().OrderBy(p => p.ImplementationName);
@@ -58,6 +59,8 @@ namespace Readarr.Api.V1
         }
 
         [RestPostById]
+        [Consumes("application/json")]
+        [Produces("application/json")]
         public ActionResult<TProviderResource> CreateProvider([FromBody] TProviderResource providerResource, [FromQuery] bool forceSave = false)
         {
             var providerDefinition = GetDefinition(providerResource, true, !forceSave, false);
@@ -73,6 +76,8 @@ namespace Readarr.Api.V1
         }
 
         [RestPutById]
+        [Consumes("application/json")]
+        [Produces("application/json")]
         public ActionResult<TProviderResource> UpdateProvider([FromBody] TProviderResource providerResource, [FromQuery] bool forceSave = false)
         {
             var providerDefinition = GetDefinition(providerResource, true, !forceSave, false);
@@ -108,6 +113,7 @@ namespace Readarr.Api.V1
         }
 
         [HttpGet("schema")]
+        [Produces("application/json")]
         public List<TProviderResource> GetTemplates()
         {
             var defaultDefinitions = _providerFactory.GetDefaultDefinitions().OrderBy(p => p.ImplementationName).ToList();
@@ -131,6 +137,7 @@ namespace Readarr.Api.V1
 
         [SkipValidation(true, false)]
         [HttpPost("test")]
+        [Consumes("application/json")]
         public object Test([FromBody] TProviderResource providerResource)
         {
             var providerDefinition = GetDefinition(providerResource, true, true, true);
@@ -141,6 +148,7 @@ namespace Readarr.Api.V1
         }
 
         [HttpPost("testall")]
+        [Produces("application/json")]
         public IActionResult TestAll()
         {
             var providerDefinitions = _providerFactory.All()
@@ -164,6 +172,8 @@ namespace Readarr.Api.V1
 
         [SkipValidation]
         [HttpPost("action/{name}")]
+        [Consumes("application/json")]
+        [Produces("application/json")]
         public IActionResult RequestAction(string name, [FromBody] TProviderResource resource)
         {
             var providerDefinition = GetDefinition(resource, false, false, false);

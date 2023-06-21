@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Mvc;
 using NzbDrone.Core.DecisionEngine;
 using Readarr.Http.REST;
 
@@ -7,6 +8,7 @@ namespace Readarr.Api.V1.Indexers
 {
     public abstract class ReleaseControllerBase : RestController<ReleaseResource>
     {
+        [NonAction]
         protected override ReleaseResource GetResourceById(int id)
         {
             throw new NotImplementedException();
