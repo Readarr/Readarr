@@ -83,15 +83,18 @@ class BookDetailsHeader extends Component {
       titleWidth
     } = this.state;
 
+    const fanartUrl = getFanartUrl(author.images);
     const marqueeWidth = titleWidth - (isSmallScreen ? 85 : 160);
 
     return (
       <div className={styles.header} style={{ width }}>
         <div
           className={styles.backdrop}
-          style={{
-            backgroundImage: `url(${getFanartUrl(author.images)})`
-          }}
+          style={
+            fanartUrl ?
+              { backgroundImage: `url(${fanartUrl})` } :
+              null
+          }
         >
           <div className={styles.backdropOverlay} />
         </div>
