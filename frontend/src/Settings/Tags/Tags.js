@@ -1,8 +1,10 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import Alert from 'Components/Alert';
 import FieldSet from 'Components/FieldSet';
 import Link from 'Components/Link/Link';
 import PageSectionContent from 'Components/Page/PageSectionContent';
+import { kinds } from 'Helpers/Props';
 import translate from 'Utilities/String/translate';
 import TagConnector from './TagConnector';
 import styles from './Tags.css';
@@ -16,9 +18,9 @@ function Tags(props) {
   if (!items.length) {
     const wikiLink = <Link to='https://wiki.servarr.com/readarr/settings#tags'>here</Link>;
     return (
-      <div>
+      <Alert kind={kinds.INFO}>
         {translate('NoTagsHaveBeenAddedYet', [wikiLink])}
-      </div>
+      </Alert>
     );
   }
 
