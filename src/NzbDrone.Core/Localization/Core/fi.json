@@ -830,5 +830,7 @@
     "RemoveSelectedItemsQueueMessageText": "Haluatko varmasti poistaa jonosta {0} kohdetta?",
     "Required": "Vaaditaan",
     "ResetQualityDefinitions": "Palauta laatumääritykset",
-    "ResetQualityDefinitionsMessageText": "Haluatko varmasti palauttaa laatumääritykset?"
+    "ResetQualityDefinitionsMessageText": "Haluatko varmasti palauttaa laatumääritykset?",
+    "NoEventsFound": "Tapahtumia ei löytynyt",
+    "BlocklistReleaseHelpText": "Estää julkaisun automaattisen uudelleensieppauksen."
 }

@@ -581,5 +581,13 @@
     "ColonReplacement": "การเปลี่ยนลำไส้ใหญ่",
     "ReplaceWithDash": "แทนที่ด้วย Dash",
     "ReplaceWithSpaceDash": "แทนที่ด้วย Space Dash",
-    "ReplaceWithSpaceDashSpace": "แทนที่ด้วย Space Dash Space"
+    "ReplaceWithSpaceDashSpace": "แทนที่ด้วย Space Dash Space",
+    "NoEventsFound": "ไม่พบกิจกรรม",
+    "BlocklistReleases": "Blacklist Release",
+    "DeleteConditionMessageText": "แน่ใจไหมว่าต้องการลบรายการ \"{0}\"",
+    "DeleteRemotePathMapping": "แก้ไขการแมปเส้นทางระยะไกล",
+    "Negated": "เมื่อตะกี้",
+    "RemoveSelectedItemQueueMessageText": "แน่ใจไหมว่าต้องการนำ {0} ออกจากคิว",
+    "RemoveSelectedItemsQueueMessageText": "แน่ใจไหมว่าต้องการนำ {0} ออกจากคิว",
+    "Required": "จำเป็น"
 }

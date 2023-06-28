@@ -590,5 +590,6 @@
     "RemoveSelectedItemBlocklistMessageText": "Ertu viss um að þú viljir fjarlægja valda hluti af svörtum lista?",
     "RemoveSelectedItemQueueMessageText": "Ertu viss um að þú viljir fjarlægja {0} hlut {1} úr biðröðinni?",
     "RemoveSelectedItemsQueueMessageText": "Ertu viss um að þú viljir fjarlægja {0} hlut {1} úr biðröðinni?",
-    "Required": "Nauðsynlegt"
+    "Required": "Nauðsynlegt",
+    "NoEventsFound": "Engir viðburðir fundust"
 }

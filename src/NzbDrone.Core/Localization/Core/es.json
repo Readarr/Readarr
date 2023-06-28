@@ -652,5 +652,7 @@
     "RemoveSelectedItemsQueueMessageText": "¿Estás seguro de que quieres eliminar {0} elementos de la cola?",
     "Required": "Necesario",
     "ResetQualityDefinitions": "Restablecer definiciones de calidad",
-    "ResetQualityDefinitionsMessageText": "¿Está seguro de que desea restablecer las definiciones de calidad?"
+    "ResetQualityDefinitionsMessageText": "¿Está seguro de que desea restablecer las definiciones de calidad?",
+    "BlocklistReleaseHelpText": "Evita que Radarr vuelva a capturar esta película automáticamente",
+    "NoEventsFound": "No se encontraron eventos"
 }

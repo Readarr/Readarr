@@ -611,5 +611,7 @@
     "Required": "נדרש",
     "RemoveSelectedItemBlocklistMessageText": "האם אתה בטוח שברצונך להסיר את הפריטים שנבחרו מהרשימה השחורה?",
     "RemoveSelectedItemQueueMessageText": "האם אתה בטוח שברצונך להסיר את {0} פריט {1} מהתור?",
-    "RemoveSelectedItemsQueueMessageText": "האם אתה בטוח שברצונך להסיר את {0} פריט {1} מהתור?"
+    "RemoveSelectedItemsQueueMessageText": "האם אתה בטוח שברצונך להסיר את {0} פריט {1} מהתור?",
+    "BlocklistReleaseHelpText": "מנע מראדרר להוסיף את ההוצאה הזאת שוב",
+    "NoEventsFound": "לא נמצאו אירועים"
 }
