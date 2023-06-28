@@ -590,5 +590,6 @@
     "Required": "Задължително",
     "Negated": "Отрицателно",
     "RemoveSelectedItemBlocklistMessageText": "Наистина ли искате да премахнете избраните елементи от черния списък?",
-    "RemoveSelectedItemsQueueMessageText": "Наистина ли искате да премахнете {0} елемент {1} от опашката?"
+    "RemoveSelectedItemsQueueMessageText": "Наистина ли искате да премахнете {0} елемент {1} от опашката?",
+    "NoEventsFound": "Няма намерени събития"
 }

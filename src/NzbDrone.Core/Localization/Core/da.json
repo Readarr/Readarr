@@ -593,5 +593,6 @@
     "BlocklistReleases": "Udgivelse af sortliste",
     "RemoveSelectedItemQueueMessageText": "Er du sikker på, at du vil fjerne {0} element {1} fra køen?",
     "RemoveSelectedItemsQueueMessageText": "Er du sikker på, at du vil fjerne {0} element {1} fra køen?",
-    "Required": "Påkrævet"
+    "Required": "Påkrævet",
+    "NoEventsFound": "Ingen begivenheder fundet"
 }

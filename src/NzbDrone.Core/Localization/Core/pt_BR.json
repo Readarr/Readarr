@@ -940,5 +940,8 @@
     "Required": "Requerido",
     "ResetQualityDefinitions": "Redefinir Configurações de Qualidade",
     "ResetQualityDefinitionsMessageText": "Tem certeza de que deseja redefinir as configurações de qualidade?",
-    "BlocklistReleaseHelpText": "Evita que o Readarr pegue automaticamente esses arquivos novamente"
+    "BlocklistReleaseHelpText": "Evita que o Readarr pegue automaticamente esses arquivos novamente",
+    "NoCutoffUnmetItems": "Nenhum item de corte não atendido",
+    "NoEventsFound": "Nenhum evento encontrado",
+    "NoMissingItems": "Nenhum item faltando"
 }

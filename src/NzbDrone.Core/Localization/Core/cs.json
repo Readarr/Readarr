@@ -590,5 +590,6 @@
     "RemoveSelectedItemBlocklistMessageText": "Opravdu chcete odebrat vybrané položky z černé listiny?",
     "RemoveSelectedItemQueueMessageText": "Opravdu chcete odebrat {0} položku {1} z fronty?",
     "RemoveSelectedItemsQueueMessageText": "Opravdu chcete odebrat {0} položku {1} z fronty?",
-    "Required": "Požadované"
+    "Required": "Požadované",
+    "NoEventsFound": "Nebyly nalezeny žádné události"
 }
