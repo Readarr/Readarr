@@ -21,7 +21,9 @@ namespace NzbDrone.Core.Validation.Paths
                 return true;
             }
 
-            return !_authorService.GetAllAuthors().Exists(s => s.Metadata.Value.ForeignAuthorId == context.PropertyValue.ToString());
+            var foreignAuthorId = context.PropertyValue.ToString();
+
+            return _authorService.FindById(foreignAuthorId) == null;
         }
     }
 }
