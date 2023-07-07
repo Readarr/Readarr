@@ -134,7 +134,7 @@
     "run-sequence": "2.2.1",
     "streamqueue": "1.1.2",
     "style-loader": "3.3.2",
-    "stylelint": "15.6.1",
+    "stylelint": "15.10.1",
     "stylelint-order": "6.0.3",
     "terser-webpack-plugin": "5.3.8",
     "ts-loader": "9.4.3",
