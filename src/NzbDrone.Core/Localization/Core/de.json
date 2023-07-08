@@ -921,5 +921,7 @@
     "RemoveSelectedItemBlocklistMessageText": "Bist du sicher, dass du die ausgewählten Einträge aus der Sperrliste entfernen willst?",
     "ResetQualityDefinitionsMessageText": "Bist du sicher, dass du die Qualitätsdefinitionen zurücksetzen willst?",
     "RemoveSelectedItemQueueMessageText": "Bist du sicher, dass du ein Eintrag aus der Warteschlange entfernen willst?",
-    "RemoveSelectedItemsQueueMessageText": "Bist du sicher, dass du {0} Einträge aus der Warteschlange entfernen willst?"
+    "RemoveSelectedItemsQueueMessageText": "Bist du sicher, dass du {0} Einträge aus der Warteschlange entfernen willst?",
+    "ListRefreshInterval": "Listen Aktualisierungsintervall",
+    "ListWillRefreshEveryInterp": "Liste wird alle [0] aktualisiert"
 }
