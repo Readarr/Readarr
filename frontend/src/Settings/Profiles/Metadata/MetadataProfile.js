@@ -1,6 +1,8 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
+import MiddleTruncate from 'react-middle-truncate';
 import Card from 'Components/Card';
+import Label from 'Components/Label';
 import IconButton from 'Components/Link/IconButton';
 import ConfirmModal from 'Components/Modal/ConfirmModal';
 import { icons, kinds } from 'Helpers/Props';
@@ -64,6 +66,9 @@ class MetadataProfile extends Component {
     const {
       id,
       name,
+      minPopularity,
+      minPages,
+      ignored,
       isDeleting
     } = this.props;
 
@@ -84,6 +89,48 @@ class MetadataProfile extends Component {
             name={icons.CLONE}
             onPress={this.onCloneMetadataProfilePress}
           />
+        </div>
+
+        <div className={styles.enabled}>
+          {
+            minPopularity ?
+              <Label kind={kinds.DEFAULT}>
+                {translate('MinimumPopularity')}: {minPopularity}
+              </Label> :
+              null
+          }
+
+          {
+            minPages ?
+              <Label kind={kinds.DEFAULT}>
+                {translate('MinimumPages')}: {minPages}
+              </Label> :
+              null
+          }
+        </div>
+
+        <div>
+          {
+            ignored.map((item) => {
+              if (!item) {
+                return null;
+              }
+
+              return (
+                <Label
+                  className={styles.label}
+                  key={item}
+                  kind={kinds.DANGER}
+                >
+                  <MiddleTruncate
+                    text={item}
+                    start={10}
+                    end={10}
+                  />
+                </Label>
+              );
+            })
+          }
         </div>
 
         <EditMetadataProfileModalConnector
@@ -111,10 +158,19 @@ class MetadataProfile extends Component {
 MetadataProfile.propTypes = {
   id: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,
+  minPopularity: PropTypes.number.isRequired,
+  minPages: PropTypes.number.isRequired,
+  ignored: PropTypes.arrayOf(PropTypes.string).isRequired,
   isDeleting: PropTypes.bool.isRequired,
   onConfirmDeleteMetadataProfile: PropTypes.func.isRequired,
   onCloneMetadataProfilePress: PropTypes.func.isRequired
 
+};
+
+MetadataProfile.defaultProps = {
+  minPopularity: 0,
+  minPages: 0,
+  ignored: []
 };
 
 export default MetadataProfile;

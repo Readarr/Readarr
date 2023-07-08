@@ -23,9 +23,14 @@
   height: 36px;
 }
 
-.bookTypes {
+.enabled {
   display: flex;
   flex-wrap: wrap;
   margin-top: 5px;
-  pointer-events: all;
+}
+
+.label {
+  composes: label from '~Components/Label.css';
+
+  max-width: 100%;
 }

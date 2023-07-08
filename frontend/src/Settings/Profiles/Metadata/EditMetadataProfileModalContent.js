@@ -15,9 +15,6 @@ import { inputTypes, kinds } from 'Helpers/Props';
 import translate from 'Utilities/String/translate';
 import styles from './EditMetadataProfileModalContent.css';
 
-// Tab, enter, and comma
-const tagInputDelimiters = [9, 13, 188];
-
 function EditMetadataProfileModalContent(props) {
   const {
     isFetching,
@@ -189,7 +186,7 @@ function EditMetadataProfileModalContent(props) {
                   helpText={translate('IgnoredMetaHelpText')}
                   kind={kinds.DANGER}
                   placeholder={translate('IgnoredPlaceHolder')}
-                  delimiters={tagInputDelimiters}
+                  delimiters={['Tab', 'Enter', ',']}
                   {...ignored}
                   onChange={onInputChange}
                 />
