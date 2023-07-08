@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using NzbDrone.Core.Datastore;
 
 namespace NzbDrone.Core.Profiles.Metadata
@@ -12,6 +13,11 @@ namespace NzbDrone.Core.Profiles.Metadata
         public bool SkipSeriesSecondary { get; set; }
         public string AllowedLanguages { get; set; }
         public int MinPages { get; set; }
-        public string Ignored { get; set; }
+        public List<string> Ignored { get; set; }
+
+        public MetadataProfile()
+        {
+            Ignored = new List<string>();
+        }
     }
 }
