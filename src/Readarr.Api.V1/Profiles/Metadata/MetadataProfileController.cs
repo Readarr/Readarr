@@ -18,7 +18,12 @@ namespace Readarr.Api.V1.Profiles.Metadata
         public MetadataProfileController(IMetadataProfileService profileService)
         {
             _profileService = profileService;
-            SharedValidator.RuleFor(c => c.Name).NotEqual("None").WithMessage("'None' is a reserved profile name").NotEmpty();
+
+            SharedValidator.RuleFor(c => c.Name)
+                .NotEqual("None").WithMessage("'None' is a reserved profile name")
+                .NotEmpty();
+            SharedValidator.RuleFor(c => c.MinPopularity).GreaterThanOrEqualTo(0);
+            SharedValidator.RuleFor(c => c.MinPages).GreaterThanOrEqualTo(0);
             SharedValidator.RuleFor(c => c.AllowedLanguages)
                 .Must(x => x
                     .Trim(',')
