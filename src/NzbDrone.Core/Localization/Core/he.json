@@ -613,5 +613,6 @@
     "RemoveSelectedItemQueueMessageText": "האם אתה בטוח שברצונך להסיר את {0} פריט {1} מהתור?",
     "RemoveSelectedItemsQueueMessageText": "האם אתה בטוח שברצונך להסיר את {0} פריט {1} מהתור?",
     "BlocklistReleaseHelpText": "מנע מראדרר להוסיף את ההוצאה הזאת שוב",
-    "NoEventsFound": "לא נמצאו אירועים"
+    "NoEventsFound": "לא נמצאו אירועים",
+    "ApiKeyValidationHealthCheckMessage": "עדכן בבקשה את מפתח ה API שלך שיהיה עם לפחות {0} תווים. ניתן לעשות זאת דרך ההגדות או קובץ הקונפיגורציה"
 }
