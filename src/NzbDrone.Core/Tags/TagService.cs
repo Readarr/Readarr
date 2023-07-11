@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using NzbDrone.Core.Books;
 using NzbDrone.Core.Datastore;
+using NzbDrone.Core.Download;
 using NzbDrone.Core.ImportLists;
 using NzbDrone.Core.Indexers;
 using NzbDrone.Core.Messaging.Events;
@@ -35,6 +36,7 @@ namespace NzbDrone.Core.Tags
         private readonly IAuthorService _authorService;
         private readonly IIndexerFactory _indexerService;
         private readonly IRootFolderService _rootFolderService;
+        private readonly IDownloadClientFactory _downloadClientFactory;
 
         public TagService(ITagRepository repo,
                           IEventAggregator eventAggregator,
@@ -44,7 +46,8 @@ namespace NzbDrone.Core.Tags
                           IReleaseProfileService releaseProfileService,
                           IAuthorService authorService,
                           IIndexerFactory indexerService,
-                          IRootFolderService rootFolderService)
+                          IRootFolderService rootFolderService,
+                          IDownloadClientFactory downloadClientFactory)
         {
             _repo = repo;
             _eventAggregator = eventAggregator;
@@ -55,6 +58,7 @@ namespace NzbDrone.Core.Tags
             _authorService = authorService;
             _indexerService = indexerService;
             _rootFolderService = rootFolderService;
+            _downloadClientFactory = downloadClientFactory;
         }
 
         public Tag GetTag(int tagId)
@@ -84,6 +88,7 @@ namespace NzbDrone.Core.Tags
             var author = _authorService.AllForTag(tagId);
             var indexers = _indexerService.AllForTag(tagId);
             var rootFolders = _rootFolderService.AllForTag(tagId);
+            var downloadClients = _downloadClientFactory.AllForTag(tagId);
 
             return new TagDetails
             {
@@ -95,7 +100,8 @@ namespace NzbDrone.Core.Tags
                 RestrictionIds = restrictions.Select(c => c.Id).ToList(),
                 AuthorIds = author.Select(c => c.Id).ToList(),
                 IndexerIds = indexers.Select(c => c.Id).ToList(),
-                RootFolderIds = rootFolders.Select(c => c.Id).ToList()
+                RootFolderIds = rootFolders.Select(c => c.Id).ToList(),
+                DownloadClientIds = downloadClients.Select(c => c.Id).ToList()
             };
         }
 
@@ -109,6 +115,7 @@ namespace NzbDrone.Core.Tags
             var authors = _authorService.GetAllAuthorTags();
             var indexers = _indexerService.All();
             var rootFolders = _rootFolderService.All();
+            var downloadClients = _downloadClientFactory.All();
 
             var details = new List<TagDetails>();
 
@@ -124,7 +131,8 @@ namespace NzbDrone.Core.Tags
                     RestrictionIds = restrictions.Where(c => c.Tags.Contains(tag.Id)).Select(c => c.Id).ToList(),
                     AuthorIds = authors.Where(c => c.Value.Contains(tag.Id)).Select(c => c.Key).ToList(),
                     IndexerIds = indexers.Where(c => c.Tags.Contains(tag.Id)).Select(c => c.Id).ToList(),
-                    RootFolderIds = rootFolders.Where(c => c.DefaultTags.Contains(tag.Id)).Select(c => c.Id).ToList()
+                    RootFolderIds = rootFolders.Where(c => c.DefaultTags.Contains(tag.Id)).Select(c => c.Id).ToList(),
+                    DownloadClientIds = downloadClients.Where(c => c.Tags.Contains(tag.Id)).Select(c => c.Id).ToList()
                 });
             }
 

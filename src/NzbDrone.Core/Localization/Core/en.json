@@ -255,6 +255,7 @@
   "DownloadClientSettings": "Download Client Settings",
   "DownloadClientStatusCheckAllClientMessage": "All download clients are unavailable due to failures",
   "DownloadClientStatusCheckSingleClientMessage": "Download clients unavailable due to failures: {0}",
+  "DownloadClientTagHelpText": "Only use this download client for authors with at least one matching tag. Leave blank to use with all authors.",
   "DownloadClients": "Download Clients",
   "DownloadClientsSettingsSummary": "Download clients, download handling and remote path mappings",
   "DownloadFailedCheckDownloadClientForMoreDetails": "Download failed: check download client for more details",
