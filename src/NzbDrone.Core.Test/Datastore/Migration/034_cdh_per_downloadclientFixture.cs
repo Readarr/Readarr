@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using FluentAssertions;
 using Newtonsoft.Json.Linq;
@@ -126,5 +127,6 @@ namespace NzbDrone.Core.Test.Datastore.Migration
         public string ConfigContract { get; set; }
         public bool RemoveCompletedDownloads { get; set; }
         public bool RemoveFailedDownloads { get; set; }
+        public List<string> Tags { get; set; }
     }
 }

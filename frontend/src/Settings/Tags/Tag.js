@@ -58,6 +58,7 @@ class Tag extends Component {
       notificationIds,
       restrictionIds,
       indexerIds,
+      downloadClientIds,
       authorIds
     } = this.props;
 
@@ -72,6 +73,7 @@ class Tag extends Component {
       notificationIds.length ||
       restrictionIds.length ||
       indexerIds.length ||
+      downloadClientIds.length ||
       authorIds.length
     );
 
@@ -130,6 +132,14 @@ class Tag extends Component {
                   </div> :
                   null
               }
+
+              {
+                downloadClientIds.length ?
+                  <div>
+                    {downloadClientIds.length} download client{indexerIds.length > 1 && 's'}
+                  </div> :
+                  null
+              }
             </div>
         }
 
@@ -149,6 +159,7 @@ class Tag extends Component {
           notificationIds={notificationIds}
           restrictionIds={restrictionIds}
           indexerIds={indexerIds}
+          downloadClientIds={downloadClientIds}
           isOpen={isDetailsModalOpen}
           onModalClose={this.onDetailsModalClose}
           onDeleteTagPress={this.onDeleteTagPress}
@@ -176,6 +187,7 @@ Tag.propTypes = {
   notificationIds: PropTypes.arrayOf(PropTypes.number).isRequired,
   restrictionIds: PropTypes.arrayOf(PropTypes.number).isRequired,
   indexerIds: PropTypes.arrayOf(PropTypes.number).isRequired,
+  downloadClientIds: PropTypes.arrayOf(PropTypes.number).isRequired,
   authorIds: PropTypes.arrayOf(PropTypes.number).isRequired,
   onConfirmDeleteTag: PropTypes.func.isRequired
 };
@@ -186,6 +198,7 @@ Tag.defaultProps = {
   notificationIds: [],
   restrictionIds: [],
   indexerIds: [],
+  downloadClientIds: [],
   authorIds: []
 };
 

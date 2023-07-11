@@ -56,7 +56,8 @@ namespace NzbDrone.Core.Download
 
             var downloadTitle = remoteBook.Release.Title;
             var filterBlockedClients = remoteBook.Release.PendingReleaseReason == PendingReleaseReason.DownloadClientUnavailable;
-            var downloadClient = _downloadClientProvider.GetDownloadClient(remoteBook.Release.DownloadProtocol, remoteBook.Release.IndexerId, filterBlockedClients);
+            var tags = remoteBook.Author?.Tags;
+            var downloadClient = _downloadClientProvider.GetDownloadClient(remoteBook.Release.DownloadProtocol, remoteBook.Release.IndexerId, filterBlockedClients, tags);
 
             if (downloadClient == null)
             {
