@@ -20,6 +20,7 @@ namespace Readarr.Api.V1.Queue
         public BookResource Book { get; set; }
         public QualityModel Quality { get; set; }
         public List<CustomFormatResource> CustomFormats { get; set; }
+        public int CustomFormatScore { get; set; }
         public decimal Size { get; set; }
         public string Title { get; set; }
         public decimal Sizeleft { get; set; }
@@ -47,6 +48,9 @@ namespace Readarr.Api.V1.Queue
                 return null;
             }
 
+            var customFormats = model.RemoteBook?.CustomFormats;
+            var customFormatScore = model.RemoteBook?.Author?.QualityProfile?.Value?.CalculateCustomFormatScore(customFormats) ?? 0;
+
             return new QueueResource
             {
                 Id = model.Id,
@@ -55,7 +59,8 @@ namespace Readarr.Api.V1.Queue
                 Author = includeAuthor && model.Author != null ? model.Author.ToResource() : null,
                 Book = includeBook && model.Book != null ? model.Book.ToResource() : null,
                 Quality = model.Quality,
-                CustomFormats = model.RemoteBook?.CustomFormats?.ToResource(false),
+                CustomFormats = customFormats?.ToResource(false),
+                CustomFormatScore = customFormatScore,
                 Size = model.Size,
                 Title = model.Title,
                 Sizeleft = model.Sizeleft,

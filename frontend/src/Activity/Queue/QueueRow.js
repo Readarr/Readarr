@@ -17,6 +17,7 @@ import Popover from 'Components/Tooltip/Popover';
 import { icons, kinds, tooltipPositions } from 'Helpers/Props';
 import InteractiveImportModal from 'InteractiveImport/InteractiveImportModal';
 import formatBytes from 'Utilities/Number/formatBytes';
+import formatPreferredWordScore from 'Utilities/Number/formatPreferredWordScore';
 import translate from 'Utilities/String/translate';
 import QueueStatusCell from './QueueStatusCell';
 import RemoveQueueItemModal from './RemoveQueueItemModal';
@@ -91,6 +92,7 @@ class QueueRow extends Component {
       book,
       quality,
       customFormats,
+      customFormatScore,
       protocol,
       indexer,
       outputPath,
@@ -218,6 +220,17 @@ class QueueRow extends Component {
                   <BookFormats
                     formats={customFormats}
                   />
+                </TableRowCell>
+              );
+            }
+
+            if (name === 'customFormatScore') {
+              return (
+                <TableRowCell
+                  key={name}
+                  className={styles.customFormatScore}
+                >
+                  {formatPreferredWordScore(customFormatScore)}
                 </TableRowCell>
               );
             }
@@ -392,6 +405,7 @@ QueueRow.propTypes = {
   book: PropTypes.object,
   quality: PropTypes.object.isRequired,
   customFormats: PropTypes.arrayOf(PropTypes.object),
+  customFormatScore: PropTypes.number.isRequired,
   protocol: PropTypes.string.isRequired,
   indexer: PropTypes.string,
   outputPath: PropTypes.string,
