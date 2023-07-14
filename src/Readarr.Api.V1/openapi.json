@@ -11930,6 +11930,10 @@
             },
             "nullable": true
           },
+          "customFormatScore": {
+            "type": "integer",
+            "format": "int32"
+          },
           "size": {
             "type": "number",
             "format": "double"
