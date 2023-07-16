@@ -23,7 +23,7 @@ export function fetchTranslations() {
   });
 }
 
-export default function translate(key, args) {
+export default function translate(key, args = []) {
   const translation = translations[key] || key;
 
   if (args) {

@@ -6,15 +6,17 @@ import { createSelector } from 'reselect';
 import { metadataProfileNames } from 'Helpers/Props';
 import createSortedSectionSelector from 'Store/Selectors/createSortedSectionSelector';
 import sortByName from 'Utilities/Array/sortByName';
+import translate from 'Utilities/String/translate';
 import SelectInput from './SelectInput';
 
 function createMapStateToProps() {
   return createSelector(
     createSortedSectionSelector('settings.metadataProfiles', sortByName),
     (state, { includeNoChange }) => includeNoChange,
+    (state, { includeNoChangeDisabled }) => includeNoChangeDisabled,
     (state, { includeMixed }) => includeMixed,
     (state, { includeNone }) => includeNone,
-    (metadataProfiles, includeNoChange, includeMixed, includeNone) => {
+    (metadataProfiles, includeNoChange, includeNoChangeDisabled = true, includeMixed, includeNone) => {
 
       const profiles = metadataProfiles.items.filter((item) => item.name !== metadataProfileNames.NONE);
       const noneProfile = metadataProfiles.items.find((item) => item.name === metadataProfileNames.NONE);
@@ -36,8 +38,8 @@ function createMapStateToProps() {
       if (includeNoChange) {
         values.unshift({
           key: 'noChange',
-          value: 'No Change',
-          disabled: true
+          value: translate('NoChange'),
+          disabled: includeNoChangeDisabled
         });
       }
 
@@ -68,8 +70,8 @@ class MetadataProfileSelectInputConnector extends Component {
       values
     } = this.props;
 
-    if (!value || !_.some(values, (option) => parseInt(option.key) === value)) {
-      const firstValue = _.find(values, (option) => !isNaN(parseInt(option.key)));
+    if (!value || !values.some((option) => option.key === value || parseInt(option.key) === value)) {
+      const firstValue = values.find((option) => !isNaN(parseInt(option.key)));
 
       if (firstValue) {
         this.onChange({ name, value: firstValue.key });
@@ -81,7 +83,12 @@ class MetadataProfileSelectInputConnector extends Component {
   // Listeners
 
   onChange = ({ name, value }) => {
-    this.props.onChange({ name, value: parseInt(value) });
+    const { includeNoChange } = this.props;
+
+    this.props.onChange({
+      name,
+      value: includeNoChange && value === 'noChange' ? value : parseInt(value)
+    });
   };
 
   //
@@ -107,7 +114,8 @@ MetadataProfileSelectInputConnector.propTypes = {
 };
 
 MetadataProfileSelectInputConnector.defaultProps = {
-  includeNoChange: false
+  includeNoChange: false,
+  includeNone: true
 };
 
 export default connect(createMapStateToProps)(MetadataProfileSelectInputConnector);

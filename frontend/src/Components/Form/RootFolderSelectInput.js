@@ -63,7 +63,7 @@ class RootFolderSelectInput extends Component {
 
   render() {
     const {
-      value,
+      includeNoChange,
       ...otherProps
     } = this.props;
 
@@ -71,7 +71,6 @@ class RootFolderSelectInput extends Component {
       <div>
         <EnhancedSelectInput
           {...otherProps}
-          value={value || ''}
           selectedValueComponent={RootFolderSelectInputSelectedValue}
           optionComponent={RootFolderSelectInputOption}
           onChange={this.onChange}
@@ -93,7 +92,12 @@ RootFolderSelectInput.propTypes = {
   values: PropTypes.arrayOf(PropTypes.object).isRequired,
   isSaving: PropTypes.bool.isRequired,
   saveError: PropTypes.object,
+  includeNoChange: PropTypes.bool.isRequired,
   onChange: PropTypes.func.isRequired
+};
+
+RootFolderSelectInput.defaultProps = {
+  includeNoChange: false
 };
 
 export default RootFolderSelectInput;

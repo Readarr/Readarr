@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
+import translate from 'Utilities/String/translate';
 import RootFolderSelectInput from './RootFolderSelectInput';
 
 const ADD_NEW_KEY = 'addNew';
@@ -12,7 +13,8 @@ function createMapStateToProps() {
     (state, { value }) => value,
     (state, { includeMissingValue }) => includeMissingValue,
     (state, { includeNoChange }) => includeNoChange,
-    (rootFolders, value, includeMissingValue, includeNoChange) => {
+    (state, { includeNoChangeDisabled }) => includeNoChangeDisabled,
+    (rootFolders, value, includeMissingValue, includeNoChange, includeNoChangeDisabled = true) => {
       const values = rootFolders.items.map((rootFolder) => {
         return {
           key: rootFolder.path,
@@ -27,8 +29,8 @@ function createMapStateToProps() {
         values.unshift({
           key: 'noChange',
           value: '',
-          name: 'No Change',
-          isDisabled: true,
+          name: translate('NoChange'),
+          isDisabled: includeNoChangeDisabled,
           isMissing: false
         });
       }
