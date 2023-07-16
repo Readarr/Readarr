@@ -11,6 +11,8 @@ namespace NzbDrone.Core.Indexers.Gazelle
             RuleFor(c => c.BaseUrl).ValidRootUrl();
             RuleFor(c => c.Username).NotEmpty();
             RuleFor(c => c.Password).NotEmpty();
+
+            RuleFor(c => c.SeedCriteria).SetValidator(_ => new SeedCriteriaSettingsValidator());
         }
     }
 
