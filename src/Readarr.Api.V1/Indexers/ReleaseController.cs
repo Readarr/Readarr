@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
 using NLog;
@@ -62,7 +63,7 @@ namespace Readarr.Api.V1.Indexers
         }
 
         [HttpPost]
-        public ActionResult<ReleaseResource> Create(ReleaseResource release)
+        public async Task<ActionResult<ReleaseResource>> DownloadRelease(ReleaseResource release)
         {
             ValidateResource(release);
 
@@ -123,7 +124,7 @@ namespace Readarr.Api.V1.Indexers
                     throw new NzbDroneClientException(HttpStatusCode.NotFound, "Unable to parse books in the release");
                 }
 
-                _downloadService.DownloadReport(remoteBook);
+                await _downloadService.DownloadReport(remoteBook);
             }
             catch (ReleaseDownloadException ex)
             {
@@ -135,26 +136,26 @@ namespace Readarr.Api.V1.Indexers
         }
 
         [HttpGet]
-        public List<ReleaseResource> GetReleases(int? bookId, int? authorId)
+        public async Task<List<ReleaseResource>> GetReleases(int? bookId, int? authorId)
         {
             if (bookId.HasValue)
             {
-                return GetBookReleases(int.Parse(Request.Query["bookId"]));
+                return await GetBookReleases(int.Parse(Request.Query["bookId"]));
             }
 
             if (authorId.HasValue)
             {
-                return GetAuthorReleases(int.Parse(Request.Query["authorId"]));
+                return await GetAuthorReleases(int.Parse(Request.Query["authorId"]));
             }
 
-            return GetRss();
+            return await GetRss();
         }
 
-        private List<ReleaseResource> GetBookReleases(int bookId)
+        private async Task<List<ReleaseResource>> GetBookReleases(int bookId)
         {
             try
             {
-                var decisions = _releaseSearchService.BookSearch(bookId, true, true, true);
+                var decisions = await _releaseSearchService.BookSearch(bookId, true, true, true);
                 var prioritizedDecisions = _prioritizeDownloadDecision.PrioritizeDecisions(decisions);
 
                 return MapDecisions(prioritizedDecisions);
@@ -166,11 +167,11 @@ namespace Readarr.Api.V1.Indexers
             }
         }
 
-        private List<ReleaseResource> GetAuthorReleases(int authorId)
+        private async Task<List<ReleaseResource>> GetAuthorReleases(int authorId)
         {
             try
             {
-                var decisions = _releaseSearchService.AuthorSearch(authorId, false, true, true);
+                var decisions = await _releaseSearchService.AuthorSearch(authorId, false, true, true);
                 var prioritizedDecisions = _prioritizeDownloadDecision.PrioritizeDecisions(decisions);
 
                 return MapDecisions(prioritizedDecisions);
@@ -182,9 +183,9 @@ namespace Readarr.Api.V1.Indexers
             }
         }
 
-        private List<ReleaseResource> GetRss()
+        private async Task<List<ReleaseResource>> GetRss()
         {
-            var reports = _rssFetcherAndParser.Fetch();
+            var reports = await _rssFetcherAndParser.Fetch();
             var decisions = _downloadDecisionMaker.GetRssDecision(reports);
             var prioritizedDecisions = _prioritizeDownloadDecision.PrioritizeDecisions(decisions);
 
@@ -195,6 +196,7 @@ namespace Readarr.Api.V1.Indexers
         {
             var resource = base.MapDecision(decision, initialWeight);
             _remoteBookCache.Set(GetCacheKey(resource), decision.RemoteBook, TimeSpan.FromMinutes(30));
+
             return resource;
         }
 
