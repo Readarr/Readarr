@@ -88,9 +88,9 @@ class BookshelfFooter extends Component {
     } = this.state;
 
     const monitoredOptions = [
-      { key: NO_CHANGE, value: 'No Change', disabled: true },
-      { key: 'monitored', value: 'Monitored' },
-      { key: 'unmonitored', value: 'Unmonitored' }
+      { key: NO_CHANGE, value: translate('NoChange'), disabled: true },
+      { key: 'monitored', value: translate('Monitored') },
+      { key: 'unmonitored', value: translate('Unmonitored') }
     ];
 
     const noChanges = monitored === NO_CHANGE &&

@@ -5,14 +5,16 @@ import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
 import createSortedSectionSelector from 'Store/Selectors/createSortedSectionSelector';
 import sortByName from 'Utilities/Array/sortByName';
+import translate from 'Utilities/String/translate';
 import SelectInput from './SelectInput';
 
 function createMapStateToProps() {
   return createSelector(
     createSortedSectionSelector('settings.qualityProfiles', sortByName),
     (state, { includeNoChange }) => includeNoChange,
+    (state, { includeNoChangeDisabled }) => includeNoChangeDisabled,
     (state, { includeMixed }) => includeMixed,
-    (qualityProfiles, includeNoChange, includeMixed) => {
+    (qualityProfiles, includeNoChange, includeNoChangeDisabled = true, includeMixed) => {
       const values = _.map(qualityProfiles.items, (qualityProfile) => {
         return {
           key: qualityProfile.id,
@@ -23,8 +25,8 @@ function createMapStateToProps() {
       if (includeNoChange) {
         values.unshift({
           key: 'noChange',
-          value: 'No Change',
-          disabled: true
+          value: translate('NoChange'),
+          disabled: includeNoChangeDisabled
         });
       }
 
@@ -55,8 +57,8 @@ class QualityProfileSelectInputConnector extends Component {
       values
     } = this.props;
 
-    if (!value || !_.some(values, (option) => parseInt(option.key) === value)) {
-      const firstValue = _.find(values, (option) => !isNaN(parseInt(option.key)));
+    if (!value || !values.some((option) => option.key === value || parseInt(option.key) === value)) {
+      const firstValue = values.find((option) => !isNaN(parseInt(option.key)));
 
       if (firstValue) {
         this.onChange({ name, value: firstValue.key });
@@ -68,7 +70,12 @@ class QualityProfileSelectInputConnector extends Component {
   // Listeners
 
   onChange = ({ name, value }) => {
-    this.props.onChange({ name, value: parseInt(value) });
+    const { includeNoChange } = this.props;
+
+    this.props.onChange({
+      name,
+      value: includeNoChange && value === 'noChange' ? value : parseInt(value)
+    });
   };
 
   //

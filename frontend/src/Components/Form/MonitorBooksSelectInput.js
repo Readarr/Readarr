@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import monitorOptions from 'Utilities/Author/monitorOptions';
+import translate from 'Utilities/String/translate';
 import SelectInput from './SelectInput';
 
 function MonitorBooksSelectInput(props) {
@@ -16,7 +17,7 @@ function MonitorBooksSelectInput(props) {
   if (includeNoChange) {
     values.unshift({
       key: 'noChange',
-      value: 'No Change',
+      value: translate('NoChange'),
       disabled: true
     });
   }
