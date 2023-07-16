@@ -2,11 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Threading.Tasks;
 using NLog;
 using NzbDrone.Common.Instrumentation.Extensions;
 using NzbDrone.Core.Books;
 using NzbDrone.Core.Datastore;
-using NzbDrone.Core.DecisionEngine;
 using NzbDrone.Core.Download;
 using NzbDrone.Core.Messaging.Commands;
 using NzbDrone.Core.Queue;
@@ -39,16 +39,15 @@ namespace NzbDrone.Core.IndexerSearch
             _logger = logger;
         }
 
-        private void SearchForMissingBooks(List<Book> books, bool userInvokedSearch)
+        private async Task SearchForMissingBooks(List<Book> books, bool userInvokedSearch)
         {
             _logger.ProgressInfo("Performing missing search for {0} books", books.Count);
             var downloadedCount = 0;
 
             foreach (var book in books)
             {
-                List<DownloadDecision> decisions;
-                decisions = _releaseSearchService.BookSearch(book.Id, false, userInvokedSearch, false);
-                var processed = _processDownloadDecisions.ProcessDecisions(decisions);
+                var decisions = await _releaseSearchService.BookSearch(book.Id, false, userInvokedSearch, false);
+                var processed = await _processDownloadDecisions.ProcessDecisions(decisions);
 
                 downloadedCount += processed.Grabbed.Count;
             }
@@ -60,9 +59,8 @@ namespace NzbDrone.Core.IndexerSearch
         {
             foreach (var bookId in message.BookIds)
             {
-                var decisions =
-                    _releaseSearchService.BookSearch(bookId, false, message.Trigger == CommandTrigger.Manual, false);
-                var processed = _processDownloadDecisions.ProcessDecisions(decisions);
+                var decisions = _releaseSearchService.BookSearch(bookId, false, message.Trigger == CommandTrigger.Manual, false).GetAwaiter().GetResult();
+                var processed = _processDownloadDecisions.ProcessDecisions(decisions).GetAwaiter().GetResult();
 
                 _logger.ProgressInfo("Book search completed. {0} reports downloaded.", processed.Grabbed.Count);
             }
@@ -106,7 +104,7 @@ namespace NzbDrone.Core.IndexerSearch
             var queue = _queueService.GetQueue().Where(q => q.Book != null).Select(q => q.Book.Id);
             var missing = books.Where(e => !queue.Contains(e.Id)).ToList();
 
-            SearchForMissingBooks(missing, message.Trigger == CommandTrigger.Manual);
+            SearchForMissingBooks(missing, message.Trigger == CommandTrigger.Manual).GetAwaiter().GetResult();
         }
 
         public void Execute(CutoffUnmetBookSearchCommand message)
@@ -132,7 +130,7 @@ namespace NzbDrone.Core.IndexerSearch
             var queue = _queueService.GetQueue().Where(q => q.Book != null).Select(q => q.Book.Id);
             var missing = books.Where(e => !queue.Contains(e.Id)).ToList();
 
-            SearchForMissingBooks(missing, message.Trigger == CommandTrigger.Manual);
+            SearchForMissingBooks(missing, message.Trigger == CommandTrigger.Manual).GetAwaiter().GetResult();
         }
     }
 }

@@ -1,5 +1,6 @@
 using System;
 using System.Net;
+using System.Threading.Tasks;
 using MonoTorrent;
 using NLog;
 using NzbDrone.Common.Disk;
@@ -41,7 +42,7 @@ namespace NzbDrone.Core.Download
         protected abstract string AddFromMagnetLink(RemoteBook remoteBook, string hash, string magnetLink);
         protected abstract string AddFromTorrentFile(RemoteBook remoteBook, string hash, string filename, byte[] fileContent);
 
-        public override string Download(RemoteBook remoteBook, IIndexer indexer)
+        public override async Task<string> Download(RemoteBook remoteBook, IIndexer indexer)
         {
             var torrentInfo = remoteBook.Release as TorrentInfo;
 
@@ -68,7 +69,7 @@ namespace NzbDrone.Core.Download
                 {
                     try
                     {
-                        return DownloadFromWebUrl(remoteBook, indexer, torrentUrl);
+                        return await DownloadFromWebUrl(remoteBook, indexer, torrentUrl);
                     }
                     catch (Exception ex)
                     {
@@ -114,14 +115,14 @@ namespace NzbDrone.Core.Download
 
                 if (torrentUrl.IsNotNullOrWhiteSpace())
                 {
-                    return DownloadFromWebUrl(remoteBook, indexer, torrentUrl);
+                    return await DownloadFromWebUrl(remoteBook, indexer, torrentUrl);
                 }
             }
 
             return null;
         }
 
-        private string DownloadFromWebUrl(RemoteBook remoteBook, IIndexer indexer, string torrentUrl)
+        private async Task<string> DownloadFromWebUrl(RemoteBook remoteBook, IIndexer indexer, string torrentUrl)
         {
             byte[] torrentFile = null;
 
@@ -132,7 +133,7 @@ namespace NzbDrone.Core.Download
                 request.Headers.Accept = "application/x-bittorrent";
                 request.AllowAutoRedirect = false;
 
-                var response = _httpClient.Get(request);
+                var response = await _httpClient.GetAsync(request);
 
                 if (response.StatusCode == HttpStatusCode.MovedPermanently ||
                     response.StatusCode == HttpStatusCode.Found ||
@@ -151,7 +152,7 @@ namespace NzbDrone.Core.Download
 
                         request.Url += new HttpUri(locationHeader);
 
-                        return DownloadFromWebUrl(remoteBook, indexer, request.Url.ToString());
+                        return await DownloadFromWebUrl(remoteBook, indexer, request.Url.ToString());
                     }
 
                     throw new WebException("Remote website tried to redirect without providing a location.");

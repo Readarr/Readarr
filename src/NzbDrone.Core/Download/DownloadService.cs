@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 using NLog;
 using NzbDrone.Common.EnsureThat;
 using NzbDrone.Common.Extensions;
@@ -16,7 +17,7 @@ namespace NzbDrone.Core.Download
 {
     public interface IDownloadService
     {
-        void DownloadReport(RemoteBook remoteBook);
+        Task DownloadReport(RemoteBook remoteBook);
     }
 
     public class DownloadService : IDownloadService
@@ -49,15 +50,23 @@ namespace NzbDrone.Core.Download
             _logger = logger;
         }
 
-        public void DownloadReport(RemoteBook remoteBook)
+        public async Task DownloadReport(RemoteBook remoteBook)
+        {
+            var filterBlockedClients = remoteBook.Release.PendingReleaseReason == PendingReleaseReason.DownloadClientUnavailable;
+
+            var tags = remoteBook.Author?.Tags;
+
+            var downloadClient = _downloadClientProvider.GetDownloadClient(remoteBook.Release.DownloadProtocol, remoteBook.Release.IndexerId, filterBlockedClients, tags);
+
+            await DownloadReport(remoteBook, downloadClient);
+        }
+
+        private async Task DownloadReport(RemoteBook remoteBook, IDownloadClient downloadClient)
         {
             Ensure.That(remoteBook.Author, () => remoteBook.Author).IsNotNull();
             Ensure.That(remoteBook.Books, () => remoteBook.Books).HasItems();
 
             var downloadTitle = remoteBook.Release.Title;
-            var filterBlockedClients = remoteBook.Release.PendingReleaseReason == PendingReleaseReason.DownloadClientUnavailable;
-            var tags = remoteBook.Author?.Tags;
-            var downloadClient = _downloadClientProvider.GetDownloadClient(remoteBook.Release.DownloadProtocol, remoteBook.Release.IndexerId, filterBlockedClients, tags);
 
             if (downloadClient == null)
             {
@@ -71,7 +80,7 @@ namespace NzbDrone.Core.Download
             if (remoteBook.Release.DownloadUrl.IsNotNullOrWhiteSpace() && !remoteBook.Release.DownloadUrl.StartsWith("magnet:"))
             {
                 var url = new HttpUri(remoteBook.Release.DownloadUrl);
-                _rateLimitService.WaitAndPulse(url.Host, TimeSpan.FromSeconds(2));
+                await _rateLimitService.WaitAndPulseAsync(url.Host, TimeSpan.FromSeconds(2));
             }
 
             IIndexer indexer = null;
@@ -84,7 +93,7 @@ namespace NzbDrone.Core.Download
             string downloadClientId;
             try
             {
-                downloadClientId = downloadClient.Download(remoteBook, indexer);
+                downloadClientId = await downloadClient.Download(remoteBook, indexer);
                 _downloadClientStatusService.RecordSuccess(downloadClient.Definition.Id);
                 _indexerStatusService.RecordSuccess(remoteBook.Release.IndexerId);
             }
@@ -100,8 +109,7 @@ namespace NzbDrone.Core.Download
             }
             catch (ReleaseDownloadException ex)
             {
-                var http429 = ex.InnerException as TooManyRequestsException;
-                if (http429 != null)
+                if (ex.InnerException is TooManyRequestsException http429)
                 {
                     _indexerStatusService.RecordFailure(remoteBook.Release.IndexerId, http429.RetryAfter);
                 }

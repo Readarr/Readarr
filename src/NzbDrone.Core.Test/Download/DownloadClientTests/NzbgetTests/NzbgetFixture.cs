@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using FizzWare.NBuilder;
 using FluentAssertions;
 using Moq;
@@ -339,13 +340,13 @@ namespace NzbDrone.Core.Test.Download.DownloadClientTests.NzbgetTests
         }
 
         [Test]
-        public void Download_should_return_unique_id()
+        public async Task Download_should_return_unique_id()
         {
             GivenSuccessfulDownload();
 
             var remoteBook = CreateRemoteBook();
 
-            var id = Subject.Download(remoteBook, CreateIndexer());
+            var id = await Subject.Download(remoteBook, CreateIndexer());
 
             id.Should().NotBeNullOrEmpty();
         }
@@ -357,7 +358,7 @@ namespace NzbDrone.Core.Test.Download.DownloadClientTests.NzbgetTests
 
             var remoteBook = CreateRemoteBook();
 
-            Assert.Throws<DownloadClientRejectedReleaseException>(() => Subject.Download(remoteBook, CreateIndexer()));
+            Assert.ThrowsAsync<DownloadClientRejectedReleaseException>(async () => await Subject.Download(remoteBook, CreateIndexer()));
         }
 
         [Test]

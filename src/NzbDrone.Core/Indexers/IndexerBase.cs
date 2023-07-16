@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using FluentValidation.Results;
 using NLog;
 using NzbDrone.Common.Http;
@@ -66,16 +67,14 @@ namespace NzbDrone.Core.Indexers
 
         protected TSettings Settings => (TSettings)Definition.Settings;
 
-        public abstract IList<ReleaseInfo> FetchRecent();
-
-        public abstract IList<ReleaseInfo> Fetch(BookSearchCriteria searchCriteria);
-        public abstract IList<ReleaseInfo> Fetch(AuthorSearchCriteria searchCriteria);
+        public abstract Task<IList<ReleaseInfo>> FetchRecent();
+        public abstract Task<IList<ReleaseInfo>> Fetch(BookSearchCriteria searchCriteria);
+        public abstract Task<IList<ReleaseInfo>> Fetch(AuthorSearchCriteria searchCriteria);
         public abstract HttpRequest GetDownloadRequest(string link);
 
         protected virtual IList<ReleaseInfo> CleanupReleases(IEnumerable<ReleaseInfo> releases)
         {
             var result = releases.DistinctBy(v => v.Guid).ToList();
-            var settings = Definition.Settings as IIndexerSettings;
 
             result.ForEach(c =>
             {
@@ -94,7 +93,7 @@ namespace NzbDrone.Core.Indexers
 
             try
             {
-                Test(failures);
+                Test(failures).GetAwaiter().GetResult();
             }
             catch (Exception ex)
             {
@@ -105,7 +104,7 @@ namespace NzbDrone.Core.Indexers
             return new ValidationResult(failures);
         }
 
-        protected abstract void Test(List<ValidationFailure> failures);
+        protected abstract Task Test(List<ValidationFailure> failures);
 
         public override string ToString()
         {
