@@ -27,7 +27,6 @@
     "ApplicationURL": "應用程式 URL",
     "AlreadyInYourLibrary": "已經在您的資源庫中",
     "DeleteQualityProfile": "刪除品質設定檔",
-    "ApplyTagsHelpTexts3": "移除：刪除輸入的標籤",
     "ApplyTagsHelpTexts4": "取代：用輸入的標籤替換現有的標籤（如果不輸入任何標籤，則清除所有標籤）",
     "AddListExclusion": "新增排除清單",
     "BackupNow": "馬上備份",

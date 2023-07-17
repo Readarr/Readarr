@@ -33,5 +33,22 @@
     "AuthorClickToChangeBook": "Klik untuk mengubah film",
     "Automatic": "Otomatis",
     "Close": "Tutup",
-    "Delete": "Hapus"
+    "Delete": "Hapus",
+    "Profiles": "Profil",
+    "EnableRSS": "Aktifkan RSS",
+    "MetadataSource": "Sumber Metadata",
+    "Language": "Bahasa",
+    "LogFiles": "Berkas Log",
+    "MediaManagement": "Pengelolaan Media",
+    "Metadata": "Metadata",
+    "Queue": "Antrean",
+    "Disabled": "Nonaktif",
+    "EnableAutomaticSearch": "Aktifkan Penelusuran Otomatis",
+    "EnableInteractiveSearch": "Aktifkan Penelusuran Interaktif",
+    "Ended": "Berakhir",
+    "Monitored": "Dimonitor",
+    "Name": "Nama",
+    "Path": "Path",
+    "Quality": "Kualitas",
+    "QualityProfile": "Profil Kualitas"
 }

@@ -23,9 +23,7 @@
     "AnalyticsEnabledHelpText": "Odesílejte anonymní informace o použití a chybách na servery Radarru. To zahrnuje informace o vašem prohlížeči, které stránky Radarr WebUI používáte, hlášení chyb a také verzi operačního systému a běhového prostředí. Tyto informace použijeme k upřednostnění funkcí a oprav chyb.",
     "AppDataDirectory": "Adresář AppData",
     "ApplyTags": "Použít značky",
-    "ApplyTagsHelpTexts1": "Jak použít značky na vybrané filmy",
     "ApplyTagsHelpTexts2": "Přidat: Přidejte značky do existujícího seznamu značek",
-    "ApplyTagsHelpTexts3": "Odebrat: Odebere zadané značky",
     "ApplyTagsHelpTexts4": "Nahradit: Nahradit tagy zadanými tagy (pro vymazání všech tagů zadejte žádné tagy)",
     "Authentication": "Ověření",
     "AuthenticationMethodHelpText": "Vyžadovat uživatelské jméno a heslo pro přístup k Radarr",
@@ -591,5 +589,6 @@
     "RemoveSelectedItemQueueMessageText": "Opravdu chcete odebrat {0} položku {1} z fronty?",
     "RemoveSelectedItemsQueueMessageText": "Opravdu chcete odebrat {0} položku {1} z fronty?",
     "Required": "Požadované",
-    "NoEventsFound": "Nebyly nalezeny žádné události"
+    "NoEventsFound": "Nebyly nalezeny žádné události",
+    "RedownloadFailed": "Stažení se nezdařilo"
 }
