@@ -587,5 +587,19 @@
     "Negated": "Отрицателно",
     "RemoveSelectedItemBlocklistMessageText": "Наистина ли искате да премахнете избраните елементи от черния списък?",
     "RemoveSelectedItemsQueueMessageText": "Наистина ли искате да премахнете {0} елемент {1} от опашката?",
-    "NoEventsFound": "Няма намерени събития"
+    "NoEventsFound": "Няма намерени събития",
+    "ApplyTagsHelpTextHowToApplyIndexers": "Как да приложите тагове към избраните филми",
+    "ApplyTagsHelpTextRemove": "Премахване: Премахнете въведените тагове",
+    "RedownloadFailed": "Изтеглянето се провали",
+    "ApplyTagsHelpTextAdd": "Добавяне: Добавете маркерите към съществуващия списък с маркери",
+    "ApplyTagsHelpTextHowToApplyImportLists": "Как да приложите тагове към избраните филми",
+    "ApplyTagsHelpTextReplace": "Замяна: Заменете маркерите с въведените маркери (не въвеждайте маркери, за да изчистите всички маркери)",
+    "DeleteSelectedDownloadClients": "Изтриване на клиент за изтегляне",
+    "DeleteSelectedIndexers": "Изтрийте Indexer",
+    "ExistingTag": "Съществуващ маркер",
+    "No": "Не",
+    "NoChange": "Няма промяна",
+    "RemovingTag": "Премахване на етикет",
+    "SetTags": "Задаване на маркери",
+    "Yes": "Да"
 }
