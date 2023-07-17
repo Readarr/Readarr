@@ -17,6 +17,7 @@ namespace Readarr.Api.V1.History
         public string SourceTitle { get; set; }
         public QualityModel Quality { get; set; }
         public List<CustomFormatResource> CustomFormats { get; set; }
+        public int CustomFormatScore { get; set; }
         public bool QualityCutoffNotMet { get; set; }
         public DateTime Date { get; set; }
         public string DownloadId { get; set; }
@@ -38,6 +39,9 @@ namespace Readarr.Api.V1.History
                 return null;
             }
 
+            var customFormats = formatCalculator.ParseCustomFormat(model, model.Author);
+            var customFormatScore = model.Author?.QualityProfile?.Value?.CalculateCustomFormatScore(customFormats) ?? 0;
+
             return new HistoryResource
             {
                 Id = model.Id,
@@ -46,7 +50,8 @@ namespace Readarr.Api.V1.History
                 AuthorId = model.AuthorId,
                 SourceTitle = model.SourceTitle,
                 Quality = model.Quality,
-                CustomFormats = formatCalculator.ParseCustomFormat(model, model.Author).ToResource(false),
+                CustomFormats = customFormats.ToResource(false),
+                CustomFormatScore = customFormatScore,
 
                 //QualityCutoffNotMet
                 Date = model.Date,

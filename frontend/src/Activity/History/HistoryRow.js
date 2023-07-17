@@ -8,7 +8,8 @@ import IconButton from 'Components/Link/IconButton';
 import RelativeDateCellConnector from 'Components/Table/Cells/RelativeDateCellConnector';
 import TableRowCell from 'Components/Table/Cells/TableRowCell';
 import TableRow from 'Components/Table/TableRow';
-import { icons } from 'Helpers/Props';
+import Tooltip from 'Components/Tooltip/Tooltip';
+import { icons, tooltipPositions } from 'Helpers/Props';
 import formatPreferredWordScore from 'Utilities/Number/formatPreferredWordScore';
 import HistoryDetailsModal from './Details/HistoryDetailsModal';
 import HistoryEventTypeCell from './HistoryEventTypeCell';
@@ -57,6 +58,7 @@ class HistoryRow extends Component {
       book,
       quality,
       customFormats,
+      customFormatScore,
       qualityCutoffNotMet,
       eventType,
       sourceTitle,
@@ -177,7 +179,14 @@ class HistoryRow extends Component {
                   key={name}
                   className={styles.customFormatScore}
                 >
-                  {formatPreferredWordScore(data.customFormatScore)}
+                  <Tooltip
+                    anchor={formatPreferredWordScore(
+                      customFormatScore,
+                      customFormats.length
+                    )}
+                    tooltip={<BookFormats formats={customFormats} />}
+                    position={tooltipPositions.BOTTOM}
+                  />
                 </TableRowCell>
               );
             }
@@ -244,6 +253,7 @@ HistoryRow.propTypes = {
   book: PropTypes.object,
   quality: PropTypes.object.isRequired,
   customFormats: PropTypes.arrayOf(PropTypes.object),
+  customFormatScore: PropTypes.number.isRequired,
   qualityCutoffNotMet: PropTypes.bool.isRequired,
   eventType: PropTypes.string.isRequired,
   sourceTitle: PropTypes.string.isRequired,
@@ -255,6 +265,10 @@ HistoryRow.propTypes = {
   shortDateFormat: PropTypes.string.isRequired,
   timeFormat: PropTypes.string.isRequired,
   onMarkAsFailedPress: PropTypes.func.isRequired
+};
+
+HistoryRow.defaultProps = {
+  customFormats: []
 };
 
 export default HistoryRow;
