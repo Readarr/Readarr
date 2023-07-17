@@ -4,7 +4,6 @@
     "AnalyticsEnabledHelpText": "Küldjön névtelen használati és hibainformációkat a Readarr szervereire. Ez magában foglalja a böngészőjéről szóló információkat, mely Readarr WebUI oldalakat használja, a hibajelentést, valamint az operációs rendszer adatait. Ezeket az információkat a funkciók és a hibajavítások rangsorolására használjuk fel.",
     "AppDataDirectory": "AppData Mappa",
     "ApplyTags": "Címkék alkalmazása",
-    "ApplyTagsHelpTexts2": "Hozzáadás: Új címkék hozzáadása a meglévő címkékhez",
     "ApplyTagsHelpTexts4": "Csere: Cserélje ki a címkéket a beírt címkékre (az összes címke törléséhez ne adjon meg címkéket)",
     "Authentication": "Hitelesítés",
     "AuthenticationMethodHelpText": "Felhasználónév és Jelszó szükséges a Readarr-hoz való hozzáféréshez",

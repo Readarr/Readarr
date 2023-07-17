@@ -23,7 +23,6 @@
     "AnalyticsEnabledHelpText": "Odesílejte anonymní informace o použití a chybách na servery Radarru. To zahrnuje informace o vašem prohlížeči, které stránky Radarr WebUI používáte, hlášení chyb a také verzi operačního systému a běhového prostředí. Tyto informace použijeme k upřednostnění funkcí a oprav chyb.",
     "AppDataDirectory": "Adresář AppData",
     "ApplyTags": "Použít značky",
-    "ApplyTagsHelpTexts2": "Přidat: Přidejte značky do existujícího seznamu značek",
     "ApplyTagsHelpTexts4": "Nahradit: Nahradit tagy zadanými tagy (pro vymazání všech tagů zadejte žádné tagy)",
     "Authentication": "Ověření",
     "AuthenticationMethodHelpText": "Vyžadovat uživatelské jméno a heslo pro přístup k Radarr",

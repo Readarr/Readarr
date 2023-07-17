@@ -34,7 +34,6 @@
     "AnalyticsEnabledHelpText": "Skicka anonym användning och felinformation till Readarr's servrar. Detta inkluderar information i din webbläsare, vilka Readarr WebUI-sidor du använder, felrapportering samt operativsystem och runtime-version. Vi kommer att använda denna information för att prioritera funktioner och buggfixar.",
     "AppDataDirectory": "AppData-katalog",
     "ApplyTags": "Tillämpa taggar",
-    "ApplyTagsHelpTexts2": "Lägg till: Lägg till taggarna i den befintliga listan med taggar",
     "ApplyTagsHelpTexts4": "Ersätt: Ersätt taggarna med de angivna taggarna (ange inga taggar för att rensa alla taggar)",
     "Authentication": "Autentisera",
     "AuthenticationMethodHelpText": "Kräva användarnamn och lösenord för att komma åt Readarr",

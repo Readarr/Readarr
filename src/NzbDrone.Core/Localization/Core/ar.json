@@ -323,7 +323,6 @@
     "AuthorClickToChangeBook": "انقر لتغيير الفيلم",
     "AuthenticationMethodHelpText": "طلب اسم المستخدم وكلمة المرور للوصول إلى Radarr",
     "Authentication": "المصادقة",
-    "ApplyTagsHelpTexts3": "إزالة: قم بإزالة العلامات التي تم إدخالها",
     "ApplyTagsHelpTexts1": "كيفية تطبيق العلامات على الأفلام المختارة",
     "ApplyTags": "تطبيق العلامات",
     "AppDataDirectory": "دليل AppData",
