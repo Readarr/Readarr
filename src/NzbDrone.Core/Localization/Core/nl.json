@@ -25,7 +25,6 @@
     "AnalyticsEnabledHelpText": "Stuur anonieme gebruiks- en foutinformatie naar de servers van Radarr. Dit omvat informatie over uw browser, welke Radarr WebUI pagina's u gebruikt, foutrapportage en OS en runtime versie. We zullen deze informatie gebruiken om prioriteiten te stellen voor functies en het verhelpen van fouten.",
     "AppDataDirectory": "AppData map",
     "ApplyTags": "Tags Toepassen",
-    "ApplyTagsHelpTexts4": "Vervangen: Vervang de tags met de ingevoerde tags (voer geen tags in om alle tags te wissen)",
     "Authentication": "Authenticatie",
     "AuthenticationMethodHelpText": "Gebruikersnaam en wachtwoord nodig voor toegang tot Radarr",
     "AuthorClickToChangeBook": "Klik om film te wijzigen",

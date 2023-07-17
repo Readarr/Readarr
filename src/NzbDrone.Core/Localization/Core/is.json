@@ -27,7 +27,6 @@
     "AnalyticsEnabledHelpText": "Sendu nafnlausar upplýsingar um notkun og villur á netþjóna Radarr. Þetta felur í sér upplýsingar í vafranum þínum, hvaða Radarr WebUI síður þú notar, villuskýrslur sem og stýrikerfi og keyrsluútgáfu. Við munum nota þessar upplýsingar til að forgangsraða eiginleikum og villuleiðréttingum.",
     "AppDataDirectory": "AppData skrá",
     "ApplyTags": "Notaðu merki",
-    "ApplyTagsHelpTexts4": "Skipta um: Skiptu um merkin með innsláttu merkjunum (sláðu inn engin merki til að hreinsa öll merki)",
     "Authentication": "Auðkenning",
     "AuthenticationMethodHelpText": "Krefjast notandanafns og lykilorðs til að fá aðgang að Radarr",
     "AuthorClickToChangeBook": "Smelltu til að breyta kvikmynd",

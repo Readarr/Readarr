@@ -30,7 +30,6 @@
     "AnalyticsEnabledHelpText": "Envie informações anônimas de uso e erro para os servidores do Readarr. Isso inclui informações sobre seu navegador, quais páginas da interface Web do Readarr você usa, relatórios de erros, e a versão do sistema operacional e do tempo de execução. Usaremos essas informações para priorizar recursos e correções de bugs.",
     "AppDataDirectory": "Diretório AppData",
     "ApplyTags": "Aplicar Tags",
-    "ApplyTagsHelpTexts4": "Substituir: Substitua as tags pelas tags inseridas (não digite nenhuma tag para limpar todas as tags)",
     "Authentication": "Autenticação",
     "AuthenticationMethodHelpText": "Exigir nome de usuário e senha para acessar o Readarr",
     "AuthorClickToChangeBook": "Clique para alterar o livro",

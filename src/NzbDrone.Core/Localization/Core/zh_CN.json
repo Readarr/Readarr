@@ -14,7 +14,6 @@
     "AnalyticsEnabledHelpTextWarning": "需要重启才能生效",
     "AppDataDirectory": "AppData目录",
     "ApplyTags": "应用标签",
-    "ApplyTagsHelpTexts4": "替换：用输入的标签替换标签（不输入标签将清除所有标签）",
     "Authentication": "认证",
     "AuthenticationMethodHelpText": "您需要用户名和密码来访问Radarr",
     "AuthorClickToChangeBook": "点击更改影片",

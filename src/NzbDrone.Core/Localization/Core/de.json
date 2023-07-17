@@ -17,7 +17,6 @@
     "AnalyticsEnabledHelpTextWarning": "Erfordert einen Neustart",
     "AppDataDirectory": "AppData Ordner",
     "ApplyTags": "Tags setzen",
-    "ApplyTagsHelpTexts4": "Ersetzen: Nur eingegebene Tags übernehmen und vorhandene entfernen( keine Tags eingeben um alle zu entfernen )",
     "Authentication": "Authentifizierung",
     "AuthenticationMethodHelpText": "Für den Zugriff auf Readarr sind Benutzername und Passwort erforderlich",
     "AuthorClickToChangeBook": "Klicken um den Film zu bearbeiten",
