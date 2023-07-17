@@ -39,6 +39,7 @@
   "ApplyChanges": "Apply Changes",
   "ApplyTags": "Apply Tags",
   "ApplyTagsHelpTextAdd": "Add: Add the tags the existing list of tags",
+  "ApplyTagsHelpTextHowToApplyAuthors": "How to apply tags to the selected authors",
   "ApplyTagsHelpTextHowToApplyDownloadClients": "How to apply tags to the selected download clients",
   "ApplyTagsHelpTextHowToApplyImportLists": "How to apply tags to the selected import lists",
   "ApplyTagsHelpTextHowToApplyIndexers": "How to apply tags to the selected indexers",
