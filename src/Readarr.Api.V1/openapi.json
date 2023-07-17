@@ -10184,6 +10184,10 @@
             },
             "nullable": true
           },
+          "customFormatScore": {
+            "type": "integer",
+            "format": "int32"
+          },
           "qualityCutoffNotMet": {
             "type": "boolean"
           },
