@@ -7,9 +7,7 @@
     "AnalyticsEnabledHelpText": "שלח פרטי שימוש ושגיאה אנונימיים לשרתי Radarr. זה כולל מידע בדפדפן שלך, אילו דפי Radarr WebUI אתה משתמש, דיווח על שגיאות וכן מערכת הפעלה וגרסת זמן ריצה. אנו נשתמש במידע זה כדי לתעדף תכונות ותיקוני באגים.",
     "AppDataDirectory": "ספריית AppData",
     "ApplyTags": "החל תגים",
-    "ApplyTagsHelpTexts1": "כיצד להחיל תגים על הסרטים שנבחרו",
     "ApplyTagsHelpTexts2": "הוסף: הוסף את התגים לרשימת התגים הקיימת",
-    "ApplyTagsHelpTexts3": "הסר: הסר את התגים שהוזנו",
     "ApplyTagsHelpTexts4": "החלף: החלף את התגים בתגיות שהוזנו (אין להזין תגים כדי למחוק את כל התגים)",
     "Authentication": "אימות",
     "AuthenticationMethodHelpText": "דרוש שם משתמש וסיסמה כדי לגשת ל Radarr",
@@ -427,7 +425,7 @@
     "45MinutesFourtyFive": "60 דקות: {0}",
     "60MinutesSixty": "60 דקות: {0}",
     "APIKey": "מפתח API",
-    "About": "על אודות",
+    "About": "אודות",
     "AddListExclusion": "הוסף אי הכללת רשימה",
     "ApiKeyHelpTextWarning": "נדרש הפעלה מחדש כדי להיכנס לתוקף",
     "AnalyticsEnabledHelpTextWarning": "נדרש הפעלה מחדש כדי להיכנס לתוקף",
@@ -472,7 +470,7 @@
     "SelectedCountBooksSelectedInterp": "{0} סרט / ים נבחרו",
     "ThisCannotBeCancelled": "לא ניתן לבטל פעולה זו לאחר שהתחילה מבלי להפעיל מחדש את Radarr.",
     "UpdateSelected": "עדכון נבחר",
-    "All": "את כל",
+    "All": "הכל",
     "Wanted": "מבוקש",
     "UnselectAll": "בטל את הבחירה בכול",
     "SelectAll": "בחר הכל",
@@ -614,5 +612,5 @@
     "RemoveSelectedItemsQueueMessageText": "האם אתה בטוח שברצונך להסיר את {0} פריט {1} מהתור?",
     "BlocklistReleaseHelpText": "מנע מראדרר להוסיף את ההוצאה הזאת שוב",
     "NoEventsFound": "לא נמצאו אירועים",
-    "ApiKeyValidationHealthCheckMessage": "עדכן בבקשה את מפתח ה API שלך שיהיה עם לפחות {0} תווים. ניתן לעשות זאת דרך ההגדות או קובץ הקונפיגורציה"
+    "ApiKeyValidationHealthCheckMessage": "עדכן בבקשה את מפתח ה־API שלך כדי שיהיה באורך של לפחות {0} תווים. תוכל לעשות זאת בהגדרות או דרך קובץ הקונפיגורציה."
 }
