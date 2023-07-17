@@ -148,7 +148,6 @@
     "AnalyticsEnabledHelpText": "Envia informações anônimas de uso e de erros aos servidores do Readarr. Isso inclui informações sobre seu browser, páginas utilizadas na WebUI do Readarr, relatórios de erros, bem como as versões do sistema operativo e da aplicação. Utilizaremos essas informações para priorizar funcionalidades e correções de bugs.",
     "AppDataDirectory": "Pasta AppData",
     "ApplyTags": "Aplicar etiquetas",
-    "ApplyTagsHelpTexts2": "Adicionar: agregar as etiquetas à lista existente de etiquetas",
     "ApplyTagsHelpTexts4": "Substituir: mudar as etiquetas pelas adicionadas (deixe em branco para limpar todas as etiquetas)",
     "Authentication": "Autenticação",
     "AuthenticationMethodHelpText": "Solicitar nome de utilizador e palavra-passe para acessar ao Readarr",

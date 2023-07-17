@@ -27,7 +27,6 @@
     "AnalyticsEnabledHelpText": "Anonim kullanım ve hata bilgilerini Radarr sunucularına gönderin. Bu, tarayıcınızla ilgili bilgileri, kullandığınız Radarr WebUI sayfalarını, hata raporlamasının yanı sıra işletim sistemi ve çalışma zamanı sürümünü içerir. Bu bilgileri, özellikleri ve hata düzeltmelerini önceliklendirmek için kullanacağız.",
     "AppDataDirectory": "AppData dizini",
     "ApplyTags": "Etiketleri Uygula",
-    "ApplyTagsHelpTexts2": "Ekle: Etiketleri mevcut etiket listesine ekleyin",
     "ApplyTagsHelpTexts4": "Değiştir: Etiketleri girilen etiketlerle değiştirin (tüm etiketleri temizlemek için hiçbir etiket girmeyin)",
     "Authentication": "Doğrulama",
     "AuthenticationMethodHelpText": "Radarr'a erişmek için Kullanıcı Adı ve Şifre gerektir",

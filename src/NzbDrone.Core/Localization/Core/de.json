@@ -17,7 +17,6 @@
     "AnalyticsEnabledHelpTextWarning": "Erfordert einen Neustart",
     "AppDataDirectory": "AppData Ordner",
     "ApplyTags": "Tags setzen",
-    "ApplyTagsHelpTexts2": "Hinzufügen: Füge neu Tags zu den existierenden Tags hinzu",
     "ApplyTagsHelpTexts4": "Ersetzen: Nur eingegebene Tags übernehmen und vorhandene entfernen( keine Tags eingeben um alle zu entfernen )",
     "Authentication": "Authentifizierung",
     "AuthenticationMethodHelpText": "Für den Zugriff auf Readarr sind Benutzername und Passwort erforderlich",

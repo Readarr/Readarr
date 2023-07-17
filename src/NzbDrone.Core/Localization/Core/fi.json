@@ -19,7 +19,6 @@
     "AnalyticsEnabledHelpText": "Lähetä nimettömiä käyttö- ja virhetietoja sovelluksen palvelimille. Tämä sisältää tietoja selaimestasi, verkkokäyttöliittymän sivujen käytöstä, virheraportoinnista sekä käyttöjärjestelmästäsi ja versiosta. Käytämme näitä tietoja ominaisuuksien ja virhekorjauksien painotukseen.",
     "AppDataDirectory": "AppData-kansio",
     "ApplyTags": "Tunnistetoimenpide",
-    "ApplyTagsHelpTexts2": "– \"Lisää\" syötetyt tunnisteet aiempiin tunnisteisiin",
     "ApplyTagsHelpTexts4": "– \"Korvaa\" nykyiset tunnisteet syötetyillä tai tyhjennä kaikki jättämällä tyhjäksi",
     "Authentication": "Todennus",
     "AuthenticationMethodHelpText": "Vaadi käyttäjätunnus ja salasana.",
