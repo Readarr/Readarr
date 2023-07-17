@@ -333,7 +333,6 @@
     "AnalyticsEnabledHelpText": "匿名の使用状況とエラー情報をRadarrのサーバーに送信します。これには、使用するRadarr WebUIページ、エラーレポート、OSおよびランタイムバージョンなどのブラウザに関する情報が含まれます。この情報を使用して、機能とバグ修正に優先順位を付けます。",
     "AppDataDirectory": "AppDataディレクトリ",
     "ApplyTags": "タグを適用する",
-    "ApplyTagsHelpTexts4": "置換：タグを入力したタグに置き換えます（すべてのタグをクリアするには、タグを入力しないでください）",
     "Authentication": "認証",
     "AuthenticationMethodHelpText": "Radarrにアクセスするにはユーザー名とパスワードが必要です",
     "AuthorClickToChangeBook": "クリックしてムービーを変更",

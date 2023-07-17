@@ -32,7 +32,6 @@
     "AnalyticsEnabledHelpTextWarning": "Nécessite un redémarrage pour prendre effet",
     "AppDataDirectory": "Dossier AppData",
     "ApplyTags": "Appliquer les tags",
-    "ApplyTagsHelpTexts4": "Remplacer : Remplace les étiquettes par les étiquettes renseignées (ne pas renseigner d'étiquette pour effacer toutes les étiquettes)",
     "Authentication": "Authentification",
     "AuthenticationMethodHelpText": "Exiger un identifiant et un mot de passe pour accéder à Readarr",
     "AuthorClickToChangeBook": "Cliquer pour changer le livre",

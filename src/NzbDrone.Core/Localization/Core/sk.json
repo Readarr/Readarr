@@ -34,7 +34,6 @@
     "APIKey": "Kľúč API",
     "AppDataDirectory": "Priečinok AppData",
     "ApplyTags": "Použiť značky",
-    "ApplyTagsHelpTexts4": "Nahradiť: Nahradí značky zadanými značkami (pre vymazanie všetkých značiek, nezadávajte žiadne)",
     "Authentication": "Overenie",
     "AuthenticationMethodHelpText": "Vyžadovať používateľské meno a heslo pre prístup k Radarru",
     "BypassProxyForLocalAddresses": "Obísť proxy pre miestne adresy",
