@@ -46,7 +46,7 @@ namespace Readarr.Http.Middleware
                 return false;
             }
 
-            if (path.EndsWith("/initialize.js"))
+            if (path.EndsWith("/initialize.json"))
             {
                 return false;
             }
