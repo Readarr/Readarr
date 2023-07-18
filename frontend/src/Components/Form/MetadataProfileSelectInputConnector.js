@@ -83,12 +83,7 @@ class MetadataProfileSelectInputConnector extends Component {
   // Listeners
 
   onChange = ({ name, value }) => {
-    const { includeNoChange } = this.props;
-
-    this.props.onChange({
-      name,
-      value: includeNoChange && value === 'noChange' ? value : parseInt(value)
-    });
+    this.props.onChange({ name, value: value === 'noChange' ? value : parseInt(value) });
   };
 
   //
