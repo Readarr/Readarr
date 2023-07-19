@@ -585,5 +585,22 @@
     "RemoveSelectedItemsQueueMessageText": "キューから{0}アイテム{1}を削除してもよろしいですか？",
     "Required": "必須",
     "BlocklistReleases": "ブラックリストリリース",
-    "DeleteConditionMessageText": "リスト「{0}」を削除してもよろしいですか？"
+    "DeleteConditionMessageText": "リスト「{0}」を削除してもよろしいですか？",
+    "ExistingTag": "既存のタグ",
+    "NoEventsFound": "イベントが見つかりません",
+    "No": "番号",
+    "NoChange": "変化なし",
+    "RemovingTag": "タグの削除",
+    "ApplyTagsHelpTextHowToApplyAuthors": "選択した映画にタグを適用する方法",
+    "ApplyTagsHelpTextHowToApplyImportLists": "選択した映画にタグを適用する方法",
+    "ApplyTagsHelpTextHowToApplyIndexers": "選択した映画にタグを適用する方法",
+    "DeleteSelectedIndexers": "インデクサーを削除する",
+    "SetTags": "タグを設定する",
+    "Yes": "はい",
+    "ApplyTagsHelpTextRemove": "削除：入力したタグを削除します",
+    "ApplyTagsHelpTextReplace": "置換：タグを入力したタグに置き換えます（すべてのタグをクリアするには、タグを入力しないでください）",
+    "RedownloadFailed": "ダウンロードに失敗しました",
+    "ApplyTagsHelpTextHowToApplyDownloadClients": "選択した映画にタグを適用する方法",
+    "ApplyTagsHelpTextAdd": "追加：既存のタグリストにタグを追加します",
+    "DeleteSelectedDownloadClients": "ダウンロードクライアントを削除する"
 }

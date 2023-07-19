@@ -50,5 +50,18 @@
     "Name": "Nama",
     "Path": "Path",
     "Quality": "Kualitas",
-    "QualityProfile": "Profil Kualitas"
+    "QualityProfile": "Profil Kualitas",
+    "BlocklistReleaseHelpText": "Mencegah Sonarr memperoleh rilis ini secara otomatis",
+    "CopyToClipboard": "Salin ke Papan Klip",
+    "No": "Tidak",
+    "NoChange": "Tidak Ada Perubahan",
+    "Queued": "Antrean",
+    "Dates": "Tanggal",
+    "Enable": "Aktif",
+    "HasPendingChangesNoChanges": "Tidak Ada Perubahan",
+    "ProxyCheckBadRequestMessage": "Gagal menguji proxy. Kode Status: {0}",
+    "ProxyCheckFailedToTestMessage": "Gagal menguji proxy: {0}",
+    "QualityProfiles": "Profil Kualitas",
+    "StatusEndedEnded": "Berakhir",
+    "UILanguageHelpText": "Bahasa yang digunakan UI Sonarr"
 }

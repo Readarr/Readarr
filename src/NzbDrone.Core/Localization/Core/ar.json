@@ -602,5 +602,7 @@
     "No": "لا",
     "RemovingTag": "إزالة العلامة",
     "SetTags": "تعيين العلامات",
-    "Yes": "نعم"
+    "Yes": "نعم",
+    "ApplyTagsHelpTextHowToApplyAuthors": "كيفية تطبيق العلامات على الأفلام المختارة",
+    "ApplyTagsHelpTextHowToApplyDownloadClients": "كيفية تطبيق العلامات على الأفلام المختارة"
 }
