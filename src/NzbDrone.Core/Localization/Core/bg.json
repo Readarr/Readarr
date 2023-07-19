@@ -601,5 +601,7 @@
     "NoChange": "Няма промяна",
     "RemovingTag": "Премахване на етикет",
     "SetTags": "Задаване на маркери",
-    "Yes": "Да"
+    "Yes": "Да",
+    "ApplyTagsHelpTextHowToApplyAuthors": "Как да приложите тагове към избраните филми",
+    "ApplyTagsHelpTextHowToApplyDownloadClients": "Как да приложите тагове към избраните филми"
 }
