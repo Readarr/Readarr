@@ -82,34 +82,34 @@ export const defaultState = {
     columns: [
       {
         name: 'level',
-        columnLabel: translate('Level'),
+        columnLabel: () => translate('Level'),
         isSortable: false,
         isVisible: true,
         isModifiable: false
       },
       {
         name: 'time',
-        label: translate('Time'),
+        label: () => translate('Time'),
         isSortable: true,
         isVisible: true,
         isModifiable: false
       },
       {
         name: 'logger',
-        label: translate('Component'),
+        label: () => translate('Component'),
         isSortable: false,
         isVisible: true,
         isModifiable: false
       },
       {
         name: 'message',
-        label: translate('Message'),
+        label: () => translate('Message'),
         isVisible: true,
         isModifiable: false
       },
       {
         name: 'actions',
-        columnLabel: translate('Actions'),
+        columnLabel: () => translate('Actions'),
         isSortable: true,
         isVisible: true,
         isModifiable: false

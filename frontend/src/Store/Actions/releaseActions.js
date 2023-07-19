@@ -199,7 +199,7 @@ export const defaultState = {
     },
     {
       name: 'customFormatScore',
-      label: translate('CustomFormatScore'),
+      label: () => translate('CustomFormatScore'),
       type: filterBuilderTypes.NUMBER
     },
     {

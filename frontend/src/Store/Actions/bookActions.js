@@ -24,12 +24,12 @@ export const section = 'books';
 export const filters = [
   {
     key: 'all',
-    label: translate('All'),
+    label: () => translate('All'),
     filters: []
   },
   {
     key: 'monitored',
-    label: translate('Monitored'),
+    label: () => translate('Monitored'),
     filters: [
       {
         key: 'monitored',
@@ -40,7 +40,7 @@ export const filters = [
   },
   {
     key: 'unmonitored',
-    label: translate('Unmonitored'),
+    label: () => translate('Unmonitored'),
     filters: [
       {
         key: 'monitored',
@@ -51,7 +51,7 @@ export const filters = [
   },
   {
     key: 'missing',
-    label: translate('Missing'),
+    label: () => translate('Missing'),
     filters: [
       {
         key: 'monitored',
@@ -67,7 +67,7 @@ export const filters = [
   },
   {
     key: 'wanted',
-    label: translate('Wanted'),
+    label: () => translate('Wanted'),
     filters: [
       {
         key: 'monitored',
