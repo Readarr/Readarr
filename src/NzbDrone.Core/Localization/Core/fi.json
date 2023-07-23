@@ -761,7 +761,6 @@
     "ContinuingNoAdditionalBooksAreExpected": "Abumeita ei odoteta lisää",
     "MusicBrainzBookID": "MusicBrainz-kappaletunniste",
     "SearchForAllCutoffUnmetBooks": "Etsi kaikkia albumeita, joiden katkaisutasoa ei ole savutettu",
-    "SkipredownloadHelpText": "Estää poistettujen kohteiden vaihtoehtoisten julkaisujen latauksen.",
     "SearchForMonitoredBooks": "Etsi valvottuja albumeita",
     "DataExistingBooks": "Valvo albumeita, joille on tiedostoja tai joita ei ole vielä julkaistu.",
     "DataMissingBooks": "Seuraa albumeita, joille ei ole tiedostoja tai joita ei ole vielä julkaistu.",

@@ -640,7 +640,6 @@
     "ShowName": "Visa Namn",
     "ShowUnknownAuthorItems": "Visa Okända Författares Saker",
     "SkipBooksWithMissingReleaseDate": "Hoppa böcker med saknat utgivningsdatum",
-    "SkipredownloadHelpText": "Förhindrar Readarr från att försöka ladda ned alternativa utgåvor för borttagna saker",
     "SpecificBook": "Specifik Bok",
     "StatusEndedDeceased": "Död",
     "TheBooksFilesWillBeDeleted": "Böckernas filer kommer raderas.",

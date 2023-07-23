@@ -597,7 +597,6 @@
     "StatusEndedDeceased": "Elhunyt",
     "StatusEndedContinuing": "Folytatás",
     "SpecificBook": "Konkrét könyv",
-    "SkipredownloadHelpText": "Megakadályozza, hogy a Readarr megpróbálja letölteni az eltávolított elemek alternatív kiadásait",
     "SkipSecondarySeriesBooks": "A másodlagos sorozatú könyvek kihagyása",
     "SkipRedownload": "Az újraletöltés átugrása",
     "SkipPartBooksAndSets": "Részletkönyvek és könyvkészlet(ek) kihagyása",

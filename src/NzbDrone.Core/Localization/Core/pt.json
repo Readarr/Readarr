@@ -473,7 +473,6 @@
     "SearchBoxPlaceHolder": "P. ex. Guerra e Paz, goodreads:656, isbn:067003469X, asin:B00JCDK5ME",
     "ShouldSearchHelpText": "Pesquisar indexadores para novos itens adicionados. Utilize com cuidado para listas grandes.",
     "SkipPartBooksAndSets": "Ignorar livros e conjuntos incompletos",
-    "SkipredownloadHelpText": "Impede que o Readarr tente transferir versões alternativas para itens removidos",
     "ASIN": "ASIN",
     "Continuing": "Continuação",
     "ConsoleLogLevel": "Nível de registo do console",
