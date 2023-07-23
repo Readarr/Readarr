@@ -805,7 +805,6 @@
     "ShouldMonitorExisting": "监控现有书籍",
     "ShouldSearchHelpText": "在索引器中搜索新添加的项目，  小心使用长列表。",
     "ShowTitleHelpText": "在海报下显示作者姓名",
-    "SkipredownloadHelpText": "阻止Readarr尝试为删除的项目下载替代版本",
     "SpecificBook": "特定书籍",
     "TheBooksFilesWillBeDeleted": "此书籍文件将删除。",
     "TooManyBooks": "丢失还是过多书籍？修改或创建新的",
