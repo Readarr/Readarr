@@ -6190,7 +6190,7 @@
             }
           },
           {
-            "name": "skipReDownload",
+            "name": "skipRedownload",
             "in": "query",
             "schema": {
               "type": "boolean",
@@ -6228,7 +6228,7 @@
             }
           },
           {
-            "name": "skipReDownload",
+            "name": "skipRedownload",
             "in": "query",
             "schema": {
               "type": "boolean",

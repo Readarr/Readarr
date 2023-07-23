@@ -69,9 +69,9 @@ namespace Readarr.Api.V1.Queue
         }
 
         [RestDeleteById]
-        public void RemoveAction(int id, bool removeFromClient = true, bool blocklist = false, bool skipReDownload = false)
+        public void RemoveAction(int id, bool removeFromClient = true, bool blocklist = false, bool skipRedownload = false)
         {
-            var trackedDownload = Remove(id, removeFromClient, blocklist, skipReDownload);
+            var trackedDownload = Remove(id, removeFromClient, blocklist, skipRedownload);
 
             if (trackedDownload != null)
             {
@@ -80,13 +80,13 @@ namespace Readarr.Api.V1.Queue
         }
 
         [HttpDelete("bulk")]
-        public object RemoveMany([FromBody] QueueBulkResource resource, [FromQuery] bool removeFromClient = true, [FromQuery] bool blocklist = false, [FromQuery] bool skipReDownload = false)
+        public object RemoveMany([FromBody] QueueBulkResource resource, [FromQuery] bool removeFromClient = true, [FromQuery] bool blocklist = false, [FromQuery] bool skipRedownload = false)
         {
             var trackedDownloadIds = new List<string>();
 
             foreach (var id in resource.Ids)
             {
-                var trackedDownload = Remove(id, removeFromClient, blocklist, skipReDownload);
+                var trackedDownload = Remove(id, removeFromClient, blocklist, skipRedownload);
 
                 if (trackedDownload != null)
                 {
@@ -205,7 +205,7 @@ namespace Readarr.Api.V1.Queue
             }
         }
 
-        private TrackedDownload Remove(int id, bool removeFromClient, bool blocklist, bool skipReDownload)
+        private TrackedDownload Remove(int id, bool removeFromClient, bool blocklist, bool skipRedownload)
         {
             var pendingRelease = _pendingReleaseService.FindPendingQueueItem(id);
 
@@ -238,7 +238,7 @@ namespace Readarr.Api.V1.Queue
 
             if (blocklist)
             {
-                _failedDownloadService.MarkAsFailed(trackedDownload.DownloadItem.DownloadId, skipReDownload);
+                _failedDownloadService.MarkAsFailed(trackedDownload.DownloadItem.DownloadId, skipRedownload);
             }
 
             if (!removeFromClient && !blocklist)

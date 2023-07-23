@@ -33,7 +33,7 @@ namespace NzbDrone.Core.Test.Download
             {
                 AuthorId = 1,
                 BookIds = new List<int> { 1 },
-                SkipReDownload = true
+                SkipRedownload = true
             };
 
             Subject.Handle(failedEvent);
