@@ -30,7 +30,7 @@ class BookshelfFooter extends Component {
     const {
       isSaving,
       saveError
-    } = prevProps;
+    } = this.props;
 
     if (prevProps.isSaving && !isSaving && !saveError) {
       this.setState({
