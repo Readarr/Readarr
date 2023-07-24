@@ -487,7 +487,7 @@
     "AllExpandedExpandAll": "展开所有",
     "Duration": "时长",
     "Filters": "过滤器",
-    "AppDataLocationHealthCheckMessage": "更新将无法阻止在更新时删除 AppData",
+    "AppDataLocationHealthCheckMessage": "正在更新期间的 AppData 不会被更新删除",
     "FileWasDeletedByViaUI": "文件已通过 UI 删除",
     "IndexerJackettAll": "使用 Jackett 不受支持的“全部”终点的索引器：{0}",
     "SizeLimit": "尺寸限制",
@@ -915,5 +915,11 @@
     "RemoveSelectedItemQueueMessageText": "您确定要从队列中删除 1 项吗？",
     "RemoveSelectedItemBlocklistMessageText": "您确定要从阻止列表中删除所选项目吗？",
     "RemoveSelectedItemsQueueMessageText": "您确定要从队列中删除 {0} 个项目吗？",
-    "ResetQualityDefinitionsMessageText": "您确定要重置质量定义吗？"
+    "ResetQualityDefinitionsMessageText": "您确定要重置质量定义吗？",
+    "ApplyTagsHelpTextHowToApplyDownloadClients": "如何将标签应用到已选择的下载客户端",
+    "ApplyTagsHelpTextHowToApplyImportLists": "如何将标签应用到已选择的导入列表",
+    "ApplyTagsHelpTextHowToApplyIndexers": "如何将标签应用到已选择的索引器",
+    "ApplyTagsHelpTextRemove": "移除: 移除已输入的标签",
+    "ApplyTagsHelpTextReplace": "替换: 用输入的标签替换当前标签 (不输入将会清除所有标签)",
+    "ApplyTagsHelpTextAdd": "添加: 添加标签至已有的标签列表中"
 }

@@ -460,7 +460,7 @@
     "SslCertPasswordHelpTextWarning": "Requer reinício para ter efeito",
     "SpecificBook": "Livro específico",
     "SkipSecondarySeriesBooks": "Ignorar livros de série secundária",
-    "SkipRedownload": "Ignorar novo download",
+    "SkipRedownload": "Ignorar o Redownload",
     "SkipPartBooksAndSets": "Ignorar livros e conjuntos incompletos",
     "SkipBooksWithNoISBNOrASIN": "Ignorar livros sem ISBN ou ASIN",
     "SkipBooksWithMissingReleaseDate": "Ignorar livros com a data de lançamento ausente",
@@ -742,7 +742,7 @@
     "OnRename": "Ao Renomear",
     "OnUpgrade": "Ao Atualizar",
     "AppDataLocationHealthCheckMessage": "A atualização não será possível para evitar a exclusão de AppData na atualização",
-    "IndexerSearchCheckNoInteractiveMessage": "Nenhum indexador disponível com a Pesquisa interativa habilitada, o Readarr não fornecerá nenhum resultado de pesquisa interativo",
+    "IndexerSearchCheckNoInteractiveMessage": "Nenhum indexador disponível com a Pesquisa interativa habilitada, o Readarr não fornecerá nenhum resultado de pesquisa interativa",
     "ConnectSettingsSummary": "Notificações, conexões com servidores/tocadores de mídia e scripts personalizados",
     "DownloadClientStatusCheckAllClientMessage": "Todos os clientes de download estão indisponíveis devido a falhas",
     "DownloadClientsSettingsSummary": "Clientes de download, gerenciamento do download e mapeamento remoto de caminhos",
@@ -982,5 +982,6 @@
     "ExistingTag": "Etiqueta existente",
     "No": "Não",
     "RemoveCompletedDownloads": "Remover downloads concluídos",
-    "RemovingTag": "Removendo etiqueta"
+    "RemovingTag": "Removendo etiqueta",
+    "SkipRedownloadHelpText": "Impede Readarr de tentar baixar versões alternativas para os itens removidos"
 }
