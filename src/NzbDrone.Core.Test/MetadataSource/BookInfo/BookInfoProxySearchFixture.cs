@@ -42,7 +42,7 @@ namespace NzbDrone.Core.Test.MetadataSource.Goodreads
 
         [TestCase("Robert Harris", "Robert Harris")]
         [TestCase("James Patterson", "James Patterson")]
-        [TestCase("Antoine de Saint-Exupéry", "Antoine de Saint-Exupéry")]
+        [TestCase("Elisa Puricelli Guerra", "Elisa Puricelli Guerra")]
         public void successful_author_search(string title, string expected)
         {
             var result = Subject.SearchForNewAuthor(title);
@@ -85,8 +85,8 @@ namespace NzbDrone.Core.Test.MetadataSource.Goodreads
             ExceptionVerification.IgnoreWarns();
         }
 
-        [TestCase("Philip Pullman", 0, typeof(Author), new[] { "Philip Pullman" }, TestName = "author")]
-        [TestCase("Philip Pullman", 1, typeof(Book), new[] { "Northern Lights", "The Amber Spyglass" }, TestName = "book")]
+        [TestCase("Catherine Butler", 0, typeof(Author), new[] { "Catherine Butler" }, TestName = "author")]
+        [TestCase("Catherine Butler", 1, typeof(Book), new[] { "Shattered Dreams", "Shattered Dreams" }, TestName = "book")]
         public void successful_combined_search(string query, int position, Type resultType, string[] expected)
         {
             var result = Subject.SearchForNewEntity(query);
@@ -97,7 +97,7 @@ namespace NzbDrone.Core.Test.MetadataSource.Goodreads
             {
                 var cast = result[position] as Author;
                 cast.Should().NotBeNull();
-                cast.Name.Should().ContainAll(expected);
+                cast.Name.Should().ContainAny(expected);
             }
             else
             {

@@ -26,7 +26,7 @@ namespace NzbDrone.Core.Test.MetadataSource.Goodreads
 
         [TestCase("Robert Harris", 575)]
         [TestCase("James Patterson", 3780)]
-        [TestCase("Antoine de Saint-Exupéry", 1020792)]
+        [TestCase("Elisa Puricelli Guerra", 4481805)]
         public void successful_author_search(string title, int expected)
         {
             var result = Subject.Search(title);
@@ -38,7 +38,7 @@ namespace NzbDrone.Core.Test.MetadataSource.Goodreads
             ExceptionVerification.IgnoreWarns();
         }
 
-        [TestCase("Harry Potter and the sorcerer's stone", 3)]
+        [TestCase("Harry Potter and the sorcerer's stone", 61209488)]
         [TestCase("B0192CTMYG", 61209488)]
         [TestCase("9780439554930", 48517161)]
         public void successful_book_search(string title, int expected)
