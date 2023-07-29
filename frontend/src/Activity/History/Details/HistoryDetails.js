@@ -9,7 +9,7 @@ import Link from 'Components/Link/Link';
 import { icons } from 'Helpers/Props';
 import formatDateTime from 'Utilities/Date/formatDateTime';
 import formatAge from 'Utilities/Number/formatAge';
-import formatPreferredWordScore from 'Utilities/Number/formatPreferredWordScore';
+import formatCustomFormatScore from 'Utilities/Number/formatCustomFormatScore';
 import translate from 'Utilities/String/translate';
 import styles from './HistoryDetails.css';
 
@@ -108,7 +108,7 @@ function HistoryDetails(props) {
           customFormatScore && customFormatScore !== '0' ?
             <DescriptionListItem
               title={translate('CustomFormatScore')}
-              data={formatPreferredWordScore(customFormatScore)}
+              data={formatCustomFormatScore(customFormatScore)}
             /> :
             null
         }
@@ -225,7 +225,7 @@ function HistoryDetails(props) {
           customFormatScore && customFormatScore !== '0' ?
             <DescriptionListItem
               title={translate('CustomFormatScore')}
-              data={formatPreferredWordScore(customFormatScore)}
+              data={formatCustomFormatScore(customFormatScore)}
             /> :
             null
         }
@@ -271,7 +271,7 @@ function HistoryDetails(props) {
           customFormatScore && customFormatScore !== '0' ?
             <DescriptionListItem
               title={translate('CustomFormatScore')}
-              data={formatPreferredWordScore(customFormatScore)}
+              data={formatCustomFormatScore(customFormatScore)}
             /> :
             null
         }
