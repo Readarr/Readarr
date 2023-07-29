@@ -7,7 +7,7 @@ namespace NzbDrone.Integration.Test.ApiTests
     public class AuthorLookupFixture : IntegrationTest
     {
         [TestCase("Robert Harris", "Robert Harris")]
-        [TestCase("J.K. Rowling", "J.K. Rowling")]
+        [TestCase("Philip W. Errington", "Philip W. Errington")]
         public void lookup_new_author_by_name(string term, string name)
         {
             var author = Author.Lookup(term);
