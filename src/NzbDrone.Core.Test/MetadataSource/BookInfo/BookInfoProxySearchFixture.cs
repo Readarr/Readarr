@@ -54,7 +54,7 @@ namespace NzbDrone.Core.Test.MetadataSource.Goodreads
             ExceptionVerification.IgnoreWarns();
         }
 
-        [TestCase("Harry Potter and the sorcerer's stone", null, "Harry Potter and the Sorcerer's Stone (Harry Potter, Book 1): By J.K. Rowling | The Complete Summary & Analysis")]
+        [TestCase("Harry Potter and the sorcerer's stone a summary of the novel", null, "Harry Potter and the Sorcerer's Stone (Book 1): A Summary Of The Novel")]
         [TestCase("edition:3", null, "Harry Potter and the Sorcerer's Stone")]
         [TestCase("edition: 3", null, "Harry Potter and the Sorcerer's Stone")]
         [TestCase("asin:B0192CTMYG", null, "Harry Potter and the Sorcerer's Stone")]
