@@ -41,7 +41,7 @@ namespace NzbDrone.Core.Test.MetadataSource.Goodreads
         }
 
         [TestCase("Robert Harris", "Robert Harris")]
-        [TestCase("James Patterson", "James Patterson")]
+        [TestCase("Lyndsay Ely", "Lyndsay Ely")]
         [TestCase("Elisa Puricelli Guerra", "Elisa Puricelli Guerra")]
         public void successful_author_search(string title, string expected)
         {
@@ -54,7 +54,7 @@ namespace NzbDrone.Core.Test.MetadataSource.Goodreads
             ExceptionVerification.IgnoreWarns();
         }
 
-        [TestCase("Harry Potter and the sorcerer's stone", null, "Harry Potter and the Sorcerer's Stone")]
+        [TestCase("Harry Potter and the sorcerer's stone", null, "Harry Potter and the Sorcerer's Stone (Harry Potter, Book 1): By J.K. Rowling | The Complete Summary & Analysis")]
         [TestCase("edition:3", null, "Harry Potter and the Sorcerer's Stone")]
         [TestCase("edition: 3", null, "Harry Potter and the Sorcerer's Stone")]
         [TestCase("asin:B0192CTMYG", null, "Harry Potter and the Sorcerer's Stone")]
@@ -86,7 +86,7 @@ namespace NzbDrone.Core.Test.MetadataSource.Goodreads
         }
 
         [TestCase("Catherine Butler", 0, typeof(Author), new[] { "Catherine Butler" }, TestName = "author")]
-        [TestCase("Catherine Butler", 1, typeof(Book), new[] { "Shattered Dreams", "Shattered Dreams" }, TestName = "book")]
+        [TestCase("Catherine Butler", 1, typeof(Book), new[] { "Twisted Winter", "Shattered Dreams" }, TestName = "book")]
         public void successful_combined_search(string query, int position, Type resultType, string[] expected)
         {
             var result = Subject.SearchForNewEntity(query);
