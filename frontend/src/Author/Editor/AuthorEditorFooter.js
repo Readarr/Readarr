@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import MoveAuthorModal from 'Author/MoveAuthor/MoveAuthorModal';
 import MetadataProfileSelectInputConnector from 'Components/Form/MetadataProfileSelectInputConnector';
 import MonitorNewItemsSelectInput from 'Components/Form/MonitorNewItemsSelectInput';
@@ -9,6 +10,7 @@ import SelectInput from 'Components/Form/SelectInput';
 import SpinnerButton from 'Components/Link/SpinnerButton';
 import PageContentFooter from 'Components/Page/PageContentFooter';
 import { kinds } from 'Helpers/Props';
+import { fetchRootFolders } from 'Store/Actions/Settings/rootFolders';
 import translate from 'Utilities/String/translate';
 import AuthorEditorFooterLabel from './AuthorEditorFooterLabel';
 import DeleteAuthorModal from './Delete/DeleteAuthorModal';
@@ -16,6 +18,10 @@ import TagsModal from './Tags/TagsModal';
 import styles from './AuthorEditorFooter.css';
 
 const NO_CHANGE = 'noChange';
+
+const mapDispatchToProps = {
+  dispatchFetchRootFolders: fetchRootFolders
+};
 
 class AuthorEditorFooter extends Component {
 
@@ -37,6 +43,13 @@ class AuthorEditorFooter extends Component {
       isConfirmMoveModalOpen: false,
       destinationRootFolder: null
     };
+  }
+
+  //
+  // Lifecycle
+
+  componentDidMount() {
+    this.props.dispatchFetchRootFolders();
   }
 
   componentDidUpdate(prevProps) {
@@ -341,7 +354,8 @@ AuthorEditorFooter.propTypes = {
   showMetadataProfile: PropTypes.bool.isRequired,
   onSaveSelected: PropTypes.func.isRequired,
   onOrganizeAuthorPress: PropTypes.func.isRequired,
-  onRetagAuthorPress: PropTypes.func.isRequired
+  onRetagAuthorPress: PropTypes.func.isRequired,
+  dispatchFetchRootFolders: PropTypes.func.isRequired
 };
 
-export default AuthorEditorFooter;
+export default connect(undefined, mapDispatchToProps)(AuthorEditorFooter);
