@@ -1,10 +1,11 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import Alert from 'Components/Alert';
 import Icon from 'Components/Icon';
 import LoadingIndicator from 'Components/Loading/LoadingIndicator';
 import Table from 'Components/Table/Table';
 import TableBody from 'Components/Table/TableBody';
-import { icons, sortDirections } from 'Helpers/Props';
+import { icons, kinds, sortDirections } from 'Helpers/Props';
 import translate from 'Utilities/String/translate';
 import InteractiveSearchRow from './InteractiveSearchRow';
 import styles from './InteractiveSearch.css';
@@ -112,17 +113,17 @@ function InteractiveSearch(props) {
 
       {
         !isFetching && isPopulated && !totalReleasesCount ?
-          <div className={styles.blankpad}>
-            No results found
-          </div> :
+          <Alert kind={kinds.INFO}>
+            {translate('NoResultsFound')}
+          </Alert> :
           null
       }
 
       {
         !!totalReleasesCount && isPopulated && !items.length ?
-          <div className={styles.blankpad}>
-            All results are hidden by the applied filter
-          </div> :
+          <Alert kind={kinds.WARNING}>
+            {translate('AllResultsAreHiddenByTheAppliedFilter')}
+          </Alert> :
           null
       }
 
@@ -157,7 +158,7 @@ function InteractiveSearch(props) {
       {
         totalReleasesCount !== items.length && !!items.length ?
           <div className={styles.filteredMessage}>
-            Some results are hidden by the applied filter
+            {translate('SomeResultsAreHiddenByTheAppliedFilter')}
           </div> :
           null
       }
