@@ -147,5 +147,7 @@
     "AddMissing": "Legg til manglende",
     "AddNewItem": "Legg til nytt item",
     "45MinutesFourtyFive": "45 Minutter: {0}",
-    "60MinutesSixty": "60 Minutter: {0}"
+    "60MinutesSixty": "60 Minutter: {0}",
+    "ApplyChanges": "Bekreft endringer",
+    "ApiKeyValidationHealthCheckMessage": "Vennligst oppdater din API-nøkkel til å være minst {0} tegn lang. Du kan gjøre dette via innstillinger eller konfigurasjonsfilen"
 }
