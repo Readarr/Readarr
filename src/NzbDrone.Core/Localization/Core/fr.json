@@ -23,7 +23,7 @@
     "SslPortHelpTextWarning": "Nécessite un redémarrage pour prendre effet",
     "SslCertPathHelpTextWarning": "Nécessite un redémarrage pour prendre effet",
     "UnableToLoadMetadataProfiles": "Impossible de charger les profils de délai",
-    "AddingTag": "Ajout d'un tag",
+    "AddingTag": "Ajouter un tag",
     "AgeWhenGrabbed": "Age (au moment du téléchargement)",
     "AlreadyInYourLibrary": "Déjà présent dans votre collection",
     "AlternateTitles": "Titre alternatif",
@@ -761,5 +761,8 @@
     "ExistingTag": "Tag existant",
     "No": "Non",
     "RemovingTag": "Suppression du tag",
-    "SetTags": "Définir Tags"
+    "SetTags": "Définir Tags",
+    "CountDownloadClientsSelected": "{0} client(s) de téléchargement sélectionné(s)",
+    "EditSelectedDownloadClients": "Modifier les clients de téléchargement sélectionnés",
+    "EditSelectedIndexers": "Modifier les indexeurs sélectionnés"
 }
