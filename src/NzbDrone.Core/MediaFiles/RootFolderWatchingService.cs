@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using NLog;
 using NzbDrone.Common.Disk;
+using NzbDrone.Common.EnsureThat;
 using NzbDrone.Common.Extensions;
 using NzbDrone.Common.TPL;
 using NzbDrone.Core.Configuration;
@@ -116,6 +117,9 @@ namespace NzbDrone.Core.MediaFiles
 
         private void StartWatchingPath(string path)
         {
+            Ensure.That(path, () => path).IsNotNullOrWhiteSpace();
+            Ensure.That(path, () => path).IsValidPath(PathValidationType.CurrentOs);
+
             // Already being watched
             if (_fileSystemWatchers.ContainsKey(path))
             {
