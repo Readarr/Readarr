@@ -1,5 +1,4 @@
 using System;
-using System.IO;
 using System.Net;
 using NLog;
 using NzbDrone.Common.Disk;
@@ -214,11 +213,11 @@ namespace NzbDrone.Core.MediaFiles
                 var author = message.BookFile.Author.Value;
                 var bookFolder = message.BookFile.Path.GetParentPath();
 
-                if (_diskProvider.GetFiles(author.Path, SearchOption.AllDirectories).Empty())
+                if (_diskProvider.GetFiles(author.Path, true).Empty())
                 {
                     _diskProvider.DeleteFolder(author.Path, true);
                 }
-                else if (_diskProvider.GetFiles(bookFolder, SearchOption.AllDirectories).Empty())
+                else if (_diskProvider.GetFiles(bookFolder, true).Empty())
                 {
                     _diskProvider.RemoveEmptySubfolders(bookFolder);
                 }

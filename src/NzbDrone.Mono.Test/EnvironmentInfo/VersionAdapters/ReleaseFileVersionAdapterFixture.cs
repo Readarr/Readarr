@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using System.IO.Abstractions;
 using FluentAssertions;
@@ -30,25 +31,25 @@ namespace NzbDrone.Mono.Test.EnvironmentInfo.VersionAdapters
         }
 
         [Test]
-        public void should_return_null_if_etc_doestn_exist()
+        public void should_return_null_if_etc_doesnt_exist()
         {
             Mocker.GetMock<IDiskProvider>().Setup(c => c.FolderExists("/etc/")).Returns(false);
             Subject.Read().Should().BeNull();
 
             Mocker.GetMock<IDiskProvider>()
-              .Verify(c => c.GetFiles(It.IsAny<string>(), SearchOption.TopDirectoryOnly), Times.Never());
+              .Verify(c => c.GetFiles(It.IsAny<string>(), false), Times.Never());
 
             Subject.Read().Should().BeNull();
         }
 
         [Test]
-        public void should_return_null_if_release_file_doestn_exist()
+        public void should_return_null_if_release_file_doesnt_exist()
         {
             Mocker.GetMock<IDiskProvider>().Setup(c => c.FolderExists("/etc/")).Returns(true);
             Subject.Read().Should().BeNull();
 
             Mocker.GetMock<IDiskProvider>()
-              .Setup(c => c.GetFiles(It.IsAny<string>(), SearchOption.TopDirectoryOnly)).Returns(new string[0]);
+              .Setup(c => c.GetFiles(It.IsAny<string>(), false)).Returns(Array.Empty<string>());
 
             Subject.Read().Should().BeNull();
         }
@@ -60,7 +61,7 @@ namespace NzbDrone.Mono.Test.EnvironmentInfo.VersionAdapters
             Subject.Read().Should().BeNull();
 
             Mocker.GetMock<IDiskProvider>()
-              .Setup(c => c.GetFiles(It.IsAny<string>(), SearchOption.TopDirectoryOnly)).Returns(new[]
+              .Setup(c => c.GetFiles(It.IsAny<string>(), false)).Returns(new[]
                 {
                     "/etc/lsb-release",
                     "/etc/os-release"

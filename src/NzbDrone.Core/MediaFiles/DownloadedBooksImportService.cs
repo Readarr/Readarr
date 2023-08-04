@@ -115,7 +115,7 @@ namespace NzbDrone.Core.MediaFiles
             try
             {
                 var bookFiles = _diskScanService.GetBookFiles(directoryInfo.FullName);
-                var rarFiles = _diskProvider.GetFiles(directoryInfo.FullName, SearchOption.AllDirectories).Where(f => Path.GetExtension(f).Equals(".rar", StringComparison.OrdinalIgnoreCase));
+                var rarFiles = _diskProvider.GetFiles(directoryInfo.FullName, true).Where(f => Path.GetExtension(f).Equals(".rar", StringComparison.OrdinalIgnoreCase));
 
                 foreach (var bookFile in bookFiles)
                 {
