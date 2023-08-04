@@ -392,6 +392,7 @@
   "IncludeUnknownAuthorItemsHelpText": "Show items without a author in the queue, this could include removed authors, books or anything else in Readarr's category",
   "IncludeUnmonitored": "Include Unmonitored",
   "Indexer": "Indexer",
+  "IndexerDownloadClientHealthCheckMessage": "Indexers with invalid download clients: {0}.",
   "IndexerDownloadClientHelpText": "Specify which download client is used for grabs from this indexer",
   "IndexerIdHelpText": "Specify what indexer the profile applies to",
   "IndexerIdHelpTextWarning": "Using a specific indexer with preferred words can lead to duplicate releases being grabbed",
