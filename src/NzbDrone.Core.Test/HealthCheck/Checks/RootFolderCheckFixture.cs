@@ -8,7 +8,9 @@ using NzbDrone.Core.Books;
 using NzbDrone.Core.HealthCheck.Checks;
 using NzbDrone.Core.ImportLists;
 using NzbDrone.Core.Localization;
+using NzbDrone.Core.RootFolders;
 using NzbDrone.Core.Test.Framework;
+using NzbDrone.Test.Common;
 
 namespace NzbDrone.Core.Test.HealthCheck.Checks
 {
@@ -23,7 +25,7 @@ namespace NzbDrone.Core.Test.HealthCheck.Checks
                   .Returns("Some Warning Message");
         }
 
-        private void GivenMissingRootFolder()
+        private void GivenMissingRootFolder(string rootFolderPath)
         {
             var author = Builder<Author>.CreateListOfSize(1)
                                         .Build()
@@ -41,9 +43,9 @@ namespace NzbDrone.Core.Test.HealthCheck.Checks
                 .Setup(s => s.All())
                 .Returns(importList);
 
-            Mocker.GetMock<IDiskProvider>()
-                  .Setup(s => s.GetParentFolder(author.First().Path))
-                  .Returns(@"C:\Books");
+            Mocker.GetMock<IRootFolderService>()
+                  .Setup(s => s.GetBestRootFolderPath(It.IsAny<string>()))
+                  .Returns(rootFolderPath);
 
             Mocker.GetMock<IDiskProvider>()
                   .Setup(s => s.FolderExists(It.IsAny<string>()))
@@ -67,7 +69,25 @@ namespace NzbDrone.Core.Test.HealthCheck.Checks
         [Test]
         public void should_return_error_if_book_parent_is_missing()
         {
-            GivenMissingRootFolder();
+            GivenMissingRootFolder(@"C:\Books".AsOsAgnostic());
+
+            Subject.Check().ShouldBeError();
+        }
+
+        [Test]
+        public void should_return_error_if_series_path_is_for_posix_os()
+        {
+            WindowsOnly();
+            GivenMissingRootFolder("/mnt/books");
+
+            Subject.Check().ShouldBeError();
+        }
+
+        [Test]
+        public void should_return_error_if_series_path_is_for_windows()
+        {
+            PosixOnly();
+            GivenMissingRootFolder(@"C:\Books");
 
             Subject.Check().ShouldBeError();
         }
