@@ -27,6 +27,10 @@ export default function translate(
   key: string,
   args?: (string | number | boolean)[]
 ) {
+  if (!(key in translations)) {
+    console.debug(key);
+  }
+
   const translation = translations[key] || key;
 
   if (args) {
