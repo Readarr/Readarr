@@ -1,8 +1,6 @@
 using System.Linq;
 using FluentAssertions;
-using Moq;
 using NUnit.Framework;
-using NzbDrone.Common.Disk;
 using NzbDrone.Core.RootFolders;
 using NzbDrone.Core.Test.Framework;
 using NzbDrone.Test.Common;
@@ -22,27 +20,46 @@ namespace NzbDrone.Core.Test.RootFolderTests
         [Test]
         public void should_return_root_folder_that_is_parent_path()
         {
-            GivenRootFolders(@"C:\Test\Music".AsOsAgnostic(), @"D:\Test\Music".AsOsAgnostic());
-            Subject.GetBestRootFolderPath(@"C:\Test\Music\Series Title".AsOsAgnostic()).Should().Be(@"C:\Test\Music".AsOsAgnostic());
+            GivenRootFolders(@"C:\Test\Books".AsOsAgnostic(), @"D:\Test\Books".AsOsAgnostic());
+            Subject.GetBestRootFolderPath(@"C:\Test\Books\Author Title".AsOsAgnostic()).Should().Be(@"C:\Test\Books".AsOsAgnostic());
         }
 
         [Test]
         public void should_return_root_folder_that_is_grandparent_path()
         {
-            GivenRootFolders(@"C:\Test\Music".AsOsAgnostic(), @"D:\Test\Music".AsOsAgnostic());
-            Subject.GetBestRootFolderPath(@"C:\Test\Music\S\Series Title".AsOsAgnostic()).Should().Be(@"C:\Test\Music".AsOsAgnostic());
+            GivenRootFolders(@"C:\Test\Books".AsOsAgnostic(), @"D:\Test\Books".AsOsAgnostic());
+            Subject.GetBestRootFolderPath(@"C:\Test\Books\S\Author Title".AsOsAgnostic()).Should().Be(@"C:\Test\Books".AsOsAgnostic());
         }
 
         [Test]
-        public void should_get_parent_path_from_diskProvider_if_matching_root_folder_is_not_found()
+        public void should_get_parent_path_from_os_path_if_matching_root_folder_is_not_found()
         {
-            var seriesPath = @"T:\Test\Music\Series Title".AsOsAgnostic();
+            var artistPath = @"T:\Test\Books\Author Title".AsOsAgnostic();
 
-            GivenRootFolders(@"C:\Test\Music".AsOsAgnostic(), @"D:\Test\Music".AsOsAgnostic());
-            Subject.GetBestRootFolderPath(seriesPath);
+            GivenRootFolders(@"C:\Test\Books".AsOsAgnostic(), @"D:\Test\Books".AsOsAgnostic());
+            Subject.GetBestRootFolderPath(artistPath).Should().Be(@"T:\Test\Books".AsOsAgnostic());
+        }
 
-            Mocker.GetMock<IDiskProvider>()
-                .Verify(v => v.GetParentFolder(seriesPath), Times.Once);
+        [Test]
+        public void should_get_parent_path_from_os_path_if_matching_root_folder_is_not_found_for_posix_path()
+        {
+            WindowsOnly();
+
+            var artistPath = "/mnt/books/Author Title";
+
+            GivenRootFolders(@"C:\Test\Books".AsOsAgnostic(), @"D:\Test\Books".AsOsAgnostic());
+            Subject.GetBestRootFolderPath(artistPath).Should().Be(@"/mnt/books");
+        }
+
+        [Test]
+        public void should_get_parent_path_from_os_path_if_matching_root_folder_is_not_found_for_windows_path()
+        {
+            PosixOnly();
+
+            var artistPath = @"T:\Test\Books\Author Title";
+
+            GivenRootFolders(@"C:\Test\Books".AsOsAgnostic(), @"D:\Test\Books".AsOsAgnostic());
+            Subject.GetBestRootFolderPath(artistPath).Should().Be(@"T:\Test\Books");
         }
     }
 }
