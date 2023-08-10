@@ -155,7 +155,7 @@
     "IncludeHealthWarningsHelpText": "כלול אזהרות בריאות",
     "IncludeUnknownAuthorItemsHelpText": "הצג פריטים ללא סרט בתור. זה יכול לכלול סרטים שהוסרו או כל דבר אחר בקטגוריה של Radarr",
     "IncludeUnmonitored": "כלול ללא פיקוח",
-    "Indexer": "מַפתְחָן",
+    "Indexer": "אינדקסר",
     "IndexerSettings": "הגדרות אינדקס",
     "Indexers": "אינדקסים",
     "Interval": "הַפסָקָה",
