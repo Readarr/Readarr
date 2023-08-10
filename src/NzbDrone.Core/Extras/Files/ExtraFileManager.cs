@@ -81,6 +81,8 @@ namespace NzbDrone.Core.Extras.Files
 
         protected TExtraFile MoveFile(Author author, BookFile bookFile, TExtraFile extraFile, string fileNameSuffix = null)
         {
+            _logger.Trace("Renaming extra file: {0}", extraFile);
+
             var newFolder = Path.GetDirectoryName(bookFile.Path);
             var filenameBuilder = new StringBuilder(Path.GetFileNameWithoutExtension(bookFile.Path));
 
@@ -98,8 +100,12 @@ namespace NzbDrone.Core.Extras.Files
             {
                 try
                 {
+                    _logger.Trace("Renaming extra file: {0} to {1}", extraFile, newFileName);
+
                     _diskProvider.MoveFile(existingFileName, newFileName);
                     extraFile.RelativePath = author.Path.GetRelativePath(newFileName);
+
+                    _logger.Trace("Renamed extra file from: {0}", extraFile);
 
                     return extraFile;
                 }
