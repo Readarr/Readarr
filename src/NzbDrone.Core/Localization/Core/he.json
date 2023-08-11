@@ -440,7 +440,6 @@
     "SslCertPasswordHelpTextWarning": "נדרש הפעלה מחדש כדי להיכנס לתוקף",
     "UnableToLoadMetadataProfiles": "לא ניתן לטעון פרופילי עיכוב",
     "DownloadClientCheckDownloadingToRoot": "הורד לקוח {0} ממקם הורדות בתיקיית הבסיס {1}. אתה לא צריך להוריד לתיקיית שורש.",
-    "UI": "ממשק משתמש",
     "ReleaseTitle": "שחרר את הכותרת",
     "NotAvailable": "לא זמין",
     "Progress": "התקדמות",

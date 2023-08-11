@@ -449,7 +449,6 @@
     "ReplaceIllegalCharactersHelpText": "Înlocuiți personajele ilegale. Dacă nu este bifat, Radarr le va elimina în schimb",
     "ShowReleaseDate": "Afișează data lansării",
     "ShowTitle": "Arata titlul",
-    "UI": "Interfață Grafica",
     "OutputPath": "Calea pentru Output",
     "Progress": "Progres",
     "ShowBookTitleHelpText": "Afișați titlul filmului sub afiș",

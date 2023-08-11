@@ -442,7 +442,6 @@
     "DownloadClientCheckDownloadingToRoot": "Downloadclient {0} plaatst downloads in de hoofdmap {1}. U mag niet naar een hoofdmap downloaden.",
     "MaintenanceRelease": "Onderhoudsuitgave",
     "Actions": "Acties",
-    "UI": "Gebruikersinterface",
     "Tomorrow": "Morgen",
     "ReplaceIllegalCharactersHelpText": "Vervang illegale karakters. Indien niet aangevinkt, zal Radarr ze in de plaats daarvan verwijderen",
     "Progress": "Voortgang",
