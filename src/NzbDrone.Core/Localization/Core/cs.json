@@ -440,7 +440,6 @@
     "Year": "Rok",
     "YesCancel": "Ano, zrušit",
     "DownloadClientCheckDownloadingToRoot": "Stahovací klient {0} umístí stažené soubory do kořenové složky {1}. Neměli byste stahovat do kořenové složky.",
-    "UI": "UI",
     "ReplaceIllegalCharactersHelpText": "Nahraďte nepovolené znaky. Pokud není zaškrtnuto, radarr je místo toho odstraní",
     "OutputPath": "Výstupní cesta",
     "Actions": "Akce",

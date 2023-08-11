@@ -441,7 +441,6 @@
     "SslPortHelpTextWarning": "يتطلب إعادة التشغيل ليصبح ساري المفعول",
     "DownloadClientCheckDownloadingToRoot": "يقوم برنامج التنزيل {0} بوضع التنزيلات في المجلد الجذر {1}. يجب ألا تقوم بالتنزيل إلى مجلد جذر.",
     "Progress": "التقدم",
-    "UI": "واجهة المستخدم",
     "ReplaceIllegalCharactersHelpText": "استبدل الأحرف غير القانونية. إذا لم يتم تحديده ، فسوف يقوم Radarr بإزالتها بدلاً من ذلك",
     "ReleaseTitle": "عنوان الإصدار",
     "Actions": "أجراءات",

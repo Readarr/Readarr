@@ -443,7 +443,6 @@
     "ReplaceIllegalCharactersHelpText": "잘못된 문자를 바꿉니다. 선택하지 않으면 Radarr가 대신 제거합니다.",
     "ReleaseTitle": "릴리스 제목",
     "Actions": "행위",
-    "UI": "UI",
     "Tomorrow": "내일",
     "Today": "오늘",
     "Progress": "진행",
