@@ -7,8 +7,18 @@ import { inputTypes } from 'Helpers/Props';
 import translate from 'Utilities/String/translate';
 
 const nameOptions = [
-  { key: 'firstLast', value: translate('NameFirstLast') },
-  { key: 'lastFirst', value: translate('NameLastFirst') }
+  {
+    key: 'firstLast',
+    get value() {
+      return translate('NameFirstLast');
+    }
+  },
+  {
+    key: 'lastFirst',
+    get value() {
+      return translate('NameLastFirst');
+    }
+  }
 ];
 
 class AuthorIndexTableOptions extends Component {

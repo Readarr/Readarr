@@ -54,7 +54,7 @@ const COLUMNS = [
   },
   {
     name: 'metadataProfileId',
-    label: translate('MetadataProfile'),
+    label: () => translate('MetadataProfile'),
     isSortable: true,
     isVisible: true,
   },

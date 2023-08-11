@@ -14,14 +14,39 @@ import { inputTypes } from 'Helpers/Props';
 import translate from 'Utilities/String/translate';
 
 const nameOptions = [
-  { key: 'firstLast', value: translate('NameFirstLast') },
-  { key: 'lastFirst', value: translate('NameLastFirst') }
+  {
+    key: 'firstLast',
+    get value() {
+      return translate('NameFirstLast');
+    }
+  },
+  {
+    key: 'lastFirst',
+    get value() {
+      return translate('NameLastFirst');
+    }
+  }
 ];
 
 const posterSizeOptions = [
-  { key: 'small', value: 'Small' },
-  { key: 'medium', value: 'Medium' },
-  { key: 'large', value: 'Large' }
+  {
+    key: 'small',
+    get value() {
+      return translate('Small');
+    }
+  },
+  {
+    key: 'medium',
+    get value() {
+      return translate('Medium');
+    }
+  },
+  {
+    key: 'large',
+    get value() {
+      return translate('Large');
+    }
+  }
 ];
 
 class AuthorIndexOverviewOptionsModalContent extends Component {

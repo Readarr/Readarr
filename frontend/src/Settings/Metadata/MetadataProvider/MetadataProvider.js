@@ -11,16 +11,51 @@ import { inputTypes, kinds } from 'Helpers/Props';
 import translate from 'Utilities/String/translate';
 
 const writeAudioTagOptions = [
-  { key: 'no', value: translate('WriteTagsNo') },
-  { key: 'sync', value: translate('WriteTagsSync') },
-  { key: 'allFiles', value: translate('WriteTagsAll') },
-  { key: 'newFiles', value: translate('WriteTagsNew') }
+  {
+    key: 'no',
+    get value() {
+      return translate('WriteTagsNo');
+    }
+  },
+  {
+    key: 'sync',
+    get value() {
+      return translate('WriteTagsSync');
+    }
+  },
+  {
+    key: 'allFiles',
+    get value() {
+      return translate('WriteTagsAll');
+    }
+  },
+  {
+    key: 'newFiles',
+    get value() {
+      return translate('WriteTagsNew');
+    }
+  }
 ];
 
 const writeBookTagOptions = [
-  { key: 'sync', value: translate('WriteTagsSync') },
-  { key: 'allFiles', value: translate('WriteTagsAll') },
-  { key: 'newFiles', value: translate('WriteTagsNew') }
+  {
+    key: 'sync',
+    get value() {
+      return translate('WriteTagsSync');
+    }
+  },
+  {
+    key: 'allFiles',
+    get value() {
+      return translate('WriteTagsAll');
+    }
+  },
+  {
+    key: 'newFiles',
+    get value() {
+      return translate('WriteTagsNew');
+    }
+  }
 ];
 
 function MetadataProvider(props) {

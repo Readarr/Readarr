@@ -56,7 +56,7 @@ const columns = [
     name: 'customFormatScore',
     label: React.createElement(Icon, {
       name: icons.SCORE,
-      title: translate('CustomFormatScore')
+      title: () => translate('CustomFormatScore')
     }),
     isSortable: true,
     isVisible: true

@@ -69,7 +69,7 @@ const columns = [
     name: 'customFormats',
     label: React.createElement(Icon, {
       name: icons.INTERACTIVE,
-      title: translate('CustomFormat')
+      title: () => translate('CustomFormat')
     }),
     isSortable: true,
     isVisible: true
@@ -91,9 +91,9 @@ const filterExistingFilesOptions = {
 };
 
 const importModeOptions = [
-  { key: 'chooseImportMode', value: translate('ChooseImportMethod'), disabled: true },
-  { key: 'move', value: translate('MoveFiles') },
-  { key: 'copy', value: translate('HardlinkCopyFiles') }
+  { key: 'chooseImportMode', value: () => translate('ChooseImportMethod'), disabled: true },
+  { key: 'move', value: () => translate('MoveFiles') },
+  { key: 'copy', value: () => translate('HardlinkCopyFiles') }
 ];
 
 const SELECT = 'select';
