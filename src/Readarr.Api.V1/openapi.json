@@ -4119,18 +4119,6 @@
         }
       }
     },
-    "/initialize.js": {
-      "get": {
-        "tags": [
-          "InitializeJs"
-        ],
-        "responses": {
-          "200": {
-            "description": "Success"
-          }
-        }
-      }
-    },
     "/api/v1/language": {
       "get": {
         "tags": [
