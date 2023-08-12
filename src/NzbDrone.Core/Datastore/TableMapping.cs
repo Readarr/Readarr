@@ -202,6 +202,7 @@ namespace NzbDrone.Core.Datastore
             Mapper.Entity<IndexerStatus>("IndexerStatus").RegisterModel();
             Mapper.Entity<DownloadClientStatus>("DownloadClientStatus").RegisterModel();
             Mapper.Entity<ImportListStatus>("ImportListStatus").RegisterModel();
+            Mapper.Entity<NotificationStatus>("NotificationStatus").RegisterModel();
 
             Mapper.Entity<CustomFilter>("CustomFilters").RegisterModel();
             Mapper.Entity<ImportListExclusion>("ImportListExclusions").RegisterModel();

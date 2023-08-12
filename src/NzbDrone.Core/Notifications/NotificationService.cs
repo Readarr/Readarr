@@ -31,11 +31,13 @@ namespace NzbDrone.Core.Notifications
           IHandle<UpdateInstalledEvent>
     {
         private readonly INotificationFactory _notificationFactory;
+        private readonly INotificationStatusService _notificationStatusService;
         private readonly Logger _logger;
 
-        public NotificationService(INotificationFactory notificationFactory, Logger logger)
+        public NotificationService(INotificationFactory notificationFactory, INotificationStatusService notificationStatusService, Logger logger)
         {
             _notificationFactory = notificationFactory;
+            _notificationStatusService = notificationStatusService;
             _logger = logger;
         }
 
@@ -140,9 +142,11 @@ namespace NzbDrone.Core.Notifications
                     }
 
                     notification.OnGrab(grabMessage);
+                    _notificationStatusService.RecordSuccess(notification.Definition.Id);
                 }
                 catch (Exception ex)
                 {
+                    _notificationStatusService.RecordFailure(notification.Definition.Id);
                     _logger.Error(ex, "Unable to send OnGrab notification to {0}", notification.Definition.Name);
                 }
             }
@@ -175,11 +179,13 @@ namespace NzbDrone.Core.Notifications
                         if (downloadMessage.OldFiles.Empty() || ((NotificationDefinition)notification.Definition).OnUpgrade)
                         {
                             notification.OnReleaseImport(downloadMessage);
+                            _notificationStatusService.RecordSuccess(notification.Definition.Id);
                         }
                     }
                 }
                 catch (Exception ex)
                 {
+                    _notificationStatusService.RecordFailure(notification.Definition.Id);
                     _logger.Warn(ex, "Unable to send OnReleaseImport notification to: " + notification.Definition.Name);
                 }
             }
@@ -194,10 +200,12 @@ namespace NzbDrone.Core.Notifications
                     if (ShouldHandleAuthor(notification.Definition, message.Author))
                     {
                         notification.OnRename(message.Author, message.RenamedFiles);
+                        _notificationStatusService.RecordSuccess(notification.Definition.Id);
                     }
                 }
                 catch (Exception ex)
                 {
+                    _notificationStatusService.RecordFailure(notification.Definition.Id);
                     _logger.Warn(ex, "Unable to send OnRename notification to: " + notification.Definition.Name);
                 }
             }
@@ -214,10 +222,12 @@ namespace NzbDrone.Core.Notifications
                     if (ShouldHandleAuthor(notification.Definition, deleteMessage.Author))
                     {
                         notification.OnAuthorDelete(deleteMessage);
+                        _notificationStatusService.RecordSuccess(notification.Definition.Id);
                     }
                 }
                 catch (Exception ex)
                 {
+                    _notificationStatusService.RecordFailure(notification.Definition.Id);
                     _logger.Warn(ex, "Unable to send OnAuthorDelete notification to: " + notification.Definition.Name);
                 }
             }
@@ -234,10 +244,12 @@ namespace NzbDrone.Core.Notifications
                     if (ShouldHandleAuthor(notification.Definition, deleteMessage.Book.Author))
                     {
                         notification.OnBookDelete(deleteMessage);
+                        _notificationStatusService.RecordSuccess(notification.Definition.Id);
                     }
                 }
                 catch (Exception ex)
                 {
+                    _notificationStatusService.RecordFailure(notification.Definition.Id);
                     _logger.Warn(ex, "Unable to send OnBookDelete notification to: " + notification.Definition.Name);
                 }
             }
@@ -263,11 +275,13 @@ namespace NzbDrone.Core.Notifications
                         if (ShouldHandleAuthor(notification.Definition, message.BookFile.Author))
                         {
                             notification.OnBookFileDelete(deleteMessage);
+                            _notificationStatusService.RecordSuccess(notification.Definition.Id);
                         }
                     }
                 }
                 catch (Exception ex)
                 {
+                    _notificationStatusService.RecordFailure(notification.Definition.Id);
                     _logger.Warn(ex, "Unable to send OnBookFileDelete notification to: " + notification.Definition.Name);
                 }
             }
@@ -289,10 +303,12 @@ namespace NzbDrone.Core.Notifications
                     if (ShouldHandleHealthFailure(message.HealthCheck, ((NotificationDefinition)notification.Definition).IncludeHealthWarnings))
                     {
                         notification.OnHealthIssue(message.HealthCheck);
+                        _notificationStatusService.RecordSuccess(notification.Definition.Id);
                     }
                 }
                 catch (Exception ex)
                 {
+                    _notificationStatusService.RecordFailure(notification.Definition.Id);
                     _logger.Warn(ex, "Unable to send OnHealthIssue notification to: " + notification.Definition.Name);
                 }
             }
@@ -311,9 +327,18 @@ namespace NzbDrone.Core.Notifications
 
             foreach (var notification in _notificationFactory.OnDownloadFailureEnabled())
             {
-                if (ShouldHandleAuthor(notification.Definition, message.TrackedDownload.RemoteBook.Author))
+                try
                 {
-                    notification.OnDownloadFailure(downloadFailedMessage);
+                    if (ShouldHandleAuthor(notification.Definition, message.TrackedDownload.RemoteBook.Author))
+                    {
+                        notification.OnDownloadFailure(downloadFailedMessage);
+                        _notificationStatusService.RecordSuccess(notification.Definition.Id);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    _notificationStatusService.RecordFailure(notification.Definition.Id);
+                    _logger.Warn(ex, "Unable to send OnDownloadFailure notification to: " + notification.Definition.Name);
                 }
             }
         }
@@ -328,9 +353,18 @@ namespace NzbDrone.Core.Notifications
 
             foreach (var notification in _notificationFactory.OnImportFailureEnabled())
             {
-                if (ShouldHandleAuthor(notification.Definition, message.TrackedDownload.RemoteBook.Author))
+                try
                 {
-                    notification.OnImportFailure(downloadMessage);
+                    if (ShouldHandleAuthor(notification.Definition, message.TrackedDownload.RemoteBook.Author))
+                    {
+                        notification.OnImportFailure(downloadMessage);
+                        _notificationStatusService.RecordSuccess(notification.Definition.Id);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    _notificationStatusService.RecordFailure(notification.Definition.Id);
+                    _logger.Warn(ex, "Unable to send OnImportFailure notification to: " + notification.Definition.Name);
                 }
             }
         }
@@ -349,9 +383,18 @@ namespace NzbDrone.Core.Notifications
 
             foreach (var notification in _notificationFactory.OnBookRetagEnabled())
             {
-                if (ShouldHandleAuthor(notification.Definition, message.Author))
+                try
                 {
-                    notification.OnBookRetag(retagMessage);
+                    if (ShouldHandleAuthor(notification.Definition, message.Author))
+                    {
+                        notification.OnBookRetag(retagMessage);
+                        _notificationStatusService.RecordSuccess(notification.Definition.Id);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    _notificationStatusService.RecordFailure(notification.Definition.Id);
+                    _logger.Warn(ex, "Unable to send OnBookRetag notification to: " + notification.Definition.Name);
                 }
             }
         }
@@ -368,9 +411,11 @@ namespace NzbDrone.Core.Notifications
                 try
                 {
                     notification.OnApplicationUpdate(updateMessage);
+                    _notificationStatusService.RecordSuccess(notification.Definition.Id);
                 }
                 catch (Exception ex)
                 {
+                    _notificationStatusService.RecordFailure(notification.Definition.Id);
                     _logger.Warn(ex, "Unable to send OnApplicationUpdate notification to: " + notification.Definition.Name);
                 }
             }
