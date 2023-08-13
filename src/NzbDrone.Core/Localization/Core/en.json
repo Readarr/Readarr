@@ -63,6 +63,7 @@
   "AutoUnmonitorPreviouslyDownloadedBooksHelpText": "Books deleted from disk are automatically unmonitored in Readarr",
   "Automatic": "Automatic",
   "AutomaticAdd": "Automatic Add",
+  "AutomaticUpdatesDisabledDocker": "Automatic updates are not directly supported when using the Docker update mechanism. You will need to update the container image outside of {appName} or use a script",
   "AutomaticallySwitchEdition": "Automatically Switch Edition",
   "Backup": "Backup",
   "BackupFolderHelpText": "Relative paths will be under Readarr's AppData directory",

@@ -91,6 +91,7 @@ function UpdateSettings(props) {
                 type={inputTypes.CHECK}
                 name="updateAutomatically"
                 helpText={translate('UpdateAutomaticallyHelpText')}
+                helpTextWarning={updateMechanism.value === 'docker' ? translate('AutomaticUpdatesDisabledDocker', { appName: 'Readarr' }) : undefined}
                 onChange={onInputChange}
                 {...updateAutomatically}
               />
