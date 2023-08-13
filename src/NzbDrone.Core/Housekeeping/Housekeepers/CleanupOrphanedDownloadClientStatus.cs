@@ -1,4 +1,4 @@
-﻿using Dapper;
+using Dapper;
 using NzbDrone.Core.Datastore;
 
 namespace NzbDrone.Core.Housekeeping.Housekeepers
