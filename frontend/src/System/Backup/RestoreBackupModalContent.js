@@ -146,7 +146,7 @@ class RestoreBackupModalContent extends Component {
 
         <ModalBody>
           {
-            !!id && `Would you like to restore the backup '${name}'?`
+            !!id && translate('WouldYouLikeToRestoreBackup', { name })
           }
 
           {

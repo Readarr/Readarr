@@ -178,7 +178,7 @@ function ManageIndexersEditModalContent(
 
       <ModalFooter className={styles.modalFooter}>
         <div className={styles.selected}>
-          {translate('CountIndexersSelected', [selectedCount])}
+          {translate('CountIndexersSelected', { selectedCount })}
         </div>
 
         <div>

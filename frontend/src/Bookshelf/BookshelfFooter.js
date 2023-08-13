@@ -143,7 +143,7 @@ class BookshelfFooter extends Component {
 
         <div>
           <div className={styles.label}>
-            {selectedCount} Author(s) Selected
+            {translate('CountAuthorsSelected', { selectedCount })}
           </div>
 
           <SpinnerButton
