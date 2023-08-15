@@ -587,7 +587,7 @@
     "RemoveSelectedItemsQueueMessageText": "Sigur doriți să eliminați {0} elementul {1} din coadă?",
     "ApplyTagsHelpTextHowToApplyAuthors": "Cum se aplică etichete indexatoarelor selectate",
     "CountIndexersSelected": "{0} Indexatoare selectate",
-    "DeleteSelectedDownloadClients": "Ștergeți clientul de descărcare",
+    "DeleteSelectedDownloadClients": "Ștergere clienți de descărcare",
     "ExistingTag": "Etichetă existentă",
     "No": "Nu",
     "NoChange": "Nicio Modificare",
@@ -613,5 +613,6 @@
     "CloneCondition": "Clonați condiție",
     "InstanceName": "Nume instanță",
     "Publisher": "Editor",
-    "Implementation": "Implementarea"
+    "Implementation": "Implementarea",
+    "Authentication": "Autentificare"
 }
