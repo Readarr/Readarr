@@ -6,7 +6,7 @@
     "APIKey": "Chiave API",
     "About": "Info",
     "AddListExclusion": "Aggiungi Lista Esclusioni",
-    "AddingTag": "Aggiungi etichetta",
+    "AddingTag": "Aggiungendo etichetta",
     "Fixed": "Fissato",
     "Local": "Locale",
     "Remove": "Rimuovi",
@@ -40,7 +40,7 @@
     "BackupFolderHelpText": "I percorsi relativi saranno nella cartella AppData di Readarr",
     "BackupNow": "Esegui backup ora",
     "BackupRetentionHelpText": "I backup automatici più vecchi del periodo di conservazione verranno eliminati automaticamente",
-    "Backups": "I Backup",
+    "Backups": "Backups",
     "BindAddress": "Indirizzo di Bind",
     "BindAddressHelpText": "Indirizzo IP valido, localhost o '*' per tutte le interfacce di rete",
     "BindAddressHelpTextWarning": "Richiede il riavvio per avere effetto",
@@ -717,5 +717,12 @@
     "RedownloadFailed": "Download fallito",
     "RemoveSelectedItems": "Rimuovi elementi selezionati",
     "RemovingTag": "Sto eliminando il tag",
-    "SetTags": "Imposta Etichette"
+    "SetTags": "Imposta Etichette",
+    "Activity": "Attività",
+    "AutoAdd": "Aggiungi Automaticamente",
+    "ApplyChanges": "Applica Cambiamenti",
+    "ApiKeyValidationHealthCheckMessage": "Aggiorna la tua chiave API in modo che abbia una lunghezza di almeno {0} caratteri. Puoi farlo dalle impostazioni o dal file di configurazione",
+    "AddNew": "Aggiungi Nuovo",
+    "AutomaticAdd": "Aggiungi Automaticamente",
+    "Backup": "Backup"
 }
