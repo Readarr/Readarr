@@ -86,7 +86,7 @@ namespace NzbDrone.Core.Test.MetadataSource.Goodreads
         }
 
         [TestCase("Roald Dahl", 0, typeof(Author), new[] { "Roald Dahl" }, TestName = "author")]
-        [TestCase("Roald Dahl", 1, typeof(Book), new[] { "Boy: Tales of Childhood" }, TestName = "book")]
+        [TestCase("Roald Dahl", 1, typeof(Book), new[] { "Going Solo", "Boy: Tales of Childhood" }, TestName = "book")]
         public void successful_combined_search(string query, int position, Type resultType, string[] expected)
         {
             var result = Subject.SearchForNewEntity(query);
