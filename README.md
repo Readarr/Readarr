@@ -30,7 +30,6 @@ Note that only one type of a given book is supported. If you want both an audiob
 
 [![Wiki](https://img.shields.io/badge/servarr-wiki-181717.svg?maxAge=60)](https://wiki.servarr.com/readarr)
 [![Discord](https://img.shields.io/badge/discord-chat-7289DA.svg?maxAge=60)](https://readarr.com/discord)
-[![Reddit](https://img.shields.io/badge/reddit-discussion-FF4500.svg?maxAge=60)](https://www.reddit.com/r/readarr)
 
 Note: GitHub Issues are for Bugs and Feature Requests Only
 
