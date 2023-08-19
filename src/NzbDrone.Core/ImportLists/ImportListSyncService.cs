@@ -67,41 +67,51 @@ namespace NzbDrone.Core.ImportLists
 
         private List<Book> SyncAll()
         {
+            if (_importListFactory.AutomaticAddEnabled().Empty())
+            {
+                _logger.Debug("No import lists with automatic add enabled");
+
+                return new List<Book>();
+            }
+
             _logger.ProgressInfo("Starting Import List Sync");
 
-            var rssReleases = _listFetcherAndParser.Fetch();
+            var listItems = _listFetcherAndParser.Fetch().ToList();
 
-            var reports = rssReleases.ToList();
-
-            return ProcessReports(reports);
+            return ProcessListItems(listItems);
         }
 
         private List<Book> SyncList(ImportListDefinition definition)
         {
-            _logger.ProgressInfo(string.Format("Starting Import List Refresh for List {0}", definition.Name));
+            _logger.ProgressInfo($"Starting Import List Refresh for List {definition.Name}");
 
-            var rssReleases = _listFetcherAndParser.FetchSingleList(definition);
+            var listItems = _listFetcherAndParser.FetchSingleList(definition).ToList();
 
-            var reports = rssReleases.ToList();
-
-            return ProcessReports(reports);
+            return ProcessListItems(listItems);
         }
 
-        private List<Book> ProcessReports(List<ImportListItemInfo> reports)
+        private List<Book> ProcessListItems(List<ImportListItemInfo> items)
         {
             var processed = new List<Book>();
             var authorsToAdd = new List<Author>();
             var booksToAdd = new List<Book>();
 
-            _logger.ProgressInfo("Processing {0} list items", reports.Count);
+            if (items.Count == 0)
+            {
+                _logger.ProgressInfo("No list items to process");
+
+                return new List<Book>();
+            }
+
+            _logger.ProgressInfo("Processing {0} list items", items.Count);
 
             var reportNumber = 1;
 
             var listExclusions = _importListExclusionService.All();
 
-            foreach (var report in reports)
+            foreach (var report in items)
             {
-                _logger.ProgressTrace("Processing list item {0}/{1}", reportNumber, reports.Count);
+                _logger.ProgressTrace("Processing list item {0}/{1}", reportNumber, items.Count);
 
                 reportNumber++;
 
@@ -130,7 +140,7 @@ namespace NzbDrone.Core.ImportLists
             var addedAuthors = _addAuthorService.AddAuthors(authorsToAdd, false);
             var addedBooks = _addBookService.AddBooks(booksToAdd, false);
 
-            var message = string.Format($"Import List Sync Completed. Items found: {reports.Count}, Authors added: {authorsToAdd.Count}, Books added: {booksToAdd.Count}");
+            var message = string.Format($"Import List Sync Completed. Items found: {items.Count}, Authors added: {authorsToAdd.Count}, Books added: {booksToAdd.Count}");
 
             _logger.ProgressInfo(message);
 
@@ -364,7 +374,7 @@ namespace NzbDrone.Core.ImportLists
             var existingAuthor = _authorService.FindById(report.AuthorGoodreadsId);
 
             // Check to see if author excluded
-            var excludedAuthor = listExclusions.Where(s => s.ForeignId == report.AuthorGoodreadsId).SingleOrDefault();
+            var excludedAuthor = listExclusions.SingleOrDefault(s => s.ForeignId == report.AuthorGoodreadsId);
 
             // Check to see if author in import
             var existingImportAuthor = authorsToAdd.Find(i => i.ForeignAuthorId == report.AuthorGoodreadsId);
@@ -425,16 +435,7 @@ namespace NzbDrone.Core.ImportLists
 
         public void Execute(ImportListSyncCommand message)
         {
-            List<Book> processed;
-
-            if (message.DefinitionId.HasValue)
-            {
-                processed = SyncList(_importListFactory.Get(message.DefinitionId.Value));
-            }
-            else
-            {
-                processed = SyncAll();
-            }
+            var processed = message.DefinitionId.HasValue ? SyncList(_importListFactory.Get(message.DefinitionId.Value)) : SyncAll();
 
             _eventAggregator.PublishEvent(new ImportListSyncCompleteEvent(processed));
         }
