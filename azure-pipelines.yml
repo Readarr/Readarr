@@ -27,6 +27,10 @@ trigger:
     include:
     - develop
     - master
+  paths:
+    exclude:
+      - .github
+      - src/Readarr.Api.*/openapi.json
 
 pr:
   branches:
@@ -34,83 +38,37 @@ pr:
     - develop
   paths:
     exclude:
+    - .github
     - src/NzbDrone.Core/Localization/Core
     - src/Readarr.Api.*/openapi.json
 
 stages:
-
-  - stage: Build_Backend_Windows
-    displayName: Build Backend
-    dependsOn: []
+  - stage: Setup
+    displayName: Setup
     jobs:
-    - job: Backend
-      strategy:
-        matrix:
-          Windows:
-            osName: 'Windows'
-            imageName: ${{ variables.windowsImage }}
-            enableAnalysis: 'false'
-
+    - job:
+      displayName: Build Variables
       pool:
-        vmImage: $(imageName)
-      variables:
-        # Disable stylecop here - linting errors get caught by the analyze task
-        EnableAnalyzers: $(enableAnalysis)
+        vmImage: ${{ variables.linuxImage }}
       steps:
       # Set the build name properly.  The 'name' property won't recursively expand so hack here:
       - bash: echo "##vso[build.updatebuildnumber]$READARRVERSION"
         displayName: Set Build Name
-      - checkout: self
-        submodules: true
-        fetchDepth: 1
-      - task: UseDotNet@2
-        displayName: 'Install .net core'
-        inputs:
-          version: $(dotnetVersion)
       - bash: |
-          SDK_PATH="${AGENT_TOOLSDIRECTORY}/dotnet/sdk/${DOTNETVERSION}"
-          BUNDLEDVERSIONS="${SDK_PATH}/Microsoft.NETCoreSdk.BundledVersions.props"
-          
-          if ! grep -q freebsd-x64 $BUNDLEDVERSIONS; then
-            sed -i.ORI 's/osx-x64/osx-x64;freebsd-x64;linux-x86/' $BUNDLEDVERSIONS
+          if [[ $BUILD_REASON == "PullRequest" ]]; then
+          git diff origin/develop...HEAD  --name-only | grep -E "^(src/|azure-pipelines.yml)"
+          echo $? > not_backend_update
+          else
+          echo 0 > not_backend_update
           fi
-        displayName: Extra Platform Support
-      - task: Cache@2
-        inputs:
-          key: 'nuget | "$(Agent.OS)" | $(Build.SourcesDirectory)/src/Directory.Packages.props'
-          path: $(nugetCacheFolder)
-        displayName: Cache NuGet packages
-      - bash: ./build.sh --backend --enable-bsd
-        displayName: Build Readarr Backend
-        env:
-          NUGET_PACKAGES: $(nugetCacheFolder)
-      - powershell: Get-ChildItem _output\net6.0*,_output\*.Update\* -Recurse | Where { $_.Fullname -notlike "*\publish\*" -and $_.attributes -notlike "*directory*" } | Remove-Item
-        displayName: Clean up intermediate output
-      - publish: $(outputFolder)
-        artifact: '$(osName)Backend'
-        displayName: Publish Backend
-      - publish: '$(testsFolder)/net6.0/win-x64/publish'
-        artifact: win-x64-tests
-        displayName: Publish win-x64 Test Package
-      - publish: '$(testsFolder)/net6.0/linux-x64/publish'
-        artifact: linux-x64-tests
-        displayName: Publish linux-x64 Test Package
-      - publish: '$(testsFolder)/net6.0/linux-x86/publish'
-        artifact: linux-x86-tests
-        displayName: Publish linux-x86 Test Package
-      - publish: '$(testsFolder)/net6.0/linux-musl-x64/publish'
-        artifact: linux-musl-x64-tests
-        displayName: Publish linux-musl-x64 Test Package
-      - publish: '$(testsFolder)/net6.0/freebsd-x64/publish'
-        artifact: freebsd-x64-tests
-        displayName: Publish freebsd-x64 Test Package
-      - publish: '$(testsFolder)/net6.0/osx-x64/publish'
-        artifact: osx-x64-tests
-        displayName: Publish osx-x64 Test Package
-
-  - stage: Build_Backend_Other
-    displayName: Build Backend (Other OS)
-    dependsOn: []
+          cat not_backend_update
+        displayName: Check for Backend File Changes
+      - publish: not_backend_update
+        artifact: not_backend_update
+        displayName: Publish update type
+  - stage: Build_Backend
+    displayName: Build Backend
+    dependsOn: Setup
     jobs:
     - job: Backend
       strategy:
@@ -123,6 +81,10 @@ stages:
             osName: 'Mac'
             imageName: ${{ variables.macImage }}
             enableAnalysis: 'false'
+          Windows:
+            osName: 'Windows'
+            imageName: ${{ variables.windowsImage }}
+            enableAnalysis: 'false'
 
       pool:
         vmImage: $(imageName)
@@ -138,22 +100,17 @@ stages:
         inputs:
           version: $(dotnetVersion)
       - bash: |
-          SDK_PATH="${AGENT_TOOLSDIRECTORY}/dotnet/sdk/${DOTNETVERSION}"
-          BUNDLEDVERSIONS="${SDK_PATH}/Microsoft.NETCoreSdk.BundledVersions.props"
-          
-          if ! grep -q freebsd-x64 $BUNDLEDVERSIONS; then
+          BUNDLEDVERSIONS=${AGENT_TOOLSDIRECTORY}/dotnet/sdk/${DOTNETVERSION}/Microsoft.NETCoreSdk.BundledVersions.props
+          echo $BUNDLEDVERSIONS
+          if grep -q freebsd-x64 $BUNDLEDVERSIONS; then
+            echo "Extra platforms already enabled"
+          else
+            echo "Enabling extra platform support"
             sed -i.ORI 's/osx-x64/osx-x64;freebsd-x64;linux-x86/' $BUNDLEDVERSIONS
           fi
-        displayName: Extra Platform Support
-      - task: Cache@2
-        inputs:
-          key: 'nuget | "$(Agent.OS)" | $(Build.SourcesDirectory)/src/Directory.Packages.props'
-          path: $(nugetCacheFolder)
-        displayName: Cache NuGet packages
+        displayName: Enable Extra Platform Support
       - bash: ./build.sh --backend --enable-extra-platforms
         displayName: Build Readarr Backend
-        env:
-          NUGET_PACKAGES: $(nugetCacheFolder)
       - bash: |
           find ${OUTPUTFOLDER} -type f ! -path "*/publish/*" -exec rm -rf {} \;
           find ${OUTPUTFOLDER} -depth -empty -type d -exec rm -r "{}" \;
@@ -161,10 +118,38 @@ stages:
           find ${TESTSFOLDER} -depth -empty -type d -exec rm -r "{}" \;
         displayName: Clean up intermediate output
         condition: and(succeeded(), ne(variables['osName'], 'Windows'))
+      - publish: $(outputFolder)
+        artifact: '$(osName)Backend'
+        displayName: Publish Backend
+        condition: and(succeeded(), eq(variables['osName'], 'Windows'))
+      - publish: '$(testsFolder)/net6.0/win-x64/publish'
+        artifact: win-x64-tests
+        displayName: Publish win-x64 Test Package
+        condition: and(succeeded(), eq(variables['osName'], 'Windows'))
+      - publish: '$(testsFolder)/net6.0/linux-x64/publish'
+        artifact: linux-x64-tests
+        displayName: Publish linux-x64 Test Package
+        condition: and(succeeded(), eq(variables['osName'], 'Windows'))
+      - publish: '$(testsFolder)/net6.0/linux-x86/publish'
+        artifact: linux-x86-tests
+        displayName: Publish linux-x86 Test Package
+        condition: and(succeeded(), eq(variables['osName'], 'Windows'))
+      - publish: '$(testsFolder)/net6.0/linux-musl-x64/publish'
+        artifact: linux-musl-x64-tests
+        displayName: Publish linux-musl-x64 Test Package
+        condition: and(succeeded(), eq(variables['osName'], 'Windows'))
+      - publish: '$(testsFolder)/net6.0/freebsd-x64/publish'
+        artifact: freebsd-x64-tests
+        displayName: Publish freebsd-x64 Test Package
+        condition: and(succeeded(), eq(variables['osName'], 'Windows'))
+      - publish: '$(testsFolder)/net6.0/osx-x64/publish'
+        artifact: osx-x64-tests
+        displayName: Publish osx-x64 Test Package
+        condition: and(succeeded(), eq(variables['osName'], 'Windows'))
 
   - stage: Build_Frontend
     displayName: Frontend
-    dependsOn: []
+    dependsOn: Setup
     jobs:
     - job: Build
       strategy:
@@ -193,7 +178,6 @@ stages:
           key: 'yarn | "$(osName)" | yarn.lock'
           restoreKeys: |
              yarn | "$(osName)"
-             yarn
           path: $(yarnCacheFolder)
         displayName: Cache Yarn packages
       - bash: ./build.sh --frontend
@@ -205,10 +189,10 @@ stages:
         artifact: '$(osName)Frontend'
         displayName: Publish Frontend
         condition: and(succeeded(), eq(variables['osName'], 'Windows'))
-        
+
   - stage: Installer
     dependsOn:
-    - Build_Backend_Windows
+    - Build_Backend
     - Build_Frontend
     jobs:
     - job: Windows_Installer
@@ -241,7 +225,7 @@ stages:
 
   - stage: Packages
     dependsOn:
-    - Build_Backend_Windows
+    - Build_Backend
     - Build_Frontend
     jobs:
     - job: Other_Packages
@@ -407,14 +391,29 @@ stages:
           SENTRY_AUTH_TOKEN: $(sentryAuthTokenServarr)
           SENTRY_ORG: $(sentryOrg)
           SENTRY_URL: $(sentryUrl)
-    
+
   - stage: Unit_Test
     displayName: Unit Tests
-    dependsOn: Build_Backend_Windows
-    condition: succeeded()
+    dependsOn: Build_Backend
+
     jobs:
+    - job: Prepare
+      pool:
+        vmImage: ${{ variables.linuxImage }}
+      steps:
+      - checkout: none
+      - task: DownloadPipelineArtifact@2
+        inputs:
+          buildType: 'current'
+          artifactName: 'not_backend_update'
+          targetPath: '.'
+      - bash: echo "##vso[task.setvariable variable=backendNotUpdated;isOutput=true]$(cat not_backend_update)"
+        name: setVar
+
     - job: Unit
       displayName: Unit Native
+      dependsOn: Prepare
+      condition: and(succeeded(), eq(dependencies.Prepare.outputs['setVar.backendNotUpdated'], '0'))
       workspace:
         clean: all
 
@@ -480,6 +479,8 @@ stages:
 
     - job: Unit_Docker
       displayName: Unit Docker
+      dependsOn: Prepare
+      condition: and(succeeded(), eq(dependencies.Prepare.outputs['setVar.backendNotUpdated'], '0'))
       strategy:
         matrix:
           alpine:
@@ -493,11 +494,11 @@ stages:
 
       pool:
         vmImage: ${{ variables.linuxImage }}
-      
+
       container: $[ variables['containerImage'] ]
 
       timeoutInMinutes: 10
-        
+
       steps:
       - task: UseDotNet@2
         displayName: 'Install .NET'
@@ -531,14 +532,14 @@ stages:
           testResultsFiles: '**/TestResult.xml'
           testRunTitle: '$(testName) Unit Tests'
           failTaskOnFailedTests: true
-          
+
     - job: Unit_LinuxCore_Postgres14
       displayName: Unit Native LinuxCore with Postgres14 Database
       dependsOn: Prepare
       condition: and(succeeded(), eq(dependencies.Prepare.outputs['setVar.backendNotUpdated'], '0'))
       variables:
         pattern: 'Readarr.*.linux-core-x64.tar.gz'
-        artifactName: LinuxCoreTests
+        artifactName: linux-x64-tests
         Readarr__Postgres__Host: 'localhost'
         Readarr__Postgres__Port: '5432'
         Readarr__Postgres__User: 'readarr'
@@ -548,7 +549,7 @@ stages:
         vmImage: ${{ variables.linuxImage }}
 
       timeoutInMinutes: 10
-        
+
       steps:
       - task: UseDotNet@2
         displayName: 'Install .net core'
@@ -559,7 +560,7 @@ stages:
         displayName: Download Test Artifact
         inputs:
           buildType: 'current'
-          artifactName: 'linux-x64-Tests'
+          artifactName: $(artifactName)
           targetPath: $(testsFolder)
       - bash: find ${TESTSFOLDER} -name "Readarr.Test.Dummy" -exec chmod a+x {} \;
         displayName: Make Test Dummy Executable
@@ -596,12 +597,12 @@ stages:
         Readarr__Postgres__Port: '5432'
         Readarr__Postgres__User: 'readarr'
         Readarr__Postgres__Password: 'readarr'
-  
+
       pool:
         vmImage: ${{ variables.linuxImage }}
 
       timeoutInMinutes: 10
-        
+
       steps:
       - task: UseDotNet@2
         displayName: 'Install .net core'
@@ -641,9 +642,25 @@ stages:
   - stage: Integration
     displayName: Integration
     dependsOn: Packages
+
     jobs:
+    - job: Prepare
+      pool:
+        vmImage: ${{ variables.linuxImage }}
+      steps:
+      - checkout: none
+      - task: DownloadPipelineArtifact@2
+        inputs:
+          buildType: 'current'
+          artifactName: 'not_backend_update'
+          targetPath: '.'
+      - bash: echo "##vso[task.setvariable variable=backendNotUpdated;isOutput=true]$(cat not_backend_update)"
+        name: setVar
+
     - job: Integration_Native
       displayName: Integration Native
+      dependsOn: Prepare
+      condition: and(succeeded(), eq(dependencies.Prepare.outputs['setVar.backendNotUpdated'], '0'))
       strategy:
         matrix:
           MacCore:
@@ -664,7 +681,7 @@ stages:
 
       pool:
         vmImage: $(imageName)
-        
+
       steps:
       - task: UseDotNet@2
         displayName: 'Install .net core'
@@ -686,7 +703,7 @@ stages:
           targetPath: $(Build.ArtifactStagingDirectory)
       - task: ExtractFiles@1
         inputs:
-          archiveFilePatterns: '$(Build.ArtifactStagingDirectory)/**/$(pattern)' 
+          archiveFilePatterns: '$(Build.ArtifactStagingDirectory)/**/$(pattern)'
           destinationFolder: '$(Build.ArtifactStagingDirectory)/bin'
         displayName: Extract Package
       - bash: |
@@ -740,7 +757,7 @@ stages:
             targetPath: $(Build.ArtifactStagingDirectory)
         - task: ExtractFiles@1
           inputs:
-            archiveFilePatterns: '$(Build.ArtifactStagingDirectory)/**/$(pattern)' 
+            archiveFilePatterns: '$(Build.ArtifactStagingDirectory)/**/$(pattern)'
             destinationFolder: '$(Build.ArtifactStagingDirectory)/bin'
           displayName: Extract Package
         - bash: |
@@ -803,7 +820,7 @@ stages:
             targetPath: $(Build.ArtifactStagingDirectory)
         - task: ExtractFiles@1
           inputs:
-            archiveFilePatterns: '$(Build.ArtifactStagingDirectory)/**/$(pattern)' 
+            archiveFilePatterns: '$(Build.ArtifactStagingDirectory)/**/$(pattern)'
             destinationFolder: '$(Build.ArtifactStagingDirectory)/bin'
           displayName: Extract Package
         - bash: |
@@ -832,6 +849,8 @@ stages:
 
     - job: Integration_FreeBSD
       displayName: Integration Native FreeBSD
+      dependsOn: Prepare
+      condition: and(succeeded(), eq(dependencies.Prepare.outputs['setVar.backendNotUpdated'], '0'))
       workspace:
         clean: all
       variables:
@@ -876,6 +895,8 @@ stages:
 
     - job: Integration_Docker
       displayName: Integration Docker
+      dependsOn: Prepare
+      condition: and(succeeded(), eq(dependencies.Prepare.outputs['setVar.backendNotUpdated'], '0'))
       strategy:
         matrix:
           alpine:
@@ -894,7 +915,7 @@ stages:
       container: $[ variables['containerImage'] ]
 
       timeoutInMinutes: 15
-        
+
       steps:
       - task: UseDotNet@2
         displayName: 'Install .NET'
@@ -922,7 +943,7 @@ stages:
           targetPath: $(Build.ArtifactStagingDirectory)
       - task: ExtractFiles@1
         inputs:
-          archiveFilePatterns: '$(Build.ArtifactStagingDirectory)/**/$(pattern)' 
+          archiveFilePatterns: '$(Build.ArtifactStagingDirectory)/**/$(pattern)'
           destinationFolder: '$(Build.ArtifactStagingDirectory)/bin'
         displayName: Extract Package
       - bash: |
@@ -944,7 +965,7 @@ stages:
   - stage: Automation
     displayName: Automation
     dependsOn: Packages
-    
+
     jobs:
     - job: Automation
       strategy:
@@ -954,20 +975,23 @@ stages:
             artifactName: 'linux-x64'
             imageName: ${{ variables.linuxImage }}
             pattern: 'Readarr.*.linux-core-x64.tar.gz'
+            failBuild: true
           Mac:
             osName: 'Mac'
             artifactName: 'osx-x64'
             imageName: ${{ variables.macImage }}
             pattern: 'Readarr.*.osx-core-x64.tar.gz'
+            failBuild: true
           Windows:
             osName: 'Windows'
             artifactName: 'win-x64'
             imageName: ${{ variables.windowsImage }}
             pattern: 'Readarr.*.windows-core-x64.zip'
+            failBuild: true
 
       pool:
         vmImage: $(imageName)
-        
+
       steps:
       - task: UseDotNet@2
         displayName: 'Install .net core'
@@ -989,7 +1013,7 @@ stages:
           targetPath: $(Build.ArtifactStagingDirectory)
       - task: ExtractFiles@1
         inputs:
-          archiveFilePatterns: '$(Build.ArtifactStagingDirectory)/**/$(pattern)' 
+          archiveFilePatterns: '$(Build.ArtifactStagingDirectory)/**/$(pattern)'
           destinationFolder: '$(Build.ArtifactStagingDirectory)/bin'
         displayName: Extract Package
       - bash: |
@@ -1009,20 +1033,35 @@ stages:
           TargetFolder: '$(Build.ArtifactStagingDirectory)/screenshots'
       - publish: $(Build.ArtifactStagingDirectory)/screenshots
         artifact: '$(osName)AutomationScreenshots'
-        condition: and(succeeded(), eq(variables['System.JobAttempt'], '1'))
         displayName: Publish Screenshot Bundle
+        condition: and(succeeded(), eq(variables['System.JobAttempt'], '1'))
       - task: PublishTestResults@2
         inputs:
           testResultsFormat: 'NUnit'
           testResultsFiles: '**/TestResult.xml'
           testRunTitle: '$(osName) Automation Tests'
-          failTaskOnFailedTests: true
+          failTaskOnFailedTests: $(failBuild)
         displayName: Publish Test Results
 
   - stage: Analyze
-    dependsOn: []
+    dependsOn:
+    - Setup
     displayName: Analyze
+
     jobs:
+    - job: Prepare
+      pool:
+        vmImage: ${{ variables.linuxImage }}
+      steps:
+      - checkout: none
+      - task: DownloadPipelineArtifact@2
+        inputs:
+          buildType: 'current'
+          artifactName: 'not_backend_update'
+          targetPath: '.'
+      - bash: echo "##vso[task.setvariable variable=backendNotUpdated;isOutput=true]$(cat not_backend_update)"
+        name: setVar
+
     - job: Lint_Frontend
       displayName: Lint Frontend
       strategy:
@@ -1048,7 +1087,6 @@ stages:
           key: 'yarn | "$(osName)" | yarn.lock'
           restoreKeys: |
              yarn | "$(osName)"
-             yarn
           path: $(yarnCacheFolder)
         displayName: Cache Yarn packages
       - bash: ./build.sh --lint
@@ -1077,11 +1115,16 @@ stages:
           cliProjectVersion: '$(readarrVersion)'
           cliSources: './frontend'
       - task: SonarCloudAnalyze@1
-      
+
     - job: Api_Docs
       displayName: API Docs
+      dependsOn: Prepare
       condition: |
-        and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/develop'))
+        and
+        (
+          and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/develop')),
+          and(succeeded(), eq(dependencies.Prepare.outputs['setVar.backendNotUpdated'], '0'))
+        )
 
       pool:
         vmImage: ${{ variables.windowsImage }}
@@ -1094,7 +1137,7 @@ stages:
       - checkout: self
         submodules: true
         persistCredentials: true
-        fetchDepth: 1    
+        fetchDepth: 1
       - bash: ./docs.sh Windows
         displayName: Create openapi.json
       - bash: |
@@ -1102,10 +1145,9 @@ stages:
           git config --global user.name "Servarr"
           git checkout -b api-docs
           git add .
-          git status
-          if git status | grep modified
+          if git status | grep -q modified
           then
-            git commit -am 'Automated API Docs update [skip ci]'
+            git commit -am 'Automated API Docs update'
             git push -f --set-upstream origin api-docs
             curl -X POST -H "Authorization: token ${GITHUBTOKEN}" -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/readarr/readarr/pulls -d '{"head":"api-docs","base":"develop","title":"Update API docs"}'
           else
@@ -1129,33 +1171,25 @@ stages:
 
     - job: Analyze_Backend
       displayName: Backend
+      dependsOn: Prepare
+      condition: and(succeeded(), eq(dependencies.Prepare.outputs['setVar.backendNotUpdated'], '0'))
 
       variables:
         disable.coverage.autogenerate: 'true'
+        EnableAnalyzers: 'false'
+
       pool:
-        vmImage: ${{ variables.linuxImage }}
+        vmImage: ${{ variables.windowsImage }}
 
       steps:
       - task: UseDotNet@2
-        displayName: 'Install .net core 2.1'
-        inputs:
-          version: 2.1.815
-      - task: UseDotNet@2
-        displayName: 'Install .net core 3.1'
-        inputs:
-          version: 3.1.413    
-      - task: UseDotNet@2
-        displayName: 'Install .net core 5.0'
+        displayName: 'Install .net core'
         inputs:
           version: $(dotnetVersion)
       - checkout: self # Need history for Sonar analysis
         submodules: true
-      - task: Cache@2
-        inputs:
-          key: 'nuget | "$(Agent.OS)" | $(Build.SourcesDirectory)/src/Directory.Packages.props'
-          path: $(nugetCacheFolder)
-        displayName: Cache NuGet packages
-
+      - powershell: Set-Service SCardSvr -StartupType Manual
+        displayName: Enable Windows Test Service
       - task: SonarCloudPrepare@1
         condition: eq(variables['System.PullRequest.IsFork'], 'False')
         inputs:
@@ -1166,16 +1200,14 @@ stages:
           projectName: 'Readarr'
           projectVersion: '$(readarrVersion)'
           extraProperties: |
-            sonar.exclusions=**/obj/**,**/*.dll,**/NzbDrone.Core.Test/Files/**/*,./frontend/**,./src/Libraries/**
+            sonar.exclusions=**/obj/**,**/*.dll,**/NzbDrone.Core.Test/Files/**/*,./frontend/**,**/ExternalModules/**,./src/Libraries/**
             sonar.coverage.exclusions=**/Readarr.Api.V1/**/*
             sonar.cs.opencover.reportsPaths=$(Build.SourcesDirectory)/CoverageResults/**/coverage.opencover.xml
             sonar.cs.nunit.reportsPaths=$(Build.SourcesDirectory)/TestResult.xml
       - bash: |
-          ./build.sh --backend -f net6.0 -r linux-x64
-          TEST_DIR=_tests/net6.0/linux-x64/publish/ ./test.sh Linux Unit Coverage
+          ./build.sh --backend -f net6.0 -r win-x64
+          TEST_DIR=_tests/net6.0/win-x64/publish/ ./test.sh Windows Unit Coverage
         displayName: Coverage Unit Tests
-        env:
-          NUGET_PACKAGES: $(nugetCacheFolder)
       - task: SonarCloudAnalyze@1
         condition: eq(variables['System.PullRequest.IsFork'], 'False')
         displayName: Publish SonarCloud Results
@@ -1198,7 +1230,6 @@ stages:
     - Unit_Test
     - Integration
     - Automation
-    - Build_Backend_Other
     condition: eq(variables['system.pullrequest.isfork'], false)
     displayName: Build Status Report
     jobs:
@@ -1222,3 +1253,4 @@ stages:
             DISCORDCHANNELID: $(discordChannelId)
             DISCORDWEBHOOKKEY: $(discordWebhookKey)
             DISCORDTHREADID: $(discordThreadId)
+
