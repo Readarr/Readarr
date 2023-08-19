@@ -6,6 +6,7 @@ export const BOOKSHELF = 'bookshelf';
 export const KEY_VALUE_LIST = 'keyValueList';
 export const MONITOR_BOOKS_SELECT = 'monitorBooksSelect';
 export const MONITOR_NEW_ITEMS_SELECT = 'monitorNewItemsSelect';
+export const FLOAT = 'float';
 export const NUMBER = 'number';
 export const OAUTH = 'oauth';
 export const PASSWORD = 'password';
@@ -34,6 +35,7 @@ export const all = [
   KEY_VALUE_LIST,
   MONITOR_BOOKS_SELECT,
   MONITOR_NEW_ITEMS_SELECT,
+  FLOAT,
   NUMBER,
   OAUTH,
   PASSWORD,
