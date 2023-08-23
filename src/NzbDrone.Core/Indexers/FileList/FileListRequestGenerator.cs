@@ -23,7 +23,11 @@ namespace NzbDrone.Core.Indexers.FileList
         {
             var pageableRequests = new IndexerPageableRequestChain();
 
-            pageableRequests.Add(GetRequest("search-torrents", Settings.Categories, string.Format("&type=name&query={0}+{1}", Uri.EscapeDataString(searchCriteria.AuthorQuery.Trim()), Uri.EscapeDataString(searchCriteria.BookQuery.Trim()))));
+            var authorQuery = searchCriteria.AuthorQuery.Replace("+", " ").Trim();
+            var bookQuery = searchCriteria.BookQuery.Replace("+", " ").Trim();
+
+            pageableRequests.Add(GetRequest("search-torrents", Settings.Categories, string.Format("&type=name&query={0}+{1}", Uri.EscapeDataString(authorQuery), Uri.EscapeDataString(bookQuery))));
+            pageableRequests.Add(GetRequest("search-torrents", Settings.Categories, string.Format("&type=name&query={0}+{1}", Uri.EscapeDataString(bookQuery), Uri.EscapeDataString(authorQuery))));
 
             return pageableRequests;
         }
@@ -32,7 +36,9 @@ namespace NzbDrone.Core.Indexers.FileList
         {
             var pageableRequests = new IndexerPageableRequestChain();
 
-            pageableRequests.Add(GetRequest("search-torrents", Settings.Categories, string.Format("&type=name&query={0}", Uri.EscapeDataString(searchCriteria.AuthorQuery.Trim()))));
+            var authorQuery = searchCriteria.AuthorQuery.Replace("+", " ").Trim();
+
+            pageableRequests.Add(GetRequest("search-torrents", Settings.Categories, string.Format("&type=name&query={0}", Uri.EscapeDataString(authorQuery))));
 
             return pageableRequests;
         }
