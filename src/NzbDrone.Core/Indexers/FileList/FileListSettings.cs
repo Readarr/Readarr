@@ -28,7 +28,7 @@ namespace NzbDrone.Core.Indexers.FileList
 
             Categories = new int[]
             {
-                (int)FileListCategories.DOCS
+                (int)FileListCategories.Docs
             };
         }
 
@@ -61,7 +61,7 @@ namespace NzbDrone.Core.Indexers.FileList
 
     public enum FileListCategories
     {
-        [FieldOption]
-        DOCS = 16,
+        [FieldOption(Label = "Docs")]
+        Docs = 16,
     }
 }
