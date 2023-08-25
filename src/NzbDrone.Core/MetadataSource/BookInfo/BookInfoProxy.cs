@@ -8,6 +8,7 @@ using System.Threading;
 using LazyCache;
 using LazyCache.Providers;
 using Microsoft.Extensions.Caching.Memory;
+using Newtonsoft.Json;
 using NLog;
 using NzbDrone.Common.Cache;
 using NzbDrone.Common.Extensions;
@@ -18,6 +19,7 @@ using NzbDrone.Core.Exceptions;
 using NzbDrone.Core.Http;
 using NzbDrone.Core.MediaCover;
 using NzbDrone.Core.MetadataSource.Goodreads;
+using JsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace NzbDrone.Core.MetadataSource.BookInfo
 {
@@ -78,7 +80,7 @@ namespace NzbDrone.Core.MetadataSource.BookInfo
 
             var httpResponse = _httpClient.Get<RecentUpdatesResource>(httpRequest);
 
-            if (httpResponse.Resource.Limited)
+            if (httpResponse.Resource == null || httpResponse.Resource.Limited)
             {
                 return null;
             }
@@ -469,17 +471,17 @@ namespace NzbDrone.Core.MetadataSource.BookInfo
 
         private List<Book> MapSearchResult(List<int> ids)
         {
-            HttpRequest httpRequest;
             HttpResponse<BulkBookResource> httpResponse;
 
             while (true)
             {
-                httpRequest = _requestBuilder.GetRequestBuilder().Create()
-                    .SetSegment("route", $"book/bulk")
+                var httpRequest = _requestBuilder.GetRequestBuilder().Create()
+                    .SetSegment("route", "book/bulk")
                     .SetHeader("Content-Type", "application/json")
                     .Build();
 
                 httpRequest.SetContent(ids.ToJson());
+                httpRequest.ContentSummary = ids.ToJson(Formatting.None);
 
                 httpRequest.AllowAutoRedirect = true;
                 httpRequest.SuppressHttpError = true;
