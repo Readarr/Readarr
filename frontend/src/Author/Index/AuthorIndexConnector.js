@@ -16,7 +16,7 @@ import AuthorIndex from './AuthorIndex';
 function createMapStateToProps() {
   return createSelector(
     createAuthorClientSideCollectionItemsSelector('authorIndex'),
-    createCommandExecutingSelector(commandNames.REFRESH_AUTHOR),
+    createCommandExecutingSelector(commandNames.BULK_REFRESH_AUTHOR),
     createCommandExecutingSelector(commandNames.RSS_SYNC),
     createCommandExecutingSelector(commandNames.RENAME_AUTHOR),
     createCommandExecutingSelector(commandNames.RETAG_AUTHOR),
@@ -24,17 +24,17 @@ function createMapStateToProps() {
     (
       author,
       isRefreshingAuthor,
+      isRssSyncExecuting,
       isOrganizingAuthor,
       isRetaggingAuthor,
-      isRssSyncExecuting,
       dimensionsState
     ) => {
       return {
         ...author,
         isRefreshingAuthor,
+        isRssSyncExecuting,
         isOrganizingAuthor,
         isRetaggingAuthor,
-        isRssSyncExecuting,
         isSmallScreen: dimensionsState.isSmallScreen
       };
     }

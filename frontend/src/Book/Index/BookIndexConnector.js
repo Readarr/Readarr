@@ -16,8 +16,8 @@ import BookIndex from './BookIndex';
 function createMapStateToProps() {
   return createSelector(
     createBookClientSideCollectionItemsSelector('bookIndex'),
-    createCommandExecutingSelector(commandNames.REFRESH_AUTHOR),
-    createCommandExecutingSelector(commandNames.REFRESH_BOOK),
+    createCommandExecutingSelector(commandNames.BULK_REFRESH_AUTHOR),
+    createCommandExecutingSelector(commandNames.BULK_REFRESH_BOOK),
     createCommandExecutingSelector(commandNames.RSS_SYNC),
     createCommandExecutingSelector(commandNames.CUTOFF_UNMET_BOOK_SEARCH),
     createCommandExecutingSelector(commandNames.MISSING_BOOK_SEARCH),
