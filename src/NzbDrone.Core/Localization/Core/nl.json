@@ -646,5 +646,7 @@
     "ApplyTagsHelpTextHowToApplyDownloadClients": "Hoe tags toepassen op de geselecteerde download clients",
     "ApplyTagsHelpTextRemove": "Verwijderen: Verwijder de ingevoerde tags",
     "ApplyTagsHelpTextReplace": "Vervangen: Vervang de tags met de ingevoerde tags (vul geen tags in om alle tags te wissen)",
-    "AutoAdd": "Automatisch Toevoegen"
+    "AutoAdd": "Automatisch Toevoegen",
+    "Activity": "Activiteit",
+    "AddNew": "Voeg Nieuwe Toe"
 }
