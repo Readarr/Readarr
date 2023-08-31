@@ -817,7 +817,7 @@
     "HideBooks": "隐藏书籍",
     "HostHelpText": "Calibre内容服务器主机",
     "IgnoredMetaHelpText": "如果书籍包含一个/多个术语（不区分大小写）将被忽略",
-    "ImportListExclusions": "导入列表例外",
+    "ImportListExclusions": "导入排除列表",
     "ImportLists": "导入列表",
     "ISBN": "ISBN",
     "IsCalibreLibraryHelpText": "使用Calibre内容服务器操作库",
@@ -950,5 +950,6 @@
     "DeleteRemotePathMapping": "删除远程映射路径",
     "AutomaticUpdatesDisabledDocker": "不支持在使用 Docker 容器时直接升级。你需要升级 {appName} 容器镜像或使用脚本(script)",
     "ColonReplacement": "替换冒号",
-    "Clone": "复制"
+    "Clone": "复制",
+    "ErrorLoadingContent": "加载此内容时出错"
 }
