@@ -8,7 +8,7 @@
     "AddingTag": "添加标签",
     "AgeWhenGrabbed": "发布时长",
     "AlreadyInYourLibrary": "已经在你的库中",
-    "AlternateTitles": "替代名称",
+    "AlternateTitles": "备选标题",
     "Analytics": "分析",
     "AnalyticsEnabledHelpText": "发送匿名使用信息和错误信息给我们，这些信息包括您的浏览器信息，使用的Web界面，错误报告，操作系统及运行版本。我们会根据这些信息来调整功能和修复问题的优先级。",
     "AnalyticsEnabledHelpTextWarning": "需要重启才能生效",
@@ -783,7 +783,7 @@
     "IfYouDontAddAnImportListExclusionAndTheAuthorHasAMetadataProfileOtherThanNoneThenThisBookMayBeReaddedDuringTheNextAuthorRefresh": "如果您不添加导入列表例外，并且作者元数据配置不是“无”，那这本书可能会在下次作者刷新是重新添加",
     "IndexerIdHelpTextWarning": "使用带有首字母的特定索引器可能会导致复制版本被抓取",
     "MassBookSearchWarning": "您确定要对{0}本书进行批量书籍搜索吗？",
-    "MediaManagementSettingsSummary": "命名、文件管理设置、根目录文件夹",
+    "MediaManagementSettingsSummary": "命名，文件管理和根文件夹设置",
     "MetadataConsumers": "用户元数据",
     "MetadataProfileIdHelpText": "元数据配置文件列表项应添加",
     "MetadataSettingsSummary": "在导入书籍或刷新作者时创建元数据文件",
@@ -951,5 +951,8 @@
     "AutomaticUpdatesDisabledDocker": "不支持在使用 Docker 容器时直接升级。你需要升级 {appName} 容器镜像或使用脚本(script)",
     "ColonReplacement": "替换冒号",
     "Clone": "复制",
-    "ErrorLoadingContent": "加载此内容时出错"
+    "ErrorLoadingContent": "加载此内容时出错",
+    "ReplaceWithSpaceDash": "替换为空格破折号",
+    "ReplaceWithDash": "替换为破折号",
+    "ReplaceWithSpaceDashSpace": "替换为空格破折号空格"
 }
