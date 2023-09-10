@@ -1,6 +1,6 @@
 {
-    "20MinutesTwenty": "60 minutter: {0}",
-    "45MinutesFourtyFive": "60 minutter: {0}",
+    "20MinutesTwenty": "20 minutter: {0}",
+    "45MinutesFourtyFive": "45 minutter: {0}",
     "60MinutesSixty": "60 minutter: {0}",
     "APIKey": "API-nøgle",
     "About": "Om",
@@ -634,5 +634,6 @@
     "AddNew": "Tilføj Ny",
     "Large": "Stor",
     "Library": "Bibliotek",
-    "AllResultsAreHiddenByTheAppliedFilter": "Alle resultater skjules af det anvendte filter"
+    "AllResultsAreHiddenByTheAppliedFilter": "Alle resultater skjules af det anvendte filter",
+    "AddNewItem": "Tilføj Ny Genstand"
 }
