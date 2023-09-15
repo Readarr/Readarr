@@ -346,6 +346,7 @@ namespace NzbDrone.Core.Extras.Metadata
         private void DownloadImage(Author author, ImageFileResult image)
         {
             var fullPath = Path.Combine(author.Path, image.RelativePath);
+            var downloaded = true;
 
             try
             {
@@ -353,12 +354,19 @@ namespace NzbDrone.Core.Extras.Metadata
                 {
                     _httpClient.DownloadFile(image.Url, fullPath);
                 }
-                else
+                else if (_diskProvider.FileExists(image.Url))
                 {
                     _diskProvider.CopyFile(image.Url, fullPath);
                 }
+                else
+                {
+                    downloaded = false;
+                }
 
-                _mediaFileAttributeService.SetFilePermissions(fullPath);
+                if (downloaded)
+                {
+                    _mediaFileAttributeService.SetFilePermissions(fullPath);
+                }
             }
             catch (WebException ex)
             {
