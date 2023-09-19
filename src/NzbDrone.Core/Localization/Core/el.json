@@ -993,5 +993,8 @@
     "AddNew": "Προσθήκη Νέων",
     "Backup": "Αντίγραφο Ασφαλείας",
     "NextExecution": "Επόμενη εκτέλεση",
-    "Small": "Μικρό"
+    "Small": "Μικρό",
+    "AppUpdated": "{appName} Ενημερώθηκε",
+    "AppUpdatedVersion": "ξαναφορτωθεί",
+    "AutoAdd": "Προσθήκη"
 }
