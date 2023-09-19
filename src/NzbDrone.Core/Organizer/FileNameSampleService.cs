@@ -34,7 +34,8 @@ namespace NzbDrone.Core.Organizer
                 Metadata = new AuthorMetadata
                 {
                     Name = "The Author Name",
-                    Disambiguation = "US Author"
+                    Disambiguation = "US Author",
+                    NameLastFirst = "Last name, First name"
                 }
             };
 
