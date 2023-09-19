@@ -125,7 +125,7 @@
     "DeleteImportListMessageText": "Czy na pewno chcesz usunąć listę „{0}”?",
     "DeleteIndexer": "Usuń indeksator",
     "DeleteIndexerMessageText": "Czy na pewno chcesz usunąć indeksator „{0}”?",
-    "DeleteMetadataProfileMessageText": "Czy na pewno chcesz usunąć profil metadanych '{0}'?",
+    "DeleteMetadataProfileMessageText": "Czy na pewno usunąć informacje dodatkowe '{0name}'?",
     "DeleteNotification": "Usuń powiadomienie",
     "DeleteNotificationMessageText": "Czy na pewno chcesz usunąć powiadomienie „{0}”?",
     "DeleteQualityProfile": "Usuń profil jakości",
