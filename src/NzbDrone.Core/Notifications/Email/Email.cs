@@ -8,6 +8,7 @@ using MimeKit;
 using NLog;
 using NzbDrone.Common.Extensions;
 using NzbDrone.Common.Http.Dispatchers;
+using NzbDrone.Core.Books;
 using NzbDrone.Core.MediaFiles;
 
 namespace NzbDrone.Core.Notifications.Email
@@ -41,6 +42,13 @@ namespace NzbDrone.Core.Notifications.Email
             var paths = Settings.AttachFiles ? message.BookFiles.SelectList(a => a.Path) : null;
 
             SendEmail(Settings, BOOK_DOWNLOADED_TITLE_BRANDED, body, false, paths);
+        }
+
+        public override void OnAuthorAdded(Author author)
+        {
+            var body = $"{author.Name} added to library.";
+
+            SendEmail(Settings, AUTHOR_ADDED_TITLE_BRANDED, body);
         }
 
         public override void OnAuthorDelete(AuthorDeleteMessage deleteMessage)

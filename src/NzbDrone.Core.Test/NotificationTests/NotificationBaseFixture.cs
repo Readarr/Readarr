@@ -64,6 +64,11 @@ namespace NzbDrone.Core.Test.NotificationTests
                 TestLogger.Info("OnRename was called");
             }
 
+            public override void OnAuthorAdded(Author author)
+            {
+                TestLogger.Info("OnAuthorAdded was called");
+            }
+
             public override void OnAuthorDelete(AuthorDeleteMessage message)
             {
                 TestLogger.Info("OnAuthorDelete was called");
@@ -138,6 +143,7 @@ namespace NzbDrone.Core.Test.NotificationTests
             notification.SupportsOnUpgrade.Should().BeTrue();
             notification.SupportsOnRename.Should().BeTrue();
             notification.SupportsOnHealthIssue.Should().BeTrue();
+            notification.SupportsOnAuthorAdded.Should().BeTrue();
             notification.SupportsOnAuthorDelete.Should().BeTrue();
             notification.SupportsOnBookDelete.Should().BeTrue();
             notification.SupportsOnBookFileDelete.Should().BeTrue();
@@ -157,6 +163,7 @@ namespace NzbDrone.Core.Test.NotificationTests
             notification.SupportsOnReleaseImport.Should().BeFalse();
             notification.SupportsOnUpgrade.Should().BeFalse();
             notification.SupportsOnRename.Should().BeFalse();
+            notification.SupportsOnAuthorAdded.Should().BeFalse();
             notification.SupportsOnAuthorDelete.Should().BeFalse();
             notification.SupportsOnBookDelete.Should().BeFalse();
             notification.SupportsOnBookFileDelete.Should().BeFalse();

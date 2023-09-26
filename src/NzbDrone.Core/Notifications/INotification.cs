@@ -12,6 +12,7 @@ namespace NzbDrone.Core.Notifications
         void OnGrab(GrabMessage grabMessage);
         void OnReleaseImport(BookDownloadMessage message);
         void OnRename(Author author, List<RenamedBookFile> renamedFiles);
+        void OnAuthorAdded(Author author);
         void OnAuthorDelete(AuthorDeleteMessage deleteMessage);
         void OnBookDelete(BookDeleteMessage deleteMessage);
         void OnBookFileDelete(BookFileDeleteMessage deleteMessage);
@@ -25,6 +26,7 @@ namespace NzbDrone.Core.Notifications
         bool SupportsOnReleaseImport { get; }
         bool SupportsOnUpgrade { get; }
         bool SupportsOnRename { get; }
+        bool SupportsOnAuthorAdded { get; }
         bool SupportsOnAuthorDelete { get; }
         bool SupportsOnBookDelete { get; }
         bool SupportsOnBookFileDelete { get; }

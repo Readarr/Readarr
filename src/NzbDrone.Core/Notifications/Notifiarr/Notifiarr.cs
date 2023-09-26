@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using FluentValidation.Results;
 using NzbDrone.Common.Extensions;
+using NzbDrone.Core.Books;
 using NzbDrone.Core.Configuration;
 using NzbDrone.Core.Notifications.Webhook;
 using NzbDrone.Core.Validation;
@@ -28,6 +29,11 @@ namespace NzbDrone.Core.Notifications.Notifiarr
         public override void OnReleaseImport(BookDownloadMessage message)
         {
             _proxy.SendNotification(BuildOnReleaseImportPayload(message), Settings);
+        }
+
+        public override void OnAuthorAdded(Author author)
+        {
+            _proxy.SendNotification(BuildOnAuthorAdded(author), Settings);
         }
 
         public override void OnAuthorDelete(AuthorDeleteMessage deleteMessage)

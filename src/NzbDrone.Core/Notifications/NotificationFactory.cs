@@ -14,6 +14,7 @@ namespace NzbDrone.Core.Notifications
         List<INotification> OnUpgradeEnabled(bool filterBlockedNotifications = true);
         List<INotification> OnRenameEnabled(bool filterBlockedNotifications = true);
         List<INotification> OnHealthIssueEnabled(bool filterBlockedNotifications = true);
+        List<INotification> OnAuthorAddedEnabled(bool filterBlockedNotifications = true);
         List<INotification> OnAuthorDeleteEnabled(bool filterBlockedNotifications = true);
         List<INotification> OnBookDeleteEnabled(bool filterBlockedNotifications = true);
         List<INotification> OnBookFileDeleteEnabled(bool filterBlockedNotifications = true);
@@ -79,6 +80,16 @@ namespace NzbDrone.Core.Notifications
             }
 
             return GetAvailableProviders().Where(n => ((NotificationDefinition)n.Definition).OnRename).ToList();
+        }
+
+        public List<INotification> OnAuthorAddedEnabled(bool filterBlockedNotifications = true)
+        {
+            if (filterBlockedNotifications)
+            {
+                return FilterBlockedNotifications(GetAvailableProviders().Where(n => ((NotificationDefinition)n.Definition).OnAuthorAdded)).ToList();
+            }
+
+            return GetAvailableProviders().Where(n => ((NotificationDefinition)n.Definition).OnAuthorAdded).ToList();
         }
 
         public List<INotification> OnAuthorDeleteEnabled(bool filterBlockedNotifications = true)
@@ -195,6 +206,7 @@ namespace NzbDrone.Core.Notifications
             definition.SupportsOnReleaseImport = provider.SupportsOnReleaseImport;
             definition.SupportsOnUpgrade = provider.SupportsOnUpgrade;
             definition.SupportsOnRename = provider.SupportsOnRename;
+            definition.SupportsOnAuthorAdded = provider.SupportsOnAuthorAdded;
             definition.SupportsOnAuthorDelete = provider.SupportsOnAuthorDelete;
             definition.SupportsOnBookDelete = provider.SupportsOnBookDelete;
             definition.SupportsOnBookFileDelete = provider.SupportsOnBookFileDelete;

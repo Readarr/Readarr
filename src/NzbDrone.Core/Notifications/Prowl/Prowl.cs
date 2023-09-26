@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using FluentValidation.Results;
 using NzbDrone.Common.Extensions;
+using NzbDrone.Core.Books;
 
 namespace NzbDrone.Core.Notifications.Prowl
 {
@@ -24,6 +25,11 @@ namespace NzbDrone.Core.Notifications.Prowl
         public override void OnReleaseImport(BookDownloadMessage message)
         {
             _prowlProxy.SendNotification(BOOK_DOWNLOADED_TITLE, message.Message, Settings);
+        }
+
+        public override void OnAuthorAdded(Author author)
+        {
+            _prowlProxy.SendNotification(AUTHOR_ADDED_TITLE, author.Name, Settings);
         }
 
         public override void OnAuthorDelete(AuthorDeleteMessage deleteMessage)

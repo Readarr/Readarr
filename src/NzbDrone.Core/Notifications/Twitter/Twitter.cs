@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using FluentValidation.Results;
 using NzbDrone.Common.Extensions;
+using NzbDrone.Core.Books;
 using NzbDrone.Core.Exceptions;
 using NzbDrone.Core.Validation;
 
@@ -26,6 +27,11 @@ namespace NzbDrone.Core.Notifications.Twitter
         public override void OnReleaseImport(BookDownloadMessage message)
         {
             _twitterService.SendNotification($"Imported: {message.Message}", Settings);
+        }
+
+        public override void OnAuthorAdded(Author author)
+        {
+            _twitterService.SendNotification($"Author added: {author.Name}", Settings);
         }
 
         public override void OnAuthorDelete(AuthorDeleteMessage deleteMessage)

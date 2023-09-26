@@ -19,6 +19,7 @@ function NotificationEventItems(props) {
     onReleaseImport,
     onUpgrade,
     onRename,
+    onAuthorAdded,
     onAuthorDelete,
     onBookDelete,
     onBookFileDelete,
@@ -32,6 +33,7 @@ function NotificationEventItems(props) {
     supportsOnReleaseImport,
     supportsOnUpgrade,
     supportsOnRename,
+    supportsOnAuthorAdded,
     supportsOnAuthorDelete,
     supportsOnBookDelete,
     supportsOnBookFileDelete,
@@ -119,6 +121,17 @@ function NotificationEventItems(props) {
               helpText={translate('OnRenameHelpText')}
               isDisabled={!supportsOnRename.value}
               {...onRename}
+              onChange={onInputChange}
+            />
+          </div>
+
+          <div>
+            <FormInputGroup
+              type={inputTypes.CHECK}
+              name="onAuthorAdded"
+              helpText={translate('OnAuthorAddedHelpText')}
+              isDisabled={!supportsOnAuthorAdded.value}
+              {...onAuthorAdded}
               onChange={onInputChange}
             />
           </div>

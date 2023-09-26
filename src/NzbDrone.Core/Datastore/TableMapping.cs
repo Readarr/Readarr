@@ -85,6 +85,7 @@ namespace NzbDrone.Core.Datastore
                   .Ignore(i => i.SupportsOnReleaseImport)
                   .Ignore(i => i.SupportsOnUpgrade)
                   .Ignore(i => i.SupportsOnRename)
+                  .Ignore(i => i.SupportsOnAuthorAdded)
                   .Ignore(i => i.SupportsOnAuthorDelete)
                   .Ignore(i => i.SupportsOnBookDelete)
                   .Ignore(i => i.SupportsOnBookFileDelete)
