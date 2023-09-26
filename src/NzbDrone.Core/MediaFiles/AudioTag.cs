@@ -471,14 +471,14 @@ namespace NzbDrone.Core.MediaFiles
                 output.Add("Media Format", Tuple.Create(Media, other.Media));
             }
 
-            if (Date != other.Date)
+            if (Date?.Date != other.Date?.Date)
             {
                 var oldValue = Date.HasValue ? Date.Value.ToString("yyyy-MM-dd") : null;
                 var newValue = other.Date.HasValue ? other.Date.Value.ToString("yyyy-MM-dd") : null;
                 output.Add("Date", Tuple.Create(oldValue, newValue));
             }
 
-            if (OriginalReleaseDate != other.OriginalReleaseDate)
+            if (OriginalReleaseDate?.Date != other.OriginalReleaseDate?.Date)
             {
                 // Id3v2.3 tags can only store the year, not the full date
                 if (OriginalReleaseDate.HasValue &&
