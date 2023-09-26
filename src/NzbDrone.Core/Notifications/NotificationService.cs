@@ -20,6 +20,7 @@ namespace NzbDrone.Core.Notifications
         : IHandle<BookGrabbedEvent>,
           IHandle<BookImportedEvent>,
           IHandle<AuthorRenamedEvent>,
+          IHandle<AuthorAddedEvent>,
           IHandle<AuthorDeletedEvent>,
           IHandle<BookDeletedEvent>,
           IHandle<BookFileDeletedEvent>,
@@ -207,6 +208,26 @@ namespace NzbDrone.Core.Notifications
                 {
                     _notificationStatusService.RecordFailure(notification.Definition.Id);
                     _logger.Warn(ex, "Unable to send OnRename notification to: " + notification.Definition.Name);
+                }
+            }
+        }
+
+        public void Handle(AuthorAddedEvent message)
+        {
+            foreach (var notification in _notificationFactory.OnAuthorAddedEnabled())
+            {
+                try
+                {
+                    if (ShouldHandleAuthor(notification.Definition, message.Author))
+                    {
+                        notification.OnAuthorAdded(message.Author);
+                        _notificationStatusService.RecordSuccess(notification.Definition.Id);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    _notificationStatusService.RecordFailure(notification.Definition.Id);
+                    _logger.Warn(ex, "Unable to send OnAuthorAdded notification to: " + notification.Definition.Name);
                 }
             }
         }

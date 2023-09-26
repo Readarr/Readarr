@@ -35,6 +35,11 @@ namespace NzbDrone.Core.Notifications.Webhook
             _proxy.SendWebhook(BuildOnRenamePayload(author, renamedFiles), Settings);
         }
 
+        public override void OnAuthorAdded(Author author)
+        {
+            _proxy.SendWebhook(BuildOnAuthorAdded(author), Settings);
+        }
+
         public override void OnAuthorDelete(AuthorDeleteMessage deleteMessage)
         {
             _proxy.SendWebhook(BuildOnAuthorDelete(deleteMessage), Settings);

@@ -12,6 +12,7 @@ namespace NzbDrone.Core.Notifications
     {
         protected const string BOOK_GRABBED_TITLE = "Book Grabbed";
         protected const string BOOK_DOWNLOADED_TITLE = "Book Downloaded";
+        protected const string AUTHOR_ADDED_TITLE = "Author Added";
         protected const string AUTHOR_DELETED_TITLE = "Author Deleted";
         protected const string BOOK_DELETED_TITLE = "Book Deleted";
         protected const string BOOK_FILE_DELETED_TITLE = "Book File Deleted";
@@ -23,6 +24,7 @@ namespace NzbDrone.Core.Notifications
 
         protected const string BOOK_GRABBED_TITLE_BRANDED = "Readarr - " + BOOK_GRABBED_TITLE;
         protected const string BOOK_DOWNLOADED_TITLE_BRANDED = "Readarr - " + BOOK_DOWNLOADED_TITLE;
+        protected const string AUTHOR_ADDED_TITLE_BRANDED = "Readarr - " + AUTHOR_ADDED_TITLE;
         protected const string AUTHOR_DELETED_TITlE_BRANDED = "Readarr - " + AUTHOR_DELETED_TITLE;
         protected const string BOOK_DELETED_TITLE_BRANDED = "Readarr - " + BOOK_DELETED_TITLE;
         protected const string BOOK_FILE_DELETED_TITLE_BRANDED = "Readarr - " + BOOK_FILE_DELETED_TITLE;
@@ -54,6 +56,10 @@ namespace NzbDrone.Core.Notifications
         }
 
         public virtual void OnRename(Author author, List<RenamedBookFile> renamedFiles)
+        {
+        }
+
+        public virtual void OnAuthorAdded(Author author)
         {
         }
 
@@ -95,6 +101,7 @@ namespace NzbDrone.Core.Notifications
 
         public bool SupportsOnGrab => HasConcreteImplementation("OnGrab");
         public bool SupportsOnRename => HasConcreteImplementation("OnRename");
+        public bool SupportsOnAuthorAdded => HasConcreteImplementation("OnAuthorAdded");
         public bool SupportsOnAuthorDelete => HasConcreteImplementation("OnAuthorDelete");
         public bool SupportsOnBookDelete => HasConcreteImplementation("OnBookDelete");
         public bool SupportsOnBookFileDelete => HasConcreteImplementation("OnBookFileDelete");

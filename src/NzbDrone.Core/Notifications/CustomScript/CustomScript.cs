@@ -110,6 +110,19 @@ namespace NzbDrone.Core.Notifications.CustomScript
             ExecuteScript(environmentVariables);
         }
 
+        public override void OnAuthorAdded(Author author)
+        {
+            var environmentVariables = new StringDictionary();
+
+            environmentVariables.Add("Readarr_EventType", "AuthorAdded");
+            environmentVariables.Add("Readarr_Author_Id", author.Id.ToString());
+            environmentVariables.Add("Readarr_Author_Name", author.Metadata.Value.Name);
+            environmentVariables.Add("Readarr_Author_Path", author.Path);
+            environmentVariables.Add("Readarr_Author_GRId", author.Metadata.Value.ForeignAuthorId);
+
+            ExecuteScript(environmentVariables);
+        }
+
         public override void OnAuthorDelete(AuthorDeleteMessage deleteMessage)
         {
             var author = deleteMessage.Author;

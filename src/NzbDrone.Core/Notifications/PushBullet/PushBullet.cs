@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using FluentValidation.Results;
 using NzbDrone.Common.Extensions;
+using NzbDrone.Core.Books;
 using NzbDrone.Core.Validation;
 
 namespace NzbDrone.Core.Notifications.PushBullet
@@ -27,6 +28,11 @@ namespace NzbDrone.Core.Notifications.PushBullet
         public override void OnReleaseImport(BookDownloadMessage message)
         {
             _proxy.SendNotification(BOOK_DOWNLOADED_TITLE_BRANDED, message.Message, Settings);
+        }
+
+        public override void OnAuthorAdded(Author author)
+        {
+            _proxy.SendNotification(AUTHOR_ADDED_TITLE, author.Name, Settings);
         }
 
         public override void OnAuthorDelete(AuthorDeleteMessage deleteMessage)

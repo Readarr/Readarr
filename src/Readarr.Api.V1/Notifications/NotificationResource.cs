@@ -9,6 +9,7 @@ namespace Readarr.Api.V1.Notifications
         public bool OnReleaseImport { get; set; }
         public bool OnUpgrade { get; set; }
         public bool OnRename { get; set; }
+        public bool OnAuthorAdded { get; set; }
         public bool OnAuthorDelete { get; set; }
         public bool OnBookDelete { get; set; }
         public bool OnBookFileDelete { get; set; }
@@ -22,6 +23,7 @@ namespace Readarr.Api.V1.Notifications
         public bool SupportsOnReleaseImport { get; set; }
         public bool SupportsOnUpgrade { get; set; }
         public bool SupportsOnRename { get; set; }
+        public bool SupportsOnAuthorAdded { get; set; }
         public bool SupportsOnAuthorDelete { get; set; }
         public bool SupportsOnBookDelete { get; set; }
         public bool SupportsOnBookFileDelete { get; set; }
@@ -50,6 +52,7 @@ namespace Readarr.Api.V1.Notifications
             resource.OnReleaseImport = definition.OnReleaseImport;
             resource.OnUpgrade = definition.OnUpgrade;
             resource.OnRename = definition.OnRename;
+            resource.OnAuthorAdded = definition.OnAuthorAdded;
             resource.OnAuthorDelete = definition.OnAuthorDelete;
             resource.OnBookDelete = definition.OnBookDelete;
             resource.OnBookFileDelete = definition.OnBookFileDelete;
@@ -63,6 +66,7 @@ namespace Readarr.Api.V1.Notifications
             resource.SupportsOnReleaseImport = definition.SupportsOnReleaseImport;
             resource.SupportsOnUpgrade = definition.SupportsOnUpgrade;
             resource.SupportsOnRename = definition.SupportsOnRename;
+            resource.SupportsOnAuthorAdded = definition.SupportsOnAuthorAdded;
             resource.SupportsOnAuthorDelete = definition.SupportsOnAuthorDelete;
             resource.SupportsOnBookDelete = definition.SupportsOnBookDelete;
             resource.SupportsOnBookFileDelete = definition.SupportsOnBookFileDelete;
@@ -90,6 +94,7 @@ namespace Readarr.Api.V1.Notifications
             definition.OnReleaseImport = resource.OnReleaseImport;
             definition.OnUpgrade = resource.OnUpgrade;
             definition.OnRename = resource.OnRename;
+            definition.OnAuthorAdded = resource.OnAuthorAdded;
             definition.OnAuthorDelete = resource.OnAuthorDelete;
             definition.OnBookDelete = resource.OnBookDelete;
             definition.OnBookFileDelete = resource.OnBookFileDelete;
@@ -103,6 +108,7 @@ namespace Readarr.Api.V1.Notifications
             definition.SupportsOnReleaseImport = resource.SupportsOnReleaseImport;
             definition.SupportsOnUpgrade = resource.SupportsOnUpgrade;
             definition.SupportsOnRename = resource.SupportsOnRename;
+            definition.SupportsOnAuthorAdded = resource.SupportsOnAuthorAdded;
             definition.SupportsOnAuthorDelete = resource.SupportsOnAuthorDelete;
             definition.SupportsOnBookDelete = resource.SupportsOnBookDelete;
             definition.SupportsOnBookFileDelete = resource.SupportsOnBookFileDelete;

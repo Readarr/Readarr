@@ -41,6 +41,11 @@ namespace NzbDrone.Core.Notifications.Subsonic
             Update();
         }
 
+        public override void OnAuthorAdded(Author author)
+        {
+            Notify(Settings, AUTHOR_ADDED_TITLE_BRANDED, author.Name);
+        }
+
         public override void OnAuthorDelete(AuthorDeleteMessage deleteMessage)
         {
             const string header = "Readarr - Author Deleted";

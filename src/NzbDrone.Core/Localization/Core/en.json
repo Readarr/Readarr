@@ -592,6 +592,8 @@
   "NotificationTriggers": "Notification Triggers",
   "OnApplicationUpdate": "On Application Update",
   "OnApplicationUpdateHelpText": "On Application Update",
+  "OnAuthorAdded": "On Author Added",
+  "OnAuthorAddedHelpText": "On Author Added",
   "OnAuthorDelete": "On Author Delete",
   "OnAuthorDeleteHelpText": "On Author Delete",
   "OnBookDelete": "On Book Delete",

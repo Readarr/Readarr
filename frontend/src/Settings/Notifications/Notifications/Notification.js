@@ -60,6 +60,7 @@ class Notification extends Component {
       onReleaseImport,
       onUpgrade,
       onRename,
+      onAuthorAdded,
       onAuthorDelete,
       onBookDelete,
       onBookFileDelete,
@@ -73,6 +74,7 @@ class Notification extends Component {
       supportsOnReleaseImport,
       supportsOnUpgrade,
       supportsOnRename,
+      supportsOnAuthorAdded,
       supportsOnAuthorDelete,
       supportsOnBookDelete,
       supportsOnBookFileDelete,
@@ -132,6 +134,14 @@ class Notification extends Component {
           supportsOnBookRetag && onBookRetag ?
             <Label kind={kinds.SUCCESS}>
               {translate('OnBookTagUpdate')}
+            </Label> :
+            null
+        }
+
+        {
+          supportsOnAuthorAdded && onAuthorAdded ?
+            <Label kind={kinds.SUCCESS}>
+              {translate('OnAuthorAdded')}
             </Label> :
             null
         }
@@ -244,6 +254,7 @@ Notification.propTypes = {
   onReleaseImport: PropTypes.bool.isRequired,
   onUpgrade: PropTypes.bool.isRequired,
   onRename: PropTypes.bool.isRequired,
+  onAuthorAdded: PropTypes.bool.isRequired,
   onAuthorDelete: PropTypes.bool.isRequired,
   onBookDelete: PropTypes.bool.isRequired,
   onBookFileDelete: PropTypes.bool.isRequired,
@@ -257,6 +268,7 @@ Notification.propTypes = {
   supportsOnReleaseImport: PropTypes.bool.isRequired,
   supportsOnUpgrade: PropTypes.bool.isRequired,
   supportsOnRename: PropTypes.bool.isRequired,
+  supportsOnAuthorAdded: PropTypes.bool.isRequired,
   supportsOnAuthorDelete: PropTypes.bool.isRequired,
   supportsOnBookDelete: PropTypes.bool.isRequired,
   supportsOnBookFileDelete: PropTypes.bool.isRequired,

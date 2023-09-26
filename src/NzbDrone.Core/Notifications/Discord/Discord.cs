@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using FluentValidation.Results;
 using NzbDrone.Common.Extensions;
 using NzbDrone.Core.Books;
@@ -66,6 +67,28 @@ namespace NzbDrone.Core.Notifications.Discord
                               };
 
             var payload = CreatePayload("Renamed", attachments);
+
+            _proxy.SendPayload(payload, Settings);
+        }
+
+        public override void OnAuthorAdded(Author author)
+        {
+            var attachments = new List<Embed>
+                              {
+                                  new Embed
+                                  {
+                                      Title = author.Name,
+                                      Fields = new List<DiscordField>()
+                                      {
+                                          new DiscordField()
+                                          {
+                                              Name = "Links",
+                                              Value = string.Join(" / ", author.Metadata.Value.Links.Select(link => $"[{link.Name}]({link.Url})"))
+                                          }
+                                      },
+                                  }
+                              };
+            var payload = CreatePayload($"Author Added", attachments);
 
             _proxy.SendPayload(payload, Settings);
         }

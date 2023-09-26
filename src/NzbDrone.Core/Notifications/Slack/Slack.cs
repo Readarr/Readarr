@@ -70,6 +70,21 @@ namespace NzbDrone.Core.Notifications.Slack
             _proxy.SendPayload(payload, Settings);
         }
 
+        public override void OnAuthorAdded(Author author)
+        {
+            var attachments = new List<Attachment>
+                             {
+                                 new Attachment
+                                 {
+                                     Title = author.Name,
+                                 }
+                             };
+
+            var payload = CreatePayload("Author Added", attachments);
+
+            _proxy.SendPayload(payload, Settings);
+        }
+
         public override void OnAuthorDelete(AuthorDeleteMessage deleteMessage)
         {
             var attachments = new List<Attachment>

@@ -107,6 +107,16 @@ namespace NzbDrone.Core.Notifications.Webhook
             };
         }
 
+        public WebhookAuthorAddedPayload BuildOnAuthorAdded(Author author)
+        {
+            return new WebhookAuthorAddedPayload
+            {
+                EventType = WebhookEventType.AuthorAdded,
+                InstanceName = _configFileProvider.InstanceName,
+                Author = new WebhookAuthor(author)
+            };
+        }
+
         public WebhookAuthorDeletePayload BuildOnAuthorDelete(AuthorDeleteMessage deleteMessage)
         {
             return new WebhookAuthorDeletePayload

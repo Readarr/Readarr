@@ -8,6 +8,7 @@ namespace NzbDrone.Core.Notifications
         public bool OnReleaseImport { get; set; }
         public bool OnUpgrade { get; set; }
         public bool OnRename { get; set; }
+        public bool OnAuthorAdded { get; set; }
         public bool OnAuthorDelete { get; set; }
         public bool OnBookDelete { get; set; }
         public bool OnBookFileDelete { get; set; }
@@ -21,6 +22,7 @@ namespace NzbDrone.Core.Notifications
         public bool SupportsOnReleaseImport { get; set; }
         public bool SupportsOnUpgrade { get; set; }
         public bool SupportsOnRename { get; set; }
+        public bool SupportsOnAuthorAdded { get; set; }
         public bool SupportsOnAuthorDelete { get; set; }
         public bool SupportsOnBookDelete { get; set; }
         public bool SupportsOnBookFileDelete { get; set; }
@@ -32,6 +34,6 @@ namespace NzbDrone.Core.Notifications
         public bool SupportsOnBookRetag { get; set; }
         public bool SupportsOnApplicationUpdate { get; set; }
 
-        public override bool Enable => OnGrab || OnReleaseImport || (OnReleaseImport && OnUpgrade) || OnAuthorDelete || OnBookDelete || OnBookFileDelete || OnBookFileDeleteForUpgrade || OnHealthIssue || OnDownloadFailure || OnImportFailure || OnBookRetag || OnApplicationUpdate;
+        public override bool Enable => OnGrab || OnReleaseImport || (OnReleaseImport && OnUpgrade) || OnAuthorAdded || OnAuthorDelete || OnBookDelete || OnBookFileDelete || OnBookFileDeleteForUpgrade || OnHealthIssue || OnDownloadFailure || OnImportFailure || OnBookRetag || OnApplicationUpdate;
     }
 }
