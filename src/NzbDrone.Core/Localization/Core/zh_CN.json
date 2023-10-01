@@ -1018,5 +1018,6 @@
     "AllResultsAreHiddenByTheAppliedFilter": "根据过滤条件所有结果已隐藏",
     "LastWriteTime": "最后写入时间",
     "LastExecution": "上一次执行",
-    "Library": "库"
+    "Library": "库",
+    "DownloadClientRemovesCompletedDownloadsHealthCheckMessage": "下载客户端{0}设置为删除已完成的下载。这可能导致在{1}可以导入下载之前从您的客户端删除下载。"
 }
