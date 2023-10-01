@@ -1483,6 +1483,13 @@
   dependencies:
     "@types/react" "*"
 
+"@types/react-lazyload@3.2.1":
+  version "3.2.1"
+  resolved "https://registry.yarnpkg.com/@types/react-lazyload/-/react-lazyload-3.2.1.tgz#6c4a015ca6770333c87295d31c32c17454fda922"
+  integrity sha512-LeJMJVTEGxcOLy9OFErOqNXIo506pxxDA/zgpTy8Bub508c1OS1Br4+b6jnhsOQQl4IwPPAnEDMqCnBJ9jauUw==
+  dependencies:
+    "@types/react" "*"
+
 "@types/react-redux@^7.1.16":
   version "7.1.26"
   resolved "https://registry.yarnpkg.com/@types/react-redux/-/react-redux-7.1.26.tgz#84149f5614e40274bb70fcbe8f7cae6267d548b1"
