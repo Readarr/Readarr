@@ -25,12 +25,7 @@ const defaultFontSize = parseInt(fonts.defaultFontSize);
 const lineHeight = parseFloat(fonts.lineHeight);
 
 function getFanartUrl(images) {
-  const fanartImage = images.find((x) => x.coverType === 'fanart');
-
-  if (fanartImage) {
-    // Remove protocol
-    return fanartImage.url.replace(/^https?:/, '');
-  }
+  return images.find((x) => x.coverType === 'fanart')?.url;
 }
 
 class AuthorDetailsHeader extends Component {
