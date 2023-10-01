@@ -49,7 +49,7 @@ namespace Readarr.Http.Frontend.Mappers
 
             _logger.Warn("File {0} not found", filePath);
 
-            return Task.FromResult<IActionResult>(null);
+            return null;
         }
 
         protected virtual Stream GetContentStream(string filePath)
