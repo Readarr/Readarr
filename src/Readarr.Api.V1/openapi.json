@@ -11553,6 +11553,9 @@
           "onRename": {
             "type": "boolean"
           },
+          "onAuthorAdded": {
+            "type": "boolean"
+          },
           "onAuthorDelete": {
             "type": "boolean"
           },
@@ -11590,6 +11593,9 @@
             "type": "boolean"
           },
           "supportsOnRename": {
+            "type": "boolean"
+          },
+          "supportsOnAuthorAdded": {
             "type": "boolean"
           },
           "supportsOnAuthorDelete": {
