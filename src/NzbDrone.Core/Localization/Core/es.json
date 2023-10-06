@@ -738,14 +738,14 @@
     "BookFilesCountMessage": "No hay archivos de libros",
     "AllowFingerprintingHelpText": "Utilizar la huella digital para mejorar la precisión de la coincidencia de libros",
     "BookStudio": "Estudio de libros",
-    "AutomaticUpdatesDisabledDocker": "Las actualizaciones automáticas no son compatibles directamente al usar el mecanismo de actualización de Docker. Deberás actualizar la imagen del contenedor fuera de {appName} o utilizar un script",
+    "AutomaticUpdatesDisabledDocker": "Las actualizaciones automáticas no están soportadas directamente cuando se utiliza el mecanismo de actualización de Docker. Tendrá que actualizar la imagen del contenedor fuera de {appName} o utilizar un script",
     "AuthorIndex": "Índice de autor",
     "AudioFileMetadata": "Escribir metadatos en archivos de audio",
     "BookIndex": "Índice de libro",
     "BookEditor": "Editor de Libro",
     "ASIN": "ASIN",
     "AnyEditionOkHelpText": "Readarr cambiará automáticamente a la edición que mejor coincida con los archivos descargados",
-    "AppUpdated": "{appName} Actualizado",
+    "AppUpdated": "{appName} Actualizada",
     "AppUpdatedVersion": "{appName} ha sido actualizado a la versión `{version}`, para obtener los cambios más recientes, necesitaras recargar {appName}",
     "AuthorFolderFormat": "Formato de Carpeta de Autor",
     "AuthorNameHelpText": "El nombre del autor/libro a excluir (puede ser cualquier cosa significativa)",
@@ -754,5 +754,6 @@
     "BookFileCountBookCountTotalTotalBookCountInterp": "{0} / {1} (Total: {2})",
     "Book": "Libro",
     "AutomaticallySwitchEdition": "Cambiar edición automáticamente",
-    "BookNaming": "Nombrado de libros"
+    "BookNaming": "Nombrado de libros",
+    "Books": "Libro"
 }

@@ -626,5 +626,7 @@
     "AddNew": "Добави нов",
     "NextExecution": "Следващо изпълнение",
     "AllResultsAreHiddenByTheAppliedFilter": "Всички резултати са скрити от приложения филтър",
-    "Backup": "Архивиране"
+    "Backup": "Архивиране",
+    "MetadataProfiles": "Добави профил на метадата",
+    "MetadataProfile": "Добави профил на метадата"
 }

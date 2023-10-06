@@ -628,5 +628,8 @@
     "AddNew": "Yeni ekle",
     "Large": "Büyük",
     "LastDuration": "lastDuration",
-    "AllResultsAreHiddenByTheAppliedFilter": "Tüm sonuçlar, uygulanan filtre tarafından gizlenir"
+    "AllResultsAreHiddenByTheAppliedFilter": "Tüm sonuçlar, uygulanan filtre tarafından gizlenir",
+    "Library": "kütüphane",
+    "MetadataProfile": "üstveri profili",
+    "MetadataProfiles": "üstveri profili"
 }

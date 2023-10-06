@@ -662,5 +662,6 @@
     "MinimumCustomFormatScoreHelpText": "Minimální skóre vlastního formátu požadované pro obejití zpoždění preferovaného protokolu",
     "Series": "Seriál",
     "DeleteCondition": "Odstranit podmínku",
-    "Database": "Databáze"
+    "Database": "Databáze",
+    "CountDownloadClientsSelected": "{count} vybraných klientů ke stahování"
 }
