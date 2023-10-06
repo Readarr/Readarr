@@ -507,11 +507,15 @@ namespace NzbDrone.Core.MetadataSource.BookInfo
 
         private List<Book> MapBulkBook(BulkBookResource resource)
         {
-            var authors = resource.Authors.Select(MapAuthorMetadata).ToDictionary(x => x.ForeignAuthorId, x => x);
-
-            var series = resource.Series.Select(MapSeries).ToList();
-
             var books = new List<Book>();
+
+            if (resource == null)
+            {
+                return books;
+            }
+
+            var authors = resource.Authors.Select(MapAuthorMetadata).ToDictionary(x => x.ForeignAuthorId, x => x);
+            var series = resource.Series.Select(MapSeries).ToList();
 
             foreach (var work in resource.Works)
             {
