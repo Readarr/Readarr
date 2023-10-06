@@ -144,6 +144,13 @@ namespace NzbDrone.Core.Configuration
             set { SetValue("AutoRedownloadFailed", value); }
         }
 
+        public bool AutoRedownloadFailedFromInteractiveSearch
+        {
+            get { return GetValueBoolean("AutoRedownloadFailedFromInteractiveSearch", true); }
+
+            set { SetValue("AutoRedownloadFailedFromInteractiveSearch", value); }
+        }
+
         public bool CreateEmptyAuthorFolders
         {
             get { return GetValueBoolean("CreateEmptyAuthorFolders", false); }
