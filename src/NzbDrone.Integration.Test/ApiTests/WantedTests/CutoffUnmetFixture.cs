@@ -86,7 +86,7 @@ namespace NzbDrone.Integration.Test.ApiTests.WantedTests
             var author = EnsureAuthor("14586394", "43765115", "Andrew Hunter Murray", false);
             EnsureBookFile(author, 1, "43765115", Quality.MOBI);
 
-            var result = WantedCutoffUnmet.GetPaged(0, 15, "releaseDate", "desc", "monitored", "false");
+            var result = WantedCutoffUnmet.GetPaged(0, 15, "releaseDate", "desc", "monitored", false);
 
             result.Records.Should().NotBeEmpty();
         }

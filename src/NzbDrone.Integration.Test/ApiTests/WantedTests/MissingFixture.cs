@@ -86,7 +86,7 @@ namespace NzbDrone.Integration.Test.ApiTests.WantedTests
         {
             EnsureAuthor("14586394", "43765115", "Andrew Hunter Murray", false);
 
-            var result = WantedMissing.GetPaged(0, 15, "releaseDate", "desc", "monitored", "false");
+            var result = WantedMissing.GetPaged(0, 15, "releaseDate", "desc", "monitored", false);
 
             result.Records.Should().NotBeEmpty();
         }

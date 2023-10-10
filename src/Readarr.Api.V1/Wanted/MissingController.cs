@@ -1,4 +1,3 @@
-using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using NzbDrone.Core.AuthorStats;
 using NzbDrone.Core.Books;
@@ -26,9 +25,9 @@ namespace Readarr.Api.V1.Wanted
         }
 
         [HttpGet]
-        public PagingResource<BookResource> GetMissingBooks(bool includeAuthor = false)
+        public PagingResource<BookResource> GetMissingBooks([FromQuery] PagingRequestResource paging, bool includeAuthor = false, bool monitored = true)
         {
-            var pagingResource = Request.ReadPagingResourceFromRequest<BookResource>();
+            var pagingResource = new PagingResource<BookResource>(paging);
             var pagingSpec = new PagingSpec<Book>
             {
                 Page = pagingResource.Page,
@@ -37,9 +36,7 @@ namespace Readarr.Api.V1.Wanted
                 SortDirection = pagingResource.SortDirection
             };
 
-            var monitoredFilter = pagingResource.Filters.FirstOrDefault(f => f.Key == "monitored");
-
-            if (monitoredFilter != null && monitoredFilter.Value == "false")
+            if (monitored)
             {
                 pagingSpec.FilterExpressions.Add(v => v.Monitored == false || v.Author.Value.Monitored == false);
             }
