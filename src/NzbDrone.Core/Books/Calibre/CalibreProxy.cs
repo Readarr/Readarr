@@ -275,7 +275,7 @@ namespace NzbDrone.Core.Books.Calibre
 
             var updatedPath = GetOriginalFormat(updated.Formats);
 
-            if (updatedPath != file.Path)
+            if (updatedPath != null && updatedPath != file.Path)
             {
                 _rootFolderWatchingService.ReportFileSystemChangeBeginning(updatedPath);
                 file.Path = updatedPath;
