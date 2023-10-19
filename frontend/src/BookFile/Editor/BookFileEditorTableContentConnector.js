@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
-import { deleteBookFile, deleteBookFiles, setBookFilesSort, updateBookFiles } from 'Store/Actions/bookFileActions';
+import { deleteBookFile, deleteBookFiles, downloadBookFile, setBookFilesSort, updateBookFiles } from 'Store/Actions/bookFileActions';
 import { fetchQualityProfileSchema } from 'Store/Actions/settingsActions';
 import createAuthorSelector from 'Store/Selectors/createAuthorSelector';
 import createClientSideCollectionSelector from 'Store/Selectors/createClientSideCollectionSelector';
@@ -80,6 +80,10 @@ function createMapDispatchToProps(dispatch, props) {
 
     dispatchDeleteBookFile(id) {
       dispatch(deleteBookFile(id));
+    },
+
+    dispatchDownloadBookFile(id, path, title) {
+      dispatch(downloadBookFile(id, path, title));
     }
   };
 }
@@ -117,7 +121,6 @@ class BookFileEditorTableContentConnector extends Component {
       dispatchUpdateBookFiles,
       ...otherProps
     } = this.props;
-
     return (
       <BookFileEditorTableContent
         {...otherProps}
@@ -130,6 +133,7 @@ class BookFileEditorTableContentConnector extends Component {
 BookFileEditorTableContentConnector.propTypes = {
   authorId: PropTypes.number.isRequired,
   bookId: PropTypes.number,
+  title: PropTypes.string,
   qualities: PropTypes.arrayOf(PropTypes.object).isRequired,
   dispatchFetchQualityProfileSchema: PropTypes.func.isRequired,
   dispatchUpdateBookFiles: PropTypes.func.isRequired,

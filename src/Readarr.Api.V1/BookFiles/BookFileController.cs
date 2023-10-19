@@ -3,6 +3,8 @@ using System.IO;
 using System.IO.Abstractions;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.StaticFiles;
+using NzbDrone.Common.Extensions;
 using NzbDrone.Core.Books;
 using NzbDrone.Core.Datastore.Events;
 using NzbDrone.Core.DecisionEngine.Specifications;
@@ -30,6 +32,7 @@ namespace Readarr.Api.V1.BookFiles
         private readonly IAuthorService _authorService;
         private readonly IBookService _bookService;
         private readonly IUpgradableSpecification _upgradableSpecification;
+        private readonly IContentTypeProvider _mimeTypeProvider;
 
         public BookFileController(IBroadcastSignalRMessage signalRBroadcaster,
                                IMediaFileService mediaFileService,
@@ -46,6 +49,7 @@ namespace Readarr.Api.V1.BookFiles
             _authorService = authorService;
             _bookService = bookService;
             _upgradableSpecification = upgradableSpecification;
+            _mimeTypeProvider = new FileExtensionContentTypeProvider();
         }
 
         private BookFileResource MapToResource(BookFile bookFile)
@@ -106,6 +110,15 @@ namespace Readarr.Api.V1.BookFiles
                 var bookFiles = _mediaFileService.Get(bookFileIds);
                 return bookFiles.ConvertAll(e => MapToResource(e));
             }
+        }
+
+        [HttpGet("download/{id:int}")]
+        public IActionResult GetBookFile(int id)
+        {
+            var bookFile = _mediaFileService.Get(id);
+            var filePath = bookFile.Path;
+            Response.Headers.Add("Content-Disposition", string.Format("attachment;filename={0}", PathExtensions.BaseName(filePath)));
+            return new PhysicalFileResult(filePath, GetContentType(filePath));
         }
 
         [RestPutById]
@@ -179,6 +192,16 @@ namespace Readarr.Api.V1.BookFiles
         public void Handle(BookFileDeletedEvent message)
         {
             BroadcastResourceChange(ModelAction.Deleted, MapToResource(message.BookFile));
+        }
+
+        private string GetContentType(string filePath)
+        {
+            if (!_mimeTypeProvider.TryGetContentType(filePath, out var contentType))
+            {
+                contentType = string.Format("application/{0}", PathExtensions.GetPathExtension(filePath));
+            }
+
+            return contentType;
         }
     }
 }

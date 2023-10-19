@@ -98,6 +98,7 @@ class BookFileEditorTableContent extends Component {
       items,
       qualities,
       dispatchDeleteBookFile,
+      dispatchDownloadBookFile,
       ...otherProps
     } = this.props;
 
@@ -163,6 +164,7 @@ class BookFileEditorTableContent extends Component {
                           {...item}
                           onSelectedChange={this.onSelectedChange}
                           deleteBookFile={dispatchDeleteBookFile}
+                          downloadBookFile={dispatchDownloadBookFile}
                         />
                       );
                     })
@@ -174,6 +176,17 @@ class BookFileEditorTableContent extends Component {
         }
 
         <div className={styles.actions}>
+
+          <div className={styles.actions}>
+            <SelectInput
+              name="quality"
+              value="selectQuality"
+              values={qualityOptions}
+              isDisabled={!hasSelectedFiles}
+              onChange={this.onQualityChange}
+            />
+          </div>
+
           <SpinnerButton
             kind={kinds.DANGER}
             isSpinning={isDeleting}
@@ -183,15 +196,6 @@ class BookFileEditorTableContent extends Component {
             Delete
           </SpinnerButton>
 
-          <div className={styles.selectInput}>
-            <SelectInput
-              name="quality"
-              value="selectQuality"
-              values={qualityOptions}
-              isDisabled={!hasSelectedFiles}
-              onChange={this.onQualityChange}
-            />
-          </div>
         </div>
 
         <ConfirmModal
@@ -217,7 +221,8 @@ BookFileEditorTableContent.propTypes = {
   qualities: PropTypes.arrayOf(PropTypes.object).isRequired,
   onDeletePress: PropTypes.func.isRequired,
   onQualityChange: PropTypes.func.isRequired,
-  dispatchDeleteBookFile: PropTypes.func.isRequired
+  dispatchDeleteBookFile: PropTypes.func.isRequired,
+  dispatchDownloadBookFile: PropTypes.func.isRequired
 };
 
 export default BookFileEditorTableContent;

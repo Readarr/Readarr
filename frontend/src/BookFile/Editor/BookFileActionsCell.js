@@ -37,6 +37,10 @@ class BookFileActionsCell extends Component {
     this.setState({ isConfirmDeleteModalOpen: true });
   };
 
+  onDownloadFilePress = () => {
+    this.props.downloadBookFile({ id: this.props.id });
+  };
+
   onConfirmDelete = () => {
     this.setState({ isConfirmDeleteModalOpen: false });
     this.props.deleteBookFile({ id: this.props.id });
@@ -77,6 +81,13 @@ class BookFileActionsCell extends Component {
               onPress={this.onDeleteFilePress}
             />
         }
+        {
+          path &&
+            <IconButton
+              name={icons.SAVE}
+              onPress={this.onDownloadFilePress}
+            />
+        }
 
         <FileDetailsModal
           isOpen={isDetailsModalOpen}
@@ -102,7 +113,8 @@ class BookFileActionsCell extends Component {
 BookFileActionsCell.propTypes = {
   id: PropTypes.number.isRequired,
   path: PropTypes.string,
-  deleteBookFile: PropTypes.func.isRequired
+  deleteBookFile: PropTypes.func.isRequired,
+  downloadBookFile: PropTypes.func.isRequired
 };
 
 export default BookFileActionsCell;

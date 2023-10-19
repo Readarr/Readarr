@@ -11,6 +11,11 @@ export interface AppSectionDeleteState {
   deleteError: Error;
 }
 
+export interface AppSectionDownloadingState {
+  isDownloading: boolean;
+  downloadError: Error;
+}
+
 export interface AppSectionSaveState {
   isSaving: boolean;
   saveError: Error;

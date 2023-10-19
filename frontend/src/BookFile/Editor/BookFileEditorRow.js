@@ -19,7 +19,8 @@ function BookFileEditorRow(props) {
     qualityCutoffNotMet,
     isSelected,
     onSelectedChange,
-    deleteBookFile
+    deleteBookFile,
+    downloadBookFile
   } = props;
 
   return (
@@ -59,6 +60,7 @@ function BookFileEditorRow(props) {
         id={id}
         path={path}
         deleteBookFile={deleteBookFile}
+        downloadBookFile={downloadBookFile}
       />
     </TableRow>
   );
@@ -73,7 +75,8 @@ BookFileEditorRow.propTypes = {
   dateAdded: PropTypes.string.isRequired,
   isSelected: PropTypes.bool,
   onSelectedChange: PropTypes.func.isRequired,
-  deleteBookFile: PropTypes.func.isRequired
+  deleteBookFile: PropTypes.func.isRequired,
+  downloadBookFile: PropTypes.func.isRequired
 };
 
 export default BookFileEditorRow;

@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import _, { lastIndexOf, stubString } from 'lodash';
 import { createAction } from 'redux-actions';
 import { batchActions } from 'redux-batched-actions';
 import bookEntities from 'Book/bookEntities';
@@ -29,6 +29,7 @@ export const defaultState = {
 
   error: null,
   isDeleting: false,
+  isDownloading: false,
   deleteError: null,
   isSaving: false,
   saveError: null,
@@ -86,6 +87,7 @@ export const persistState = [
 export const FETCH_BOOK_FILES = 'bookFiles/fetchBookFiles';
 export const DELETE_BOOK_FILE = 'bookFiles/deleteBookFile';
 export const DELETE_BOOK_FILES = 'bookFiles/deleteBookFiles';
+export const DOWNLOAD_BOOK_FILE = 'bookFiles/downloadBookFile';
 export const UPDATE_BOOK_FILES = 'bookFiles/updateBookFiles';
 export const SET_BOOK_FILES_SORT = 'bookFiles/setBookFilesSort';
 export const SET_BOOK_FILES_TABLE_OPTION = 'bookFiles/setBookFilesTableOption';
@@ -97,6 +99,7 @@ export const CLEAR_BOOK_FILES = 'bookFiles/clearBookFiles';
 export const fetchBookFiles = createThunk(FETCH_BOOK_FILES);
 export const deleteBookFile = createThunk(DELETE_BOOK_FILE);
 export const deleteBookFiles = createThunk(DELETE_BOOK_FILES);
+export const downloadBookFile = createThunk(DOWNLOAD_BOOK_FILE);
 export const updateBookFiles = createThunk(UPDATE_BOOK_FILES);
 export const setBookFilesSort = createAction(SET_BOOK_FILES_SORT);
 export const setBookFilesTableOption = createAction(SET_BOOK_FILES_TABLE_OPTION);
@@ -191,6 +194,44 @@ export const actionHandlers = handleThunks({
       }));
     });
   },
+
+
+  
+  [DOWNLOAD_BOOK_FILE]: function(getState, payload, dispatch) {
+    const {
+      id: bookFileId
+    } = payload;
+    
+    const downloadPromise = createAjaxRequest({
+      url: `/bookFile/download/${bookFileId}`,
+      method: 'GET'
+    }).request;
+
+    downloadPromise.done((data, textStatus, jqXHR) => {
+      if( textStatus === "success"){
+        var fileName = "download"
+        var ext = ".unknown"
+        var contentType = jqXHR.getResponseHeader("content-type")
+        ext = `.${contentType.substring(contentType.indexOf("/")+1)}`
+        if(jqXHR.getResponseHeader("content-disposition")){
+          var contentDisposition = jqXHR.getResponseHeader("content-disposition");
+          if(contentDisposition.indexOf("=")>=0){
+            fileName = contentDisposition.substring(contentDisposition.indexOf("=")+1);
+            ext="";
+          }
+        }
+        const blob = new Blob([data],{contentType});
+        const URL = window.URL.createObjectURL(blob);
+        const el = document.createElement("a");
+        el.href = URL;
+        el.download = `${fileName}${ext}`;
+        document.body.appendChild(el);
+        el.click();
+        
+      }
+    });
+  },
+
 
   [UPDATE_BOOK_FILES]: function(getState, payload, dispatch) {
     const {

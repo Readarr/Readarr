@@ -28,6 +28,14 @@ namespace NzbDrone.Common.Extensions
 
         private static readonly Regex PARENT_PATH_END_SLASH_REGEX = new Regex(@"(?<!:)\\$", RegexOptions.Compiled);
 
+        public static string BaseName(this string path)
+        {
+            Ensure.That(path, () => path).IsNotNullOrWhiteSpace();
+            Ensure.That(path, () => path).IsValidPath(PathValidationType.AnyOs);
+
+            return Path.GetFileName(path);
+        }
+
         public static string CleanFilePath(this string path)
         {
             Ensure.That(path, () => path).IsNotNullOrWhiteSpace();

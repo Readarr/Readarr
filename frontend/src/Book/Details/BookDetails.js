@@ -284,6 +284,7 @@ class BookDetails extends Component {
                 <BookFileEditorTable
                   authorId={author.id}
                   bookId={id}
+                  title={title}
                 />
               </TabPanel>
             </Tabs>
