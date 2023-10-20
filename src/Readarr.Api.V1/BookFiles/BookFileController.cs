@@ -198,7 +198,27 @@ namespace Readarr.Api.V1.BookFiles
         {
             if (!_mimeTypeProvider.TryGetContentType(filePath, out var contentType))
             {
-                contentType = string.Format("application/{0}", PathExtensions.GetPathExtension(filePath));
+                var ext = PathExtensions.GetPathExtension(filePath);
+                if (ext.Contains("epub"))
+                {
+                    contentType = "application/epub+zip";
+                }
+                else if (ext.Contains("azw"))
+                {
+                    contentType = "application/vnd.amazon.ebook";
+                }
+                else if (ext.Contains("azw"))
+                {
+                    contentType = "application/x-mobipocket-ebook";
+                }
+                else if (ext.Contains("pdf"))
+                {
+                    contentType = "application/pdf";
+                }
+                else
+                {
+                    contentType = "application/octet-stream";
+                }
             }
 
             return contentType;
