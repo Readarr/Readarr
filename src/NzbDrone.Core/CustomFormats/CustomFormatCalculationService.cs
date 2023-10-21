@@ -142,7 +142,7 @@ namespace NzbDrone.Core.CustomFormats
                 }
             }
 
-            return matches;
+            return matches.OrderBy(x => x.Name).ToList();
         }
 
         private static List<CustomFormat> ParseCustomFormat(BookFile bookFile, Author author, List<CustomFormat> allCustomFormats)
