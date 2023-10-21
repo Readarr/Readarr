@@ -32,14 +32,13 @@ namespace Readarr.Api.V1.OPDS
         public string Language { get; set; }
         public DateTime Modified { get; set; }
         public string Description { get; set; }
+        public List<string> Genre { get; set; }
     }
 
     public class OPDSImageResource : IEmbeddedDocument
     {
         public string Href { get; set; }
         public string Type { get; set; }
-        public int Height { get; set; }
-        public int Width { get; set; }
     }
 
     public class OPDSPublicationResource : IEmbeddedDocument
@@ -126,11 +125,12 @@ namespace Readarr.Api.V1.OPDS
             {
                 Title = book.Title,
                 @Type = "http://schema.org/Book",
-                Author = book.Author.Value.CleanName,
+                Author = book.Author.Value?.Metadata?.Value?.SortNameLastFirst ?? book.Author.Value.Name,
                 Identifier = edition.Isbn13,
                 Language = edition.Language,
                 Modified = book.ReleaseDate ?? DateTime.Now,
-                Description = edition.Overview
+                Description = edition.Overview,
+                Genre = book.Genres
             };
         }
 
@@ -143,7 +143,7 @@ namespace Readarr.Api.V1.OPDS
             };
         }
 
-        public static OPDSPublicationResource ToOPDSPublicationResource(Book book, List<BookFile> files, List<MediaCover> images)
+        public static OPDSPublicationResource ToOPDSPublicationResource(Book book, List<BookFile> files, List<MediaCover> covers)
         {
             var linkResources = new List<OPDSLinkResource>();
             var imageResources = new List<OPDSImageResource>();
@@ -164,15 +164,15 @@ namespace Readarr.Api.V1.OPDS
                 {
                     Href = string.Format("/bookfile/download/{0}", book.Id),
                     Rel = "http://opds-spec.org/acquisition",
-                    Title = "Readarr OPDS Catalog",
+                    Title = string.Format("Readarr OPDS Link:{0}", book.Id),
                     Type = GetContentType(file.Path)
                 });
                 break;
             }
 
-            foreach (var image in images)
+            foreach (var cover in covers)
             {
-                var imageResource = ToOPDSImageResource(image);
+                var imageResource = ToOPDSImageResource(cover);
                 imageResources.Add(imageResource);
             }
 

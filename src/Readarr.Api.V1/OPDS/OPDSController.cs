@@ -8,6 +8,7 @@ using NzbDrone.Core.Books;
 using NzbDrone.Core.MediaCover;
 using NzbDrone.Core.MediaFiles;
 using Readarr.Http;
+using Readarr.Http.REST;
 
 namespace Readarr.Api.V1.OPDS
 {
@@ -79,11 +80,20 @@ namespace Readarr.Api.V1.OPDS
             var metadataTask = Task.Run(() => _authorService.GetAllAuthors());
             var book = _bookService.GetBook(id);
             var author = _authorService.GetAuthor(book.AuthorId);
-            var bookfile = _mediaFileService.GetFilesByBook(book.Id);
+            var bookfiles = _mediaFileService.GetFilesByBook(book.Id);
+
+            if (!bookfiles.Any())
+            {
+                throw new BadRequestException("No book files exist for the given book id");
+            }
+
+            var selectedEdition = book.Editions?.Value.Where(x => x.Monitored).SingleOrDefault();
+            var covers = selectedEdition?.Images ?? new List<MediaCover>();
+            _coverMapper.ConvertToLocalUrls(book.Id, MediaCoverEntity.Book, covers);
             _coverMapper.ConvertToLocalUrls(book.Id, MediaCoverEntity.Book, images);
             book.Author = author;
 
-            return OPDSResourceMapper.ToOPDSPublicationResource(book, bookfile, images);
+            return OPDSResourceMapper.ToOPDSPublicationResource(book, bookfiles, images);
         }
 
         protected List<OPDSPublicationResource> MapToResource(List<Book> books, bool availableBooks)
@@ -93,10 +103,18 @@ namespace Readarr.Api.V1.OPDS
             {
                 var images = new List<MediaCover>();
                 var book = books[i];
-                var bookfile = _mediaFileService.GetFilesByBook(book.Id);
-                var edition = _editionService.GetEdition(book.Id);
-                _coverMapper.ConvertToLocalUrls(book.Id, MediaCoverEntity.Book, images);
-                var publication = OPDSResourceMapper.ToOPDSPublicationResource(book, bookfile, images);
+                var bookfiles = _mediaFileService.GetFilesByBook(book.Id);
+                var selectedEdition = book.Editions?.Value.Where(x => x.Monitored).SingleOrDefault();
+                var covers = selectedEdition?.Images ?? new List<MediaCover>();
+                _coverMapper.ConvertToLocalUrls(book.Id, MediaCoverEntity.Book, covers);
+
+                //only add publications for which we have a valid bookfile
+                if (!bookfiles.Any())
+                {
+                    continue;
+                }
+
+                var publication = OPDSResourceMapper.ToOPDSPublicationResource(book, bookfiles, covers);
                 pubclications.Add(publication);
             }
 
