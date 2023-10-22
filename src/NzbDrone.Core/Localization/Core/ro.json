@@ -372,7 +372,7 @@
     "TestAllIndexers": "Testați toate indexatoarele",
     "TestAllLists": "Testați toate listele",
     "ThisWillApplyToAllIndexersPleaseFollowTheRulesSetForthByThem": "Acest lucru se va aplica tuturor indexatorilor, vă rugăm să urmați regulile stabilite de aceștia",
-    "TimeFormat": "Format de timp",
+    "TimeFormat": "Format ora",
     "Title": "Titlu",
     "TorrentDelay": "Întârziere Torrent",
     "TorrentDelayHelpText": "Întârziați în câteva minute pentru a aștepta înainte de a apuca un torent",
@@ -642,5 +642,6 @@
     "AddNew": "Adaugă nou",
     "Medium": "Mediu",
     "AllResultsAreHiddenByTheAppliedFilter": "Toate rezultatele sunt ascunse de filtrul aplicat",
-    "Backup": "Copie de rezervă"
+    "Backup": "Copie de rezervă",
+    "AppUpdated": "{appName} actualizat"
 }
