@@ -643,5 +643,6 @@
     "Medium": "Mediu",
     "AllResultsAreHiddenByTheAppliedFilter": "Toate rezultatele sunt ascunse de filtrul aplicat",
     "Backup": "Copie de rezervă",
-    "AppUpdated": "{appName} actualizat"
+    "AppUpdated": "{appName} actualizat",
+    "BlocklistReleaseHelpText": "Împiedică Radarr să apuce automat această versiune din nou"
 }

@@ -63,5 +63,11 @@
     "ProxyCheckFailedToTestMessage": "Gagal menguji proxy: {0}",
     "QualityProfiles": "Profil Kualitas",
     "StatusEndedEnded": "Berakhir",
-    "UILanguageHelpText": "Bahasa yang digunakan UI Sonarr"
+    "UILanguageHelpText": "Bahasa yang digunakan UI Sonarr",
+    "Activity": "Aktivitas",
+    "Backup": "Cadangan",
+    "ConnectionLost": "Koneksi Terputus",
+    "ConnectionLostReconnect": "Radarr akan mencoba untuk menghubungi secara otomatis, atau klik muat ulang di bawah.",
+    "SomeResultsAreHiddenByTheAppliedFilter": "Seluruh hasil disembunyikan karena penyaringan yang diterapkan",
+    "AllResultsAreHiddenByTheAppliedFilter": "Seluruh hasil disembunyikan karena penyaringan yang diterapkan"
 }

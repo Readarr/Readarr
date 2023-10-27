@@ -663,5 +663,8 @@
     "Series": "Seriál",
     "DeleteCondition": "Odstranit podmínku",
     "Database": "Databáze",
-    "CountDownloadClientsSelected": "{count} vybraných klientů ke stahování"
+    "CountDownloadClientsSelected": "{count} vybraných klientů ke stahování",
+    "ImportListMissingRoot": "Chybí kořenový adresář pro import seznamu: {0}",
+    "IndexerDownloadClientHelpText": "Zvolte, který klient pro stahování bude použit pro zachytávání z toho indexeru",
+    "ImportListMultipleMissingRoots": "Několik kořenových adresářů chybí pro seznamy importu: {0}"
 }
