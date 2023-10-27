@@ -996,5 +996,6 @@
     "Small": "Μικρό",
     "AppUpdated": "{appName} Ενημερώθηκε",
     "AppUpdatedVersion": "ξαναφορτωθεί",
-    "AutoAdd": "Προσθήκη"
+    "AutoAdd": "Προσθήκη",
+    "ErrorLoadingContent": "Υπήρξε ένα σφάλμα κατά τη φόρτωση του αρχείου"
 }
