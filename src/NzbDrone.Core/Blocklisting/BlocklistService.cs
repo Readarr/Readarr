@@ -15,6 +15,7 @@ namespace NzbDrone.Core.Blocklisting
     public interface IBlocklistService
     {
         bool Blocklisted(int authorId, ReleaseInfo release);
+        bool BlocklistedTorrentHash(int authorId, string hash);
         PagingSpec<Blocklist> Paged(PagingSpec<Blocklist> pagingSpec);
         void Block(RemoteBook remoteEpisode, string message);
         void Delete(int id);
@@ -60,6 +61,12 @@ namespace NzbDrone.Core.Blocklisting
 
             return blocklistedByTitle.Where(b => b.Protocol == DownloadProtocol.Usenet)
                                      .Any(b => SameNzb(b, release));
+        }
+
+        public bool BlocklistedTorrentHash(int authorId, string hash)
+        {
+            return _blocklistRepository.BlocklistedByTorrentInfoHash(authorId, hash).Any(b =>
+                b.TorrentInfoHash.Equals(hash, StringComparison.InvariantCultureIgnoreCase));
         }
 
         public PagingSpec<Blocklist> Paged(PagingSpec<Blocklist> pagingSpec)

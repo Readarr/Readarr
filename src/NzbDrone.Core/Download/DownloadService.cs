@@ -102,6 +102,11 @@ namespace NzbDrone.Core.Download
                 _logger.Trace("Release {0} no longer available on indexer.", remoteBook);
                 throw;
             }
+            catch (ReleaseBlockedException)
+            {
+                _logger.Trace("Release {0} previously added to blocklist, not sending to download client again.", remoteBook);
+                throw;
+            }
             catch (DownloadClientRejectedReleaseException)
             {
                 _logger.Trace("Release {0} rejected by download client, possible duplicate.", remoteBook);
@@ -126,7 +131,7 @@ namespace NzbDrone.Core.Download
             bookGrabbedEvent.DownloadClientId = downloadClient.Definition.Id;
             bookGrabbedEvent.DownloadClientName = downloadClient.Definition.Name;
 
-            if (!string.IsNullOrWhiteSpace(downloadClientId))
+            if (downloadClientId.IsNotNullOrWhiteSpace())
             {
                 bookGrabbedEvent.DownloadId = downloadClientId;
             }
