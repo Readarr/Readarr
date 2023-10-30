@@ -20,6 +20,7 @@ namespace Readarr.Api.V1.Indexers
         private readonly IMakeDownloadDecision _downloadDecisionMaker;
         private readonly IProcessDownloadDecisions _downloadDecisionProcessor;
         private readonly IIndexerFactory _indexerFactory;
+        private readonly IDownloadClientFactory _downloadClientFactory;
         private readonly Logger _logger;
 
         private static readonly object PushLock = new object();
@@ -27,11 +28,13 @@ namespace Readarr.Api.V1.Indexers
         public ReleasePushController(IMakeDownloadDecision downloadDecisionMaker,
                                  IProcessDownloadDecisions downloadDecisionProcessor,
                                  IIndexerFactory indexerFactory,
+                                 IDownloadClientFactory downloadClientFactory,
                                  Logger logger)
         {
             _downloadDecisionMaker = downloadDecisionMaker;
             _downloadDecisionProcessor = downloadDecisionProcessor;
             _indexerFactory = indexerFactory;
+            _downloadClientFactory = downloadClientFactory;
             _logger = logger;
 
             PostValidator.RuleFor(s => s.Title).NotEmpty();
@@ -53,6 +56,8 @@ namespace Readarr.Api.V1.Indexers
 
             ResolveIndexer(info);
 
+            var downloadClientId = ResolveDownloadClientId(release);
+
             DownloadDecision decision;
 
             lock (PushLock)
@@ -61,7 +66,7 @@ namespace Readarr.Api.V1.Indexers
 
                 decision = decisions.FirstOrDefault();
 
-                _downloadDecisionProcessor.ProcessDecision(decision, release.DownloadClientId).GetAwaiter().GetResult();
+                _downloadDecisionProcessor.ProcessDecision(decision, downloadClientId).GetAwaiter().GetResult();
             }
 
             if (decision?.RemoteBook.ParsedBookInfo == null)
@@ -105,6 +110,27 @@ namespace Readarr.Api.V1.Indexers
             {
                 _logger.Debug("Push Release {0} not associated with an indexer.", release.Title);
             }
+        }
+
+        private int? ResolveDownloadClientId(ReleaseResource release)
+        {
+            var downloadClientId = release.DownloadClientId.GetValueOrDefault();
+
+            if (downloadClientId == 0 && release.DownloadClient.IsNotNullOrWhiteSpace())
+            {
+                var downloadClient = _downloadClientFactory.All().FirstOrDefault(v => v.Name.EqualsIgnoreCase(release.DownloadClient));
+
+                if (downloadClient != null)
+                {
+                    _logger.Debug("Push Release {0} associated with download client {1} - {2}.", release.Title, downloadClientId, release.DownloadClient);
+
+                    return downloadClient.Id;
+                }
+
+                _logger.Debug("Push Release {0} not associated with known download client {1}.", release.Title, release.DownloadClient);
+            }
+
+            return release.DownloadClientId;
         }
     }
 }
