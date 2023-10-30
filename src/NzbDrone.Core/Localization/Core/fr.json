@@ -831,7 +831,6 @@
     "DiscCount": "Nombre de disques",
     "IsExpandedHideFileInfo": "Masquer les informations sur le fichier",
     "OnReleaseImport": "Lors de l'importation de la version",
-    "EnableProfile": "Activer le profil",
     "MetadataConsumers": "Consommateurs de métadonnées",
     "MusicBrainzRecordingID": "Identifiant d'enregistrement MusicBrainz",
     "OnDownloadFailureHelpText": "En cas d'échec de téléchargement",
