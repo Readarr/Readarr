@@ -245,7 +245,7 @@
     "Ended": "Terminado",
     "ErrorLoadingContents": "Erro ao carregar conteúdo",
     "ErrorLoadingPreviews": "Erro ao carregar pré-visualizações",
-    "Exception": "Excepção",
+    "Exception": "Exceção",
     "ExtraFileExtensionsHelpTexts1": "Lista separada por vírgulas de ficheiros adicionais a importar (.nfo será importado como .nfo-orig)",
     "ExtraFileExtensionsHelpTexts2": "Exemplos: \".sub, .nfo\" ou \"sub,nfo\"",
     "FailedDownloadHandling": "Falha no processamento de transferências",
@@ -857,5 +857,6 @@
     "DeleteCondition": "Eliminar Condição",
     "AppUpdatedVersion": "{appName} foi atualizado para a versão `{version}`, para obter as alterações mais recentes, você precisará recarregar {appName}",
     "AutomaticUpdatesDisabledDocker": "As actualizações automáticas não são diretamente suportadas quando se utiliza o mecanismo de atualização do Docker. Terá de atualizar a imagem do contentor fora de {appName} ou utilizar um script",
-    "EditSelectedDownloadClients": "Editar Clientes de Transferência Selecionados"
+    "EditSelectedDownloadClients": "Editar Clientes de Transferência Selecionados",
+    "ApplyChanges": "Aplicar alterações"
 }

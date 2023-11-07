@@ -921,5 +921,6 @@
     "ReadarrSupportsMultipleListsForImportingBooksAndAuthorsIntoTheDatabase": "Lidarr prend en charge plusieurs listes pour importer des albums et des artistes dans la base de données.",
     "TotalBookCountBooksTotalBookFileCountBooksWithFilesInterp": "{0} pistes au total. {1} pistes avec fichiers.",
     "SearchForAllMissingBooks": "Rechercher tous les albums manquants",
-    "ForeignIdHelpText": "L'identifiant Musicbrainz de l'artiste/album à exclure"
+    "ForeignIdHelpText": "L'identifiant Musicbrainz de l'artiste/album à exclure",
+    "EnableProfile": "Activer profil"
 }
