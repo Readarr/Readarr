@@ -26,6 +26,7 @@ using NzbDrone.Core.Configuration;
 using NzbDrone.Core.Datastore.Extensions;
 using NzbDrone.Core.Lifecycle;
 using NzbDrone.Core.Messaging.Events;
+using Readarr.Http.ClientSchema;
 using PostgresOptions = NzbDrone.Core.Datastore.PostgresOptions;
 
 namespace NzbDrone.Host
@@ -155,6 +156,8 @@ namespace NzbDrone.Host
                         .AddDatabase()
                         .AddStartupContext(context)
                         .Resolve<IEventAggregator>().PublishEvent(new ApplicationStartingEvent());
+
+                    SchemaBuilder.Initialize(c);
                 })
                 .ConfigureServices(services =>
                 {
