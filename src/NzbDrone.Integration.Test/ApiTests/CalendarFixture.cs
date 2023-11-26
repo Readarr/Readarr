@@ -9,6 +9,7 @@ using Readarr.Api.V1.Books;
 namespace NzbDrone.Integration.Test.ApiTests
 {
     [TestFixture]
+    [Ignore("Waiting for metadata to be back again", Until = "2023-12-31 00:00:00Z")]
     public class CalendarFixture : IntegrationTest
     {
         public ClientBase<BookResource> Calendar;

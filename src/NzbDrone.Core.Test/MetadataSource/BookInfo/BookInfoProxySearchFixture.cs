@@ -15,6 +15,7 @@ using NzbDrone.Test.Common;
 namespace NzbDrone.Core.Test.MetadataSource.Goodreads
 {
     [TestFixture]
+    [Ignore("Waiting for metadata to be back again", Until = "2023-12-31 00:00:00Z")]
     public class BookInfoProxySearchFixture : CoreTest<BookInfoProxy>
     {
         [SetUp]
