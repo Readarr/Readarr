@@ -154,7 +154,7 @@
     "GrabSelected": "Capturar Seleccionados",
     "HasPendingChangesNoChanges": "Sin Cambios",
     "HasPendingChangesSaveChanges": "Guardar Cambios",
-    "History": "Historia",
+    "History": "Historial",
     "Host": "Host",
     "Hostname": "Nombre del Host",
     "ICalFeed": "iCal Feed",
@@ -210,7 +210,7 @@
     "MinimumLimits": "Límites Mínimos",
     "Missing": "Falta",
     "Mode": "Modo",
-    "Monitored": "Monitoreada",
+    "Monitored": "Monitorizado",
     "MoreInfo": "Más Información",
     "MustContain": "Debe Contener",
     "MustNotContain": "No Debe Contener",
@@ -755,5 +755,6 @@
     "Book": "Libro",
     "AutomaticallySwitchEdition": "Cambiar edición automáticamente",
     "BookNaming": "Nombrado de libros",
-    "Books": "Libro"
+    "Books": "Libro",
+    "NoHistoryBlocklist": "Sin lista de bloqueo de historial"
 }
