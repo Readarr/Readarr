@@ -33,6 +33,8 @@ namespace Readarr.Api.V1.OPDS
         public DateTime Modified { get; set; }
         public string Description { get; set; }
         public List<string> Genres { get; set; }
+        public double Rating { get; set; }
+        public int Votes { get; set; }
     }
 
     public class OPDSImageResource : IEmbeddedDocument
@@ -149,7 +151,9 @@ namespace Readarr.Api.V1.OPDS
                 Language = edition.Language,
                 Modified = book.ReleaseDate ?? DateTime.Now,
                 Description = edition.Overview,
-                Genres = book.Genres
+                Genres = book.Genres,
+                Votes = book.Ratings.Votes,
+                Rating = (double)book.Ratings.Value,
             };
         }
 
