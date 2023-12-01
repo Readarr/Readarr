@@ -115,9 +115,15 @@ namespace Readarr.Api.V1.BookFiles
         [HttpGet("download/{id:int}")]
         public IActionResult GetBookFile(int id)
         {
-            var bookFile = _mediaFileService.Get(id);
+            var files = _mediaFileService.GetFilesByBook(id);
+            if (files.Empty())
+            {
+                throw new BadRequestException(string.Format("no bookfiles exist for book with id: {0}", id));
+            }
+
+            var bookFile = files.First();
             var filePath = bookFile.Path;
-            Response.Headers.Add("Content-Disposition", string.Format("attachment;filename={0}", PathExtensions.BaseName(filePath)));
+            Response.Headers.Add("content-disposition", string.Format("attachment;filename={0}", PathExtensions.BaseName(filePath)));
             return new PhysicalFileResult(filePath, GetContentType(filePath));
         }
 

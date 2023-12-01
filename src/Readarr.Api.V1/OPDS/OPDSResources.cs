@@ -32,7 +32,7 @@ namespace Readarr.Api.V1.OPDS
         public string Language { get; set; }
         public DateTime Modified { get; set; }
         public string Description { get; set; }
-        public List<string> Genre { get; set; }
+        public List<string> Genres { get; set; }
     }
 
     public class OPDSImageResource : IEmbeddedDocument
@@ -78,16 +78,35 @@ namespace Readarr.Api.V1.OPDS
             var links = new List<OPDSLinkResource>();
             links.Add(self);
 
+            var nav = new List<OPDSLinkResource>();
+            var pubs = new OPDSLinkResource
+            {
+                Href = "/opds/publications",
+                Rel = "self",
+                Title = "Readarr OPDS Available Publications",
+                Type = "application/opds+json"
+            };
+            nav.Add(pubs);
+
             var meta = new OPDSCatalogMetadataResource
             {
                 Title = self.Title
             };
 
+            var wanted = new OPDSLinkResource
+            {
+                Href = "/opds/wanted",
+                Rel = "self",
+                Title = "Readarr OPDS Wanted Publications",
+                Type = "application/opds+json"
+            };
+            nav.Add(wanted);
+
             return new OPDSCatalogResource
             {
                 Metadata = meta,
                 Links = links,
-                Navigation = new List<OPDSLinkResource>(),
+                Navigation = nav,
                 Publications = new List<OPDSPublicationResource>()
             };
         }
@@ -130,7 +149,7 @@ namespace Readarr.Api.V1.OPDS
                 Language = edition.Language,
                 Modified = book.ReleaseDate ?? DateTime.Now,
                 Description = edition.Overview,
-                Genre = book.Genres
+                Genres = book.Genres
             };
         }
 
@@ -143,7 +162,7 @@ namespace Readarr.Api.V1.OPDS
             };
         }
 
-        public static OPDSPublicationResource ToOPDSPublicationResource(Book book, List<BookFile> files, List<MediaCover> covers)
+        public static OPDSPublicationResource ToOPDSPublicationResource(Book book, List<BookFile> files, Edition edition, List<MediaCover> covers)
         {
             var linkResources = new List<OPDSLinkResource>();
             var imageResources = new List<OPDSImageResource>();
@@ -151,23 +170,36 @@ namespace Readarr.Api.V1.OPDS
             //Must have link to self
             linkResources.Add(new OPDSLinkResource
             {
-                Href = string.Format("/opds/publications/{0}", book.Id),
+                Href = string.Format("opds/publications/{0}", book.Id),
                 Rel = "self",
                 Title = book.Title,
                 Type = "application/opds-publication+json"
             });
 
-            //we'll only add the first bookfile (for now)
-            foreach (var file in files)
+            if (files.Count > 0)
+            {
+                //we'll only add the first bookfile (for now)
+                foreach (var file in files)
+                {
+                    linkResources.Add(new OPDSLinkResource
+                    {
+                        Href = string.Format("bookfile/download/{0}", book.Id),
+                        Rel = "http://opds-spec.org/acquisition",
+                        Title = string.Format("Readarr OPDS Link:{0}", book.Id),
+                        Type = GetContentType(file.Path)
+                    });
+                    break;
+                }
+            }
+            else if (edition != null)
             {
                 linkResources.Add(new OPDSLinkResource
                 {
-                    Href = string.Format("/bookfile/download/{0}", book.Id),
+                    Href = edition.Links.First().Url,
                     Rel = "http://opds-spec.org/acquisition",
                     Title = string.Format("Readarr OPDS Link:{0}", book.Id),
-                    Type = GetContentType(file.Path)
+                    Type = GetContentType("test.epub")
                 });
-                break;
             }
 
             foreach (var cover in covers)

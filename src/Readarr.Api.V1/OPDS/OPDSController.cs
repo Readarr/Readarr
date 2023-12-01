@@ -38,7 +38,7 @@ namespace Readarr.Api.V1.OPDS
 
         // /opds
         [HttpGet]
-        public OPDSCatalogResource GetOPDSCatalog([FromQuery] bool availableBooks = true)
+        public OPDSCatalogResource GetOPDSCatalog()
         {
             var metadataTask = Task.Run(() => _authorService.GetAllAuthors());
             var books = _bookService.GetAllBooks();
@@ -50,7 +50,8 @@ namespace Readarr.Api.V1.OPDS
             }
 
             var catalog = OPDSResourceMapper.ToOPDSCatalogResource();
-            catalog.Publications = MapToResource(books, false);
+
+           //catalog.Publications = MapToResource(books, wanted);
             return catalog;
         }
 
@@ -72,6 +73,24 @@ namespace Readarr.Api.V1.OPDS
             return publications;
         }
 
+        // /opds/wanted
+        [HttpGet("wanted")]
+        public OPDSPublicationsResource GetOPDSWantedPublications()
+        {
+            var metadataTask = Task.Run(() => _authorService.GetAllAuthors());
+            var books = _bookService.GetAllBooks();
+            var authors = metadataTask.GetAwaiter().GetResult().ToDictionary(x => x.AuthorMetadataId);
+
+            foreach (var book in books)
+            {
+                book.Author = authors[book.AuthorMetadataId];
+            }
+
+            var publications = OPDSResourceMapper.ToOPDSPublicationsResource();
+            publications.Publications = MapToResource(books, true);
+            return publications;
+        }
+
         // /opds/publications/{int:id}
         [HttpGet("publications/{id:int}")]
         public OPDSPublicationResource GetOPDSPublication(int id)
@@ -87,16 +106,17 @@ namespace Readarr.Api.V1.OPDS
                 throw new BadRequestException("No book files exist for the given book id");
             }
 
+            var ebookEdition = book.Editions?.Value.Where(x => x.IsEbook).SingleOrDefault();
             var selectedEdition = book.Editions?.Value.Where(x => x.Monitored).SingleOrDefault();
             var covers = selectedEdition?.Images ?? new List<MediaCover>();
             _coverMapper.ConvertToLocalUrls(book.Id, MediaCoverEntity.Book, covers);
             _coverMapper.ConvertToLocalUrls(book.Id, MediaCoverEntity.Book, images);
             book.Author = author;
 
-            return OPDSResourceMapper.ToOPDSPublicationResource(book, bookfiles, images);
+            return OPDSResourceMapper.ToOPDSPublicationResource(book, bookfiles, ebookEdition, images);
         }
 
-        protected List<OPDSPublicationResource> MapToResource(List<Book> books, bool availableBooks)
+        protected List<OPDSPublicationResource> MapToResource(List<Book> books, bool wanted)
         {
             var pubclications = new List<OPDSPublicationResource>();
             for (var i = 0; i < books.Count; i++)
@@ -105,17 +125,21 @@ namespace Readarr.Api.V1.OPDS
                 var book = books[i];
                 var bookfiles = _mediaFileService.GetFilesByBook(book.Id);
                 var selectedEdition = book.Editions?.Value.Where(x => x.Monitored).SingleOrDefault();
+                var ebookEdition = book.Editions?.Value.Where(x => x.IsEbook).FirstOrDefault();
                 var covers = selectedEdition?.Images ?? new List<MediaCover>();
                 _coverMapper.ConvertToLocalUrls(book.Id, MediaCoverEntity.Book, covers);
 
                 //only add publications for which we have a valid bookfile
-                if (!bookfiles.Any())
+                if (!bookfiles.Any() && wanted && book.Monitored)
                 {
-                    continue;
+                    var publication = OPDSResourceMapper.ToOPDSPublicationResource(book, bookfiles, ebookEdition, covers);
+                    pubclications.Add(publication);
                 }
-
-                var publication = OPDSResourceMapper.ToOPDSPublicationResource(book, bookfiles, covers);
-                pubclications.Add(publication);
+                else if (bookfiles.Any() && !wanted)
+                {
+                    var publication = OPDSResourceMapper.ToOPDSPublicationResource(book, bookfiles, ebookEdition, covers);
+                    pubclications.Add(publication);
+                }
             }
 
             return pubclications;
