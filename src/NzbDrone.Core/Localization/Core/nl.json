@@ -648,5 +648,7 @@
     "ApplyTagsHelpTextReplace": "Vervangen: Vervang de tags met de ingevoerde tags (vul geen tags in om alle tags te wissen)",
     "AutoAdd": "Automatisch Toevoegen",
     "Activity": "Activiteit",
-    "AddNew": "Voeg Nieuwe Toe"
+    "AddNew": "Voeg Nieuwe Toe",
+    "AppUpdated": "{appName} is geüpdatet",
+    "AppUpdatedVersion": "{appName} is geüpdatet naar versie '{version}', om de laatste wijzigingen door te voeren moet je mogelijk {appName} herstarten"
 }

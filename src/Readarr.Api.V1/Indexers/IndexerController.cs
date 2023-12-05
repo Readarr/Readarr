@@ -1,4 +1,5 @@
 using NzbDrone.Core.Indexers;
+using NzbDrone.Core.Validation;
 using Readarr.Http;
 
 namespace Readarr.Api.V1.Indexers
@@ -9,9 +10,10 @@ namespace Readarr.Api.V1.Indexers
         public static readonly IndexerResourceMapper ResourceMapper = new ();
         public static readonly IndexerBulkResourceMapper BulkResourceMapper = new ();
 
-        public IndexerController(IndexerFactory indexerFactory)
+        public IndexerController(IndexerFactory indexerFactory, DownloadClientExistsValidator downloadClientExistsValidator)
             : base(indexerFactory, "indexer", ResourceMapper, BulkResourceMapper)
         {
+            SharedValidator.RuleFor(c => c.DownloadClientId).SetValidator(downloadClientExistsValidator);
         }
     }
 }

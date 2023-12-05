@@ -13,7 +13,7 @@
     "BackupFolderHelpText": "Az elérési útvonalak a Readarr AppData könyvtárában lesznek",
     "BackupNow": "Biztonsági Mentés Most",
     "BackupRetentionHelpText": "A megőrzési időnél régebbi automatikus biztonsági másolatok automatikusan törlésre kerülnek",
-    "Backups": "Biztonsági Mentés",
+    "Backups": "Biztonsági mentések",
     "BindAddress": "Kapcsolási Cím",
     "BindAddressHelpText": "Érvényes IPv4-cím, vagy „*” minden interfészhez",
     "BindAddressHelpTextWarning": "Újraindítás szükséges a hatálybalépéshez",
@@ -23,7 +23,7 @@
     "BypassProxyForLocalAddresses": "Proxy megkerülése a helyi hálózatos címekhez",
     "Calendar": "Naptár",
     "CalendarWeekColumnHeaderHelpText": "Minden oszlop felett jelenjen meg, hogy melyik hét az aktuális",
-    "Cancel": "Vissza",
+    "Cancel": "Mégse",
     "CancelMessageText": "Biztosan törlöd ezt a függőben lévő feladatot?",
     "CertificateValidation": "Tanúsítvány érvényesítése",
     "CertificateValidationHelpText": "Módosítsa a HTTPS-tanúsítvány-ellenőrzés szigorúságát. Ne változtasson, hacsak nem érti a kockázatokat.",
@@ -857,7 +857,7 @@
     "LoadingEditionsFailed": "A kiadások betöltése nem sikerült",
     "ManualImportSelectEdition": "Kézi importálás – Válaszd ki a Kiadást",
     "Database": "Adatbázis",
-    "ApplicationURL": "Alkalmazás URL-je",
+    "ApplicationURL": "Alkalmazás URL",
     "ApplicationUrlHelpText": "Az alkalmazás külső URL-címe, beleértve a http(s)://-t, a portot és az URL-alapot",
     "ChooseImportMethod": "Importálási mód kiválasztása",
     "ClickToChangeReleaseGroup": "Kiadási csoport módosítása",
@@ -976,5 +976,6 @@
     "Activity": "Aktivitás",
     "AddNew": "Új hozzáadása",
     "Backup": "Biztonsági Mentés",
-    "Medium": "Közepes"
+    "Medium": "Közepes",
+    "AutoAdd": "Automatikus hozzáadás"
 }

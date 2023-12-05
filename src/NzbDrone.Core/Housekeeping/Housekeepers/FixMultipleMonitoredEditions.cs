@@ -16,15 +16,30 @@ namespace NzbDrone.Core.Housekeeping.Housekeepers
         {
             using var mapper = _database.OpenConnection();
 
-            mapper.Execute(@"UPDATE ""Editions""
-                            SET ""Monitored"" = 0
-                            WHERE ""Id"" IN (
-                                SELECT MIN(""Id"")
-                                FROM ""Editions""
-                                WHERE ""Monitored"" = 1
-                                GROUP BY ""BookId""
-                                HAVING COUNT(""BookId"") > 1
-                            )");
+            if (_database.DatabaseType == DatabaseType.PostgreSQL)
+            {
+                mapper.Execute(@"UPDATE ""Editions""
+                                SET ""Monitored"" = true
+                                WHERE ""Id"" IN (
+                                    SELECT MIN(""Id"")
+                                    FROM ""Editions""
+                                    WHERE ""Monitored"" = true
+                                    GROUP BY ""BookId""
+                                    HAVING COUNT(""BookId"") > 1
+                                )");
+            }
+            else
+            {
+                mapper.Execute(@"UPDATE ""Editions""
+                                SET ""Monitored"" = 0
+                                WHERE ""Id"" IN (
+                                    SELECT MIN(""Id"")
+                                    FROM ""Editions""
+                                    WHERE ""Monitored"" = 1
+                                    GROUP BY ""BookId""
+                                    HAVING COUNT(""BookId"") > 1
+                                )");
+            }
         }
     }
 }
