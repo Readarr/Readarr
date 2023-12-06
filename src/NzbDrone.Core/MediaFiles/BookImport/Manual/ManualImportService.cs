@@ -27,6 +27,7 @@ namespace NzbDrone.Core.MediaFiles.BookImport.Manual
     public interface IManualImportService
     {
         List<ManualImportItem> GetMediaFiles(string path, string downloadId, Author author, FilterFilesType filter, bool replaceExistingFiles);
+        List<ManualImportItem> ProcessFile(string path, Book book, Author author, FilterFilesType filter, bool replaceExistingFiles);
         List<ManualImportItem> UpdateItems(List<ManualImportItem> item);
     }
 
@@ -85,6 +86,41 @@ namespace NzbDrone.Core.MediaFiles.BookImport.Manual
             _provideImportItemService = provideImportItemService;
             _eventAggregator = eventAggregator;
             _logger = logger;
+        }
+
+        public List<ManualImportItem> ProcessFile(string path, Book book, Author author, FilterFilesType filter, bool replaceExistingFiles)
+        {
+            if (!_diskProvider.FolderExists(path))
+            {
+                if (!_diskProvider.FileExists(path))
+                {
+                    return new List<ManualImportItem>();
+                }
+
+                var files = new List<IFileInfo> { _diskProvider.GetFileInfo(path) };
+
+                var config = new ImportDecisionMakerConfig
+                {
+                    Filter = FilterFilesType.None,
+                    NewDownload = true,
+                    SingleRelease = false,
+                    IncludeExisting = !replaceExistingFiles,
+                    AddNewAuthors = false,
+                    KeepAllEditions = true
+                };
+
+                var idOverrides = new IdentificationOverrides();
+                idOverrides.Book = book;
+                idOverrides.Author = author;
+
+                var decision = _importDecisionMaker.GetImportDecisions(files, idOverrides, null, config);
+                var result = MapItem(decision.First(), null, replaceExistingFiles, false);
+                _importApprovedBooks.Import(decision, false);
+
+                return new List<ManualImportItem> { result };
+            }
+
+            return new List<ManualImportItem>();
         }
 
         public List<ManualImportItem> GetMediaFiles(string path, string downloadId, Author author, FilterFilesType filter, bool replaceExistingFiles)

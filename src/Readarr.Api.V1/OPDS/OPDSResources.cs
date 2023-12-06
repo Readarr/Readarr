@@ -25,6 +25,7 @@ namespace Readarr.Api.V1.OPDS
 
     public class OPDSPublicationMetadataResource : IEmbeddedDocument
     {
+        public int Id { get; set; }
         public string Title { get; set; }
         public string @Type { get; set; }
         public string Author { get; set; }
@@ -144,6 +145,7 @@ namespace Readarr.Api.V1.OPDS
             var edition = book.Editions?.Value.Where(x => x.Monitored).SingleOrDefault();
             return new OPDSPublicationMetadataResource
             {
+                Id = book.Id,
                 Title = book.Title,
                 @Type = "http://schema.org/Book",
                 Author = book.Author.Value?.Metadata?.Value?.SortNameLastFirst ?? book.Author.Value.Name,
@@ -247,7 +249,7 @@ namespace Readarr.Api.V1.OPDS
         private static string GetImageContentType(string ext)
         {
             var contentType = string.Format("application/{0}", ext);
-            if (ext.Contains("jpg") || ext.Contains("jepg"))
+            if (ext.Contains("jpg") || ext.Contains("jpeg"))
             {
                 contentType = "image/jpeg";
             }

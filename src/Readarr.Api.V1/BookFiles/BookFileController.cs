@@ -2,14 +2,18 @@ using System.Collections.Generic;
 using System.IO;
 using System.IO.Abstractions;
 using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.StaticFiles;
+using NzbDrone.Common.Disk;
 using NzbDrone.Common.Extensions;
 using NzbDrone.Core.Books;
 using NzbDrone.Core.Datastore.Events;
 using NzbDrone.Core.DecisionEngine.Specifications;
 using NzbDrone.Core.Exceptions;
 using NzbDrone.Core.MediaFiles;
+using NzbDrone.Core.MediaFiles.BookImport.Manual;
 using NzbDrone.Core.MediaFiles.Events;
 using NzbDrone.Core.Messaging.Events;
 using NzbDrone.Http.REST.Attributes;
@@ -33,8 +37,12 @@ namespace Readarr.Api.V1.BookFiles
         private readonly IBookService _bookService;
         private readonly IUpgradableSpecification _upgradableSpecification;
         private readonly IContentTypeProvider _mimeTypeProvider;
+        private readonly IDiskProvider _diskProvider;
+        private readonly IManualImportService _manualImportService;
 
-        public BookFileController(IBroadcastSignalRMessage signalRBroadcaster,
+        public BookFileController(IManualImportService manualImportService,
+                               IDiskProvider diskProvider,
+                               IBroadcastSignalRMessage signalRBroadcaster,
                                IMediaFileService mediaFileService,
                                IDeleteMediaFiles mediaFileDeletionService,
                                IMetadataTagService metadataTagService,
@@ -43,6 +51,8 @@ namespace Readarr.Api.V1.BookFiles
                                IUpgradableSpecification upgradableSpecification)
             : base(signalRBroadcaster)
         {
+            _diskProvider = diskProvider;
+            _manualImportService = manualImportService;
             _mediaFileService = mediaFileService;
             _mediaFileDeletionService = mediaFileDeletionService;
             _metadataTagService = metadataTagService;
@@ -125,6 +135,60 @@ namespace Readarr.Api.V1.BookFiles
             var filePath = bookFile.Path;
             Response.Headers.Add("content-disposition", string.Format("attachment;filename={0}", PathExtensions.BaseName(filePath)));
             return new PhysicalFileResult(filePath, GetContentType(filePath));
+        }
+
+        [HttpPost("upload/{id:int}")]
+        public async Task<IActionResult> PutBookFileAsync(int id, IFormFile file)
+        {
+            if (file == null || file.Length == 0)
+            {
+                throw new NzbDroneClientException(HttpStatusCode.UnprocessableEntity, "no file selected for upload");
+            }
+            else if (file.Length > 2.5e+7)
+            {
+                throw new NzbDroneClientException(HttpStatusCode.UnprocessableEntity, "file is too large for upload. max file size is 25 MB.");
+            }
+
+            var contentType = file.ContentType;
+            var book = _bookService.GetBook(id);
+            var title = book.Title;
+            var bookAuthor = _authorService.GetAuthor(book.AuthorId);
+            var extension = GetExtension(Path.GetFileName(file.FileName));
+            if (!MediaFileExtensions.AllExtensions.Contains(extension))
+            {
+                throw new NzbDroneClientException(HttpStatusCode.UnprocessableEntity, "invalid content type for upload.");
+            }
+
+            //create a tmpdirectory with the given id
+            var directory = Path.Join(Path.GetTempPath(), book.Title);
+            if (!_diskProvider.FolderExists(directory))
+            {
+                _diskProvider.CreateFolder(directory);
+            }
+
+            //don't use the uploaded files name in case it is intentionally malformed
+            var fileName = string.Format("{0}{1}", title, extension);
+            var combined = Path.Combine(directory, fileName);
+
+            using (var fileStream = new FileStream(combined, FileMode.Create))
+            {
+                await file.CopyToAsync(fileStream);
+            }
+
+            var list = _manualImportService.ProcessFile(combined, book, bookAuthor, FilterFilesType.None, false);
+            if (list.Empty())
+            {
+                throw new NzbDroneClientException(HttpStatusCode.UnprocessableEntity, "import failed.");
+            }
+            else if (!list.First().Rejections.Empty())
+            {
+                throw new NzbDroneClientException(HttpStatusCode.UnprocessableEntity, "import failed.");
+            }
+
+            //delete the directory after manual import
+            _diskProvider.DeleteFolder(directory, true);
+
+            return Accepted();
         }
 
         [RestPutById]
@@ -228,6 +292,22 @@ namespace Readarr.Api.V1.BookFiles
             }
 
             return contentType;
+        }
+
+        private static string GetExtension(string path)
+        {
+            if (string.IsNullOrWhiteSpace(path))
+            {
+                return null;
+            }
+
+            var index = path.LastIndexOf('.');
+            if (index < 0)
+            {
+                return null;
+            }
+
+            return path.Substring(index);
         }
     }
 }
