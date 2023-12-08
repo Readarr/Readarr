@@ -750,5 +750,17 @@
     "BookNaming": "Nombrado de libros",
     "Books": "Libro",
     "NoHistoryBlocklist": "Sin lista de bloqueo de historial",
-    "WouldYouLikeToRestoreBackup": "Te gustaria restaurar la copia de seguridad '{name}'?"
+    "WouldYouLikeToRestoreBackup": "Te gustaria restaurar la copia de seguridad '{name}'?",
+    "IsShowingMonitoredUnmonitorSelected": "Monitorizar Seleccionados",
+    "CloneCustomFormat": "Clonar formato personalizado",
+    "MinimumCustomFormatScoreHelpText": "Puntuación mínima de formato personalizado necesaria para evitar el retraso del protocolo preferido",
+    "BypassIfAboveCustomFormatScore": "Omitir si está por encima de la puntuación del formato personalizado",
+    "BypassIfAboveCustomFormatScoreHelpText": "Habilitar ignorar cuando la versión tenga una puntuación superior a la puntuación mínima configurada para el formato personalizado",
+    "IsShowingMonitoredMonitorSelected": "Monitorizar Seleccionados",
+    "ClientPriority": "Prioridad del Cliente",
+    "ColonReplacement": "Reemplazar dos puntos",
+    "CloneProfile": "Clonar Perfil",
+    "Close": "Cerrar",
+    "CloneIndexer": "Clonar Indexer",
+    "CompletedDownloadHandling": "Manipulación de descargas completas"
 }

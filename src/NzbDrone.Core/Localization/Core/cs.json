@@ -676,5 +676,9 @@
     "EditSelectedImportLists": "Upravit vybrané seznamy k importu",
     "DeleteSelectedImportLists": "Smazat seznam k importu",
     "Duration": "Trvání",
-    "DeleteRootFolder": "Smazat kořenový adresář"
+    "DeleteRootFolder": "Smazat kořenový adresář",
+    "DownloadClientTagHelpText": "Tohoto klienta pro stahování používat pouze pro filmy s alespoň jednou odpovídající značkou. Pro použití se všemi filmy ponechte prázdné pole.",
+    "AddedAuthorSettings": "Nastavení umělce přidáno",
+    "DownloadClientRemovesCompletedDownloadsHealthCheckMessage": "Klient stahování {downloadClientName} je nastaven na odstranění dokončených stahování. To může vést k tomu, že stahování budou z klienta odstraněna dříve, než je bude moci importovat {1}.",
+    "IndexerTagsHelpText": "Tohoto klienta pro stahování používat pouze pro filmy s alespoň jednou odpovídající značkou. Pro použití se všemi filmy ponechte prázdné pole."
 }
