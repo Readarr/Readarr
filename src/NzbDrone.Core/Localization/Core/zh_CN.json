@@ -779,7 +779,6 @@
     "CalibreUsername": "Calibre用户名",
     "ChownGroup": "修改组权限",
     "ContinuingAllBooksDownloaded": "仍在继续（所有书籍已下载）",
-    "EnableProfile": "启用配置文件",
     "IfYouDontAddAnImportListExclusionAndTheAuthorHasAMetadataProfileOtherThanNoneThenThisBookMayBeReaddedDuringTheNextAuthorRefresh": "如果您不添加导入列表排除，并且作者有除“无”之外的元数据配置文件，那么这本书可能会在下一次作者刷新期间重新添加。",
     "IndexerIdHelpTextWarning": "使用带有首字母的特定索引器可能会导致复制版本被抓取",
     "MassBookSearchWarning": "您确定要对{0}本书进行批量书籍搜索吗？",
