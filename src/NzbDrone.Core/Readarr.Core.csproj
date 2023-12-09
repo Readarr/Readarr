@@ -5,6 +5,7 @@
   <ItemGroup>
     <PackageReference Include="Dapper" />
     <PackageReference Include="LazyCache" />
+    <PackageReference Include="Polly" />
     <PackageReference Include="System.Text.Json" />
     <PackageReference Include="System.Text.Encoding.CodePages" />
     <PackageReference Include="System.Memory" />
