@@ -9,7 +9,7 @@ variables:
   testsFolder: './_tests'
   yarnCacheFolder: $(Pipeline.Workspace)/.yarn
   nugetCacheFolder: $(Pipeline.Workspace)/.nuget/packages
-  majorVersion: '0.3.11'
+  majorVersion: '0.3.12'
   minorVersion: $[counter('minorVersion', 1)]
   readarrVersion: '$(majorVersion).$(minorVersion)'
   buildName: '$(Build.SourceBranchName).$(readarrVersion)'
