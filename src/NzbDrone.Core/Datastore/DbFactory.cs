@@ -2,6 +2,7 @@ using System;
 using System.Data.Common;
 using System.Data.SQLite;
 using System.Net.Sockets;
+using System.Threading;
 using NLog;
 using Npgsql;
 using NzbDrone.Common.Disk;
@@ -59,30 +60,30 @@ namespace NzbDrone.Core.Datastore
 
         public IDatabase Create(MigrationContext migrationContext)
         {
-            string connectionString;
+            DatabaseConnectionInfo connectionInfo;
 
             switch (migrationContext.MigrationType)
             {
                 case MigrationType.Main:
                     {
-                        connectionString = _connectionStringFactory.MainDbConnectionString;
-                        CreateMain(connectionString, migrationContext);
+                        connectionInfo = _connectionStringFactory.MainDbConnection;
+                        CreateMain(connectionInfo.ConnectionString, migrationContext);
 
                         break;
                     }
 
                 case MigrationType.Log:
                     {
-                        connectionString = _connectionStringFactory.LogDbConnectionString;
-                        CreateLog(connectionString, migrationContext);
+                        connectionInfo = _connectionStringFactory.LogDbConnection;
+                        CreateLog(connectionInfo.ConnectionString, migrationContext);
 
                         break;
                     }
 
                 case MigrationType.Cache:
                     {
-                        connectionString = _connectionStringFactory.CacheDbConnectionString;
-                        CreateLog(connectionString, migrationContext);
+                        connectionInfo = _connectionStringFactory.CacheDbConnection;
+                        CreateLog(connectionInfo.ConnectionString, migrationContext);
 
                         break;
                     }
@@ -97,14 +98,14 @@ namespace NzbDrone.Core.Datastore
             {
                 DbConnection conn;
 
-                if (connectionString.Contains(".db"))
+                if (connectionInfo.DatabaseType == DatabaseType.SQLite)
                 {
                     conn = SQLiteFactory.Instance.CreateConnection();
-                    conn.ConnectionString = connectionString;
+                    conn.ConnectionString = connectionInfo.ConnectionString;
                 }
                 else
                 {
-                    conn = new NpgsqlConnection(connectionString);
+                    conn = new NpgsqlConnection(connectionInfo.ConnectionString);
                 }
 
                 conn.Open();
@@ -142,15 +143,17 @@ namespace NzbDrone.Core.Datastore
                     {
                         Logger.Error(e, "Failure to connect to Postgres DB, {0} retries remaining", retryCount);
 
+                        Thread.Sleep(5000);
+
                         try
                         {
                             _migrationController.Migrate(connectionString, migrationContext);
+                            return;
                         }
                         catch (Exception ex)
                         {
                             if (--retryCount > 0)
                             {
-                                System.Threading.Thread.Sleep(5000);
                                 continue;
                             }
 
