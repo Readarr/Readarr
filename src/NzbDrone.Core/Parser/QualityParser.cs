@@ -1,12 +1,15 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text.RegularExpressions;
 using NLog;
 using NzbDrone.Common.Extensions;
 using NzbDrone.Common.Instrumentation;
 using NzbDrone.Core.MediaFiles;
 using NzbDrone.Core.Qualities;
+using TagLib;
+using TagLib.Matroska;
 
 namespace NzbDrone.Core.Parser
 {
@@ -26,36 +29,44 @@ namespace NzbDrone.Core.Parser
         private static readonly Regex RealRegex = new Regex(@"\b(?<real>REAL)\b",
                                                                 RegexOptions.Compiled);
 
-        private static readonly Regex CodecRegex = new Regex(@"\b(?:(?<PDF>PDF)|(?<MOBI>MOBI)|(?<EPUB>EPUB)|(?<AZW3>AZW3?)|(?<MP1>MPEG Version \d(.5)? Audio, Layer 1|MP1)|(?<MP2>MPEG Version \d(.5)? Audio, Layer 2|MP2)|(?<MP3VBR>MP3.*VBR|MPEG Version \d(.5)? Audio, Layer 3 vbr)|(?<MP3CBR>MP3|MPEG Version \d(.5)? Audio, Layer 3)|(?<FLAC>flac)|(?<WAVPACK>wavpack|wv)|(?<ALAC>alac)|(?<WMA>WMA\d?)|(?<WAV>WAV|PCM)|(?<AAC>M4A|M4P|M4B|AAC|mp4a|MPEG-4 Audio(?!.*alac))|(?<OGG>OGG|OGA|Vorbis))\b|(?<APE>monkey's audio|[\[|\(].*\bape\b.*[\]|\)])|(?<OPUS>Opus Version \d(.5)? Audio|[\[|\(].*\bopus\b.*[\]|\)])",
+        private static readonly Regex CodecRegex = new Regex(@"\b(?:(?<PDF>PDF)|(?<MOBI>MOBI)|(?<EPUB>EPUB)|(?<AZW3>AZW3?)||(?<MP1>MPEG Version \d(.5)? Audio, Layer 1|MP1)|(?<MP2>MPEG Version \d(.5)? Audio, Layer 2|MP2)|(?<MP3VBR>MP3.*VBR|MPEG Version \d(.5)? Audio, Layer 3 vbr)|(?<MP3CBR>MP3|MPEG Version \d(.5)? Audio, Layer 3)|(?<FLAC>flac)|(?<WAVPACK>wavpack|wv)|(?<ALAC>alac)|(?<WMA>WMA\d?)|(?<WAV>WAV|PCM)|(?<AAC>MKA|M4A|M4P|M4B|AAC|mp4a|MPEG-4 Audio(?!.*alac))|(?<OGG>OGG|OGA|Vorbis))\b|(?<APE>monkey's audio|[\[|\(].*\bape\b.*[\]|\)])|(?<OPUS>Opus Version \d(.5)? Audio|[\[|\(].*\bopus\b.*[\]|\)])",
                                                              RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
-        public static QualityModel ParseQuality(string name, string desc = null, List<int> categories = null)
+        public static QualityModel ParseQuality(string name, IAudioCodec audioCodec = null, List<int> categories = null)
         {
             Logger.Debug("Trying to parse quality for '{0}'", name);
-
-            if (name.IsNullOrWhiteSpace() && desc.IsNullOrWhiteSpace())
-            {
-                return new QualityModel { Quality = Quality.Unknown };
-            }
 
             var normalizedName = name.Replace('_', ' ').Trim().ToLower();
             var result = ParseQualityModifiers(name, normalizedName);
 
-            if (desc.IsNotNullOrWhiteSpace())
+            var codec = Codec.Unknown;
+
+            if (audioCodec != null)
             {
-                var descCodec = ParseCodec(desc, "");
-                Logger.Trace($"Got codec {descCodec}");
-
-                result.Quality = FindQuality(descCodec);
-
-                if (result.Quality != Quality.Unknown)
+                if (audioCodec is AudioTrack matroskaCodec)
                 {
-                    result.QualityDetectionSource = QualityDetectionSource.TagLib;
-                    return result;
+                    codec = ParseCodec(StealCodecFromMatroskaTrack(matroskaCodec));
+                }
+
+                if (codec == Codec.Unknown && audioCodec!.Description.IsNotNullOrWhiteSpace())
+                {
+                    var descCodec = ParseCodec(audioCodec.Description);
+                    Logger.Trace($"Got codec {descCodec}");
+
+                    result.Quality = FindQuality(descCodec);
+
+                    if (result.Quality != Quality.Unknown)
+                    {
+                        result.QualityDetectionSource = QualityDetectionSource.TagLib;
+                        return result;
+                    }
                 }
             }
 
-            var codec = ParseCodec(normalizedName, name);
+            if (codec == Codec.Unknown)
+            {
+                codec = ParseCodec(normalizedName);
+            }
 
             switch (codec)
             {
@@ -77,6 +88,7 @@ namespace NzbDrone.Core.Parser
                     result.Quality = Quality.FLAC;
                     break;
                 case Codec.AAC:
+                case Codec.AAC2:
                     result.Quality = Quality.M4B;
                     break;
                 case Codec.MP1:
@@ -125,7 +137,21 @@ namespace NzbDrone.Core.Parser
             return result;
         }
 
-        public static Codec ParseCodec(string name, string origName)
+        private static string StealCodecFromMatroskaTrack(AudioTrack matroskaCodec)
+        {
+            var field = typeof(Track)
+                .GetField("track_codec_id", BindingFlags.NonPublic | BindingFlags.Instance);
+
+            if (field == null)
+            {
+                return null;
+            }
+
+            var val = ((string)field.GetValue(matroskaCodec) ?? string.Empty).Replace("A_", string.Empty);
+            return val;
+        }
+
+        public static Codec ParseCodec(string name)
         {
             if (name.IsNullOrWhiteSpace())
             {
@@ -179,7 +205,7 @@ namespace NzbDrone.Core.Parser
                 return Codec.WAV;
             }
 
-            if (match.Groups["AAC"].Success)
+            if (match.Groups["AAC"].Success || name.Equals("AAC"))
             {
                 return Codec.AAC;
             }
@@ -289,6 +315,7 @@ namespace NzbDrone.Core.Parser
         WAVPACK,
         WMA,
         AAC,
+        AAC2,
         AACVBR,
         OGG,
         OPUS,

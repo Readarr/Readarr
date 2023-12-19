@@ -159,7 +159,7 @@ namespace NzbDrone.Core.MediaFiles
                         Logger.Debug("Audio Properties: " + acodec.Description + ", Bitrate: " + bitrate + ", Sample Size: " +
                                      file.Properties.BitsPerSample + ", SampleRate: " + acodec.AudioSampleRate + ", Channels: " + acodec.AudioChannels);
 
-                        Quality = QualityParser.ParseQuality(file.Name, acodec.Description);
+                        Quality = QualityParser.ParseQuality(file.Name, acodec);
                         Logger.Debug($"Quality parsed: {Quality}, Source: {Quality.QualityDetectionSource}");
 
                         MediaInfo = new MediaInfoModel
