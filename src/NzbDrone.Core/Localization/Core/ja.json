@@ -71,8 +71,6 @@
     "ErrorLoadingContents": "コンテンツの読み込み中にエラーが発生しました",
     "ErrorLoadingPreviews": "プレビューの読み込みエラー",
     "Exception": "例外",
-    "ExtraFileExtensionsHelpTexts1": "インポートする追加ファイルのコンマ区切りリスト（.nfoは.nfo-origとしてインポートされます）",
-    "ExtraFileExtensionsHelpTexts2": "例： '。sub、.nfo'または 'sub、nfo'",
     "FailedDownloadHandling": "ダウンロード処理の失敗",
     "FileDateHelpText": "インポート/再スキャン時にファイルの日付を変更する",
     "FileManagement": "ファイル管理",
@@ -626,5 +624,7 @@
     "Medium": "中",
     "NoResultsFound": "結果が見つかりません",
     "Activity": "アクティビティ",
-    "AddNew": "新しく追加する"
+    "AddNew": "新しく追加する",
+    "ExtraFileExtensionsHelpText": "インポートする追加ファイルのコンマ区切りリスト（.nfoは.nfo-origとしてインポートされます）",
+    "ExtraFileExtensionsHelpTextsExamples": "例： '。sub、.nfo'または 'sub、nfo'"
 }

@@ -132,8 +132,6 @@
     "ErrorLoadingContents": "Lỗi khi tải nội dung",
     "ErrorLoadingPreviews": "Lỗi khi tải bản xem trước",
     "Exception": "ngoại lệ",
-    "ExtraFileExtensionsHelpTexts1": "Danh sách các tệp bổ sung cần nhập được phân tách bằng dấu phẩy (.nfo sẽ được nhập dưới dạng .nfo-orig)",
-    "ExtraFileExtensionsHelpTexts2": "Ví dụ: '.sub, .nfo' hoặc 'sub, nfo'",
     "FailedDownloadHandling": "Xử lý tải xuống không thành công",
     "FileDateHelpText": "Thay đổi ngày tệp khi nhập / quét lại",
     "FileManagement": "Quản lý tệp",

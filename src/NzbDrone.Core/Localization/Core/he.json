@@ -109,8 +109,6 @@
     "ErrorLoadingContents": "שגיאה בטעינת התוכן",
     "ErrorLoadingPreviews": "שגיאה בטעינת תצוגה מקדימה",
     "Exception": "יוצא מן הכלל",
-    "ExtraFileExtensionsHelpTexts1": "רשימה מופרדת באמצעות פסיקים של קבצים נוספים לייבוא (.nfo יובא כ- nfo-orig)",
-    "ExtraFileExtensionsHelpTexts2": "דוגמאות: '.sub, .nfo' או 'sub, nfo'",
     "FailedDownloadHandling": "הטיפול בהורדות נכשל",
     "FileDateHelpText": "שנה את תאריך הקובץ בעת הייבוא / סריקה מחדש",
     "FileManagement": "ניהול קבצים",
@@ -657,5 +655,7 @@
     "System": "מערכת",
     "Theme": "ערכת נושא",
     "TotalSpace": "השטח הכולל",
-    "Publisher": "מוציא לאור"
+    "Publisher": "מוציא לאור",
+    "ExtraFileExtensionsHelpText": "רשימה מופרדת באמצעות פסיקים של קבצים נוספים לייבוא (.nfo יובא כ- nfo-orig)",
+    "ExtraFileExtensionsHelpTextsExamples": "דוגמאות: '.sub, .nfo' או 'sub, nfo'"
 }

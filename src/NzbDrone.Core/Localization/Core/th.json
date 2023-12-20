@@ -136,8 +136,6 @@
     "ErrorLoadingContents": "เกิดข้อผิดพลาดในการโหลดเนื้อหา",
     "ErrorLoadingPreviews": "เกิดข้อผิดพลาดในการโหลดตัวอย่าง",
     "Exception": "ข้อยกเว้น",
-    "ExtraFileExtensionsHelpTexts1": "รายการไฟล์พิเศษที่คั่นด้วยจุลภาคที่จะนำเข้า (.nfo จะนำเข้าเป็น. nfo-orig)",
-    "ExtraFileExtensionsHelpTexts2": "ตัวอย่าง: \".sub, .nfo\" หรือ \"sub, nfo\"",
     "FailedDownloadHandling": "การจัดการการดาวน์โหลดล้มเหลว",
     "FileDateHelpText": "เปลี่ยนวันที่ของไฟล์ในการนำเข้า / สแกนใหม่",
     "FileManagement": "การจัดการไฟล์",
@@ -628,5 +626,7 @@
     "Large": "ใหญ่",
     "NextExecution": "การดำเนินการถัดไป",
     "AllResultsAreHiddenByTheAppliedFilter": "ผลลัพธ์ทั้งหมดถูกซ่อนโดยตัวกรองที่ใช้",
-    "Medium": "ปานกลาง"
+    "Medium": "ปานกลาง",
+    "ExtraFileExtensionsHelpText": "รายการไฟล์พิเศษที่คั่นด้วยจุลภาคที่จะนำเข้า (.nfo จะนำเข้าเป็น. nfo-orig)",
+    "ExtraFileExtensionsHelpTextsExamples": "ตัวอย่าง: \".sub, .nfo\" หรือ \"sub, nfo\""
 }

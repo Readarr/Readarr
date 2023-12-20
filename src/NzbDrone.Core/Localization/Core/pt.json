@@ -246,8 +246,6 @@
     "ErrorLoadingContents": "Erro ao carregar conteúdo",
     "ErrorLoadingPreviews": "Erro ao carregar pré-visualizações",
     "Exception": "Exceção",
-    "ExtraFileExtensionsHelpTexts1": "Lista separada por vírgulas de ficheiros adicionais a importar (.nfo será importado como .nfo-orig)",
-    "ExtraFileExtensionsHelpTexts2": "Exemplos: \".sub, .nfo\" ou \"sub,nfo\"",
     "FailedDownloadHandling": "Falha no processamento de transferências",
     "ForMoreInformationOnTheIndividualIndexersClickOnTheInfoButtons": "Para obter mais informações sobre cada indexador, clique nos botões de informação.",
     "ForMoreInformationOnTheIndividualListsClickOnTheInfoButtons": "Para obter mais informações sobre cada lista, clique nos botões de informação.",

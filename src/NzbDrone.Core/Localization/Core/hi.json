@@ -114,8 +114,6 @@
     "ErrorLoadingContents": "सामग्री लोड करने में त्रुटि",
     "ErrorLoadingPreviews": "पूर्वावलोकन लोड करने में त्रुटि",
     "Exception": "अपवाद",
-    "ExtraFileExtensionsHelpTexts1": "आयात करने के लिए कोमा ने अतिरिक्त फ़ाइलों की सूची अलग कर दी (.nfo को .nfo- मूल के रूप में आयात किया जाएगा)",
-    "ExtraFileExtensionsHelpTexts2": "उदाहरण: '.sub, .nfo' या 'सब, nfo'",
     "FailedDownloadHandling": "डाउनलोड हैंडलिंग विफल",
     "FileDateHelpText": "आयात / रेस्क्यू पर फ़ाइल तिथि बदलें",
     "FileManagement": "फाइल प्रबंधन",

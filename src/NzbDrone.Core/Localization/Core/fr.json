@@ -132,8 +132,6 @@
     "ErrorLoadingContents": "Erreur lors du chargement du contenu",
     "ErrorLoadingPreviews": "Erreur lors du chargement des aperçus",
     "Exception": "Exception",
-    "ExtraFileExtensionsHelpTexts1": "Liste séparée par des virgules des fichiers supplémentaires à importer (.nfo sera importé en tant que .nfo-orig)",
-    "ExtraFileExtensionsHelpTexts2": "Exemples : '.sub, .nfo' ou 'sub,nfo'",
     "FailedDownloadHandling": "Gestion des échecs de téléchargement",
     "FileDateHelpText": "Changer la date du fichier lors de l'import/re-scan",
     "FileNames": "Noms de fichier",
@@ -713,7 +711,7 @@
     "ApiKeyValidationHealthCheckMessage": "Veuillez mettre à jour votre clé API pour qu'elle contienne au moins {0} caractères. Vous pouvez le faire via les paramètres ou le fichier de configuration",
     "DeleteBookFile": "Effacer le fichier du livre",
     "HiddenClickToShow": "Masqué, cliquez pour afficher",
-    "HideAdvanced": "Masquer param. av.",
+    "HideAdvanced": "Masquer les Options Avancées",
     "ShowAdvanced": "Afficher les paramètres avancés",
     "ShownClickToHide": "Affiché, cliquez pour masquer",
     "ColonReplacement": "Remplacement pour le « deux-points »",
@@ -925,5 +923,8 @@
     "EnableProfile": "Activer profil",
     "Development": "Développement",
     "FilesTotal": "Fichiers  ({0})",
-    "SearchBoxPlaceHolder": "Par ex. Guerre et Paix, goodreads:656, isbn:067003469X, asin:B00JCDK5ME"
+    "SearchBoxPlaceHolder": "Par ex. Guerre et Paix, goodreads:656, isbn:067003469X, asin:B00JCDK5ME",
+    "ExtraFileExtensionsHelpText": "Liste de fichiers supplémentaires séparés par des virgules à importer (.nfo sera importé en tant que .nfo-orig)",
+    "ExtraFileExtensionsHelpTextsExamples": "Exemples : '.sub, .nfo' ou 'sub,nfo'",
+    "UseSSL": "Utiliser SSL"
 }

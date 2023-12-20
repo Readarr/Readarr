@@ -135,8 +135,6 @@
     "ErrorLoadingContents": "Fel vid inläsning av innehåll",
     "ErrorLoadingPreviews": "Fel vid inläsning av förhandsgranskningar",
     "Exception": "Undantag",
-    "ExtraFileExtensionsHelpTexts1": "Kommaseparerad lista med extra filer som ska importeras (.nfo importeras som .nfo-orig)",
-    "ExtraFileExtensionsHelpTexts2": "Exempel: '.sub, .nfo' eller 'sub,nfo'",
     "FailedDownloadHandling": "Misslyckad nedladdningshantering",
     "FileDateHelpText": "Ändra fildatum vid import/omskanning",
     "FileManagement": "Filhantering",

@@ -132,8 +132,6 @@
     "ErrorLoadingContents": "Ошибка при загрузке содержимого",
     "ErrorLoadingPreviews": "Ошибка при загрузке предпросмотра",
     "Exception": "Исключение",
-    "ExtraFileExtensionsHelpTexts1": "Список экстра файлов для импорта разделенных двоеточием(.info будет заменено на .nfo-orig)",
-    "ExtraFileExtensionsHelpTexts2": "Например: '.sub, .nfo' или 'sub,nfo'",
     "FailedDownloadHandling": "Неудачные обработки скачиваний",
     "FileDateHelpText": "Заменить дату файла при импорте/сканировании",
     "FileManagement": "Управление файлами",
