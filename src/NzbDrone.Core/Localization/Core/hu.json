@@ -109,8 +109,6 @@
     "ErrorLoadingContents": "Hiba történt a tartalom betöltésekor",
     "ErrorLoadingPreviews": "Hiba történt az előnézetek betöltése közben",
     "Exception": "Kivétel",
-    "ExtraFileExtensionsHelpTexts1": "Az importálandó extra fájlok vesszővel lesznek elválasztva (.nfo .nfo-orig néven lesz importálva)",
-    "ExtraFileExtensionsHelpTexts2": "Például: '.sub, .nfo' vagy 'sub, nfo'",
     "FailedDownloadHandling": "Nem sikerült a letöltés kezelése",
     "FileDateHelpText": "A fájl dátumának módosítása az importáláskor / újrakereséskor",
     "FileManagement": "Fájlkezelő",
@@ -977,5 +975,7 @@
     "AddNew": "Új hozzáadása",
     "Backup": "Biztonsági Mentés",
     "Medium": "Közepes",
-    "AutoAdd": "Automatikus hozzáadás"
+    "AutoAdd": "Automatikus hozzáadás",
+    "ExtraFileExtensionsHelpText": "Az importálandó extra fájlok vesszővel lesznek elválasztva (.nfo .nfo-orig néven lesz importálva)",
+    "ExtraFileExtensionsHelpTextsExamples": "Például: '.sub, .nfo' vagy 'sub, nfo'"
 }

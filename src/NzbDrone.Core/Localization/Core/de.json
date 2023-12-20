@@ -122,8 +122,6 @@
     "ErrorLoadingContents": "Fehler beim laden der Inhalte",
     "ErrorLoadingPreviews": "Fehler beim laden der Vorschauen",
     "Exception": "Ausnahme",
-    "ExtraFileExtensionsHelpTexts1": "Kommaseparierte Liste von Dateiendungen die als Extra Dateien importiert werden sollen ( .nfo wird in .nfo-orig umbenannt )",
-    "ExtraFileExtensionsHelpTexts2": "Vorschläge: sub, nfo, srt, jpg",
     "FailedDownloadHandling": "Verarbeitung fehlgeschlagener Downloads",
     "FileDateHelpText": "Aktualisiere das Erstelldatum beim Import oder Re-Scan",
     "FileManagement": "Dateiverwaltung",

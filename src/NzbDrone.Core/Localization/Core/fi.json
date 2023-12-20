@@ -123,8 +123,6 @@
     "ErrorLoadingContents": "Sisällönlatauksen virhe",
     "ErrorLoadingPreviews": "Virhe ladattaessa esikatselua",
     "Exception": "Poikkeus",
-    "ExtraFileExtensionsHelpTexts1": "Pilkulla eroteltu lista tuotavista oheistiedostoista (.nfo tuodaan nimellä .nfo-orig).",
-    "ExtraFileExtensionsHelpTexts2": "Esimerkkejä: '.sub, .nfo' tai 'sub, nfo'.",
     "FailedDownloadHandling": "Latauksen käsittely epäonnistui",
     "FileDateHelpText": "Muuta tiedoston päiväys tuonnin ja uudelleentarkistuksen yhteydessä.",
     "FileManagement": "Tiedostojen hallinta",
@@ -883,5 +881,7 @@
     "AutomaticUpdatesDisabledDocker": "Suoraa automaattista päivitystä ei tueta käytettäessä Dockerin päivitysmekanismia. Joko Docker-säiliö on päivitettävä {appName}in ulkopuolella tai päivitys on suoritettava skriptillä.",
     "AppUpdated": "{appName} on päivitetty",
     "AppUpdatedVersion": "{appName} on päivitetty versioon {version} ja muutosten käyttöönottamiseksi se on ladattava uudelleen.",
-    "Iso639-3": "ISO 639-3 -kielikoodit tai \"null\" (pilkuin eroteltuna)"
+    "Iso639-3": "ISO 639-3 -kielikoodit tai \"null\" (pilkuin eroteltuna)",
+    "ExtraFileExtensionsHelpText": "Pilkulla eroteltu lista tuotavista oheistiedostoista (.nfo tuodaan nimellä .nfo-orig).",
+    "ExtraFileExtensionsHelpTextsExamples": "Esimerkkejä: '.sub, .nfo' tai 'sub, nfo'."
 }

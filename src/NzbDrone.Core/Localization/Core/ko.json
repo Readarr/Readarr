@@ -155,8 +155,6 @@
     "ErrorLoadingContents": "콘텐츠로드 오류",
     "ErrorLoadingPreviews": "미리보기를로드하는 중에 오류가 발생했습니다.",
     "Exception": "예외",
-    "ExtraFileExtensionsHelpTexts1": "가져올 추가 파일의 쉼표로 구분 된 목록 (.nfo는 .nfo-orig로 가져옴)",
-    "ExtraFileExtensionsHelpTexts2": "예 : '.sub, .nfo'또는 'sub, nfo'",
     "FailedDownloadHandling": "실패한 다운로드 처리",
     "FileDateHelpText": "가져 오기 / 재검색시 파일 날짜 변경",
     "FileManagement": "파일 관리",
@@ -617,5 +615,7 @@
     "LastExecution": "마지막 실행",
     "Activity": "활동",
     "AddNew": "새로 추가하기",
-    "Backup": "백업"
+    "Backup": "백업",
+    "ExtraFileExtensionsHelpText": "가져올 추가 파일의 쉼표로 구분 된 목록 (.nfo는 .nfo-orig로 가져옴)",
+    "ExtraFileExtensionsHelpTextsExamples": "예 : '.sub, .nfo'또는 'sub, nfo'"
 }
