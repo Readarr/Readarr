@@ -856,5 +856,6 @@
     "AppUpdatedVersion": "{appName} foi atualizado para a versão `{version}`, para obter as alterações mais recentes, você precisará recarregar {appName}",
     "AutomaticUpdatesDisabledDocker": "As actualizações automáticas não são diretamente suportadas quando se utiliza o mecanismo de atualização do Docker. Terá de atualizar a imagem do contentor fora de {appName} ou utilizar um script",
     "EditSelectedDownloadClients": "Editar Clientes de Transferência Selecionados",
-    "ApplyChanges": "Aplicar alterações"
+    "ApplyChanges": "Aplicar alterações",
+    "Backup": "Backup"
 }
