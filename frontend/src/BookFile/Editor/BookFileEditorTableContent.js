@@ -1,6 +1,7 @@
 import _ from 'lodash';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
+import Alert from 'Components/Alert';
 import SelectInput from 'Components/Form/SelectInput';
 import SpinnerButton from 'Components/Link/SpinnerButton';
 import LoadingIndicator from 'Components/Loading/LoadingIndicator';
@@ -120,7 +121,7 @@ class BookFileEditorTableContent extends Component {
     const hasSelectedFiles = this.getSelectedIds().length > 0;
 
     return (
-      <>
+      <div>
         {
           isFetching && !isPopulated ?
             <LoadingIndicator /> :
@@ -129,13 +130,13 @@ class BookFileEditorTableContent extends Component {
 
         {
           !isFetching && error ?
-            <div>{error}</div> :
+            <Alert kind={kinds.DANGER}>{error}</Alert> :
             null
         }
 
         {
           isPopulated && !items.length ?
-            <div>
+            <div className={styles.blankpad}>
               No book files to manage.
             </div> :
             null
@@ -173,26 +174,30 @@ class BookFileEditorTableContent extends Component {
             null
         }
 
-        <div className={styles.actions}>
-          <SpinnerButton
-            kind={kinds.DANGER}
-            isSpinning={isDeleting}
-            isDisabled={!hasSelectedFiles}
-            onPress={this.onDeletePress}
-          >
-            Delete
-          </SpinnerButton>
+        {
+          isPopulated && items.length ? (
+            <div className={styles.actions}>
+              <SpinnerButton
+                kind={kinds.DANGER}
+                isSpinning={isDeleting}
+                isDisabled={!hasSelectedFiles}
+                onPress={this.onDeletePress}
+              >
+                {translate('Delete')}
+              </SpinnerButton>
 
-          <div className={styles.selectInput}>
-            <SelectInput
-              name="quality"
-              value="selectQuality"
-              values={qualityOptions}
-              isDisabled={!hasSelectedFiles}
-              onChange={this.onQualityChange}
-            />
-          </div>
-        </div>
+              <div className={styles.selectInput}>
+                <SelectInput
+                  name="quality"
+                  value="selectQuality"
+                  values={qualityOptions}
+                  isDisabled={!hasSelectedFiles}
+                  onChange={this.onQualityChange}
+                />
+              </div>
+            </div>
+          ) : null
+        }
 
         <ConfirmModal
           isOpen={isConfirmDeleteModalOpen}
@@ -203,7 +208,7 @@ class BookFileEditorTableContent extends Component {
           onConfirm={this.onConfirmDelete}
           onCancel={this.onConfirmDeleteModalClose}
         />
-      </>
+      </div>
     );
   }
 }

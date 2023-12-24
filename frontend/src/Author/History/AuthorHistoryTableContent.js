@@ -7,6 +7,7 @@ import TableBody from 'Components/Table/TableBody';
 import { kinds } from 'Helpers/Props';
 import translate from 'Utilities/String/translate';
 import AuthorHistoryRowConnector from './AuthorHistoryRowConnector';
+import styles from './AuthorHistoryTableContent.css';
 
 const columns = [
   {
@@ -64,7 +65,7 @@ class AuthorHistoryTableContent extends Component {
     const hasItems = !!items.length;
 
     return (
-      <>
+      <div>
         {
           isFetching &&
             <LoadingIndicator />
@@ -79,7 +80,7 @@ class AuthorHistoryTableContent extends Component {
 
         {
           isPopulated && !hasItems && !error &&
-            <div>
+            <div className={styles.blankpad}>
               {translate('NoHistory')}
             </div>
         }
@@ -103,7 +104,7 @@ class AuthorHistoryTableContent extends Component {
               </TableBody>
             </Table>
         }
-      </>
+      </div>
     );
   }
 }

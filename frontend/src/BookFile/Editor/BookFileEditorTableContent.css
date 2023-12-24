@@ -1,6 +1,6 @@
 .filesTable {
-  margin-bottom: 20px;
-  padding-top: 15px;
+  margin: 10px;
+  padding-top: 5px;
   border: 1px solid var(--borderColor);
   border-top: 1px solid var(--borderColor);
   border-radius: 4px;
@@ -13,9 +13,15 @@
 
 .actions {
   display: flex;
-  margin-right: auto;
+  margin: 10px;
 }
 
 .selectInput {
   margin-left: 10px;
+}
+
+.blankpad {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 2em;
 }

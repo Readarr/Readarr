@@ -1,5 +1,6 @@
 import React from 'react';
 import BookFileEditorTableContentConnector from './BookFileEditorTableContentConnector';
+import styles from './BookFileEditorTable.css';
 
 function BookFileEditorTable(props) {
   const {
@@ -7,9 +8,11 @@ function BookFileEditorTable(props) {
   } = props;
 
   return (
-    <BookFileEditorTableContentConnector
-      {...otherProps}
-    />
+    <div className={styles.container}>
+      <BookFileEditorTableContentConnector
+        {...otherProps}
+      />
+    </div>
   );
 }
 

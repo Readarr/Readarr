@@ -6,6 +6,7 @@ interface CssExports {
   'authorUpButton': string;
   'contentContainer': string;
   'errorMessage': string;
+  'filterIcon': string;
   'innerContentBody': string;
   'metadataMessage': string;
   'selectedTab': string;

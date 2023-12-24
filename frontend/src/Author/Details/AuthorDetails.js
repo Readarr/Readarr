@@ -239,8 +239,13 @@ class AuthorDetails extends Component {
       saveError,
       isDeleting,
       deleteError,
-      statistics
+      statistics = {}
     } = this.props;
+
+    const {
+      bookFileCount = 0,
+      totalBookCount = 0
+    } = statistics;
 
     const {
       isOrganizeModalOpen,
@@ -435,7 +440,7 @@ class AuthorDetails extends Component {
                       className={styles.tab}
                       selectedClassName={styles.selectedTab}
                     >
-                      {translate('BooksTotal', [statistics.totalBookCount])}
+                      {translate('BooksTotal', [totalBookCount])}
                     </Tab>
 
                     <Tab
@@ -463,7 +468,7 @@ class AuthorDetails extends Component {
                       className={styles.tab}
                       selectedClassName={styles.selectedTab}
                     >
-                      {translate('FilesTotal', [statistics.bookFileCount])}
+                      {translate('FilesTotal', [bookFileCount])}
                     </Tab>
 
                     {
