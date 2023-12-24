@@ -229,7 +229,6 @@ class BookIndexRow extends Component {
                   className={styles[name]}
                 >
                   {bookFileCount}
-
                 </VirtualTableRowCell>
               );
             }
