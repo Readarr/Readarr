@@ -175,6 +175,12 @@ namespace NzbDrone.Core.MediaFiles
             }
 
             var rootFolder = _rootFolderService.GetBestRootFolder(file.Path);
+
+            if (rootFolder == null)
+            {
+                throw new Exception($"File '{file.Path}' is not in a root folder.");
+            }
+
             _calibre.SetFields(file, rootFolder.CalibreSettings, updateCover, embedMetadata);
         }
 
