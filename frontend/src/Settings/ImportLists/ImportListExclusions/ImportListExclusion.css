@@ -8,11 +8,13 @@
 }
 
 .name {
-  flex: 1 0 600px;
+  @add-mixin truncate;
+
+  flex: 0 1 600px;
 }
 
 .foreignId {
-  flex: 0 0 200px;
+  flex: 0 0 100px;
 }
 
 .actions {
