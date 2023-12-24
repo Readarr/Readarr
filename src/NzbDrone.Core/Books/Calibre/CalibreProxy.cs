@@ -219,11 +219,11 @@ namespace NzbDrone.Core.Books.Calibre
             double? seriesIndex = null;
             if (double.TryParse(serieslink?.Position, out var index))
             {
-                _logger.Trace($"Parsed {serieslink?.Position} as {index}");
+                _logger.Trace("Parsed '{0}' as '{1}'", serieslink.Position, index);
                 seriesIndex = index;
             }
 
-            _logger.Trace($"Book: {book} Series: {series?.Title}, Position: {seriesIndex}");
+            _logger.Trace("Book: {0} Series: {1}, Position: {2}", book, series?.Title, seriesIndex);
 
             var cover = edition.Images.FirstOrDefault(x => x.CoverType == MediaCoverTypes.Cover);
             string image = null;
@@ -276,7 +276,9 @@ namespace NzbDrone.Core.Books.Calibre
 
             var updatedPath = GetOriginalFormat(updated.Formats);
 
-            if (updatedPath != null && updatedPath != file.Path)
+            _logger.Trace("File path from Calibre: '{0}'", updatedPath);
+
+            if (updatedPath.IsNotNullOrWhiteSpace() && updatedPath != file.Path)
             {
                 _rootFolderWatchingService.ReportFileSystemChangeBeginning(updatedPath);
                 file.Path = updatedPath;
