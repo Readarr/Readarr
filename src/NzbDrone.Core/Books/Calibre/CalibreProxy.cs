@@ -8,6 +8,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using FluentValidation;
 using FluentValidation.Results;
+using Newtonsoft.Json;
 using NLog;
 using NzbDrone.Common.Cache;
 using NzbDrone.Common.Disk;
@@ -304,6 +305,7 @@ namespace NzbDrone.Core.Books.Calibre
 
             var request = builder.Build();
             request.SetContent(payload.ToJson());
+            request.ContentSummary = payload.ToJson(Formatting.None);
 
             _httpClient.Execute(request);
         }
