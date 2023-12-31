@@ -870,6 +870,7 @@
   "SorryThatBookCannotBeFound": "Sorry, that book cannot be found.",
   "Source": "Source",
   "SourcePath": "Source Path",
+  "SourceTitle": "Source Title",
   "SpecificBook": "Specific Book",
   "SslCertPasswordHelpText": "Password for pfx file",
   "SslCertPasswordHelpTextWarning": "Requires restart to take effect",
