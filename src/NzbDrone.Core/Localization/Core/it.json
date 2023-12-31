@@ -722,5 +722,6 @@
     "ApiKeyValidationHealthCheckMessage": "Aggiorna la tua chiave API in modo che abbia una lunghezza di almeno {0} caratteri. Puoi farlo dalle impostazioni o dal file di configurazione",
     "AddNew": "Aggiungi Nuovo",
     "AutomaticAdd": "Aggiungi Automaticamente",
-    "Backup": "Backup"
+    "Backup": "Backup",
+    "CloneCondition": "Duplica Condizione"
 }
