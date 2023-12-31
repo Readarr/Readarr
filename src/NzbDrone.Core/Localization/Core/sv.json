@@ -113,12 +113,12 @@
     "Docker": "Docker",
     "DownloadClient": "Nedladdningsklient",
     "DownloadClientSettings": "Inställningar för Nedladdningsklient",
-    "DownloadClients": "Nedladdningsklienter",
+    "DownloadClients": "Nerladdningsklienter",
     "DownloadFailedCheckDownloadClientForMoreDetails": "Misslyckad nedladdning: kontrollera nedladdningsklienten för mer information",
     "DownloadFailedInterp": "Misslyckad nerladdning: {0}",
     "DownloadPropersAndRepacksHelpTexts1": "Om du automatiskt ska uppgradera till Propers/Repacks",
     "DownloadWarningCheckDownloadClientForMoreDetails": "Nedladdningsvarning: kontrollera nedladdningsklienten för mer information",
-    "Edit": "Redigera",
+    "Edit": "Ändra",
     "Edition": "Utgåva",
     "Enable": "Aktivera",
     "EnableAutomaticAdd": "Aktivera Automstisk Tillägg",
@@ -747,7 +747,7 @@
     "DownloadClientCheckUnableToCommunicateMessage": "Kommunikation med {0} ej möjlig.",
     "DownloadClientStatusCheckAllClientMessage": "Samtliga nedladdningsklienter är otillgängliga på grund av misslyckade anslutningsförsök",
     "DownloadClientStatusCheckSingleClientMessage": "Otillgängliga nedladdningsklienter på grund av misslyckade anslutningsförsök: {0}",
-    "Duration": "Tid",
+    "Duration": "Längd",
     "FailedToLoadQueue": "Det gick inte att läsa in kön",
     "FileWasDeletedByViaUI": "Filen raderades via gränssnittet",
     "General": "Generell",
@@ -813,5 +813,7 @@
     "ColonReplacement": "Kolonbyte",
     "ReplaceWithDash": "Ersätt med bindestreck",
     "ReplaceWithSpaceDash": "Byt ut med Space Dash",
-    "ReplaceWithSpaceDashSpace": "Byt ut med Space Dash Space"
+    "ReplaceWithSpaceDashSpace": "Byt ut med Space Dash Space",
+    "Activity": "Aktivitet",
+    "AddNew": "Lägg till ny"
 }

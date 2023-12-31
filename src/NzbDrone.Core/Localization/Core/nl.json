@@ -18,8 +18,8 @@
     "About": "Over",
     "AddListExclusion": "Lijst uitzondering toevoegen",
     "AddingTag": "Tag wordt toegevoegd",
-    "AgeWhenGrabbed": "Leeftijd (op moment van ophalen)",
-    "AlreadyInYourLibrary": "Reeds in uw bibliotheek",
+    "AgeWhenGrabbed": "Leeftijd (wanneer opgepakt)",
+    "AlreadyInYourLibrary": "Reeds in je bibliotheek",
     "AlternateTitles": "Alternatieve Titel",
     "Analytics": "Statistieken",
     "AnalyticsEnabledHelpText": "Stuur anonieme gebruiks- en foutinformatie naar de servers van Radarr. Dit omvat informatie over uw browser, welke Radarr WebUI pagina's u gebruikt, foutrapportage en OS en runtime versie. We zullen deze informatie gebruiken om prioriteiten te stellen voor functies en het verhelpen van fouten.",
@@ -648,5 +648,6 @@
     "Activity": "Activiteit",
     "AddNew": "Voeg Nieuwe Toe",
     "AppUpdated": "{appName} is geüpdatet",
-    "AppUpdatedVersion": "{appName} is geüpdatet naar versie '{version}', om de laatste wijzigingen door te voeren moet je mogelijk {appName} herstarten"
+    "AppUpdatedVersion": "{appName} is geüpdatet naar versie '{version}', om de laatste wijzigingen door te voeren moet je mogelijk {appName} herstarten",
+    "AllResultsAreHiddenByTheAppliedFilter": "Alle resultaten zijn verborgen door het toegepaste filter"
 }

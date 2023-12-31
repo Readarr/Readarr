@@ -1021,5 +1021,6 @@
     "OnAuthorAdded": "Sobre o Autor Adicionado",
     "OnAuthorAddedHelpText": "Sobre o Autor Adicionado",
     "ExtraFileExtensionsHelpTextsExamples": "Exemplos: '.sub, .nfo' or 'sub,nfo'",
-    "ExtraFileExtensionsHelpText": "Lista separada por vírgulas de arquivos extras para importar (.nfo será importado como .nfo-orig)"
+    "ExtraFileExtensionsHelpText": "Lista separada por vírgulas de arquivos extras para importar (.nfo será importado como .nfo-orig)",
+    "DeleteSelected": "Excluir Selecionado"
 }
