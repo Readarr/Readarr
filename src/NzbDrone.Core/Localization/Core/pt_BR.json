@@ -1022,5 +1022,8 @@
     "OnAuthorAddedHelpText": "Sobre o Autor Adicionado",
     "ExtraFileExtensionsHelpTextsExamples": "Exemplos: '.sub, .nfo' or 'sub,nfo'",
     "ExtraFileExtensionsHelpText": "Lista separada por vírgulas de arquivos extras para importar (.nfo será importado como .nfo-orig)",
-    "DeleteSelected": "Excluir Selecionado"
+    "DeleteSelected": "Excluir Selecionado",
+    "DownloadClientQbittorrentSettingsContentLayout": "Layout de Conteúdo",
+    "InvalidUILanguage": "Sua UI está definida com um idioma inválido, corrija-a e salve suas configurações",
+    "DownloadClientQbittorrentSettingsContentLayoutHelpText": "Seja para usar o layout de conteúdo configurado do qBittorrent, o layout original do torrent ou sempre criar uma subpasta (qBittorrent 4.3.2+)"
 }

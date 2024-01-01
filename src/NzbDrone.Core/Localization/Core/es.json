@@ -64,7 +64,7 @@
     "CreateEmptyAuthorFoldersHelpText": "Crear carpetas de películas que faltan durante la exploración del disco",
     "CreateGroup": "Crear grupo",
     "CutoffHelpText": "Una vez que se alcanze esta calidad, Radarr no descargará películas",
-    "CutoffUnmet": "Corte No Alcanzado",
+    "CutoffUnmet": "Límite no alcanzado",
     "DBMigration": "Migración de DB",
     "Dates": "Fechas",
     "DelayProfile": "Perfil de Retraso",
@@ -580,7 +580,7 @@
     "Test": "Test",
     "InstanceName": "Nombre de Instancia",
     "InstanceNameHelpText": "Nombre de instancia en pestaña y para nombre de aplicación en Syslog",
-    "Database": "Base de Datos",
+    "Database": "Base de datos",
     "ManualImportSelectEdition": "Importar Manualmente - Seleccionar Película",
     "ImportListExclusions": "Borrar exclusión de lista de importación",
     "ChooseImportMethod": "Elegir Modo de Importación",
@@ -595,7 +595,7 @@
     "Conditions": "Condiciones",
     "CopyToClipboard": "Copiar al portapapeles",
     "CustomFormat": "Formatos Personalizados",
-    "CustomFormats": "Formatos Personalizados",
+    "CustomFormats": "Formatos personalizados",
     "DeleteCustomFormat": "Borrar Formato Personalizado",
     "DeleteFormatMessageText": "¿Está seguro de que desea eliminar la etiqueta de formato {0}?",
     "Formats": "Formatos",
@@ -766,5 +766,6 @@
     "ExtraFileExtensionsHelpText": "Separar con cons la lista de los archivos extra a importar (.nfo será impotado como .nfo-orig)",
     "ExtraFileExtensionsHelpTextsExamples": "Ejemplos : '.sub, .nfo' o 'sub,nfo'",
     "ImportLists": "lista de importación",
-    "DownloadClientRemovesCompletedDownloadsHealthCheckMessage": "El cliente de descarga {downloadClientName} esta configurado para eliminar las descargas completadas. Esto puede causar que las descargas sean eliminadas del cliente antes que {1} las pueda importar."
+    "DownloadClientRemovesCompletedDownloadsHealthCheckMessage": "El cliente de descarga {downloadClientName} esta configurado para eliminar las descargas completadas. Esto puede causar que las descargas sean eliminadas del cliente antes que {1} las pueda importar.",
+    "Continuing": "Continua"
 }
