@@ -767,5 +767,7 @@
     "ExtraFileExtensionsHelpTextsExamples": "Ejemplos : '.sub, .nfo' o 'sub,nfo'",
     "ImportLists": "lista de importación",
     "DownloadClientRemovesCompletedDownloadsHealthCheckMessage": "El cliente de descarga {downloadClientName} esta configurado para eliminar las descargas completadas. Esto puede causar que las descargas sean eliminadas del cliente antes que {1} las pueda importar.",
-    "Continuing": "Continua"
+    "Continuing": "Continua",
+    "DownloadClientQbittorrentSettingsContentLayout": "Diseño del contenido",
+    "InvalidUILanguage": "Su interfaz de usuario está configurada en un idioma no válido, corríjalo y guarde la configuración"
 }
