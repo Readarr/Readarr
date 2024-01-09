@@ -216,8 +216,6 @@
     "FileManagement": "إدارة الملفات",
     "FileDateHelpText": "تغيير تاريخ الملف عند الاستيراد / إعادة الفحص",
     "FailedDownloadHandling": "فشل معالجة التنزيل",
-    "ExtraFileExtensionsHelpTexts2": "أمثلة: \".sub أو .nfo\" أو \"sub، nfo\"",
-    "ExtraFileExtensionsHelpTexts1": "قائمة مفصولة بفواصل بالملفات الإضافية المراد استيرادها (سيتم استيراد .nfo كـ .nfo-Orig)",
     "Exception": "استثناء",
     "ErrorLoadingPreviews": "خطأ في تحميل المعاينات",
     "ErrorLoadingContents": "خطأ في تحميل المحتويات",
@@ -628,5 +626,7 @@
     "AddNew": "اضف جديد",
     "System": "النظام",
     "AllResultsAreHiddenByTheAppliedFilter": "يتم إخفاء جميع النتائج بواسطة عامل التصفية المطبق",
-    "Backup": "دعم"
+    "Backup": "دعم",
+    "ExtraFileExtensionsHelpText": "قائمة مفصولة بفواصل بالملفات الإضافية المراد استيرادها (سيتم استيراد .nfo كـ .nfo-Orig)",
+    "ExtraFileExtensionsHelpTextsExamples": "أمثلة: \".sub أو .nfo\" أو \"sub، nfo\""
 }

@@ -5,6 +5,7 @@ using FluentAssertions;
 using Moq;
 using NUnit.Framework;
 using NzbDrone.Core.Books;
+using NzbDrone.Core.Configuration;
 using NzbDrone.Core.CustomFormats;
 using NzbDrone.Core.DecisionEngine.Specifications;
 using NzbDrone.Core.Download.TrackedDownloads;
@@ -368,6 +369,32 @@ namespace NzbDrone.Core.Test.DecisionEngineTests
             GivenQueue(new List<RemoteBook> { remoteBook }, TrackedDownloadState.DownloadFailedPending);
 
             Subject.IsSatisfiedBy(_remoteBook, null).Accepted.Should().BeTrue();
+        }
+
+        [Test]
+        public void should_return_false_if_same_quality_non_proper_in_queue_and_download_propers_is_do_not_upgrade()
+        {
+            _remoteBook.ParsedBookInfo.Quality = new QualityModel(Quality.FLAC, new Revision(2));
+            _author.QualityProfile.Value.Cutoff = _remoteBook.ParsedBookInfo.Quality.Quality.Id;
+
+            Mocker.GetMock<IConfigService>()
+                .Setup(s => s.DownloadPropersAndRepacks)
+                .Returns(ProperDownloadTypes.DoNotUpgrade);
+
+            var remoteBook = Builder<RemoteBook>.CreateNew()
+                .With(r => r.Author = _author)
+                .With(r => r.Books = new List<Book> { _book })
+                .With(r => r.ParsedBookInfo = new ParsedBookInfo
+                {
+                    Quality = new QualityModel(Quality.FLAC)
+                })
+                .With(r => r.Release = _releaseInfo)
+                .With(r => r.CustomFormats = new List<CustomFormat>())
+                .Build();
+
+            GivenQueue(new List<RemoteBook> { remoteBook });
+
+            Subject.IsSatisfiedBy(_remoteBook, null).Accepted.Should().BeFalse();
         }
     }
 }

@@ -4,12 +4,12 @@
   font-weight: bold;
 }
 
-.foreignId {
-  flex: 0 0 200px;
+.name {
+  flex: 0 1 600px;
 }
 
-.name {
-  flex: 1 0 300px;
+.foreignId {
+  flex: 0 0 100px;
 }
 
 .addImportListExclusion {

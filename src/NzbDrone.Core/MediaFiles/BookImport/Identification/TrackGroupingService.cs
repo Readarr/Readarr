@@ -21,9 +21,9 @@ namespace NzbDrone.Core.MediaFiles.BookImport.Identification
     {
         private static readonly Logger _logger = NzbDroneLogger.GetLogger(typeof(TrackGroupingService));
 
-        private static readonly List<string> MultiDiscMarkers = new List<string> { @"dis[ck]", @"cd" };
+        private static readonly List<string> MultiDiscMarkers = new () { @"dis[ck]", @"cd" };
         private static readonly string MultiDiscPatternFormat = @"^(?<root>.*%s[\W_]*)\d";
-        private static readonly List<string> VariousAuthorTitles = new List<string> { "", "various authors", "various", "va", "unknown" };
+        private static readonly List<string> VariousAuthorTitles = new () { "", "various authors", "various", "va", "unknown" };
 
         public List<LocalEdition> GroupTracks(List<LocalBook> localTracks)
         {
@@ -32,15 +32,16 @@ namespace NzbDrone.Core.MediaFiles.BookImport.Identification
             var releases = new List<LocalEdition>();
 
             // text files are always single file releases
-            var textfiles = localTracks.Where(x => MediaFileExtensions.TextExtensions.Contains(Path.GetExtension(x.Path)));
-            foreach (var file in textfiles)
+            var textFiles = localTracks.Where(x => MediaFileExtensions.TextExtensions.Contains(Path.GetExtension(x.Path))).ToList();
+
+            foreach (var file in textFiles)
             {
                 releases.Add(new LocalEdition(new List<LocalBook> { file }));
             }
 
             // first attempt, assume grouped by folder
             var unprocessed = new List<LocalBook>();
-            foreach (var group in GroupTracksByDirectory(localTracks.Except(textfiles).ToList()))
+            foreach (var group in GroupTracksByDirectory(localTracks.Except(textFiles).ToList()))
             {
                 var tracks = group.ToList();
                 if (LooksLikeSingleRelease(tracks))
@@ -122,8 +123,8 @@ namespace NzbDrone.Core.MediaFiles.BookImport.Identification
             const double tagFuzz = 0.9;
 
             // check that any Book/Release MBID is unique
-            if (tracks.Select(x => x.FileTrackInfo.BookMBId).Distinct().Where(x => x.IsNotNullOrWhiteSpace()).Count() > 1 ||
-                tracks.Select(x => x.FileTrackInfo.ReleaseMBId).Distinct().Where(x => x.IsNotNullOrWhiteSpace()).Count() > 1)
+            if (tracks.Select(x => x.FileTrackInfo.BookMBId).Distinct().Count(x => x.IsNotNullOrWhiteSpace()) > 1 ||
+                tracks.Select(x => x.FileTrackInfo.ReleaseMBId).Distinct().Count(x => x.IsNotNullOrWhiteSpace()) > 1)
             {
                 _logger.Trace("LooksLikeSingleRelease: MBIDs are not unique");
                 return false;
@@ -159,7 +160,7 @@ namespace NzbDrone.Core.MediaFiles.BookImport.Identification
             const double authorTagThreshold = 0.75;
             const double tagFuzz = 0.9;
 
-            var authorTags = tracks.Select(x => x.FileTrackInfo.AuthorTitle);
+            var authorTags = tracks.Select(x => x.FileTrackInfo.AuthorTitle).ToList();
 
             if (!HasCommonEntry(authorTags, authorTagThreshold, tagFuzz))
             {
@@ -185,7 +186,7 @@ namespace NzbDrone.Core.MediaFiles.BookImport.Identification
             // and group them.
 
             // we only bother doing this for the immediate parent directory.
-            var trackFolders = tracks.Select(x => Tuple.Create(x, Path.GetDirectoryName(x.Path)));
+            var trackFolders = tracks.Select(x => Tuple.Create(x, Path.GetDirectoryName(x.Path))).ToList();
 
             var distinctFolders = trackFolders.Select(x => x.Item2).Distinct().ToList();
             distinctFolders.Sort();

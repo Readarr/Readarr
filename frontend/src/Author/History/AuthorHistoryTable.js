@@ -1,6 +1,7 @@
 import React from 'react';
 import AuthorHistoryContentConnector from 'Author/History/AuthorHistoryContentConnector';
 import AuthorHistoryTableContent from 'Author/History/AuthorHistoryTableContent';
+import styles from './AuthorHistoryTable.css';
 
 function AuthorHistoryTable(props) {
   const {
@@ -8,10 +9,12 @@ function AuthorHistoryTable(props) {
   } = props;
 
   return (
-    <AuthorHistoryContentConnector
-      component={AuthorHistoryTableContent}
-      {...otherProps}
-    />
+    <div className={styles.container}>
+      <AuthorHistoryContentConnector
+        component={AuthorHistoryTableContent}
+        {...otherProps}
+      />
+    </div>
   );
 }
 

@@ -239,17 +239,23 @@ namespace Readarr.Api.V1.BookFiles
         }
 
         [HttpDelete("bulk")]
-        public IActionResult DeleteBookFiles([FromBody] BookFileListResource resource)
+        public object DeleteTrackFiles([FromBody] BookFileListResource resource)
         {
             var bookFiles = _mediaFileService.Get(resource.BookFileIds);
-            var author = bookFiles.First().Author.Value;
 
             foreach (var bookFile in bookFiles)
             {
-                _mediaFileDeletionService.DeleteTrackFile(author, bookFile);
+                if (bookFile.EditionId > 0 && bookFile.Author != null && bookFile.Author.Value != null)
+                {
+                    _mediaFileDeletionService.DeleteTrackFile(bookFile.Author.Value, bookFile);
+                }
+                else
+                {
+                    _mediaFileDeletionService.DeleteTrackFile(bookFile, "Unmapped_Files");
+                }
             }
 
-            return Ok();
+            return new { };
         }
 
         [NonAction]

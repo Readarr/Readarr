@@ -9,13 +9,13 @@ variables:
   testsFolder: './_tests'
   yarnCacheFolder: $(Pipeline.Workspace)/.yarn
   nugetCacheFolder: $(Pipeline.Workspace)/.nuget/packages
-  majorVersion: '0.3.11'
+  majorVersion: '0.3.15'
   minorVersion: $[counter('minorVersion', 1)]
   readarrVersion: '$(majorVersion).$(minorVersion)'
   buildName: '$(Build.SourceBranchName).$(readarrVersion)'
   sentryOrg: 'servarr'
   sentryUrl: 'https://sentry.servarr.com'
-  dotnetVersion: '6.0.413'
+  dotnetVersion: '6.0.417'
   nodeVersion: '16.X'
   innoVersion: '6.2.0'
   windowsImage: 'windows-2022'

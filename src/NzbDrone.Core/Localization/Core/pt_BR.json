@@ -148,8 +148,6 @@
     "ErrorLoadingContents": "Erro ao carregar o conteúdo",
     "ErrorLoadingPreviews": "Erro ao carregar as visualizações",
     "Exception": "Exceção",
-    "ExtraFileExtensionsHelpTexts1": "Lista separada por vírgulas de arquivos adicionais a importar (.nfo será importado como .nfo-orig)",
-    "ExtraFileExtensionsHelpTexts2": "Exemplos: \".sub, .nfo\" ou \"sub,nfo\"",
     "FailedDownloadHandling": "Falha no gerenciamento de download",
     "FileDateHelpText": "Alterar a data do arquivo ao importar/verificar novamente",
     "FileManagement": "Gerenciamento de arquivo",
@@ -1021,5 +1019,11 @@
     "ErrorLoadingContent": "Ocorreu um erro ao carregar este conteúdo",
     "DownloadClientRemovesCompletedDownloadsHealthCheckMessage": "O cliente de download {0} está configurado para remover downloads concluídos. Isso pode resultar na remoção dos downloads do seu cliente antes que {1} possa importá-los.",
     "OnAuthorAdded": "Sobre o Autor Adicionado",
-    "OnAuthorAddedHelpText": "Sobre o Autor Adicionado"
+    "OnAuthorAddedHelpText": "Sobre o Autor Adicionado",
+    "ExtraFileExtensionsHelpTextsExamples": "Exemplos: '.sub, .nfo' or 'sub,nfo'",
+    "ExtraFileExtensionsHelpText": "Lista separada por vírgulas de arquivos extras para importar (.nfo será importado como .nfo-orig)",
+    "DeleteSelected": "Excluir Selecionado",
+    "DownloadClientQbittorrentSettingsContentLayout": "Layout de Conteúdo",
+    "InvalidUILanguage": "Sua UI está definida com um idioma inválido, corrija-a e salve suas configurações",
+    "DownloadClientQbittorrentSettingsContentLayoutHelpText": "Seja para usar o layout de conteúdo configurado do qBittorrent, o layout original do torrent ou sempre criar uma subpasta (qBittorrent 4.3.2+)"
 }

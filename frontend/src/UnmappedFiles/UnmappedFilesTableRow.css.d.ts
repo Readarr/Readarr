@@ -2,6 +2,7 @@
 // Please do not change this file!
 interface CssExports {
   'actions': string;
+  'checkInput': string;
   'dateAdded': string;
   'path': string;
   'quality': string;

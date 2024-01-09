@@ -99,8 +99,13 @@ class BookDetails extends Component {
       nextBook,
       isSearching,
       onRefreshPress,
-      onSearchPress
+      onSearchPress,
+      statistics = {}
     } = this.props;
+
+    const {
+      bookFileCount = 0
+    } = statistics;
 
     const {
       isOrganizeModalOpen,
@@ -238,21 +243,21 @@ class BookDetails extends Component {
                   className={styles.tab}
                   selectedClassName={styles.selectedTab}
                 >
-                  History
+                  {translate('History')}
                 </Tab>
 
                 <Tab
                   className={styles.tab}
                   selectedClassName={styles.selectedTab}
                 >
-                  Search
+                  {translate('Search')}
                 </Tab>
 
                 <Tab
                   className={styles.tab}
                   selectedClassName={styles.selectedTab}
                 >
-                  Files
+                  {translate('FilesTotal', [bookFileCount])}
                 </Tab>
 
                 {
@@ -336,6 +341,7 @@ BookDetails.propTypes = {
   ratings: PropTypes.object.isRequired,
   images: PropTypes.arrayOf(PropTypes.object).isRequired,
   links: PropTypes.arrayOf(PropTypes.object).isRequired,
+  statistics: PropTypes.object.isRequired,
   monitored: PropTypes.bool.isRequired,
   shortDateFormat: PropTypes.string.isRequired,
   isSaving: PropTypes.bool.isRequired,

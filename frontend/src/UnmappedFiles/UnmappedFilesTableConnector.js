@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
 import * as commandNames from 'Commands/commandNames';
 import withCurrentPage from 'Components/withCurrentPage';
-import { deleteBookFile, fetchBookFiles, setBookFilesSort, setBookFilesTableOption } from 'Store/Actions/bookFileActions';
+import { deleteBookFile, deleteBookFiles, fetchBookFiles, setBookFilesSort, setBookFilesTableOption } from 'Store/Actions/bookFileActions';
 import { executeCommand } from 'Store/Actions/commandActions';
 import createClientSideCollectionSelector from 'Store/Selectors/createClientSideCollectionSelector';
 import createCommandExecutingSelector from 'Store/Selectors/createCommandExecutingSelector';
@@ -28,7 +28,9 @@ function createMapStateToProps() {
         items,
         ...otherProps
       } = bookFiles;
+
       const unmappedFiles = _.filter(items, { bookId: 0 });
+
       return {
         items: unmappedFiles,
         ...otherProps,
@@ -55,6 +57,10 @@ function createMapDispatchToProps(dispatch, props) {
 
     deleteUnmappedFile(id) {
       dispatch(deleteBookFile({ id }));
+    },
+
+    deleteUnmappedFiles(bookFileIds) {
+      dispatch(deleteBookFiles({ bookFileIds }));
     },
 
     onAddMissingAuthorsPress() {
@@ -106,7 +112,8 @@ UnmappedFilesTableConnector.propTypes = {
   onSortPress: PropTypes.func.isRequired,
   onTableOptionChange: PropTypes.func.isRequired,
   fetchUnmappedFiles: PropTypes.func.isRequired,
-  deleteUnmappedFile: PropTypes.func.isRequired
+  deleteUnmappedFile: PropTypes.func.isRequired,
+  deleteUnmappedFiles: PropTypes.func.isRequired
 };
 
 export default withCurrentPage(

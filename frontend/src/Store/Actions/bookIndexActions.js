@@ -158,7 +158,7 @@ export const defaultState = {
     bookFileCount: function(item) {
       const { statistics = {} } = item;
 
-      return statistics.bookCount || 0;
+      return statistics.bookFileCount || 0;
     },
 
     ratings: function(item) {

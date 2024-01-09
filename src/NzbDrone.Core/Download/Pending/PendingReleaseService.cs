@@ -320,6 +320,7 @@ namespace NzbDrone.Core.Download.Pending
                 {
                     Author = author,
                     Books = books,
+                    ReleaseSource = release.AdditionalInfo?.ReleaseSource ?? ReleaseSourceType.Unknown,
                     ParsedBookInfo = release.ParsedBookInfo,
                     Release = release.Release
                 };
@@ -342,7 +343,11 @@ namespace NzbDrone.Core.Download.Pending
                 Release = decision.RemoteBook.Release,
                 Title = decision.RemoteBook.Release.Title,
                 Added = DateTime.UtcNow,
-                Reason = reason
+                Reason = reason,
+                AdditionalInfo = new PendingReleaseAdditionalInfo
+                {
+                    ReleaseSource = decision.RemoteBook.ReleaseSource
+                }
             });
 
             _eventAggregator.PublishEvent(new PendingReleasesUpdatedEvent());

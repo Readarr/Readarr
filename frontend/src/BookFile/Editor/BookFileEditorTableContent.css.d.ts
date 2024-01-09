@@ -2,6 +2,7 @@
 // Please do not change this file!
 interface CssExports {
   'actions': string;
+  'blankpad': string;
   'filesTable': string;
   'selectInput': string;
 }

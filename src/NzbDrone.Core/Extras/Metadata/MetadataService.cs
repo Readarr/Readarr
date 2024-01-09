@@ -368,6 +368,10 @@ namespace NzbDrone.Core.Extras.Metadata
                     _mediaFileAttributeService.SetFilePermissions(fullPath);
                 }
             }
+            catch (HttpException ex)
+            {
+                _logger.Warn(ex, "Couldn't download image {0} for {1}. {2}", image.Url, author, ex.Message);
+            }
             catch (WebException ex)
             {
                 _logger.Warn(ex, "Couldn't download image {0} for {1}. {2}", image.Url, author, ex.Message);

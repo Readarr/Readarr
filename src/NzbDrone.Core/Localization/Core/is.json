@@ -129,8 +129,6 @@
     "ErrorLoadingContents": "Villa við að hlaða innihald",
     "ErrorLoadingPreviews": "Villa við að hlaða forskoðun",
     "Exception": "Undantekning",
-    "ExtraFileExtensionsHelpTexts1": "Komma aðskilinn listi yfir auka skrár til að flytja inn (.nfo verður fluttur inn sem .nfo-orig)",
-    "ExtraFileExtensionsHelpTexts2": "Dæmi: '.sub, .nfo' eða 'sub, nfo'",
     "FailedDownloadHandling": "Mistókst niðurhalshöndlun",
     "FileDateHelpText": "Breyttu dagsetningu skráar við innflutning / endurskoðun",
     "FileManagement": "Skráastjórnun",

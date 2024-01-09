@@ -134,8 +134,6 @@
     "ErrorLoadingContents": "Errore nel caricare i contenuti",
     "ErrorLoadingPreviews": "Errore nel caricare le anteprime",
     "Exception": "Eccezione",
-    "ExtraFileExtensionsHelpTexts1": "Liste di file Extra da importare separate da virgola (.nfo saranno importate come .nfo-orig)",
-    "ExtraFileExtensionsHelpTexts2": "Esempi: '.sub, .nfo' or 'sub,nfo'",
     "FailedDownloadHandling": "Gestione dei Download Falliti",
     "FileDateHelpText": "Modifica la data dei file in importazione/rescan",
     "FileManagement": "Gestione dei File",
@@ -724,5 +722,6 @@
     "ApiKeyValidationHealthCheckMessage": "Aggiorna la tua chiave API in modo che abbia una lunghezza di almeno {0} caratteri. Puoi farlo dalle impostazioni o dal file di configurazione",
     "AddNew": "Aggiungi Nuovo",
     "AutomaticAdd": "Aggiungi Automaticamente",
-    "Backup": "Backup"
+    "Backup": "Backup",
+    "CloneCondition": "Duplica Condizione"
 }

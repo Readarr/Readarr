@@ -5,6 +5,7 @@ import { sortDirections } from 'Helpers/Props';
 import { createThunk, handleThunks } from 'Store/thunks';
 import createAjaxRequest from 'Utilities/createAjaxRequest';
 import updateSectionState from 'Utilities/State/updateSectionState';
+import naturalExpansion from 'Utilities/String/naturalExpansion';
 import { set, update, updateItem } from './baseActions';
 import createFetchHandler from './Creators/createFetchHandler';
 import createHandleActions from './Creators/createHandleActions';
@@ -17,6 +18,7 @@ export const section = 'interactiveImport';
 
 const booksSection = `${section}.books`;
 const bookFilesSection = `${section}.bookFiles`;
+let abortCurrentFetchRequest = null;
 let abortCurrentRequest = null;
 let currentIds = [];
 
@@ -32,15 +34,17 @@ export const defaultState = {
   error: null,
   items: [],
   pendingChanges: {},
-  sortKey: 'quality',
-  sortDirection: sortDirections.DESCENDING,
+  sortKey: 'path',
+  sortDirection: sortDirections.ASCENDING,
+  secondarySortKey: 'path',
+  secondarySortDirection: sortDirections.ASCENDING,
   recentFolders: [],
   importMode: 'chooseImportMode',
   sortPredicates: {
     path: function(item, direction) {
       const path = item.path;
 
-      return path.toLowerCase();
+      return naturalExpansion(path.toLowerCase());
     },
 
     author: function(item, direction) {
@@ -74,6 +78,8 @@ export const defaultState = {
 };
 
 export const persistState = [
+  'interactiveImport.sortKey',
+  'interactiveImport.sortDirection',
   'interactiveImport.recentFolders',
   'interactiveImport.importMode'
 ];
@@ -122,6 +128,11 @@ export const clearInteractiveImportBookFiles = createAction(CLEAR_INTERACTIVE_IM
 // Action Handlers
 export const actionHandlers = handleThunks({
   [FETCH_INTERACTIVE_IMPORT_ITEMS]: function(getState, payload, dispatch) {
+    if (abortCurrentFetchRequest) {
+      abortCurrentFetchRequest();
+      abortCurrentFetchRequest = null;
+    }
+
     if (!payload.downloadId && !payload.folder) {
       dispatch(set({ section, error: { message: '`downloadId` or `folder` is required.' } }));
       return;
@@ -129,12 +140,14 @@ export const actionHandlers = handleThunks({
 
     dispatch(set({ section, isFetching: true }));
 
-    const promise = createAjaxRequest({
+    const { request, abortRequest } = createAjaxRequest({
       url: '/manualimport',
       data: payload
-    }).request;
+    });
 
-    promise.done((data) => {
+    abortCurrentFetchRequest = abortRequest;
+
+    request.done((data) => {
       dispatch(batchActions([
         update({ section, data }),
 
@@ -147,7 +160,11 @@ export const actionHandlers = handleThunks({
       ]));
     });
 
-    promise.fail((xhr) => {
+    request.fail((xhr) => {
+      if (xhr.aborted) {
+        return;
+      }
+
       dispatch(set({
         section,
         isFetching: false,

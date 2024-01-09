@@ -178,7 +178,7 @@ class InteractiveSearchRow extends Component {
         </TableRowCell>
 
         <TableRowCell className={styles.quality}>
-          <BookQuality quality={quality} />
+          <BookQuality quality={quality} showRevision={true} />
         </TableRowCell>
 
         <TableRowCell className={styles.customFormatScore}>

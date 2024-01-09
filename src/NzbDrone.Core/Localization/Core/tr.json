@@ -129,8 +129,6 @@
     "ErrorLoadingContents": "İçerik yüklenirken hata oluştu",
     "ErrorLoadingPreviews": "Önizlemeler yüklenirken hata oluştu",
     "Exception": "İstisna",
-    "ExtraFileExtensionsHelpTexts1": "İçe aktarılacak ekstra dosyaların virgülle ayrılmış listesi (.nfo, .nfo-orig olarak içe aktarılacaktır)",
-    "ExtraFileExtensionsHelpTexts2": "Örnekler: \".sub, .nfo\" veya \"sub, nfo\"",
     "FailedDownloadHandling": "Başarısız İndirme İşlemi",
     "FileDateHelpText": "İçe aktarmada / yeniden taramada dosya tarihini değiştirin",
     "FileManagement": "Dosya idare",
@@ -631,5 +629,7 @@
     "AllResultsAreHiddenByTheAppliedFilter": "Tüm sonuçlar, uygulanan filtre tarafından gizlenir",
     "Library": "kütüphane",
     "MetadataProfile": "üstveri profili",
-    "MetadataProfiles": "üstveri profili"
+    "MetadataProfiles": "üstveri profili",
+    "ExtraFileExtensionsHelpText": "İçe aktarılacak ekstra dosyaların virgülle ayrılmış listesi (.nfo, .nfo-orig olarak içe aktarılacaktır)",
+    "ExtraFileExtensionsHelpTextsExamples": "Örnekler: \".sub, .nfo\" veya \"sub, nfo\""
 }

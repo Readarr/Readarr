@@ -185,8 +185,6 @@
     "ErrorLoadingContents": "Eroare la încărcarea conținutului",
     "ErrorLoadingPreviews": "Eroare la încărcarea previzualizărilor",
     "Exception": "Excepție",
-    "ExtraFileExtensionsHelpTexts1": "Lista separată prin virgulă a fișierelor suplimentare de importat (.nfo va fi importat ca .nfo-orig)",
-    "ExtraFileExtensionsHelpTexts2": "Exemple: „.sub, .nfo” sau „sub, nfo”",
     "FailedDownloadHandling": "Procesarea descărcării a eșuat",
     "FileDateHelpText": "Schimbați data fișierului la import / rescanare",
     "FileManagement": "Administrarea de fișiere",
@@ -644,5 +642,7 @@
     "AllResultsAreHiddenByTheAppliedFilter": "Toate rezultatele sunt ascunse de filtrul aplicat",
     "Backup": "Copie de rezervă",
     "AppUpdated": "{appName} actualizat",
-    "BlocklistReleaseHelpText": "Împiedică Radarr să apuce automat această versiune din nou"
+    "BlocklistReleaseHelpText": "Împiedică Radarr să apuce automat această versiune din nou",
+    "ExtraFileExtensionsHelpText": "Lista separată prin virgulă a fișierelor suplimentare de importat (.nfo va fi importat ca .nfo-orig)",
+    "ExtraFileExtensionsHelpTextsExamples": "Exemple: „.sub, .nfo” sau „sub, nfo”"
 }

@@ -123,8 +123,6 @@
     "ErrorLoadingContents": "Fejl ved indlæsning af indhold",
     "ErrorLoadingPreviews": "Fejl ved indlæsning af forhåndsvisning",
     "Exception": "Undtagelse",
-    "ExtraFileExtensionsHelpTexts1": "Kommasepareret liste over ekstra filer, der skal importeres (.nfo importeres som .nfo-orig)",
-    "ExtraFileExtensionsHelpTexts2": "Eksempler: '.sub, .nfo' eller 'sub, nfo'",
     "FailedDownloadHandling": "Fejlet Download Håndtering",
     "FileDateHelpText": "Skift fildato ved import / genscanning",
     "FileManagement": "Fil Håndtering",
@@ -635,5 +633,7 @@
     "Large": "Stor",
     "Library": "Bibliotek",
     "AllResultsAreHiddenByTheAppliedFilter": "Alle resultater skjules af det anvendte filter",
-    "AddNewItem": "Tilføj Ny Genstand"
+    "AddNewItem": "Tilføj Ny Genstand",
+    "ExtraFileExtensionsHelpText": "Kommasepareret liste over ekstra filer, der skal importeres (.nfo importeres som .nfo-orig)",
+    "ExtraFileExtensionsHelpTextsExamples": "Eksempler: '.sub, .nfo' eller 'sub, nfo'"
 }

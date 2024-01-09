@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import HistoryDetailsConnector from 'Activity/History/Details/HistoryDetailsConnector';
 import HistoryEventTypeCell from 'Activity/History/HistoryEventTypeCell';
+import BookFormats from 'Book/BookFormats';
 import BookQuality from 'Book/BookQuality';
 import Icon from 'Components/Icon';
 import IconButton from 'Components/Link/IconButton';
@@ -11,6 +12,7 @@ import TableRowCell from 'Components/Table/Cells/TableRowCell';
 import TableRow from 'Components/Table/TableRow';
 import Popover from 'Components/Tooltip/Popover';
 import { icons, kinds, tooltipPositions } from 'Helpers/Props';
+import formatCustomFormatScore from 'Utilities/Number/formatCustomFormatScore';
 import translate from 'Utilities/String/translate';
 import styles from './AuthorHistoryRow.css';
 
@@ -75,6 +77,8 @@ class AuthorHistoryRow extends Component {
       sourceTitle,
       quality,
       qualityCutoffNotMet,
+      customFormats,
+      customFormatScore,
       date,
       data,
       book
@@ -106,11 +110,19 @@ class AuthorHistoryRow extends Component {
           />
         </TableRowCell>
 
+        <TableRowCell>
+          <BookFormats formats={customFormats} />
+        </TableRowCell>
+
+        <TableRowCell>
+          {formatCustomFormatScore(customFormatScore, customFormats.length)}
+        </TableRowCell>
+
         <RelativeDateCellConnector
           date={date}
         />
 
-        <TableRowCell className={styles.details}>
+        <TableRowCell className={styles.actions}>
           <Popover
             anchor={
               <Icon
@@ -127,14 +139,13 @@ class AuthorHistoryRow extends Component {
             }
             position={tooltipPositions.LEFT}
           />
-        </TableRowCell>
 
-        <TableRowCell className={styles.actions}>
           {
             eventType === 'grabbed' &&
               <IconButton
                 title={translate('MarkAsFailed')}
                 name={icons.REMOVE}
+                size={14}
                 onPress={this.onMarkAsFailedPress}
               />
           }
@@ -160,6 +171,8 @@ AuthorHistoryRow.propTypes = {
   sourceTitle: PropTypes.string.isRequired,
   quality: PropTypes.object.isRequired,
   qualityCutoffNotMet: PropTypes.bool.isRequired,
+  customFormats: PropTypes.arrayOf(PropTypes.object),
+  customFormatScore: PropTypes.number.isRequired,
   date: PropTypes.string.isRequired,
   data: PropTypes.object.isRequired,
   fullAuthor: PropTypes.bool.isRequired,

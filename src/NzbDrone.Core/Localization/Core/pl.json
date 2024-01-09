@@ -95,7 +95,7 @@
     "ClickToChangeQuality": "Kliknij, aby zmienić jakość",
     "ClientPriority": "Priorytet klienta",
     "CloneProfile": "Klonuj profil",
-    "Close": "Blisko",
+    "Close": "Zamknij",
     "Columns": "Kolumny",
     "CompletedDownloadHandling": "Ukończono obsługę pobierania",
     "ConnectSettings": "Ustawienia połączenia",
@@ -149,8 +149,6 @@
     "ErrorLoadingContents": "Błąd podczas ładowania treści",
     "ErrorLoadingPreviews": "Błąd podczas ładowania podglądów",
     "Exception": "Wyjątek",
-    "ExtraFileExtensionsHelpTexts1": "Rozdzielana przecinkami lista dodatkowych plików do zaimportowania (.nfo zostanie zaimportowane jako .nfo-orig)",
-    "ExtraFileExtensionsHelpTexts2": "Przykłady: „.sub, .nfo” lub „sub, nfo”",
     "FailedDownloadHandling": "Nieudana obsługa pobierania",
     "FileDateHelpText": "Zmień datę pliku przy imporcie / ponownym skanowaniu",
     "FileManagement": "Zarządzanie plikami",
@@ -676,5 +674,7 @@
     "Activity": "Aktywność",
     "AddNew": "Dodaj nowy",
     "Backup": "Kopia zapasowa",
-    "AllResultsAreHiddenByTheAppliedFilter": "Wszystkie wyniki są ukrywane przez zastosowany filtr"
+    "AllResultsAreHiddenByTheAppliedFilter": "Wszystkie wyniki są ukrywane przez zastosowany filtr",
+    "ExtraFileExtensionsHelpText": "Rozdzielana przecinkami lista dodatkowych plików do zaimportowania (.nfo zostanie zaimportowane jako .nfo-orig)",
+    "ExtraFileExtensionsHelpTextsExamples": "Przykłady: „.sub, .nfo” lub „sub, nfo”"
 }

@@ -1,12 +1,14 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import Alert from 'Components/Alert';
+import Icon from 'Components/Icon';
 import LoadingIndicator from 'Components/Loading/LoadingIndicator';
 import Table from 'Components/Table/Table';
 import TableBody from 'Components/Table/TableBody';
-import { kinds } from 'Helpers/Props';
+import { icons, kinds } from 'Helpers/Props';
 import translate from 'Utilities/String/translate';
 import AuthorHistoryRowConnector from './AuthorHistoryRowConnector';
+import styles from './AuthorHistoryTableContent.css';
 
 const columns = [
   {
@@ -15,32 +17,41 @@ const columns = [
   },
   {
     name: 'book',
-    label: 'Book',
+    label: () => translate('Book'),
     isVisible: true
   },
   {
     name: 'sourceTitle',
-    label: 'Source Title',
+    label: () => translate( 'SourceTitle'),
     isVisible: true
   },
   {
     name: 'quality',
-    label: 'Quality',
+    label: () => translate('Quality'),
+    isVisible: true
+  },
+  {
+    name: 'customFormats',
+    label: () => translate('CustomFormats'),
+    isSortable: false,
+    isVisible: true
+  },
+  {
+    name: 'customFormatScore',
+    label: React.createElement(Icon, {
+      name: icons.SCORE,
+      title: () => translate('CustomFormatScore')
+    }),
+    isSortable: true,
     isVisible: true
   },
   {
     name: 'date',
-    label: 'Date',
-    isVisible: true
-  },
-  {
-    name: 'details',
-    label: 'Details',
+    label: () => translate('Date'),
     isVisible: true
   },
   {
     name: 'actions',
-    label: 'Actions',
     isVisible: true
   }
 ];
@@ -64,7 +75,7 @@ class AuthorHistoryTableContent extends Component {
     const hasItems = !!items.length;
 
     return (
-      <>
+      <div>
         {
           isFetching &&
             <LoadingIndicator />
@@ -79,7 +90,7 @@ class AuthorHistoryTableContent extends Component {
 
         {
           isPopulated && !hasItems && !error &&
-            <div>
+            <div className={styles.blankpad}>
               {translate('NoHistory')}
             </div>
         }
@@ -103,7 +114,7 @@ class AuthorHistoryTableContent extends Component {
               </TableBody>
             </Table>
         }
-      </>
+      </div>
     );
   }
 }

@@ -85,11 +85,6 @@ export const defaultState = {
       isVisible: false
     },
     {
-      name: 'sourceTitle',
-      label: 'Source Title',
-      isVisible: false
-    },
-    {
       name: 'customFormatScore',
       columnLabel: 'Custom Format Score',
       label: React.createElement(Icon, {
