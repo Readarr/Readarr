@@ -17,7 +17,7 @@ namespace NzbDrone.Core.DecisionEngine
 {
     public interface IMakeDownloadDecision
     {
-        List<DownloadDecision> GetRssDecision(List<ReleaseInfo> reports);
+        List<DownloadDecision> GetRssDecision(List<ReleaseInfo> reports, bool pushedRelease = false);
         List<DownloadDecision> GetSearchDecision(List<ReleaseInfo> reports, SearchCriteriaBase searchCriteriaBase);
     }
 
@@ -42,17 +42,17 @@ namespace NzbDrone.Core.DecisionEngine
             _logger = logger;
         }
 
-        public List<DownloadDecision> GetRssDecision(List<ReleaseInfo> reports)
+        public List<DownloadDecision> GetRssDecision(List<ReleaseInfo> reports, bool pushedRelease = false)
         {
             return GetBookDecisions(reports).ToList();
         }
 
         public List<DownloadDecision> GetSearchDecision(List<ReleaseInfo> reports, SearchCriteriaBase searchCriteriaBase)
         {
-            return GetBookDecisions(reports, searchCriteriaBase).ToList();
+            return GetBookDecisions(reports, false, searchCriteriaBase).ToList();
         }
 
-        private IEnumerable<DownloadDecision> GetBookDecisions(List<ReleaseInfo> reports, SearchCriteriaBase searchCriteria = null)
+        private IEnumerable<DownloadDecision> GetBookDecisions(List<ReleaseInfo> reports, bool pushedRelease = false, SearchCriteriaBase searchCriteria = null)
         {
             if (reports.Any())
             {
@@ -206,6 +206,26 @@ namespace NzbDrone.Core.DecisionEngine
 
                 if (decision != null)
                 {
+                    var source = pushedRelease ? ReleaseSourceType.ReleasePush : ReleaseSourceType.Rss;
+
+                    if (searchCriteria != null)
+                    {
+                        if (searchCriteria.InteractiveSearch)
+                        {
+                            source = ReleaseSourceType.InteractiveSearch;
+                        }
+                        else if (searchCriteria.UserInvokedSearch)
+                        {
+                            source = ReleaseSourceType.UserInvokedSearch;
+                        }
+                        else
+                        {
+                            source = ReleaseSourceType.Search;
+                        }
+                    }
+
+                    decision.RemoteBook.ReleaseSource = source;
+
                     if (decision.Rejections.Any())
                     {
                         _logger.Debug("Release rejected for the following reasons: {0}", string.Join(", ", decision.Rejections));

@@ -162,15 +162,15 @@ namespace NzbDrone.Core.History
                 history.Data.Add("Guid", message.Book.Release.Guid);
                 history.Data.Add("Protocol", ((int)message.Book.Release.DownloadProtocol).ToString());
                 history.Data.Add("DownloadForced", (!message.Book.DownloadAllowed).ToString());
+                history.Data.Add("CustomFormatScore", message.Book.CustomFormatScore.ToString());
+                history.Data.Add("ReleaseSource", message.Book.ReleaseSource.ToString());
 
                 if (!message.Book.ParsedBookInfo.ReleaseHash.IsNullOrWhiteSpace())
                 {
                     history.Data.Add("ReleaseHash", message.Book.ParsedBookInfo.ReleaseHash);
                 }
 
-                var torrentRelease = message.Book.Release as TorrentInfo;
-
-                if (torrentRelease != null)
+                if (message.Book.Release is TorrentInfo torrentRelease)
                 {
                     history.Data.Add("TorrentInfoHash", torrentRelease.InfoHash);
                 }
