@@ -635,5 +635,7 @@
     "AllResultsAreHiddenByTheAppliedFilter": "Alle resultater skjules af det anvendte filter",
     "AddNewItem": "Tilføj Ny Genstand",
     "ExtraFileExtensionsHelpText": "Kommasepareret liste over ekstra filer, der skal importeres (.nfo importeres som .nfo-orig)",
-    "ExtraFileExtensionsHelpTextsExamples": "Eksempler: '.sub, .nfo' eller 'sub, nfo'"
+    "ExtraFileExtensionsHelpTextsExamples": "Eksempler: '.sub, .nfo' eller 'sub, nfo'",
+    "AutoRedownloadFailed": "Download fejlede",
+    "SourceTitle": "Kildetitel"
 }

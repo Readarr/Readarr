@@ -29,5 +29,9 @@
     "DeleteQualityProfile": "刪除品質設定檔",
     "AddListExclusion": "新增排除清單",
     "BackupNow": "馬上備份",
-    "BlocklistRelease": "封鎖清單版本"
+    "BlocklistRelease": "封鎖清單版本",
+    "APIKey": "API密鑰",
+    "20MinutesTwenty": "20分鐘：{0}",
+    "45MinutesFourtyFive": "45分鐘：{0}",
+    "60MinutesSixty": "60分鐘：{0}"
 }

@@ -643,5 +643,6 @@
     "ExistingTag": "Існуючий тег",
     "NoChange": "Без змін",
     "ResetQualityDefinitions": "Скинути визначення якості",
-    "SetTags": "Встановити теги"
+    "SetTags": "Встановити теги",
+    "AddNew": "Додати новий"
 }

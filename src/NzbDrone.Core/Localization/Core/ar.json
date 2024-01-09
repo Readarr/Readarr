@@ -628,5 +628,7 @@
     "AllResultsAreHiddenByTheAppliedFilter": "يتم إخفاء جميع النتائج بواسطة عامل التصفية المطبق",
     "Backup": "دعم",
     "ExtraFileExtensionsHelpText": "قائمة مفصولة بفواصل بالملفات الإضافية المراد استيرادها (سيتم استيراد .nfo كـ .nfo-Orig)",
-    "ExtraFileExtensionsHelpTextsExamples": "أمثلة: \".sub أو .nfo\" أو \"sub، nfo\""
+    "ExtraFileExtensionsHelpTextsExamples": "أمثلة: \".sub أو .nfo\" أو \"sub، nfo\"",
+    "AutoRedownloadFailed": "التحميل فشل",
+    "SourceTitle": "عنوان المصدر"
 }
