@@ -36,6 +36,7 @@ namespace Readarr.Api.V1.OPDS
         public List<string> Genres { get; set; }
         public double Rating { get; set; }
         public int Votes { get; set; }
+        public string ForeignBookId { get; set; }
     }
 
     public class OPDSImageResource : IEmbeddedDocument
@@ -156,6 +157,7 @@ namespace Readarr.Api.V1.OPDS
                 Genres = book.Genres,
                 Votes = book.Ratings.Votes,
                 Rating = (double)book.Ratings.Value,
+                ForeignBookId = book.ForeignBookId,
             };
         }
 

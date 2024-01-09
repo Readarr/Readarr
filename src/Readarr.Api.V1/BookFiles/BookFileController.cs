@@ -166,7 +166,7 @@ namespace Readarr.Api.V1.BookFiles
                 _diskProvider.CreateFolder(directory);
             }
 
-            //don't use the uploaded files name in case it is intentionally malformed
+            //don't use the uploaded file's name in case it is intentionally malformed
             var fileName = string.Format("{0}{1}", title, extension);
             var combined = Path.Combine(directory, fileName);
 
