@@ -8724,6 +8724,10 @@
             "type": "string",
             "nullable": true
           },
+          "foreignEditionId": {
+            "type": "string",
+            "nullable": true
+          },
           "titleSlug": {
             "type": "string",
             "nullable": true
@@ -9045,6 +9049,10 @@
             "format": "int32"
           },
           "foreignBookId": {
+            "type": "string",
+            "nullable": true
+          },
+          "foreignEditionId": {
             "type": "string",
             "nullable": true
           },
