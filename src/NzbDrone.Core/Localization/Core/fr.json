@@ -929,5 +929,6 @@
     "UseSSL": "Utiliser SSL",
     "DeleteSelected": "Supprimer sélectionnée",
     "InvalidUILanguage": "Votre interface utilisateur est définie sur une langue non valide, corrigez-la et enregistrez vos paramètres",
-    "DownloadClientQbittorrentSettingsContentLayout": "Disposition du contenu"
+    "DownloadClientQbittorrentSettingsContentLayout": "Disposition du contenu",
+    "DownloadClientQbittorrentSettingsContentLayoutHelpText": "Utiliser la disposition du contenu configurée par qBittorrent, la disposition originale du torrent ou toujours créer un sous-dossier (qBittorrent 4.3.2+)"
 }
