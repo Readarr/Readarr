@@ -56,6 +56,9 @@ namespace Readarr.Api.V1.Indexers
 
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public int? BookId { get; set; }
+
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+        public int? DownloadClientId { get; set; }
     }
 
     public static class ReleaseResourceMapper

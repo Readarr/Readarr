@@ -17,7 +17,7 @@ namespace NzbDrone.Core.Download
 {
     public interface IDownloadService
     {
-        Task DownloadReport(RemoteBook remoteBook);
+        Task DownloadReport(RemoteBook remoteBook, int? downloadClientId);
     }
 
     public class DownloadService : IDownloadService
@@ -50,13 +50,15 @@ namespace NzbDrone.Core.Download
             _logger = logger;
         }
 
-        public async Task DownloadReport(RemoteBook remoteBook)
+        public async Task DownloadReport(RemoteBook remoteBook, int? downloadClientId)
         {
             var filterBlockedClients = remoteBook.Release.PendingReleaseReason == PendingReleaseReason.DownloadClientUnavailable;
 
             var tags = remoteBook.Author?.Tags;
 
-            var downloadClient = _downloadClientProvider.GetDownloadClient(remoteBook.Release.DownloadProtocol, remoteBook.Release.IndexerId, filterBlockedClients, tags);
+            var downloadClient = downloadClientId.HasValue
+                ? _downloadClientProvider.Get(downloadClientId.Value)
+                : _downloadClientProvider.GetDownloadClient(remoteBook.Release.DownloadProtocol, remoteBook.Release.IndexerId, filterBlockedClients, tags);
 
             await DownloadReport(remoteBook, downloadClient);
         }
