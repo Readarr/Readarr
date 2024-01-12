@@ -6960,16 +6960,6 @@
               "schema": {
                 "$ref": "#/components/schemas/ReleaseResource"
               }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ReleaseResource"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/ReleaseResource"
-              }
             }
           }
         },
@@ -12742,6 +12732,15 @@
           "bookId": {
             "type": "integer",
             "format": "int32",
+            "nullable": true
+          },
+          "downloadClientId": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "downloadClient": {
+            "type": "string",
             "nullable": true
           }
         },
