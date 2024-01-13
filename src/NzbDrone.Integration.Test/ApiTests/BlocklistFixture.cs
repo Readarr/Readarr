@@ -6,7 +6,7 @@ using Readarr.Api.V1.Blocklist;
 namespace NzbDrone.Integration.Test.ApiTests
 {
     [TestFixture]
-    [Ignore("Waiting for metadata to be back again", Until = "2023-12-31 00:00:00Z")]
+    [Ignore("Waiting for metadata to be back again", Until = "2024-01-31 00:00:00Z")]
     public class BlocklistFixture : IntegrationTest
     {
         private AuthorResource _author;
