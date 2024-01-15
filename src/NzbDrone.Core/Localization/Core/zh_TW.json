@@ -33,5 +33,12 @@
     "APIKey": "API密鑰",
     "20MinutesTwenty": "20分鐘：{0}",
     "45MinutesFourtyFive": "45分鐘：{0}",
-    "60MinutesSixty": "60分鐘：{0}"
+    "60MinutesSixty": "60分鐘：{0}",
+    "AppUpdated": "{appName}已更新",
+    "AppUpdatedVersion": "重新載入",
+    "ApplyTagsHelpTextHowToApplyImportLists": "如何套用標籤在所選擇的輸入清單",
+    "ApplyTagsHelpTextHowToApplyDownloadClients": "如何將標籤套用在被選擇的下載客戶端",
+    "AgeWhenGrabbed": "年齡（當獲取時）",
+    "ApplyChanges": "應用",
+    "ApplyTagsHelpTextAdd": "加入：將標籤加入已存在的標籤清單"
 }

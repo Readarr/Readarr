@@ -104,7 +104,7 @@
     "DeleteReleaseProfileMessageText": "Êtes vous sûr de vouloir effacer ce profil de version ?",
     "DeleteSelectedBookFiles": "Supprimer les fichiers de livres sélectionnés",
     "DeleteSelectedBookFilesMessageText": "Voulez-vous vraiment supprimer les fichiers vidéo sélectionnés ?",
-    "DeleteTag": "Supprimer le tag",
+    "DeleteTag": "Supprimer l'étiquette",
     "DeleteTagMessageText": "Voulez-vous vraiment supprimer la balise '{0}' ?",
     "DestinationPath": "Chemin de destination",
     "DetailedProgressBar": "Barre de progression détaillée",
