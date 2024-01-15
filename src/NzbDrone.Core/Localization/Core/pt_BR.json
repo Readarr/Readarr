@@ -130,7 +130,7 @@
     "DeleteRootFolderMessageText": "Tem certeza de que deseja excluir a pasta raiz '{name}'?",
     "DeleteSelectedBookFiles": "Excluir arquivos do livro selecionado",
     "DeleteSelectedBookFilesMessageText": "Tem certeza de que deseja excluir os arquivos do livro selecionado?",
-    "DeleteTag": "Excluir tag",
+    "DeleteTag": "Excluir Etiqueta",
     "DeleteTagMessageText": "Tem certeza de que deseja excluir a tag \"{0}\"?",
     "DestinationPath": "Caminho de destino",
     "DetailedProgressBarHelpText": "Mostrar texto na barra de progresso",
