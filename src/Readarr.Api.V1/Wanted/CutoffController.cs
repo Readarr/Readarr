@@ -42,11 +42,11 @@ namespace Readarr.Api.V1.Wanted
 
             if (monitored)
             {
-                pagingSpec.FilterExpressions.Add(v => v.Monitored == false || v.Author.Value.Monitored == false);
+                pagingSpec.FilterExpressions.Add(v => v.Monitored == true && v.Author.Value.Monitored == true);
             }
             else
             {
-                pagingSpec.FilterExpressions.Add(v => v.Monitored == true && v.Author.Value.Monitored == true);
+                pagingSpec.FilterExpressions.Add(v => v.Monitored == false || v.Author.Value.Monitored == false);
             }
 
             return pagingSpec.ApplyToPage(_bookCutoffService.BooksWhereCutoffUnmet, v => MapToResource(v, includeAuthor));
