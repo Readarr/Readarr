@@ -64,7 +64,7 @@
     "CreateGroup": "Създай група",
     "CutoffHelpText": "След достигане на това качество Radarr вече няма да изтегля филми",
     "CutoffUnmet": "Прекъсване Неудовлетворено",
-    "DBMigration": "DB миграция",
+    "DatabaseMigration": "DB миграция",
     "Dates": "Дати",
     "DelayProfile": "Профил за забавяне",
     "DelayProfiles": "Профили за забавяне",

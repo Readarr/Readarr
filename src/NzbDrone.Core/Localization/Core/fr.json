@@ -76,7 +76,7 @@
     "CreateGroup": "Créer un groupe",
     "CutoffHelpText": "Quand cette qualité est atteinte, Readarr ne téléchargera plus de livres",
     "CutoffUnmet": "Seuil non atteint",
-    "DBMigration": "Migration de la base de données",
+    "DatabaseMigration": "Migration de la base de données",
     "Dates": "Dates",
     "DelayProfile": "Profil de retard",
     "DelayProfiles": "Profils de retard",

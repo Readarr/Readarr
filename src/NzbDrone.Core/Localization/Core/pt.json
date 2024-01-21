@@ -191,7 +191,7 @@
     "CreateGroup": "Criar grupo",
     "CutoffHelpText": "Quando esta qualidade for alcançada, o Readarr não transferirá mais filmes",
     "CutoffUnmet": "Limite não-correspondido",
-    "DBMigration": "Migração da base de dados",
+    "DatabaseMigration": "Migração da base de dados",
     "DeleteBackup": "Eliminar cópia de segurança",
     "DeleteBackupMessageText": "Tem a certeza que quer eliminar a cópia de segurança \"{name}\"?",
     "DeleteDelayProfile": "Eliminar perfil de atraso",

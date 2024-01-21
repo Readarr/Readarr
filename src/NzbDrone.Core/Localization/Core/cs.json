@@ -69,7 +69,7 @@
     "CreateGroup": "Vytvořit skupinu",
     "CutoffHelpText": "Jakmile je této kvality dosaženo, Radarr již nebude stahovat filmy",
     "CutoffUnmet": "Vynechat nevyhovující",
-    "DBMigration": "Migrace databáze",
+    "DatabaseMigration": "Migrace databáze",
     "Dates": "Termíny",
     "DelayProfile": "Profil zpoždění",
     "DelayProfiles": "Profily zpoždění",

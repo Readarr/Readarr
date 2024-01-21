@@ -128,7 +128,7 @@
     "BindAddress": "Adreça d'enllaç",
     "CertificateValidation": "Validació del certificat",
     "ClientPriority": "Prioritat del client",
-    "DBMigration": "Migració de BD",
+    "DatabaseMigration": "Migració de BD",
     "EnableColorImpairedMode": "Activa el mode amb alteracions del color",
     "MinimumAge": "Edat Mínima",
     "EnableCompletedDownloadHandlingHelpText": "Importa automàticament les descàrregues completades des del client de descàrregues",

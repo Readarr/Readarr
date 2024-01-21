@@ -62,7 +62,7 @@
     "CreateGroup": "Gruppe erstellen",
     "CutoffHelpText": "Sobald diese Qualität erreicht wird, werden keine neuen Releases erfasst",
     "CutoffUnmet": "› Schwelle nicht erreicht",
-    "DBMigration": "DB Migration",
+    "DatabaseMigration": "DB Migration",
     "Dates": "Termine",
     "DelayProfile": "Verzögerungsprofil",
     "DelayProfiles": "Verzögerungsprofile",

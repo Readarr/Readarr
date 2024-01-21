@@ -65,7 +65,7 @@
     "CreateGroup": "Luo ryhmä",
     "CutoffHelpText": "Kun tämä laatu on saavutettu, Readarr ei enää lataa elokuvia",
     "CutoffUnmet": "Katkaisutasoa ei savutettu",
-    "DBMigration": "Tietokannan siirto",
+    "DatabaseMigration": "Tietokannan siirto",
     "Dates": "Päiväykset",
     "DelayProfile": "Viiveprofiili",
     "DelayProfiles": "Viiveprofiilit",

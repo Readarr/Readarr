@@ -78,7 +78,7 @@
     "CreateGroup": "Skapa grupp",
     "CutoffHelpText": "När denna kvalitet har uppnåtts kommer Readarr inte längre att ladda ner filmer",
     "CutoffUnmet": "Avgränsande ej tillgodosedd",
-    "DBMigration": "DB Migration",
+    "DatabaseMigration": "DB Migration",
     "Dates": "Datum",
     "DelayProfiles": "Fördröjande profiler",
     "DelayingDownloadUntilInterp": "Försenar nedladdningen till {0} kl. {1}",

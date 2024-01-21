@@ -65,7 +65,7 @@
     "CreateGroup": "Opret gruppe",
     "CutoffHelpText": "Når denne kvalitet er nået, downloader Radarr ikke længere film",
     "CutoffUnmet": "Afskåret ude",
-    "DBMigration": "DB Migration",
+    "DatabaseMigration": "DB Migration",
     "DelayProfile": "Udskyd Profiler",
     "DelayProfiles": "Udskyd Profiler",
     "DelayingDownloadUntilInterp": "Forsinker download indtil {0} kl. {1}",

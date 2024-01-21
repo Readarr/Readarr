@@ -50,7 +50,7 @@
     "CreateGroup": "Csoport létrehozása",
     "CutoffHelpText": "Amint ezt a minőséget eléri, a Radarr többé nem fog filmeket letölteni",
     "CutoffUnmet": "Küszöbszint nincs elérve",
-    "DBMigration": "DB Migráció",
+    "DatabaseMigration": "DB Migráció",
     "Dates": "Dátumok",
     "DelayProfile": "Késleltetési Profil",
     "DelayProfiles": "Késleltetési Profilok",

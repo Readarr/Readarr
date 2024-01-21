@@ -71,7 +71,7 @@
     "CreateGroup": "Búðu til hóp",
     "CutoffHelpText": "Þegar þessum gæðum er náð mun Radarr ekki lengur hlaða niður kvikmyndum",
     "CutoffUnmet": "Cut-off Ómetið",
-    "DBMigration": "DB fólksflutningar",
+    "DatabaseMigration": "DB fólksflutningar",
     "Dates": "Dagsetningar",
     "DelayProfile": "Seinka prófíl",
     "DelayProfiles": "Seinka snið",

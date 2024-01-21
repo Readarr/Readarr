@@ -73,7 +73,7 @@
     "CreateGroup": "Создать группу",
     "CutoffHelpText": "Radarr перестанет скачивать фильмы после достижения указанного качества",
     "CutoffUnmet": "Порог невыполнен",
-    "DBMigration": "Перенос БД",
+    "DatabaseMigration": "Перенос БД",
     "Dates": "Даты",
     "DelayProfile": "Профиль приостановки",
     "DelayProfiles": "Профиль задержки",

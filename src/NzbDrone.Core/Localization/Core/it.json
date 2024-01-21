@@ -76,7 +76,7 @@
     "CreateGroup": "Crea gruppo",
     "CutoffHelpText": "Una volta raggiunta questa qualità, Radarr non scaricherà più film",
     "CutoffUnmet": "Soglia Non Raggiunta",
-    "DBMigration": "Migrazione DB",
+    "DatabaseMigration": "Migrazione DB",
     "Dates": "Date",
     "DelayProfile": "Profilo di Ritardo",
     "DelayProfiles": "Profili di Ritardo",

@@ -57,7 +57,7 @@
     "CreateGroup": "समूह बनाएँ",
     "CutoffHelpText": "एक बार जब यह गुणवत्ता पहुँच जाती है तो Redarr फिल्में डाउनलोड नहीं करेगा",
     "CutoffUnmet": "कट-ऑफ Unmet",
-    "DBMigration": "DB प्रवासन",
+    "DatabaseMigration": "DB प्रवासन",
     "Dates": "खजूर",
     "DelayProfile": "देरी प्रोफ़ाइल",
     "DelayProfiles": "देरी प्रोफाइल",

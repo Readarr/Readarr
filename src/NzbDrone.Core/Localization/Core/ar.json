@@ -274,7 +274,7 @@
     "DelayProfiles": "ملفات تعريف التأخير",
     "DelayProfile": "ملف التأخير",
     "Dates": "تواريخ",
-    "DBMigration": "ترحيل DB",
+    "DatabaseMigration": "ترحيل DB",
     "CutoffUnmet": "قطع غير ملباة",
     "CutoffHelpText": "بمجرد الوصول إلى هذه الجودة ، لن يقوم Radarr بتنزيل الأفلام",
     "CreateGroup": "إنشاء مجموعة",

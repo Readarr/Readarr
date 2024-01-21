@@ -131,7 +131,7 @@
     "CreateGroup": "Creați un grup",
     "CutoffHelpText": "Odată atinsă această calitate, Radarr nu va mai descărca filme",
     "CutoffUnmet": "Calitate maximă neatinsă",
-    "DBMigration": "Migrarea BD",
+    "DatabaseMigration": "Migrarea BD",
     "Dates": "Date",
     "DelayProfile": "Profile de întârziere",
     "DelayProfiles": "Profile de întârziere",
