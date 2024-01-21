@@ -237,6 +237,7 @@ namespace NzbDrone.Core.History
             history.Data.Add("DownloadClient", message.DownloadClientInfo?.Type);
             history.Data.Add("DownloadClientName", message.DownloadClientInfo?.Name);
             history.Data.Add("ReleaseGroup", message.BookInfo.ReleaseGroup);
+            history.Data.Add("Size", message.BookInfo.Size.ToString());
 
             _historyRepository.Insert(history);
         }
@@ -259,6 +260,7 @@ namespace NzbDrone.Core.History
                 history.Data.Add("DownloadClient", message.DownloadClient);
                 history.Data.Add("DownloadClientName", message.TrackedDownload?.DownloadItem.DownloadClientInfo.Name);
                 history.Data.Add("Message", message.Message);
+                history.Data.Add("Size", message.TrackedDownload?.DownloadItem.TotalSize.ToString());
 
                 _historyRepository.Insert(history);
             }
@@ -311,6 +313,7 @@ namespace NzbDrone.Core.History
             history.Data.Add("SourcePath", sourcePath);
             history.Data.Add("Path", path);
             history.Data.Add("ReleaseGroup", message.BookFile.ReleaseGroup);
+            history.Data.Add("Size", message.BookFile.Size.ToString());
 
             _historyRepository.Insert(history);
         }
@@ -362,8 +365,9 @@ namespace NzbDrone.Core.History
                 };
 
                 history.Data.Add("DownloadClient", message.DownloadClientInfo.Name);
-                history.Data.Add("ReleaseGroup", message.TrackedDownload?.RemoteBook?.ParsedBookInfo?.ReleaseGroup);
                 history.Data.Add("Message", message.Message);
+                history.Data.Add("ReleaseGroup", message.TrackedDownload?.RemoteBook?.ParsedBookInfo?.ReleaseGroup);
+                history.Data.Add("Size", message.TrackedDownload?.DownloadItem.TotalSize.ToString());
 
                 historyToAdd.Add(history);
             }
