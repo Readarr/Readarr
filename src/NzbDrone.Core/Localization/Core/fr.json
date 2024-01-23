@@ -104,7 +104,7 @@
     "DeleteReleaseProfileMessageText": "Êtes vous sûr de vouloir effacer ce profil de version ?",
     "DeleteSelectedBookFiles": "Supprimer les fichiers de livres sélectionnés",
     "DeleteSelectedBookFilesMessageText": "Voulez-vous vraiment supprimer les fichiers vidéo sélectionnés ?",
-    "DeleteTag": "Supprimer le tag",
+    "DeleteTag": "Supprimer l'étiquette",
     "DeleteTagMessageText": "Voulez-vous vraiment supprimer la balise '{0}' ?",
     "DestinationPath": "Chemin de destination",
     "DetailedProgressBar": "Barre de progression détaillée",
@@ -112,7 +112,7 @@
     "DiskSpace": "Espace disque",
     "DownloadClient": "Client de téléchargement",
     "DownloadClientSettings": "Télécharger les paramètres client",
-    "DownloadClients": "Clients de téléchargement",
+    "DownloadClients": "Clients de télécharg.",
     "DownloadFailedCheckDownloadClientForMoreDetails": "Téléchargement échoué : voir le client de téléchargement pour plus de détails",
     "DownloadFailedInterp": "Échec du téléchargement : {0}",
     "DownloadPropersAndRepacksHelpTexts1": "S'il faut ou non mettre à niveau automatiquement vers Propres/Repacks",
@@ -683,7 +683,7 @@
     "CopyToClipboard": "Copier dans le presse-papier",
     "CustomFormat": "Format personnalisé",
     "CustomFormatSettings": "Réglages Formats Personnalisés",
-    "CustomFormats": "Formats personnalisés",
+    "CustomFormats": "Formats perso.",
     "DeleteCustomFormat": "Supprimer le format personnalisé",
     "DeleteCustomFormatMessageText": "Voulez-vous vraiment supprimer le format personnalisé « {name} » ?",
     "DeleteFormatMessageText": "Êtes-vous sûr de vouloir supprimer le tag « {0} » ?",
@@ -926,5 +926,9 @@
     "SearchBoxPlaceHolder": "Par ex. Guerre et Paix, goodreads:656, isbn:067003469X, asin:B00JCDK5ME",
     "ExtraFileExtensionsHelpText": "Liste de fichiers supplémentaires séparés par des virgules à importer (.nfo sera importé en tant que .nfo-orig)",
     "ExtraFileExtensionsHelpTextsExamples": "Exemples : '.sub, .nfo' ou 'sub,nfo'",
-    "UseSSL": "Utiliser SSL"
+    "UseSSL": "Utiliser SSL",
+    "DeleteSelected": "Supprimer sélectionnée",
+    "InvalidUILanguage": "Votre interface utilisateur est définie sur une langue non valide, corrigez-la et enregistrez vos paramètres",
+    "DownloadClientQbittorrentSettingsContentLayout": "Disposition du contenu",
+    "DownloadClientQbittorrentSettingsContentLayoutHelpText": "Utiliser la disposition du contenu configurée par qBittorrent, la disposition originale du torrent ou toujours créer un sous-dossier (qBittorrent 4.3.2+)"
 }

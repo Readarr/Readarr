@@ -100,9 +100,10 @@ namespace Readarr.Api.V1.Queue
         }
 
         [HttpGet]
-        public PagingResource<QueueResource> GetQueue(bool includeUnknownAuthorItems = false, bool includeAuthor = false, bool includeBook = false)
+        [Produces("application/json")]
+        public PagingResource<QueueResource> GetQueue([FromQuery] PagingRequestResource paging, bool includeUnknownAuthorItems = false, bool includeAuthor = false, bool includeBook = false)
         {
-            var pagingResource = Request.ReadPagingResourceFromRequest<QueueResource>();
+            var pagingResource = new PagingResource<QueueResource>(paging);
             var pagingSpec = pagingResource.MapToPagingSpec<QueueResource, NzbDrone.Core.Queue.Queue>("timeleft", SortDirection.Ascending);
 
             return pagingSpec.ApplyToPage((spec) => GetQueue(spec, includeUnknownAuthorItems), (q) => MapToResource(q, includeAuthor, includeBook));

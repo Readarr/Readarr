@@ -69,16 +69,21 @@ function createMapStateToProps() {
 
       const previousBook = sortedBooks[bookIndex - 1] || _.last(sortedBooks);
       const nextBook = sortedBooks[bookIndex + 1] || _.first(sortedBooks);
+      const isRefreshingCommand = findCommand(commands, { name: commandNames.REFRESH_BOOK });
+      const isRefreshing = (
+        isCommandExecuting(isRefreshingCommand) &&
+        isRefreshingCommand.body.bookId === book.id
+      );
       const isSearchingCommand = findCommand(commands, { name: commandNames.BOOK_SEARCH });
       const isSearching = (
         isCommandExecuting(isSearchingCommand) &&
         isSearchingCommand.body.bookIds.indexOf(book.id) > -1
       );
-
-      const isRefreshingCommand = findCommand(commands, { name: commandNames.REFRESH_BOOK });
-      const isRefreshing = (
-        isCommandExecuting(isRefreshingCommand) &&
-        isRefreshingCommand.body.bookId === book.id
+      const isRenamingFiles = isCommandExecuting(findCommand(commands, { name: commandNames.RENAME_FILES, authorId: author.id }));
+      const isRenamingAuthorCommand = findCommand(commands, { name: commandNames.RENAME_AUTHOR });
+      const isRenamingAuthor = (
+        isCommandExecuting(isRenamingAuthorCommand) &&
+        isRenamingAuthorCommand.body.authorIds.indexOf(author.id) > -1
       );
 
       const isFetching = isBookFilesFetching || editions.isFetching;
@@ -90,6 +95,8 @@ function createMapStateToProps() {
         author,
         isRefreshing,
         isSearching,
+        isRenamingFiles,
+        isRenamingAuthor,
         isFetching,
         isPopulated,
         bookFilesError,
@@ -125,9 +132,27 @@ class BookDetailsConnector extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (prevProps.id !== this.props.id ||
+    const {
+      id,
+      anyReleaseOk,
+      isRenamingFiles,
+      isRenamingAuthor
+    } = this.props;
+
+    if (
+      (prevProps.isRenamingFiles && !isRenamingFiles) ||
+      (prevProps.isRenamingAuthor && !isRenamingAuthor) ||
       !_.isEqual(getMonitoredEditions(prevProps), getMonitoredEditions(this.props)) ||
-        (prevProps.anyReleaseOk === false && this.props.anyReleaseOk === true)) {
+      (prevProps.anyReleaseOk === false && anyReleaseOk === true)
+    ) {
+      this.unpopulate();
+      this.populate();
+    }
+
+    // If the id has changed we need to clear the book
+    // files and fetch from the server.
+
+    if (prevProps.id !== id) {
       this.unpopulate();
       this.populate();
     }
@@ -197,6 +222,8 @@ class BookDetailsConnector extends Component {
 BookDetailsConnector.propTypes = {
   id: PropTypes.number,
   anyReleaseOk: PropTypes.bool,
+  isRenamingFiles: PropTypes.bool.isRequired,
+  isRenamingAuthor: PropTypes.bool.isRequired,
   isBookFetching: PropTypes.bool,
   isBookPopulated: PropTypes.bool,
   titleSlug: PropTypes.string.isRequired,

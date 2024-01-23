@@ -628,5 +628,7 @@
     "MetadataProfiles": "Добави профил на метадата",
     "MetadataProfile": "Добави профил на метадата",
     "ExtraFileExtensionsHelpText": "Списък с допълнителни файлове за импортиране, разделени със запетая (.nfo ще бъде импортиран като .nfo-orig)",
-    "ExtraFileExtensionsHelpTextsExamples": "Примери: '.sub, .nfo' или 'sub, nfo'"
+    "ExtraFileExtensionsHelpTextsExamples": "Примери: '.sub, .nfo' или 'sub, nfo'",
+    "AutoRedownloadFailed": "Изтеглянето се провали",
+    "SourceTitle": "Заглавие на източника"
 }

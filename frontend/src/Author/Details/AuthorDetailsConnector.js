@@ -155,7 +155,6 @@ function createMapStateToProps() {
       const isRefreshing = isAuthorRefreshing || allAuthorRefreshing;
       const isSearching = isCommandExecuting(findCommand(commands, { name: commandNames.AUTHOR_SEARCH, authorId: author.id }));
       const isRenamingFiles = isCommandExecuting(findCommand(commands, { name: commandNames.RENAME_FILES, authorId: author.id }));
-
       const isRenamingAuthorCommand = findCommand(commands, { name: commandNames.RENAME_AUTHOR });
       const isRenamingAuthor = (
         isCommandExecuting(isRenamingAuthorCommand) &&

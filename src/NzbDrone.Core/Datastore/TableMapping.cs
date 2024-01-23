@@ -135,6 +135,7 @@ namespace NzbDrone.Core.Datastore
 
             Mapper.Entity<Book>("Books").RegisterModel()
                 .Ignore(x => x.AuthorId)
+                .Ignore(x => x.ForeignEditionId)
                 .HasOne(r => r.AuthorMetadata, r => r.AuthorMetadataId)
                 .LazyLoad(x => x.BookFiles,
                           (db, book) => db.Query<BookFile>(new SqlBuilder(db.DatabaseType)

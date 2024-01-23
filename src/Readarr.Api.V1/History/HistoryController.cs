@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
+using NzbDrone.Common.Extensions;
 using NzbDrone.Core.Books;
 using NzbDrone.Core.CustomFormats;
 using NzbDrone.Core.Datastore;
@@ -60,30 +61,24 @@ namespace Readarr.Api.V1.History
         }
 
         [HttpGet]
-        public PagingResource<HistoryResource> GetHistory(bool includeAuthor = false, bool includeBook = false)
+        [Produces("application/json")]
+        public PagingResource<HistoryResource> GetHistory([FromQuery] PagingRequestResource paging, bool includeAuthor, bool includeBook, [FromQuery(Name = "eventType")] int[] eventTypes, int? bookId, string downloadId)
         {
-            var pagingResource = Request.ReadPagingResourceFromRequest<HistoryResource>();
+            var pagingResource = new PagingResource<HistoryResource>(paging);
             var pagingSpec = pagingResource.MapToPagingSpec<HistoryResource, EntityHistory>("date", SortDirection.Descending);
 
-            var eventTypeFilter = pagingResource.Filters.FirstOrDefault(f => f.Key == "eventType");
-            var bookIdFilter = pagingResource.Filters.FirstOrDefault(f => f.Key == "bookId");
-            var downloadIdFilter = pagingResource.Filters.FirstOrDefault(f => f.Key == "downloadId");
-
-            if (eventTypeFilter != null)
+            if (eventTypes != null && eventTypes.Any())
             {
-                var filterValue = (EntityHistoryEventType)Convert.ToInt32(eventTypeFilter.Value);
-                pagingSpec.FilterExpressions.Add(v => v.EventType == filterValue);
+                pagingSpec.FilterExpressions.Add(v => eventTypes.Contains((int)v.EventType));
             }
 
-            if (bookIdFilter != null)
+            if (bookId.HasValue)
             {
-                var bookId = Convert.ToInt32(bookIdFilter.Value);
                 pagingSpec.FilterExpressions.Add(h => h.BookId == bookId);
             }
 
-            if (downloadIdFilter != null)
+            if (downloadId.IsNotNullOrWhiteSpace())
             {
-                var downloadId = downloadIdFilter.Value;
                 pagingSpec.FilterExpressions.Add(h => h.DownloadId == downloadId);
             }
 

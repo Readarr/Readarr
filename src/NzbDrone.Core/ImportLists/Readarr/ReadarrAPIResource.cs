@@ -28,6 +28,7 @@ namespace NzbDrone.Core.ImportLists.Readarr
     {
         public string Title { get; set; }
         public string ForeignBookId { get; set; }
+        public string ForeignEditionId { get; set; }
         public string Overview { get; set; }
         public List<MediaCover.MediaCover> Images { get; set; }
         public bool Monitored { get; set; }

@@ -1,4 +1,3 @@
-using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using NzbDrone.Core.AuthorStats;
 using NzbDrone.Core.Books;
@@ -30,9 +29,9 @@ namespace Readarr.Api.V1.Wanted
         }
 
         [HttpGet]
-        public PagingResource<BookResource> GetCutoffUnmetBooks(bool includeAuthor = false)
+        public PagingResource<BookResource> GetCutoffUnmetBooks([FromQuery] PagingRequestResource paging, bool includeAuthor = false, bool monitored = true)
         {
-            var pagingResource = Request.ReadPagingResourceFromRequest<BookResource>();
+            var pagingResource = new PagingResource<BookResource>(paging);
             var pagingSpec = new PagingSpec<Book>
             {
                 Page = pagingResource.Page,
@@ -41,15 +40,13 @@ namespace Readarr.Api.V1.Wanted
                 SortDirection = pagingResource.SortDirection
             };
 
-            var filter = pagingResource.Filters.FirstOrDefault(f => f.Key == "monitored");
-
-            if (filter != null && filter.Value == "false")
+            if (monitored)
             {
-                pagingSpec.FilterExpressions.Add(v => v.Monitored == false || v.Author.Value.Monitored == false);
+                pagingSpec.FilterExpressions.Add(v => v.Monitored == true && v.Author.Value.Monitored == true);
             }
             else
             {
-                pagingSpec.FilterExpressions.Add(v => v.Monitored == true && v.Author.Value.Monitored == true);
+                pagingSpec.FilterExpressions.Add(v => v.Monitored == false || v.Author.Value.Monitored == false);
             }
 
             return pagingSpec.ApplyToPage(_bookCutoffService.BooksWhereCutoffUnmet, v => MapToResource(v, includeAuthor));

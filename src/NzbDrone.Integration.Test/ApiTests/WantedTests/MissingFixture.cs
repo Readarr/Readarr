@@ -7,7 +7,7 @@ using Readarr.Api.V1.RootFolders;
 namespace NzbDrone.Integration.Test.ApiTests.WantedTests
 {
     [TestFixture]
-    [Ignore("Waiting for metadata to be back again", Until = "2023-12-31 00:00:00Z")]
+    [Ignore("Waiting for metadata to be back again", Until = "2024-01-31 00:00:00Z")]
     public class MissingFixture : IntegrationTest
     {
         [SetUp]
@@ -86,7 +86,7 @@ namespace NzbDrone.Integration.Test.ApiTests.WantedTests
         {
             EnsureAuthor("14586394", "43765115", "Andrew Hunter Murray", false);
 
-            var result = WantedMissing.GetPaged(0, 15, "releaseDate", "desc", "monitored", "false");
+            var result = WantedMissing.GetPaged(0, 15, "releaseDate", "desc", "monitored", false);
 
             result.Records.Should().NotBeEmpty();
         }

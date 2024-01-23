@@ -127,7 +127,7 @@ namespace Readarr.Api.V1.Author
 
             MapCoversToLocal(authorResources.ToArray());
             LinkNextPreviousBooks(authorResources.ToArray());
-            LinkAuthorStatistics(authorResources, authorStats);
+            LinkAuthorStatistics(authorResources, authorStats.ToDictionary(x => x.AuthorId));
             LinkRootFolderPath(authorResources.ToArray());
 
             return authorResources;
@@ -200,17 +200,14 @@ namespace Readarr.Api.V1.Author
             LinkAuthorStatistics(resource, _authorStatisticsService.AuthorStatistics(resource.Id));
         }
 
-        private void LinkAuthorStatistics(List<AuthorResource> resources, List<AuthorStatistics> authorStatistics)
+        private void LinkAuthorStatistics(List<AuthorResource> resources, Dictionary<int, AuthorStatistics> authorStatistics)
         {
             foreach (var author in resources)
             {
-                var stats = authorStatistics.SingleOrDefault(ss => ss.AuthorId == author.Id);
-                if (stats == null)
+                if (authorStatistics.TryGetValue(author.Id, out var stats))
                 {
-                    continue;
+                    LinkAuthorStatistics(author, stats);
                 }
-
-                LinkAuthorStatistics(author, stats);
             }
         }
 

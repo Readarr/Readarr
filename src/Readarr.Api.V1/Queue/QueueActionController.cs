@@ -30,7 +30,7 @@ namespace Readarr.Api.V1.Queue
                 throw new NotFoundException();
             }
 
-            await _downloadService.DownloadReport(pendingRelease.RemoteBook);
+            await _downloadService.DownloadReport(pendingRelease.RemoteBook, null);
 
             return new { };
         }
@@ -48,7 +48,7 @@ namespace Readarr.Api.V1.Queue
                     throw new NotFoundException();
                 }
 
-                await _downloadService.DownloadReport(pendingRelease.RemoteBook);
+                await _downloadService.DownloadReport(pendingRelease.RemoteBook, null);
             }
 
             return new { };

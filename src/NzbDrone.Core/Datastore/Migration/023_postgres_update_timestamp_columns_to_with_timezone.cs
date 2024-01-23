@@ -8,6 +8,8 @@ namespace NzbDrone.Core.Datastore.Migration
     {
         protected override void MainDbUpgrade()
         {
+            Delete.FromTable("Commands").AllRows();
+
             Alter.Table("Authors").AlterColumn("LastInfoSync").AsDateTimeOffset().Nullable();
             Alter.Table("Authors").AlterColumn("Added").AsDateTimeOffset().Nullable();
             Alter.Table("AuthorMetadata").AlterColumn("Born").AsDateTimeOffset().Nullable();

@@ -124,7 +124,7 @@ namespace Readarr.Api.V1.Indexers
                     throw new NzbDroneClientException(HttpStatusCode.NotFound, "Unable to parse books in the release");
                 }
 
-                await _downloadService.DownloadReport(remoteBook);
+                await _downloadService.DownloadReport(remoteBook, release.DownloadClientId);
             }
             catch (ReleaseDownloadException ex)
             {
