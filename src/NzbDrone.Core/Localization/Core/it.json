@@ -730,5 +730,6 @@
     "DeleteCondition": "Cancella Condizione",
     "ConnectionLost": "Connessione Persa",
     "AppUpdated": "{appName} Aggiornato",
-    "AllResultsAreHiddenByTheAppliedFilter": "Tutti i risultati sono nascosti dal filtro applicato"
+    "AllResultsAreHiddenByTheAppliedFilter": "Tutti i risultati sono nascosti dal filtro applicato",
+    "AutoRedownloadFailed": "Download fallito"
 }

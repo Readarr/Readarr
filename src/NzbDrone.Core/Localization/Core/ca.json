@@ -42,7 +42,7 @@
     "Exception": "Excepció",
     "Folder": "Carpeta",
     "Host": "Amfitrió",
-    "Importing": "s'està important",
+    "Importing": "S'està important",
     "Missing": "Absents",
     "MoreInfo": "Més informació",
     "NoLimitForAnyRuntime": "Sense límit de temps d'execució",
@@ -170,7 +170,7 @@
     "Edit": "Edita",
     "Edition": "Edició",
     "Enable": "Activa",
-    "EnableAutomaticAdd": "Activa l'Afegit automàtic",
+    "EnableAutomaticAdd": "Activa la captura automàtica",
     "EnableAutomaticSearch": "Activa la cerca automàtica",
     "EnableColorImpairedModeHelpText": "Estil alterat per a permetre als usuaris amb problemes de color distingir millor la informació codificada per colors",
     "EnableHelpText": "Activa la creació de fitxers de metadades per a aquest tipus de metadades",
@@ -687,5 +687,9 @@
     "No": "No",
     "System": "Sistema",
     "Required": "Obligatori",
-    "Yes": "Si"
+    "Yes": "Si",
+    "Ui": "Interfície",
+    "Other": "Altres",
+    "AutoRedownloadFailedFromInteractiveSearch": "Tornar a baixar baixades fallades des de la cerca interactiva",
+    "AutoRedownloadFailed": "Tornar a baixar les baixades fallades"
 }

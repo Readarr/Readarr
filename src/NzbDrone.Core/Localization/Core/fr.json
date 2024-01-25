@@ -1,6 +1,6 @@
 {
-    "20MinutesTwenty": "20 Minutes: {0}",
-    "45MinutesFourtyFive": "45 Minutes: {0}",
+    "20MinutesTwenty": "20 Minutes : {0}",
+    "45MinutesFourtyFive": "45 Minutes : {0}",
     "60MinutesSixty": "60 Minutes: {0}",
     "APIKey": "Clé API",
     "About": "À propos",
@@ -238,7 +238,7 @@
     "PageSizeHelpText": "Nombre d'éléments à afficher sur chaque page",
     "Password": "Mot de passe",
     "Path": "Chemin",
-    "Permissions": "Permissions",
+    "Permissions": "Autorisations",
     "Port": "Port",
     "PortHelpTextWarning": "Nécessite un redémarrage pour prendre effet",
     "PortNumber": "Numéro de port",
