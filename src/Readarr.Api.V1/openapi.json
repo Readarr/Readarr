@@ -6365,6 +6365,14 @@
               "type": "boolean",
               "default": false
             }
+          },
+          {
+            "name": "changeCategory",
+            "in": "query",
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
           }
         ],
         "responses": {
@@ -6398,6 +6406,14 @@
           },
           {
             "name": "skipRedownload",
+            "in": "query",
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
+          },
+          {
+            "name": "changeCategory",
             "in": "query",
             "schema": {
               "type": "boolean",
@@ -12417,6 +12433,9 @@
           "downloadClient": {
             "type": "string",
             "nullable": true
+          },
+          "downloadClientHasPostImportCategory": {
+            "type": "boolean"
           },
           "indexer": {
             "type": "string",
