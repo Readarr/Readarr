@@ -13,6 +13,11 @@ namespace Readarr.Api.V1.OPDS
     public class OPDSCatalogMetadataResource : IEmbeddedDocument
     {
         public string Title { get; set; }
+        public int NumberOfItems { get; set; }
+
+        public int ItemsPerPage { get; set; }
+
+        public int CurrentPage { get; set; }
     }
 
     public class OPDSLinkResource : IEmbeddedDocument
@@ -115,7 +120,7 @@ namespace Readarr.Api.V1.OPDS
             };
         }
 
-        public static OPDSPublicationsResource ToOPDSPublicationsResource()
+        public static OPDSPublicationsResource ToOPDSPublicationsResource(int page, int itemsPerPage, int totalItems)
         {
             var self = new OPDSLinkResource
             {
@@ -130,7 +135,10 @@ namespace Readarr.Api.V1.OPDS
 
             var meta = new OPDSCatalogMetadataResource
             {
-                Title = self.Title
+                Title = self.Title,
+                ItemsPerPage = itemsPerPage,
+                CurrentPage = page,
+                NumberOfItems = totalItems
             };
 
             return new OPDSPublicationsResource

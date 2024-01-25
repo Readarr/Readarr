@@ -40,54 +40,134 @@ namespace Readarr.Api.V1.OPDS
         [HttpGet]
         public OPDSCatalogResource GetOPDSCatalog()
         {
-            var metadataTask = Task.Run(() => _authorService.GetAllAuthors());
+            /*var metadataTask = Task.Run(() => _authorService.GetAllAuthors());
             var books = _bookService.GetAllBooks();
             var authors = metadataTask.GetAwaiter().GetResult().ToDictionary(x => x.AuthorMetadataId);
 
             foreach (var book in books)
             {
                 book.Author = authors[book.AuthorMetadataId];
-            }
+            }*/
 
             var catalog = OPDSResourceMapper.ToOPDSCatalogResource();
 
-           //catalog.Publications = MapToResource(books, wanted);
+            //catalog.Publications = MapToResource(books, wanted);
             return catalog;
         }
 
         // /opds/publications
         [HttpGet("publications")]
-        public OPDSPublicationsResource GetOPDSPublications()
+        public OPDSPublicationsResource GetOPDSPublications([FromQuery] int? page,
+            [FromQuery] int? itemsPerPage)
         {
             var metadataTask = Task.Run(() => _authorService.GetAllAuthors());
             var books = _bookService.GetAllBooks();
             var authors = metadataTask.GetAwaiter().GetResult().ToDictionary(x => x.AuthorMetadataId);
+
+            if (itemsPerPage == null)
+            {
+                itemsPerPage = 10;
+            }
+            else if (itemsPerPage < 10)
+            {
+                itemsPerPage = 10;
+            }
+
+            if (page == null)
+            {
+                page = 1;
+                itemsPerPage = books.Count;
+            }
+
+            var pageCount = ((books.Count - 1) / itemsPerPage) + 1;
+
+            if (page > pageCount)
+            {
+                throw new BadRequestException(string.Format("requested page is greater than the total page count: {0}", page));
+            }
 
             foreach (var book in books)
             {
                 book.Author = authors[book.AuthorMetadataId];
             }
 
-            var publications = OPDSResourceMapper.ToOPDSPublicationsResource();
-            publications.Publications = MapToResource(books, false);
+            var pubList = MapToResource(books, false);
+            var publications = OPDSResourceMapper.ToOPDSPublicationsResource((int)page, (int)itemsPerPage, pubList.Count);
+
+            if (itemsPerPage == pubList.Count)
+            {
+                publications.Publications = pubList;
+            }
+            else
+            {
+                if (page == pageCount)
+                {
+                    publications.Publications = pubList.GetRange(((int)page - 1) * (int)itemsPerPage, pubList.Count % (int)itemsPerPage);
+                }
+                else
+                {
+                    publications.Publications = pubList.GetRange(((int)page - 1) * (int)itemsPerPage, (int)itemsPerPage);
+                }
+            }
+
             return publications;
         }
 
         // /opds/wanted
         [HttpGet("wanted")]
-        public OPDSPublicationsResource GetOPDSWantedPublications()
+        public OPDSPublicationsResource GetOPDSWantedPublications([FromQuery] int? page,
+            [FromQuery] int? itemsPerPage)
         {
             var metadataTask = Task.Run(() => _authorService.GetAllAuthors());
             var books = _bookService.GetAllBooks();
             var authors = metadataTask.GetAwaiter().GetResult().ToDictionary(x => x.AuthorMetadataId);
+
+            if (itemsPerPage == null)
+            {
+                itemsPerPage = 10;
+            }
+            else if (itemsPerPage < 10)
+            {
+                itemsPerPage = 10;
+            }
+
+            if (page == null)
+            {
+                page = 1;
+                itemsPerPage = books.Count;
+            }
+
+            var pageCount = ((books.Count - 1) / itemsPerPage) + 1;
+
+            if (page > pageCount)
+            {
+                throw new BadRequestException(string.Format("requested page is greater than the total page count: {0}", page));
+            }
 
             foreach (var book in books)
             {
                 book.Author = authors[book.AuthorMetadataId];
             }
 
-            var publications = OPDSResourceMapper.ToOPDSPublicationsResource();
-            publications.Publications = MapToResource(books, true);
+            var pubList = MapToResource(books, true);
+            var publications = OPDSResourceMapper.ToOPDSPublicationsResource((int)page, (int)itemsPerPage, pubList.Count);
+
+            if (itemsPerPage == pubList.Count)
+            {
+                publications.Publications = pubList;
+            }
+            else
+            {
+                if (page == pageCount)
+                {
+                    publications.Publications = pubList.GetRange(((int)page - 1) * (int)itemsPerPage, pubList.Count % (int)itemsPerPage);
+                }
+                else
+                {
+                    publications.Publications = pubList.GetRange(((int)page - 1) * (int)itemsPerPage, (int)itemsPerPage);
+                }
+            }
+
             return publications;
         }
 
