@@ -21,6 +21,7 @@ namespace NzbDrone.Core.Books
         Book FindById(string foreignBookId);
         Book FindBySlug(string titleSlug);
         PagingSpec<Book> BooksWithoutFiles(PagingSpec<Book> pagingSpec);
+        PagingSpec<Book> BooksWithFiles(PagingSpec<Book> pagingSpec);
         PagingSpec<Book> BooksWhereCutoffUnmet(PagingSpec<Book> pagingSpec, List<QualitiesBelowCutoff> qualitiesBelowCutoff);
         List<Book> BooksBetweenDates(DateTime startDate, DateTime endDate, bool includeUnmonitored);
         List<Book> AuthorBooksBetweenDates(Author author, DateTime startDate, DateTime endDate, bool includeUnmonitored);
@@ -115,6 +116,13 @@ namespace NzbDrone.Core.Books
             .Where<BookFile>(f => f.Id == null)
             .Where<Edition>(e => e.Monitored == true)
             .Where<Book>(a => a.ReleaseDate <= currentTime);
+        private SqlBuilder BooksWithFilesBuilder(DateTime currentTime) => Builder()
+            .Join<Book, Author>((l, r) => l.AuthorMetadataId == r.AuthorMetadataId)
+            .Join<Author, AuthorMetadata>((l, r) => l.AuthorMetadataId == r.Id)
+            .Join<Book, Edition>((b, e) => b.Id == e.BookId)
+            .LeftJoin<Edition, BookFile>((t, f) => t.Id == f.EditionId)
+            .Where<BookFile>(f => f.Id != null)
+            .Where<Book>(a => a.ReleaseDate <= currentTime);
 #pragma warning restore CS0472
 
         public PagingSpec<Book> BooksWithoutFiles(PagingSpec<Book> pagingSpec)
@@ -123,6 +131,16 @@ namespace NzbDrone.Core.Books
 
             pagingSpec.Records = GetPagedRecords(BooksWithoutFilesBuilder(currentTime), pagingSpec, PagedQuery);
             pagingSpec.TotalRecords = GetPagedRecordCount(BooksWithoutFilesBuilder(currentTime).SelectCountDistinct<Book>(x => x.Id), pagingSpec);
+
+            return pagingSpec;
+        }
+
+        public PagingSpec<Book> BooksWithFiles(PagingSpec<Book> pagingSpec)
+        {
+            var currentTime = DateTime.UtcNow;
+
+            pagingSpec.Records = GetPagedRecords(BooksWithFilesBuilder(currentTime), pagingSpec, PagedQuery);
+            pagingSpec.TotalRecords = GetPagedRecordCount(BooksWithFilesBuilder(currentTime).SelectCountDistinct<Book>(x => x.Id), pagingSpec);
 
             return pagingSpec;
         }

@@ -47,6 +47,7 @@ namespace Readarr.Api.V1.MediaCovers
         }
 
         [HttpGet(@"book/{bookId:int}/{filename:regex((.+)\.(jpg|png|gif))}")]
+        [ResponseCache(Duration = 31560000, Location = ResponseCacheLocation.Any, NoStore = false)]
         public IActionResult GetBookMediaCover(int bookId, string filename)
         {
             var filePath = Path.Combine(_appFolderInfo.GetAppDataPath(), "MediaCover", "Books", bookId.ToString(), filename);

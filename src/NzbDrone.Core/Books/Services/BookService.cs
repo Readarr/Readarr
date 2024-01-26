@@ -32,6 +32,7 @@ namespace NzbDrone.Core.Books
         void SetBookMonitored(int bookId, bool monitored);
         void SetMonitored(IEnumerable<int> ids, bool monitored);
         PagingSpec<Book> BooksWithoutFiles(PagingSpec<Book> pagingSpec);
+        PagingSpec<Book> BooksWithFiles(PagingSpec<Book> pagingSpec);
         List<Book> BooksBetweenDates(DateTime start, DateTime end, bool includeUnmonitored);
         List<Book> AuthorBooksBetweenDates(Author author, DateTime start, DateTime end, bool includeUnmonitored);
         void InsertMany(List<Book> books);
@@ -223,6 +224,13 @@ namespace NzbDrone.Core.Books
         public PagingSpec<Book> BooksWithoutFiles(PagingSpec<Book> pagingSpec)
         {
             var bookResult = _bookRepository.BooksWithoutFiles(pagingSpec);
+
+            return bookResult;
+        }
+
+        public PagingSpec<Book> BooksWithFiles(PagingSpec<Book> pagingSpec)
+        {
+            var bookResult = _bookRepository.BooksWithFiles(pagingSpec);
 
             return bookResult;
         }

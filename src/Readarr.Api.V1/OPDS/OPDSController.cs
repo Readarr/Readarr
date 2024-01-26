@@ -1,10 +1,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using DryIoc.ImTools;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.StaticFiles;
 using NzbDrone.Core.Books;
+using NzbDrone.Core.Datastore;
 using NzbDrone.Core.MediaCover;
 using NzbDrone.Core.MediaFiles;
 using Readarr.Http;
@@ -60,8 +60,6 @@ namespace Readarr.Api.V1.OPDS
         public OPDSPublicationsResource GetOPDSPublications([FromQuery] int? page,
             [FromQuery] int? itemsPerPage)
         {
-            var books = _bookService.GetAllBooks();
-
             if (itemsPerPage == null)
             {
                 itemsPerPage = 10;
@@ -71,38 +69,23 @@ namespace Readarr.Api.V1.OPDS
                 itemsPerPage = 10;
             }
 
-            var pubList = MapToResource(books, false);
-
             if (page == null)
             {
                 page = 1;
-                itemsPerPage = pubList.Count;
+                itemsPerPage = 100000;
             }
 
-            var pageCount = ((pubList.Count - 1) / itemsPerPage) + 1;
-
-            if (page > pageCount)
+            var pagingSpec = new PagingSpec<Book>
             {
-                throw new BadRequestException(string.Format("requested page is greater than the total page count: {0}", page));
-            }
+                Page = (int)page,
+                PageSize = (int)itemsPerPage,
+                SortKey = "Id",
+                SortDirection = SortDirection.Default
+            };
+            pagingSpec = _bookService.BooksWithFiles(pagingSpec);
 
-            var publications = OPDSResourceMapper.ToOPDSPublicationsResource((int)page, (int)itemsPerPage, pubList.Count);
-
-            if (itemsPerPage == pubList.Count)
-            {
-                publications.Publications = pubList;
-            }
-            else
-            {
-                if (page == pageCount)
-                {
-                    publications.Publications = pubList.GetRange(((int)page - 1) * (int)itemsPerPage, pubList.Count % (int)itemsPerPage);
-                }
-                else
-                {
-                    publications.Publications = pubList.GetRange(((int)page - 1) * (int)itemsPerPage, (int)itemsPerPage);
-                }
-            }
+            var publications = OPDSResourceMapper.ToOPDSPublicationsResource((int)page, (int)itemsPerPage, pagingSpec.TotalRecords);
+            publications.Publications = MapToResource(pagingSpec.Records, true);
 
             return publications;
         }
@@ -112,8 +95,6 @@ namespace Readarr.Api.V1.OPDS
         public OPDSPublicationsResource GetOPDSWantedPublications([FromQuery] int? page,
             [FromQuery] int? itemsPerPage)
         {
-            var books = _bookService.GetAllBooks();
-
             if (itemsPerPage == null)
             {
                 itemsPerPage = 10;
@@ -123,39 +104,24 @@ namespace Readarr.Api.V1.OPDS
                 itemsPerPage = 10;
             }
 
-            var pubList = MapToResource(books, true);
-
             if (page == null)
             {
                 page = 1;
-                itemsPerPage = pubList.Count;
+                itemsPerPage = 100000;
             }
 
-            var pageCount = ((pubList.Count - 1) / itemsPerPage) + 1;
-
-            if (page > pageCount)
+            var pagingSpec = new PagingSpec<Book>
             {
-                throw new BadRequestException(string.Format("requested page is greater than the total page count: {0}", page));
-            }
+                Page = (int)page,
+                PageSize = (int)itemsPerPage,
+                SortKey = "Id",
+                SortDirection = SortDirection.Default
+            };
+            pagingSpec.FilterExpressions.Add(v => v.Monitored == true);
+            pagingSpec = _bookService.BooksWithoutFiles(pagingSpec);
 
-            var publications = OPDSResourceMapper.ToOPDSPublicationsResource((int)page, (int)itemsPerPage, pubList.Count);
-
-            if (itemsPerPage == pubList.Count)
-            {
-                publications.Publications = pubList;
-            }
-            else
-            {
-                if (page == pageCount)
-                {
-                    publications.Publications = pubList.GetRange(((int)page - 1) * (int)itemsPerPage, pubList.Count % (int)itemsPerPage);
-                }
-                else
-                {
-                    publications.Publications = pubList.GetRange(((int)page - 1) * (int)itemsPerPage, (int)itemsPerPage);
-                }
-            }
-
+            var publications = OPDSResourceMapper.ToOPDSPublicationsResource((int)page, (int)itemsPerPage, pagingSpec.TotalRecords);
+            publications.Publications = MapToResource(pagingSpec.Records, true);
             return publications;
         }
 
@@ -186,9 +152,8 @@ namespace Readarr.Api.V1.OPDS
 
         protected List<OPDSPublicationResource> MapToResource(List<Book> books, bool wanted)
         {
-            var pubclications = new List<OPDSPublicationResource>();
+            var publications = new List<OPDSPublicationResource>();
             var metadataTask = Task.Run(() => _authorService.GetAllAuthors());
-            var authors = metadataTask.GetAwaiter().GetResult().ToDictionary(x => x.AuthorMetadataId);
             for (var i = 0; i < books.Count; i++)
             {
                 var images = new List<MediaCover>();
@@ -196,27 +161,13 @@ namespace Readarr.Api.V1.OPDS
                 var bookfiles = _mediaFileService.GetFilesByBook(book.Id);
                 var selectedEdition = book.Editions?.Value.Where(x => x.Monitored).SingleOrDefault();
                 var ebookEdition = book.Editions?.Value.Where(x => x.IsEbook).FirstOrDefault();
-
-                //only add publications for which we have a valid bookfile
-                if (!bookfiles.Any() && wanted && book.Monitored)
-                {
-                    var covers = selectedEdition?.Images ?? new List<MediaCover>();
-                    _coverMapper.ConvertToLocalUrls(book.Id, MediaCoverEntity.Book, covers);
-                    book.Author = authors[book.AuthorMetadataId];
-                    var publication = OPDSResourceMapper.ToOPDSPublicationResource(book, bookfiles, ebookEdition, covers);
-                    pubclications.Add(publication);
-                }
-                else if (bookfiles.Any() && !wanted)
-                {
-                    var covers = selectedEdition?.Images ?? new List<MediaCover>();
-                    _coverMapper.ConvertToLocalUrls(book.Id, MediaCoverEntity.Book, covers);
-                    book.Author = authors[book.AuthorMetadataId];
-                    var publication = OPDSResourceMapper.ToOPDSPublicationResource(book, bookfiles, ebookEdition, covers);
-                    pubclications.Add(publication);
-                }
+                var covers = selectedEdition?.Images ?? new List<MediaCover>();
+                _coverMapper.ConvertToLocalUrls(book.Id, MediaCoverEntity.Book, covers);
+                var publication = OPDSResourceMapper.ToOPDSPublicationResource(book, bookfiles, ebookEdition, covers);
+                publications.Add(publication);
             }
 
-            return pubclications;
+            return publications;
         }
     }
 }
