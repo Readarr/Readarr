@@ -1,7 +1,7 @@
 {
     "20MinutesTwenty": "20 Minutes : {0}",
     "45MinutesFourtyFive": "45 Minutes : {0}",
-    "60MinutesSixty": "60 Minutes: {0}",
+    "60MinutesSixty": "60 Minutes : {0}",
     "APIKey": "Clé API",
     "About": "À propos",
     "AddListExclusion": "Ajouter une liste d'exclusion",
@@ -930,5 +930,19 @@
     "DeleteSelected": "Supprimer sélectionnée",
     "InvalidUILanguage": "Votre interface utilisateur est définie sur une langue non valide, corrigez-la et enregistrez vos paramètres",
     "DownloadClientQbittorrentSettingsContentLayout": "Disposition du contenu",
-    "DownloadClientQbittorrentSettingsContentLayoutHelpText": "Utiliser la disposition du contenu configurée par qBittorrent, la disposition originale du torrent ou toujours créer un sous-dossier (qBittorrent 4.3.2+)"
+    "DownloadClientQbittorrentSettingsContentLayoutHelpText": "Utiliser la disposition du contenu configurée par qBittorrent, la disposition originale du torrent ou toujours créer un sous-dossier (qBittorrent 4.3.2+)",
+    "CustomFormatsSpecificationRegularExpressionHelpText": "Format personnalisé RegEx est insensible à la casse",
+    "CustomFormatsSpecificationRegularExpression": "Expression régulière",
+    "BlocklistAndSearch": "Liste de blocage et recherche",
+    "BlocklistAndSearchHint": "Lancer la recherche d'un remplaçant après l'inscription sur la liste de blocage",
+    "BlocklistAndSearchMultipleHint": "Lancer la recherche de remplaçants après l'inscription sur la liste de blocage",
+    "BlocklistMultipleOnlyHint": "Liste de blocage sans recherche de remplaçants",
+    "BlocklistOnly": "Liste de blocage uniquement",
+    "BlocklistOnlyHint": "Liste de blocage sans recherche de remplaçant",
+    "ChangeCategory": "Changer de catégorie",
+    "ChangeCategoryMultipleHint": "Modifie les téléchargements dans la \"catégorie post-importation\" du client de téléchargement",
+    "ChangeCategoryHint": "Modifie le téléchargement dans la \"catégorie post-importation\" du client de téléchargement",
+    "AutoRedownloadFailed": "Échec du retéléchargement",
+    "AutoRedownloadFailedFromInteractiveSearch": "Échec du retéléchargement à partir de la recherche interactive",
+    "AutoRedownloadFailedFromInteractiveSearchHelpText": "Lance une recherche automatique et une tentative de téléchargement d'une version différente si la version trouvée automatiquement échoue"
 }
