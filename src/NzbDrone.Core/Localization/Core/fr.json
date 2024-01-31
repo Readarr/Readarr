@@ -944,5 +944,18 @@
     "ChangeCategoryHint": "Modifie le téléchargement dans la \"catégorie post-importation\" du client de téléchargement",
     "AutoRedownloadFailed": "Échec du retéléchargement",
     "AutoRedownloadFailedFromInteractiveSearch": "Échec du retéléchargement à partir de la recherche interactive",
-    "AutoRedownloadFailedFromInteractiveSearchHelpText": "Lance une recherche automatique et une tentative de téléchargement d'une version différente si la version trouvée automatiquement échoue"
+    "AutoRedownloadFailedFromInteractiveSearchHelpText": "Lance une recherche automatique et une tentative de téléchargement d'une version différente si la version trouvée automatiquement échoue",
+    "DoNotBlocklist": "Ne pas mettre sur liste noire",
+    "DoNotBlocklistHint": "Supprimer sans mettre sur liste noire",
+    "IgnoreDownload": "Ignorer le téléchargement",
+    "IgnoreDownloads": "Ignorer les téléchargements",
+    "IgnoreDownloadHint": "Empêche {appName} de poursuivre le traitement de ce téléchargement",
+    "IgnoreDownloadsHint": "Empêche {appName} de poursuivre le traitement de ces téléchargements",
+    "RemoveMultipleFromDownloadClientHint": "Supprime les téléchargements et les fichiers du client de téléchargement",
+    "RemoveFromDownloadClientHint": "Supprime le téléchargement et le(s) fichier(s) du client de téléchargement",
+    "RemoveQueueItemRemovalMethod": "Méthode de suppression",
+    "RemoveQueueItemRemovalMethodHelpTextWarning": "\"Supprimer du client de téléchargement\" supprimera le téléchargement et le(s) fichier(s) du client de téléchargement.",
+    "RemoveQueueItem": "Retirer - {sourceTitle}",
+    "RemoveQueueItemConfirmation": "Êtes-vous sûr de vouloir retirer '{sourceTitle}' de la file d'attente ?",
+    "RemoveQueueItemsRemovalMethodHelpTextWarning": "Supprimer du client de téléchargement\" supprimera les téléchargements et les fichiers du client de téléchargement."
 }

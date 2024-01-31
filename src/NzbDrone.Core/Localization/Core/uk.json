@@ -23,7 +23,7 @@
     "CloneProfile": "Клонувати профіль",
     "Close": "Закрити",
     "AddingTag": "Додавання тегу",
-    "AddListExclusion": "Додати винятки списку",
+    "AddListExclusion": "Додати виняток зі списку",
     "About": "Про нас",
     "Actions": "Дії",
     "All": "Всі",
@@ -644,6 +644,6 @@
     "NoChange": "Без змін",
     "ResetQualityDefinitions": "Скинути визначення якості",
     "SetTags": "Встановити теги",
-    "AddNew": "Додати новий",
+    "AddNew": "Додати",
     "Activity": "Активність"
 }
