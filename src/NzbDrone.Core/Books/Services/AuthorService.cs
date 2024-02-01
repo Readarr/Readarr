@@ -57,7 +57,7 @@ namespace NzbDrone.Core.Books
         public Author AddAuthor(Author newAuthor, bool doRefresh)
         {
             _cache.Clear();
-            _authorRepository.Insert(newAuthor);
+            var insertedAuthor = _authorRepository.Insert(newAuthor);
             _eventAggregator.PublishEvent(new AuthorAddedEvent(GetAuthor(newAuthor.Id), doRefresh));
 
             return newAuthor;
