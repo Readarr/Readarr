@@ -65,7 +65,7 @@
     "CreateEmptyAuthorFoldersHelpText": "Δημιουργήστε φακέλους ταινιών που λείπουν κατά τη σάρωση δίσκου",
     "CreateGroup": "Δημιουργησε ΟΜΑΔΑ",
     "CutoffHelpText": "Μόλις επιτευχθεί αυτή η ποιότητα, το Radarr δεν θα κατεβάζει πλέον ταινίες",
-    "DBMigration": "Μετεγκατάσταση DB",
+    "DatabaseMigration": "Μετεγκατάσταση DB",
     "Dates": "Ημερομηνίες",
     "DelayProfile": "Προφίλ χρονοκαθυστέρησης",
     "DelayProfiles": "Προφίλ χρονοκαθυστέρησης",

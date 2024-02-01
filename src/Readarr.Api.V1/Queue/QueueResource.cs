@@ -34,6 +34,7 @@ namespace Readarr.Api.V1.Queue
         public string DownloadId { get; set; }
         public DownloadProtocol Protocol { get; set; }
         public string DownloadClient { get; set; }
+        public bool DownloadClientHasPostImportCategory { get; set; }
         public string Indexer { get; set; }
         public string OutputPath { get; set; }
         public bool DownloadForced { get; set; }
@@ -74,6 +75,7 @@ namespace Readarr.Api.V1.Queue
                 DownloadId = model.DownloadId,
                 Protocol = model.Protocol,
                 DownloadClient = model.DownloadClient,
+                DownloadClientHasPostImportCategory = model.DownloadClientHasPostImportCategory,
                 Indexer = model.Indexer,
                 OutputPath = model.OutputPath,
                 DownloadForced = model.DownloadForced

@@ -57,7 +57,7 @@
     "CreateGroup": "创建组",
     "CutoffHelpText": "一旦质量满足则Radarr不会再下载影片",
     "CutoffUnmet": "未达截止条件",
-    "DBMigration": "数据库迁移版本",
+    "DatabaseMigration": "数据库迁移版本",
     "Dates": "日期",
     "DelayProfile": "延时配置",
     "DelayProfiles": "延迟配置",

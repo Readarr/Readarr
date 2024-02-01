@@ -274,7 +274,7 @@
     "DelayProfiles": "ملفات تعريف التأخير",
     "DelayProfile": "ملف التأخير",
     "Dates": "تواريخ",
-    "DBMigration": "ترحيل DB",
+    "DatabaseMigration": "ترحيل DB",
     "CutoffUnmet": "قطع غير ملباة",
     "CutoffHelpText": "بمجرد الوصول إلى هذه الجودة ، لن يقوم Radarr بتنزيل الأفلام",
     "CreateGroup": "إنشاء مجموعة",
@@ -630,5 +630,6 @@
     "ExtraFileExtensionsHelpText": "قائمة مفصولة بفواصل بالملفات الإضافية المراد استيرادها (سيتم استيراد .nfo كـ .nfo-Orig)",
     "ExtraFileExtensionsHelpTextsExamples": "أمثلة: \".sub أو .nfo\" أو \"sub، nfo\"",
     "AutoRedownloadFailed": "التحميل فشل",
-    "SourceTitle": "عنوان المصدر"
+    "SourceTitle": "عنوان المصدر",
+    "RemoveQueueItemConfirmation": "هل تريد بالتأكيد إزالة {0} عنصر {1} من قائمة الانتظار؟"
 }

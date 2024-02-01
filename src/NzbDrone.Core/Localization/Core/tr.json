@@ -72,7 +72,7 @@
     "CreateGroup": "Grup oluştur",
     "CutoffHelpText": "Bu kaliteye ulaşıldığında Radarr artık film indirmeyecektir",
     "CutoffUnmet": "Kesme Karşılanmadı",
-    "DBMigration": "DB Geçişi",
+    "DatabaseMigration": "DB Geçişi",
     "Dates": "Tarih",
     "DelayProfile": "Gecikme Profilleri",
     "DelayProfiles": "Gecikme Profilleri",

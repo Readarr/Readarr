@@ -69,29 +69,62 @@ namespace Readarr.Api.V1.Queue
         }
 
         [RestDeleteById]
-        public void RemoveAction(int id, bool removeFromClient = true, bool blocklist = false, bool skipRedownload = false)
+        public void RemoveAction(int id, bool removeFromClient = true, bool blocklist = false, bool skipRedownload = false, bool changeCategory = false)
         {
-            var trackedDownload = Remove(id, removeFromClient, blocklist, skipRedownload);
+            var pendingRelease = _pendingReleaseService.FindPendingQueueItem(id);
 
-            if (trackedDownload != null)
+            if (pendingRelease != null)
             {
-                _trackedDownloadService.StopTracking(trackedDownload.DownloadItem.DownloadId);
+                Remove(pendingRelease);
+
+                return;
             }
+
+            var trackedDownload = GetTrackedDownload(id);
+
+            if (trackedDownload == null)
+            {
+                throw new NotFoundException();
+            }
+
+            Remove(trackedDownload, removeFromClient, blocklist, skipRedownload, changeCategory);
+            _trackedDownloadService.StopTracking(trackedDownload.DownloadItem.DownloadId);
         }
 
         [HttpDelete("bulk")]
-        public object RemoveMany([FromBody] QueueBulkResource resource, [FromQuery] bool removeFromClient = true, [FromQuery] bool blocklist = false, [FromQuery] bool skipRedownload = false)
+        public object RemoveMany([FromBody] QueueBulkResource resource, [FromQuery] bool removeFromClient = true, [FromQuery] bool blocklist = false, [FromQuery] bool skipRedownload = false, [FromQuery] bool changeCategory = false)
         {
             var trackedDownloadIds = new List<string>();
+            var pendingToRemove = new List<NzbDrone.Core.Queue.Queue>();
+            var trackedToRemove = new List<TrackedDownload>();
 
             foreach (var id in resource.Ids)
             {
-                var trackedDownload = Remove(id, removeFromClient, blocklist, skipRedownload);
+                var pendingRelease = _pendingReleaseService.FindPendingQueueItem(id);
+
+                if (pendingRelease != null)
+                {
+                    pendingToRemove.Add(pendingRelease);
+                    continue;
+                }
+
+                var trackedDownload = GetTrackedDownload(id);
 
                 if (trackedDownload != null)
                 {
-                    trackedDownloadIds.Add(trackedDownload.DownloadItem.DownloadId);
+                    trackedToRemove.Add(trackedDownload);
                 }
+            }
+
+            foreach (var pendingRelease in pendingToRemove.DistinctBy(p => p.Id))
+            {
+                Remove(pendingRelease);
+            }
+
+            foreach (var trackedDownload in trackedToRemove.DistinctBy(t => t.DownloadItem.DownloadId))
+            {
+                Remove(trackedDownload, removeFromClient, blocklist, skipRedownload, changeCategory);
+                trackedDownloadIds.Add(trackedDownload.DownloadItem.DownloadId);
             }
 
             _trackedDownloadService.StopTracking(trackedDownloadIds);
@@ -206,25 +239,14 @@ namespace Readarr.Api.V1.Queue
             }
         }
 
-        private TrackedDownload Remove(int id, bool removeFromClient, bool blocklist, bool skipRedownload)
+        private void Remove(NzbDrone.Core.Queue.Queue pendingRelease)
         {
-            var pendingRelease = _pendingReleaseService.FindPendingQueueItem(id);
+            _blocklistService.Block(pendingRelease.RemoteBook, "Pending release manually blocklisted");
+            _pendingReleaseService.RemovePendingQueueItems(pendingRelease.Id);
+        }
 
-            if (pendingRelease != null)
-            {
-                _blocklistService.Block(pendingRelease.RemoteBook, "Pending book manually blocklisted");
-                _pendingReleaseService.RemovePendingQueueItems(pendingRelease.Id);
-
-                return null;
-            }
-
-            var trackedDownload = GetTrackedDownload(id);
-
-            if (trackedDownload == null)
-            {
-                throw new NotFoundException();
-            }
-
+        private TrackedDownload Remove(TrackedDownload trackedDownload, bool removeFromClient, bool blocklist, bool skipRedownload, bool changeCategory)
+        {
             if (removeFromClient)
             {
                 var downloadClient = _downloadClientProvider.Get(trackedDownload.DownloadClient);
@@ -236,13 +258,24 @@ namespace Readarr.Api.V1.Queue
 
                 downloadClient.RemoveItem(trackedDownload.DownloadItem, true);
             }
+            else if (changeCategory)
+            {
+                var downloadClient = _downloadClientProvider.Get(trackedDownload.DownloadClient);
+
+                if (downloadClient == null)
+                {
+                    throw new BadRequestException();
+                }
+
+                downloadClient.MarkItemAsImported(trackedDownload.DownloadItem);
+            }
 
             if (blocklist)
             {
                 _failedDownloadService.MarkAsFailed(trackedDownload.DownloadItem.DownloadId, skipRedownload);
             }
 
-            if (!removeFromClient && !blocklist)
+            if (!removeFromClient && !blocklist && !changeCategory)
             {
                 if (!_ignoredDownloadService.IgnoreDownload(trackedDownload))
                 {

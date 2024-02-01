@@ -51,7 +51,7 @@
     "CreateGroup": "צור קבוצה",
     "CutoffHelpText": "לאחר שהאיכות הזו תושג Radarr כבר לא תוריד סרטים",
     "CutoffUnmet": "חתך שלא הושג",
-    "DBMigration": "הגירת DB",
+    "DatabaseMigration": "הגירת DB",
     "Dates": "תאריכים",
     "DelayProfile": "עיכוב פרופיל",
     "DelayProfiles": "עיכוב פרופילים",

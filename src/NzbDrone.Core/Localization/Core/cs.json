@@ -69,7 +69,7 @@
     "CreateGroup": "Vytvořit skupinu",
     "CutoffHelpText": "Jakmile je této kvality dosaženo, Radarr již nebude stahovat filmy",
     "CutoffUnmet": "Vynechat nevyhovující",
-    "DBMigration": "Migrace databáze",
+    "DatabaseMigration": "Migrace databáze",
     "Dates": "Termíny",
     "DelayProfile": "Profil zpoždění",
     "DelayProfiles": "Profily zpoždění",
@@ -683,5 +683,10 @@
     "ListsSettingsSummary": "Seznam k importu",
     "ExtraFileExtensionsHelpText": "Seznam extra souborů k importu oddělených čárkami (.nfo bude importován jako .nfo-orig)",
     "ExtraFileExtensionsHelpTextsExamples": "Příklady: „.sub, .nfo“ nebo „sub, nfo“",
-    "ImportLists": "Seznam k importu"
+    "ImportLists": "Seznam k importu",
+    "RemoveQueueItemConfirmation": "Opravdu chcete odebrat {0} položku {1} z fronty?",
+    "SourceTitle": "Název zdroje",
+    "AutoRedownloadFailed": "Opětovné stažení se nezdařilo",
+    "AutoRedownloadFailedFromInteractiveSearch": "Opětovné stažení z interaktivního vyhledávání selhalo",
+    "AutoRedownloadFailedFromInteractiveSearchHelpText": "Automaticky vyhledat a pokusit se o stažení jiného vydání, pokud bylo neúspěšné vydání zachyceno z interaktivního vyhledávání"
 }

@@ -225,7 +225,12 @@ namespace NzbDrone.Core.Books
         public Author UpdateAuthor(Author author)
         {
             _cache.Clear();
+
             var storedAuthor = GetAuthor(author.Id);
+
+            // Never update AddOptions when updating an author, keep it the same as the existing stored author.
+            author.AddOptions = storedAuthor.AddOptions;
+
             var updatedAuthor = _authorRepository.Update(author);
             _eventAggregator.PublishEvent(new AuthorEditedEvent(updatedAuthor, storedAuthor));
 

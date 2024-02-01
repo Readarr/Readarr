@@ -77,7 +77,7 @@
     "CreateGroup": "สร้างกลุ่ม",
     "CutoffHelpText": "เมื่อถึงคุณภาพนี้แล้ว Radarr จะไม่ดาวน์โหลดภาพยนตร์อีกต่อไป",
     "CutoffUnmet": "ตัด Unmet",
-    "DBMigration": "การย้ายฐานข้อมูล",
+    "DatabaseMigration": "การย้ายฐานข้อมูล",
     "Dates": "วันที่",
     "DelayProfile": "โปรไฟล์ล่าช้า",
     "DelayProfiles": "โปรไฟล์ล่าช้า",

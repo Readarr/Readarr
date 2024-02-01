@@ -106,7 +106,7 @@
     "CreateGroup": "Stworzyć grupę",
     "CutoffHelpText": "Po osiągnięciu tej jakości Radarr nie będzie już pobierał filmów",
     "CutoffUnmet": "Odcięcie niespełnione",
-    "DBMigration": "Migracja bazy danych",
+    "DatabaseMigration": "Migracja bazy danych",
     "Dates": "Daktyle",
     "DelayProfile": "Profil opóźnienia",
     "DelayProfiles": "Profile opóźnień",

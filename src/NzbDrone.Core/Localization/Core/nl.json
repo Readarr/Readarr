@@ -71,7 +71,7 @@
     "CreateGroup": "Groep aanmaken",
     "CutoffHelpText": "Wanneer deze kwaliteit is behaald, zal Radarr niet langer films downloaden",
     "CutoffUnmet": "Onbereikte Drempel",
-    "DBMigration": "DB Migratie",
+    "DatabaseMigration": "DB Migratie",
     "Dates": "Datum en tijd",
     "DelayProfile": "Vertragingsprofiel",
     "DelayProfiles": "Vertragingsprofielen",
