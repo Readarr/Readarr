@@ -37,6 +37,9 @@ namespace NzbDrone.Core.MediaFiles.BookImport.Identification
                 .First()
                 .First();
 
+            var folderAuthors = localTracks.Where(a => a.FolderTrackInfo.AuthorName.IsNotNullOrWhiteSpace()).Select(a => a.FolderTrackInfo.AuthorName).ToList();
+            fileAuthors.AddRange(folderAuthors);
+
             var authors = GetAuthorVariants(fileAuthors);
 
             dist.AddString("author", authors, edition.Book.Value.AuthorMetadata.Value.Name);
@@ -65,6 +68,11 @@ namespace NzbDrone.Core.MediaFiles.BookImport.Identification
                         titleOptions.Add($"{l.Series.Value.Title} Book {l.Position} {edition.Title}");
                         titleOptions.Add($"{edition.Title} {l.Series.Value.Title} {l.Position}");
                         titleOptions.Add($"{edition.Title} {l.Series.Value.Title} Book {l.Position}");
+
+                        titleOptions.Add($"{l.Series.Value.Title} {l.Position} - {edition.Title}");
+                        titleOptions.Add($"{l.Series.Value.Title} Book {l.Position} - {edition.Title}");
+                        titleOptions.Add($"{edition.Title} - {l.Series.Value.Title} {l.Position}");
+                        titleOptions.Add($"{edition.Title} - {l.Series.Value.Title} Book {l.Position}");
                     }
                 }
             }
@@ -166,6 +174,25 @@ namespace NzbDrone.Core.MediaFiles.BookImport.Identification
             if (fileAuthors.Count == 1)
             {
                 authors.AddRange(SplitAuthor(fileAuthors[0]));
+            }
+
+            foreach (var author in fileAuthors)
+            {
+                if (author.Contains('-'))
+                {
+                    var splits = author.Split('-', 2).Select(x => x.Trim());
+                    foreach (var split in splits)
+                    {
+                        if (split.Contains(','))
+                        {
+                            var newSplit = split.Split(',', 2).Select(x => x.Trim());
+                            if (!newSplit.First().Contains(' '))
+                            {
+                                authors.Add(newSplit.Reverse().ConcatToString(" "));
+                            }
+                        }
+                    }
+                }
             }
 
             foreach (var author in fileAuthors)

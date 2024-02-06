@@ -145,7 +145,7 @@ namespace Readarr.Api.V1.OPDS
             return publications;
         }
 
-        // /opds/monitored
+        // /opds/unmonitored
         [HttpGet("unmonitored")]
         public OPDSPublicationsResource GetOPDSUnmonitoredPublications([FromQuery] PagingRequestResource paging)
         {
@@ -165,7 +165,7 @@ namespace Readarr.Api.V1.OPDS
             return publications;
         }
 
-        // /opds/publications/search
+        // /opds/unmonitored/search
         [HttpGet("unmonitored/search")]
         public OPDSPublicationsResource GetOPDSUnmonitoredForQuery([FromQuery] PagingRequestResource paging, [FromQuery] string query, [FromQuery] string title, [FromQuery] string author)
         {

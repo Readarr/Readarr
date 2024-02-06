@@ -178,16 +178,19 @@ namespace Readarr.Api.V1.BookFiles
             var list = _manualImportService.ProcessFile(combined, book, bookAuthor, FilterFilesType.None, false);
             if (list.Empty())
             {
+                //delete the directory after manual import
+                _diskProvider.DeleteFolder(directory, true);
                 throw new NzbDroneClientException(HttpStatusCode.UnprocessableEntity, "import failed.");
             }
             else if (!list.First().Rejections.Empty())
             {
+                //delete the directory after manual import
+                _diskProvider.DeleteFolder(directory, true);
                 throw new NzbDroneClientException(HttpStatusCode.UnprocessableEntity, "import failed.");
             }
 
             //delete the directory after manual import
             _diskProvider.DeleteFolder(directory, true);
-
             return Accepted();
         }
 

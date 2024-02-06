@@ -2,6 +2,7 @@
 src/**/[Bb]in/
 src/**/[Oo]bj/
 db/*
+books/*
 
 
 ## Ignore Visual Studio temporary files, build results, and
