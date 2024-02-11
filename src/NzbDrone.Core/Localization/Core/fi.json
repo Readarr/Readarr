@@ -740,8 +740,6 @@
     "ForeignIdHelpText": "Ohitettavan kirjailijan/kirjan MusicBrainz-tunniste.",
     "IsExpandedShowFileInfo": "Näytä tiedostojen tiedot",
     "ApplicationUrlHelpText": "Tämän sovelluksen ulkoinen URL-osoite, johon sisältyy http(s)://, portti ja URL-perusta.",
-    "BookFileCountBookCountTotalTotalBookCountInterp": "{0}/{1} (yhteensä: {2})",
-    "BookFileCounttotalBookCountBooksDownloadedInterp": "{0}/{1} kirjaa ladattu",
     "CollapseMultipleBooksHelpText": "Tiivistä useat samana päivänä julkaistavat kirjat.",
     "DataFirstBook": "Seuraa ensimmäisiä kirjoja. Muita kirjoja ei huomioida.",
     "DataListMonitorSpecificBook": "Valvo kirjailijoita, mutta vain erikseen listalle lisättyjä kirjoja.",
