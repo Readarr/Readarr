@@ -449,8 +449,6 @@
     "AudioFileMetadata": "Metadaten in Audiodateien schreiben",
     "AuthorNameHelpText": "Der Name des auszuschließenden Autors/Buches (kann etwas Sinnvolles sein)",
     "AutomaticallySwitchEdition": "Edition automatisch wechseln",
-    "BookFileCountBookCountTotalTotalBookCountInterp": "{0} / {1} (Gesamt: {2})",
-    "BookFileCounttotalBookCountBooksDownloadedInterp": "{0}/{1} Bücher heruntergeladen",
     "BookFilesCountMessage": "Keine Buchdateien",
     "BookNaming": "Buchbenennung",
     "Books": "Bücher",

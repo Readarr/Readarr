@@ -591,8 +591,6 @@
     "AddList": "添加列表",
     "BookList": "书籍清单",
     "Books": "书籍",
-    "BookFileCountBookCountTotalTotalBookCountInterp": "{0} / {1} (全部: {2})",
-    "BookFileCounttotalBookCountBooksDownloadedInterp": "{0}/{1} 书籍已下载",
     "BookFilesCountMessage": "无书籍文件",
     "AutomaticallySwitchEdition": "自动切换版本",
     "AllAuthorBooks": "该作者所有书籍",
