@@ -791,7 +791,7 @@
     "ProxyCheckResolveIpMessage": "Falha ao resolver o endereço IP do host de proxy configurado {0}",
     "ProxyCheckBadRequestMessage": "Falha ao testar o proxy. Código de status: {0}",
     "ProxyCheckFailedToTestMessage": "Falha ao testar o proxy: {0}",
-    "QualitySettingsSummary": "Tamanhos de qualidade e nomenclatura",
+    "QualitySettingsSummary": "Tamanhos e nomenclatura de qualidade",
     "Queued": "Na fila",
     "QueueIsEmpty": "A fila está vazia",
     "RefreshAndScan": "Atualizar & Escanear",

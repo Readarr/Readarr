@@ -25,7 +25,7 @@
     "AlternateTitles": "Альтернативное название",
     "Analytics": "Аналитика",
     "AnalyticsEnabledHelpText": "Отправлять в Radarr информацию о использовании и ошибках. Анонимная статистика включает в себя информацию о браузере, какие страницы загружены, сообщения об ошибках, а так же операционной системе. Мы используем эту информацию для выявления ошибок, а так же для разработки нового функционала.",
-    "AppDataDirectory": "AppData директория",
+    "AppDataDirectory": "Директория AppData",
     "ApplyTags": "Применить тэги",
     "Authentication": "Аутентификация",
     "AuthenticationMethodHelpText": "Необходим логин и пароль для доступа в Radarr",
@@ -725,5 +725,6 @@
     "ResetQualityDefinitionsMessageText": "Вы уверены, что хотите сбросить определения качества?",
     "DeleteRemotePathMappingMessageText": "Вы уверены, что хотите удалить это сопоставление удаленного пути?",
     "RemotePathMappingsInfo": "Сопоставление удаленных путей требуется крайне редко, если {app} и клиент загрузки находятся в одной системе, то лучше согласовать пути. Более подробную информацию можно найти в [wiki]({wikiLink}).",
-    "WouldYouLikeToRestoreBackup": "Желаете восстановить резервную копию {name} ?"
+    "WouldYouLikeToRestoreBackup": "Желаете восстановить резервную копию {name} ?",
+    "CustomFormatsSpecificationRegularExpression": "Регулярное выражение"
 }

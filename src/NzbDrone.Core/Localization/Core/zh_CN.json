@@ -1025,5 +1025,6 @@
     "DownloadClientQbittorrentSettingsContentLayout": "内容布局",
     "ExtraFileExtensionsHelpTextsExamples": "示例：’.sub,.nfo‘ 或 ’sub,nfo‘",
     "InvalidUILanguage": "您的UI设置为无效语言，请纠正并保存设置",
-    "DownloadClientQbittorrentSettingsContentLayoutHelpText": "是否使用 qBittorrent 配置的内容布局，使用种子的原始布局或始终创建子文件夹（qBittorrent 4.3.2+）"
+    "DownloadClientQbittorrentSettingsContentLayoutHelpText": "是否使用 qBittorrent 配置的内容布局，使用种子的原始布局或始终创建子文件夹（qBittorrent 4.3.2+）",
+    "ChangeCategory": "改变分类"
 }
