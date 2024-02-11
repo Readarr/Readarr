@@ -11,14 +11,15 @@ function AuthorIndexProgressBar(props) {
     monitored,
     status,
     bookCount,
+    availableBookCount,
     bookFileCount,
     totalBookCount,
     posterWidth,
     detailedProgressBar
   } = props;
 
-  const progress = bookCount ? bookCount / totalBookCount * 100 : 100;
-  const text = `${bookCount} / ${totalBookCount}`;
+  const progress = bookCount ? (availableBookCount / bookCount) * 100 : 100;
+  const text = `${availableBookCount} / ${bookCount}`;
 
   return (
     <ProgressBar
@@ -29,7 +30,7 @@ function AuthorIndexProgressBar(props) {
       size={detailedProgressBar ? sizes.MEDIUM : sizes.SMALL}
       showText={detailedProgressBar}
       text={text}
-      title={translate('BookFileCountBookCountTotalTotalBookCountInterp', [bookFileCount, bookCount, totalBookCount])}
+      title={translate('AuthorProgressBarText', { bookCount, availableBookCount, bookFileCount, totalBookCount })}
       width={posterWidth}
     />
   );
@@ -39,6 +40,7 @@ AuthorIndexProgressBar.propTypes = {
   monitored: PropTypes.bool.isRequired,
   status: PropTypes.string.isRequired,
   bookCount: PropTypes.number.isRequired,
+  availableBookCount: PropTypes.number.isRequired,
   bookFileCount: PropTypes.number.isRequired,
   totalBookCount: PropTypes.number.isRequired,
   posterWidth: PropTypes.number.isRequired,

@@ -27,14 +27,15 @@ class BookshelfBook extends Component {
       title,
       disambiguation,
       monitored,
-      statistics,
+      statistics = {},
       isSaving
     } = this.props;
 
     const {
-      bookFileCount,
-      totalBookCount,
-      percentOfBooks
+      bookCount = 0,
+      bookFileCount = 0,
+      totalBookCount = 0,
+      percentOfBooks = 0
     } = statistics;
 
     return (
@@ -59,10 +60,14 @@ class BookshelfBook extends Component {
             percentOfBooks < 100 && monitored && styles.missingWanted,
             percentOfBooks === 100 && styles.allBooks
           )}
-          title={translate('BookFileCounttotalBookCountBooksDownloadedInterp', [bookFileCount, totalBookCount])}
+          title={translate('BookProgressBarText', {
+            bookCount: bookFileCount ? bookCount : 0,
+            bookFileCount,
+            totalBookCount
+          })}
         >
           {
-            totalBookCount === 0 ? '0/0' : `${bookFileCount}/${totalBookCount}`
+            totalBookCount === 0 ? '0/0' : `${bookFileCount ? bookCount : 0}/${totalBookCount}`
           }
         </div>
       </div>

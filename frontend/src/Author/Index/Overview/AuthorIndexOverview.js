@@ -90,7 +90,7 @@ class AuthorIndexOverview extends Component {
       status,
       titleSlug,
       nextAiring,
-      statistics,
+      statistics = {},
       images,
       posterWidth,
       posterHeight,
@@ -113,10 +113,11 @@ class AuthorIndexOverview extends Component {
     } = this.props;
 
     const {
-      bookCount,
-      sizeOnDisk,
-      bookFileCount,
-      totalBookCount
+      bookCount = 0,
+      availableBookCount = 0,
+      bookFileCount = 0,
+      totalBookCount = 0,
+      sizeOnDisk = 0
     } = statistics;
 
     const {
@@ -179,6 +180,7 @@ class AuthorIndexOverview extends Component {
               monitored={monitored}
               status={status}
               bookCount={bookCount}
+              availableBookCount={availableBookCount}
               bookFileCount={bookFileCount}
               totalBookCount={totalBookCount}
               posterWidth={posterWidth}
