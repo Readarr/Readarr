@@ -8968,6 +8968,11 @@
           "ratings": {
             "$ref": "#/components/schemas/Ratings"
           },
+          "lastSearchTime": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
           "cleanTitle": {
             "type": "string",
             "nullable": true
