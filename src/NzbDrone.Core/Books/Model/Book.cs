@@ -91,6 +91,7 @@ namespace NzbDrone.Core.Books
             Monitored = other.Monitored;
             AnyEditionOk = other.AnyEditionOk;
             LastInfoSync = other.LastInfoSync;
+            LastSearchTime = other.LastSearchTime;
             Added = other.Added;
             AddOptions = other.AddOptions;
         }
