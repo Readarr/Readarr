@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import BookFormats from 'Book/BookFormats';
 import BookQuality from 'Book/BookQuality';
+import IndexerFlags from 'Book/IndexerFlags';
 import FileDetails from 'BookFile/FileDetails';
 import Icon from 'Components/Icon';
 import ConfirmModal from 'Components/Modal/ConfirmModal';
@@ -14,6 +15,7 @@ import Tooltip from 'Components/Tooltip/Tooltip';
 import { icons, kinds, sizes, tooltipPositions } from 'Helpers/Props';
 import SelectAuthorModal from 'InteractiveImport/Author/SelectAuthorModal';
 import SelectBookModal from 'InteractiveImport/Book/SelectBookModal';
+import SelectIndexerFlagsModal from 'InteractiveImport/IndexerFlags/SelectIndexerFlagsModal';
 import SelectQualityModal from 'InteractiveImport/Quality/SelectQualityModal';
 import SelectReleaseGroupModal from 'InteractiveImport/ReleaseGroup/SelectReleaseGroupModal';
 import formatBytes from 'Utilities/Number/formatBytes';
@@ -34,7 +36,8 @@ class InteractiveImportRow extends Component {
       isSelectAuthorModalOpen: false,
       isSelectBookModalOpen: false,
       isSelectReleaseGroupModalOpen: false,
-      isSelectQualityModalOpen: false
+      isSelectQualityModalOpen: false,
+      isSelectIndexerFlagsModalOpen: false
     };
   }
 
@@ -133,6 +136,10 @@ class InteractiveImportRow extends Component {
     this.setState({ isSelectQualityModalOpen: true });
   };
 
+  onSelectIndexerFlagsPress = () => {
+    this.setState({ isSelectIndexerFlagsModalOpen: true });
+  };
+
   onSelectAuthorModalClose = (changed) => {
     this.setState({ isSelectAuthorModalOpen: false });
     this.selectRowAfterChange(changed);
@@ -153,6 +160,11 @@ class InteractiveImportRow extends Component {
     this.selectRowAfterChange(changed);
   };
 
+  onSelectIndexerFlagsModalClose = (changed) => {
+    this.setState({ isSelectIndexerFlagsModalOpen: false });
+    this.selectRowAfterChange(changed);
+  };
+
   //
   // Render
 
@@ -167,7 +179,9 @@ class InteractiveImportRow extends Component {
       releaseGroup,
       size,
       customFormats,
+      indexerFlags,
       rejections,
+      columns,
       additionalFile,
       isSelected,
       isReprocessing,
@@ -180,7 +194,8 @@ class InteractiveImportRow extends Component {
       isSelectAuthorModalOpen,
       isSelectBookModalOpen,
       isSelectReleaseGroupModalOpen,
-      isSelectQualityModalOpen
+      isSelectQualityModalOpen,
+      isSelectIndexerFlagsModalOpen
     } = this.state;
 
     const authorName = author ? author.authorName : '';
@@ -193,6 +208,7 @@ class InteractiveImportRow extends Component {
     const showBookNumberPlaceholder = !isReprocessing && isSelected && !!author && !book;
     const showReleaseGroupPlaceholder = isSelected && !releaseGroup;
     const showQualityPlaceholder = isSelected && !quality;
+    const showIndexerFlagsPlaceholder = isSelected && !indexerFlags;
 
     const pathCellContents = (
       <div onClick={this.onDetailsPress}>
@@ -214,6 +230,8 @@ class InteractiveImportRow extends Component {
         filename={path}
       />
     );
+
+    const isIndexerFlagsColumnVisible = columns.find((c) => c.name === 'indexerFlags')?.isVisible ?? false;
 
     return (
       <TableRow
@@ -307,6 +325,28 @@ class InteractiveImportRow extends Component {
           }
         </TableRowCell>
 
+        {isIndexerFlagsColumnVisible ? (
+          <TableRowCellButton
+            title={translate('ClickToChangeIndexerFlags')}
+            onPress={this.onSelectIndexerFlagsPress}
+          >
+            {showIndexerFlagsPlaceholder ? (
+              <InteractiveImportRowCellPlaceholder isOptional={true} />
+            ) : (
+              <>
+                {indexerFlags ? (
+                  <Popover
+                    anchor={<Icon name={icons.FLAG} kind={kinds.PRIMARY} />}
+                    title={translate('IndexerFlags')}
+                    body={<IndexerFlags indexerFlags={indexerFlags} />}
+                    position={tooltipPositions.LEFT}
+                  />
+                ) : null}
+              </>
+            )}
+          </TableRowCellButton>
+        ) : null}
+
         <TableRowCell>
           {
             rejections.length ?
@@ -378,6 +418,13 @@ class InteractiveImportRow extends Component {
           real={quality ? quality.revision.real > 0 : false}
           onModalClose={this.onSelectQualityModalClose}
         />
+
+        <SelectIndexerFlagsModal
+          isOpen={isSelectIndexerFlagsModalOpen}
+          ids={[id]}
+          indexerFlags={indexerFlags ?? 0}
+          onModalClose={this.onSelectIndexerFlagsModalClose}
+        />
       </TableRow>
     );
   }
@@ -395,7 +442,9 @@ InteractiveImportRow.propTypes = {
   quality: PropTypes.object,
   size: PropTypes.number.isRequired,
   customFormats: PropTypes.arrayOf(PropTypes.object),
+  indexerFlags: PropTypes.number.isRequired,
   rejections: PropTypes.arrayOf(PropTypes.object).isRequired,
+  columns: PropTypes.arrayOf(PropTypes.object).isRequired,
   audioTags: PropTypes.object.isRequired,
   additionalFile: PropTypes.bool.isRequired,
   isReprocessing: PropTypes.bool,

@@ -164,6 +164,7 @@ namespace NzbDrone.Core.History
                 history.Data.Add("DownloadForced", (!message.Book.DownloadAllowed).ToString());
                 history.Data.Add("CustomFormatScore", message.Book.CustomFormatScore.ToString());
                 history.Data.Add("ReleaseSource", message.Book.ReleaseSource.ToString());
+                history.Data.Add("IndexerFlags", message.Book.Release.IndexerFlags.ToString());
 
                 if (!message.Book.ParsedBookInfo.ReleaseHash.IsNullOrWhiteSpace())
                 {
@@ -201,6 +202,8 @@ namespace NzbDrone.Core.History
 
                 history.Data.Add("StatusMessages", message.TrackedDownload.StatusMessages.ToJson());
                 history.Data.Add("ReleaseGroup", message.TrackedDownload?.RemoteBook?.ParsedBookInfo?.ReleaseGroup);
+                history.Data.Add("IndexerFlags", message.TrackedDownload?.RemoteBook?.Release?.IndexerFlags.ToString());
+
                 _historyRepository.Insert(history);
             }
         }
@@ -237,6 +240,7 @@ namespace NzbDrone.Core.History
             history.Data.Add("DownloadClientName", message.DownloadClientInfo?.Name);
             history.Data.Add("ReleaseGroup", message.BookInfo.ReleaseGroup);
             history.Data.Add("Size", message.BookInfo.Size.ToString());
+            history.Data.Add("IndexerFlags", message.BookInfo.IndexerFlags.ToString());
 
             _historyRepository.Insert(history);
         }
@@ -290,6 +294,7 @@ namespace NzbDrone.Core.History
 
             history.Data.Add("Reason", message.Reason.ToString());
             history.Data.Add("ReleaseGroup", message.BookFile.ReleaseGroup);
+            history.Data.Add("IndexerFlags", message.BookFile.IndexerFlags.ToString());
 
             _historyRepository.Insert(history);
         }
@@ -313,6 +318,7 @@ namespace NzbDrone.Core.History
             history.Data.Add("Path", path);
             history.Data.Add("ReleaseGroup", message.BookFile.ReleaseGroup);
             history.Data.Add("Size", message.BookFile.Size.ToString());
+            history.Data.Add("IndexerFlags", message.BookFile.IndexerFlags.ToString());
 
             _historyRepository.Insert(history);
         }

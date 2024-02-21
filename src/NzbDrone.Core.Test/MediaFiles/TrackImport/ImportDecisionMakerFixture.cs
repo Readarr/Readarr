@@ -9,6 +9,7 @@ using NUnit.Framework;
 using NzbDrone.Core.Books;
 using NzbDrone.Core.DecisionEngine;
 using NzbDrone.Core.Download;
+using NzbDrone.Core.History;
 using NzbDrone.Core.MediaFiles;
 using NzbDrone.Core.MediaFiles.BookImport;
 using NzbDrone.Core.MediaFiles.BookImport.Aggregation;
@@ -133,6 +134,10 @@ namespace NzbDrone.Core.Test.MediaFiles.BookImport
             Mocker.GetMock<IMetadataTagService>()
                 .Setup(s => s.ReadTags(It.IsAny<IFileInfo>()))
                 .Returns(new ParsedTrackInfo());
+
+            Mocker.GetMock<IHistoryService>()
+                .Setup(x => x.FindByDownloadId(It.IsAny<string>()))
+                .Returns(new List<EntityHistory>());
 
             GivenSpecifications(_bookpass1);
         }

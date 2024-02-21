@@ -57,6 +57,7 @@ namespace NzbDrone.Core.Notifications.CustomScript
             environmentVariables.Add("Readarr_Release_Quality", remoteBook.ParsedBookInfo.Quality.Quality.Name);
             environmentVariables.Add("Readarr_Release_QualityVersion", remoteBook.ParsedBookInfo.Quality.Revision.Version.ToString());
             environmentVariables.Add("Readarr_Release_ReleaseGroup", releaseGroup ?? string.Empty);
+            environmentVariables.Add("Readarr_Release_IndexerFlags", remoteBook.Release.IndexerFlags.ToString());
             environmentVariables.Add("Readarr_Download_Client", message.DownloadClientName ?? string.Empty);
             environmentVariables.Add("Readarr_Download_Client_Type", message.DownloadClientType ?? string.Empty);
             environmentVariables.Add("Readarr_Download_Id", message.DownloadId ?? string.Empty);

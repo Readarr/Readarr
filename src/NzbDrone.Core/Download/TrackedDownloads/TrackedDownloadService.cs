@@ -12,6 +12,7 @@ using NzbDrone.Core.Download.History;
 using NzbDrone.Core.History;
 using NzbDrone.Core.Messaging.Events;
 using NzbDrone.Core.Parser;
+using NzbDrone.Core.Parser.Model;
 
 namespace NzbDrone.Core.Download.TrackedDownloads
 {
@@ -156,11 +157,10 @@ namespace NzbDrone.Core.Download.TrackedDownloads
                     var firstHistoryItem = historyItems.First();
                     var grabbedEvent = historyItems.FirstOrDefault(v => v.EventType == EntityHistoryEventType.Grabbed);
 
-                    trackedDownload.Indexer = grabbedEvent?.Data["indexer"];
+                    trackedDownload.Indexer = grabbedEvent?.Data?.GetValueOrDefault("indexer");
 
                     if (parsedBookInfo == null ||
-                        trackedDownload.RemoteBook == null ||
-                        trackedDownload.RemoteBook.Author == null ||
+                        trackedDownload.RemoteBook?.Author == null ||
                         trackedDownload.RemoteBook.Books.Empty())
                     {
                         // Try parsing the original source title and if that fails, try parsing it as a special
@@ -191,6 +191,13 @@ namespace NzbDrone.Core.Download.TrackedDownloads
                                         .Distinct());
                             }
                         }
+                    }
+
+                    if (trackedDownload.RemoteBook != null &&
+                        Enum.TryParse(grabbedEvent?.Data?.GetValueOrDefault("indexerFlags"), true, out IndexerFlags flags))
+                    {
+                        trackedDownload.RemoteBook.Release ??= new ReleaseInfo();
+                        trackedDownload.RemoteBook.Release.IndexerFlags = flags;
                     }
                 }
 
