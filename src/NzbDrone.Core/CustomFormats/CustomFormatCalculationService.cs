@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -38,7 +39,8 @@ namespace NzbDrone.Core.CustomFormats
             {
                 BookInfo = remoteBook.ParsedBookInfo,
                 Author = remoteBook.Author,
-                Size = size
+                Size = size,
+                IndexerFlags = remoteBook.Release?.IndexerFlags ?? 0
             };
 
             return ParseCustomFormat(input);
@@ -70,7 +72,8 @@ namespace NzbDrone.Core.CustomFormats
             {
                 BookInfo = bookInfo,
                 Author = author,
-                Size = blocklist.Size ?? 0
+                Size = blocklist.Size ?? 0,
+                IndexerFlags = blocklist.IndexerFlags
             };
 
             return ParseCustomFormat(input);
@@ -81,6 +84,7 @@ namespace NzbDrone.Core.CustomFormats
             var parsed = Parser.Parser.ParseBookTitle(history.SourceTitle);
 
             long.TryParse(history.Data.GetValueOrDefault("size"), out var size);
+            Enum.TryParse(history.Data.GetValueOrDefault("indexerFlags"), true, out IndexerFlags indexerFlags);
 
             var bookInfo = new ParsedBookInfo
             {
@@ -94,7 +98,8 @@ namespace NzbDrone.Core.CustomFormats
             {
                 BookInfo = bookInfo,
                 Author = author,
-                Size = size
+                Size = size,
+                IndexerFlags = indexerFlags
             };
 
             return ParseCustomFormat(input);
@@ -114,7 +119,8 @@ namespace NzbDrone.Core.CustomFormats
             {
                 BookInfo = bookInfo,
                 Author = localBook.Author,
-                Size = localBook.Size
+                Size = localBook.Size,
+                IndexerFlags = localBook.IndexerFlags,
             };
 
             return ParseCustomFormat(input);
@@ -181,6 +187,7 @@ namespace NzbDrone.Core.CustomFormats
                 BookInfo = bookInfo,
                 Author = author,
                 Size = bookFile.Size,
+                IndexerFlags = bookFile.IndexerFlags,
                 Filename = Path.GetFileName(bookFile.Path)
             };
 

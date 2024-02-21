@@ -80,6 +80,7 @@ namespace Readarr.Api.V1.ManualImport
                     Edition = resource.ForeignEditionId == null ? null : _editionService.GetEditionByForeignEditionId(resource.ForeignEditionId),
                     Quality = resource.Quality,
                     ReleaseGroup = resource.ReleaseGroup,
+                    IndexerFlags = resource.IndexerFlags,
                     DownloadId = resource.DownloadId,
                     AdditionalFile = resource.AdditionalFile,
                     ReplaceExistingFiles = resource.ReplaceExistingFiles,

@@ -207,6 +207,7 @@ export const actionHandlers = handleThunks({
         foreignEditionId: item.foreignEditionId ? item.ForeignEditionId : undefined,
         quality: item.quality,
         releaseGroup: item.releaseGroup,
+        indexerFlags: item.indexerFlags,
         downloadId: item.downloadId,
         additionalFile: item.additionalFile,
         replaceExistingFiles: item.replaceExistingFiles,

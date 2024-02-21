@@ -134,6 +134,7 @@ class InteractiveImportModalContentConnector extends Component {
           book,
           foreignEditionId,
           quality,
+          indexerFlags,
           disableReleaseSwitching
         } = item;
 
@@ -158,6 +159,7 @@ class InteractiveImportModalContentConnector extends Component {
           bookId: book.id,
           foreignEditionId,
           quality,
+          indexerFlags,
           downloadId: this.props.downloadId,
           disableReleaseSwitching
         });

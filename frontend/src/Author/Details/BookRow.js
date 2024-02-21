@@ -2,12 +2,17 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import BookSearchCellConnector from 'Book/BookSearchCellConnector';
 import BookTitleLink from 'Book/BookTitleLink';
+import IndexerFlags from 'Book/IndexerFlags';
+import Icon from 'Components/Icon';
 import MonitorToggleButton from 'Components/MonitorToggleButton';
 import StarRating from 'Components/StarRating';
 import RelativeDateCellConnector from 'Components/Table/Cells/RelativeDateCellConnector';
 import TableRowCell from 'Components/Table/Cells/TableRowCell';
 import TableSelectCell from 'Components/Table/Cells/TableSelectCell';
 import TableRow from 'Components/Table/TableRow';
+import Popover from 'Components/Tooltip/Popover';
+import { icons, kinds, tooltipPositions } from 'Helpers/Props';
+import translate from 'Utilities/String/translate';
 import BookStatus from './BookStatus';
 import styles from './BookRow.css';
 
@@ -67,6 +72,7 @@ class BookRow extends Component {
       authorMonitored,
       titleSlug,
       bookFiles,
+      indexerFlags,
       isEditorActive,
       isSelected,
       onSelectedChange,
@@ -190,6 +196,24 @@ class BookRow extends Component {
               );
             }
 
+            if (name === 'indexerFlags') {
+              return (
+                <TableRowCell
+                  key={name}
+                  className={styles.indexerFlags}
+                >
+                  {indexerFlags ? (
+                    <Popover
+                      anchor={<Icon name={icons.FLAG} kind={kinds.PRIMARY} />}
+                      title={translate('IndexerFlags')}
+                      body={<IndexerFlags indexerFlags={indexerFlags} />}
+                      position={tooltipPositions.LEFT}
+                    />
+                  ) : null}
+                </TableRowCell>
+              );
+            }
+
             if (name === 'status') {
               return (
                 <TableRowCell
@@ -235,6 +259,7 @@ BookRow.propTypes = {
   position: PropTypes.string,
   pageCount: PropTypes.number,
   ratings: PropTypes.object.isRequired,
+  indexerFlags: PropTypes.number.isRequired,
   titleSlug: PropTypes.string.isRequired,
   isSaving: PropTypes.bool,
   authorMonitored: PropTypes.bool.isRequired,
@@ -244,6 +269,10 @@ BookRow.propTypes = {
   onSelectedChange: PropTypes.func.isRequired,
   columns: PropTypes.arrayOf(PropTypes.object).isRequired,
   onMonitorBookPress: PropTypes.func.isRequired
+};
+
+BookRow.defaultProps = {
+  indexerFlags: 0
 };
 
 export default BookRow;

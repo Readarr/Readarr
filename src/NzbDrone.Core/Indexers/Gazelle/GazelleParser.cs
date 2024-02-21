@@ -57,7 +57,7 @@ namespace NzbDrone.Core.Indexers.Gazelle
                         var author = WebUtility.HtmlDecode(result.Author);
                         var book = WebUtility.HtmlDecode(result.GroupName);
 
-                        torrentInfos.Add(new GazelleInfo()
+                        torrentInfos.Add(new GazelleInfo
                         {
                             Guid = string.Format("Gazelle-{0}", id),
                             Author = author,
@@ -73,7 +73,7 @@ namespace NzbDrone.Core.Indexers.Gazelle
                             Seeders = int.Parse(torrent.Seeders),
                             Peers = int.Parse(torrent.Leechers) + int.Parse(torrent.Seeders),
                             PublishDate = torrent.Time.ToUniversalTime(),
-                            Scene = torrent.Scene,
+                            IndexerFlags = GetIndexerFlags(torrent)
                         });
                     }
                 }
@@ -86,6 +86,23 @@ namespace NzbDrone.Core.Indexers.Gazelle
                 torrentInfos
                     .OrderByDescending(o => o.PublishDate)
                     .ToArray();
+        }
+
+        private static IndexerFlags GetIndexerFlags(GazelleTorrent torrent)
+        {
+            IndexerFlags flags = 0;
+
+            if (torrent.IsFreeLeech || torrent.IsNeutralLeech || torrent.IsFreeload || torrent.IsPersonalFreeLeech)
+            {
+                flags |= IndexerFlags.Freeleech;
+            }
+
+            if (torrent.Scene)
+            {
+                flags |= IndexerFlags.Scene;
+            }
+
+            return flags;
         }
 
         private string GetDownloadUrl(int torrentId)

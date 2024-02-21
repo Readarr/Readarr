@@ -7,21 +7,18 @@ import BookRow from './BookRow';
 const selectBookFiles = createSelector(
   (state) => state.bookFiles,
   (bookFiles) => {
-    const {
-      items
-    } = bookFiles;
+    const { items } = bookFiles;
 
-    const bookFileDict = items.reduce((acc, file) => {
+    return items.reduce((acc, file) => {
       const bookId = file.bookId;
       if (!acc.hasOwnProperty(bookId)) {
         acc[bookId] = [];
       }
 
       acc[bookId].push(file);
+
       return acc;
     }, {});
-
-    return bookFileDict;
   }
 );
 
@@ -31,10 +28,14 @@ function createMapStateToProps() {
     selectBookFiles,
     (state, { id }) => id,
     (author = {}, bookFiles, bookId) => {
+      const files = bookFiles[bookId] ?? [];
+      const bookFile = files[0];
+
       return {
         authorMonitored: author.monitored,
         authorName: author.authorName,
-        bookFiles: bookFiles[bookId] ?? []
+        bookFiles: files,
+        indexerFlags: bookFile ? bookFile.indexerFlags : 0
       };
     }
   );

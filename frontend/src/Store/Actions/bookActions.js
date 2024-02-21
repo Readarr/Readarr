@@ -1,9 +1,11 @@
 import _ from 'lodash';
 import moment from 'moment';
+import React from 'react';
 import { createAction } from 'redux-actions';
 import { batchActions } from 'redux-batched-actions';
 import bookEntities from 'Book/bookEntities';
-import { filterTypePredicates, filterTypes, sortDirections } from 'Helpers/Props';
+import Icon from 'Components/Icon';
+import { filterTypePredicates, filterTypes, icons, sortDirections } from 'Helpers/Props';
 import { createThunk, handleThunks } from 'Store/thunks';
 import createAjaxRequest from 'Utilities/createAjaxRequest';
 import dateFilterPredicate from 'Utilities/Date/dateFilterPredicate';
@@ -242,6 +244,15 @@ export const defaultState = {
       label: 'Rating',
       isSortable: true,
       isVisible: true
+    },
+    {
+      name: 'indexerFlags',
+      columnLabel: () => translate('IndexerFlags'),
+      label: React.createElement(Icon, {
+        name: icons.FLAG,
+        title: () => translate('IndexerFlags')
+      }),
+      isVisible: false
     },
     {
       name: 'status',

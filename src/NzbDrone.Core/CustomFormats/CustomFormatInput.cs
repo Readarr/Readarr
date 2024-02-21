@@ -8,6 +8,7 @@ namespace NzbDrone.Core.CustomFormats
         public ParsedBookInfo BookInfo { get; set; }
         public Author Author { get; set; }
         public long Size { get; set; }
+        public IndexerFlags IndexerFlags { get; set; }
         public string Filename { get; set; }
 
         // public CustomFormatInput(ParsedEpisodeInfo episodeInfo, Series series)

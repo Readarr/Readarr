@@ -6,6 +6,7 @@ interface CssExports {
   'customFormatScore': string;
   'download': string;
   'indexer': string;
+  'indexerFlags': string;
   'peers': string;
   'protocol': string;
   'quality': string;

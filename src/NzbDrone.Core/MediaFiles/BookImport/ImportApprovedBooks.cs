@@ -14,6 +14,7 @@ using NzbDrone.Core.Books.Events;
 using NzbDrone.Core.DecisionEngine;
 using NzbDrone.Core.Download;
 using NzbDrone.Core.Extras;
+using NzbDrone.Core.History;
 using NzbDrone.Core.MediaFiles.Events;
 using NzbDrone.Core.Messaging.Commands;
 using NzbDrone.Core.Messaging.Events;
@@ -44,6 +45,7 @@ namespace NzbDrone.Core.MediaFiles.BookImport
         private readonly IRecycleBinProvider _recycleBinProvider;
         private readonly IExtraService _extraService;
         private readonly IDiskProvider _diskProvider;
+        private readonly IHistoryService _historyService;
         private readonly IEventAggregator _eventAggregator;
         private readonly IManageCommandQueue _commandQueueManager;
         private readonly Logger _logger;
@@ -59,6 +61,7 @@ namespace NzbDrone.Core.MediaFiles.BookImport
                                    IRecycleBinProvider recycleBinProvider,
                                    IExtraService extraService,
                                    IDiskProvider diskProvider,
+                                   IHistoryService historyService,
                                    IEventAggregator eventAggregator,
                                    IManageCommandQueue commandQueueManager,
                                    Logger logger)
@@ -74,6 +77,7 @@ namespace NzbDrone.Core.MediaFiles.BookImport
             _recycleBinProvider = recycleBinProvider;
             _extraService = extraService;
             _diskProvider = diskProvider;
+            _historyService = historyService;
             _eventAggregator = eventAggregator;
             _commandQueueManager = commandQueueManager;
             _logger = logger;
@@ -192,6 +196,22 @@ namespace NzbDrone.Core.MediaFiles.BookImport
                         Author = localTrack.Author,
                         Edition = localTrack.Edition
                     };
+
+                    if (downloadClientItem?.DownloadId.IsNotNullOrWhiteSpace() == true)
+                    {
+                        var grabHistory = _historyService.FindByDownloadId(downloadClientItem.DownloadId)
+                            .OrderByDescending(h => h.Date)
+                            .FirstOrDefault(h => h.EventType == EntityHistoryEventType.Grabbed);
+
+                        if (Enum.TryParse(grabHistory?.Data.GetValueOrDefault("indexerFlags"), true, out IndexerFlags flags))
+                        {
+                            bookFile.IndexerFlags = flags;
+                        }
+                    }
+                    else
+                    {
+                        bookFile.IndexerFlags = localTrack.IndexerFlags;
+                    }
 
                     bool copyOnly;
                     switch (importMode)
