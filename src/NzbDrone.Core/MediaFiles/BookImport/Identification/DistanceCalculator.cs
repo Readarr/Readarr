@@ -37,7 +37,7 @@ namespace NzbDrone.Core.MediaFiles.BookImport.Identification
                 .First()
                 .First();
 
-            var folderAuthors = localTracks.Where(a => a.FolderTrackInfo.AuthorName.IsNotNullOrWhiteSpace()).Select(a => a.FolderTrackInfo.AuthorName).ToList();
+            var folderAuthors = localTracks.Where(a => a.FolderTrackInfo?.AuthorName.IsNotNullOrWhiteSpace() ?? false).Select(a => a.FolderTrackInfo.AuthorName).ToList();
             fileAuthors.AddRange(folderAuthors);
 
             var authors = GetAuthorVariants(fileAuthors);

@@ -58,6 +58,26 @@ namespace Readarr.Api.V1.OPDS
             return true;
         }
 
+        // /opds/publications
+        [HttpGet("publications")]
+        public OPDSPublicationsResource GetOPDSPublications([FromQuery] PagingRequestResource paging)
+        {
+            var pagingResource = new PagingResource<OPDSPublicationResource>(paging);
+            var pagingSpec = new PagingSpec<Book>
+            {
+                Page = pagingResource.Page,
+                PageSize = pagingResource.PageSize,
+                SortKey = pagingResource.SortKey,
+                SortDirection = pagingResource.SortDirection
+            };
+            pagingSpec = _bookService.BooksWithFiles(pagingSpec);
+
+            var publications = OPDSResourceMapper.ToOPDSPublicationsResource(pagingSpec.Page, pagingSpec.PageSize, pagingSpec.TotalRecords);
+            publications.Publications = MapToResource(pagingSpec.Records);
+
+            return publications;
+        }
+
         // /opds/publications/search
         [HttpGet("publications/search")]
         public OPDSPublicationsResource GetOPDSPublicationsForQuery([FromQuery] PagingRequestResource paging, [FromQuery] string query, [FromQuery] string title, [FromQuery] string author)
@@ -105,26 +125,6 @@ namespace Readarr.Api.V1.OPDS
             return publications;
         }
 
-        // /opds/publications
-        [HttpGet("publications")]
-        public OPDSPublicationsResource GetOPDSPublications([FromQuery] PagingRequestResource paging)
-        {
-            var pagingResource = new PagingResource<OPDSPublicationResource>(paging);
-            var pagingSpec = new PagingSpec<Book>
-            {
-                Page = pagingResource.Page,
-                PageSize = pagingResource.PageSize,
-                SortKey = pagingResource.SortKey,
-                SortDirection = pagingResource.SortDirection
-            };
-            pagingSpec = _bookService.BooksWithFiles(pagingSpec);
-
-            var publications = OPDSResourceMapper.ToOPDSPublicationsResource(pagingSpec.Page, pagingSpec.PageSize, pagingSpec.TotalRecords);
-            publications.Publications = MapToResource(pagingSpec.Records);
-
-            return publications;
-        }
-
         // /opds/monitored
         [HttpGet("monitored")]
         public OPDSPublicationsResource GetOPDSMonitoredPublications([FromQuery] PagingRequestResource paging)
@@ -142,6 +142,62 @@ namespace Readarr.Api.V1.OPDS
 
             var publications = OPDSResourceMapper.ToOPDSPublicationsResource(pagingSpec.Page, pagingSpec.PageSize, pagingSpec.TotalRecords);
             publications.Publications = MapToResource(pagingSpec.Records);
+            return publications;
+        }
+
+        // /opds/unmonitored/search
+        [HttpGet("monitored/search")]
+        public OPDSPublicationsResource GetOPDSMonitoredForQuery([FromQuery] PagingRequestResource paging, [FromQuery] string query, [FromQuery] string title, [FromQuery] string author)
+        {
+            var pagingResource = new PagingResource<OPDSPublicationResource>(paging);
+            var pagingSpec = new PagingSpec<Book>
+            {
+                Page = pagingResource.Page,
+                PageSize = pagingResource.PageSize,
+                SortKey = pagingResource.SortKey,
+                SortDirection = pagingResource.SortDirection
+            };
+
+            if (query.IsNotNullOrWhiteSpace())
+            {
+                query = query.ToLower();
+                pagingSpec.FilterExpressions.Add(v => v.Title.Contains(query) || v.Author.Value.CleanName.Contains(query));
+            }
+            else if (title.IsNotNullOrWhiteSpace() && author.IsNotNullOrWhiteSpace())
+            {
+                title = title.ToLower();
+                author = author.ToLower();
+                pagingSpec.FilterExpressions.Add(v => v.Title.Contains(title) && v.Author.Value.CleanName.Contains(author));
+            }
+            else if (title.IsNotNullOrWhiteSpace())
+            {
+                title = title.ToLower();
+                pagingSpec.FilterExpressions.Add(v => v.Title.Contains(title));
+            }
+            else if (author.IsNotNullOrWhiteSpace())
+            {
+                author = author.ToLower();
+                if (IsDigitsOnly(author))
+                {
+                    var authorId = int.Parse(author);
+                    pagingSpec.FilterExpressions.Add(v => v.AuthorMetadataId == authorId);
+                }
+                else
+                {
+                    pagingSpec.FilterExpressions.Add(v => v.Author.Value.CleanName.Contains(author));
+                }
+            }
+            else
+            {
+                throw new BadRequestException("No search term specified in query");
+            }
+
+            pagingSpec.FilterExpressions.Add(v => v.Monitored == true && v.Author.Value.Monitored == true);
+            pagingSpec = _bookService.BooksWithoutFiles(pagingSpec);
+
+            var publications = OPDSResourceMapper.ToOPDSPublicationsResource(pagingSpec.Page, pagingSpec.PageSize, pagingSpec.TotalRecords);
+            publications.Publications = MapToResource(pagingSpec.Records);
+
             return publications;
         }
 
