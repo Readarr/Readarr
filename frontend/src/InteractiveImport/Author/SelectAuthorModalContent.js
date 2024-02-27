@@ -29,7 +29,7 @@ class SelectAuthorModalContent extends Component {
   // Listeners
 
   onFilterChange = ({ value }) => {
-    this.setState({ filter: value.toLowerCase() });
+    this.setState({ filter: value });
   };
 
   //
@@ -43,6 +43,7 @@ class SelectAuthorModalContent extends Component {
     } = this.props;
 
     const filter = this.state.filter;
+    const filterLower = filter.toLowerCase();
 
     return (
       <ModalContent onModalClose={onModalClose}>
@@ -66,7 +67,7 @@ class SelectAuthorModalContent extends Component {
           <Scroller className={styles.scroller}>
             {
               items.map((item) => {
-                return item.authorName.toLowerCase().includes(filter) ?
+                return item.authorName.toLowerCase().includes(filterLower) ?
                   (
                     <SelectAuthorRow
                       key={item.id}

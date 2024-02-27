@@ -14,7 +14,7 @@ namespace NzbDrone.Core.Extras.Files
         List<TExtraFile> GetFilesByAuthor(int authorId);
         List<TExtraFile> GetFilesByBook(int authorId, int bookId);
         List<TExtraFile> GetFilesByBookFile(int bookFileId);
-        TExtraFile FindByPath(string path);
+        TExtraFile FindByPath(int authorId, string path);
     }
 
     public class ExtraFileRepository<TExtraFile> : BasicRepository<TExtraFile>, IExtraFileRepository<TExtraFile>
@@ -55,9 +55,9 @@ namespace NzbDrone.Core.Extras.Files
             return Query(c => c.BookFileId == bookFileId);
         }
 
-        public TExtraFile FindByPath(string path)
+        public TExtraFile FindByPath(int authorId, string path)
         {
-            return Query(c => c.RelativePath == path).SingleOrDefault();
+            return Query(c => c.AuthorId == authorId && c.RelativePath == path).SingleOrDefault();
         }
     }
 }

@@ -16,8 +16,8 @@ function BookIndexProgressBar(props) {
     detailedProgressBar
   } = props;
 
-  const progress = bookCount ? bookFileCount / totalBookCount * 100 : 0;
-  const text = `${bookFileCount} / ${bookCount}`;
+  const progress = bookFileCount && bookCount ? (totalBookCount / bookCount) * 100 : 0;
+  const text = `${bookFileCount ? bookCount : 0} / ${totalBookCount}`;
 
   return (
     <ProgressBar
@@ -28,7 +28,11 @@ function BookIndexProgressBar(props) {
       size={detailedProgressBar ? sizes.MEDIUM : sizes.SMALL}
       showText={detailedProgressBar}
       text={text}
-      title={translate('BookFileCountBookCountTotalTotalBookCountInterp', [bookFileCount, bookCount, totalBookCount])}
+      title={translate('BookProgressBarText', {
+        bookCount: bookFileCount ? bookCount : 0,
+        bookFileCount,
+        totalBookCount
+      })}
       width={posterWidth}
     />
   );

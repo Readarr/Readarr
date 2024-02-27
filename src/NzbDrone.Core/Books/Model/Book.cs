@@ -34,6 +34,7 @@ namespace NzbDrone.Core.Books
         public List<string> Genres { get; set; }
         public List<int> RelatedBooks { get; set; }
         public Ratings Ratings { get; set; }
+        public DateTime? LastSearchTime { get; set; }
 
         // These are Readarr generated/config
         public string CleanTitle { get; set; }
@@ -90,6 +91,7 @@ namespace NzbDrone.Core.Books
             Monitored = other.Monitored;
             AnyEditionOk = other.AnyEditionOk;
             LastInfoSync = other.LastInfoSync;
+            LastSearchTime = other.LastSearchTime;
             Added = other.Added;
             AddOptions = other.AddOptions;
         }

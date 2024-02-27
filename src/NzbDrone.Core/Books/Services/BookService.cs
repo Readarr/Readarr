@@ -31,6 +31,7 @@ namespace NzbDrone.Core.Books
         Book UpdateBook(Book book);
         void SetBookMonitored(int bookId, bool monitored);
         void SetMonitored(IEnumerable<int> ids, bool monitored);
+        void UpdateLastSearchTime(List<Book> books);
         PagingSpec<Book> BooksWithoutFiles(PagingSpec<Book> pagingSpec);
         PagingSpec<Book> BooksWithFiles(PagingSpec<Book> pagingSpec);
         List<Book> BooksBetweenDates(DateTime start, DateTime end, bool includeUnmonitored);
@@ -309,6 +310,11 @@ namespace NzbDrone.Core.Books
             {
                 _eventAggregator.PublishEvent(new BookEditedEvent(book, book));
             }
+        }
+
+        public void UpdateLastSearchTime(List<Book> books)
+        {
+            _bookRepository.SetFields(books, b => b.LastSearchTime);
         }
 
         public void Handle(AuthorDeletedEvent message)

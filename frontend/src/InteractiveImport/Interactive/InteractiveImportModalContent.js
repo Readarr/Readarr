@@ -295,11 +295,11 @@ class InteractiveImportModalContent extends Component {
     const errorMessage = getErrorMessage(error, 'Unable to load manual import items');
 
     const bulkSelectOptions = [
-      { key: SELECT, value: 'Select...', disabled: true },
-      { key: BOOK, value: 'Select Book' },
-      { key: EDITION, value: 'Select Edition' },
-      { key: QUALITY, value: 'Select Quality' },
-      { key: RELEASE_GROUP, value: 'Select ReleaseGroup' }
+      { key: SELECT, value: translate('SelectDropdown'), disabled: true },
+      { key: BOOK, value: translate('SelectBook') },
+      { key: EDITION, value: translate('SelectEdition') },
+      { key: QUALITY, value: translate('SelectQuality') },
+      { key: RELEASE_GROUP, value: translate('SelectReleaseGroup') }
     ];
 
     if (allowAuthorChange) {

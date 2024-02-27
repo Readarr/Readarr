@@ -583,8 +583,6 @@
     "BookMonitoring": "Monitoraggio del libro",
     "BookNaming": "Nomenclatura del Libro",
     "Books": "Libri",
-    "BookFileCountBookCountTotalTotalBookCountInterp": "{0} / {1} (Totale: {2})",
-    "BookFileCounttotalBookCountBooksDownloadedInterp": "{0}/{1} libri scaricati",
     "BookFilesCountMessage": "Nessun file di libri",
     "AudioFileMetadata": "Scrivi i Metadati sui File Audio",
     "Duration": "Durata",
