@@ -1,4 +1,3 @@
-import _, { lastIndexOf, stubString } from 'lodash';
 import { createAction } from 'redux-actions';
 import { batchActions } from 'redux-batched-actions';
 import bookEntities from 'Book/bookEntities';
@@ -203,8 +202,6 @@ export const actionHandlers = handleThunks({
     });
   },
 
-
-  
   [DOWNLOAD_BOOK_FILE]: function(getState, payload, dispatch) {
     const {
       id: bookFileId
@@ -216,30 +213,28 @@ export const actionHandlers = handleThunks({
     }).request;
 
     downloadPromise.done((data, textStatus, jqXHR) => {
-      if( textStatus === "success"){
-        var fileName = "download"
-        var ext = ".unknown"
-        var contentType = jqXHR.getResponseHeader("content-type")
-        ext = `.${contentType.substring(contentType.indexOf("/")+1)}`
-        if(jqXHR.getResponseHeader("content-disposition")){
-          var contentDisposition = jqXHR.getResponseHeader("content-disposition");
-          if(contentDisposition.indexOf("=")>=0){
-            fileName = contentDisposition.substring(contentDisposition.indexOf("=")+1);
-            ext="";
+      if ( textStatus === 'success') {
+        let fileName = 'download';
+        let ext = '.unknown';
+        let contentType = jqXHR.getResponseHeader('content-type');
+        ext = `.${contentType.substring(contentType.indexOf('/')+1)}`;
+        if (jqXHR.getResponseHeader('content-disposition')) {
+          var contentDisposition = jqXHR.getResponseHeader('content-disposition');
+          if (contentDisposition.indexOf('=')>=0) {
+            fileName = contentDisposition.substring(contentDisposition.indexOf('=')+1);
+            ext='';
           }
         }
-        const blob = new Blob([data],{contentType});
+        const blob = new Blob([data], { contentType });
         const URL = window.URL.createObjectURL(blob);
-        const el = document.createElement("a");
+        const el = document.createElement('a');
         el.href = URL;
         el.download = `${fileName}${ext}`;
         document.body.appendChild(el);
         el.click();
-        
       }
     });
   },
-
 
   [UPDATE_BOOK_FILES]: function(getState, payload, dispatch) {
     const {
