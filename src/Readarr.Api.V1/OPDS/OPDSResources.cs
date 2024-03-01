@@ -227,17 +227,15 @@ namespace Readarr.Api.V1.OPDS
 
             if (files.Count > 0)
             {
-                //we'll only add the first bookfile (for now)
                 foreach (var file in files)
                 {
                     linkResources.Add(new OPDSLinkResource
                     {
-                        Href = string.Format("bookfile/download/{0}", book.Id),
+                        Href = string.Format("bookfile/download/{0}", file.Id),
                         Rel = "http://opds-spec.org/acquisition",
-                        Title = string.Format("Readarr OPDS Link:{0}", book.Id),
+                        Title = string.Format("Readarr OPDS Link:{0}", file.Id),
                         Type = GetContentType(file.Path)
                     });
-                    break;
                 }
             }
             else if (edition != null)

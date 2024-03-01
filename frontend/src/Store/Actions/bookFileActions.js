@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import { createAction } from 'redux-actions';
 import { batchActions } from 'redux-batched-actions';
 import bookEntities from 'Book/bookEntities';
@@ -206,7 +207,7 @@ export const actionHandlers = handleThunks({
     const {
       id: bookFileId
     } = payload;
-    
+
     const downloadPromise = createAjaxRequest({
       url: `/bookFile/download/${bookFileId}`,
       method: 'GET'
@@ -216,10 +217,10 @@ export const actionHandlers = handleThunks({
       if ( textStatus === 'success') {
         let fileName = 'download';
         let ext = '.unknown';
-        let contentType = jqXHR.getResponseHeader('content-type');
+        const contentType = jqXHR.getResponseHeader('content-type');
         ext = `.${contentType.substring(contentType.indexOf('/')+1)}`;
         if (jqXHR.getResponseHeader('content-disposition')) {
-          var contentDisposition = jqXHR.getResponseHeader('content-disposition');
+          const contentDisposition = jqXHR.getResponseHeader('content-disposition');
           if (contentDisposition.indexOf('=')>=0) {
             fileName = contentDisposition.substring(contentDisposition.indexOf('=')+1);
             ext='';
