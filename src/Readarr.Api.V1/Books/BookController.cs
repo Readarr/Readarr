@@ -1,8 +1,12 @@
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using FluentValidation;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using NzbDrone.Common.Disk;
 using NzbDrone.Common.Extensions;
 using NzbDrone.Core.AuthorStats;
 using NzbDrone.Core.Books;
@@ -10,8 +14,10 @@ using NzbDrone.Core.Books.Events;
 using NzbDrone.Core.Datastore.Events;
 using NzbDrone.Core.DecisionEngine.Specifications;
 using NzbDrone.Core.Download;
+using NzbDrone.Core.Exceptions;
 using NzbDrone.Core.MediaCover;
 using NzbDrone.Core.MediaFiles;
+using NzbDrone.Core.MediaFiles.BookImport.Manual;
 using NzbDrone.Core.MediaFiles.Events;
 using NzbDrone.Core.Messaging.Events;
 using NzbDrone.Core.Validation;
@@ -35,8 +41,12 @@ namespace Readarr.Api.V1.Books
         protected readonly IAuthorService _authorService;
         protected readonly IEditionService _editionService;
         protected readonly IAddBookService _addBookService;
+        private readonly IDiskProvider _diskProvider;
+        private readonly IManualImportService _manualImportService;
 
-        public BookController(IAuthorService authorService,
+        public BookController(IManualImportService manualImportService,
+                          IDiskProvider diskProvider,
+                          IAuthorService authorService,
                           IBookService bookService,
                           IAddBookService addBookService,
                           IEditionService editionService,
@@ -53,6 +63,8 @@ namespace Readarr.Api.V1.Books
             _authorService = authorService;
             _editionService = editionService;
             _addBookService = addBookService;
+            _diskProvider = diskProvider;
+            _manualImportService = manualImportService;
 
             PostValidator.RuleFor(s => s.ForeignBookId).NotEmpty();
             PostValidator.RuleFor(s => s.Author.QualityProfileId).SetValidator(qualityProfileExistsValidator);
@@ -149,6 +161,63 @@ namespace Readarr.Api.V1.Books
                 id,
                 overview
             };
+        }
+
+        [HttpPost("{id:int}upload")]
+        public async Task<IActionResult> PutBookFileAsync(int id, IFormFile file)
+        {
+            if (file == null || file.Length == 0)
+            {
+                throw new NzbDroneClientException(HttpStatusCode.UnprocessableEntity, "no file selected for upload");
+            }
+            else if (file.Length > 2.5e+7)
+            {
+                throw new NzbDroneClientException(HttpStatusCode.UnprocessableEntity, "file is too large for upload. max file size is 25 MB.");
+            }
+
+            var contentType = file.ContentType;
+            var book = _bookService.GetBook(id);
+            var title = book.Title;
+            var bookAuthor = _authorService.GetAuthor(book.AuthorId);
+            var extension = GetExtension(Path.GetFileName(file.FileName));
+            if (!MediaFileExtensions.AllExtensions.Contains(extension))
+            {
+                throw new NzbDroneClientException(HttpStatusCode.UnprocessableEntity, "invalid content type for upload.");
+            }
+
+            //create a tmpdirectory with the given id
+            var directory = Path.Join(Path.GetTempPath(), book.Title);
+            if (!_diskProvider.FolderExists(directory))
+            {
+                _diskProvider.CreateFolder(directory);
+            }
+
+            //don't use the uploaded file's name in case it is intentionally malformed
+            var fileName = string.Format("{0}{1}", title, extension);
+            var combined = Path.Combine(directory, fileName);
+
+            using (var fileStream = new FileStream(combined, FileMode.Create))
+            {
+                await file.CopyToAsync(fileStream);
+            }
+
+            var list = _manualImportService.ProcessFile(combined, book, bookAuthor, FilterFilesType.None, false);
+            if (list.Empty())
+            {
+                //delete the directory after manual import
+                _diskProvider.DeleteFolder(directory, true);
+                throw new NzbDroneClientException(HttpStatusCode.UnprocessableEntity, "import failed.");
+            }
+            else if (!list.First().Rejections.Empty())
+            {
+                //delete the directory after manual import
+                _diskProvider.DeleteFolder(directory, true);
+                throw new NzbDroneClientException(HttpStatusCode.UnprocessableEntity, "import failed.");
+            }
+
+            //delete the directory after manual import
+            _diskProvider.DeleteFolder(directory, true);
+            return Accepted();
         }
 
         [RestPostById]
@@ -248,6 +317,23 @@ namespace Readarr.Api.V1.Books
             }
 
             BroadcastResourceChange(ModelAction.Updated, MapToResource(message.BookFile.Edition.Value.Book.Value, true));
+        }
+
+        [NonAction]
+        private static string GetExtension(string path)
+        {
+            if (string.IsNullOrWhiteSpace(path))
+            {
+                return null;
+            }
+
+            var index = path.LastIndexOf('.');
+            if (index < 0)
+            {
+                return null;
+            }
+
+            return path.Substring(index);
         }
     }
 }
