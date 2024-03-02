@@ -22,7 +22,7 @@
     "ProxyPasswordHelpText": "Você só precisa digitar um nome de usuário e senha se for necessário. Caso contrário, deixe-os em branco.",
     "SslCertPathHelpTextWarning": "Requer reinício para ter efeito",
     "UnableToLoadMetadataProfiles": "Não foi possível carregar os perfis de metadados",
-    "AddListExclusion": "Adicionar exclusão à lista",
+    "AddListExclusion": "Adicionar Exclusão de Lista",
     "AddingTag": "Adicionar tag",
     "AlreadyInYourLibrary": "Já está na sua biblioteca",
     "AlternateTitles": "Títulos alternativos",
@@ -1051,5 +1051,12 @@
     "DoNotBlocklistHint": "Remover sem colocar na lista de bloqueio",
     "RemoveFromDownloadClientHint": "Remove download e arquivo(s) do cliente de download",
     "RemoveMultipleFromDownloadClientHint": "Remove downloads e arquivos do cliente de download",
-    "RemoveQueueItemRemovalMethodHelpTextWarning": "'Remover do cliente de download' removerá o download e os arquivos do cliente de download."
+    "RemoveQueueItemRemovalMethodHelpTextWarning": "'Remover do cliente de download' removerá o download e os arquivos do cliente de download.",
+    "AuthorProgressBarText": "{availableBookCount} / {bookCount} (Total: {totalBookCount}, Arquivos: {bookFileCount})",
+    "BookProgressBarText": "{bookCount} / {totalBookCount} (Arquivos: {bookFileCount})",
+    "SelectBook": "Selecionar o Livro",
+    "SelectDropdown": "Selecionar...",
+    "SelectEdition": "Selecionar a Edição",
+    "SelectReleaseGroup": "Selecionar um Grupo de Lançamento",
+    "SelectQuality": "Selecionar uma Qualidade"
 }
