@@ -36,7 +36,7 @@
     "BackupRetentionHelpText": "Automatische veiligheidskopieën ouder dan de retentie periode zullen worden opgeruimd",
     "Backups": "Veiligheidskopieën",
     "BindAddress": "Gebonden Adres",
-    "BindAddressHelpText": "Geldig IPv4-adres of '*' voor alle interfaces",
+    "BindAddressHelpText": "Geldig IP-adres, localhost of '*' voor alle interfaces",
     "BindAddressHelpTextWarning": "Herstarten vereist om in werking te treden",
     "BookIsDownloading": "Film is aan het downloaden",
     "BookIsDownloadingInterp": "Film is aan het downloaden - {0}% {1}",
@@ -649,5 +649,6 @@
     "AddNew": "Voeg Nieuwe Toe",
     "AppUpdated": "{appName} is geüpdatet",
     "AppUpdatedVersion": "{appName} is geüpdatet naar versie '{version}', om de laatste wijzigingen door te voeren moet je mogelijk {appName} herstarten",
-    "AllResultsAreHiddenByTheAppliedFilter": "Alle resultaten zijn verborgen door het toegepaste filter"
+    "AllResultsAreHiddenByTheAppliedFilter": "Alle resultaten zijn verborgen door het toegepaste filter",
+    "Backup": "Veiligheidskopie"
 }
