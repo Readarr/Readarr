@@ -1058,5 +1058,7 @@
     "SelectDropdown": "Selecionar...",
     "SelectEdition": "Selecionar a Edição",
     "SelectReleaseGroup": "Selecionar um Grupo de Lançamento",
-    "SelectQuality": "Selecionar uma Qualidade"
+    "SelectQuality": "Selecionar uma Qualidade",
+    "CustomFilter": "Filtro Personalizado",
+    "LabelIsRequired": "Rótulo é requerido"
 }
