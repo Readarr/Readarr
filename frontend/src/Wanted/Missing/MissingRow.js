@@ -84,6 +84,7 @@ function MissingRow(props) {
                 bookId={id}
                 authorId={author.id}
                 bookTitle={title}
+                authorName={author.authorName}
                 bookEntity={bookEntities.WANTED_MISSING}
                 showOpenAuthorButton={true}
               />

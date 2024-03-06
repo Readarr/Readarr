@@ -84,6 +84,7 @@ function CutoffUnmetRow(props) {
                 bookId={id}
                 authorId={author.id}
                 bookTitle={title}
+                authorName={author.authorName}
                 bookEntity={bookEntities.WANTED_CUTOFF_UNMET}
                 showOpenAuthorButton={true}
               />
