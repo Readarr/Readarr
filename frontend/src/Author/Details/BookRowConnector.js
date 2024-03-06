@@ -33,6 +33,7 @@ function createMapStateToProps() {
     (author = {}, bookFiles, bookId) => {
       return {
         authorMonitored: author.monitored,
+        authorName: author.authorName,
         bookFiles: bookFiles[bookId] ?? []
       };
     }

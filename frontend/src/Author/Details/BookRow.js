@@ -59,6 +59,7 @@ class BookRow extends Component {
       releaseDate,
       title,
       seriesTitle,
+      authorName,
       position,
       pageCount,
       ratings,
@@ -211,6 +212,7 @@ class BookRow extends Component {
                   bookId={id}
                   authorId={authorId}
                   bookTitle={title}
+                  authorName={authorName}
                 />
               );
             }
@@ -229,6 +231,7 @@ BookRow.propTypes = {
   releaseDate: PropTypes.string,
   title: PropTypes.string.isRequired,
   seriesTitle: PropTypes.string.isRequired,
+  authorName: PropTypes.string.isRequired,
   position: PropTypes.string,
   pageCount: PropTypes.number,
   ratings: PropTypes.object.isRequired,

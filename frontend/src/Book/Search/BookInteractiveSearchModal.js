@@ -9,6 +9,7 @@ function BookInteractiveSearchModal(props) {
     isOpen,
     bookId,
     bookTitle,
+    authorName,
     onModalClose
   } = props;
 
@@ -22,6 +23,7 @@ function BookInteractiveSearchModal(props) {
       <BookInteractiveSearchModalContent
         bookId={bookId}
         bookTitle={bookTitle}
+        authorName={authorName}
         onModalClose={onModalClose}
       />
     </Modal>
@@ -32,6 +34,7 @@ BookInteractiveSearchModal.propTypes = {
   isOpen: PropTypes.bool.isRequired,
   bookId: PropTypes.number.isRequired,
   bookTitle: PropTypes.string.isRequired,
+  authorName: PropTypes.string.isRequired,
   onModalClose: PropTypes.func.isRequired
 };
 

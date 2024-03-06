@@ -7,18 +7,23 @@ import ModalFooter from 'Components/Modal/ModalFooter';
 import ModalHeader from 'Components/Modal/ModalHeader';
 import { scrollDirections } from 'Helpers/Props';
 import InteractiveSearchConnector from 'InteractiveSearch/InteractiveSearchConnector';
+import translate from 'Utilities/String/translate';
 
 function BookInteractiveSearchModalContent(props) {
   const {
     bookId,
     bookTitle,
+    authorName,
     onModalClose
   } = props;
 
   return (
     <ModalContent onModalClose={onModalClose}>
       <ModalHeader>
-        Interactive Search  {bookId != null && `- ${bookTitle}`}
+        {bookId === null ?
+          translate('InteractiveSearchModalHeader') :
+          translate('InteractiveSearchModalHeaderBookAuthor', { bookTitle, authorName })
+        }
       </ModalHeader>
 
       <ModalBody scrollDirection={scrollDirections.BOTH}>
@@ -32,7 +37,7 @@ function BookInteractiveSearchModalContent(props) {
 
       <ModalFooter>
         <Button onPress={onModalClose}>
-          Close
+          {translate('Close')}
         </Button>
       </ModalFooter>
     </ModalContent>
@@ -42,6 +47,7 @@ function BookInteractiveSearchModalContent(props) {
 BookInteractiveSearchModalContent.propTypes = {
   bookId: PropTypes.number.isRequired,
   bookTitle: PropTypes.string.isRequired,
+  authorName: PropTypes.string.isRequired,
   onModalClose: PropTypes.func.isRequired
 };
 

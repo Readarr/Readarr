@@ -38,6 +38,7 @@ class BookSearchCell extends Component {
     const {
       bookId,
       bookTitle,
+      authorName,
       isSearching,
       onSearchPress,
       ...otherProps
@@ -60,6 +61,7 @@ class BookSearchCell extends Component {
           isOpen={this.state.isDetailsModalOpen}
           bookId={bookId}
           bookTitle={bookTitle}
+          authorName={authorName}
           onModalClose={this.onDetailsModalClose}
           {...otherProps}
         />
@@ -73,6 +75,7 @@ BookSearchCell.propTypes = {
   bookId: PropTypes.number.isRequired,
   authorId: PropTypes.number.isRequired,
   bookTitle: PropTypes.string.isRequired,
+  authorName: PropTypes.string.isRequired,
   isSearching: PropTypes.bool.isRequired,
   onSearchPress: PropTypes.func.isRequired
 };
