@@ -6,6 +6,7 @@ import BookCover from 'Book/BookCover';
 import HeartRating from 'Components/HeartRating';
 import Icon from 'Components/Icon';
 import Label from 'Components/Label';
+import Link from 'Components/Link/Link';
 import Marquee from 'Components/Marquee';
 import Measure from 'Components/Measure';
 import MonitorToggleButton from 'Components/MonitorToggleButton';
@@ -113,7 +114,7 @@ class BookDetailsHeader extends Component {
                     className={styles.monitorToggleButton}
                     monitored={monitored}
                     isSaving={isSaving}
-                    size={isSmallScreen ? 30: 40}
+                    size={isSmallScreen ? 30 : 40}
                     onPress={onMonitorTogglePress}
                   />
                 </div>
@@ -131,12 +132,13 @@ class BookDetailsHeader extends Component {
               </div>
 
               <div>
-                {author.authorName}
-                {
-                  !!pageCount &&
-                    <span className={styles.duration}>
-                      {`${pageCount} pages`}
-                    </span>
+                <Link to={`/author/${author.titleSlug}`}>
+                  {author.authorName}
+                </Link>
+                {!!pageCount &&
+                  <span className={styles.duration}>
+                    {`${pageCount} pages`}
+                  </span>
                 }
 
                 <HeartRating
@@ -147,23 +149,22 @@ class BookDetailsHeader extends Component {
             </div>
 
             <div className={styles.detailsLabels}>
-              {
-                releaseDate &&
-                  <Label
-                    className={styles.detailsLabel}
-                    size={sizes.LARGE}
-                  >
-                    <Icon
-                      name={icons.CALENDAR}
-                      size={17}
-                    />
+              {releaseDate &&
+                <Label
+                  className={styles.detailsLabel}
+                  size={sizes.LARGE}
+                >
+                  <Icon
+                    name={icons.CALENDAR}
+                    size={17}
+                  />
 
-                    <span className={styles.sizeOnDisk}>
-                      {
-                        moment(releaseDate).format(shortDateFormat)
-                      }
-                    </span>
-                  </Label>
+                  <span className={styles.sizeOnDisk}>
+                    {
+                      moment(releaseDate).format(shortDateFormat)
+                    }
+                  </span>
+                </Label>
               }
 
               <Label
