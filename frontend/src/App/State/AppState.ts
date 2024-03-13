@@ -1,3 +1,5 @@
+import AuthorsAppState from './AuthorsAppState';
+import CommandAppState from './CommandAppState';
 import SettingsAppState from './SettingsAppState';
 import TagsAppState from './TagsAppState';
 
@@ -34,6 +36,8 @@ export interface CustomFilter {
 }
 
 interface AppState {
+  authors: AuthorsAppState;
+  commands: CommandAppState;
   settings: SettingsAppState;
   tags: TagsAppState;
 }
