@@ -38,7 +38,8 @@ namespace Readarr.Api.V1.Indexers
             _logger = logger;
 
             PostValidator.RuleFor(s => s.Title).NotEmpty();
-            PostValidator.RuleFor(s => s.DownloadUrl).NotEmpty();
+            PostValidator.RuleFor(s => s.DownloadUrl).NotEmpty().When(s => s.MagnetUrl.IsNullOrWhiteSpace());
+            PostValidator.RuleFor(s => s.MagnetUrl).NotEmpty().When(s => s.DownloadUrl.IsNullOrWhiteSpace());
             PostValidator.RuleFor(s => s.Protocol).NotEmpty();
             PostValidator.RuleFor(s => s.PublishDate).NotEmpty();
         }
@@ -47,7 +48,7 @@ namespace Readarr.Api.V1.Indexers
         [Consumes("application/json")]
         public ActionResult<ReleaseResource> Create(ReleaseResource release)
         {
-            _logger.Info("Release pushed: {0} - {1}", release.Title, release.DownloadUrl);
+            _logger.Info("Release pushed: {0} - {1}", release.Title, release.DownloadUrl ?? release.MagnetUrl);
 
             ValidateResource(release);
 
