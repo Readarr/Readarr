@@ -4229,6 +4229,44 @@
         }
       }
     },
+    "/api/v1/indexerflag": {
+      "get": {
+        "tags": [
+          "IndexerFlag"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/IndexerFlagResource"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/IndexerFlagResource"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/IndexerFlagResource"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/v1/language": {
       "get": {
         "tags": [
@@ -9084,6 +9122,9 @@
           "quality": {
             "$ref": "#/components/schemas/QualityModel"
           },
+          "indexerFlags": {
+            "$ref": "#/components/schemas/IndexerFlags"
+          },
           "mediaInfo": {
             "$ref": "#/components/schemas/MediaInfoModel"
           },
@@ -9180,6 +9221,11 @@
           "qualityWeight": {
             "type": "integer",
             "format": "int32"
+          },
+          "indexerFlags": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
           },
           "mediaInfo": {
             "$ref": "#/components/schemas/MediaInfoResource"
@@ -10897,6 +10943,37 @@
         },
         "additionalProperties": false
       },
+      "IndexerFlagResource": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "nameLower": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "IndexerFlags": {
+        "enum": [
+          "freeleech",
+          "halfleech",
+          "doubleUpload",
+          "internal",
+          "scene",
+          "freeleech75",
+          "freeleech25"
+        ],
+        "type": "string"
+      },
       "IndexerResource": {
         "type": "object",
         "properties": {
@@ -11166,6 +11243,10 @@
             "type": "string",
             "nullable": true
           },
+          "indexerFlags": {
+            "type": "integer",
+            "format": "int32"
+          },
           "rejections": {
             "type": "array",
             "items": {
@@ -11223,6 +11304,10 @@
           "releaseGroup": {
             "type": "string",
             "nullable": true
+          },
+          "indexerFlags": {
+            "type": "integer",
+            "format": "int32"
           },
           "downloadId": {
             "type": "string",
@@ -12747,6 +12832,10 @@
           },
           "protocol": {
             "$ref": "#/components/schemas/DownloadProtocol"
+          },
+          "indexerFlags": {
+            "type": "integer",
+            "format": "int32"
           },
           "authorId": {
             "type": "integer",
