@@ -173,7 +173,7 @@ class AuthorEditorFooter extends Component {
     } = this.state;
 
     const monitoredOptions = [
-      { key: NO_CHANGE, value: translate('NoChange'), disabled: true },
+      { key: NO_CHANGE, value: translate('NoChange'), isDisabled: true },
       { key: 'monitored', value: translate('Monitored') },
       { key: 'unmonitored', value: translate('Unmonitored') }
     ];

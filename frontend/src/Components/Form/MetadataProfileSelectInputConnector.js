@@ -39,7 +39,7 @@ function createMapStateToProps() {
         values.unshift({
           key: 'noChange',
           value: translate('NoChange'),
-          disabled: includeNoChangeDisabled
+          isDisabled: includeNoChangeDisabled
         });
       }
 
@@ -47,7 +47,7 @@ function createMapStateToProps() {
         values.unshift({
           key: 'mixed',
           value: '(Mixed)',
-          disabled: true
+          isDisabled: true
         });
       }
 
