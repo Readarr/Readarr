@@ -84,9 +84,15 @@
   font-size: 20px;
 }
 
+.authorLink {
+  composes: link from '~Components/Link/Link.css';
+
+  margin-right: 15px;
+  color: var(--white);
+}
+
 .duration {
   margin-right: 15px;
-  margin-left: 10px;
 }
 
 .detailsLabel {

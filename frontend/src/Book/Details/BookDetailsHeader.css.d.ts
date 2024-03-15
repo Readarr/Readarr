@@ -2,6 +2,7 @@
 // Please do not change this file!
 interface CssExports {
   'alternateTitlesIconContainer': string;
+  'authorLink': string;
   'backdrop': string;
   'backdropOverlay': string;
   'cover': string;

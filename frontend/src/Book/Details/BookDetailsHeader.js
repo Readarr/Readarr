@@ -2,6 +2,7 @@ import moment from 'moment';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import TextTruncate from 'react-text-truncate';
+import AuthorNameLink from 'Author/AuthorNameLink';
 import BookCover from 'Book/BookCover';
 import HeartRating from 'Components/HeartRating';
 import Icon from 'Components/Icon';
@@ -113,7 +114,7 @@ class BookDetailsHeader extends Component {
                     className={styles.monitorToggleButton}
                     monitored={monitored}
                     isSaving={isSaving}
-                    size={isSmallScreen ? 30: 40}
+                    size={isSmallScreen ? 30 : 40}
                     onPress={onMonitorTogglePress}
                   />
                 </div>
@@ -131,7 +132,12 @@ class BookDetailsHeader extends Component {
               </div>
 
               <div>
-                {author.authorName}
+                <AuthorNameLink
+                  className={styles.authorLink}
+                  titleSlug={author.titleSlug}
+                  authorName={author.authorName}
+                />
+
                 {
                   !!pageCount &&
                     <span className={styles.duration}>
