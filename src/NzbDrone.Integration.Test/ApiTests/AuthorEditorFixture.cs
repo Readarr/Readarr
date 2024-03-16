@@ -7,7 +7,7 @@ using Readarr.Api.V1.Author;
 namespace NzbDrone.Integration.Test.ApiTests
 {
     [TestFixture]
-    [Ignore("Waiting for metadata to be back again", Until = "2024-03-15 00:00:00Z")]
+    [Ignore("Waiting for metadata to be back again", Until = "2024-05-15 00:00:00Z")]
     public class AuthorEditorFixture : IntegrationTest
     {
         private void GivenExistingAuthor()

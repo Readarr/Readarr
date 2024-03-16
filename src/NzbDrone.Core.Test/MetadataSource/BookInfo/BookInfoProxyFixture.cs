@@ -13,7 +13,7 @@ using NzbDrone.Core.Test.Framework;
 namespace NzbDrone.Core.Test.MetadataSource.Goodreads
 {
     [TestFixture]
-    [Ignore("Waiting for metadata to be back again", Until = "2024-03-15 00:00:00Z")]
+    [Ignore("Waiting for metadata to be back again", Until = "2024-05-15 00:00:00Z")]
     public class BookInfoProxyFixture : CoreTest<BookInfoProxy>
     {
         private MetadataProfile _metadataProfile;
@@ -46,7 +46,7 @@ namespace NzbDrone.Core.Test.MetadataSource.Goodreads
         }
 
         [TestCase("1128601", "Guards! Guards!")]
-        [TestCase("3293141", "Ιλιάς")]
+        [TestCase("3293141", "Ἰλιάς")]
         public void should_be_able_to_get_book_detail(string mbId, string name)
         {
             var details = Subject.GetBookInfo(mbId);
