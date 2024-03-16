@@ -617,5 +617,13 @@
     "AddNew": "새로 추가하기",
     "Backup": "백업",
     "ExtraFileExtensionsHelpText": "가져올 추가 파일의 쉼표로 구분 된 목록 (.nfo는 .nfo-orig로 가져옴)",
-    "ExtraFileExtensionsHelpTextsExamples": "예 : '.sub, .nfo'또는 'sub, nfo'"
+    "ExtraFileExtensionsHelpTextsExamples": "예 : '.sub, .nfo'또는 'sub, nfo'",
+    "ListsSettingsSummary": "기울기",
+    "ImportLists": "기울기",
+    "SelectDropdown": "'선택...",
+    "CustomFilter": "사용자 지정 필터",
+    "RemoveQueueItemConfirmation": "대기열에서 {0} 항목 {1}을 제거하시겠습니까?",
+    "SelectQuality": "품질 선택",
+    "SourceTitle": "소스 제목",
+    "AutoRedownloadFailed": "다운로드 실패함"
 }

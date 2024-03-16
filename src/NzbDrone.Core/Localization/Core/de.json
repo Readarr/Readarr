@@ -505,7 +505,7 @@
     "ThisCannotBeCancelled": "Nach dem Start kann dies nicht mehr abgebrochen werden ohne alle Indexer zu deaktivieren.",
     "UnselectAll": "Alle abwählen",
     "UpdateSelected": "Auswahl aktualisieren",
-    "Wanted": "› Gesucht",
+    "Wanted": "Gesucht",
     "CreateEmptyAuthorFolders": "Leere Filmordner erstellen",
     "All": "Alle",
     "Country": "Land",
@@ -990,5 +990,13 @@
     "AutoAdd": "Automatisch hinzufügen",
     "WouldYouLikeToRestoreBackup": "Möchten Sie die Sicherung „{name}“ wiederherstellen?",
     "Unmonitored": "Nicht beobachtet",
-    "Retention": "Aufbewahrung ( Retention )"
+    "Retention": "Aufbewahrung ( Retention )",
+    "ClickToChangeIndexerFlags": "Klicken, um Indexer-Flags zu ändern",
+    "BlocklistAndSearch": "Sperrliste und Suche",
+    "BlocklistAndSearchHint": "Starte Suche nach einer Alternative, falls es der Sperrliste hinzugefügt wurde",
+    "BlocklistAndSearchMultipleHint": "Starte Suchen nach einer Alternative, falls es der Sperrliste hinzugefügt wurde",
+    "BlocklistMultipleOnlyHint": "Der Sperrliste hinzufügen, ohne nach Alternativen zu suchen",
+    "BlocklistOnly": "Nur der Sperrliste hinzufügen",
+    "BlocklistOnlyHint": "Der Sperrliste hinzufügen, ohne nach Alternative zu suchen",
+    "ChangeCategory": "Kategorie wechseln"
 }

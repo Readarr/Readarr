@@ -48,7 +48,7 @@
     "Analytics": "Аналітика",
     "AppDataDirectory": "Каталог AppData",
     "ApplyTags": "Застосувати теги",
-    "Authentication": "Аутентифікація",
+    "Authentication": "Автентифікація",
     "BackupNow": "Зробити резервну копію",
     "BackupRetentionHelpText": "Автоматичні резервні копії, старіші за період зберігання, очищаються автоматично",
     "Backups": "Резервні копії",
@@ -616,9 +616,9 @@
     "NoEventsFound": "Подій не знайдено",
     "Required": "Обов'язковий",
     "ApplyTagsHelpTextHowToApplyAuthors": "Як застосувати теги до вибраних фільмів",
-    "ApplyTagsHelpTextHowToApplyImportLists": "Як застосувати теги до вибраних фільмів",
-    "ApplyTagsHelpTextHowToApplyDownloadClients": "Як застосувати теги до вибраних фільмів",
-    "ApplyTagsHelpTextHowToApplyIndexers": "Як застосувати теги до вибраних фільмів",
+    "ApplyTagsHelpTextHowToApplyImportLists": "Як застосувати теги до вибраних списків імпорту",
+    "ApplyTagsHelpTextHowToApplyDownloadClients": "Як застосувати теги до вибраних клієнтів завантаження",
+    "ApplyTagsHelpTextHowToApplyIndexers": "Як застосувати теги до вибраних індексаторів",
     "ApplyTagsHelpTextRemove": "Видалити: видалити введені теги",
     "DeleteRemotePathMapping": "Додати віддалений шлях",
     "DeleteSelectedImportListsMessageText": "Ви впевнені, що хочете видалити тег {0} ?",
@@ -645,5 +645,8 @@
     "ResetQualityDefinitions": "Скинути визначення якості",
     "SetTags": "Встановити теги",
     "AddNew": "Додати",
-    "Activity": "Активність"
+    "Activity": "Активність",
+    "AppUpdated": "{appName} Оновлено",
+    "ApplyChanges": "Застосувати зміни",
+    "AllResultsAreHiddenByTheAppliedFilter": "Всі результати приховані фільтром"
 }
