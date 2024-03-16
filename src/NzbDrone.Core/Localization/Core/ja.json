@@ -626,5 +626,13 @@
     "Activity": "アクティビティ",
     "AddNew": "新しく追加する",
     "ExtraFileExtensionsHelpText": "インポートする追加ファイルのコンマ区切りリスト（.nfoは.nfo-origとしてインポートされます）",
-    "ExtraFileExtensionsHelpTextsExamples": "例： '。sub、.nfo'または 'sub、nfo'"
+    "ExtraFileExtensionsHelpTextsExamples": "例： '。sub、.nfo'または 'sub、nfo'",
+    "ListsSettingsSummary": "リスト",
+    "ImportLists": "リスト",
+    "SelectDropdown": "'選択する...",
+    "SelectQuality": "品質を選択",
+    "CustomFilter": "カスタムフィルター",
+    "RemoveQueueItemConfirmation": "キューから{0}アイテム{1}を削除してもよろしいですか？",
+    "SourceTitle": "ソースタイトル",
+    "AutoRedownloadFailed": "ダウンロードに失敗しました"
 }

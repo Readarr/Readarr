@@ -628,5 +628,13 @@
     "AllResultsAreHiddenByTheAppliedFilter": "ผลลัพธ์ทั้งหมดถูกซ่อนโดยตัวกรองที่ใช้",
     "Medium": "ปานกลาง",
     "ExtraFileExtensionsHelpText": "รายการไฟล์พิเศษที่คั่นด้วยจุลภาคที่จะนำเข้า (.nfo จะนำเข้าเป็น. nfo-orig)",
-    "ExtraFileExtensionsHelpTextsExamples": "ตัวอย่าง: \".sub, .nfo\" หรือ \"sub, nfo\""
+    "ExtraFileExtensionsHelpTextsExamples": "ตัวอย่าง: \".sub, .nfo\" หรือ \"sub, nfo\"",
+    "ListsSettingsSummary": "รายการ",
+    "ImportLists": "รายการ",
+    "SelectDropdown": "'เลือก...",
+    "SelectQuality": "เลือกคุณภาพ",
+    "RemoveQueueItemConfirmation": "แน่ใจไหมว่าต้องการนำ {0} ออกจากคิว",
+    "SourceTitle": "ชื่อแหล่งที่มา",
+    "CustomFilter": "ตัวกรองที่กำหนดเอง",
+    "AutoRedownloadFailed": "ดาวน์โหลดล้มเหลว"
 }

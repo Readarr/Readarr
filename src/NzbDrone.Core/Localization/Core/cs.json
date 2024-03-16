@@ -688,5 +688,8 @@
     "SourceTitle": "Název zdroje",
     "AutoRedownloadFailed": "Opětovné stažení se nezdařilo",
     "AutoRedownloadFailedFromInteractiveSearch": "Opětovné stažení z interaktivního vyhledávání selhalo",
-    "AutoRedownloadFailedFromInteractiveSearchHelpText": "Automaticky vyhledat a pokusit se o stažení jiného vydání, pokud bylo neúspěšné vydání zachyceno z interaktivního vyhledávání"
+    "AutoRedownloadFailedFromInteractiveSearchHelpText": "Automaticky vyhledat a pokusit se o stažení jiného vydání, pokud bylo neúspěšné vydání zachyceno z interaktivního vyhledávání",
+    "SelectDropdown": "'Vybrat...",
+    "CustomFilter": "Vlastní filtry",
+    "SelectQuality": "Vyberte kvalitu"
 }

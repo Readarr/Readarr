@@ -630,5 +630,11 @@
     "ExtraFileExtensionsHelpText": "Списък с допълнителни файлове за импортиране, разделени със запетая (.nfo ще бъде импортиран като .nfo-orig)",
     "ExtraFileExtensionsHelpTextsExamples": "Примери: '.sub, .nfo' или 'sub, nfo'",
     "AutoRedownloadFailed": "Изтеглянето се провали",
-    "SourceTitle": "Заглавие на източника"
+    "SourceTitle": "Заглавие на източника",
+    "ImportLists": "Списъци",
+    "ListsSettingsSummary": "Списъци",
+    "SelectDropdown": "„Изберете ...",
+    "SelectQuality": "Изберете Качество",
+    "CustomFilter": "Персонализирани филтри",
+    "RemoveQueueItemConfirmation": "Наистина ли искате да премахнете {0} елемент {1} от опашката?"
 }

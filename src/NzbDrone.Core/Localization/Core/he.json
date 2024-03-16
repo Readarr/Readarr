@@ -657,5 +657,13 @@
     "TotalSpace": "השטח הכולל",
     "Publisher": "מוציא לאור",
     "ExtraFileExtensionsHelpText": "רשימה מופרדת באמצעות פסיקים של קבצים נוספים לייבוא (.nfo יובא כ- nfo-orig)",
-    "ExtraFileExtensionsHelpTextsExamples": "דוגמאות: '.sub, .nfo' או 'sub, nfo'"
+    "ExtraFileExtensionsHelpTextsExamples": "דוגמאות: '.sub, .nfo' או 'sub, nfo'",
+    "ImportLists": "רשימות",
+    "ListsSettingsSummary": "רשימות",
+    "SelectDropdown": "'בחר...",
+    "SelectQuality": "בחר איכות",
+    "CustomFilter": "מסננים מותאמים אישית",
+    "RemoveQueueItemConfirmation": "האם אתה בטוח שברצונך להסיר את {0} פריט {1} מהתור?",
+    "SourceTitle": "כותרת מקור",
+    "AutoRedownloadFailed": "הורדה נכשלה"
 }
