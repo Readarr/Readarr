@@ -20,5 +20,7 @@ namespace NzbDrone.Core.Books.Commands
         public override bool SendUpdatesToClient => true;
 
         public override bool UpdateScheduledTask => !AuthorId.HasValue;
+
+        public override string CompletionMessage => "Completed";
     }
 }
