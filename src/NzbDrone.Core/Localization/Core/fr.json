@@ -3,7 +3,7 @@
     "45MinutesFourtyFive": "45 Minutes : {0}",
     "60MinutesSixty": "60 Minutes : {0}",
     "APIKey": "Clé API",
-    "About": "Tagalog",
+    "About": "À propos",
     "AddListExclusion": "Ajouter une liste d'exclusion",
     "BindAddressHelpTextWarning": "Nécessite un redémarrage pour prendre effet",
     "ApiKeyHelpTextWarning": "Nécessite un redémarrage pour prendre effet",
@@ -518,7 +518,7 @@
     "SearchFiltered": "Chercher les filtrés",
     "SettingsRemotePathMappingLocalPath": "Chemin local",
     "UpdateAvailable": "Une nouvelle mise à jour est disponible",
-    "DownloadClientsSettingsSummary": "Clients de téléchargement, gestion des téléchargements et mappages de chemins distants",
+    "DownloadClientsSettingsSummary": "Clients de téléchargement, gestion des téléchargements et mappages de chemins d'accès à distance",
     "DownloadClientStatusCheckAllClientMessage": "Aucun client de téléchargement n'est disponible en raison d'échecs",
     "ImportListStatusCheckAllClientMessage": "Toutes les listes ne sont pas disponibles en raison d'échecs",
     "ImportMechanismHealthCheckMessage": "Activer la gestion des téléchargements terminés",
@@ -970,5 +970,8 @@
     "DownloadClientDelugeSettingsDirectoryHelpText": "Emplacement dans lequel placer les téléchargements (facultatif), laissez vide pour utiliser l'emplacement Deluge par défaut",
     "LabelIsRequired": "L'étiquette est requise",
     "NotificationsSettingsUpdateMapPathsFromHelpText": "Chemin d'accès {appName}, utilisé pour modifier les chemins d'accès aux séries lorsque {serviceName} voit l'emplacement du chemin d'accès à la bibliothèque différemment de {appName} (Nécessite 'Mettre à jour la bibliothèque')",
-    "NotificationsSettingsUpdateMapPathsToHelpText": "Chemin {serviceName}, utilisé pour modifier les chemins des séries quand {serviceName} voit un chemin d'emplacement de bibliothèque différemment de {appName} (nécessite 'Mise à jour bibliothèque')"
+    "NotificationsSettingsUpdateMapPathsToHelpText": "Chemin {serviceName}, utilisé pour modifier les chemins des séries quand {serviceName} voit un chemin d'emplacement de bibliothèque différemment de {appName} (nécessite 'Mise à jour bibliothèque')",
+    "ClickToChangeIndexerFlags": "Cliquez pour changer les drapeaux de l'indexeur",
+    "CustomFormatsSpecificationFlag": "Drapeau",
+    "EditAuthor": "Éditer l'auteur"
 }
