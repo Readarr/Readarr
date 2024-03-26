@@ -167,7 +167,7 @@ namespace Readarr.Api.V1.Books
             var model = bookResource.ToModel(book);
 
             _bookService.UpdateBook(model);
-            _editionService.UpdateMany(model.Editions.Value);
+            _editionService.UpdateMany(model.Editions.Value ?? new List<Edition>());
 
             BroadcastResourceChange(ModelAction.Updated, model.Id);
 
