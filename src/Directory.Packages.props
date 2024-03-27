@@ -41,7 +41,7 @@
     <PackageVersion Include="RestSharp.Serializers.SystemTextJson" Version="106.15.0" />
     <PackageVersion Include="RestSharp" Version="106.15.0" />
     <PackageVersion Include="Selenium.Support" Version="3.141.0" />
-    <PackageVersion Include="Selenium.WebDriver.ChromeDriver" Version="91.0.4472.10100" />
+    <PackageVersion Include="Selenium.WebDriver.ChromeDriver" Version="121.0.6167.8500" />
     <PackageVersion Include="Sentry" Version="3.31.0" />
     <PackageVersion Include="SharpZipLib" Version="1.4.2" />
     <PackageVersion Include="SixLabors.ImageSharp" Version="3.1.3" />

@@ -10,6 +10,7 @@ using NzbDrone.Core.MediaFiles;
 using NzbDrone.Core.Organizer;
 using NzbDrone.Core.Qualities;
 using NzbDrone.Core.Test.Framework;
+using NzbDrone.Test.Common;
 
 namespace NzbDrone.Core.Test.OrganizerTests.FileNameBuilderTests
 {
@@ -428,7 +429,7 @@ namespace NzbDrone.Core.Test.OrganizerTests.FileNameBuilderTests
             _trackFile.Path = "Linkin Park - 06 - Test";
 
             Subject.BuildBookFileName(_author, _edition, _trackFile)
-                   .Should().Be(Path.GetFileNameWithoutExtension(_trackFile.Path));
+                   .Should().Be(Path.GetFileNameWithoutExtension(_trackFile.Path).AsOsAgnostic());
         }
 
         [Test]
@@ -439,7 +440,7 @@ namespace NzbDrone.Core.Test.OrganizerTests.FileNameBuilderTests
             _trackFile.SceneName = "SceneName";
 
             Subject.BuildBookFileName(_author, _edition, _trackFile)
-                   .Should().Be(Path.GetFileNameWithoutExtension(_trackFile.Path));
+                   .Should().Be(Path.GetFileNameWithoutExtension(_trackFile.Path).AsOsAgnostic());
         }
 
         [Test]
