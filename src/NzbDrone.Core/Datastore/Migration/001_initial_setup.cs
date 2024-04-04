@@ -327,10 +327,6 @@ namespace NzbDrone.Core.Datastore.Migration
                 .WithColumn("Label").AsString().NotNullable()
                 .WithColumn("Filters").AsString().NotNullable();
 
-            IfDatabase("sqlite").Create.Index().OnTable("Books").OnColumn("AuthorId");
-            IfDatabase("sqlite").Create.Index().OnTable("Books").OnColumn("AuthorId").Ascending()
-                .OnColumn("ReleaseDate").Ascending();
-
             Delete.Index().OnTable("History").OnColumn("BookId");
             Create.Index().OnTable("History").OnColumn("BookId").Ascending()
                                              .OnColumn("Date").Descending();
