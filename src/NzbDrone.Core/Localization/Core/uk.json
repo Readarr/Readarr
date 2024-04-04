@@ -541,7 +541,7 @@
     "SslCertPathHelpTextWarning": "Щоб набуло чинності, потрібно перезапустити",
     "StatusEndedEnded": "Завершено",
     "ThisWillApplyToAllIndexersPleaseFollowTheRulesSetForthByThem": "Це стосується всіх індексаторів, будь ласка, дотримуйтеся встановлених ними правил",
-    "UnableToLoadHistory": "Не вдалося завантажити історію",
+    "UnableToLoadHistory": "Не вдалося завантажити історію.",
     "20MinutesTwenty": "60 хвилин: {0}",
     "45MinutesFourtyFive": "60 хвилин: {0}",
     "60MinutesSixty": "60 хвилин: {0}",
@@ -648,5 +648,13 @@
     "Activity": "Активність",
     "AppUpdated": "{appName} Оновлено",
     "ApplyChanges": "Застосувати зміни",
-    "AllResultsAreHiddenByTheAppliedFilter": "Всі результати приховані фільтром"
+    "AllResultsAreHiddenByTheAppliedFilter": "Всі результати приховані фільтром",
+    "TrackTitle": "Назва Треку",
+    "Yes": "Так",
+    "WhatsNew": "Що нового ?",
+    "AddNewItem": "Додати Новий Елемент",
+    "AddMissing": "Додати відсутні",
+    "TrackNumber": "Номер треку",
+    "AppUpdatedVersion": "{appName} оновлено до версії `{version}`. Щоб отримати останні зміни, потрібно перезавантажити {appName}",
+    "AutomaticUpdatesDisabledDocker": "Автоматичні оновлення не підтримуються безпосередньо під час використання механізму оновлення Docker. Вам потрібно буде оновити зображення контейнера за межами {appName} або скористатися сценарієм"
 }

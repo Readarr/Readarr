@@ -533,7 +533,7 @@
     "IndexerLongTermStatusCheckSingleClientMessage": "Indexers no disponible por errores durando más de 6 horas: {0}",
     "IndexerRssHealthCheckNoAvailableIndexers": "Todos los indexers capaces de RSS están temporalmente desactivados debido a errores recientes con el indexer",
     "IndexerSearchCheckNoInteractiveMessage": "No hay Indexers con Búsqueda Interactiva activada, Readarr no obtendrá ningún resultado en las búsquedas",
-    "IndexerStatusCheckSingleClientMessage": "Indexadores no disponibles debido a errores: {indexerNames}",
+    "IndexerStatusCheckSingleClientMessage": "Indexadores no disponibles debido a errores: {0}",
     "OnBookFileDeleteForUpgrade": "En archivo de película Eliminar para actualizar",
     "OnBookFileDeleteForUpgradeHelpText": "En archivo de película Eliminar para actualizar",
     "OnBookFileDeleteHelpText": "Al eliminar archivo de película",
