@@ -645,5 +645,13 @@
     "BlocklistReleaseHelpText": "Împiedică Radarr să apuce automat această versiune din nou",
     "ExtraFileExtensionsHelpText": "Lista separată prin virgulă a fișierelor suplimentare de importat (.nfo va fi importat ca .nfo-orig)",
     "ExtraFileExtensionsHelpTextsExamples": "Exemple: „.sub, .nfo” sau „sub, nfo”",
-    "CustomFilter": "Filtru personalizat"
+    "CustomFilter": "Filtru personalizat",
+    "ImportLists": "Liste",
+    "InteractiveSearchModalHeader": "Căutare interactivă",
+    "ListsSettingsSummary": "Liste",
+    "SelectDropdown": "Selectați...",
+    "RemoveQueueItemConfirmation": "Sigur doriți să eliminați {0} elementul {1} din coadă?",
+    "SelectQuality": "Selectați Calitate",
+    "AutoRedownloadFailed": "Descarcare esuata",
+    "SourceTitle": "Titlul sursei"
 }

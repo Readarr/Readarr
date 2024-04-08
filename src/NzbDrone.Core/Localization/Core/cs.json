@@ -691,5 +691,7 @@
     "AutoRedownloadFailedFromInteractiveSearchHelpText": "Automaticky vyhledat a pokusit se o stažení jiného vydání, pokud bylo neúspěšné vydání zachyceno z interaktivního vyhledávání",
     "SelectDropdown": "'Vybrat...",
     "CustomFilter": "Vlastní filtry",
-    "SelectQuality": "Vyberte kvalitu"
+    "SelectQuality": "Vyberte kvalitu",
+    "IndexerFlags": "Příznaky indexeru",
+    "InteractiveSearchModalHeader": "Interaktivní vyhledávání"
 }

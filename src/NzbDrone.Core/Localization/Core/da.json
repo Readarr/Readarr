@@ -644,5 +644,11 @@
     "CustomFilter": "Bruger Tilpassede Filtere",
     "SelectDropdown": "'Vælg...",
     "SelectQuality": "Vælg Kvalitet",
-    "ApplyChanges": "Anvend ændringer"
+    "ApplyChanges": "Anvend ændringer",
+    "Series": "Serie",
+    "IndexerFlags": "Indexer Flag",
+    "InteractiveSearchModalHeader": "Interaktiv søgning",
+    "Theme": "Tema",
+    "Publisher": "Udgiver",
+    "CatalogNumber": "katalognummer"
 }

@@ -636,5 +636,7 @@
     "ListsSettingsSummary": "القوائم",
     "SelectDropdown": "'تحديد...",
     "SelectQuality": "حدد الجودة",
-    "CustomFilter": "مرشحات مخصصة"
+    "CustomFilter": "مرشحات مخصصة",
+    "IndexerFlags": "أعلام المفهرس",
+    "InteractiveSearchModalHeader": "بحث تفاعلي"
 }

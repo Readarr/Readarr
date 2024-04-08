@@ -973,5 +973,10 @@
     "NotificationsSettingsUpdateMapPathsToHelpText": "Chemin {serviceName}, utilisé pour modifier les chemins des séries quand {serviceName} voit un chemin d'emplacement de bibliothèque différemment de {appName} (nécessite 'Mise à jour bibliothèque')",
     "ClickToChangeIndexerFlags": "Cliquez pour changer les drapeaux de l'indexeur",
     "CustomFormatsSpecificationFlag": "Drapeau",
-    "EditAuthor": "Éditer l'auteur"
+    "EditAuthor": "Éditer l'auteur",
+    "EditBook": "Modifier le livre",
+    "EditList": "Modifier la liste",
+    "AuthorProgressBarText": "{availableBookCount} / {bookCount} (Total: {totalBookCount}, Fichiers : {bookFileCount})",
+    "BookProgressBarText": "{bookCount} / {totalBookCount} (Fichiers : {bookFileCount})",
+    "CustomFormatsSettingsTriggerInfo": "Un format personnalisé sera appliqué à une version ou à un fichier lorsqu'il correspond à au moins un de chacun des différents types de conditions choisis."
 }

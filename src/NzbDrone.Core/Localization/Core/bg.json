@@ -636,5 +636,7 @@
     "SelectDropdown": "„Изберете ...",
     "SelectQuality": "Изберете Качество",
     "CustomFilter": "Персонализирани филтри",
-    "RemoveQueueItemConfirmation": "Наистина ли искате да премахнете {0} елемент {1} от опашката?"
+    "RemoveQueueItemConfirmation": "Наистина ли искате да премахнете {0} елемент {1} от опашката?",
+    "IndexerFlags": "Индексиращи знамена",
+    "InteractiveSearchModalHeader": "Интерактивно търсене"
 }

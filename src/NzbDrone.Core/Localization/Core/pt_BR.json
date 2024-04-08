@@ -1081,5 +1081,6 @@
     "Rejections": "Rejeições",
     "SelectIndexerFlags": "Selecionar Sinalizadores do Indexador",
     "SetIndexerFlags": "Definir Sinalizadores de Indexador",
-    "IndexerFlags": "Sinalizadores do Indexador"
+    "IndexerFlags": "Sinalizadores do Indexador",
+    "CustomFormatsSettingsTriggerInfo": "Um formato personalizado será aplicado a um lançamento ou arquivo quando corresponder a pelo menos um de cada um dos diferentes tipos de condição escolhidos."
 }

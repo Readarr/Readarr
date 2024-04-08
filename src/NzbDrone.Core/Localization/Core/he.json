@@ -665,5 +665,7 @@
     "CustomFilter": "מסננים מותאמים אישית",
     "RemoveQueueItemConfirmation": "האם אתה בטוח שברצונך להסיר את {0} פריט {1} מהתור?",
     "SourceTitle": "כותרת מקור",
-    "AutoRedownloadFailed": "הורדה נכשלה"
+    "AutoRedownloadFailed": "הורדה נכשלה",
+    "IndexerFlags": "אינדקס דגלים",
+    "InteractiveSearchModalHeader": "חיפוש אינטראקטיבי"
 }

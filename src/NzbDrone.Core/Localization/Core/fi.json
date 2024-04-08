@@ -990,5 +990,18 @@
     "RemoveQueueItem": "Poistetaan - {sourceTitle}",
     "RemoveQueueItemConfirmation": "Haluatko varmasti poistaa kohteen \"{sourceTitle}\" jonosta?",
     "SelectReleaseGroup": "Aseta julkaisuryhmä",
-    "BlocklistOnly": "Vain esto"
+    "BlocklistOnly": "Vain esto",
+    "IndexerFlags": "Tietolähteen liput",
+    "NotificationsSettingsUpdateMapPathsFrom": "Kohdista sijainnit lähteeseen",
+    "NotificationsSettingsUpdateMapPathsFromHelpText": "{appName}-sijainti, jonka mukaisesti sarjasijainteja muutetaan kun {serviceName} näkee kirjastosijainnin eri tavalla kuin {appName} (vaatii \"Päivitä kirjasto\" -asetuksen).",
+    "NotificationsSettingsUpdateMapPathsTo": "Kohdista sijainnit kohteeseen",
+    "NotificationsSettingsUpdateMapPathsToHelpText": "{serviceName}-sijainti, jonka mukaisesti sarjasijainteja muutetaan kun {serviceName} näkee kirjastosijainnin eri tavalla kuin {appName} (vaatii \"Päivitä kirjasto\" -asetuksen).",
+    "NotificationsSettingsUseSslHelpText": "Muodosta yhteys sovellukseen {serviceName} SSL-protokollan välityksellä.",
+    "Rejections": "Hylkäykset",
+    "NotificationsSettingsUpdateLibrary": "Päivitä kirjasto",
+    "ConnectionSettingsUrlBaseHelpText": "Lisää etuliite lataustuökalun {clientName} URL-osoitteeseen, kuten {url}.",
+    "DownloadClientDelugeSettingsDirectoryHelpText": "Valinnainen latuasten tallennussijainti. Käytä Aria2-oletusta jättämällä tyhjäksi.",
+    "InteractiveSearchModalHeader": "Manuaalihaku",
+    "NotificationsPlexSettingsAuthToken": "Todennustunniste",
+    "NotificationsPlexSettingsAuthenticateWithPlexTv": "Plex.tv-tunnistautuminen"
 }
