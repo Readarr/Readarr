@@ -125,6 +125,7 @@ coverage*.xml
 coverage*.json
 setup/Output/
 *.~is
+.mono
 
 # .NET Core
 project.lock.json
