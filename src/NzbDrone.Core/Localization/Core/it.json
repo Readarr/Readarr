@@ -728,5 +728,6 @@
     "ConnectionLost": "Connessione Persa",
     "AppUpdated": "{appName} Aggiornato",
     "AllResultsAreHiddenByTheAppliedFilter": "Tutti i risultati sono nascosti dal filtro applicato",
-    "AutoRedownloadFailed": "Download fallito"
+    "AutoRedownloadFailed": "Download fallito",
+    "AddListExclusion": "Aggiungi elenco esclusioni"
 }
