@@ -1058,5 +1058,7 @@
     "AutoRedownloadFailed": "重新下载失败",
     "AutoRedownloadFailedFromInteractiveSearch": "手动搜索重新下载失败",
     "AutoRedownloadFailedFromInteractiveSearchHelpText": "当从手动搜索中获取失败的发行版时，自动搜索并尝试下载不同的发行版",
-    "RemoveQueueItemRemovalMethodHelpTextWarning": "“从下载客户端移除”将从下载客户端移除下载内容和文件。"
+    "RemoveQueueItemRemovalMethodHelpTextWarning": "“从下载客户端移除”将从下载客户端移除下载内容和文件。",
+    "CustomFormatsSpecificationFlag": "标记",
+    "CustomFilter": "自定义过滤器"
 }
