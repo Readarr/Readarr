@@ -57,7 +57,7 @@
     "Edit": "Editar",
     "Edition": "Edição",
     "Enable": "Habilitar",
-    "GrabRelease": "Obter lançamento",
+    "GrabRelease": "Baixar Lançamento",
     "GrabReleaseMessageText": "O Readarr não conseguiu determinar para qual autor e livro é este lançamento. O Readarr pode não conseguir importar automaticamente este lançamento. Deseja obter \"{0}\"?",
     "GrabSelected": "Baixar Selecionado",
     "Group": "Grupo",
