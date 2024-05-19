@@ -218,13 +218,12 @@ namespace NzbDrone.Core.MetadataSource.BookInfo
             catch (HttpException ex)
             {
                 _logger.Warn(ex, ex.Message);
-                throw new GoodreadsException("Search for '{0}' failed. Unable to communicate with Goodreads.", title);
+                throw new GoodreadsException("Search for '{0}' failed. Unable to communicate with Goodreads.", ex, title);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (ex is not BookInfoException)
             {
                 _logger.Warn(ex, ex.Message);
-                throw new GoodreadsException("Search for '{0}' failed. Invalid response received from Goodreads.",
-                    title);
+                throw new GoodreadsException("Search for '{0}' failed. Invalid response received from Goodreads.", ex, title);
             }
         }
 
@@ -295,6 +294,11 @@ namespace NzbDrone.Core.MetadataSource.BookInfo
                 try
                 {
                     return MapSearchResult(ids);
+                }
+                catch (HttpException ex)
+                {
+                    _logger.Warn(ex);
+                    throw new BookInfoException("Search for '{0}' failed. Unable to communicate with ReadarrAPI, returning status code: {1}.", ex, query, ex.Response.StatusCode);
                 }
                 catch (Exception e)
                 {
@@ -484,7 +488,7 @@ namespace NzbDrone.Core.MetadataSource.BookInfo
                 httpRequest.ContentSummary = ids.ToJson(Formatting.None);
 
                 httpRequest.AllowAutoRedirect = true;
-                httpRequest.SuppressHttpError = true;
+                httpRequest.SuppressHttpErrorStatusCodes = new[] { HttpStatusCode.TooManyRequests };
 
                 httpResponse = _httpClient.Post<BulkBookResource>(httpRequest);
 
