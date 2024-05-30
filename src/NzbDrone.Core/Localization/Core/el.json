@@ -993,5 +993,18 @@
     "AppUpdated": "{appName} Ενημερώθηκε",
     "AppUpdatedVersion": "ξαναφορτωθεί",
     "AutoAdd": "Προσθήκη",
-    "ErrorLoadingContent": "Υπήρξε ένα σφάλμα κατά τη φόρτωση του αρχείου"
+    "ErrorLoadingContent": "Υπήρξε ένα σφάλμα κατά τη φόρτωση του αρχείου",
+    "ExtraFileExtensionsHelpTextsExamples": "Παραδείγματα: «.sub, .nfo» ή «sub, nfo»",
+    "IndexerFlags": "Σημαίες ευρετηρίου",
+    "InteractiveSearchModalHeader": "Διαδραστική αναζήτηση",
+    "ExtraFileExtensionsHelpText": "Λίστα πρόσθετων αρχείων που διαχωρίζονται με κόμμα για εισαγωγή (το .nfo θα εισαχθεί ως .nfo-orig)",
+    "CustomFilter": "Custom Φιλτρα",
+    "DeleteSelected": "Διαγραφή επιλεγμένων",
+    "SourceTitle": "Τίτλος πηγής",
+    "AutoRedownloadFailed": "Η λήψη απέτυχε",
+    "FailedLoadingSearchResults": "Αποτυχία φόρτωσης αποτελεσμάτων αναζήτησης, δοκιμάστε ξανά.",
+    "RemoveQueueItemConfirmation": "Είστε σίγουροι πως θέλετε να διαγράψετε {0} αντικείμενα από την ουρά;",
+    "SelectDropdown": "'Επιλέγω...",
+    "SelectQuality": "Επιλέξτε Ποιότητα",
+    "SelectReleaseGroup": "Επιλέξτε Ομάδα έκδοσης"
 }

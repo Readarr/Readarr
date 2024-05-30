@@ -178,5 +178,21 @@
     "UseProxy": "Koristi proxy",
     "RemoveFilter": "Ukloni filter",
     "Name": "Ime",
-    "Version": "Verzija"
+    "Version": "Verzija",
+    "ListsSettingsSummary": "Lista",
+    "ImportLists": "Lista",
+    "ImportListExclusions": "Dodaj na Listu Isključenja",
+    "Activity": "Aktivnost",
+    "AddNew": "Dodaj Novo",
+    "DeleteImportListExclusion": "Dodaj na Listu Isključenja",
+    "Events": "Događaj",
+    "Backup": "Sigurnosna kopija",
+    "AllResultsAreHiddenByTheAppliedFilter": "Svi rezultati su skriveni zbog primjenjenog filtera",
+    "HasPendingChangesSaveChanges": "Spremi izmjene",
+    "Library": "Biblioteka",
+    "RemoveQueueItemConfirmation": "Jeste li sigurni da želite izbrisati stavku {0} iz reda?",
+    "Size": " Veličina",
+    "SomeResultsAreHiddenByTheAppliedFilter": "Svi rezultati su skriveni zbog primjenjenog filtera",
+    "System": "Sustav",
+    "Ui": "Korisničko sučelje"
 }

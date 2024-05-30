@@ -693,5 +693,6 @@
     "CustomFilter": "Vlastní filtry",
     "SelectQuality": "Vyberte kvalitu",
     "IndexerFlags": "Příznaky indexeru",
-    "InteractiveSearchModalHeader": "Interaktivní vyhledávání"
+    "InteractiveSearchModalHeader": "Interaktivní vyhledávání",
+    "FailedLoadingSearchResults": "Výsledky vyhledávání se nepodařilo načíst, zkuste to prosím znovu."
 }

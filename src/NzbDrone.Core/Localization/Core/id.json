@@ -86,5 +86,11 @@
     "ConnectionLostToBackend": "Koneksi {appName} telah terputus dari backend dan perlu dimuat ulang untuk dipulihkan.",
     "ApplyChanges": "Terapkan Perubahan",
     "History": "Riwayat",
-    "20MinutesTwenty": "Indonesia"
+    "20MinutesTwenty": "Indonesia",
+    "UnableToLoadTheCalendar": "Tidak dapat memuat kalender",
+    "CouldntFindAnyResultsForTerm": "Tidak ditemukan hasil untuk '{term}'",
+    "RedownloadFailed": "Pengunduhan Ulang Gagal",
+    "ConnectSettingsSummary": "Notifikasi, koneksi ke server/pemutar media, dan script khusus",
+    "AutoRedownloadFailed": "Pengunduhan Ulang Gagal",
+    "StatusEndedContinuing": "Berlanjut"
 }

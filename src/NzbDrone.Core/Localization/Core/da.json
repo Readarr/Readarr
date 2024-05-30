@@ -650,5 +650,6 @@
     "InteractiveSearchModalHeader": "Interaktiv søgning",
     "Theme": "Tema",
     "Publisher": "Udgiver",
-    "CatalogNumber": "katalognummer"
+    "CatalogNumber": "katalognummer",
+    "FailedLoadingSearchResults": "Kunne ikke indlæse søgeresultater. Prøv igen."
 }

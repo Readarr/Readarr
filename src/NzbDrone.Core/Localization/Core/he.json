@@ -667,5 +667,6 @@
     "SourceTitle": "כותרת מקור",
     "AutoRedownloadFailed": "הורדה נכשלה",
     "IndexerFlags": "אינדקס דגלים",
-    "InteractiveSearchModalHeader": "חיפוש אינטראקטיבי"
+    "InteractiveSearchModalHeader": "חיפוש אינטראקטיבי",
+    "FailedLoadingSearchResults": "טעינת תוצאות החיפוש נכשלה, נסה שוב."
 }

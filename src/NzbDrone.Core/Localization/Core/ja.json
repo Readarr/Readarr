@@ -634,5 +634,8 @@
     "CustomFilter": "カスタムフィルター",
     "RemoveQueueItemConfirmation": "キューから{0}アイテム{1}を削除してもよろしいですか？",
     "SourceTitle": "ソースタイトル",
-    "AutoRedownloadFailed": "ダウンロードに失敗しました"
+    "AutoRedownloadFailed": "ダウンロードに失敗しました",
+    "FailedLoadingSearchResults": "検索結果の読み込みに失敗しました。もう一度お試しください。",
+    "IndexerFlags": "インデクサフラグ",
+    "InteractiveSearchModalHeader": "インタラクティブ検索"
 }

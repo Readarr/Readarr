@@ -1008,5 +1008,12 @@
     "CustomFormatsSpecificationFlag": "Lippu",
     "SelectIndexerFlags": "Valitse tietolähteen liput",
     "SetIndexerFlags": "Aseta tietolähteen liput",
-    "LabelIsRequired": "Nimi on pakollinen"
+    "LabelIsRequired": "Nimi on pakollinen",
+    "IndexerSettingsSeedRatio": "Jakosuhde",
+    "DownloadClientDelugeSettingsDirectoryCompletedHelpText": "Valinnainen latuasten tallennussijainti. Käytä Aria2-oletusta jättämällä tyhjäksi.",
+    "IndexerSettingsSeedRatioHelpText": "Suhde, joka torrentin tulee saavuttaa ennen sen pysäytystä. Käytä lataustyökalun oletusta jättämällä tyhjäksi. Suhteen tulisi olla ainakin 1.0 ja noudattaa tietolähteen sääntöjä.",
+    "IndexerSettingsSeedTime": "Jakoaika",
+    "IndexerSettingsSeedTimeHelpText": "Aika, joka torrentia tulee jakaa ennen sen pysäytystä. Käytä lataustyökalun oletusta jättämällä tyhjäksi.",
+    "FailedLoadingSearchResults": "Hakutulosten lataus epäonnistui. Yritä uudelleen.",
+    "WhySearchesCouldBeFailing": "Selvitä miksi haku saattaa epäonnistua painamalla tästä"
 }

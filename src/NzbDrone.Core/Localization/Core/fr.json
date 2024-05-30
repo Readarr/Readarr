@@ -988,5 +988,13 @@
     "NotificationsSettingsUpdateLibrary": "Mettre à jour la bibliothèque",
     "NotificationsSettingsUpdateMapPathsFrom": "Mapper les chemins depuis",
     "NotificationsSettingsUseSslHelpText": "Se connecter à {serviceName} en HTTPS plutôt qu'en HTTP",
-    "NotificationsSettingsUpdateMapPathsTo": "Mapper les chemins vers"
+    "NotificationsSettingsUpdateMapPathsTo": "Mapper les chemins vers",
+    "InteractiveSearchModalHeader": "Recherche interactive",
+    "FailedLoadingSearchResults": "Échec du chargement des résultats de recherche, veuillez réessayer.",
+    "MonitoredAuthorIsMonitored": "Artiste non surveillé",
+    "IndexerSettingsSeedRatio": "Ratio d'envoie",
+    "IndexerSettingsSeedRatioHelpText": "Le ratio qu'un torrent doit atteindre avant de s'arrêter, vide utilise la valeur par défaut du client de téléchargement. Le ratio doit être d'au moins 1.0 et suivre les règles des indexeurs",
+    "IndexerSettingsSeedTime": "Temps d'envoie",
+    "IndexerSettingsSeedTimeHelpText": "Durée pendant laquelle un torrent doit être envoyé avant de s'arrêter, vide utilise la valeur par défaut du client de téléchargement",
+    "WhySearchesCouldBeFailing": "Cliquez ici pour savoir pourquoi les recherches pourraient échouer"
 }

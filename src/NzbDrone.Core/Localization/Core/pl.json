@@ -676,5 +676,17 @@
     "Backup": "Kopia zapasowa",
     "AllResultsAreHiddenByTheAppliedFilter": "Wszystkie wyniki są ukrywane przez zastosowany filtr",
     "ExtraFileExtensionsHelpText": "Rozdzielana przecinkami lista dodatkowych plików do zaimportowania (.nfo zostanie zaimportowane jako .nfo-orig)",
-    "ExtraFileExtensionsHelpTextsExamples": "Przykłady: „.sub, .nfo” lub „sub, nfo”"
+    "ExtraFileExtensionsHelpTextsExamples": "Przykłady: „.sub, .nfo” lub „sub, nfo”",
+    "ListsSettingsSummary": "Listy",
+    "IndexerFlags": "Flagi indeksujące",
+    "RemoveQueueItemConfirmation": "Czy na pewno chcesz usunąć elementy ({0}) z kolejki?",
+    "CustomFilter": "Filtry niestandardowe",
+    "SourceTitle": "Tytuł źródłowy",
+    "AutoRedownloadFailed": "Pobieranie nie udane",
+    "FailedLoadingSearchResults": "Nie udało się załadować wyników wyszukiwania, spróbuj ponownie.",
+    "ImportLists": "Listy",
+    "InteractiveSearchModalHeader": "Wyszukiwanie interaktywne",
+    "SelectDropdown": "Wybierz...",
+    "SelectQuality": "Wybierz Jakość",
+    "SelectReleaseGroup": "Wybierz grupę wydającą"
 }

@@ -1049,5 +1049,16 @@
     "RemoveQueueItemRemovalMethod": "Eltávolítási módszer",
     "RemoveQueueItemRemovalMethodHelpTextWarning": "Az „Eltávolítás a letöltési kliensből” eltávolítja a letöltést és a fájl(oka)t a letöltési kliensből.",
     "RemoveQueueItemsRemovalMethodHelpTextWarning": "Az „Eltávolítás a letöltési kliensből” eltávolítja a letöltéseket és a fájlokat a letöltési kliensből.",
-    "OnAuthorAdded": "A szerző hozzáadva"
+    "OnAuthorAdded": "A szerző hozzáadva",
+    "DashOrSpaceDashDependingOnName": "Dash vagy Space Dash névtől függően",
+    "Rejections": "Elutasítások",
+    "BlocklistAndSearchHint": "Indítsa el a csere keresését a tiltólistázás után",
+    "DownloadClientDelugeSettingsDirectoryHelpText": "Választható hely a letöltések elhelyezéséhez, hagyja üresen az alapértelmezett Aria2 hely használatához",
+    "FailedLoadingSearchResults": "Nem sikerült betölteni a keresési eredményeket, próbálkozzon újra.",
+    "CustomFilter": "Egyedi Szűrők",
+    "IndexerFlags": "Indexer Zászló",
+    "InteractiveSearchModalHeader": "Interaktív Keresés",
+    "SelectDropdown": "Válassz...",
+    "SelectQuality": "Minőség kiválasztása",
+    "SelectReleaseGroup": "Release csoport kiválasztása"
 }

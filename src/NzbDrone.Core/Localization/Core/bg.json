@@ -638,5 +638,6 @@
     "CustomFilter": "Персонализирани филтри",
     "RemoveQueueItemConfirmation": "Наистина ли искате да премахнете {0} елемент {1} от опашката?",
     "IndexerFlags": "Индексиращи знамена",
-    "InteractiveSearchModalHeader": "Интерактивно търсене"
+    "InteractiveSearchModalHeader": "Интерактивно търсене",
+    "FailedLoadingSearchResults": "Неуспешно зареждане на резултатите от търсенето, моля, опитайте отново."
 }
