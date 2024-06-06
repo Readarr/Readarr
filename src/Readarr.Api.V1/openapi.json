@@ -8427,11 +8427,19 @@
         ],
         "type": "string"
       },
+      "AuthenticationRequiredType": {
+        "enum": [
+          "enabled",
+          "disabledForLocalAddresses"
+        ],
+        "type": "string"
+      },
       "AuthenticationType": {
         "enum": [
           "none",
           "basic",
-          "forms"
+          "forms",
+          "external"
         ],
         "type": "string"
       },
@@ -10595,6 +10603,9 @@
           "authenticationMethod": {
             "$ref": "#/components/schemas/AuthenticationType"
           },
+          "authenticationRequired": {
+            "$ref": "#/components/schemas/AuthenticationRequiredType"
+          },
           "analyticsEnabled": {
             "type": "boolean"
           },
@@ -10603,6 +10614,10 @@
             "nullable": true
           },
           "password": {
+            "type": "string",
+            "nullable": true
+          },
+          "passwordConfirmation": {
             "type": "string",
             "nullable": true
           },
