@@ -88,7 +88,7 @@
     "Calendar": "달력",
     "CalendarWeekColumnHeaderHelpText": "주가 활성보기 일 때 각 열 위에 표시됩니다.",
     "Cancel": "취소",
-    "CancelMessageText": "이 보류중인 작업을 취소 하시겠습니까?",
+    "CancelPendingTask": "이 보류중인 작업을 취소 하시겠습니까?",
     "CertificateValidation": "인증서 검증",
     "CertificateValidationHelpText": "HTTPS 인증 유효성 검사의 엄격한 방법 변경",
     "ChangeFileDate": "파일 날짜 변경",

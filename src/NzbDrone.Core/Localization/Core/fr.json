@@ -48,7 +48,7 @@
     "Calendar": "Calendrier",
     "CalendarWeekColumnHeaderHelpText": "Affiché au dessus de chaque colonne quand \"Semaine\" est l'affichage actif",
     "Cancel": "Annuler",
-    "CancelMessageText": "Êtes-vous sur de vouloir annuler cette tâche en attente ?",
+    "CancelPendingTask": "Êtes-vous sur de vouloir annuler cette tâche en attente ?",
     "CertificateValidation": "Validation du certificat",
     "CertificateValidationHelpText": "Modifier le niveau de rigueur de la validation de la certification HTTPS. Ne pas modifier si vous ne maîtrisez pas les risques.",
     "ChangeFileDate": "Changer la date du fichier",

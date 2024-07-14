@@ -28,7 +28,7 @@
     "BindAddressHelpText": "Gyldig IPv4 -adresse, localhost eller \"*\" for alle grensesnitt",
     "BypassProxyForLocalAddresses": "Omgå proxy for lokale adresser",
     "Cancel": "Avbryt",
-    "CancelMessageText": "Er du sikker på at du vil avbryte denne ventende oppgaven?",
+    "CancelPendingTask": "Er du sikker på at du vil avbryte denne ventende oppgaven?",
     "CertificateValidation": "Sertifikatvalidering",
     "CertificateValidationHelpText": "Endre hvor streng HTTPS -sertifisering validering er. Ikke endre med mindre du forstår risikoene.",
     "ChangeHasNotBeenSavedYet": "Endringen er ikke lagret ennå",

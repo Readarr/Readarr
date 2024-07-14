@@ -80,7 +80,7 @@
     "Calendar": "Kalendarz",
     "CalendarWeekColumnHeaderHelpText": "Wyświetlany nad każdą kolumną, gdy tydzień jest aktywnym widokiem",
     "Cancel": "Anuluj",
-    "CancelMessageText": "Czy na pewno chcesz anulować to oczekujące zadanie?",
+    "CancelPendingTask": "Czy na pewno chcesz anulować to oczekujące zadanie?",
     "CertificateValidation": "Walidacja certyfikatu",
     "CertificateValidationHelpText": "Zmień ścisłość walidacji certyfikatu HTTPS. Nie zmieniaj, jeśli nie rozumiesz związanych z tym zagrożeń.",
     "ChangeFileDate": "Zmień datę pliku",

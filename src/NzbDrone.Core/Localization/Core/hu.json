@@ -24,7 +24,7 @@
     "Calendar": "Naptár",
     "CalendarWeekColumnHeaderHelpText": "Minden oszlop felett jelenjen meg, hogy melyik hét az aktuális",
     "Cancel": "Mégse",
-    "CancelMessageText": "Biztosan törlöd ezt a függőben lévő feladatot?",
+    "CancelPendingTask": "Biztosan törlöd ezt a függőben lévő feladatot?",
     "CertificateValidation": "Tanúsítvány érvényesítése",
     "CertificateValidationHelpText": "Módosítsa a HTTPS-tanúsítvány-ellenőrzés szigorúságát. Ne változtasson, hacsak nem érti a kockázatokat.",
     "ChangeFileDate": "Fájl dátumának módosítása",

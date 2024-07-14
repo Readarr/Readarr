@@ -45,7 +45,7 @@
     "Calendar": "Календарь",
     "CalendarWeekColumnHeaderHelpText": "Отображается над каждым столбцом, когда неделя активна",
     "Cancel": "Отменить",
-    "CancelMessageText": "Вы уверены, что хотите убрать данную задачу из очереди?",
+    "CancelPendingTask": "Вы уверены, что хотите убрать данную задачу из очереди?",
     "CertificateValidation": "Проверка сертификата",
     "CertificateValidationHelpText": "Измените строгую проверку сертификации HTTPS. Не меняйте, если вы не понимаете риски.",
     "ChangeFileDate": "Изменить дату файла",

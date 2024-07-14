@@ -445,7 +445,7 @@
     "ApplicationURL": "URL de l'aplicació",
     "ApplicationUrlHelpText": "URL extern de l'aplicació, inclòs http(s)://, port i URL base",
     "BackupFolderHelpText": "Els camins relatius estaran sota el directori AppData del Radarr",
-    "CancelMessageText": "Esteu segur que voleu cancel·lar aquesta tasca pendent?",
+    "CancelPendingTask": "Esteu segur que voleu cancel·lar aquesta tasca pendent?",
     "ChownGroupHelpTextWarning": "Això només funciona si l'usuari que executa Radarr és el propietari del fitxer. És millor assegurar-se que el client de descàrrega utilitza el mateix grup que Radarr.",
     "ConnectSettingsSummary": "Notificacions, connexions a servidors/reproductors multimèdia i scripts personalitzats",
     "DeleteEmptyFoldersHelpText": "Suprimeix les carpetes de pel·lícules buides durant l'exploració del disc i quan s'esborren els fitxers de pel·lícules",

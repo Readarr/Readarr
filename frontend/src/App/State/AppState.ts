@@ -1,6 +1,7 @@
 import AuthorsAppState from './AuthorsAppState';
 import CommandAppState from './CommandAppState';
 import SettingsAppState from './SettingsAppState';
+import SystemAppState from './SystemAppState';
 import TagsAppState from './TagsAppState';
 
 interface FilterBuilderPropOption {
@@ -35,10 +36,24 @@ export interface CustomFilter {
   filers: PropertyFilter[];
 }
 
+export interface AppSectionState {
+  isConnected: boolean;
+  isReconnecting: boolean;
+  version: string;
+  prevVersion?: string;
+  dimensions: {
+    isSmallScreen: boolean;
+    width: number;
+    height: number;
+  };
+}
+
 interface AppState {
+  app: AppSectionState;
   authors: AuthorsAppState;
   commands: CommandAppState;
   settings: SettingsAppState;
+  system: SystemAppState;
   tags: TagsAppState;
 }
 

@@ -42,7 +42,7 @@
     "Calendar": "Calendario",
     "CalendarWeekColumnHeaderHelpText": "Mostrado sobre cada columna cuando la vista activa es semana",
     "Cancel": "Cancelar",
-    "CancelMessageText": "Seguro que quieres cancelar esta tarea pendiente?",
+    "CancelPendingTask": "Seguro que quieres cancelar esta tarea pendiente?",
     "CertificateValidation": "Validacion de certificado",
     "CertificateValidationHelpText": "Cambia cómo de estricta es la validación de certificación de HTTPS. No cambiar a menos que entiendas los riesgos.",
     "ChangeFileDate": "Cambiar fecha de archivo",

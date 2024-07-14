@@ -114,7 +114,7 @@
     "IsCutoffCutoff": "Hranica",
     "Label": "Štítok",
     "Remove": "Odstrániť",
-    "CancelMessageText": "Naozaj chcete zrušiť túto prebiehajúcu úlohu?",
+    "CancelPendingTask": "Naozaj chcete zrušiť túto prebiehajúcu úlohu?",
     "Publisher": "Vydavateľ",
     "Quality": "kvalita",
     "QualityProfile": "Profil kvality",

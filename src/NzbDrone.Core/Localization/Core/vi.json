@@ -52,7 +52,7 @@
     "Calendar": "Lịch",
     "CalendarWeekColumnHeaderHelpText": "Được hiển thị phía trên mỗi cột khi tuần là chế độ xem đang hoạt động",
     "Cancel": "Huỷ bỏ",
-    "CancelMessageText": "Bạn có chắc chắn muốn hủy nhiệm vụ đang chờ xử lý này không?",
+    "CancelPendingTask": "Bạn có chắc chắn muốn hủy nhiệm vụ đang chờ xử lý này không?",
     "CertificateValidation": "Xác thực chứng chỉ",
     "CertificateValidationHelpText": "Thay đổi cách xác thực chứng chỉ HTTPS nghiêm ngặt. Không được đổi nếu bạn biết rõ về",
     "ChangeFileDate": "Thay đổi ngày tệp",

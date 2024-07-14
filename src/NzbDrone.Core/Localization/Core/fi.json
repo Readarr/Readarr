@@ -38,7 +38,7 @@
     "Calendar": "Kalenteri",
     "CalendarWeekColumnHeaderHelpText": "Näkyy jokaisen sarakkeen yläpuolella käytettäessä viikkonäkymää.",
     "Cancel": "Peruuta",
-    "CancelMessageText": "Haluatko varmasti perua tämän odottavan tehtävän?",
+    "CancelPendingTask": "Haluatko varmasti perua tämän odottavan tehtävän?",
     "CertificateValidation": "Varmenteen vahvistus",
     "CertificateValidationHelpText": "Määritä HTTPS-varmennevahvistuksen tiukkuus. Älä muta, jos et ymmärrä riskejä.",
     "ChangeFileDate": "Muuta tiedoston päiväys",

@@ -50,7 +50,7 @@
     "Calendar": "Kalender",
     "CalendarWeekColumnHeaderHelpText": "Visas ovanför varje kolumn när veckan är den aktiva vyn",
     "Cancel": "Avbryt",
-    "CancelMessageText": "Är du säker på att du vill avbryta den väntande uppgiften?",
+    "CancelPendingTask": "Är du säker på att du vill avbryta den väntande uppgiften?",
     "CertificateValidation": "Validering av Certifikat",
     "CertificateValidationHelpText": "Ändra hur strikt valideringen av HTTPS certifikat är",
     "ChangeFileDate": "Ändra fildatum",

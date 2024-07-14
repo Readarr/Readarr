@@ -300,7 +300,7 @@
     "ChangeFileDate": "تغيير تاريخ الملف",
     "CertificateValidationHelpText": "تغيير مدى صرامة التحقق من صحة شهادة HTTPS",
     "CertificateValidation": "التحقق من صحة الشهادة",
-    "CancelMessageText": "هل أنت متأكد أنك تريد إلغاء هذه المهمة المعلقة؟",
+    "CancelPendingTask": "هل أنت متأكد أنك تريد إلغاء هذه المهمة المعلقة؟",
     "Cancel": "إلغاء",
     "CalendarWeekColumnHeaderHelpText": "يظهر فوق كل عمود عندما يكون الأسبوع هو العرض النشط",
     "Calendar": "التقويم",

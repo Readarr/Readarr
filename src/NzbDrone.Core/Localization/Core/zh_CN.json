@@ -33,7 +33,7 @@
     "Calendar": "日历",
     "CalendarWeekColumnHeaderHelpText": "当使用周视图时显示上面的每一列",
     "Cancel": "取消",
-    "CancelMessageText": "您确定要取消这个挂起的任务吗？",
+    "CancelPendingTask": "您确定要取消这个挂起的任务吗？",
     "CertificateValidation": "验证证书",
     "CertificateValidationHelpText": "改变HTTPS证书验证的严格程度。不要更改除非您了解风险。",
     "ChangeFileDate": "修改文件日期",

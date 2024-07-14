@@ -349,7 +349,7 @@
     "Calendar": "カレンダー",
     "CalendarWeekColumnHeaderHelpText": "週がアクティブビューの場合、各列の上に表示されます",
     "Cancel": "キャンセル",
-    "CancelMessageText": "この保留中のタスクをキャンセルしてもよろしいですか？",
+    "CancelPendingTask": "この保留中のタスクをキャンセルしてもよろしいですか？",
     "CertificateValidation": "証明書の検証",
     "CertificateValidationHelpText": "HTTPS認証検証の厳密さを変更する",
     "ChangeFileDate": "ファイルの日付を変更する",

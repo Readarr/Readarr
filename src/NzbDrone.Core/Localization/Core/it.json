@@ -48,7 +48,7 @@
     "Calendar": "Calendario",
     "CalendarWeekColumnHeaderHelpText": "Mostra sopra ogni colonna quando la settimana è la vista attiva",
     "Cancel": "Annulla",
-    "CancelMessageText": "Sei sicuro di voler cancellare questa operazione in sospeso?",
+    "CancelPendingTask": "Sei sicuro di voler cancellare questa operazione in sospeso?",
     "CertificateValidation": "Convalida del Certificato",
     "CertificateValidationHelpText": "Cambia quanto rigorosamente vengono validati i certificati HTTPS. Non cambiare senza conoscerne i rischi.",
     "ChangeFileDate": "Cambiare la Data del File",

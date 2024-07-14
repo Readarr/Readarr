@@ -35,7 +35,7 @@
     "Calendar": "Kalender",
     "CalendarWeekColumnHeaderHelpText": "Wird in der Wochenansicht über jeder Spalte angezeigt",
     "Cancel": "Abbrechen",
-    "CancelMessageText": "Diese laufende Aufgabe wirklich abbrechen?",
+    "CancelPendingTask": "Diese laufende Aufgabe wirklich abbrechen?",
     "CertificateValidation": "Zertifikatsvalidierung",
     "CertificateValidationHelpText": "Ändern Sie, wie streng die Validierung der HTTPS-Zertifizierung ist. Ändern Sie nichts, es sei denn, Sie verstehen die Risiken.",
     "ChangeFileDate": "Ändern Sie das Dateidatum",
