@@ -15,7 +15,6 @@
     "20MinutesTwenty": "60 phút: {0}",
     "45MinutesFourtyFive": "60 phút: {0}",
     "60MinutesSixty": "60 phút: {0}",
-    "APIKey": "Mã API",
     "About": "Trong khoảng",
     "AddListExclusion": "Thêm loại trừ danh sách",
     "DeleteMetadataProfileMessageText": "Bạn có chắc chắn muốn xóa cấu hình chất lượng không {0}",
@@ -429,7 +428,6 @@
     "WeekColumnHeader": "Tiêu đề cột tuần",
     "Year": "Năm",
     "YesCancel": "Có, Hủy bỏ",
-    "ApiKeyHelpTextWarning": "Yêu cầu khởi động lại để có hiệu lực",
     "AnalyticsEnabledHelpTextWarning": "Yêu cầu khởi động lại để có hiệu lực",
     "DeleteRootFolderMessageText": "Bạn có chắc chắn muốn xóa trình lập chỉ mục '{0}' không?",
     "LoadingBooksFailed": "Tải tệp phim không thành công",
@@ -641,5 +639,10 @@
     "RemoveSelectedItemQueueMessageText": "Bạn có chắc chắn muốn xóa {0} khỏi hàng đợi không?",
     "SelectDropdown": "'Lựa chọn...",
     "SelectQuality": "Chọn chất lượng",
-    "Ui": "Giao diện người dùng"
+    "Ui": "Giao diện người dùng",
+    "ApiKey": "Mã API",
+    "AuthBasic": "Cơ bản (Cửa sổ bật lên trình duyệt)",
+    "AuthForm": "Biểu mẫu (Trang đăng nhập)",
+    "DisabledForLocalAddresses": "Bị vô hiệu hóa đối với địa chỉ địa phương",
+    "Enabled": "Đã bật"
 }

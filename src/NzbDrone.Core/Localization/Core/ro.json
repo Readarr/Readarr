@@ -2,9 +2,7 @@
     "20MinutesTwenty": "120 de minute: {0}",
     "45MinutesFourtyFive": "90 de minute: {0}",
     "60MinutesSixty": "60 de minute: {0}",
-    "APIKey": "Cheie API",
     "About": "Despre",
-    "ApiKeyHelpTextWarning": "Necesită repornire pentru a intra în vigoare",
     "AnalyticsEnabledHelpTextWarning": "Necesită repornire pentru a intra în vigoare",
     "AppDataDirectory": "Directorul AppData",
     "ApplyTags": "Aplicați etichete",
@@ -653,5 +651,14 @@
     "RemoveQueueItemConfirmation": "Sigur doriți să eliminați {0} elementul {1} din coadă?",
     "SelectQuality": "Selectați Calitate",
     "AutoRedownloadFailed": "Descarcare esuata",
-    "SourceTitle": "Titlul sursei"
+    "SourceTitle": "Titlul sursei",
+    "FailedLoadingSearchResults": "Nu s-au putut încărca rezultatele căutării, încercați din nou.",
+    "AuthBasic": "Basic (fereastră pop-up browser)",
+    "AuthForm": "Formulare (Pagina de autentificare)",
+    "AuthenticationRequired": "Autentificare necesara",
+    "AuthenticationRequiredPasswordHelpTextWarning": "Introduceți o parolă nouă",
+    "AuthenticationRequiredUsernameHelpTextWarning": "Introduceți un nou nume de utilizator",
+    "DisabledForLocalAddresses": "Dezactivat pentru adresele locale",
+    "ApiKey": "Cheie API",
+    "Enabled": "Activat"
 }

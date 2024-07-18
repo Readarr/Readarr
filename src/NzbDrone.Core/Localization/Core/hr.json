@@ -56,7 +56,6 @@
     "URLBase": "URL Base",
     "Usenet": "Usenet",
     "Analytics": "Analitika",
-    "APIKey": "API ključ",
     "Clear": "Očisti",
     "Grab": "Dohvati",
     "MetadataProfile": "profil metapodataka",
@@ -194,5 +193,10 @@
     "Size": " Veličina",
     "SomeResultsAreHiddenByTheAppliedFilter": "Svi rezultati su skriveni zbog primjenjenog filtera",
     "System": "Sustav",
-    "Ui": "Korisničko sučelje"
+    "Ui": "Korisničko sučelje",
+    "ApiKey": "API ključ",
+    "AuthBasic": "Osnovno (Skočni prozor preglednika)",
+    "AuthForm": "Forme (Login Stranica)",
+    "DisabledForLocalAddresses": "Onemogućeno za Lokalne Adrese",
+    "Enabled": "Omogući"
 }

@@ -11,7 +11,6 @@
     "Group": "Grupa",
     "20MinutesTwenty": "60 minut: {0}",
     "About": "O",
-    "ApiKeyHelpTextWarning": "Wymaga ponownego uruchomienia, aby odniosło skutek",
     "AnalyticsEnabledHelpTextWarning": "Wymaga ponownego uruchomienia, aby odniosło skutek",
     "DeleteRootFolderMessageText": "Czy na pewno chcesz usunąć indeksator „{0}”?",
     "DiskSpace": "Miejsca na dysku",
@@ -41,7 +40,6 @@
     "RemovedFromTaskQueue": "Usunięto z kolejki zadań",
     "45MinutesFourtyFive": "60 minut: {0}",
     "60MinutesSixty": "60 minut: {0}",
-    "APIKey": "Klucz API",
     "AddListExclusion": "Dodaj wykluczenie z listy",
     "AddingTag": "Dodawanie tagu",
     "RemoveTagExistingTag": "Istniejący tag",
@@ -688,5 +686,10 @@
     "InteractiveSearchModalHeader": "Wyszukiwanie interaktywne",
     "SelectDropdown": "Wybierz...",
     "SelectQuality": "Wybierz Jakość",
-    "SelectReleaseGroup": "Wybierz grupę wydającą"
+    "SelectReleaseGroup": "Wybierz grupę wydającą",
+    "AuthBasic": "Podstawowe (wyskakujące okienko przeglądarki)",
+    "AuthForm": "Formularze (strona logowania)",
+    "DisabledForLocalAddresses": "Wyłączone dla adresów lokalnych",
+    "Enabled": "Włączone",
+    "ApiKey": "Klucz API"
 }

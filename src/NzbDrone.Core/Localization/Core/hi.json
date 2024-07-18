@@ -1,5 +1,5 @@
 {
-    "45MinutesFourtyFive": "90 मिनट: {0}",
+    "45MinutesFourtyFive": "45 मिनट: {0}",
     "60MinutesSixty": "60 मिनट: {0}",
     "About": "के बारे में",
     "AddListExclusion": "सूची बहिष्करण जोड़ें",
@@ -423,10 +423,8 @@
     "WeekColumnHeader": "वीक कॉलम हैडर",
     "Year": "साल",
     "YesCancel": "हाँ, रद्द करें",
-    "20MinutesTwenty": "90 मिनट: {0}",
-    "APIKey": "एपीआई कुंजी",
+    "20MinutesTwenty": "20 मिनट: {0}",
     "AnalyticsEnabledHelpTextWarning": "प्रभावी करने के लिए पुनरारंभ की आवश्यकता है",
-    "ApiKeyHelpTextWarning": "प्रभावी करने के लिए पुनरारंभ की आवश्यकता है",
     "DeleteTag": "टैग हटाएं",
     "DeleteRootFolderMessageText": "क्या आप वाकई '{0}' इंडेक्स को हटाना चाहते हैं?",
     "EnableRSS": "आरएसएस को सक्षम करें",
@@ -637,5 +635,10 @@
     "RemovingTag": "टैग हटाना",
     "SelectDropdown": "'चुनते हैं..।",
     "SelectQuality": "गुणवत्ता का चयन करें",
-    "Ui": "यूआई"
+    "Ui": "यूआई",
+    "ApiKey": "एपीआई कुंजी",
+    "AuthBasic": "बेसिक (ब्राउज़र पॉपअप)",
+    "AuthForm": "प्रपत्र (लॉग इन पेज)",
+    "DisabledForLocalAddresses": "स्थानीय पते के लिए अक्षम",
+    "Enabled": "सक्रिय"
 }

@@ -1,5 +1,4 @@
 {
-    "ApiKeyHelpTextWarning": "Изисква рестартиране, за да влезе в сила",
     "Enable": "Активиране",
     "MIA": "МВР",
     "Size": " Размер",
@@ -7,7 +6,6 @@
     "20MinutesTwenty": "120 минути: {0}",
     "45MinutesFourtyFive": "90 минути: {0}",
     "60MinutesSixty": "60 минути: {0}",
-    "APIKey": "API ключ",
     "About": "относно",
     "AddListExclusion": "Добавяне на изключване от списъка",
     "AddingTag": "Добавяне на таг",
@@ -639,5 +637,10 @@
     "RemoveQueueItemConfirmation": "Наистина ли искате да премахнете {0} елемент {1} от опашката?",
     "IndexerFlags": "Индексиращи знамена",
     "InteractiveSearchModalHeader": "Интерактивно търсене",
-    "FailedLoadingSearchResults": "Неуспешно зареждане на резултатите от търсенето, моля, опитайте отново."
+    "FailedLoadingSearchResults": "Неуспешно зареждане на резултатите от търсенето, моля, опитайте отново.",
+    "ApiKey": "API ключ",
+    "AuthBasic": "Основно (изскачащ прозорец на браузъра)",
+    "AuthForm": "Формуляри (Страница за вход)",
+    "DisabledForLocalAddresses": "Забранено за местни адреси",
+    "Enabled": "Активирано"
 }

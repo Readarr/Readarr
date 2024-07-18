@@ -92,5 +92,15 @@
     "RedownloadFailed": "Pengunduhan Ulang Gagal",
     "ConnectSettingsSummary": "Notifikasi, koneksi ke server/pemutar media, dan script khusus",
     "AutoRedownloadFailed": "Pengunduhan Ulang Gagal",
-    "StatusEndedContinuing": "Berlanjut"
+    "StatusEndedContinuing": "Berlanjut",
+    "AuthBasic": "Dasar (Popup Browser)",
+    "AuthForm": "Formulir (Halaman Masuk)",
+    "AuthenticationMethod": "Metode Autentikasi",
+    "AuthenticationMethodHelpTextWarning": "Silakan pilih metode autentikasi yang sah",
+    "AuthenticationRequired": "Autentikasi Diperlukan",
+    "AuthenticationRequiredPasswordConfirmationHelpTextWarning": "Konfirmasi sandi baru",
+    "AuthenticationRequiredPasswordHelpTextWarning": "Masukkan sandi baru",
+    "AuthenticationRequiredUsernameHelpTextWarning": "Masukkan nama pengguna baru",
+    "AuthenticationRequiredWarning": "Untuk mencegah akses jarak jauh tanpa autentikasi, {appName} kini mewajibkan pengaktifkan autentikasi. Kamu dapat menonaktifkan autentikasi dari jaringan lokal.",
+    "Enabled": "Aktif"
 }

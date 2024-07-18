@@ -62,7 +62,6 @@
     "DownloadFailedCheckDownloadClientForMoreDetails": "다운로드 실패 : 자세한 내용은 다운로드 클라이언트를 확인하십시오.",
     "DownloadFailedInterp": "다운로드 실패 : {0}",
     "60MinutesSixty": "60 분 : {0}",
-    "APIKey": "API 키",
     "About": "약",
     "AddListExclusion": "목록 제외 추가",
     "AddingTag": "태그 추가",
@@ -429,7 +428,6 @@
     "Version": "버전",
     "WeekColumnHeader": "주 열 헤더",
     "YesCancel": "예, 취소합니다",
-    "ApiKeyHelpTextWarning": "적용하려면 다시 시작해야합니다.",
     "AnalyticsEnabledHelpTextWarning": "적용하려면 다시 시작해야합니다.",
     "DeleteRootFolderMessageText": "인덱서 '{0}'을 (를) 삭제 하시겠습니까?",
     "LoadingBooksFailed": "영화 파일을로드하지 못했습니다.",
@@ -628,5 +626,10 @@
     "AutoRedownloadFailed": "다운로드 실패함",
     "InteractiveSearchModalHeader": "대화형 검색",
     "IndexerFlags": "인덱서 플래그",
-    "FailedLoadingSearchResults": "검색 결과를 불러오지 못했습니다. 다시 시도하십시오."
+    "FailedLoadingSearchResults": "검색 결과를 불러오지 못했습니다. 다시 시도하십시오.",
+    "ApiKey": "API 키",
+    "AuthBasic": "기본 (브라우저 팝업)",
+    "AuthForm": "양식 (로그인 페이지)",
+    "DisabledForLocalAddresses": "로컬 주소에 대해 비활성화됨",
+    "Enabled": "활성화"
 }

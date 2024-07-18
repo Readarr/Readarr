@@ -332,7 +332,6 @@
     "AddingTag": "مضيفا العلامة",
     "AddListExclusion": "إضافة استبعاد قائمة",
     "About": "نبدة عن",
-    "APIKey": "مفتاح API",
     "60MinutesSixty": "60 دقيقة: {0}",
     "45MinutesFourtyFive": "90 دقيقة: {0}",
     "20MinutesTwenty": "120 دقيقة: {0}",
@@ -430,7 +429,6 @@
     "HasPendingChangesNoChanges": "لا تغيرات",
     "Group": "مجموعة",
     "GrabSelected": "انتزاع المحدد",
-    "ApiKeyHelpTextWarning": "يتطلب إعادة التشغيل ليصبح ساري المفعول",
     "DeleteRootFolderMessageText": "هل أنت متأكد أنك تريد حذف المفهرس \"{0}\"؟",
     "LoadingBooksFailed": "فشل تحميل ملفات الفيلم",
     "ProxyUsernameHelpText": "ما عليك سوى إدخال اسم مستخدم وكلمة مرور إذا كان أحدهما مطلوبًا. اتركها فارغة وإلا.",
@@ -638,5 +636,11 @@
     "SelectQuality": "حدد الجودة",
     "CustomFilter": "مرشحات مخصصة",
     "IndexerFlags": "أعلام المفهرس",
-    "InteractiveSearchModalHeader": "بحث تفاعلي"
+    "InteractiveSearchModalHeader": "بحث تفاعلي",
+    "ApiKey": "مفتاح API",
+    "AuthBasic": "أساسي (المتصفح المنبثق)",
+    "AuthForm": "النماذج (صفحة تسجيل الدخول)",
+    "Enabled": "ممكن",
+    "FailedLoadingSearchResults": "فشل تحميل نتائج البحث ، يرجى المحاولة مرة أخرى.",
+    "DisabledForLocalAddresses": "معطل بسبب العناوين المحلية"
 }

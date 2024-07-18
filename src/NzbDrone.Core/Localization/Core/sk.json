@@ -31,7 +31,6 @@
     "AlreadyInYourLibrary": "Už vo vašej knižnici",
     "AlternateTitles": "Alternatívny názov",
     "AnalyticsEnabledHelpText": "Odosielajte anonymné informácie o používaní a chybách na servery Readarru. To zahŕňa informácie o vašom prehliadači, ktoré stránky Radarr WebUI používate, hlásenia chýb a taktiež verziu operačného systému a spúšťacieho prostredia. Tieto informácie použijeme k uprednostňovaniu funkcií a oprav chýb.",
-    "APIKey": "Kľúč rozhrania API",
     "AppDataDirectory": "Priečinok AppData",
     "ApplyTags": "Použiť značky",
     "Authentication": "Overenie",
@@ -138,7 +137,6 @@
     "EnableSslHelpText": " Vyžaduje sa reštart s oprávnením správcu, aby sa zmeny prejavili",
     "SslPortHelpTextWarning": "Vyžaduje sa reštart, aby sa zmeny prejavili",
     "UrlBaseHelpTextWarning": "Vyžaduje sa reštart, aby sa zmeny prejavili",
-    "ApiKeyHelpTextWarning": "Vyžaduje sa reštart, aby sa zmeny prejavili",
     "AnalyticsEnabledHelpTextWarning": "Vyžaduje sa reštart, aby sa zmeny prejavili",
     "RestartRequiredHelpTextWarning": "Vyžaduje sa reštart, aby sa zmeny prejavili",
     "ApplyTagsHelpTextHowToApplyDownloadClients": "Ako použiť značky na vybratých klientov na sťahovanie",
@@ -190,5 +188,13 @@
     "UnableToAddANewDownloadClientPleaseTryAgain": "Nie je možné pridať novú podmienku, skúste to znova.",
     "UnableToAddANewIndexerPleaseTryAgain": "Nie je možné pridať novú podmienku, skúste to znova.",
     "UnableToAddANewRootFolderPleaseTryAgain": "Nie je možné pridať novú automatickú značku, skúste to znova.",
-    "UnableToLoadBackups": "Nie je možné načítať albumy"
+    "UnableToLoadBackups": "Nie je možné načítať albumy",
+    "ApiKey": "Kľúč rozhrania API",
+    "AuthBasic": "Základné (vyskakovacie okno prehliadača)",
+    "AuthForm": "Formuláre (prihlasovacia stránka)",
+    "DisabledForLocalAddresses": "Zakázané pre miestne adresy",
+    "Enabled": "Povoliť",
+    "UnableToAddANewImportListExclusionPleaseTryAgain": "Nie je možné pridať novú podmienku, skúste to znova.",
+    "UnableToAddANewMetadataProfilePleaseTryAgain": "Nie je možné pridať novú podmienku, skúste to znova.",
+    "UnableToAddANewQualityProfilePleaseTryAgain": "Nie je možné pridať novú podmienku, skúste to znova."
 }

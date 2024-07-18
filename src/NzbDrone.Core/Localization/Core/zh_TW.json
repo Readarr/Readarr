@@ -30,7 +30,6 @@
     "AddListExclusion": "新增排除清單",
     "BackupNow": "馬上備份",
     "BlocklistRelease": "封鎖清單版本",
-    "APIKey": "API密鑰",
     "20MinutesTwenty": "20分鐘：{0}",
     "45MinutesFourtyFive": "45分鐘：{0}",
     "60MinutesSixty": "60分鐘：{0}",
@@ -137,5 +136,12 @@
     "RootFolder": "根目錄資料夾",
     "Settings": "設定",
     "SomeResultsAreHiddenByTheAppliedFilter": "根據所使用的篩選器已將所有結果隱藏",
-    "UsingExternalUpdateMechanismBranchUsedByExternalUpdateMechanism": "外部更新機制使用的分支"
+    "UsingExternalUpdateMechanismBranchUsedByExternalUpdateMechanism": "外部更新機制使用的分支",
+    "DeleteImportListExclusion": "新增排除清單",
+    "ApplyTagsHelpTextHowToApplyIndexers": "如何套用標籤在所選擇的輸入清單",
+    "UnableToAddANewImportListExclusionPleaseTryAgain": "無法加入新的條件，請重新嘗試。",
+    "AuthForm": "表單（登入頁面）",
+    "ApiKey": "API密鑰",
+    "AuthBasic": "基礎（瀏覽器彈出視窗）",
+    "Enabled": "啟用"
 }

@@ -10,11 +10,9 @@
     "20MinutesTwenty": "60 นาที: {0}",
     "45MinutesFourtyFive": "60 นาที: {0}",
     "60MinutesSixty": "60 นาที: {0}",
-    "APIKey": "คีย์ API",
     "About": "เกี่ยวกับ",
     "AddListExclusion": "เพิ่มการยกเว้นรายการ",
     "AddingTag": "กำลังเพิ่มแท็ก",
-    "ApiKeyHelpTextWarning": "ต้องรีสตาร์ทเพื่อให้มีผล",
     "AnalyticsEnabledHelpTextWarning": "ต้องรีสตาร์ทเพื่อให้มีผล",
     "DeleteRootFolderMessageText": "แน่ใจไหมว่าต้องการลบตัวสร้างดัชนี \"{0}\"",
     "LoadingBooksFailed": "การโหลดไฟล์ภาพยนตร์ล้มเหลว",
@@ -639,5 +637,10 @@
     "AutoRedownloadFailed": "ดาวน์โหลดล้มเหลว",
     "IndexerFlags": "ดัชนีดัชนี",
     "InteractiveSearchModalHeader": "การค้นหาแบบโต้ตอบ",
-    "FailedLoadingSearchResults": "ไม่สามารถโหลดผลการค้นหาโปรดลองอีกครั้ง"
+    "FailedLoadingSearchResults": "ไม่สามารถโหลดผลการค้นหาโปรดลองอีกครั้ง",
+    "ApiKey": "คีย์ API",
+    "DisabledForLocalAddresses": "ปิดใช้งานสำหรับที่อยู่ท้องถิ่น",
+    "Enabled": "เปิดใช้งาน",
+    "AuthBasic": "พื้นฐาน (เบราว์เซอร์ป๊อปอัพ)",
+    "AuthForm": "แบบฟอร์ม (หน้าเข้าสู่ระบบ)"
 }

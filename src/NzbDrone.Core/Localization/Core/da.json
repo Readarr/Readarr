@@ -2,7 +2,6 @@
     "20MinutesTwenty": "20 minutter: {0}",
     "45MinutesFourtyFive": "45 minutter: {0}",
     "60MinutesSixty": "60 minutter: {0}",
-    "APIKey": "API-nøgle",
     "About": "Om",
     "AddListExclusion": "Tilføj ekskludering af liste",
     "AddingTag": "Tilføjer tag",
@@ -431,7 +430,6 @@
     "WeekColumnHeader": "Ugens kolonneoverskrift",
     "Year": "År",
     "YesCancel": "Ja, Annuller",
-    "ApiKeyHelpTextWarning": "Kræver genstart for at træde i kraft",
     "DeleteRootFolderMessageText": "Er du sikker på, at du vil slette indeksøren '{0}'?",
     "LoadingBooksFailed": "Indlæsning af filmfiler mislykkedes",
     "ProxyPasswordHelpText": "Du skal kun indtaste et brugernavn og en adgangskode, hvis der kræves et. Lad dem være tomme ellers.",
@@ -651,5 +649,10 @@
     "Theme": "Tema",
     "Publisher": "Udgiver",
     "CatalogNumber": "katalognummer",
-    "FailedLoadingSearchResults": "Kunne ikke indlæse søgeresultater. Prøv igen."
+    "FailedLoadingSearchResults": "Kunne ikke indlæse søgeresultater. Prøv igen.",
+    "AuthBasic": "Grundlæggende (pop op-browser)",
+    "AuthForm": "Formularer (login-side)",
+    "DisabledForLocalAddresses": "Deaktiveret for lokale adresser",
+    "Enabled": "Aktiveret",
+    "ApiKey": "API-nøgle"
 }

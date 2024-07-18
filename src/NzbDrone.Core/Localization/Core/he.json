@@ -420,10 +420,8 @@
     "20MinutesTwenty": "60 דקות: {0}",
     "45MinutesFourtyFive": "60 דקות: {0}",
     "60MinutesSixty": "60 דקות: {0}",
-    "APIKey": "מפתח API",
     "About": "אודות",
     "AddListExclusion": "הוסף אי הכללת רשימה",
-    "ApiKeyHelpTextWarning": "נדרש הפעלה מחדש כדי להיכנס לתוקף",
     "AnalyticsEnabledHelpTextWarning": "נדרש הפעלה מחדש כדי להיכנס לתוקף",
     "Automatic": "אוֹטוֹמָטִי",
     "Cancel": "לְבַטֵל",
@@ -668,5 +666,15 @@
     "AutoRedownloadFailed": "הורדה נכשלה",
     "IndexerFlags": "אינדקס דגלים",
     "InteractiveSearchModalHeader": "חיפוש אינטראקטיבי",
-    "FailedLoadingSearchResults": "טעינת תוצאות החיפוש נכשלה, נסה שוב."
+    "FailedLoadingSearchResults": "טעינת תוצאות החיפוש נכשלה, נסה שוב.",
+    "RemotePathMappingCheckFilesLocalWrongOSPath": "אתה משתמש בדוקר; קליינט ההורדות {downloadClientName} שם הורדות ב-{path} אבל הנתיב לא תקין {osName}. בחן מחדש את ניתוב התיקיות והגדרות קליינט ההורדות.",
+    "RemotePathMappingCheckLocalWrongOSPath": "אתה משתמש בדוקר; קליינט ההורדות {downloadClientName} שם הורדות ב-{path} אבל הנתיב לא תקין {osName}. בחן מחדש את ניתוב התיקיות והגדרות קליינט ההורדות.",
+    "ApiKey": "מפתח API",
+    "AuthBasic": "בסיסי (חלון קופץ לדפדפן)",
+    "AuthForm": "טפסים (דף כניסה)",
+    "AuthenticationRequired": "נדרש אימות",
+    "AuthenticationRequiredHelpText": "הגדר עבור אילו קריאות נדרש אימות. עדיף להשאיר את ברירת המחדל.",
+    "AuthenticationRequiredWarning": "בכדי למנוע גישה מרחוק ללא אימות, {appName} דורש הגדרת אימות.\nהגדר את הפרטים ושיטת האימות. ישנה אפשרות לדלג על אימות מהרשת הביתית שלך. \nבמידת הצורך יש לפנות אל שו״ת למידע נוסף.",
+    "DisabledForLocalAddresses": "מושבת לכתובות מקומיות",
+    "Enabled": "מופעל"
 }

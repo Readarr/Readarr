@@ -7,11 +7,9 @@
     "20MinutesTwenty": "20 Minuter: {0}",
     "45MinutesFourtyFive": "45 Minuter: {0}",
     "60MinutesSixty": "60 Minuter: {0}",
-    "APIKey": "API Nyckel",
     "About": "Om",
     "AddListExclusion": "Lägg till listuteslutning",
     "AddingTag": "Lägg till tagg",
-    "ApiKeyHelpTextWarning": "Kräver omstart för att träda i kraft",
     "AnalyticsEnabledHelpTextWarning": "Kräver omstart för att träda i kraft",
     "Automatic": "Automatiskt",
     "DelayProfile": "Fördröjande profil",
@@ -870,5 +868,10 @@
     "SetTags": "Ange taggar",
     "Small": "Små",
     "SomeResultsAreHiddenByTheAppliedFilter": "Vissa resultat döljs av det applicerade filtret",
-    "SourceTitle": "Källtitel"
+    "SourceTitle": "Källtitel",
+    "AuthBasic": "Grundläggande (Browser Popup)",
+    "DisabledForLocalAddresses": "Inaktiverad för lokala adresser",
+    "Enabled": "Aktiverad",
+    "ApiKey": "API Nyckel",
+    "AuthForm": "Blanketter (inloggningssida)"
 }
