@@ -219,7 +219,7 @@ namespace NzbDrone.Core.Configuration
         // TODO: Change back to "master" for the first stable release
         public string Branch => _updateOptions.Branch ?? GetValue("Branch", "develop").ToLowerInvariant();
 
-        public string LogLevel => _logOptions.Level ?? GetValue("LogLevel", "info").ToLowerInvariant();
+        public string LogLevel => _logOptions.Level ?? GetValue("LogLevel", "debug").ToLowerInvariant();
         public string ConsoleLogLevel => _logOptions.ConsoleLevel ?? GetValue("ConsoleLogLevel", string.Empty, persist: false);
 
         public string PostgresHost => _postgresOptions?.Host ?? GetValue("PostgresHost", string.Empty, persist: false);
