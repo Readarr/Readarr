@@ -80,7 +80,7 @@
     "DelayingDownloadUntilInterp": "Ritardare il download fino al {0} a {1}",
     "Delete": "Cancella",
     "DeleteBackup": "Cancella Backup",
-    "DeleteBackupMessageText": "Sei sicuro di voler cancellare il backup '{name}'?",
+    "DeleteBackupMessageText": "Sei sicuro di voler eliminare il backup '{name}'?",
     "DeleteDelayProfile": "Elimina Profilo di Ritardo",
     "DeleteDelayProfileMessageText": "Sei sicuro di volere eliminare questo profilo di ritardo?",
     "DeleteDownloadClient": "Cancella Client di Download",
@@ -89,9 +89,9 @@
     "DeleteEmptyFoldersHelpText": "Cancellare le cartelle vuote dei film durante la scansione del disco e quando i file di film vengono cancellati",
     "DeleteImportListExclusion": "Rimuovi Esclusione dalla Lista Importazioni",
     "DeleteImportListExclusionMessageText": "Sei sicuro di voler cancellare questa lista di esclusioni delle importazioni?",
-    "DeleteImportListMessageText": "Sei sicuro di volere eliminare la lista '{name}'?",
+    "DeleteImportListMessageText": "Sei sicuro di voler eliminare la lista '{name}'?",
     "DeleteIndexer": "Cancella Indicizzatore",
-    "DeleteIndexerMessageText": "Sicuro di voler eliminare l'indicizzatore '{name}'?",
+    "DeleteIndexerMessageText": "Sei sicuro di voler eliminare l'indicizzatore '{name}'?",
     "DeleteMetadataProfileMessageText": "Sicuro di voler cancellare il profilo di qualità '{name}'?",
     "DeleteNotification": "Cancella Notifica",
     "DeleteNotificationMessageText": "Sei sicuro di voler eliminare la notifica '{name}'?",
@@ -677,7 +677,7 @@
     "RemoveSelectedItem": "Rimuovi elemento selezionato",
     "ApplyTagsHelpTextReplace": "Sostituire: Sostituisce le etichette con quelle inserite (non inserire nessuna etichette per eliminarle tutte)",
     "ApplyTagsHelpTextHowToApplyAuthors": "Come applicare etichette agli indicizzatori selezionati",
-    "CountIndexersSelected": "{selectedCount} indicizzatore(i) selezionato(i)",
+    "CountIndexersSelected": "{selectedCount} indicizzatori selezionati",
     "No": "No",
     "NoChange": "Nessun Cambio",
     "RemoveCompleted": "Rimuovi completati",
@@ -898,5 +898,7 @@
     "ShouldMonitorExisting": "Monitora Libri Esistenti",
     "UseSSL": "Usa SSL",
     "Fixed": "Fissato",
-    "MusicBrainzTrackID": "ID Libro MusicBrainz"
+    "MusicBrainzTrackID": "ID Libro MusicBrainz",
+    "CountImportListsSelected": "{selectedCount} autore/i selezionato/i",
+    "DownloadClientDelugeSettingsDirectory": "Cartella Download"
 }

@@ -896,7 +896,7 @@
     "DataListMonitorNone": "No monitorizar autores o libros",
     "Iso639-3": "Códigos de idioma ISO 639-3, o 'nulo', separados por coma",
     "MinPopularityHelpText": "Popularidad es la media de valoraciones * número de votos",
-    "DeleteSelected": "Eliminar seleccionados",
+    "DeleteSelected": "Borrar seleccionados",
     "IsExpandedShowFileInfo": "Mostrar información de archivo",
     "MassBookSearchWarning": "¿Estás seguro que quieres llevar a cabo una búsqueda masiva para {0} libros?",
     "MonitorNewItemsHelpText": "Qué nuevos libros deberían ser monitorizados",

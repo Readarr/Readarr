@@ -823,5 +823,6 @@
     "AuthenticationRequiredPasswordConfirmationHelpTextWarning": "Yeni şifreyi onayla",
     "AuthenticationRequiredPasswordHelpTextWarning": "Yeni şifre girin",
     "AuthenticationRequiredUsernameHelpTextWarning": "Yeni kullanıcı adınızı girin",
-    "AuthenticationRequiredWarning": "Kimlik doğrulaması olmadan uzaktan erişimi engellemek için, {appName}'da artık kimlik doğrulamanın etkinleştirilmesini gerektiriyor. İsteğe bağlı olarak yerel adresler için kimlik doğrulamayı devre dışı bırakabilirsiniz."
+    "AuthenticationRequiredWarning": "Kimlik doğrulaması olmadan uzaktan erişimi engellemek için, {appName}'da artık kimlik doğrulamanın etkinleştirilmesini gerektiriyor. İsteğe bağlı olarak yerel adresler için kimlik doğrulamayı devre dışı bırakabilirsiniz.",
+    "DeleteSelected": "Seçileni Sil"
 }

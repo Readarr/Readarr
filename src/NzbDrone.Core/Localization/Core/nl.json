@@ -739,5 +739,20 @@
     "AuthenticationRequiredWarning": "Om toegang zonder authenticatie te voorkomen vereist {appName} nu verificatie. Je kan dit optioneel uitschakelen voor lokale adressen.",
     "DisabledForLocalAddresses": "Uitgeschakeld voor lokale adressen",
     "Enabled": "Ingeschakeld",
-    "ApiKey": "API-sleutel"
+    "ApiKey": "API-sleutel",
+    "ClickToChangeIndexerFlags": "Klik om indexeringsvlaggen te wijzigen",
+    "CustomFormatsSpecificationFlag": "Vlag",
+    "CustomFormatsSpecificationRegularExpression": "Reguliere expressie",
+    "BlocklistOnlyHint": "Blokkeer lijst zonder te zoeken naar een vervanger",
+    "BlocklistAndSearch": "Blokkeerlijst en zoeken",
+    "BlocklistAndSearchHint": "Een vervanger zoeken na het blokkeren",
+    "BlocklistAndSearchMultipleHint": "Zoekopdrachten voor vervangers starten na het blokkeren van de lijst",
+    "CustomFormatsSettingsTriggerInfo": "Een Aangepast Formaat wordt toegepast op een uitgave of bestand als het overeenkomt met ten minste één van de verschillende condities die zijn gekozen.",
+    "ConnectionSettingsUrlBaseHelpText": "Voegt een voorvoegsel toe aan de {connectionName} url, zoals {url}",
+    "BlocklistMultipleOnlyHint": "Blocklist zonder te zoeken naar vervangers",
+    "BlocklistOnly": "Alleen bloklijst",
+    "ChangeCategoryHint": "Verandert download naar de 'Post-Import Categorie' van Downloadclient",
+    "Clone": "Kloon",
+    "CustomFormatsSpecificationRegularExpressionHelpText": "Aangepaste opmaak RegEx is hoofdletterongevoelig",
+    "ChangeCategoryMultipleHint": "Wijzigt downloads naar de 'Post-Import Categorie' van Downloadclient"
 }

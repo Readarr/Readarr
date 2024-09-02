@@ -740,5 +740,10 @@
     "BlocklistAndSearchMultipleHint": "Розпочати пошук замін після додавання до чорного списку",
     "ChangeCategoryMultipleHint": "Змінює завантаження на «Категорію після імпорту» з клієнта завантажувача",
     "CloneCondition": "Клонування умови",
-    "AutoRedownloadFailedFromInteractiveSearchHelpText": "Автоматично шукати та намагатися завантажити інший реліз, якщо обраний реліз не вдалось завантажити з інтерактивного пошуку."
+    "AutoRedownloadFailedFromInteractiveSearchHelpText": "Автоматично шукати та намагатися завантажити інший реліз, якщо обраний реліз не вдалось завантажити з інтерактивного пошуку.",
+    "BypassIfAboveCustomFormatScoreHelpText": "Увімкнути обхід, якщо реліз має оцінку вищу за встановлений мінімальний бал користувацького формату",
+    "CountDownloadClientsSelected": "Вибрано {count} клієнтів завантажувача",
+    "ReleaseProfiles": "профіль релізу",
+    "MinimumCustomFormatScoreHelpText": "Мінімальна оцінка користувацького формату, необхідна для обходу затримки для обраного протоколу",
+    "BypassIfAboveCustomFormatScore": "Пропустити, якщо перевищено оцінку користувацького формату"
 }
