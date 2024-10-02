@@ -120,6 +120,7 @@ _artifacts
 _rawPackage/
 _dotTrace*
 _tests/
+_temp*
 *.Result.xml
 coverage*.xml
 coverage*.json
