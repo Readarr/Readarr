@@ -39,6 +39,10 @@ namespace NzbDrone.Core.IndexerSearch.Definitions
 
             //remove any repeating +s
             cleanTitle = Regex.Replace(cleanTitle, @"\+{2,}", "+");
+            cleanTitle = cleanTitle.Replace("ä", "ae");
+            cleanTitle = cleanTitle.Replace("ü", "ue");
+            cleanTitle = cleanTitle.Replace("ö", "oe");
+            cleanTitle = cleanTitle.Replace("ß", "ss");
             cleanTitle = cleanTitle.RemoveAccent();
             cleanTitle = cleanTitle.Trim('+', ' ');
 
