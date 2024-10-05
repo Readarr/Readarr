@@ -20,6 +20,8 @@ namespace Readarr.Http.Middleware
             if (_urlBase.IsNotNullOrWhiteSpace() && context.Request.PathBase.Value.IsNullOrWhiteSpace())
             {
                 context.Response.Redirect($"{_urlBase}{context.Request.Path}{context.Request.QueryString}");
+                context.Response.StatusCode = 307;
+
                 return;
             }
 
