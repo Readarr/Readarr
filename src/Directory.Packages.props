@@ -9,17 +9,17 @@
     <PackageVersion Include="DryIoc.Microsoft.DependencyInjection" Version="6.2.0" />
     <PackageVersion Include="Equ" Version="2.3.0" />
     <PackageVersion Include="FluentAssertions" Version="5.10.3" />
-    <PackageVersion Include="Polly" Version="8.4.1" />
+    <PackageVersion Include="Polly" Version="8.4.2" />
     <PackageVersion Include="Servarr.FluentMigrator.Runner" Version="3.3.2.9" />
     <PackageVersion Include="Servarr.FluentMigrator.Runner.SQLite" Version="3.3.2.9" />
     <PackageVersion Include="Servarr.FluentMigrator.Runner.Postgres" Version="3.3.2.9" />
     <PackageVersion Include="FluentValidation" Version="9.5.4" />
-    <PackageVersion Include="Ical.Net" Version="4.2.0" />
+    <PackageVersion Include="Ical.Net" Version="4.3.1" />
     <PackageVersion Include="ImpromptuInterface" Version="7.0.1" />
     <PackageVersion Include="LazyCache" Version="2.4.0" />
     <PackageVersion Include="Mailkit" Version="3.6.0" />
-    <PackageVersion Include="Microsoft.AspNetCore.SignalR.Client" Version="6.0.32" />
-    <PackageVersion Include="Microsoft.Extensions.Caching.Memory" Version="6.0.1" />
+    <PackageVersion Include="Microsoft.AspNetCore.SignalR.Client" Version="6.0.35" />
+    <PackageVersion Include="Microsoft.Extensions.Caching.Memory" Version="6.0.2" />
     <PackageVersion Include="Microsoft.Extensions.Configuration" Version="6.0.1" />
     <PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="6.0.1" />
     <PackageVersion Include="Microsoft.Extensions.Hosting.WindowsServices" Version="6.0.2" />
@@ -34,7 +34,7 @@
     <PackageVersion Include="NLog.Extensions.Logging" Version="5.2.3" />
     <PackageVersion Include="NLog" Version="5.1.4" />
     <PackageVersion Include="NLog.Targets.Syslog" Version="7.0.0" />
-    <PackageVersion Include="Npgsql" Version="7.0.7" />
+    <PackageVersion Include="Npgsql" Version="7.0.8" />
     <PackageVersion Include="NUnit3TestAdapter" Version="4.2.1" />
     <PackageVersion Include="NUnit" Version="3.14.0" />
     <PackageVersion Include="NunitXml.TestLogger" Version="3.0.117" />
@@ -62,7 +62,7 @@
     <PackageVersion Include="System.Security.Principal.Windows" Version="5.0.0" />
     <PackageVersion Include="System.ServiceProcess.ServiceController" Version="6.0.1" />
     <PackageVersion Include="System.Text.Encoding.CodePages" Version="6.0.0" />
-    <PackageVersion Include="System.Text.Json" Version="6.0.9" />
+    <PackageVersion Include="System.Text.Json" Version="6.0.10" />
     <PackageVersion Include="System.ValueTuple" Version="4.5.0" />
     <PackageVersion Include="TagLibSharp-Lidarr" Version="2.2.0.19" />
   </ItemGroup>
