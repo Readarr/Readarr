@@ -5,6 +5,7 @@ import dimensions from 'Styles/Variables/dimensions';
 import formatDateTime from 'Utilities/Date/formatDateTime';
 import getRelativeDate from 'Utilities/Date/getRelativeDate';
 import formatBytes from 'Utilities/Number/formatBytes';
+import translate from 'Utilities/String/translate';
 import BookIndexOverviewInfoRow from './BookIndexOverviewInfoRow';
 import styles from './BookIndexOverviewInfo.css';
 
@@ -71,9 +72,9 @@ function getInfoRowProps(row, props) {
     };
   }
 
-  if (name === 'qualityProfileId') {
+  if (name === 'qualityProfileId' && !!props.qualityProfile?.name) {
     return {
-      title: 'Quality Profile',
+      title: translate('QualityProfile'),
       iconName: icons.PROFILE,
       label: props.qualityProfile.name
     };

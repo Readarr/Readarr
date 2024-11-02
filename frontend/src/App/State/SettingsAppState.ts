@@ -1,5 +1,6 @@
 import AppSectionState, {
   AppSectionDeleteState,
+  AppSectionItemState,
   AppSectionSaveState,
 } from 'App/State/AppSectionState';
 import DownloadClient from 'typings/DownloadClient';
@@ -7,12 +8,15 @@ import ImportList from 'typings/ImportList';
 import Indexer from 'typings/Indexer';
 import IndexerFlag from 'typings/IndexerFlag';
 import Notification from 'typings/Notification';
-import { UiSettings } from 'typings/UiSettings';
+import General from 'typings/Settings/General';
+import UiSettings from 'typings/Settings/UiSettings';
 
 export interface DownloadClientAppState
   extends AppSectionState<DownloadClient>,
     AppSectionDeleteState,
     AppSectionSaveState {}
+
+export type GeneralAppState = AppSectionItemState<General>;
 
 export interface ImportListAppState
   extends AppSectionState<ImportList>,
@@ -33,11 +37,12 @@ export type UiSettingsAppState = AppSectionState<UiSettings>;
 
 interface SettingsAppState {
   downloadClients: DownloadClientAppState;
+  general: GeneralAppState;
   importLists: ImportListAppState;
   indexerFlags: IndexerFlagSettingsAppState;
   indexers: IndexerAppState;
   notifications: NotificationAppState;
-  uiSettings: UiSettingsAppState;
+  ui: UiSettingsAppState;
 }
 
 export default SettingsAppState;

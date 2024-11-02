@@ -235,12 +235,12 @@ class AuthorIndexPoster extends Component {
               </div>
           }
 
-          {
-            showQualityProfile &&
-              <div className={styles.title}>
-                {qualityProfile.name}
-              </div>
-          }
+          {showQualityProfile && !!qualityProfile?.name ? (
+            <div className={styles.title} title={translate('QualityProfile')}>
+              {qualityProfile.name}
+            </div>
+          ) : null}
+
           {
             nextAiring &&
               <div className={styles.nextAiring}>

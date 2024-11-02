@@ -195,7 +195,7 @@ class BookIndexRow extends Component {
                   key={name}
                   className={styles[name]}
                 >
-                  {qualityProfile.name}
+                  {qualityProfile?.name ?? ''}
                 </VirtualTableRowCell>
               );
             }

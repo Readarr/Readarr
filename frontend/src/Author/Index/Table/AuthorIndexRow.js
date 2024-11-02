@@ -209,7 +209,7 @@ class AuthorIndexRow extends Component {
                   key={name}
                   className={styles[name]}
                 >
-                  {qualityProfile.name}
+                  {qualityProfile?.name ?? ''}
                 </VirtualTableRowCell>
               );
             }
@@ -220,7 +220,7 @@ class AuthorIndexRow extends Component {
                   key={name}
                   className={styles[name]}
                 >
-                  {metadataProfile.name}
+                  {metadataProfile?.name ?? ''}
                 </VirtualTableRowCell>
               );
             }
