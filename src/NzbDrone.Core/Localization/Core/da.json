@@ -657,5 +657,16 @@
     "ApiKey": "API-nøgle",
     "AddedAuthorSettings": "Indstillinger for tilføjede forfattere",
     "AddMissing": "Tilføj manglende",
-    "AddImportListExclusionHelpText": "Forhindre bog i at blive tilføjet til Readarr via Importer Lister eller Opdater Forfatter"
+    "AddImportListExclusionHelpText": "Forhindre bog i at blive tilføjet til Readarr via Importer Lister eller Opdater Forfatter",
+    "AptUpdater": "Brug apt til at installere opdateringen",
+    "BuiltIn": "Indbygget",
+    "CurrentlyInstalled": "Aktuelt installeret",
+    "InstallLatest": "Installer senest",
+    "Script": "Manuskript",
+    "UpdateAppDirectlyLoadError": "Kan ikke opdatere {appName} direkte,",
+    "Clone": "Luk",
+    "UnmappedFiles": "Ikke-kortlagte mapper",
+    "DockerUpdater": "opdater docker-containeren for at modtage opdateringen",
+    "ExternalUpdater": "{appName} er konfigureret til at bruge en ekstern opdateringsmekanisme",
+    "OnLatestVersion": "Den seneste version af {appName} er allerede installeret"
 }

@@ -631,5 +631,13 @@
     "AuthBasic": "기본 (브라우저 팝업)",
     "AuthForm": "양식 (로그인 페이지)",
     "DisabledForLocalAddresses": "로컬 주소에 대해 비활성화됨",
-    "Enabled": "활성화"
+    "Enabled": "활성화",
+    "Clone": "닫기",
+    "AptUpdater": "apt를 사용하여 업데이트 설치",
+    "BuiltIn": "내장",
+    "CurrentlyInstalled": "현재 설치됨",
+    "DockerUpdater": "Docker 컨테이너를 업데이트하여 업데이트를 받으십시오.",
+    "ExternalUpdater": "{appName}는 외부 업데이트 메커니즘을 사용하도록 구성됩니다.",
+    "OnLatestVersion": "최신 버전의 {appName}가 이미 설치되어 있습니다.",
+    "UpdateAppDirectlyLoadError": "{appName}를 직접 업데이트 할 수 없습니다."
 }

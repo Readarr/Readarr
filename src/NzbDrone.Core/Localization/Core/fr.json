@@ -1101,5 +1101,21 @@
     "Iso639-3": "Codes de langage ISO 639-3, ou 'null', séparés par des virgules",
     "SpecificBook": "Livre spécifique",
     "SkipSecondarySeriesBooks": "Sauter les livres de séries secondaires",
-    "SkipPartBooksAndSets": "Livres et coffrets \"Skip part\""
+    "SkipPartBooksAndSets": "Livres et coffrets \"Skip part\"",
+    "AptUpdater": "Utiliser apt pour installer la mise à jour",
+    "BuiltIn": "Intégré",
+    "CurrentlyInstalled": "Actuellement installé",
+    "DockerUpdater": "Mettez à jour le conteneur Docker pour recevoir la mise à jour",
+    "ExternalUpdater": "{appName} est configuré pour utiliser un mécanisme de mise à jour externe",
+    "FailedToFetchSettings": "Échec de la récupération des paramètres",
+    "FailedToFetchUpdates": "Échec de la récupération des mises à jour",
+    "Install": "Installer",
+    "InstallLatest": "Installer la dernière",
+    "InstallMajorVersionUpdate": "Installer la mise à jour",
+    "InstallMajorVersionUpdateMessageLink": "Veuillez consulter [{domain}]({url}) pour plus d'informations.",
+    "OnLatestVersion": "La dernière version de {appName} est déjà installée",
+    "PreviouslyInstalled": "Installé précédemment",
+    "Script": "Script",
+    "UpdateAppDirectlyLoadError": "Impossible de mettre à jour directement {appName},",
+    "InstallMajorVersionUpdateMessage": "Cette mise à jour installera une nouvelle version majeure et pourrait ne pas être compatible avec votre système. Êtes-vous sûr de vouloir installer cette mise à jour ?"
 }

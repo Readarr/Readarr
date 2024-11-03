@@ -1074,5 +1074,16 @@
     "External": "Külső",
     "PasswordConfirmation": "Jelszó megerősítése",
     "AuthBasic": "Alap (böngésző előugró ablak)",
-    "Enabled": "Engedélyezés"
+    "Enabled": "Engedélyezés",
+    "AptUpdater": "A frissítés telepítéséhez használja az apt-t",
+    "BuiltIn": "Beépített",
+    "CurrentlyInstalled": "Jelenleg telepítve",
+    "DockerUpdater": "Frissítse a docker-tárolót a frissítés fogadásához",
+    "ExternalUpdater": "A {appName} egy külső frissítési mechanizmus használatára van konfigurálva",
+    "FailedToFetchUpdates": "Nem sikerült lekérni a frissítéseket",
+    "InstallLatest": "Legfrissebb telepítése",
+    "OnLatestVersion": "A {appName} legújabb verziója már telepítva van",
+    "PreviouslyInstalled": "Korábban telepítve",
+    "Script": "Szkript",
+    "UpdateAppDirectlyLoadError": "Nem lehetséges közvetlenül frissíteni a {appName}-t"
 }

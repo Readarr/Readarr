@@ -676,5 +676,16 @@
     "AuthenticationRequiredHelpText": "הגדר עבור אילו קריאות נדרש אימות. עדיף להשאיר את ברירת המחדל.",
     "AuthenticationRequiredWarning": "בכדי למנוע גישה מרחוק ללא אימות, {appName} דורש הגדרת אימות.\nהגדר את הפרטים ושיטת האימות. ישנה אפשרות לדלג על אימות מהרשת הביתית שלך. \nבמידת הצורך יש לפנות אל שו״ת למידע נוסף.",
     "DisabledForLocalAddresses": "מושבת לכתובות מקומיות",
-    "Enabled": "מופעל"
+    "Enabled": "מופעל",
+    "AptUpdater": "השתמש ב- apt כדי להתקין את העדכון",
+    "BuiltIn": "נִבנָה בְּ",
+    "CurrentlyInstalled": "מותקן כעת",
+    "DockerUpdater": "עדכן את מיכל העגינה לקבל את העדכון",
+    "ExternalUpdater": "{appName} מוגדר להשתמש במנגנון עדכון חיצוני",
+    "InstallLatest": "התקן את האחרונה",
+    "OnLatestVersion": "הגרסה האחרונה של {appName} כבר מותקנת",
+    "Script": "תַסרִיט",
+    "UnmappedFiles": "תיקיות לא ממופות",
+    "UpdateAppDirectlyLoadError": "לא ניתן לעדכן את {appName} ישירות,",
+    "Clone": "סגור"
 }

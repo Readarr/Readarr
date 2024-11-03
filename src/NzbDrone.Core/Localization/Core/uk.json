@@ -745,5 +745,15 @@
     "CountDownloadClientsSelected": "Вибрано {count} клієнтів завантажувача",
     "ReleaseProfiles": "профіль релізу",
     "MinimumCustomFormatScoreHelpText": "Мінімальна оцінка користувацького формату, необхідна для обходу затримки для обраного протоколу",
-    "BypassIfAboveCustomFormatScore": "Пропустити, якщо перевищено оцінку користувацького формату"
+    "BypassIfAboveCustomFormatScore": "Пропустити, якщо перевищено оцінку користувацького формату",
+    "UnmappedFiles": "Невідповідні папки",
+    "AptUpdater": "Використовуйте apt для інсталяції оновлення",
+    "BuiltIn": "Вбудований",
+    "ExternalUpdater": "{appName} налаштовано на використання зовнішнього механізму оновлення",
+    "InstallLatest": "Встановити останній",
+    "Script": "Сценарій",
+    "UpdateAppDirectlyLoadError": "Неможливо оновити {appName} безпосередньо,",
+    "CurrentlyInstalled": "В даний час встановлено",
+    "DockerUpdater": "Оновіть контейнер docker, щоб отримати оновлення",
+    "OnLatestVersion": "Остання версія {appName} вже встановлена"
 }

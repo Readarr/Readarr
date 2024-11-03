@@ -102,5 +102,9 @@
     "AuthenticationRequiredPasswordHelpTextWarning": "Masukkan sandi baru",
     "AuthenticationRequiredUsernameHelpTextWarning": "Masukkan nama pengguna baru",
     "AuthenticationRequiredWarning": "Untuk mencegah akses jarak jauh tanpa autentikasi, {appName} kini mewajibkan pengaktifkan autentikasi. Kamu dapat menonaktifkan autentikasi dari jaringan lokal.",
-    "Enabled": "Aktif"
+    "Enabled": "Aktif",
+    "AptUpdater": "Gunakan apt untuk memasang pembaruan",
+    "Clone": "Tutup",
+    "CurrentlyInstalled": "Saat Ini Terpasang",
+    "EnableSSL": "Aktifkan RSS"
 }

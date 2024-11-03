@@ -1101,5 +1101,20 @@
     "SelectIndexerFlags": "选择索引器标志",
     "SetIndexerFlags": "设置索引器标志",
     "LabelIsRequired": "需要标签",
-    "NotificationsSettingsUpdateMapPathsFromHelpText": "{appName} 路径，当 {serviceName} 与 {appName} 对资源库路径的识别不一致时，可以使用此设置修改系列路径（需要`更新资源库`）"
+    "NotificationsSettingsUpdateMapPathsFromHelpText": "{appName} 路径，当 {serviceName} 与 {appName} 对资源库路径的识别不一致时，可以使用此设置修改系列路径（需要`更新资源库`）",
+    "AptUpdater": "使用apt安装更新",
+    "BuiltIn": "内置的",
+    "CurrentlyInstalled": "已安装",
+    "ExternalUpdater": "{appName}配置为使用外部更新机制",
+    "FailedToFetchUpdates": "获取更新失败",
+    "OnLatestVersion": "已安装最新版的{appName}",
+    "Script": "脚本",
+    "DockerUpdater": "更新Docker容器以更新应用",
+    "Install": "安装",
+    "InstallLatest": "安装最新版",
+    "InstallMajorVersionUpdate": "安装更新",
+    "InstallMajorVersionUpdateMessage": "此更新将安装新的主要版本，这可能与您的系统不兼容。您确定要安装此更新吗？",
+    "InstallMajorVersionUpdateMessageLink": "请查看 [{domain}]({url}) 以获取更多信息。",
+    "PreviouslyInstalled": "上次安装",
+    "UpdateAppDirectlyLoadError": "无法直接更新{appName}，"
 }

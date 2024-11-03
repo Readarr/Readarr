@@ -1063,5 +1063,14 @@
     "AuthenticationRequiredUsernameHelpTextWarning": "Gib einen neuen Benutzernamen ein",
     "AuthenticationRequiredWarning": "Um unberechtigte Fernzugriffe zu vermeiden benötigt {appName} jetzt , dass Authentifizierung eingeschaltet ist. Du kannst Authentifizierung optional für lokale Adressen ausschalten.",
     "DisabledForLocalAddresses": "Für lokale Adressen deaktiviert",
-    "Enabled": "Aktiviert"
+    "Enabled": "Aktiviert",
+    "BuiltIn": "Eingebaut",
+    "CurrentlyInstalled": "Derzeit installiert",
+    "InstallLatest": "Jetzt updaten",
+    "OnLatestVersion": "Die aktuellste Version ist bereits installiert",
+    "Script": "Skript",
+    "AptUpdater": "Verwenden Sie apt, um das Update zu installieren",
+    "DockerUpdater": "Aktualisieren Sie den Docker-Container, um das Update zu erhalten",
+    "ExternalUpdater": "{appName} wurde so konfiguriert, dass ein externer Update Mechanismus benutzt wird",
+    "UpdateAppDirectlyLoadError": "{appName} kann nicht direkt aktualisiert werden."
 }

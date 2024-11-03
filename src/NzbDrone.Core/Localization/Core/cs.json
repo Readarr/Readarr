@@ -713,5 +713,16 @@
     "Enabled": "Povoleno",
     "ApiKey": "Klíč API",
     "AuthForm": "Formuláře (přihlašovací stránka)",
-    "DisabledForLocalAddresses": "Zakázáno pro místní adresy"
+    "DisabledForLocalAddresses": "Zakázáno pro místní adresy",
+    "DockerUpdater": "aktualizujte kontejner dockeru, abyste aktualizaci obdrželi",
+    "ExternalUpdater": "{appName} je nakonfigurován pro použití externího aktualizačního mechanismu",
+    "FailedToFetchUpdates": "Nepodařilo se načíst aktualizace",
+    "OnLatestVersion": "Nejnovější verze aplikace {appName} je již nainstalována",
+    "Script": "Skript",
+    "UpdateAppDirectlyLoadError": "{appName} nelze aktualizovat přímo,",
+    "BuiltIn": "Vestavěný",
+    "InstallLatest": "Nainstalujte nejnovější",
+    "CurrentlyInstalled": "Aktuálně nainstalováno",
+    "UnmappedFiles": "Nezmapované složky",
+    "AptUpdater": "K instalaci aktualizace použijte apt"
 }

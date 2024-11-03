@@ -1101,5 +1101,21 @@
     "AuthenticationRequiredPasswordConfirmationHelpTextWarning": "Confirma la nueva contraseña",
     "AuthenticationRequiredPasswordHelpTextWarning": "Introduce una nueva contraseña",
     "AuthenticationRequiredUsernameHelpTextWarning": "Introduce un nuevo usuario",
-    "External": "Externa"
+    "External": "Externa",
+    "AptUpdater": "Usa apt para instalar la actualización",
+    "BuiltIn": "Integrado",
+    "CurrentlyInstalled": "Actualmente instalado",
+    "DockerUpdater": "Actualiza el contenedor docker para recibir la actualización",
+    "ExternalUpdater": "{appName} está configurado para usar un mecanismo de actualización externo",
+    "FailedToFetchSettings": "Error al recuperar la configuración",
+    "Install": "Instalar",
+    "OnLatestVersion": "La última versión de {appName} ya está instalada",
+    "PreviouslyInstalled": "Previamente instalado",
+    "Script": "Script",
+    "UpdateAppDirectlyLoadError": "No se pudo actualizar {appName} directamente,",
+    "FailedToFetchUpdates": "Fallo al buscar las actualizaciones",
+    "InstallLatest": "Instala el último",
+    "InstallMajorVersionUpdate": "Instalar actualización",
+    "InstallMajorVersionUpdateMessage": "Esta actualización instalará una nueva versión principal y podría no ser compatible con tu sistema. ¿Estás seguro que quieres instalar esta actualización?",
+    "InstallMajorVersionUpdateMessageLink": "Por favor revisa [{domain}]({url}) para más información."
 }

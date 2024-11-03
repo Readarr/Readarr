@@ -640,5 +640,16 @@
     "Enabled": "有効",
     "ApiKey": "APIキー",
     "AuthBasic": "基本（ブラウザポップアップ）",
-    "DisabledForLocalAddresses": "ローカルアドレスでは無効"
+    "DisabledForLocalAddresses": "ローカルアドレスでは無効",
+    "Clone": "閉じる",
+    "InstallLatest": "最新のインストール",
+    "Script": "脚本",
+    "UnmappedFiles": "マップされていないフォルダ",
+    "UpdateAppDirectlyLoadError": "{appName}を直接更新できません。",
+    "AptUpdater": "aptを使用してアップデートをインストールします",
+    "BuiltIn": "ビルトイン",
+    "CurrentlyInstalled": "現在インストール中",
+    "DockerUpdater": "Dockerコンテナを更新して、更新を受信します",
+    "ExternalUpdater": "{appName}は、外部更新メカニズムを使用するように構成されています",
+    "OnLatestVersion": "{appName}の最新バージョンはすでにインストールされています"
 }

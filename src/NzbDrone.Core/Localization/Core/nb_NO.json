@@ -198,5 +198,9 @@
     "AuthBasic": "Grunnleggende (nettleser -popup)",
     "UnableToAddANewImportListExclusionPleaseTryAgain": "Ikke mulig å legge til ny betingelse, vennligst prøv igjen",
     "UnableToAddANewMetadataProfilePleaseTryAgain": "Ikke mulig å legge til ny betingelse, vennligst prøv igjen",
-    "UnableToAddANewQualityProfilePleaseTryAgain": "Ikke mulig å legge til ny betingelse, vennligst prøv igjen"
+    "UnableToAddANewQualityProfilePleaseTryAgain": "Ikke mulig å legge til ny betingelse, vennligst prøv igjen",
+    "Reason": "Sesong",
+    "Clone": "Lukk",
+    "AptUpdater": "Bruk apt til å installere oppdateringen",
+    "BuiltIn": "Bygget inn"
 }

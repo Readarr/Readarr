@@ -642,5 +642,16 @@
     "AuthForm": "النماذج (صفحة تسجيل الدخول)",
     "Enabled": "ممكن",
     "FailedLoadingSearchResults": "فشل تحميل نتائج البحث ، يرجى المحاولة مرة أخرى.",
-    "DisabledForLocalAddresses": "معطل بسبب العناوين المحلية"
+    "DisabledForLocalAddresses": "معطل بسبب العناوين المحلية",
+    "AptUpdater": "استخدم apt لتثبيت التحديث",
+    "CurrentlyInstalled": "مثبتة حاليا",
+    "DockerUpdater": "تحديث حاوية عامل الإرساء لتلقي التحديث",
+    "ExternalUpdater": "تم تكوين {appName} لاستخدام آلية تحديث خارجية",
+    "InstallLatest": "تثبيت الأحدث",
+    "OnLatestVersion": "تم بالفعل تثبيت أحدث إصدار من {appName}",
+    "Script": "النصي",
+    "UnmappedFiles": "المجلدات غير المعينة",
+    "UpdateAppDirectlyLoadError": "تعذر تحديث {appName} مباشرة ،",
+    "Clone": "قريب",
+    "BuiltIn": "مدمج"
 }

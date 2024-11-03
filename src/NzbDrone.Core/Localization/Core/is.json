@@ -641,5 +641,16 @@
     "DisabledForLocalAddresses": "Óvirkt vegna heimilisfanga",
     "Enabled": "Virkt",
     "ApiKey": "API lykill",
-    "AuthBasic": "Grunn (sprettiglugga vafra)"
+    "AuthBasic": "Grunn (sprettiglugga vafra)",
+    "Clone": "Lokaðu",
+    "AptUpdater": "Notaðu apt til að setja uppfærsluna upp",
+    "BuiltIn": "Innbyggð",
+    "CurrentlyInstalled": "Nú sett upp",
+    "DockerUpdater": "uppfærðu bryggjugáminn til að fá uppfærsluna",
+    "ExternalUpdater": "{appName} er stilltur til að nota ytri uppfærslu",
+    "InstallLatest": "Settu upp nýjustu",
+    "OnLatestVersion": "Nýjasta útgáfan af {appName} er þegar uppsett",
+    "Script": "Handrit",
+    "UnmappedFiles": "Ókortlagðar möppur",
+    "UpdateAppDirectlyLoadError": "Ekki er hægt að uppfæra {appName} beint,"
 }

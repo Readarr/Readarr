@@ -642,5 +642,16 @@
     "DisabledForLocalAddresses": "ปิดใช้งานสำหรับที่อยู่ท้องถิ่น",
     "Enabled": "เปิดใช้งาน",
     "AuthBasic": "พื้นฐาน (เบราว์เซอร์ป๊อปอัพ)",
-    "AuthForm": "แบบฟอร์ม (หน้าเข้าสู่ระบบ)"
+    "AuthForm": "แบบฟอร์ม (หน้าเข้าสู่ระบบ)",
+    "BuiltIn": "สร้างขึ้นใน",
+    "Clone": "ปิด",
+    "CurrentlyInstalled": "ติดตั้งแล้ว",
+    "DockerUpdater": "อัปเดตคอนเทนเนอร์นักเทียบท่าเพื่อรับการอัปเดต",
+    "ExternalUpdater": "{appName} ถูกกำหนดค่าให้ใช้กลไกการอัพเดตภายนอก",
+    "InstallLatest": "ติดตั้งล่าสุด",
+    "Script": "สคริปต์",
+    "UpdateAppDirectlyLoadError": "ไม่สามารถอัปเดต {appName} ได้โดยตรง",
+    "UnmappedFiles": "โฟลเดอร์ที่ไม่ได้แมป",
+    "AptUpdater": "ใช้ apt เพื่อติดตั้งการอัปเดต",
+    "OnLatestVersion": "มีการติดตั้ง {appName} เวอร์ชันล่าสุดแล้ว"
 }

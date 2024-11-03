@@ -660,5 +660,16 @@
     "AuthenticationRequiredUsernameHelpTextWarning": "Introduceți un nou nume de utilizator",
     "DisabledForLocalAddresses": "Dezactivat pentru adresele locale",
     "ApiKey": "Cheie API",
-    "Enabled": "Activat"
+    "Enabled": "Activat",
+    "Clone": "Închide",
+    "UnmappedFiles": "Foldere nemapate",
+    "AptUpdater": "Utilizați apt pentru a instala actualizarea",
+    "BuiltIn": "Incorporat",
+    "CurrentlyInstalled": "În prezent instalat",
+    "DockerUpdater": "Actualizați containerul Docker pentru a primi actualizarea",
+    "ExternalUpdater": "{appName} este configurat pentru a utiliza un mecanism de actualizare extern",
+    "InstallLatest": "Instalați cel mai recent",
+    "OnLatestVersion": "Cea mai recentă versiune a {appName} este deja instalată",
+    "Script": "Script",
+    "UpdateAppDirectlyLoadError": "Imposibil de actualizat direct {appName},"
 }

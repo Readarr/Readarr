@@ -900,5 +900,16 @@
     "Fixed": "Fissato",
     "MusicBrainzTrackID": "ID Libro MusicBrainz",
     "CountImportListsSelected": "{selectedCount} autore/i selezionato/i",
-    "DownloadClientDelugeSettingsDirectory": "Cartella Download"
+    "DownloadClientDelugeSettingsDirectory": "Cartella Download",
+    "UnmappedFiles": "Cartelle Non Mappate",
+    "AptUpdater": "Usa apt per installare l'aggiornamento",
+    "BuiltIn": "Incluso",
+    "CurrentlyInstalled": "Attualmente Installato",
+    "DockerUpdater": "Aggiorna il container di docker per ricevere l'aggiornamento",
+    "ExternalUpdater": "{appName} è configurato per utilizzare un meccanismo di aggiornamento esterno",
+    "InstallLatest": "Installa il più recente",
+    "OnLatestVersion": "L'ultima versione di {appName} è già installata",
+    "PreviouslyInstalled": "Precedentemente Installato",
+    "Script": "Script",
+    "UpdateAppDirectlyLoadError": "Impossibile aggiornare {appName} direttamente,"
 }

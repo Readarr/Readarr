@@ -640,5 +640,15 @@
     "AuthBasic": "बेसिक (ब्राउज़र पॉपअप)",
     "AuthForm": "प्रपत्र (लॉग इन पेज)",
     "DisabledForLocalAddresses": "स्थानीय पते के लिए अक्षम",
-    "Enabled": "सक्रिय"
+    "Enabled": "सक्रिय",
+    "UnmappedFiles": "बिना मोड़े हुए फोल्डर",
+    "AptUpdater": "अद्यतन स्थापित करने के लिए उपयुक्त का उपयोग करें",
+    "BuiltIn": "में निर्मित",
+    "CurrentlyInstalled": "वर्तमान में स्थापित है",
+    "DockerUpdater": "अपडेट प्राप्त करने के लिए docker कंटेनर को अपडेट करें",
+    "InstallLatest": "नवीनतम स्थापित करें",
+    "OnLatestVersion": "रेडर का नवीनतम संस्करण पहले से ही स्थापित है",
+    "Script": "लिपि",
+    "UpdateAppDirectlyLoadError": "सीधे {appName} अद्यतन करने में असमर्थ,",
+    "Clone": "बंद करे"
 }

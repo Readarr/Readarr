@@ -707,5 +707,16 @@
     "Label": "Etykieta",
     "CatalogNumber": "numer katalogowy",
     "MetadataProfiles": "profil metadanych",
-    "Publisher": "Wydawca"
+    "Publisher": "Wydawca",
+    "Clone": "Zamknij",
+    "AptUpdater": "Użyj apt, aby zainstalować aktualizację",
+    "BuiltIn": "Wbudowany",
+    "CurrentlyInstalled": "Aktualnie zainstalowane",
+    "ExternalUpdater": "{appName} jest skonfigurowany do korzystania z zewnętrznego mechanizmu aktualizacji",
+    "InstallLatest": "Zainstaluj najnowsze",
+    "OnLatestVersion": "Najnowsza wersja {appName} jest już zainstalowana",
+    "Script": "Scenariusz",
+    "UnmappedFiles": "Niezmapowane foldery",
+    "UpdateAppDirectlyLoadError": "Nie można bezpośrednio zaktualizować {appName},",
+    "DockerUpdater": "zaktualizuj kontener Dockera, aby otrzymać aktualizację"
 }

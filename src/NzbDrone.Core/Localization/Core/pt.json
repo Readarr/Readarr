@@ -955,5 +955,14 @@
     "AuthenticationRequiredUsernameHelpTextWarning": "Insira um novo Nome de Usuário",
     "AuthenticationRequiredWarning": "Para evitar o acesso remoto sem autenticação, {appName} agora exige que a autenticação esteja habilitada. Opcionalmente, você pode desabilitar a autenticação de endereços locais.",
     "DisabledForLocalAddresses": "Desativado para endereços locais",
-    "Enabled": "Ativado"
+    "Enabled": "Ativado",
+    "AptUpdater": "Utilize o apt para instalar a atualização",
+    "BuiltIn": "Incorporado",
+    "CurrentlyInstalled": "Atualmente instalado",
+    "InstallLatest": "Instalar o mais recente",
+    "OnLatestVersion": "A versão mais recente do {appName} já está instalada",
+    "DockerUpdater": "atualize o contentor do Docker para receber a atualização",
+    "ExternalUpdater": "O {appName} está definido para usar um mecanismo de atualização externo",
+    "Script": "Script",
+    "UpdateAppDirectlyLoadError": "Não foi possível atualizar o {appName} diretamente,"
 }

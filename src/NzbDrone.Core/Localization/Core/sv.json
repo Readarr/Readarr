@@ -873,5 +873,15 @@
     "DisabledForLocalAddresses": "Inaktiverad för lokala adresser",
     "Enabled": "Aktiverad",
     "ApiKey": "API Nyckel",
-    "AuthForm": "Blanketter (inloggningssida)"
+    "AuthForm": "Blanketter (inloggningssida)",
+    "Clone": "Avsluta",
+    "AptUpdater": "Använd apt för att installera uppdateringen",
+    "BuiltIn": "Inbyggd",
+    "CurrentlyInstalled": "För närvarande installerad",
+    "DockerUpdater": "uppdatera dockerbehållaren för att ta emot uppdateringen",
+    "ExternalUpdater": "{appName} är konfigurerad för att använda en extern uppdateringsmekanism",
+    "InstallLatest": "Installera senaste",
+    "OnLatestVersion": "Den senaste versionen av {appName} är redan installerad",
+    "Script": "Skript",
+    "UpdateAppDirectlyLoadError": "Det går inte att uppdatera {appName} direkt,"
 }

@@ -1101,5 +1101,21 @@
     "Enabled": "Habilitado",
     "External": "Externo",
     "ApiKey": "Chave API",
-    "PasswordConfirmation": "Confirmação Da Senha"
+    "PasswordConfirmation": "Confirmação Da Senha",
+    "AptUpdater": "Usar apt para instalar atualizações",
+    "BuiltIn": "Embutido",
+    "Install": "Instalar",
+    "InstallLatest": "Instalar o mais recente",
+    "InstallMajorVersionUpdate": "Instalar Atualização",
+    "OnLatestVersion": "A versão mais recente do {appName} já está instalada",
+    "PreviouslyInstalled": "Instalado anteriormente",
+    "Script": "Script",
+    "UpdateAppDirectlyLoadError": "Incapaz de atualizar o {appName} diretamente,",
+    "CurrentlyInstalled": "Atualmente instalado",
+    "DockerUpdater": "Atualize o contêiner docker para receber a atualização",
+    "ExternalUpdater": "O {appName} está configurado para usar um mecanismo de atualização externo",
+    "FailedToFetchSettings": "Falha ao buscar configurações",
+    "FailedToFetchUpdates": "Falha ao buscar atualizações",
+    "InstallMajorVersionUpdateMessage": "Esta atualização instalará uma nova versão principal e pode não ser compatível com o seu sistema. Tem certeza de que deseja instalar esta atualização?",
+    "InstallMajorVersionUpdateMessageLink": "Verifique [{domain}]({url}) para obter mais informações."
 }

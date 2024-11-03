@@ -1029,5 +1029,16 @@
     "External": "Ulkoinen",
     "PasswordConfirmation": "Salasanan vahvistus",
     "DisabledForLocalAddresses": "Ei käytössä paikallisille osoitteille",
-    "ReadarrSupportsMultipleListsForImportingBooksAndAuthorsIntoTheDatabase": "{appName} tukee useita listoja, joilta sarjoja voidaan tuoda tietokantaan."
+    "ReadarrSupportsMultipleListsForImportingBooksAndAuthorsIntoTheDatabase": "{appName} tukee useita listoja, joilta sarjoja voidaan tuoda tietokantaan.",
+    "BuiltIn": "Sisäänrakennettu",
+    "CurrentlyInstalled": "Nykyinen asennettu versio",
+    "DockerUpdater": "Hanki päivitys päivittämällä Docker-säiliö",
+    "ExternalUpdater": "{appName} on määritetty käyttämään ulkoista päivitysratkaisua.",
+    "FailedToFetchUpdates": "Päivitysten nouto epäonnistui",
+    "InstallLatest": "Asenna uusin",
+    "OnLatestVersion": "Uusin {appName}-versio on jo asennettu",
+    "PreviouslyInstalled": "Edellinen asennettu versio",
+    "Script": "Skripti",
+    "UpdateAppDirectlyLoadError": "{appName}ia ei voida päivittää suoraan,",
+    "AptUpdater": "Asenna päivitys APT-työkalun avulla"
 }

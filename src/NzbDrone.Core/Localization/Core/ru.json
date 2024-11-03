@@ -860,5 +860,22 @@
     "Books": "Книга",
     "LogRotation": "Ротация журналов",
     "FilterAnalyticsEvents": "Фильтровать события аналитики",
-    "FilterSentryEventsHelpText": "Фильтровать известные события ошибок пользователя, чтобы они не отправлялись в виде аналитики."
+    "FilterSentryEventsHelpText": "Фильтровать известные события ошибок пользователя, чтобы они не отправлялись в виде аналитики.",
+    "UnmappedFiles": "Несопоставленные папки",
+    "BuiltIn": "Встроенный",
+    "CurrentlyInstalled": "Установлено",
+    "DockerUpdater": "Обновите контейнер Docker, чтобы получить обновление",
+    "ExternalUpdater": "{appName} настроен на использование внешнего механизма обновления",
+    "FailedToFetchSettings": "Не удалось загрузить настройки",
+    "Install": "Установить",
+    "InstallLatest": "Установить последнюю версию",
+    "OnLatestVersion": "Последняя версия {appName} уже установлена",
+    "PreviouslyInstalled": "Ранее установленный",
+    "Script": "Скрипт",
+    "AptUpdater": "Использовать apt для установки обновления",
+    "FailedToFetchUpdates": "Не удалось загрузить обновления",
+    "InstallMajorVersionUpdate": "Установить обновление",
+    "InstallMajorVersionUpdateMessage": "Это обновление установит новую версию, которая может не поддерживаться вашей системой. Вы уверены, что хотите установить это обновление?",
+    "InstallMajorVersionUpdateMessageLink": "Пожалуйста, проверьте [{domain}]({url}) для получения дополнительной информации.",
+    "UpdateAppDirectlyLoadError": "Невозможно обновить {appName} напрямую,"
 }
