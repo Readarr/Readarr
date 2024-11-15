@@ -178,7 +178,8 @@ namespace NzbDrone.Core.Test.Download.DownloadClientTests.QBittorrentTests
             VerifyWarning(item);
         }
 
-        [Test]
+        [TestCase("pausedDL")]
+        [TestCase("stoppedDL")]
         public void paused_item_should_have_required_properties()
         {
             var torrent = new QBittorrentTorrent
@@ -188,7 +189,7 @@ namespace NzbDrone.Core.Test.Download.DownloadClientTests.QBittorrentTests
                 Size = 1000,
                 Progress = 0.7,
                 Eta = 8640000,
-                State = "pausedDL",
+                State = state,
                 Label = "",
                 SavePath = ""
             };
@@ -200,6 +201,7 @@ namespace NzbDrone.Core.Test.Download.DownloadClientTests.QBittorrentTests
         }
 
         [TestCase("pausedUP")]
+        [TestCase("stoppedUP")]
         [TestCase("queuedUP")]
         [TestCase("uploading")]
         [TestCase("stalledUP")]
@@ -397,7 +399,8 @@ namespace NzbDrone.Core.Test.Download.DownloadClientTests.QBittorrentTests
             result.OutputPath.FullPath.Should().Be(Path.Combine(torrent.SavePath, "Droned.S01.12"));
         }
 
-        [Test]
+        [TestCase("pausedUP")]
+        [TestCase("stoppedUP")]
         public void api_261_should_use_content_path()
         {
             var torrent = new QBittorrentTorrent
@@ -407,7 +410,7 @@ namespace NzbDrone.Core.Test.Download.DownloadClientTests.QBittorrentTests
                 Size = 1000,
                 Progress = 0.7,
                 Eta = 8640000,
-                State = "pausedUP",
+                State = state,
                 Label = "",
                 SavePath = @"C:\Torrents".AsOsAgnostic(),
                 ContentPath = @"C:\Torrents\Droned.S01.12".AsOsAgnostic()
@@ -684,44 +687,48 @@ namespace NzbDrone.Core.Test.Download.DownloadClientTests.QBittorrentTests
             item.CanMoveFiles.Should().BeFalse();
         }
 
-        [Test]
+        [TestCase("pausedUP")]
+        [TestCase("stoppedUP")]
         public void should_not_be_removable_and_should_not_allow_move_files_if_max_ratio_is_not_set()
         {
             GivenGlobalSeedLimits(-1);
-            GivenCompletedTorrent("pausedUP", ratio: 1.0f);
+            GivenCompletedTorrent(state, ratio: 1.0f);
 
             var item = Subject.GetItems().Single();
             item.CanBeRemoved.Should().BeFalse();
             item.CanMoveFiles.Should().BeFalse();
         }
 
-        [Test]
+        [TestCase("pausedUP")]
+        [TestCase("stoppedUP")]
         public void should_be_removable_and_should_allow_move_files_if_max_ratio_reached_and_paused()
         {
             GivenGlobalSeedLimits(1.0f);
-            GivenCompletedTorrent("pausedUP", ratio: 1.0f);
+            GivenCompletedTorrent(state, ratio: 1.0f);
 
             var item = Subject.GetItems().Single();
             item.CanBeRemoved.Should().BeTrue();
             item.CanMoveFiles.Should().BeTrue();
         }
 
-        [Test]
+        [TestCase("pausedUP")]
+        [TestCase("stoppedUP")]
         public void should_be_removable_and_should_allow_move_files_if_overridden_max_ratio_reached_and_paused()
         {
             GivenGlobalSeedLimits(2.0f);
-            GivenCompletedTorrent("pausedUP", ratio: 1.0f, ratioLimit: 0.8f);
+            GivenCompletedTorrent(state, ratio: 1.0f, ratioLimit: 0.8f);
 
             var item = Subject.GetItems().Single();
             item.CanBeRemoved.Should().BeTrue();
             item.CanMoveFiles.Should().BeTrue();
         }
 
-        [Test]
+        [TestCase("pausedUP")]
+        [TestCase("stoppedUP")]
         public void should_not_be_removable_if_overridden_max_ratio_not_reached_and_paused()
         {
             GivenGlobalSeedLimits(0.2f);
-            GivenCompletedTorrent("pausedUP", ratio: 0.5f, ratioLimit: 0.8f);
+            GivenCompletedTorrent(state, ratio: 0.5f, ratioLimit: 0.8f);
 
             var item = Subject.GetItems().Single();
             item.CanBeRemoved.Should().BeFalse();
@@ -750,22 +757,24 @@ namespace NzbDrone.Core.Test.Download.DownloadClientTests.QBittorrentTests
             item.CanMoveFiles.Should().BeTrue();
         }
 
-        [Test]
+        [TestCase("pausedUP")]
+        [TestCase("stoppedUP")]
         public void should_be_removable_and_should_allow_move_files_if_overridden_max_seedingtime_reached_and_paused()
         {
             GivenGlobalSeedLimits(-1, 40);
-            GivenCompletedTorrent("pausedUP", ratio: 2.0f, seedingTime: 20, seedingTimeLimit: 10);
+            GivenCompletedTorrent(state, ratio: 2.0f, seedingTime: 20, seedingTimeLimit: 10);
 
             var item = Subject.GetItems().Single();
             item.CanBeRemoved.Should().BeTrue();
             item.CanMoveFiles.Should().BeTrue();
         }
 
-        [Test]
+        [TestCase("pausedUP")]
+        [TestCase("stoppedUP")]
         public void should_not_be_removable_if_overridden_max_seedingtime_not_reached_and_paused()
         {
             GivenGlobalSeedLimits(-1, 20);
-            GivenCompletedTorrent("pausedUP", ratio: 2.0f, seedingTime: 30, seedingTimeLimit: 40);
+            GivenCompletedTorrent(state, ratio: 2.0f, seedingTime: 30, seedingTimeLimit: 40);
 
             var item = Subject.GetItems().Single();
             item.CanBeRemoved.Should().BeFalse();
@@ -783,66 +792,72 @@ namespace NzbDrone.Core.Test.Download.DownloadClientTests.QBittorrentTests
             item.CanMoveFiles.Should().BeFalse();
         }
 
-        [Test]
+        [TestCase("pausedUP")]
+        [TestCase("stoppedUP")]
         public void should_be_removable_and_should_allow_move_files_if_max_inactive_seedingtime_reached_and_paused()
         {
             GivenGlobalSeedLimits(-1, maxInactiveSeedingTime: 20);
-            GivenCompletedTorrent("pausedUP", ratio: 2.0f, lastActivity: DateTimeOffset.UtcNow.Subtract(TimeSpan.FromMinutes(25)).ToUnixTimeSeconds());
+            GivenCompletedTorrent(state, ratio: 2.0f, lastActivity: DateTimeOffset.UtcNow.Subtract(TimeSpan.FromMinutes(25)).ToUnixTimeSeconds());
 
             var item = Subject.GetItems().Single();
             item.CanBeRemoved.Should().BeTrue();
             item.CanMoveFiles.Should().BeTrue();
         }
 
-        [Test]
+        [TestCase("pausedUP")]
+        [TestCase("stoppedUP")]
         public void should_be_removable_and_should_allow_move_files_if_overridden_max_inactive_seedingtime_reached_and_paused()
         {
             GivenGlobalSeedLimits(-1, maxInactiveSeedingTime: 40);
-            GivenCompletedTorrent("pausedUP", ratio: 2.0f, seedingTime: 20, inactiveSeedingTimeLimit: 10, lastActivity: DateTimeOffset.UtcNow.Subtract(TimeSpan.FromMinutes(15)).ToUnixTimeSeconds());
+            GivenCompletedTorrent(state, ratio: 2.0f, seedingTime: 20, inactiveSeedingTimeLimit: 10, lastActivity: DateTimeOffset.UtcNow.Subtract(TimeSpan.FromMinutes(15)).ToUnixTimeSeconds());
 
             var item = Subject.GetItems().Single();
             item.CanBeRemoved.Should().BeTrue();
             item.CanMoveFiles.Should().BeTrue();
         }
 
-        [Test]
+        [TestCase("pausedUP")]
+        [TestCase("stoppedUP")]
         public void should_not_be_removable_if_overridden_max_inactive_seedingtime_not_reached_and_paused()
         {
             GivenGlobalSeedLimits(-1, maxInactiveSeedingTime: 20);
-            GivenCompletedTorrent("pausedUP", ratio: 2.0f, seedingTime: 30, inactiveSeedingTimeLimit: 40, lastActivity: DateTimeOffset.UtcNow.Subtract(TimeSpan.FromMinutes(30)).ToUnixTimeSeconds());
+            GivenCompletedTorrent(state, ratio: 2.0f, seedingTime: 30, inactiveSeedingTimeLimit: 40, lastActivity: DateTimeOffset.UtcNow.Subtract(TimeSpan.FromMinutes(30)).ToUnixTimeSeconds());
 
             var item = Subject.GetItems().Single();
             item.CanBeRemoved.Should().BeFalse();
             item.CanMoveFiles.Should().BeFalse();
         }
 
-        [Test]
+        [TestCase("pausedUP")]
+        [TestCase("stoppedUP")]
         public void should_be_removable_and_should_allow_move_files_if_max_seedingtime_reached_but_ratio_not_and_paused()
         {
             GivenGlobalSeedLimits(2.0f, 20);
-            GivenCompletedTorrent("pausedUP", ratio: 1.0f, seedingTime: 30);
+            GivenCompletedTorrent(state, ratio: 1.0f, seedingTime: 30);
 
             var item = Subject.GetItems().Single();
             item.CanBeRemoved.Should().BeTrue();
             item.CanMoveFiles.Should().BeTrue();
         }
 
-        [Test]
+        [TestCase("pausedUP")]
+        [TestCase("stoppedUP")]
         public void should_be_removable_and_should_allow_move_files_if_max_inactive_seedingtime_reached_but_ratio_not_and_paused()
         {
             GivenGlobalSeedLimits(2.0f, maxInactiveSeedingTime: 20);
-            GivenCompletedTorrent("pausedUP", ratio: 1.0f, lastActivity: DateTimeOffset.UtcNow.Subtract(TimeSpan.FromMinutes(25)).ToUnixTimeSeconds());
+            GivenCompletedTorrent(state, ratio: 1.0f, lastActivity: DateTimeOffset.UtcNow.Subtract(TimeSpan.FromMinutes(25)).ToUnixTimeSeconds());
 
             var item = Subject.GetItems().Single();
             item.CanBeRemoved.Should().BeTrue();
             item.CanMoveFiles.Should().BeTrue();
         }
 
-        [Test]
+        [TestCase("pausedUP")]
+        [TestCase("stoppedUP")]
         public void should_not_fetch_details_twice()
         {
             GivenGlobalSeedLimits(-1, 30);
-            GivenCompletedTorrent("pausedUP", ratio: 2.0f, seedingTime: 20);
+            GivenCompletedTorrent(state, ratio: 2.0f, seedingTime: 20);
 
             var item = Subject.GetItems().Single();
             item.CanBeRemoved.Should().BeFalse();
@@ -854,7 +869,8 @@ namespace NzbDrone.Core.Test.Download.DownloadClientTests.QBittorrentTests
                   .Verify(p => p.GetTorrentProperties(It.IsAny<string>(), It.IsAny<QBittorrentSettings>()), Times.Once());
         }
 
-        [Test]
+        [TestCase("pausedUP")]
+        [TestCase("stoppedUP")]
         public void should_get_category_from_the_category_if_set()
         {
             const string category = "music-readarr";
@@ -867,7 +883,7 @@ namespace NzbDrone.Core.Test.Download.DownloadClientTests.QBittorrentTests
                 Size = 1000,
                 Progress = 1.0,
                 Eta = 8640000,
-                State = "pausedUP",
+                State = state,
                 Category = category,
                 SavePath = "",
                 Ratio = 1.0f
@@ -879,7 +895,8 @@ namespace NzbDrone.Core.Test.Download.DownloadClientTests.QBittorrentTests
             item.Category.Should().Be(category);
         }
 
-        [Test]
+        [TestCase("pausedUP")]
+        [TestCase("stoppedUP")]
         public void should_get_category_from_the_label_if_the_category_is_not_available()
         {
             const string category = "music-readarr";
@@ -892,7 +909,7 @@ namespace NzbDrone.Core.Test.Download.DownloadClientTests.QBittorrentTests
                 Size = 1000,
                 Progress = 1.0,
                 Eta = 8640000,
-                State = "pausedUP",
+                State = state,
                 Label = category,
                 SavePath = "",
                 Ratio = 1.0f
