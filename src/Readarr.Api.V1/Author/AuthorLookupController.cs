@@ -18,7 +18,7 @@ namespace Readarr.Api.V1.Author
         }
 
         [HttpGet]
-        public object Search([FromQuery] string term)
+        public IEnumerable<SeriesResource> Search([FromQuery] string term)
         {
             var searchResults = _searchProxy.SearchForNewAuthor(term);
             return MapToResource(searchResults).ToList();
