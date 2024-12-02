@@ -5,7 +5,7 @@
     "description": "Readarr API docs",
     "license": {
       "name": "GPL-3.0",
-      "url": "https://github.com/Readarr/Readarr/blob/develop/LICENSE"
+      "url": "https://github.com/Readarr/Readarr/blob/develop/LICENSE.md"
     },
     "version": "1.0.0"
   },
