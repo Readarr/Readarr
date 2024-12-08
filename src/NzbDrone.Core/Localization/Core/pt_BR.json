@@ -734,7 +734,7 @@
     "OnReleaseImport": "Ao Importar Lançamento",
     "OnRename": "Ao Renomear",
     "OnUpgrade": "Ao Atualizar",
-    "AppDataLocationHealthCheckMessage": "A atualização não será possível para evitar a exclusão de AppData na atualização",
+    "AppDataLocationHealthCheckMessage": "A atualização não será possível para evitar a exclusão de AppData na Atualização",
     "IndexerSearchCheckNoInteractiveMessage": "Nenhum indexador disponível com a Pesquisa Interativa habilitada, o Readarr não dará nenhum resultado para pesquisa interativa",
     "ConnectSettingsSummary": "Notificações, conexões com servidores/tocadores de mídia e scripts personalizados",
     "DownloadClientStatusCheckAllClientMessage": "Todos os clientes de download estão indisponíveis devido a falhas",

@@ -482,7 +482,7 @@
     "AllExpandedExpandAll": "全部展开",
     "Duration": "时长",
     "Filters": "过滤器",
-    "AppDataLocationHealthCheckMessage": "无法更新，以防止在更新时删除 AppData",
+    "AppDataLocationHealthCheckMessage": "为防止在更新时删除 AppData，更新将无法进行",
     "FileWasDeletedByViaUI": "文件已通过 UI 删除",
     "IndexerJackettAll": "使用 Jackett 不受支持的“全部”终点的索引器：{0}",
     "SizeLimit": "尺寸限制",
@@ -1116,5 +1116,6 @@
     "InstallMajorVersionUpdateMessage": "此更新将安装新的主要版本，这可能与您的系统不兼容。您确定要安装此更新吗？",
     "InstallMajorVersionUpdateMessageLink": "请查看 [{domain}]({url}) 以获取更多信息。",
     "PreviouslyInstalled": "上次安装",
-    "UpdateAppDirectlyLoadError": "无法直接更新{appName}，"
+    "UpdateAppDirectlyLoadError": "无法直接更新{appName}，",
+    "FailedToFetchSettings": "设置同步失败"
 }

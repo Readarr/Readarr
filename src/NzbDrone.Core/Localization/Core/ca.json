@@ -784,5 +784,16 @@
     "DisabledForLocalAddresses": "Desactivat per a adreces locals",
     "Enabled": "Habilitat",
     "External": "Extern",
-    "ApiKey": "Clau API"
+    "ApiKey": "Clau API",
+    "FailedToFetchUpdates": "No s'han pogut obtenir les actualitzacions",
+    "AptUpdater": "Utilitzeu apt per a instal·lar l'actualització",
+    "BuiltIn": "Integrat",
+    "CurrentlyInstalled": "Instal·lat actualment",
+    "DockerUpdater": "actualitzeu el contenidor Docker per a rebre l'actualització",
+    "ExternalUpdater": "{appName} està configurat per a utilitzar un mecanisme d'actualització extern",
+    "InstallLatest": "Instal·la l'últim",
+    "OnLatestVersion": "La darrera versió de {appName} ja està instal·lada",
+    "Script": "Script",
+    "UnmappedFiles": "Carpetes sense mapejar",
+    "UpdateAppDirectlyLoadError": "No es pot actualitzar {appName} directament,"
 }

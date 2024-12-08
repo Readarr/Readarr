@@ -28,9 +28,9 @@
     "MinimumAge": "최소 연령",
     "TimeFormat": "시간 형식",
     "Title": "표제",
-    "TorrentDelay": "급류 지연",
-    "TorrentDelayHelpText": "급류를 잡기 전에 대기하는 데 몇 분이 걸립니다.",
-    "Torrents": "급류",
+    "TorrentDelay": "토렌트 지연",
+    "TorrentDelayHelpText": "토렌트를 잡기 전에 대기까지 소요되는 지연 (분)",
+    "Torrents": "토렌트",
     "TotalFileSize": "총 파일 크기",
     "UILanguage": "UI 언어",
     "UILanguageHelpText": "{appName}가 UI에 사용할 언어",
@@ -639,5 +639,9 @@
     "DockerUpdater": "Docker 컨테이너를 업데이트하여 업데이트를 받으십시오.",
     "ExternalUpdater": "{appName}는 외부 업데이트 메커니즘을 사용하도록 구성됩니다.",
     "OnLatestVersion": "최신 버전의 {appName}가 이미 설치되어 있습니다.",
-    "UpdateAppDirectlyLoadError": "{appName}를 직접 업데이트 할 수 없습니다."
+    "UpdateAppDirectlyLoadError": "{appName}를 직접 업데이트 할 수 없습니다.",
+    "ApiKeyValidationHealthCheckMessage": "API 키를 {length}자 이상으로 업데이트하세요. 설정 또는 구성 파일을 통해 이 작업을 수행할 수 있습니다.",
+    "AppUpdated": "{appName} 업데이트",
+    "AppUpdatedVersion": "{appName}이 버전 `{version}`으로 업데이트되었습니다. 최신 변경 사항을 받으려면 {appName}을 다시 로드해야 합니다",
+    "WouldYouLikeToRestoreBackup": "'{name}' 백업을 복원하시겠습니까?"
 }

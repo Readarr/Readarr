@@ -196,5 +196,9 @@
     "Enabled": "Povoliť",
     "UnableToAddANewImportListExclusionPleaseTryAgain": "Nie je možné pridať novú podmienku, skúste to znova.",
     "UnableToAddANewMetadataProfilePleaseTryAgain": "Nie je možné pridať novú podmienku, skúste to znova.",
-    "UnableToAddANewQualityProfilePleaseTryAgain": "Nie je možné pridať novú podmienku, skúste to znova."
+    "UnableToAddANewQualityProfilePleaseTryAgain": "Nie je možné pridať novú podmienku, skúste to znova.",
+    "Reason": "Séria",
+    "Clone": "Zatvoriť",
+    "AptUpdater": "Použiť apt pre inštaláciu aktualizácie",
+    "BuiltIn": "Vstavaný"
 }
