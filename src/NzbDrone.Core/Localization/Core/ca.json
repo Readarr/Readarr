@@ -795,5 +795,6 @@
     "OnLatestVersion": "La darrera versió de {appName} ja està instal·lada",
     "Script": "Script",
     "UnmappedFiles": "Carpetes sense mapejar",
-    "UpdateAppDirectlyLoadError": "No es pot actualitzar {appName} directament,"
+    "UpdateAppDirectlyLoadError": "No es pot actualitzar {appName} directament,",
+    "AddMissing": "Afegeix faltants"
 }
