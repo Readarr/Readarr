@@ -643,5 +643,6 @@
     "ApiKeyValidationHealthCheckMessage": "API 키를 {length}자 이상으로 업데이트하세요. 설정 또는 구성 파일을 통해 이 작업을 수행할 수 있습니다.",
     "AppUpdated": "{appName} 업데이트",
     "AppUpdatedVersion": "{appName}이 버전 `{version}`으로 업데이트되었습니다. 최신 변경 사항을 받으려면 {appName}을 다시 로드해야 합니다",
-    "WouldYouLikeToRestoreBackup": "'{name}' 백업을 복원하시겠습니까?"
+    "WouldYouLikeToRestoreBackup": "'{name}' 백업을 복원하시겠습니까?",
+    "UseSSL": "SSL 사용"
 }
