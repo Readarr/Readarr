@@ -561,7 +561,6 @@
     "MusicBrainzRecordingID": "MusicBrainz felvételi azonosító",
     "MusicBrainzReleaseID": "MusicBrainz kiadási azonosító",
     "MusicBrainzTrackID": "MusicBrainz zeneszám azonosítója",
-    "MusicbrainzId": "MusicBrainz azonosító",
     "NETCore": ".NET Mag",
     "AnalyticsEnabledHelpTextWarning": "Újraindítás szükséges a hatálybalépéshez",
     "DeleteRootFolderMessageText": "Biztosan törli a(z) \"{name}\" gyökérmappát?",

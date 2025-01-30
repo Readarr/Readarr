@@ -597,7 +597,6 @@
     "MonitorNewItemsHelpText": "Ποια νέα βιβλία πρέπει να παρακολουθούνται",
     "MusicBrainzRecordingID": "Αναγνωριστικό ηχογράφησης MusicBrainz",
     "MusicBrainzBookID": "Αναγνωριστικό βιβλίου MusicBrainz",
-    "MusicbrainzId": "Musicbrainz Id",
     "MusicBrainzAuthorID": "MusicBrainz Αναγνωριστικό συγγραφέα",
     "NoName": "Να μην εμφανίζεται το όνομα",
     "NoTagsHaveBeenAddedYet": "Δεν έχουν προστεθεί ακόμη ετικέτες. Προσθέστε ετικέτες για να συνδέσετε τους συγγραφείς με προφίλ καθυστέρησης, περιορισμούς ή ειδοποιήσεις. Κάντε κλικ στο {0} για να μάθετε περισσότερα σχετικά με τις ετικέτες στο Readarr.",

@@ -858,7 +858,6 @@
     "EditSelectedIndexers": "Modifica Indicizzatori Selezionati",
     "IsExpandedHideFileInfo": "Nascondi info file",
     "LogSQL": "Log SQL",
-    "MusicbrainzId": "ID MusicBrainz",
     "MonitoredAuthorIsUnmonitored": "Autore non monitorato",
     "Monitoring": "Monitorando",
     "BookProgressBarText": "{bookCount} / {totalBookCount} (File: {bookFileCount})",

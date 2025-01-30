@@ -584,7 +584,6 @@
     "MusicBrainzBookID": "ID do livro no MusicBrainz",
     "MusicBrainzRecordingID": "ID da gravação no MusicBrainz",
     "MusicBrainzTrackID": "ID da faixa no MusicBrainz",
-    "MusicbrainzId": "ID do MusicBrainz",
     "NETCore": ".NET Core",
     "LogSQL": "Registar SQL",
     "LogSqlHelpText": "Registar todas as consultas de SQL do {appName}",
