@@ -9445,6 +9445,11 @@
             "type": "string",
             "nullable": true
           },
+          "lastSearchTime": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
           "editions": {
             "type": "array",
             "items": {
