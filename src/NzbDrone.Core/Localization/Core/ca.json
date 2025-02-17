@@ -796,5 +796,9 @@
     "Script": "Script",
     "UnmappedFiles": "Carpetes sense mapejar",
     "UpdateAppDirectlyLoadError": "No es pot actualitzar {appName} directament,",
-    "AddMissing": "Afegeix faltants"
+    "AddMissing": "Afegeix faltants",
+    "Install": "Instal·la",
+    "PasswordConfirmation": "Confirmeu la contrasenya",
+    "PreviouslyInstalled": "Instal·lat anteriorment",
+    "AddNewItem": "Afegeix un nou element"
 }

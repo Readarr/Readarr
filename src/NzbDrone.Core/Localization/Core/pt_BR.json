@@ -1116,5 +1116,6 @@
     "FailedToFetchSettings": "Falha ao obter configurações",
     "FailedToFetchUpdates": "Falha ao buscar atualizações",
     "InstallMajorVersionUpdateMessage": "Esta atualização instalará uma nova versão principal e pode não ser compatível com o seu sistema. Tem certeza de que deseja instalar esta atualização?",
-    "InstallMajorVersionUpdateMessageLink": "Verifique [{domain}]({url}) para obter mais informações."
+    "InstallMajorVersionUpdateMessageLink": "Verifique [{domain}]({url}) para obter mais informações.",
+    "LastSearched": "Última Pesquisa"
 }

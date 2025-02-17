@@ -1116,5 +1116,6 @@
     "OnAuthorAdded": "Beim Hinzufügen des Autors",
     "OnAuthorAddedHelpText": "Beim Hinzufügen des Autors",
     "SelectBook": "Buch auswählen",
-    "SelectEdition": "Wähle Edition"
+    "SelectEdition": "Wähle Edition",
+    "LastSearched": "Letzte Suche"
 }

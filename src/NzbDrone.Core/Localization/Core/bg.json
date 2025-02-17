@@ -688,5 +688,12 @@
     "Theme": "Тема",
     "BypassIfAboveCustomFormatScoreHelpText": "Активиране на пропускане, когато изданието има резултат, по-висок от конфигурирания минимален резултат за потребителски формат",
     "MinimumCustomFormatScoreHelpText": "Минимална резултат на персонализирания формат, необходима за пропускане на забавянето за предпочитания протокол",
-    "DownloadClientDelugeSettingsDirectory": "Директория за изтегляне"
+    "DownloadClientDelugeSettingsDirectory": "Директория за изтегляне",
+    "AuthenticationMethodHelpTextWarning": "Моля, изберете валиден метод за удостоверяване",
+    "AuthenticationMethod": "Метод за удостоверяване",
+    "AuthenticationRequiredHelpText": "Променете за кои заявки се изисква удостоверяване. Не променяйте, освен ако не разбирате рисковете.",
+    "AuthenticationRequired": "Изисква се удостоверяване",
+    "AuthenticationRequiredPasswordHelpTextWarning": "Въведете нова парола",
+    "ApplyChanges": "Прилагане на промените",
+    "AuthenticationRequiredPasswordConfirmationHelpTextWarning": "Потвърдете новата парола"
 }

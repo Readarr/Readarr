@@ -910,5 +910,7 @@
     "OnLatestVersion": "L'ultima versione di {appName} è già installata",
     "PreviouslyInstalled": "Precedentemente Installato",
     "Script": "Script",
-    "UpdateAppDirectlyLoadError": "Impossibile aggiornare {appName} direttamente,"
+    "UpdateAppDirectlyLoadError": "Impossibile aggiornare {appName} direttamente,",
+    "AutoRedownloadFailedFromInteractiveSearch": "Riesecuzione del download non riuscita dalla ricerca interattiva",
+    "AutoRedownloadFailedFromInteractiveSearchHelpText": "Cerca automaticamente e tenta di scaricare una versione diversa quando il rilascio non riuscito è stato acquisito dalla ricerca interattiva"
 }

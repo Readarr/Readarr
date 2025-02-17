@@ -1116,5 +1116,6 @@
     "InstallMajorVersionUpdateMessageLink": "请查看 [{domain}]({url}) 以获取更多信息。",
     "PreviouslyInstalled": "上次安装",
     "UpdateAppDirectlyLoadError": "无法直接更新{appName}，",
-    "FailedToFetchSettings": "设置同步失败"
+    "FailedToFetchSettings": "设置同步失败",
+    "LastSearched": "最近搜索"
 }
