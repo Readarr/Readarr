@@ -654,6 +654,7 @@
   "NoUpdatesAreAvailable": "No updates are available",
   "None": "None",
   "NotAvailable": "Not Available",
+  "NotContinuingAuthorDeceased": "Author is deceased. No more books are expected.",
   "NotMonitored": "Not Monitored",
   "NotificationStatusAllClientHealthCheckMessage": "All notifications are unavailable due to failures",
   "NotificationStatusSingleClientHealthCheckMessage": "Notifications unavailable due to failures: {0}",

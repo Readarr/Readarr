@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import { getAuthorStatusDetails } from 'Author/AuthorStatus';
 import Icon from 'Components/Icon';
 import VirtualTableRowCell from 'Components/Table/Cells/TableRowCell';
 import { icons } from 'Helpers/Props';
@@ -15,6 +16,8 @@ function AuthorStatusCell(props) {
     ...otherProps
   } = props;
 
+  const statusDetails = getAuthorStatusDetails(status);
+
   return (
     <Component
       className={className}
@@ -28,8 +31,8 @@ function AuthorStatusCell(props) {
 
       <Icon
         className={styles.statusIcon}
-        name={status === 'ended' ? icons.AUTHOR_ENDED : icons.AUTHOR_CONTINUING}
-        title={status === 'ended' ? translate('StatusEndedDeceased') : translate('StatusEndedContinuing')}
+        name={statusDetails.icon}
+        title={`${statusDetails.title}: ${statusDetails.message}`}
       />
     </Component>
   );

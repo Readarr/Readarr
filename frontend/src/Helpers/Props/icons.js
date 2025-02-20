@@ -204,6 +204,7 @@ export const SCORE = fasUserPlus;
 export const SEARCH = fasSearch;
 export const AUTHOR_CONTINUING = fasPlay;
 export const AUTHOR_ENDED = fasStop;
+export const AUTHOR_DELETED = fasExclamationTriangle;
 export const SETTINGS = fasCogs;
 export const SHUTDOWN = fasPowerOff;
 export const SORT = fasSort;

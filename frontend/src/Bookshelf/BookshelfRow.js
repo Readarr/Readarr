@@ -1,12 +1,11 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import AuthorNameLink from 'Author/AuthorNameLink';
+import { getAuthorStatusDetails } from 'Author/AuthorStatus';
 import Icon from 'Components/Icon';
 import MonitorToggleButton from 'Components/MonitorToggleButton';
 import VirtualTableRowCell from 'Components/Table/Cells/VirtualTableRowCell';
 import VirtualTableSelectCell from 'Components/Table/Cells/VirtualTableSelectCell';
-import { icons } from 'Helpers/Props';
-import translate from 'Utilities/String/translate';
 import BookshelfBook from './BookshelfBook';
 import styles from './BookshelfRow.css';
 
@@ -30,6 +29,8 @@ class BookshelfRow extends Component {
       onBookMonitoredPress
     } = this.props;
 
+    const statusDetails = getAuthorStatusDetails(status);
+
     return (
       <>
         <VirtualTableSelectCell
@@ -52,8 +53,8 @@ class BookshelfRow extends Component {
         <VirtualTableRowCell className={styles.status}>
           <Icon
             className={styles.statusIcon}
-            name={status === 'ended' ? icons.AUTHOR_ENDED : icons.AUTHOR_CONTINUING}
-            title={status === 'ended' ? translate('StatusEndedEnded') : translate('StatusEndedContinuing')}
+            name={statusDetails.icon}
+            title={statusDetails.title}
           />
         </VirtualTableRowCell>
 

@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import TextTruncate from 'react-text-truncate';
 import AuthorPoster from 'Author/AuthorPoster';
+import { getAuthorStatusDetails } from 'Author/AuthorStatus';
 import HeartRating from 'Components/HeartRating';
 import Icon from 'Components/Icon';
 import Label from 'Components/Label';
@@ -87,10 +88,10 @@ class AuthorDetailsHeader extends Component {
       titleWidth
     } = this.state;
 
+    const statusDetails = getAuthorStatusDetails(status);
+
     const fanartUrl = getFanartUrl(images);
     const marqueeWidth = titleWidth - (isSmallScreen ? 85 : 160);
-
-    const continuing = status === 'continuing';
 
     let bookFilesCountMessage = translate('BookFilesCountMessage');
 
@@ -236,16 +237,16 @@ class AuthorDetailsHeader extends Component {
 
               <Label
                 className={styles.detailsLabel}
-                title={continuing ? translate('ContinuingMoreBooksAreExpected') : translate('ContinuingNoAdditionalBooksAreExpected')}
+                title={statusDetails.message}
                 size={sizes.LARGE}
               >
                 <Icon
-                  name={continuing ? icons.AUTHOR_CONTINUING : icons.AUTHOR_ENDED}
+                  name={statusDetails.icon}
                   size={17}
                 />
 
                 <span className={styles.qualityProfileName}>
-                  {continuing ? 'Continuing' : 'Deceased'}
+                  {statusDetails.title}
                 </span>
               </Label>
 
