@@ -21,14 +21,14 @@ namespace NzbDrone.Core.Test.UpdateTests
         public void no_update_when_version_higher()
         {
             UseRealHttp();
-            Subject.GetLatestUpdate("nightly", new Version(10, 0)).Should().BeNull();
+            Subject.GetLatestUpdate("develop", new Version(10, 0)).Should().BeNull();
         }
 
         [Test]
         public void finds_update_when_version_lower()
         {
             UseRealHttp();
-            Subject.GetLatestUpdate("nightly", new Version(0, 1)).Should().NotBeNull();
+            Subject.GetLatestUpdate("develop", new Version(0, 1)).Should().NotBeNull();
         }
 
         [Test]
@@ -42,10 +42,9 @@ namespace NzbDrone.Core.Test.UpdateTests
         [Test]
         public void should_get_recent_updates()
         {
-            const string branch = "nightly";
+            const string branch = "develop";
             UseRealHttp();
             var recent = Subject.GetRecentUpdates(branch, new Version(0, 1), null);
-            var recentWithChanges = recent.Where(c => c.Changes != null);
 
             recent.Should().NotBeEmpty();
             recent.Should().OnlyContain(c => c.Hash.IsNotNullOrWhiteSpace());
