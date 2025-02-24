@@ -9,13 +9,7 @@ export function getAuthorStatusDetails(status: AuthorStatus) {
     message: translate('ContinuingMoreBooksAreExpected'),
   };
 
-  if (status === 'deleted') {
-    statusDetails = {
-      icon: icons.AUTHOR_DELETED,
-      title: translate('StatusEndedDeceased'),
-      message: translate('NotContinuingAuthorDeceased'),
-    };
-  } else if (status === 'ended') {
+  if (status === 'ended') {
     statusDetails = {
       icon: icons.AUTHOR_ENDED,
       title: translate('StatusEndedEnded'),
