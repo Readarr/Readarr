@@ -1,5 +1,7 @@
 import ModelBase from 'App/ModelBase';
 
+export type AuthorStatus = 'continuing' | 'ended' | 'deleted';
+
 interface Author extends ModelBase {
   added: string;
   genres: string[];

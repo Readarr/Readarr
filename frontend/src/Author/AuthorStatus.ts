@@ -1,14 +1,8 @@
-import { IconDefinition } from '@fortawesome/free-regular-svg-icons';
+import { AuthorStatus } from 'Author/Author';
 import { icons } from 'Helpers/Props';
 import translate from 'Utilities/String/translate';
 
-interface AuthorStatus {
-  icon: IconDefinition;
-  title: string;
-  message: string;
-}
-
-export function getAuthorStatusDetails(status): AuthorStatus {
+export function getAuthorStatusDetails(status: AuthorStatus) {
   let statusDetails = {
     icon: icons.AUTHOR_CONTINUING,
     title: translate('StatusEndedContinuing'),
