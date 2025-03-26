@@ -423,7 +423,7 @@
     "UsenetDelay": "Retraso de usenet",
     "UsenetDelayHelpText": "Retraso en minutos a esperar antes de capturar un lanzamiento desde usenet",
     "Username": "Usuario",
-    "BranchUpdate": "Rama a utilizar para actualizar Readarr",
+    "BranchUpdate": "Rama a utilizar para actualizar {appName}",
     "BranchUpdateMechanism": "Rama usada por el mecanismo de actualización externo",
     "Version": "Versión",
     "WeekColumnHeader": "Cabecera de columna de semana",

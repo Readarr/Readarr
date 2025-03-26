@@ -752,5 +752,11 @@
     "BypassIfAboveCustomFormatScore": "사용자 정의 형식 점수보다 높으면 무시",
     "ThemeHelpText": "애플리케이션 UI 테마 변경, '자동' 테마는 OS 테마를 사용하여 라이트 또는 다크 모드를 설정합니다. Theme.Park에서 영감을 받음",
     "ThereWasAnErrorLoadingThisPage": "이 페이지를 로드하는 중ㅇ 오류가 발생했습니다",
-    "WhySearchesCouldBeFailing": "검색이 실패하는 이유를 알아보려면 여기를 클릭하세요"
+    "WhySearchesCouldBeFailing": "검색이 실패하는 이유를 알아보려면 여기를 클릭하세요",
+    "AllExpandedExpandAll": "모두 펼치기",
+    "RootFolderPathHelpText": "루트 폴더 목록 항목이 다음에 추가됩니다:",
+    "AllExpandedCollapseAll": "모두 접기",
+    "IsShowingMonitoredMonitorSelected": "선택 모니터링 설정",
+    "NotificationsSettingsUpdateMapPathsToHelpText": "{serviceName} 경로는 {serviceName}이 라이브러리 경로 위치를 {appName}와 다르게 볼 때 시리즈 경로를 수정하는 데 사용됨 (라이브러리 업데이트 필요)",
+    "NotificationsSettingsUpdateMapPathsFromHelpText": "{appName} 경로는 {serviceName}이 라이브러리 경로 위치를 {appName}와 다르게 볼 때 시리즈 경로를 수정하는 데 사용됨 (라이브러리 업데이트 필요)"
 }
