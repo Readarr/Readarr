@@ -1084,5 +1084,6 @@
     "OnLatestVersion": "A {appName} legújabb verziója már telepítva van",
     "PreviouslyInstalled": "Korábban telepítve",
     "Script": "Szkript",
-    "UpdateAppDirectlyLoadError": "Nem lehetséges közvetlenül frissíteni a {appName}-t"
+    "UpdateAppDirectlyLoadError": "Nem lehetséges közvetlenül frissíteni a {appName}-t",
+    "Unknown": "Ismeretlen"
 }

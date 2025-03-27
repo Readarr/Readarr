@@ -657,5 +657,6 @@
     "UpdateAppDirectlyLoadError": "Không thể cập nhật {appName} trực tiếp,",
     "AptUpdater": "Sử dụng apt để cài đặt bản cập nhật",
     "ExternalUpdater": "{appName} được định cấu hình để sử dụng cơ chế cập nhật bên ngoài",
-    "WhySearchesCouldBeFailing": "Nhấp vào đây để tìm hiểu lý do tại sao tìm kiếm thất bại"
+    "WhySearchesCouldBeFailing": "Nhấp vào đây để tìm hiểu lý do tại sao tìm kiếm thất bại",
+    "Unknown": "Không rõ"
 }

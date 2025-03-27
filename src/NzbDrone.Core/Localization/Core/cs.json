@@ -755,5 +755,8 @@
     "CustomFormatsSpecificationRegularExpression": "Běžný výraz",
     "ChangeCategoryMultipleHint": "Změní stahování do kategorie „Post-Import“ z aplikace Download Client",
     "FailedToFetchSettings": "Nepodařilo se načíst nastavení",
-    "NoCutoffUnmetItems": "Žádné neodpovídající nesplněné položky"
+    "NoCutoffUnmetItems": "Žádné neodpovídající nesplněné položky",
+    "DownloadClientDelugeSettingsDirectoryCompleted": "Adresář kam přesunout po dokončení",
+    "DownloadClientDelugeSettingsDirectoryCompletedHelpText": "Nepovinné - umístění kam přesunout dokončená stahování, pokud ponecháte prázné, použije se výchozí umístění Deluge",
+    "DownloadClientDelugeSettingsDirectoryHelpText": "Nepovinné - umístění stahovaných souborů, pokud ponecháte prázné, použije se výchozí umístění Deluge"
 }

@@ -1117,5 +1117,6 @@
     "OnAuthorAddedHelpText": "Beim Hinzufügen des Autors",
     "SelectBook": "Buch auswählen",
     "SelectEdition": "Wähle Edition",
-    "LastSearched": "Letzte Suche"
+    "LastSearched": "Letzte Suche",
+    "Unknown": "Unbekannt"
 }

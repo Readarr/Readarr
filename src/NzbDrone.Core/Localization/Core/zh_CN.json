@@ -1117,5 +1117,6 @@
     "PreviouslyInstalled": "上次安装",
     "UpdateAppDirectlyLoadError": "无法直接更新{appName}，",
     "FailedToFetchSettings": "设置同步失败",
-    "LastSearched": "最近搜索"
+    "LastSearched": "最近搜索",
+    "Unknown": "未知"
 }

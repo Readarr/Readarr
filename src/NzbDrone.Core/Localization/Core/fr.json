@@ -1117,5 +1117,6 @@
     "Script": "Script",
     "UpdateAppDirectlyLoadError": "Impossible de mettre à jour directement {appName},",
     "InstallMajorVersionUpdateMessage": "Cette mise à jour installera une nouvelle version majeure et pourrait ne pas être compatible avec votre système. Êtes-vous sûr de vouloir installer cette mise à jour ?",
-    "LastSearched": "Dernière recherche"
+    "LastSearched": "Dernière recherche",
+    "Unknown": "Inconnu"
 }

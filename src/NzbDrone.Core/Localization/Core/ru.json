@@ -878,5 +878,9 @@
     "InstallMajorVersionUpdateMessage": "Это обновление установит новую версию, которая может не поддерживаться вашей системой. Вы уверены, что хотите установить это обновление?",
     "InstallMajorVersionUpdateMessageLink": "Пожалуйста, проверьте [{domain}]({url}) для получения дополнительной информации.",
     "UpdateAppDirectlyLoadError": "Невозможно обновить {appName} напрямую,",
-    "NoCutoffUnmetItems": "Нет элементов не достигших максимального качества"
+    "NoCutoffUnmetItems": "Нет элементов не достигших максимального качества",
+    "DeleteSelected": "Удалить выбранные",
+    "Unknown": "Неизвестный",
+    "WhySearchesCouldBeFailing": "Нажмите здесь, чтобы найти причину ошибок писка",
+    "LastSearched": "Искали недавно"
 }

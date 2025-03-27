@@ -1117,5 +1117,6 @@
     "ConvertToFormat": "Muunna muotoon",
     "DownloadPropersAndRepacksHelpTexts2": "\"Älä suosi\" käyttää Proper-/Repack-julkaisujen sijaan haluttua sanapisteytystä.",
     "IgnoreDeletedBooks": "Ohita poistetut kirjat",
-    "LastSearched": "Edellinen haku"
+    "LastSearched": "Edellinen haku",
+    "Unknown": "Tuntematon"
 }

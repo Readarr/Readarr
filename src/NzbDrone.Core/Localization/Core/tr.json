@@ -864,5 +864,6 @@
     "LogRotateHelpText": "Günlük klasöründe saklanacak maksimum günlük dosyası sayısı",
     "FilterAnalyticsEvents": "Analitik Olayları Filtrele",
     "ConsoleLogLevel": "Konsol Günlük Düzeyi",
-    "LastSearched": "Son Aranan"
+    "LastSearched": "Son Aranan",
+    "Unknown": "Bilinmeyen"
 }
