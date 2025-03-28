@@ -7,7 +7,6 @@ function getNewAuthor(author, payload) {
     qualityProfileId,
     metadataProfileId,
     tags,
-    status,
     searchForMissingBooks = false
   } = payload;
 
@@ -23,7 +22,6 @@ function getNewAuthor(author, payload) {
   author.metadataProfileId = metadataProfileId;
   author.rootFolderPath = rootFolderPath;
   author.tags = tags;
-  author.status = status;
 
   return author;
 }
