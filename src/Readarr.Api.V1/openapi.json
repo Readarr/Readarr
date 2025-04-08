@@ -7119,16 +7119,6 @@
               "schema": {
                 "$ref": "#/components/schemas/RemotePathMappingResource"
               }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/RemotePathMappingResource"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/RemotePathMappingResource"
-              }
             }
           }
         },
@@ -7163,23 +7153,7 @@
           "200": {
             "description": "OK",
             "content": {
-              "text/plain": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/RemotePathMappingResource"
-                  }
-                }
-              },
               "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/RemotePathMappingResource"
-                  }
-                }
-              },
-              "text/json": {
                 "schema": {
                   "type": "array",
                   "items": {
@@ -10475,7 +10449,8 @@
             "nullable": true
           },
           "wikiUrl": {
-            "$ref": "#/components/schemas/HttpUri"
+            "type": "string",
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -10714,48 +10689,6 @@
           },
           "trustCgnatIpAddresses": {
             "type": "boolean"
-          }
-        },
-        "additionalProperties": false
-      },
-      "HttpUri": {
-        "type": "object",
-        "properties": {
-          "fullUri": {
-            "type": "string",
-            "nullable": true,
-            "readOnly": true
-          },
-          "scheme": {
-            "type": "string",
-            "nullable": true,
-            "readOnly": true
-          },
-          "host": {
-            "type": "string",
-            "nullable": true,
-            "readOnly": true
-          },
-          "port": {
-            "type": "integer",
-            "format": "int32",
-            "nullable": true,
-            "readOnly": true
-          },
-          "path": {
-            "type": "string",
-            "nullable": true,
-            "readOnly": true
-          },
-          "query": {
-            "type": "string",
-            "nullable": true,
-            "readOnly": true
-          },
-          "fragment": {
-            "type": "string",
-            "nullable": true,
-            "readOnly": true
           }
         },
         "additionalProperties": false
