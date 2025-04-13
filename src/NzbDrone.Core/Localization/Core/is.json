@@ -652,5 +652,7 @@
     "OnLatestVersion": "Nýjasta útgáfan af {appName} er þegar uppsett",
     "Script": "Handrit",
     "UnmappedFiles": "Ókortlagðar möppur",
-    "UpdateAppDirectlyLoadError": "Ekki er hægt að uppfæra {appName} beint,"
+    "UpdateAppDirectlyLoadError": "Ekki er hægt að uppfæra {appName} beint,",
+    "AddNewAuthorRootFolderHelpText": "„{0}“ undirmöppan verður búin til sjálfkrafa",
+    "AddRootFolder": "Bæta við rótarmöppu"
 }

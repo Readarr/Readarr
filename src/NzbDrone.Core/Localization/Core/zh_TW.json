@@ -171,5 +171,6 @@
     "IgnoredPlaceHolder": "加入新的限制",
     "RequiredPlaceHolder": "加入新的限制",
     "RedownloadFailed": "失敗時重新下載",
-    "UnableToAddANewRemotePathMappingPleaseTryAgain": "無法加入新的遠程路徑對應，請重試。"
+    "UnableToAddANewRemotePathMappingPleaseTryAgain": "無法加入新的遠程路徑對應，請重試。",
+    "AddRootFolder": "加入根目錄資料夾"
 }

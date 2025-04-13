@@ -718,5 +718,7 @@
     "Script": "Scenariusz",
     "UnmappedFiles": "Niezmapowane foldery",
     "UpdateAppDirectlyLoadError": "Nie można bezpośrednio zaktualizować {appName},",
-    "DockerUpdater": "zaktualizuj kontener Dockera, aby otrzymać aktualizację"
+    "DockerUpdater": "zaktualizuj kontener Dockera, aby otrzymać aktualizację",
+    "AddNewAuthorRootFolderHelpText": "Podfolder „{0}” zostanie utworzony automatycznie",
+    "AddRootFolder": "Dodaj folder główny"
 }

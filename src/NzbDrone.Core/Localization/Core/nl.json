@@ -767,5 +767,7 @@
     "Script": "Script",
     "UpdateAppDirectlyLoadError": "Kan {appName} niet rechtstreeks updaten,",
     "CurrentlyInstalled": "Momenteel Geïnstalleerd",
-    "ExternalUpdater": "{appName} is geconfigureerd om een extern update mechanisme te gebruiken"
+    "ExternalUpdater": "{appName} is geconfigureerd om een extern update mechanisme te gebruiken",
+    "AddNewAuthorRootFolderHelpText": "'{0}' submap zal automatisch worden aangemaakt",
+    "AddRootFolder": "Voeg hoofdmap toe"
 }

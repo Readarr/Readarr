@@ -1118,5 +1118,9 @@
     "InstallMajorVersionUpdateMessage": "Esta actualización instalará una nueva versión principal y podría no ser compatible con tu sistema. ¿Estás seguro que quieres instalar esta actualización?",
     "InstallMajorVersionUpdateMessageLink": "Por favor revisa [{domain}]({url}) para más información.",
     "LastSearched": "Último buscado",
-    "Unknown": "Desconocido"
+    "Unknown": "Desconocido",
+    "AddNewBook": "Añadir Nuevo Libro",
+    "AddNewAuthor": "Añadir Nuevo Autor",
+    "AddNewAuthorRootFolderHelpText": "La subcarpeta '{folder}' será creada automáticamente",
+    "AddRootFolder": "Añadir Carpeta Raíz"
 }

@@ -1118,5 +1118,9 @@
     "InstallMajorVersionUpdateMessage": "Esta atualização instalará uma nova versão principal e pode não ser compatível com o seu sistema. Tem certeza de que deseja instalar esta atualização?",
     "InstallMajorVersionUpdateMessageLink": "Verifique [{domain}]({url}) para obter mais informações.",
     "LastSearched": "Última Pesquisa",
-    "Unknown": "Desconhecido"
+    "Unknown": "Desconhecido",
+    "AddRootFolder": "Adicionar pasta raiz",
+    "AddNewAuthorRootFolderHelpText": "A subpasta \"{folder}\" será criada automaticamente",
+    "AddNewBook": "Adicionar Novo Livro",
+    "AddNewAuthor": "Adicionar Novo Autor"
 }

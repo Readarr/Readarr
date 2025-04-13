@@ -913,5 +913,7 @@
     "UpdateAppDirectlyLoadError": "Impossibile aggiornare {appName} direttamente,",
     "AutoRedownloadFailedFromInteractiveSearch": "Riesecuzione del download non riuscita dalla ricerca interattiva",
     "AutoRedownloadFailedFromInteractiveSearchHelpText": "Cerca automaticamente e tenta di scaricare una versione diversa quando il rilascio non riuscito è stato acquisito dalla ricerca interattiva",
-    "Unknown": "Sconosciuto"
+    "Unknown": "Sconosciuto",
+    "AddNewAuthorRootFolderHelpText": "La sottocartella '{0}' verrà creata automaticamente",
+    "AddRootFolder": "Aggiungi Cartella Radice"
 }

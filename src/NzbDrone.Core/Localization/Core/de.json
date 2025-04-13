@@ -1118,5 +1118,7 @@
     "SelectBook": "Buch auswählen",
     "SelectEdition": "Wähle Edition",
     "LastSearched": "Letzte Suche",
-    "Unknown": "Unbekannt"
+    "Unknown": "Unbekannt",
+    "AddRootFolder": "Stammverzeichnis hinzufügen",
+    "AddNewAuthorRootFolderHelpText": "'{folder}' Unterordner wird automatisch erstellt werden"
 }

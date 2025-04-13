@@ -882,5 +882,7 @@
     "InstallLatest": "Installera senaste",
     "OnLatestVersion": "Den senaste versionen av {appName} är redan installerad",
     "Script": "Skript",
-    "UpdateAppDirectlyLoadError": "Det går inte att uppdatera {appName} direkt,"
+    "UpdateAppDirectlyLoadError": "Det går inte att uppdatera {appName} direkt,",
+    "AddNewAuthorRootFolderHelpText": "Mappen \"{folder}\" kommer skapas automatiskt",
+    "AddRootFolder": "Lägg till rotmapp"
 }

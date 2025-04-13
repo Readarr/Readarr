@@ -882,5 +882,7 @@
     "DeleteSelected": "Удалить выбранные",
     "Unknown": "Неизвестный",
     "WhySearchesCouldBeFailing": "Нажмите здесь, чтобы найти причину ошибок писка",
-    "LastSearched": "Искали недавно"
+    "LastSearched": "Искали недавно",
+    "AddRootFolder": "Добавить корневой каталог",
+    "AddNewAuthorRootFolderHelpText": "Подпапка \"{folder}\" будет создана автоматически"
 }

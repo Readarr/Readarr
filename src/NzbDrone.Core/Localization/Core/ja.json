@@ -651,5 +651,7 @@
     "CurrentlyInstalled": "現在インストール中",
     "DockerUpdater": "Dockerコンテナを更新して、更新を受信します",
     "ExternalUpdater": "{appName}は、外部更新メカニズムを使用するように構成されています",
-    "OnLatestVersion": "{appName}の最新バージョンはすでにインストールされています"
+    "OnLatestVersion": "{appName}の最新バージョンはすでにインストールされています",
+    "AddRootFolder": "ルートフォルダを追加する",
+    "AddNewAuthorRootFolderHelpText": "'{0}'サブフォルダは自動的に作成されます"
 }

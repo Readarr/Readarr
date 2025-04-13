@@ -650,5 +650,7 @@
     "OnLatestVersion": "रेडर का नवीनतम संस्करण पहले से ही स्थापित है",
     "Script": "लिपि",
     "UpdateAppDirectlyLoadError": "सीधे {appName} अद्यतन करने में असमर्थ,",
-    "Clone": "बंद करे"
+    "Clone": "बंद करे",
+    "AddNewAuthorRootFolderHelpText": "'{0}' सबफ़ोल्डर स्वचालित रूप से बनाया जाएगा",
+    "AddRootFolder": "रूट फ़ोल्डर जोड़ें"
 }

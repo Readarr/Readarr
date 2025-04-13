@@ -658,5 +658,7 @@
     "AptUpdater": "Sử dụng apt để cài đặt bản cập nhật",
     "ExternalUpdater": "{appName} được định cấu hình để sử dụng cơ chế cập nhật bên ngoài",
     "WhySearchesCouldBeFailing": "Nhấp vào đây để tìm hiểu lý do tại sao tìm kiếm thất bại",
-    "Unknown": "Không rõ"
+    "Unknown": "Không rõ",
+    "AddNewAuthorRootFolderHelpText": "Thư mục con '{0}' sẽ được tạo tự động",
+    "AddRootFolder": "Thêm thư mục gốc"
 }

@@ -695,5 +695,7 @@
     "AuthenticationRequired": "Изисква се удостоверяване",
     "AuthenticationRequiredPasswordHelpTextWarning": "Въведете нова парола",
     "ApplyChanges": "Прилагане на промените",
-    "AuthenticationRequiredPasswordConfirmationHelpTextWarning": "Потвърдете новата парола"
+    "AuthenticationRequiredPasswordConfirmationHelpTextWarning": "Потвърдете новата парола",
+    "AddNewAuthorRootFolderHelpText": "Подпапката „{0}“ ще бъде създадена автоматично",
+    "AddRootFolder": "Добавяне на коренна папка"
 }

@@ -1118,5 +1118,7 @@
     "DownloadPropersAndRepacksHelpTexts2": "\"Älä suosi\" käyttää Proper-/Repack-julkaisujen sijaan haluttua sanapisteytystä.",
     "IgnoreDeletedBooks": "Ohita poistetut kirjat",
     "LastSearched": "Edellinen haku",
-    "Unknown": "Tuntematon"
+    "Unknown": "Tuntematon",
+    "AddNewAuthorRootFolderHelpText": "\"{folder}\" -alikansio luodaan automaattisesti.",
+    "AddRootFolder": "Lisää juurikansio"
 }

@@ -200,5 +200,7 @@
     "Reason": "Séria",
     "Clone": "Zatvoriť",
     "AptUpdater": "Použiť apt pre inštaláciu aktualizácie",
-    "BuiltIn": "Vstavaný"
+    "BuiltIn": "Vstavaný",
+    "AddRootFolder": "Pridať koreňový priečinok",
+    "AddNewAuthorRootFolderHelpText": "'{folder}' podpriečinok sa vytvorí automaticky"
 }

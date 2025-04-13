@@ -206,5 +206,7 @@
     "FailedLoadingSearchResults": "Kunne ikke laste søkeresultat, vennligst prøv igjen.",
     "IgnoredPlaceHolder": "Legg til ny begrensning",
     "RequiredPlaceHolder": "Legg til ny begrensning",
-    "UnableToAddANewRemotePathMappingPleaseTryAgain": "Kunne ikke legge til ny ekstern stimapping, vennligst prøv igjen."
+    "UnableToAddANewRemotePathMappingPleaseTryAgain": "Kunne ikke legge til ny ekstern stimapping, vennligst prøv igjen.",
+    "AddNewAuthorRootFolderHelpText": "Undermappa \"{folder}\" vil bli automatisk laget",
+    "AddRootFolder": "Legg til rotmappe"
 }

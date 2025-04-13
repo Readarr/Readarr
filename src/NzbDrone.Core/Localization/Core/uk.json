@@ -851,5 +851,7 @@
     "NotificationsSettingsUpdateMapPathsTo": "Карта шляхів до",
     "PasswordConfirmation": "Підтвердження пароля",
     "PreviouslyInstalled": "Раніше встановлений",
-    "SetIndexerFlags": "Встановити прапорці індексатора"
+    "SetIndexerFlags": "Встановити прапорці індексатора",
+    "AddRootFolder": "Додати корневий каталог",
+    "AddNewAuthorRootFolderHelpText": "Вкладена папка \"{0}\" буде створена автоматично"
 }

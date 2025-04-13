@@ -1020,5 +1020,7 @@
     "Script": "Γραφή",
     "UpdateAppDirectlyLoadError": "Δεν είναι δυνατή η απευθείας ενημέρωση του {appName},",
     "ExternalUpdater": "Το {appName} έχει ρυθμιστεί να χρησιμοποιεί έναν εξωτερικό μηχανισμό ενημέρωσης",
-    "InstallLatest": "Εγκατάσταση πιο πρόσφατου"
+    "InstallLatest": "Εγκατάσταση πιο πρόσφατου",
+    "AddNewAuthorRootFolderHelpText": "Ο υποφάκελος \"{0}\" θα δημιουργηθεί αυτόματα",
+    "AddRootFolder": "Προσθήκη φακέλου ρίζας"
 }

@@ -687,5 +687,7 @@
     "Script": "תַסרִיט",
     "UnmappedFiles": "תיקיות לא ממופות",
     "UpdateAppDirectlyLoadError": "לא ניתן לעדכן את {appName} ישירות,",
-    "Clone": "סגור"
+    "Clone": "סגור",
+    "AddNewAuthorRootFolderHelpText": "תיקיית המשנה '{0}' תיווצר באופן אוטומטי",
+    "AddRootFolder": "הוסף תיקיית שורש"
 }

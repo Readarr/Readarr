@@ -1118,5 +1118,7 @@
     "UpdateAppDirectlyLoadError": "无法直接更新{appName}，",
     "FailedToFetchSettings": "设置同步失败",
     "LastSearched": "最近搜索",
-    "Unknown": "未知"
+    "Unknown": "未知",
+    "AddNewAuthorRootFolderHelpText": "将自动创建 '{folder}' 子文件夹",
+    "AddRootFolder": "添加根目录"
 }

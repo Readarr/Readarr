@@ -1085,5 +1085,7 @@
     "PreviouslyInstalled": "Korábban telepítve",
     "Script": "Szkript",
     "UpdateAppDirectlyLoadError": "Nem lehetséges közvetlenül frissíteni a {appName}-t",
-    "Unknown": "Ismeretlen"
+    "Unknown": "Ismeretlen",
+    "AddNewAuthorRootFolderHelpText": "A „{folder}” almappa automatikusan létrejön",
+    "AddRootFolder": "Gyökérmappa hozzáadása"
 }

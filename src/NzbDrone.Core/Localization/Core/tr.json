@@ -865,5 +865,7 @@
     "FilterAnalyticsEvents": "Analitik Olayları Filtrele",
     "ConsoleLogLevel": "Konsol Günlük Düzeyi",
     "LastSearched": "Son Aranan",
-    "Unknown": "Bilinmeyen"
+    "Unknown": "Bilinmeyen",
+    "AddNewAuthorRootFolderHelpText": "'{0}' alt klasörü otomatik olarak oluşturulacak",
+    "AddRootFolder": "Kök Klasör Ekle"
 }

@@ -653,5 +653,7 @@
     "UnmappedFiles": "المجلدات غير المعينة",
     "UpdateAppDirectlyLoadError": "تعذر تحديث {appName} مباشرة ،",
     "Clone": "قريب",
-    "BuiltIn": "مدمج"
+    "BuiltIn": "مدمج",
+    "AddNewAuthorRootFolderHelpText": "سيتم إنشاء المجلد الفرعي \"{folder}\" تلقائيًا",
+    "AddRootFolder": "إضافة مجلد جذر"
 }
