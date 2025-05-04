@@ -1119,6 +1119,8 @@
     "IgnoreDeletedBooks": "Ohita poistetut kirjat",
     "LastSearched": "Edellinen haku",
     "Unknown": "Tuntematon",
-    "AddNewAuthorRootFolderHelpText": "\"{folder}\" -alikansio luodaan automaattisesti.",
-    "AddRootFolder": "Lisää juurikansio"
+    "AddNewAuthorRootFolderHelpText": "Alikansio \"{folder}\" luodaan automaattisesti.",
+    "AddRootFolder": "Lisää juurikansio",
+    "AddNewBook": "Lisää uusi kirja",
+    "AddNewAuthor": "Lisää uusi kirjailija"
 }

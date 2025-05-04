@@ -965,5 +965,7 @@
     "Script": "Script",
     "UpdateAppDirectlyLoadError": "Não foi possível atualizar o {appName} diretamente,",
     "AddNewAuthorRootFolderHelpText": "A subpasta \"{0}\" será criada automaticamente",
-    "AddRootFolder": "Adicionar pasta raiz"
+    "AddRootFolder": "Adicionar pasta raiz",
+    "ThereWasAnErrorLoadingThisItem": "Houve um erro ao carregar este item",
+    "ThereWasAnErrorLoadingThisPage": "Houve um erro ao carregar esta página"
 }

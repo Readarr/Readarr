@@ -208,5 +208,6 @@
     "RequiredPlaceHolder": "Legg til ny begrensning",
     "UnableToAddANewRemotePathMappingPleaseTryAgain": "Kunne ikke legge til ny ekstern stimapping, vennligst prøv igjen.",
     "AddNewAuthorRootFolderHelpText": "Undermappa \"{folder}\" vil bli automatisk laget",
-    "AddRootFolder": "Legg til rotmappe"
+    "AddRootFolder": "Legg til rotmappe",
+    "History": "Historikk"
 }
