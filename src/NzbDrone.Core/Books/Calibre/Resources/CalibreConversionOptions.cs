@@ -11,6 +11,7 @@ namespace NzbDrone.Core.Books.Calibre
         DOCX,
         FB2,
         HTMLZ,
+        KEPUB,
         LIT,
         LRF,
         PDB,
