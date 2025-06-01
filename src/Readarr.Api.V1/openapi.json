@@ -11370,6 +11370,10 @@
             "type": "string",
             "nullable": true,
             "readOnly": true
+          },
+          "remoteUrl": {
+            "type": "string",
+            "nullable": true
           }
         },
         "additionalProperties": false
