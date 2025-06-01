@@ -8,13 +8,13 @@
 }
 
 .poster {
-  max-width: 370px;
-  max-height: 250px;
-  margin-right: 20px;
-  flex-shrink: 0;
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-shrink: 0;
+  margin-right: 20px;
+  max-width: 370px;
+  max-height: 250px;
 }
 
 .poster img {
