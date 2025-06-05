@@ -853,5 +853,12 @@
     "PreviouslyInstalled": "Раніше встановлений",
     "SetIndexerFlags": "Встановити прапорці індексатора",
     "AddRootFolder": "Додати корневий каталог",
-    "AddNewAuthorRootFolderHelpText": "Вкладена папка \"{0}\" буде створена автоматично"
+    "AddNewAuthorRootFolderHelpText": "Вкладена папка \"{0}\" буде створена автоматично",
+    "WriteBookTagsHelpTextWarning": "Вибір \"Усі файли\" змінить існуючі файли під час їх імпорту.",
+    "ForeignId": "Зовнішній ідентифікатор",
+    "AudioFileMetadata": "Записувати метадані до аудіофайлів",
+    "OnDownloadFailureHelpText": "При помилці завантаження",
+    "WriteAudioTags": "Тегувати аудіофайли метаданими",
+    "SearchForNewItems": "Пошук нових елементів",
+    "WriteAudioTagsScrub": "Очистити існуючі теги"
 }

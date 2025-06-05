@@ -202,5 +202,7 @@
     "AptUpdater": "Použiť apt pre inštaláciu aktualizácie",
     "BuiltIn": "Vstavaný",
     "AddRootFolder": "Pridať koreňový priečinok",
-    "AddNewAuthorRootFolderHelpText": "'{folder}' podpriečinok sa vytvorí automaticky"
+    "AddNewAuthorRootFolderHelpText": "'{folder}' podpriečinok sa vytvorí automaticky",
+    "IgnoredPlaceHolder": "Pridať nové obmedzenie",
+    "RequiredPlaceHolder": "Pridať nové obmedzenie"
 }

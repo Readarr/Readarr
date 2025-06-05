@@ -725,7 +725,7 @@
     "AppUpdated": "{appName} Aggiornato",
     "AllResultsAreHiddenByTheAppliedFilter": "Tutti i risultati sono nascosti dal filtro applicato",
     "AutoRedownloadFailed": "Download fallito",
-    "AddListExclusion": "Aggiungi elenco esclusioni",
+    "AddListExclusion": "Aggiungi lista esclusioni",
     "Location": "Posizione",
     "ListsSettingsSummary": "Liste",
     "RecentChanges": "Cambiamenti Recenti",
@@ -915,5 +915,7 @@
     "AutoRedownloadFailedFromInteractiveSearchHelpText": "Cerca automaticamente e tenta di scaricare una versione diversa quando il rilascio non riuscito è stato acquisito dalla ricerca interattiva",
     "Unknown": "Sconosciuto",
     "AddNewAuthorRootFolderHelpText": "La sottocartella '{0}' verrà creata automaticamente",
-    "AddRootFolder": "Aggiungi Cartella Radice"
+    "AddRootFolder": "Aggiungi Cartella Radice",
+    "AddNewBook": "Aggiungi nuovo libro",
+    "AddNewAuthor": "Aggiungi nuovo autore"
 }
