@@ -222,7 +222,7 @@ namespace NzbDrone.Core.Books
 
         protected override void DeleteEntity(Author local, bool deleteFiles)
         {
-            _authorService.DeleteAuthor(local.Id, true);
+            _authorService.DeleteAuthor(local.Id, deleteFiles);
         }
 
         protected override List<Book> GetRemoteChildren(Author local, Author remote)

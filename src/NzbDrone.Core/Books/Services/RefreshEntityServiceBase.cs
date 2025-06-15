@@ -126,7 +126,7 @@ namespace NzbDrone.Core.Books
                 if (ShouldDelete(local))
                 {
                     _logger.Warn($"{typeof(TEntity).Name} {local} not found in metadata and is being deleted");
-                    DeleteEntity(local, true);
+                    DeleteEntity(local, false);
                     return false;
                 }
                 else
