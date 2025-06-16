@@ -103,8 +103,8 @@ namespace NzbDrone.Core.MetadataSource.BookInfo
             }
             catch (BookInfoException e)
             {
-                _logger.Warn(e, "Unexpected error getting author info");
-                throw new AuthorNotFoundException(foreignAuthorId);
+                _logger.Warn(e, "Unexpected error getting author info: {foreignAuthorId}", foreignAuthorId);
+                throw;
             }
         }
 
@@ -126,8 +126,8 @@ namespace NzbDrone.Core.MetadataSource.BookInfo
             }
             catch (BookInfoException e)
             {
-                _logger.Warn(e, "Unexpected error getting book info");
-                throw new BookNotFoundException(foreignBookId);
+                _logger.Warn(e, "Unexpected error getting book info: {foreignBookId}", foreignBookId);
+                throw;
             }
         }
 
@@ -430,7 +430,7 @@ namespace NzbDrone.Core.MetadataSource.BookInfo
             {
                 var author = PollAuthor(newId);
 
-                book = author.Books.Value.Where(b => b.Editions.Value.Any(e => e.ForeignEditionId == id.ToString())).FirstOrDefault();
+                book = author.Books.Value.FirstOrDefault(b => b.Editions.Value.Any(e => e.ForeignEditionId == id.ToString()));
                 authors = new List<AuthorMetadata> { author.Metadata.Value };
             }
             else if (type == "work")
