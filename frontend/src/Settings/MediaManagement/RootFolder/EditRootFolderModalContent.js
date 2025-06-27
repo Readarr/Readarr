@@ -355,7 +355,7 @@ function EditRootFolderModalContent(props) {
                               />
                             }
                             title={translate('CalibreOutputFormat')}
-                            body={'Specify the output format.  Options are: MOBI, EPUB, AZW3, DOCX, FB2, HTMLZ, LIT, LRF, PDB, PDF, PMLZ, RB, RTF, SNB, TCR, TXT, TXTZ, ZIP'}
+                            body={'Specify the output format.  Options are: MOBI, EPUB, AZW3, DOCX, FB2, HTMLZ, KEPUB, LIT, LRF, PDB, PDF, PMLZ, RB, RTF, SNB, TCR, TXT, TXTZ, ZIP'}
                             position={tooltipPositions.RIGHT}
                           />
                         </FormLabel>
