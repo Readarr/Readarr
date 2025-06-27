@@ -421,6 +421,28 @@ namespace NzbDrone.Core.Test.OrganizerTests.FileNameBuilderTests
                    .Should().Be("Linkin Park - Hybrid Theory - [MP3]");
         }
 
+        [TestCase("Some Escaped {{ String", "Some Escaped { String")]
+        [TestCase("Some Escaped }} String", "Some Escaped } String")]
+        [TestCase("Some Escaped {{Book Title}} String", "Some Escaped {Book Title} String")]
+        [TestCase("Some Escaped {{{Book Title}}} String", "Some Escaped {Hybrid Theory} String")]
+        public void should_escape_token_in_format(string format, string expected)
+        {
+            _namingConfig.StandardBookFormat = format;
+
+            Subject.BuildBookFileName(_author, _edition, _trackFile, _namingConfig)
+                   .Should().Be(expected);
+        }
+
+        [Test]
+        public void should_escape_token_in_title()
+        {
+            _namingConfig.StandardBookFormat = "Some Unescaped {Book Title} String";
+            _edition.Title = "My {Quality Full} Title";
+
+            Subject.BuildBookFileName(_author, _edition, _trackFile, _namingConfig)
+                   .Should().Be("Some Unescaped My {Quality Full} Title String");
+        }
+
         [Test]
         public void use_file_name_when_sceneName_is_null()
         {
