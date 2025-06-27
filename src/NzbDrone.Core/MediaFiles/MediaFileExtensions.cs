@@ -39,6 +39,7 @@ namespace NzbDrone.Core.MediaFiles
                 { ".ogg", Quality.MP3 },
                 { ".oga", Quality.MP3 },
                 { ".vorbis", Quality.MP3 },
+                { ".opus", Quality.MP3 },
             };
         }
 
