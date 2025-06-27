@@ -8,9 +8,19 @@
 }
 
 .poster {
-  flex: 0 0 170px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
   margin-right: 20px;
-  height: 250px;
+  max-width: 370px;
+  max-height: 250px;
+}
+
+.poster img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
 }
 
 .info {
