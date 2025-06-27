@@ -83,7 +83,7 @@ namespace NzbDrone.Core.Test.MusicTests
             ExceptionVerification.ExpectedErrors(1);
 
             Mocker.GetMock<IAuthorService>()
-                .Verify(v => v.UpdateAuthor(It.IsAny<Author>()), Times.Once());
+                .Verify(v => v.UpdateAuthor(It.IsAny<Author>(), It.IsAny<bool>()), Times.Once());
         }
 
         [Test]

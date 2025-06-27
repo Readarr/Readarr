@@ -113,8 +113,8 @@ namespace NzbDrone.Core.Test.MusicTests
         private void AllowAuthorUpdate()
         {
             Mocker.GetMock<IAuthorService>(MockBehavior.Strict)
-                .Setup(x => x.UpdateAuthor(It.IsAny<Author>()))
-                .Returns((Author a) => a);
+                .Setup(x => x.UpdateAuthor(It.IsAny<Author>(), It.IsAny<bool>()))
+                .Returns((Author a, bool b) => a);
         }
 
         [Test]
@@ -187,7 +187,7 @@ namespace NzbDrone.Core.Test.MusicTests
             Subject.Execute(new RefreshAuthorCommand(_author.Id));
 
             Mocker.GetMock<IAuthorService>()
-                .Verify(v => v.UpdateAuthor(It.IsAny<Author>()), Times.Never());
+                .Verify(v => v.UpdateAuthor(It.IsAny<Author>(), It.IsAny<bool>()), Times.Never());
 
             Mocker.GetMock<IAuthorService>()
                 .Verify(v => v.DeleteAuthor(It.IsAny<int>(), It.IsAny<bool>(), It.IsAny<bool>()), Times.Once());
@@ -205,7 +205,7 @@ namespace NzbDrone.Core.Test.MusicTests
             Subject.Execute(new RefreshAuthorCommand(_author.Id));
 
             Mocker.GetMock<IAuthorService>()
-                .Verify(v => v.UpdateAuthor(It.IsAny<Author>()), Times.Never());
+                .Verify(v => v.UpdateAuthor(It.IsAny<Author>(), It.IsAny<bool>()), Times.Never());
 
             Mocker.GetMock<IAuthorService>()
                 .Verify(v => v.DeleteAuthor(It.IsAny<int>(), It.IsAny<bool>(), It.IsAny<bool>()), Times.Never());
@@ -233,8 +233,8 @@ namespace NzbDrone.Core.Test.MusicTests
             // Make sure that the author is updated before we refresh the books
             Mocker.GetMock<IAuthorService>(MockBehavior.Strict)
                 .InSequence(seq)
-                .Setup(x => x.UpdateAuthor(It.IsAny<Author>()))
-                .Returns((Author a) => a);
+                .Setup(x => x.UpdateAuthor(It.IsAny<Author>(), It.IsAny<bool>()))
+                .Returns((Author a, bool b) => a);
 
             Mocker.GetMock<IBookService>(MockBehavior.Strict)
                 .InSequence(seq)
@@ -244,13 +244,13 @@ namespace NzbDrone.Core.Test.MusicTests
             // Update called twice for a move/merge
             Mocker.GetMock<IAuthorService>(MockBehavior.Strict)
                 .InSequence(seq)
-                .Setup(x => x.UpdateAuthor(It.IsAny<Author>()))
-                .Returns((Author a) => a);
+                .Setup(x => x.UpdateAuthor(It.IsAny<Author>(), It.IsAny<bool>()))
+                .Returns((Author a, bool b) => a);
 
             Subject.Execute(new RefreshAuthorCommand(_author.Id));
 
             Mocker.GetMock<IAuthorService>()
-                .Verify(v => v.UpdateAuthor(It.Is<Author>(s => s.AuthorMetadataId == 100 && s.ForeignAuthorId == newAuthorInfo.ForeignAuthorId)),
+                .Verify(v => v.UpdateAuthor(It.Is<Author>(s => s.AuthorMetadataId == 100 && s.ForeignAuthorId == newAuthorInfo.ForeignAuthorId), It.IsAny<bool>()),
                         Times.Exactly(2));
         }
 
@@ -293,8 +293,8 @@ namespace NzbDrone.Core.Test.MusicTests
 
             Mocker.GetMock<IAuthorService>(MockBehavior.Strict)
                 .InSequence(seq)
-                .Setup(x => x.UpdateAuthor(It.Is<Author>(a => a.Id == clash.Id)))
-                .Returns((Author a) => a);
+                .Setup(x => x.UpdateAuthor(It.Is<Author>(a => a.Id == clash.Id), It.IsAny<bool>()))
+                .Returns((Author a, bool b) => a);
 
             Mocker.GetMock<IBookService>(MockBehavior.Strict)
                 .InSequence(seq)
@@ -304,14 +304,14 @@ namespace NzbDrone.Core.Test.MusicTests
             // Update called twice for a move/merge
             Mocker.GetMock<IAuthorService>(MockBehavior.Strict)
                 .InSequence(seq)
-                .Setup(x => x.UpdateAuthor(It.IsAny<Author>()))
-                .Returns((Author a) => a);
+                .Setup(x => x.UpdateAuthor(It.IsAny<Author>(), It.IsAny<bool>()))
+                .Returns((Author a, bool b) => a);
 
             Subject.Execute(new RefreshAuthorCommand(_author.Id));
 
             // the retained author gets updated
             Mocker.GetMock<IAuthorService>()
-                .Verify(v => v.UpdateAuthor(It.Is<Author>(s => s.Id == clash.Id)), Times.Exactly(2));
+                .Verify(v => v.UpdateAuthor(It.Is<Author>(s => s.Id == clash.Id), It.IsAny<bool>()), Times.Exactly(2));
 
             // the old one gets removed
             Mocker.GetMock<IAuthorService>()

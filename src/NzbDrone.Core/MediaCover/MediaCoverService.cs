@@ -20,11 +20,12 @@ namespace NzbDrone.Core.MediaCover
     {
         void ConvertToLocalUrls(int entityId, MediaCoverEntity coverEntity, IEnumerable<MediaCover> covers);
         string GetCoverPath(int entityId, MediaCoverEntity coverEntity, MediaCoverTypes coverType, string extension, int? height = null);
-        void EnsureBookCovers(Book book);
+        bool EnsureBookCovers(Book book);
     }
 
     public class MediaCoverService :
         IHandleAsync<AuthorRefreshCompleteEvent>,
+        IHandleAsync<BookAddedEvent>,
         IHandleAsync<AuthorDeletedEvent>,
         IHandleAsync<BookDeletedEvent>,
         IMapCoversToLocal
@@ -135,8 +136,9 @@ namespace NzbDrone.Core.MediaCover
             return Path.Combine(_coverRootFolder, "Books", bookId.ToString());
         }
 
-        private void EnsureAuthorCovers(Author author)
+        private bool EnsureAuthorCovers(Author author)
         {
+            var updated = false;
             var toResize = new List<Tuple<MediaCover, bool>>();
 
             foreach (var cover in author.Metadata.Value.Images)
@@ -158,6 +160,7 @@ namespace NzbDrone.Core.MediaCover
                     if (!alreadyExists)
                     {
                         DownloadCover(author, cover, serverFileHeaders.LastModified ?? DateTime.Now);
+                        updated = true;
                     }
                 }
                 catch (HttpException e)
@@ -189,10 +192,13 @@ namespace NzbDrone.Core.MediaCover
             {
                 _semaphore.Release();
             }
+
+            return updated;
         }
 
-        public void EnsureBookCovers(Book book)
+        public bool EnsureBookCovers(Book book)
         {
+            var updated = false;
             foreach (var cover in book.Editions.Value.Single(x => x.Monitored).Images.Where(e => e.CoverType == MediaCoverTypes.Cover))
             {
                 if (cover.CoverType == MediaCoverTypes.Unknown)
@@ -212,6 +218,7 @@ namespace NzbDrone.Core.MediaCover
                     if (!alreadyExists)
                     {
                         DownloadBookCover(book, cover, serverFileHeaders.LastModified ?? DateTime.Now);
+                        updated = true;
                     }
                 }
                 catch (HttpException e)
@@ -227,6 +234,8 @@ namespace NzbDrone.Core.MediaCover
                     _logger.Error(e, "Couldn't download media cover for {0}", book);
                 }
             }
+
+            return updated;
         }
 
         private void DownloadCover(Author author, MediaCover cover, DateTime lastModified)
@@ -354,15 +363,26 @@ namespace NzbDrone.Core.MediaCover
 
         public void HandleAsync(AuthorRefreshCompleteEvent message)
         {
-            EnsureAuthorCovers(message.Author);
+            var updated = EnsureAuthorCovers(message.Author);
 
             var books = _bookService.GetBooksByAuthor(message.Author.Id);
+
             foreach (var book in books)
             {
-                EnsureBookCovers(book);
+                updated |= EnsureBookCovers(book);
             }
 
-            _eventAggregator.PublishEvent(new MediaCoversUpdatedEvent(message.Author));
+            _eventAggregator.PublishEvent(new MediaCoversUpdatedEvent(message.Author, updated));
+        }
+
+        public void HandleAsync(BookAddedEvent message)
+        {
+            if (message.DoRefresh)
+            {
+                var updated = EnsureBookCovers(message.Book);
+
+                _eventAggregator.PublishEvent(new MediaCoversUpdatedEvent(message.Book, updated));
+            }
         }
 
         public void HandleAsync(AuthorDeletedEvent message)
