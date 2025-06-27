@@ -54,6 +54,7 @@
 }
 
 .title {
+  text-wrap: balance;
   font-weight: 300;
   font-size: 50px;
   line-height: 60px;
@@ -127,6 +128,7 @@
   flex: 1 1 auto;
   margin-top: 8px;
   min-height: 0;
+  text-wrap: balance;
   font-size: $intermediateFontSize;
 }
 
