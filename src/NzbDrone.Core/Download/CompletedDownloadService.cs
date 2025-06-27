@@ -173,6 +173,9 @@ namespace NzbDrone.Core.Download
                            .Log();
                 }
 
+                var episodes = _episodeService.GetEpisodes(trackedDownload.RemoteEpisode.Episodes.Select(e => e.Id));
+                var files = _mediaFileService.GetFiles(episodes.Select(e => e.EpisodeFileId).Where(i => i > 0).Distinct());
+
                 trackedDownload.State = TrackedDownloadState.Imported;
 
                 var importedAuthorId = historyItems.Where(x => x.EventType == EntityHistoryEventType.BookFileImported)
